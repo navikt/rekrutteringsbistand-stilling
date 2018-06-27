@@ -1,0 +1,63 @@
+@import "../variables";
+
+.Stilling {
+  padding-bottom: 2rem;
+  background-color: #ffffff;
+}
+
+.Stilling__header {
+  padding-top: 1.75rem;
+  padding-bottom: 11rem;
+  background: @background-green;
+}
+
+.Stilling__main {
+  margin-top: -10.4rem;
+}
+
+@media (max-width: @screen-sm-max) {
+  .Stilling__header {
+    padding-bottom: 0;
+  }
+
+  .Stilling__main {
+    margin-top: 0;
+  }
+}
+
+.detail-section {
+  padding: 1rem;
+  border: 1px solid @border-gray;
+  background-color: #fff;
+  margin-bottom: 1rem;
+
+  .detail-section__head {
+    margin-bottom: 0.5rem;
+  }
+}
+
+.dl-flex {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+
+  dt {
+    flex: 0 42%;
+    color: @navGra60;
+  }
+
+  dd:not(:last-of-type),
+  dt:not(:last-of-type) {
+    margin-bottom: 0.5rem;
+  }
+
+  dd {
+    flex: 0 58%;
+    max-width: 58%;
+    margin-left: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+}
+
+

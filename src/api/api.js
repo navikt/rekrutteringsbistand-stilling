@@ -1,5 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 
+import {AD_API} from '../fasitProperties'
+
 export class ApiError {
     constructor(message, statusCode) {
         this.message = message;
@@ -41,4 +43,8 @@ async function post(url, query) {
         throw new ApiError(response.statusText, response.status);
     }
     return response.json();
+}
+
+export async function fetchStilling(uuid) {
+    return get(`${AD_API}ads/${uuid}`);
 }

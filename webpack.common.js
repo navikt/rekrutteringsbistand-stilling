@@ -2,13 +2,10 @@ const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-    entry: {
-        sok: ['babel-polyfill', 'whatwg-fetch', './src/app.js']
-    },
+    entry: ['babel-polyfill', 'whatwg-fetch', './src/app.js'],
     output: {
         path: `${__dirname}/dist`,
-        filename: 'js/[name].js',
-        publicPath: '/sok/'
+        filename: 'js/bundle.js',
     },
     module: {
         loaders: [
@@ -39,6 +36,6 @@ module.exports = {
         extensions: ['.js', '.jsx']
     },
     plugins: [
-        new ExtractTextPlugin('css/[name].css')
+        new ExtractTextPlugin('css/styles.css')
     ]
 };
