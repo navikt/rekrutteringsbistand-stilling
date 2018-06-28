@@ -2,59 +2,45 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Undertittel } from 'nav-frontend-typografi';
 import { formatISOString, isValidISOString } from '../../utils';
-
-
+import { Column, Row } from 'nav-frontend-grid';
+import { Input } from 'nav-frontend-skjema'
+import { Panel } from 'nav-frontend-paneler'
 export default function EmploymentDetails({ properties }) {
+
     return (
-        <div className="EmploymentDetails detail-section">
-            <Undertittel className="EmploymentDetails__head detail-section__head">Om stillingen</Undertittel>
-            <dl className="dl-flex typo-normal">
-                {properties.jobtitle && [
-                    <dt key="dt">Stillingstittel:</dt>,
-                    <dd key="dd">{properties.jobtitle}</dd>]
-                }
-                {properties.location && [
-                    <dt key="dt">Sted:</dt>,
-                    <dd key="dd">{properties.location}</dd>
-                ]}
-                {properties.engagementtype && [
-                    <dt key="dt">Ansettelsesform:</dt>,
-                    <dd key="dd">{properties.engagementtype }</dd>
-                ]}
-                {properties.extent && [
-                    <dt key="dt">Heltid/deltid:</dt>,
-                    <dd key="dd">{properties.extent}</dd>
-                ]}
-                {properties.positioncount && [
-                    <dt key="dt">Antall stillinger:</dt>,
-                    <dd key="dd">{properties.positioncount}</dd>
-                ]}
-                {properties.sector && [
-                    <dt key="dt">Sektor:</dt>,
-                    <dd key="dd">{properties.sector}</dd>
-                ]}
-                {properties.workday && [
-                    <dt key="dt">Arbeidsdager:</dt>,
-                    <dd key="dd">{properties.workday}</dd>
-                ]}
-                {properties.workhours && [
-                    <dt key="dt">Arbeidstid:</dt>,
-                    <dd key="dd">{properties.workhours}</dd>
-                ]}
-                {properties.jobarrangement && [
-                    <dt key="dt">Arb.tidsordning:</dt>,
-                    <dd key="dd">{properties.jobarrangement}</dd>
-                ]}
-                {properties.starttime && [
-                    <dt key="dt">Oppstart:</dt>,
-                    <dd key="dd">
-                        {isValidISOString(properties.starttime) ?
-                            formatISOString(properties.starttime, 'D. MMMM YYYY') :
-                            properties.starttime}
-                    </dd>
-                ]}
-            </dl>
-        </div>
+        <Panel border className="detail-section">
+            <Undertittel className="detail-section__head">Om stillingen</Undertittel>
+            <Row>
+                <Column xs="12">
+                    <Input
+                        id="gateadresse"
+                        label="Gateadresse"
+                    />
+                </Column>
+            </Row>
+            <Row className="blokk-s">
+                <Column xs="12" md="4">
+                    <Input
+                        id="postnummer"
+                        label="Postnummer"
+                    />
+                </Column>
+                <Column xs="12" md="8">
+                    <Input
+                        id="poststed"
+                        label="Poststed"
+                    />
+                </Column>
+            </Row>
+            <Row className="blokk-s">
+                <Column xs="12">
+                    <Input
+                        id="kommune-fylke"
+                        label="Eller legg inn en eller flere kommuner/fylker"
+                    />
+                </Column>
+            </Row>
+        </Panel>
     );
 }
 
