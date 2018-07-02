@@ -25,6 +25,7 @@ ReactDOM.render(
     <Provider store={store}>
         <BrowserRouter>
             <Switch>
+                <Route exact path="/" component={Ads} />
                 <Route exact path="/ads" component={Ads} />
                 <Route exact path="/ads/:uuid" component={Stilling} />
             </Switch>

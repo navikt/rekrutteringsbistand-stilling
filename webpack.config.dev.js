@@ -12,7 +12,7 @@ module.exports = merge(common, {
     plugins: [
         new webpack.DefinePlugin({
             __PAM_CONTEXT_PATH__: "''",
-            __PAM_AD_API__: "'http://localhost:9014/api/v1/'",
+            __PAM_AD_API__: "'https://pam-ad-api.nais.oera-q.local/api/v1/'",
         })
     ]
 });
