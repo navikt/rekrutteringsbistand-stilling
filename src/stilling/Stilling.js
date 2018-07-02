@@ -28,7 +28,7 @@ class Stilling extends React.Component {
 
     componentDidMount() {
         window.scrollTo(0, 0);
-        this.props.getStilling('85059d9d-7694-4ed7-9c24-84a548ce7d58');
+        this.props.getStilling(this.props.match.params.uuid);
     }
 
     componentDidUpdate() {

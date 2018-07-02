@@ -23,6 +23,7 @@ ReactDOM.render(
         <BrowserRouter>
             <Switch>
                 <Route exact path="/" component={Stilling} />
+                <Route exact path="/ad/:uuid" component={Stilling} />
             </Switch>
         </BrowserRouter>
     </Provider>,
