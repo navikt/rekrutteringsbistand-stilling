@@ -23,21 +23,11 @@ import './Stilling.less';
 class Stilling extends React.Component {
     constructor(props) {
         super(props);
-        this.hasSetTitle = false;
     }
 
     componentDidMount() {
         window.scrollTo(0, 0);
         this.props.getStilling(this.props.match.params.uuid);
-    }
-
-    componentDidUpdate() {
-        if (!this.hasSetTitle
-            && this.props.stilling
-            && this.props.stilling.title) {
-            document.title = this.props.stilling.title;
-            this.hasSetTitle = true;
-        }
     }
 
     render() {
