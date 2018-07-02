@@ -3,18 +3,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Column, Container, Row} from 'nav-frontend-grid';
-import AdTitle from './adTitle/AdTitle';
 import AdText from './adText/AdText';
 import PersonalAttributes from './requirements/PersonalAttributes';
 import SoftRequirements from './requirements/SoftRequirements';
 import HardRequirements from './requirements/HardRequirements';
-import HowToApply from './howToApply/HowToApply';
+import Application from './application/Application';
 import ContactPerson from './contactPerson/ContactPerson';
 import EmployerDetails from './employerDetails/EmployerDetails';
 import EmploymentDetails from './employmentDetails/EmploymentDetails';
 import AdDetails from './adDetails/AdDetails';
 import NotFound from './notFound/NotFound';
 import Skeleton from './loading/Skeleton';
+import Processing from './processing/Processing'
+import EmployerContact from './employerContact/EmployerContact'
+import Comment from './comment/Comment'
 import {FETCH_STILLING_BEGIN} from './stillingReducer';
 import './Stilling.less';
 
@@ -60,39 +62,33 @@ class Stilling extends React.Component {
 
                 {!isFetchingStilling && stilling && (
                     <article className="Stilling">
-                        <header className="Stilling__header">
-                            <Container>
-                                <Row>
-                                    <Column xs="12" md="8">
-                                        <AdTitle
-                                            title={stilling.title}
-                                            employer={stilling.properties.employer}
-                                            location={stilling.properties.location}
-                                        />
-                                    </Column>
-                                </Row>
-                            </Container>
-                        </header>
                         <Container className="Stilling__main">
                             <Row>
-                                <Column xs="12" md="8">
-                                    <AdText adText={stilling.properties.adtext}/>
+                                <Column xs="12" md="6">
+                                    <AdText title={stilling.title} adText={stilling.properties.adtext}/>
                                     <HardRequirements stilling={stilling}/>
                                     <SoftRequirements stilling={stilling}/>
                                     <PersonalAttributes stilling={stilling}/>
-                                </Column>
-                                <Column xs="12" md="4">
-                                    <HowToApply
-                                        source={stilling.source}
-                                        properties={stilling.properties}
-                                    />
-                                    <EmploymentDetails properties={stilling.properties}/>
-                                    <ContactPerson properties={stilling.properties}/>
-                                    <EmployerDetails properties={stilling.properties}/>
                                     <AdDetails updated={stilling.updated} medium={stilling.medium}
                                                reference={stilling.reference}/>
                                 </Column>
+                                <Column xs="12" md="3">
+                                    <EmploymentDetails properties={stilling.properties}/>
+                                    <Application
+                                        source={stilling.source}
+                                        properties={stilling.properties}
+                                    />
+                                    <ContactPerson properties={stilling.properties}/>
+                                    <EmployerDetails properties={stilling.properties}/>
+
+                                </Column>
+                                <Column xs="12" md="3">
+                                    <Processing/>
+                                    <EmployerContact />
+                                    <Comment />
+                                </Column>
                             </Row>
+
                         </Container>
                     </article>
                 )}
