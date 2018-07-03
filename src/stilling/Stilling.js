@@ -13,7 +13,6 @@ import EmployerDetails from './employerDetails/EmployerDetails';
 import EmploymentDetails from './employmentDetails/EmploymentDetails';
 import AdDetails from './adDetails/AdDetails';
 import NotFound from './notFound/NotFound';
-import Skeleton from './loading/Skeleton';
 import Processing from './processing/Processing'
 import EmployerContact from './employerContact/EmployerContact'
 import Comment from './comment/Comment'
@@ -32,7 +31,7 @@ class Stilling extends React.Component {
 
     render() {
         const {
-            stilling, cachedStilling, isFetchingStilling, error
+            stilling, isFetchingStilling, error
         } = this.props;
         return (
             <div>
@@ -44,10 +43,6 @@ class Stilling extends React.Component {
                     <Container>
                         <NotFound/>
                     </Container>
-                )}
-
-                {isFetchingStilling && (
-                    <Skeleton stilling={cachedStilling}/>
                 )}
 
                 {!isFetchingStilling && stilling && (
@@ -89,7 +84,6 @@ class Stilling extends React.Component {
 
 Stilling.defaultProps = {
     stilling: undefined,
-    cachedStilling: undefined,
     isFetchingStilling: false
 };
 
@@ -101,9 +95,6 @@ Stilling.propTypes = {
             adtext: PropTypes.string
         }).isRequired
     }),
-    cachedStilling: PropTypes.shape({
-        title: PropTypes.string
-    }),
     getStilling: PropTypes.func.isRequired,
     isFetchingStilling: PropTypes.bool
 };
@@ -111,7 +102,6 @@ Stilling.propTypes = {
 const mapStateToProps = (state) => ({
     isFetchingStilling: state.stilling.isFetchingStilling,
     stilling: state.stilling.stilling,
-    cachedStilling: state.stilling.cachedStilling,
     error: state.stilling.error
 });
 

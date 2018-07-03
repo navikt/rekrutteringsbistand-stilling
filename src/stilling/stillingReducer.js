@@ -7,8 +7,7 @@ export const FETCH_STILLING_FAILURE = 'FETCH_STILLING_FAILURE';
 
 const initialState = {
     stilling: undefined,
-    error: undefined,
-    cachedStilling: undefined
+    error: undefined
 };
 
 export default function stillingReducer(state = initialState, action) {
