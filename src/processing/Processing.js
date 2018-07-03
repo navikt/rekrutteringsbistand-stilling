@@ -6,6 +6,7 @@ import { Panel } from 'nav-frontend-paneler'
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import  EtikettBase  from 'nav-frontend-etiketter';
 import './Processing.less';
+import Reject from './Reject';
 import {ProcessingStatusEnum} from "./ProcessingStatusEnum";
 import {SET_PROCESSING_STATUS} from './processingReducer';
 
@@ -14,27 +15,38 @@ export class Processing extends React.Component {
         this.props.setProcessingStatus(ProcessingStatusEnum.PUBLISHED);
     };
 
+    reject = () => {
+        this.props.setProcessingStatus(ProcessingStatusEnum.REJECT);
+    };
+
     render() {
         const {processingStatus} = this.props;
         return (
-            <Panel border className="Processing detail-section">
-                <Undertittel className="detail-section__head">Behandling av stillingen</Undertittel>
-                <EtikettBase type='fokus' className="blokk-s">
-                    {processingStatus === ProcessingStatusEnum.PUBLISHED ? 'Stillingen er publisert' : 'Stillingen er ikke publisert'}
-                </EtikettBase>
-                <Hovedknapp className="blokk-xxs" onClick={this.publish}
-                >
-                    Publiser stillingen
-                </Hovedknapp>
-                <Hovedknapp className="blokk-xxs"
-                >
-                    Avvis stillingen
-                </Hovedknapp>
-                <Hovedknapp className="blokk-xxs"
-                >
-                    Neste
-                </Hovedknapp>
-            </Panel>
+            <div>
+                { processingStatus !== ProcessingStatusEnum.REJECT && (
+                    <Panel border className="Processing detail-section">
+                        <Undertittel className="detail-section__head">Behandling av stillingen</Undertittel>
+                        <EtikettBase type='fokus' className="blokk-s">
+                            {processingStatus === ProcessingStatusEnum.PUBLISHED ? 'Stillingen er publisert' : 'Stillingen er ikke publisert'}
+                        </EtikettBase>
+                        <Hovedknapp className="blokk-xxs fullWidth" onClick={this.publish}
+                        >
+                            Publiser stillingen
+                        </Hovedknapp>
+                        <Hovedknapp className="blokk-xxs fullWidth" onClick={this.reject}
+                        >
+                            Avvise stillingen
+                        </Hovedknapp>
+                        <Hovedknapp className="blokk-xxs fullWidth"
+                        >
+                            Neste
+                        </Hovedknapp>
+                    </Panel>
+                )}
+                { processingStatus === ProcessingStatusEnum.REJECT && (
+                    <Reject />
+                )}
+            </div>
         );
     }
 }

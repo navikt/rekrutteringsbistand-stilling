@@ -1,0 +1,10 @@
+export const AdNotesEnum = {
+    DISKRIMINERENDE: "1",
+    DUPLIKAT: "2",
+    IKKE_ANSATT: "3",
+    IKKE_GODKJENT_BEMANNING_RENHOLD: "4",
+    AVVIST_PGA_KAPASITET: "5",
+    UTENLANDSK_STILLING: "6",
+    SAMLEANNONSE: "7",
+    ANNET: "8"
+};
