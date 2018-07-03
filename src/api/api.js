@@ -48,3 +48,7 @@ async function post(url, query) {
 export async function fetchStilling(uuid) {
     return get(`${AD_API}ads/${uuid}`);
 }
+
+export async function fetchAds() {
+    return get(`${AD_API}ads/`);
+}
