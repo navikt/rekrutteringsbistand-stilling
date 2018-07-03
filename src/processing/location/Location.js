@@ -12,9 +12,9 @@ class Location extends React.Component {
         this.props.fetchLocationSuggestions(value);
     };
 
-    onTypeAheadSuggestionSelected = (value) => {
+    onTypeAheadSuggestionSelected = (location) => {
         this.props.setValue('');
-        this.props.addLocation(value);
+        this.props.addLocation(location.value);
     };
 
     onLocationRemove = (value) => {
@@ -30,7 +30,10 @@ class Location extends React.Component {
                     placeholder="Kommunenavn / nummer"
                     onSelect={this.onTypeAheadSuggestionSelected}
                     onChange={this.onTypeAheadValueChange}
-                    suggestions={this.props.suggestions}
+                    suggestions={this.props.suggestions.map((s) => ({
+                        key: s.kode,
+                        value: `${s.navn} (${s.kode})`
+                    }))}
                     value={this.props.value ? this.props.value : ''}
                 />
                 {this.props.locations.length > 0 && (
@@ -49,7 +52,10 @@ class Location extends React.Component {
 Location.propTypes = {
     value: PropTypes.string.isRequired,
     locations: PropTypes.arrayOf(PropTypes.string).isRequired,
-    suggestions: PropTypes.arrayOf(PropTypes.string).isRequired,
+    suggestions: PropTypes.arrayOf(PropTypes.shape({
+        kode: PropTypes.string,
+        navn: PropTypes.string
+    })).isRequired,
     setValue: PropTypes.func.isRequired,
     fetchLocationSuggestions: PropTypes.func.isRequired,
     addLocation: PropTypes.func.isRequired,

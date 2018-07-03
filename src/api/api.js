@@ -1,6 +1,5 @@
-/* eslint-disable no-underscore-dangle */
-
-import {AD_API} from '../fasitProperties'
+import {AD_API} from '../fasitProperties';
+import locations from './kommuner';
 
 export class ApiError {
     constructor(message, statusCode) {
@@ -58,10 +57,14 @@ export async function fetchEmployerSuggestions(prefix) {
 }
 
 export async function fetchLocationSuggestions(prefix) {
-    return Promise.resolve([`${prefix}`, `${prefix}by`, `${prefix}nes`]);
+    return Promise.resolve(locations.filter((l) => (
+            l.kode.toLowerCase().startsWith(prefix.toLowerCase()) ||
+            l.navn.toLowerCase().startsWith(prefix.toLowerCase())
+        )
+    ));
 }
 
 export async function fetchStyrkSuggestions(prefix) {
-    return Promise.resolve([`${prefix}`, `${prefix}medarbeider`, `${prefix}konsulent`]);
+    return Promise.resolve([`${prefix}`, `${prefix}sjef`, `${prefix}medarbeider`, `${prefix}konsulent`], `${prefix}lærling`);
 }
 

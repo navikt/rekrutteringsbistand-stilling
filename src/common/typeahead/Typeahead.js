@@ -22,6 +22,14 @@ export default class Typeahead extends React.Component {
         }
     }
 
+    componentWillReceiveProps(props){
+        if(props.suggestions.length === 1) {
+            this.setState({
+                activeSuggestionIndex: 0
+            });
+        }
+    }
+
     /**
      * Vil skje hver gang man legger til eller fjerner en bokstav fra inputfeltet
      */
@@ -197,12 +205,12 @@ export default class Typeahead extends React.Component {
                     role="listbox"
                     className={showSuggestions ? 'Typeahead__suggestions' : 'Typeahead__suggestions--hidden'}
                 >
-                    {showSuggestions && this.props.suggestions.map((li, i) => (
+                    {showSuggestions && this.props.suggestions.map((suggestion, i) => (
                         <TypeaheadSuggestion
                             id={`${this.props.id}-item-${i}`}
-                            key={li}
+                            key={suggestion.key ? suggestion.key : suggestion}
                             index={i}
-                            value={li}
+                            value={suggestion.value ? suggestion.value : suggestion}
                             match={this.props.value}
                             active={i === this.state.activeSuggestionIndex}
                             onClick={this.setValue}
@@ -220,7 +228,13 @@ Typeahead.propTypes = {
     onSelect: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,
     placeholder: PropTypes.string.isRequired,
-    suggestions: PropTypes.arrayOf(PropTypes.string).isRequired,
+    suggestions: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.string).isRequired,
+        PropTypes.arrayOf(PropTypes.shape({
+            key: PropTypes.string,
+            value: PropTypes.string
+        }))
+    ]).isRequired,
     value: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired
 };
