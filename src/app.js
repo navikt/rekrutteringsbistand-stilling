@@ -5,6 +5,9 @@ import { applyMiddleware, createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 import stillingReducer, {stillingSaga} from "./stilling/stillingReducer";
+import employerReducer, {employerSaga} from "./processing/employer/employerReducer";
+import locationReducer, {locationSaga} from "./processing/location/locationReducer";
+import styrkReducer, {styrkSaga} from "./processing/styrk/styrkReducer";
 import adsReducer, {adsSaga} from "./ads/adsReducer";
 import Ad from "./ad/Ad";
 import Ads from "./ads/Ads";
@@ -15,11 +18,17 @@ const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(combineReducers({
     stilling: stillingReducer,
-    ads: adsReducer
+    ads: adsReducer,
+    employer: employerReducer,
+    location: locationReducer,
+    styrk: styrkReducer
 }), applyMiddleware(sagaMiddleware));
 
 sagaMiddleware.run(stillingSaga);
 sagaMiddleware.run(adsSaga);
+sagaMiddleware.run(employerSaga);
+sagaMiddleware.run(locationSaga);
+sagaMiddleware.run(styrkSaga);
 
 ReactDOM.render(
     <Provider store={store}>

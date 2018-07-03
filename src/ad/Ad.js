@@ -5,33 +5,19 @@ import { connect } from 'react-redux';
 import { Column, Container, Row } from 'nav-frontend-grid';
 import AdText from './adText/AdText';
 import Processing from "../processing/Processing";
-import Location from "../processing/Location";
-import Employer from "../processing/Employer";
-import Styrk from "../processing/Styrk";
+import Categorize from "../processing/Categorize";
 
 class Ad extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
-    componentDidMount() {
-        window.scrollTo(0, 0);
-    }
-
     render() {
         return (
             <Container>
                 <Row>
-                    <Column xs="12" md="6">
+                    <Column xs="12" md="8">
                         <AdText />
                     </Column>
-                    <Column xs="12" md="3">
-                        <Location />
-                        <Employer />
-                        <Styrk />
-                    </Column>
-                    <Column xs="12" md="3">
+                    <Column xs="12" md="4">
                         <Processing />
+                        <Categorize />
                     </Column>
                 </Row>
             </Container>

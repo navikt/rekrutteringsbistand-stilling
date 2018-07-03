@@ -1,0 +1,26 @@
+@import "../../variables";
+
+.TypeaheadSuggestion__substring {
+  font-weight: bold;
+}
+
+.TypeaheadSuggestion__inner {
+  display: block;
+  width: 100%;
+  padding: 0px 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.TypeaheadSuggestion--active {
+  color: #fff;
+  background-color: @navBla;
+}
+
+@media (max-width: @screen-sm-max) {
+  .TypeaheadSuggestion__inner {
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid @navLysGra;
+  }
+}
