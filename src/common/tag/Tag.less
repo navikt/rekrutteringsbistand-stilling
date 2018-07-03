@@ -1,15 +1,30 @@
 @import "../../variables";
 
 .Tag {
-  background: @navBlaLighten60;
+  background: @navBlaLighten80;
   display: inline-block;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.5rem;
   margin: 0 0.25rem 0.25rem 0;
 }
 
 .Tag__remove {
   border: 0;
-  margin-left: 0.25rem;
+  margin-left: 1.5rem;
   background: none;
-  font-weight: bold;
+  padding: 0.25rem 0.75rem;
+
+  &:focus {
+    outline: 0;
+    box-shadow: 0 0 0 3px @navOransjeLighten40;
+  }
+
+  &:hover {
+    background: @navBla;
+    color: #fff;
+  }
+
+  &:active {
+    background: @navDypBla;
+    color: #fff;
+  }
 }

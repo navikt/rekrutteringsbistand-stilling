@@ -10,7 +10,7 @@ export default class Tag extends React.Component {
     render() {
         return (
             <div className="Tag">
-                {this.props.value}
+                <span className="typo-normal">{this.props.value}</span>
                 <button className="Tag__remove" aria-label="Slett" onClick={this.onRemoveClick}>x</button>
             </div>
         );
