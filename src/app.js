@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 import stillingReducer, {stillingSaga} from "./stilling/stillingReducer";
 import adsReducer, {adsSaga} from "./ads/adsReducer";
-import Stilling from "./stilling/Stilling";
+import Ad from "./ad/Ad";
 import Ads from "./ads/Ads";
 import './styles.less';
 import './variables.less';
@@ -27,7 +27,7 @@ ReactDOM.render(
             <Switch>
                 <Route exact path="/" component={Ads} />
                 <Route exact path="/ads" component={Ads} />
-                <Route exact path="/ads/:uuid" component={Stilling} />
+                <Route exact path="/ads/:uuid" component={Ad} />
             </Switch>
         </BrowserRouter>
     </Provider>,
