@@ -5,10 +5,11 @@ import { Column, Row } from 'nav-frontend-grid';
 import { Panel } from 'nav-frontend-paneler'
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import  EtikettBase  from 'nav-frontend-etiketter';
+import './Processing.less';
 
 export default function Processing() {
     return (
-        <Panel border className="detail-section">
+        <Panel border className="Processing detail-section">
             <Undertittel className="detail-section__head">Behandling av stillingen</Undertittel>
             <EtikettBase type='fokus' className="blokk-s">
                 Stillingen er ikke publisert
