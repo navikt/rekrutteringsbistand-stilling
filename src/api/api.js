@@ -52,3 +52,16 @@ export async function fetchStilling(uuid) {
 export async function fetchAds() {
     return get(`${AD_API}ads/`);
 }
+
+export async function fetchEmployerSuggestions(prefix) {
+    return Promise.resolve([`${prefix}`, `${prefix} AS`, `${prefix} Norge`]);
+}
+
+export async function fetchLocationSuggestions(prefix) {
+    return Promise.resolve([`${prefix}`, `${prefix}by`, `${prefix}nes`]);
+}
+
+export async function fetchStyrkSuggestions(prefix) {
+    return Promise.resolve([`${prefix}`, `${prefix}medarbeider`, `${prefix}konsulent`]);
+}
+
