@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Undertittel } from 'nav-frontend-typografi';
+import { Element } from 'nav-frontend-typografi';
 import { formatISOString } from '../../../utils';
 
 export default function AdDetails({ stilling }) {
     return (
         <div className="detail-section">
-            <Undertittel className="AdDetails__head detail-section__head">Om annonsen</Undertittel>
+            <Element className="AdDetails__head detail-section__head">Om annonsen</Element>
             <dl className="dl-flex typo-normal">
                 {stilling.updated && [
                     <dt key="dt">Sist endret:</dt>,

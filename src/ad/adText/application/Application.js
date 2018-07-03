@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Undertittel } from 'nav-frontend-typografi';
+import { Element } from 'nav-frontend-typografi';
 import { formatISOString, isValidISOString } from '../../../utils';
 
 export const tilpassEmail = (email) => {
@@ -25,7 +25,7 @@ export default function Application({ source, properties }) {
 
     return (
         <div className="detail-section">
-            <Undertittel className="detail-section__head">Søknad</Undertittel>
+            <Element className="detail-section__head">Søknad</Element>
             <dl className="dl-flex typo-normal">
                 {properties.applicationdue && [
                     <dt key="dt">Søknadsfrist:</dt>,
