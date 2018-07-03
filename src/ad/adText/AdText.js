@@ -15,7 +15,7 @@ export default function AdText({ stilling }) {
     return (
         <Panel border className="AdText">
             <Row>
-                <Column xs="12">
+                <Column xs="12" md="8">
                     <Innholdstittel className="AdText__title">
                         {stilling.title}
                     </Innholdstittel>
@@ -28,13 +28,15 @@ export default function AdText({ stilling }) {
                     </div>
                 </Column>
                 <Column xs="12" md="4">
-                    <Application
-                        source={stilling.source}
-                        properties={stilling.properties}
-                    />
-                    <EmploymentDetails properties={stilling.properties} />
-                    <EmployerDetails properties={stilling.properties} />
-                    <AdDetails stilling={stilling} />
+                    <div className="AdText__details">
+                        <Application
+                            source={stilling.source}
+                            properties={stilling.properties}
+                        />
+                        <EmploymentDetails properties={stilling.properties} />
+                        <EmployerDetails properties={stilling.properties} />
+                        <AdDetails stilling={stilling} />
+                    </div>
                 </Column>
             </Row>
 

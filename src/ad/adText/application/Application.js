@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Undertittel } from 'nav-frontend-typografi';
 import { formatISOString, isValidISOString } from '../../../utils';
-import Panel from 'nav-frontend-paneler';
 
 export const tilpassEmail = (email) => {
     if (email.includes('@') && !email.includes('mailto:')) {
@@ -25,7 +24,7 @@ export default function Application({ source, properties }) {
     const finn = source === 'FINN';
 
     return (
-        <Panel border className="detail-section">
+        <div className="detail-section">
             <Undertittel className="detail-section__head">Søknad</Undertittel>
             <dl className="dl-flex typo-normal">
                 {properties.applicationdue && [
@@ -60,7 +59,7 @@ export default function Application({ source, properties }) {
                     </dd>
                 ]}
             </dl>
-        </Panel>
+        </div>
     );
 
 }

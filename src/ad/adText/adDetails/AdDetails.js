@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Undertittel } from 'nav-frontend-typografi';
-import { formatISOString } from '../../../../../pam-stillingsok/src/utils';
-import Panel from 'nav-frontend-paneler';
+import { formatISOString } from '../../../utils';
 
 export default function AdDetails({ stilling }) {
     return (
-        <Panel border className="detail-section">
+        <div className="detail-section">
             <Undertittel className="AdDetails__head detail-section__head">Om annonsen</Undertittel>
             <dl className="dl-flex typo-normal">
                 {stilling.updated && [
@@ -22,7 +21,7 @@ export default function AdDetails({ stilling }) {
                     <dd key="dd">{stilling.reference}</dd>
                 ]}
             </dl>
-        </Panel>
+        </div>
     );
 }
 
