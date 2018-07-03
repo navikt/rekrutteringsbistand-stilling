@@ -26,8 +26,8 @@ class Styrk extends React.Component {
             <div className="Styrk">
                 <Typeahead
                     id="Styrk__typeahead"
-                    label="Styrk"
-                    placeholder="Styrkkategori / styrkkode"
+                    label="Arbeidsyrke"
+                    placeholder="Yrke"
                     onSelect={this.onTypeAheadSuggestionSelected}
                     onChange={this.onTypeAheadValueChange}
                     suggestions={this.props.suggestions}

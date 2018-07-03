@@ -54,7 +54,7 @@ export async function fetchAds() {
 }
 
 export async function fetchEmployerSuggestions(prefix) {
-    return Promise.resolve([`${prefix}-aaaa`, `${prefix}-bbbb`, `${prefix}-cccc`]);
+    return Promise.resolve([`${prefix}`, `${prefix} AS`, `${prefix} Norge`]);
 }
 
 export async function fetchLocationSuggestions(prefix) {
@@ -62,6 +62,6 @@ export async function fetchLocationSuggestions(prefix) {
 }
 
 export async function fetchStyrkSuggestions(prefix) {
-    return Promise.resolve([`${prefix}-aaaa`, `${prefix}-bbbb`, `${prefix}-cccc`]);
+    return Promise.resolve([`${prefix}`, `${prefix}medarbeider`, `${prefix}konsulent`]);
 }
 
