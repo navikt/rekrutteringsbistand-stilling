@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Column, Container, Row } from 'nav-frontend-grid';
+import AdText from './adText/AdText';
 
 class Ad extends React.Component {
     constructor(props) {
@@ -18,7 +19,7 @@ class Ad extends React.Component {
             <Container>
                 <Row>
                     <Column xs="12">
-                        hello
+                        <AdText />
                     </Column>
                 </Row>
             </Container>
