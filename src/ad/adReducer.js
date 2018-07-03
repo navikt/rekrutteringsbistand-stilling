@@ -49,6 +49,6 @@ function* getStilling(action) {
     }
 }
 
-export const stillingSaga = function* saga() {
+export const adSaga = function* saga() {
     yield takeLatest(FETCH_STILLING_BEGIN, getStilling);
 };

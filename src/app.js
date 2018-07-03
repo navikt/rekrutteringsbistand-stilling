@@ -9,6 +9,7 @@ import employerReducer, {employerSaga} from "./processing/employer/employerReduc
 import locationReducer, {locationSaga} from "./processing/location/locationReducer";
 import styrkReducer, {styrkSaga} from "./processing/styrk/styrkReducer";
 import adsReducer, {adsSaga} from "./ads/adsReducer";
+import adReducer, {adSaga} from "./ad/adReducer";
 import Ad from "./ad/Ad";
 import Ads from "./ads/Ads";
 import './styles.less';
@@ -18,6 +19,7 @@ const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(combineReducers({
     stilling: stillingReducer,
+    ad: adReducer,
     ads: adsReducer,
     employer: employerReducer,
     location: locationReducer,
@@ -25,6 +27,7 @@ const store = createStore(combineReducers({
 }), applyMiddleware(sagaMiddleware));
 
 sagaMiddleware.run(stillingSaga);
+sagaMiddleware.run(adSaga);
 sagaMiddleware.run(adsSaga);
 sagaMiddleware.run(employerSaga);
 sagaMiddleware.run(locationSaga);
