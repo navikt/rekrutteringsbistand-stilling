@@ -38,7 +38,7 @@ class Ad extends React.Component {
                 {!isFetchingStilling && stilling && (
                     <Row>
                         <Column xs="12" md="8">
-                            <AdText title={stilling.title} adText={stilling.properties.adtext} />
+                            <AdText stilling={stilling} />
                         </Column>
                         <Column xs="12" md="4">
                             <div className="Processing-and-categorize">

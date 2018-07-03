@@ -43,3 +43,37 @@
     font-weight: 400;
   }
 }
+
+
+.detail-section {
+  padding: 1rem;
+  margin-bottom: 1rem;
+
+  .detail-section__head {
+    margin-bottom: 1rem;
+  }
+}
+
+.dl-flex {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+
+  dt {
+    flex: 0 42%;
+    color: @navGra60;
+  }
+
+  dd:not(:last-of-type),
+  dt:not(:last-of-type) {
+    margin-bottom: 0.5rem;
+  }
+
+  dd {
+    flex: 0 58%;
+    max-width: 58%;
+    margin-left: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+}
