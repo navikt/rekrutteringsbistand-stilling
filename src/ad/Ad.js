@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Column, Container, Row } from 'nav-frontend-grid';
 import AdText from './adText/AdText';
-import Processing from "../processing/Processing";
-import Categorize from "../processing/Categorize";
+import Processing from '../processing/Processing';
+import Categorize from '../processing/Categorize';
 import NotFound from './notFound/NotFound';
-import {FETCH_STILLING_BEGIN} from './adReducer';
+import { FETCH_STILLING_BEGIN } from './adReducer';
 
 class Ad extends React.Component {
     constructor(props) {
@@ -27,30 +27,31 @@ class Ad extends React.Component {
             <Container>
                 {error && error.statusCode === 404 ? (
                     <Container>
-                        <NotFound/>
+                        <NotFound />
                     </Container>
                 ) : error && (
                     <Container>
-                        <NotFound/>
+                        <NotFound />
                     </Container>
                 )}
 
                 {!isFetchingStilling && stilling && (
-                <Row>
-                    <Column xs="12" md="8">
-                        <AdText title={stilling.title} adText={stilling.properties.adtext}/>
-                    </Column>
-                    <Column xs="12" md="4">
-                        <Processing />
-                        <Categorize />
-                    </Column>
-                </Row>
+                    <Row>
+                        <Column xs="12" md="8">
+                            <AdText title={stilling.title} adText={stilling.properties.adtext} />
+                        </Column>
+                        <Column xs="12" md="4">
+                            <div className="Processing-and-categorize">
+                                <Processing />
+                                <Categorize />
+                            </div>
+                        </Column>
+                    </Row>
                 )}
             </Container>
-        )
+        );
     }
 }
-
 
 
 Ad.defaultProps = {
