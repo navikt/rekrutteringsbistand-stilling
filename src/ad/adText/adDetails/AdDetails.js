@@ -1,0 +1,36 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Undertittel } from 'nav-frontend-typografi';
+import { formatISOString } from '../../../../../pam-stillingsok/src/utils';
+import Panel from 'nav-frontend-paneler';
+
+export default function AdDetails({ stilling }) {
+    return (
+        <Panel border className="detail-section">
+            <Undertittel className="AdDetails__head detail-section__head">Om annonsen</Undertittel>
+            <dl className="dl-flex typo-normal">
+                {stilling.updated && [
+                    <dt key="dt">Sist endret:</dt>,
+                    <dd key="dd">{formatISOString(stilling.updated, 'D. MMMM YYYY')}</dd>
+                ]}
+                {stilling.medium && [
+                    <dt key="dt">Hentet fra:</dt>,
+                    <dd key="dd">{stilling.medium}</dd>
+                ]}
+                {stilling.reference && [
+                    <dt key="dt">ID nr.:</dt>,
+                    <dd key="dd">{stilling.reference}</dd>
+                ]}
+            </dl>
+        </Panel>
+    );
+}
+
+AdDetails.propTypes = {
+    stilling: PropTypes.shape({
+        updated: PropTypes.string,
+        medium: PropTypes.string,
+        reference: PropTypes.string
+    }).isRequired
+};
+
