@@ -20,10 +20,6 @@ import {FETCH_STILLING_BEGIN} from './stillingReducer';
 import './Stilling.less';
 
 class Stilling extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     componentDidMount() {
         window.scrollTo(0, 0);
         this.props.getStilling(this.props.match.params.uuid);
