@@ -20,6 +20,10 @@ export default function AdDetails({ stilling }) {
                     <dt key="dt">ID nr.:</dt>,
                     <dd key="dd">{stilling.reference}</dd>
                 ]}
+                {stilling.expires && [
+                    <dt key="dt">Utløpsdato:</dt>,
+                    <dd key="dd">{formatISOString(stilling.expires, 'D. MMMM YYYY')}</dd>
+                ]}
             </dl>
         </div>
     );
@@ -29,7 +33,8 @@ AdDetails.propTypes = {
     stilling: PropTypes.shape({
         updated: PropTypes.string,
         medium: PropTypes.string,
-        reference: PropTypes.string
+        reference: PropTypes.string,
+        expires: PropTypes.string
     }).isRequired
 };
 

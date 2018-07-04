@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Element } from 'nav-frontend-typografi';
+import ReactHtmlParser from 'react-html-parser';
+import './EmployerDetails.less';
+
 
 export default function EmployerDetails({ properties }) {
     return (
@@ -11,7 +14,14 @@ export default function EmployerDetails({ properties }) {
                     <dt key="dt">Arbeidsgiver:</dt>,
                     <dd key="dd">{properties.employer}</dd>
                 ]}
+                {properties.address && [
+                    <dt key="dt">Adresse:</dt>,
+                    <dd key="dd">{properties.address}</dd>
+                ]}
             </dl>
+            {properties.employerdescription && (
+                <div className="EmployerDetails__description">{ ReactHtmlParser(properties.employerdescription) }</div>
+            )}
         </div>
     );
 }
@@ -19,6 +29,8 @@ export default function EmployerDetails({ properties }) {
 EmployerDetails.propTypes = {
     properties: PropTypes.shape({
         employer: PropTypes.string,
+        address: PropTypes.string,
+        employerdescription: PropTypes.string
     }).isRequired
 };
 
