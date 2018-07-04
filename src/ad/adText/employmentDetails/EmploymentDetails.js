@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Element } from 'nav-frontend-typografi';
+import { formatISOString, isValidISOString } from '../../../utils';
 
 export default function EmploymentDetails({ properties }) {
 
