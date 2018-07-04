@@ -1,6 +1,7 @@
 export const SET_PROCESSING_STATUS = 'SET_PROCESSING_STATUS';
 export const CHECK_REJECT = 'CHECK_REJECT';
 export const UNCHECK_REJECT = 'UNCHECK_REJECT';
+export const SET_COMMENTS = "SET_COMMENTS";
 
 const initialState = {
     processingStatus: undefined,
@@ -27,6 +28,11 @@ export default function processingReducer(state = initialState, action) {
             return {
                 ...state,
                 checkedReject: state.checkedReject.filter((m) => (m !== action.value))
+            };
+        case SET_COMMENTS:
+            return {
+                ...state,
+                comments: action.comments
             };
         default:
             return state;

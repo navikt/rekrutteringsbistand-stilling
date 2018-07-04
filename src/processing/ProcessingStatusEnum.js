@@ -1,4 +1,4 @@
 export const ProcessingStatusEnum = {
-    REJECT: "0",
-    PUBLISHED: "1"
+    REJECT: "1",
+    PUBLISHED: "2"
 };

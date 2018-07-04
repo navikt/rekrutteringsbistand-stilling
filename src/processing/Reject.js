@@ -12,11 +12,12 @@ import {
     SET_PROCESSING_STATUS,
     CHECK_REJECT,
     UNCHECK_REJECT,
+    SET_COMMENTS
 } from './processingReducer';
 
 export class Reject extends React.Component {
     cancel = () => {
-        this.props.setProcessingStatus('2');
+        this.props.setProcessingStatus('0');
     };
 
     onRejectClick = (e) => {
@@ -28,8 +29,12 @@ export class Reject extends React.Component {
         }
     };
 
+    changeComments = (e) => {
+        this.props.setComments(e.target.value);
+    };
+
     render() {
-        const { checkedReject } = this.props;
+        const { checkedReject, comments } = this.props;
         return (
             <Panel border className="Processing detail-section">
                 <Undertittel className="detail-section__head">Behandling av stillingen</Undertittel>
@@ -78,7 +83,9 @@ export class Reject extends React.Component {
                           value={AdNotesEnum.ANNET}
                           label="Annet, kommenter"/>
                 <TextareaControlled label=''
-                                    maxLength={200} />
+                                    maxLength={200}
+                                    onChange={this.changeComments}
+                                    value={comments ? comments : ""} />
                 <Hovedknapp className="blokk-xxs pull-right"
                 >
                     OK
@@ -97,13 +104,15 @@ Reject.propTypes = {
 
 const mapStateToProps = (state) => ({
     processingStatus: state.processing.processingStatus,
-    checkedReject: state.processing.checkedReject
+    checkedReject: state.processing.checkedReject,
+    comments: state.processing.comments
 });
 
 const mapDispatchToProps = (dispatch) => ({
     setProcessingStatus: (status) => dispatch({ type: SET_PROCESSING_STATUS, status }),
     checkReject: (value) => dispatch({ type: CHECK_REJECT, value }),
     uncheckReject: (value) => dispatch({ type: UNCHECK_REJECT, value }),
+    setComments: (comments) => dispatch({ type: SET_COMMENTS, comments })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Reject);
