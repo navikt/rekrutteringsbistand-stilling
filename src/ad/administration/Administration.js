@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Undertittel } from 'nav-frontend-typografi';
 import { Panel } from 'nav-frontend-paneler'
 import { Hovedknapp, Fareknapp, Knapp } from 'nav-frontend-knapper';
-import EtikettBase from 'nav-frontend-etiketter';
+import AlertStripe from 'nav-frontend-alertstriper';
 import Remarks from './Remarks';
 import { StatusEnum } from "./StatusEnum";
 import { SET_STATUS } from './../adReducer';
@@ -36,43 +36,51 @@ export class Administration extends React.Component {
             <Panel border className="Administration detail-section">
                 <Undertittel className="blokk-xs">Behandling av stillingen</Undertittel>
                 {status === StatusEnum.APPROVED && (
-                    <EtikettBase type='suksess' className="blokk-m fullWidth">
+                    <AlertStripe solid type='suksess' className="Administration__status">
                         Godkjent
-                    </EtikettBase>
+                    </AlertStripe>
                 )}
                 {status === StatusEnum.REJECTED && (
-                    <EtikettBase type='advarsel' className="blokk-m fullWidth">
+                    <AlertStripe solid type='advarsel' className="Administration__status">
                         <b>Avvist</b>: {remarks.map(remark => (RemarksEnum[remark].label)).join(', ')}
-                    </EtikettBase>
+                    </AlertStripe>
+                )}
+                {status === StatusEnum.PENDING && (
+                    <AlertStripe solid type='info' className="Administration__status">
+                        Ikke behandlet
+                    </AlertStripe>
                 )}
 
                 {!showRemarksForm && status === StatusEnum.PENDING && (
                     <div>
-                        <Hovedknapp className="blokk-xs fullWidth" onClick={this.onApproveClick}>
+                        <Hovedknapp className="Administration__button" onClick={this.onApproveClick}>
                             Godkjenn
                         </Hovedknapp>
-                        <Fareknapp className="blokk-m fullWidth" onClick={this.onToggleRemarksFormClick}>
+                        <Fareknapp className="Administration__button" onClick={this.onToggleRemarksFormClick}>
                             Avvis
                         </Fareknapp>
-                        <Knapp className="blokk-xxs fullWidth">
+                        <Knapp className="Administration__button">
                             Neste
                         </Knapp>
                     </div>
                 )}
                 {!showRemarksForm && (status === StatusEnum.APPROVED || status === StatusEnum.REJECTED) && (
                     <div>
-                        <Hovedknapp className="blokk-xs fullWidth" onClick={this.onReopenClick}>
+                        <Knapp className="Administration__button" onClick={this.onReopenClick}>
                             Gjennåpne
-                        </Hovedknapp>
+                        </Knapp>
+                        <Knapp className="Administration__button">
+                            Neste
+                        </Knapp>
                     </div>
                 )}
                 {showRemarksForm && (
                     <div>
                         <Remarks />
-                        <Fareknapp className="blokk-xxs fullWidth"  onClick={this.onRejectClick}>
+                        <Fareknapp className="Administration__button"  onClick={this.onRejectClick}>
                             Avvis
                         </Fareknapp>
-                        <Knapp className="blokk-xxs fullWidth" onClick={this.onToggleRemarksFormClick}>
+                        <Knapp className="Administration__button" onClick={this.onToggleRemarksFormClick}>
                             Avbryt
                         </Knapp>
                     </div>

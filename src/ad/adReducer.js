@@ -148,4 +148,5 @@ export const adSaga = function* saga() {
     yield takeLatest(FETCH_AD, getAd);
     yield takeLatest(SAVE_AD, saveAd);
     yield takeLatest(ADD_STYRK, saveAd);
+    yield takeLatest(SET_STATUS, saveAd);
 };
