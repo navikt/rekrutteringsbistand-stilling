@@ -2,6 +2,7 @@ import { put, takeLatest, select } from 'redux-saga/effects';
 import { ApiError, fetchGet, fetchPut } from '../api/api';
 import { lookUpStyrk } from "./categorize/styrk/styrkReducer";
 import { AD_API } from "../fasitProperties";
+import { StatusEnum } from "./administration/StatusEnum";
 
 export const FETCH_AD = 'FETCH_AD';
 export const FETCH_AD_BEGIN = 'FETCH_AD_BEGIN';
@@ -17,12 +18,16 @@ export const SET_COMMENT = 'SET_COMMENT';
 export const ADD_STYRK = 'ADD_STYRK';
 export const REMOVE_STYRK = 'REMOVE_STYRK';
 
+export const SET_STATUS = 'SET_STATUS';
+export const ADD_REMARK = 'ADD_REMARK';
+export const REMOVE_REMARK = 'REMOVE_REMARK';
+
 const initialState = {
     data: undefined,
     error: undefined
 };
 
-export default function stillingReducer(state = initialState, action) {
+export default function adReducer(state = initialState, action) {
     switch (action.type) {
         case FETCH_AD_BEGIN:
             return {
@@ -71,6 +76,40 @@ export default function stillingReducer(state = initialState, action) {
                     categoryList: state.data.categoryList.filter((c) => (c.code !== action.code))
                 }
             };
+        case SET_STATUS:
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    administration: {
+                        ...state.data.administration,
+                        status: action.status,
+                        remarks: action.status === StatusEnum.APPROVED ? [] : state.data.administration.remarks
+                    }
+                }
+            };
+        case ADD_REMARK:
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    administration: {
+                        ...state.data.administration,
+                        remarks: [...state.data.administration.remarks, action.remark]
+                    }
+                }
+            };
+        case REMOVE_REMARK:
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    administration: {
+                        ...state.data.administration,
+                        remarks: state.data.administration.remarks.filter((remark) => (remark !== action.remark))
+                    }
+                }
+            };
         default:
             return state;
     }
@@ -94,7 +133,7 @@ function* saveAd() {
     const state = yield select();
     yield put({ type: SAVE_AD_BEGIN});
     try {
-        const response = yield fetchPut(`${AD_API}ads/${action.uuid}`, state.ad.data);
+        const response = yield fetchPut(`${AD_API}ads/${state.ad.data.uuid}`, state.ad.data);
         yield put({ type: SAVE_AD_SUCCESS, response });
     } catch (e) {
         if (e instanceof ApiError) {
@@ -108,4 +147,5 @@ function* saveAd() {
 export const adSaga = function* saga() {
     yield takeLatest(FETCH_AD, getAd);
     yield takeLatest(SAVE_AD, saveAd);
+    yield takeLatest(ADD_STYRK, saveAd);
 };

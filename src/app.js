@@ -9,7 +9,7 @@ import locationReducer, { locationSaga } from './ad/categorize/location/location
 import styrkReducer, { styrkSaga } from './ad/categorize/styrk/styrkReducer';
 import adsReducer, { adsSaga } from './ads/adsReducer';
 import adReducer, { adSaga } from './ad/adReducer';
-import processingReducer, {processingSaga} from "./ad/administration/processingReducer";
+import administrationReducer from './ad/administration/administrationReducer';
 import Ad from './ad/Ad';
 import Ads from './ads/Ads';
 import TopMenu from './topmenu/TopMenu';
@@ -24,7 +24,7 @@ const store = createStore(combineReducers({
     employer: employerReducer,
     location: locationReducer,
     styrk: styrkReducer,
-    processing: processingReducer
+    administration: administrationReducer,
 }), applyMiddleware(sagaMiddleware));
 
 sagaMiddleware.run(adSaga);
@@ -32,7 +32,6 @@ sagaMiddleware.run(adsSaga);
 sagaMiddleware.run(employerSaga);
 sagaMiddleware.run(locationSaga);
 sagaMiddleware.run(styrkSaga);
-sagaMiddleware.run(processingSaga);
 
 ReactDOM.render(
     <Provider store={store}>

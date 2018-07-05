@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Column, Container, Row } from 'nav-frontend-grid';
 import Preview from './preview/Preview';
-import Processing from './administration/Processing';
+import Administration from './administration/Administration';
 import Categorize from './categorize/Categorize';
 import Comments from './comments/Comments';
 import { FETCH_AD, SET_COMMENT } from './adReducer';
@@ -42,7 +42,7 @@ class Ad extends React.Component {
                         </Column>
                         <Column xs="12" md="4">
                             <div className="Processing-and-categorize">
-                                <Processing />
+                                <Administration />
                                 <Categorize />
                                 <Comments comment={stilling.comment} setComment={setComment} />
                             </div>
