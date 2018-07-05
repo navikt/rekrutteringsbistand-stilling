@@ -14,7 +14,7 @@ class Location extends React.Component {
 
     onTypeAheadSuggestionSelected = (location) => {
         this.props.setValue('');
-        this.props.addLocation(location.value);
+        this.props.addLocation(location);
     };
 
     onLocationRemove = (value) => {
@@ -31,15 +31,20 @@ class Location extends React.Component {
                     onSelect={this.onTypeAheadSuggestionSelected}
                     onChange={this.onTypeAheadValueChange}
                     suggestions={this.props.suggestions.map((s) => ({
-                        key: s.kode,
-                        value: `${s.navn} (${s.kode})`
+                        value: s.kode,
+                        label: `${s.navn} (${s.kode})`
                     }))}
                     value={this.props.value ? this.props.value : ''}
                 />
                 {this.props.locations.length > 0 && (
                     <div className="Location__tags">
                         {this.props.locations.map((location) => (
-                            <Tag key={location} value={location} onRemove={this.onLocationRemove} />
+                            <Tag
+                                key={location.value}
+                                value={location.value}
+                                label={`${location.label}`}
+                                onRemove={this.onLocationRemove}
+                            />
                         ))}
                     </div>
                 )}
@@ -48,10 +53,12 @@ class Location extends React.Component {
     }
 }
 
-
 Location.propTypes = {
     value: PropTypes.string.isRequired,
-    locations: PropTypes.arrayOf(PropTypes.string).isRequired,
+    locations: PropTypes.arrayOf(PropTypes.shape({
+        value: PropTypes.string,
+        label: PropTypes.string
+    })).isRequired,
     suggestions: PropTypes.arrayOf(PropTypes.shape({
         kode: PropTypes.string,
         navn: PropTypes.string

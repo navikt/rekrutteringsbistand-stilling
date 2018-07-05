@@ -11,8 +11,8 @@ class Employer extends React.Component {
         this.props.fetchEmployerSuggestions(value);
     };
 
-    onTypeAheadSuggestionSelected = (value) => {
-        this.props.setEmployer(value);
+    onTypeAheadSuggestionSelected = (item) => {
+        this.props.setEmployer(item.value);
     };
 
     render() {
@@ -24,7 +24,10 @@ class Employer extends React.Component {
                     placeholder="Bedriftsnavn / org.nummer"
                     onSelect={this.onTypeAheadSuggestionSelected}
                     onChange={this.onTypeAheadValueChange}
-                    suggestions={this.props.suggestions}
+                    suggestions={this.props.suggestions.map((s) => ({
+                        value: s,
+                        label: s
+                    }))}
                     value={this.props.value ? this.props.value : ''}
                 />
             </div>

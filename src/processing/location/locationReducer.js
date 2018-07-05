@@ -22,6 +22,9 @@ export default function locationReducer(state = initialState, action) {
                 value: action.value
             };
         case ADD_LOCATION:
+            if (state.locations.find(l => (l.value === action.value.value))) {
+                return state;
+            }
             return {
                 ...state,
                 locations: [...state.locations, action.value]
@@ -29,7 +32,7 @@ export default function locationReducer(state = initialState, action) {
         case REMOVE_LOCATION:
             return {
                 ...state,
-                locations: state.locations.filter((l) => (l !== action.value))
+                locations: state.locations.filter((l) => (l.value !== action.value))
             };
         case FETCH_LOCATION_SUGGESTIONS_SUCCESS:
             return {
