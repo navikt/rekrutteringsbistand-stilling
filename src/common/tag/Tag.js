@@ -11,15 +11,22 @@ export default class Tag extends React.Component {
         return (
             <div className="Tag">
                 <span className="typo-normal">{this.props.label}</span>
-                <button className="Tag__remove" aria-label="Slett" onClick={this.onRemoveClick}>x</button>
+                {this.props.canRemove && (
+                    <button className="Tag__remove" aria-label="Slett" onClick={this.onRemoveClick}>x</button>
+                )}
             </div>
         );
     }
 }
 
+Tag.defaultProps = {
+    canRemove: true
+};
+
 Tag.propTypes = {
     value: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
+    canRemove: PropTypes.bool,
     onRemove: PropTypes.func.isRequired
 };
 

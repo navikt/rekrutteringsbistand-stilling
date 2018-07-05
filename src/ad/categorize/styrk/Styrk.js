@@ -9,6 +9,7 @@ import StyrkThree from './StyrkThree';
 import { FETCH_STYRK, SET_STYRK_TYPEAHEAD_VALUE, TOGGLE_STYRK_MODAL } from './styrkReducer';
 import { ADD_STYRK, REMOVE_STYRK } from '../../../ad/adReducer';
 import './Styrk.less';
+import { StatusEnum } from '../../administration/StatusEnum';
 
 class Styrk extends React.Component {
     componentDidMount() {
@@ -36,8 +37,15 @@ class Styrk extends React.Component {
         return (
             <div className="Styrk">
                 <label htmlFor="Styrk__typeahead" className="typo-normal">Arbeidsyrke</label>
-                {' ('}<a href="#" className="typo-normal lenke" onClick={this.onShowListClick}>velg fra liste</a>)
+                {this.props.status === StatusEnum.PENDING && (
+                    <span>
+                        {' ('}
+                        <a href="#" className="typo-normal lenke" onClick={this.onShowListClick}>velg fra liste</a>
+                        {')'}
+                    </span>
+                )}
                 <Typeahead
+                    disabled={this.props.status !== StatusEnum.PENDING}
                     id="Styrk__typeahead"
                     label=""
                     placeholder="Styrkkategori / kode"
@@ -54,6 +62,7 @@ class Styrk extends React.Component {
                                 key={styrk.code}
                                 value={styrk.code}
                                 label={`${styrk.code}: ${styrk.name}`}
+                                canRemove={this.props.status === StatusEnum.PENDING}
                                 onRemove={this.onTagRemove}
                             />
                         ))}
@@ -81,6 +90,7 @@ class Styrk extends React.Component {
 
 Styrk.propTypes = {
     fetchStyrk: PropTypes.func.isRequired,
+    status: PropTypes.string.isRequired,
     setTypeAheadValue: PropTypes.func.isRequired,
     typeAheadValue: PropTypes.string.isRequired,
     typeAheadSuggestions: PropTypes.arrayOf(PropTypes.shape({
@@ -99,7 +109,8 @@ const mapStateToProps = (state) => ({
     addedStyrkItems: state.styrk.addedStyrkItems,
     styrkThree: state.styrk.styrkThree,
     showStyrkModal: state.styrk.showStyrkModal,
-    stilling: state.ad.data
+    stilling: state.ad.data,
+    status: state.ad.data.administration.status
 });
 
 const mapDispatchToProps = (dispatch) => ({

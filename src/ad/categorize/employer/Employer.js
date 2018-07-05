@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Typeahead from '../../../common/typeahead/Typeahead';
 import { FETCH_EMPLOYER_SUGGESTIONS, SET_EMPLOYER } from './employerReducer';
 import './Employer.less';
+import { StatusEnum } from "../../administration/StatusEnum";
 
 class Employer extends React.Component {
     onTypeAheadValueChange = (value) => {
@@ -19,6 +20,7 @@ class Employer extends React.Component {
         return (
             <div className="Employer">
                 <Typeahead
+                    disabled={this.props.status !== StatusEnum.PENDING}
                     id="Employer__typeahead"
                     label="Arbeidsgiver"
                     placeholder="Bedriftsnavn / org.nummer"
@@ -38,6 +40,7 @@ class Employer extends React.Component {
 
 Employer.propTypes = {
     value: PropTypes.string.isRequired,
+    status: PropTypes.string.isRequired,
     suggestions: PropTypes.arrayOf(PropTypes.string).isRequired,
     setEmployer: PropTypes.func.isRequired,
     fetchEmployerSuggestions: PropTypes.func.isRequired
@@ -45,7 +48,8 @@ Employer.propTypes = {
 
 const mapStateToProps = (state) => ({
     value: state.employer.value,
-    suggestions: state.employer.suggestions
+    suggestions: state.employer.suggestions,
+    status: state.ad.data.administration.status
 });
 
 const mapDispatchToProps = (dispatch) => ({

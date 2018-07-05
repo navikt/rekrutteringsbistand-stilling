@@ -50,17 +50,8 @@ function filterSiblings(categories, value) {
     ));
 }
 
-export function lookUpStyrk(code, levels = cachedStyrk) {
-    let found;
-    for (let i = 0; i < levels.length && !found; i += 1) {
-        const level = levels[i];
-        if (code.startsWith(level.code) && level.children) {
-            found = lookUpStyrk(code, level.children);
-        } else if (code.startsWith(level.code) && !level.children) {
-            found = level;
-        }
-    }
-    return found;
+export function lookUpStyrk(code, categories = cachedFlatStyrk) {
+    return categories.find((s) => (s.code === code));
 }
 
 const initialState = {

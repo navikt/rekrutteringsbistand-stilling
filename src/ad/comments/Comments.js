@@ -4,6 +4,7 @@ import Panel from 'nav-frontend-paneler';
 import { Textarea } from 'nav-frontend-skjema';
 import { connect } from "react-redux";
 import { SET_COMMENT } from "../adReducer";
+import { StatusEnum } from "../administration/StatusEnum";
 
 class Comments extends React.Component {
     constructor(props) {
@@ -34,6 +35,7 @@ class Comments extends React.Component {
         return (
             <Panel border>
                 <Textarea
+                    disabled={this.props.status !== StatusEnum.PENDING}
                     label="Kommentar til annonsen"
                     maxLength={255}
                     onChange={this.onChange}
@@ -51,11 +53,13 @@ Comments.defaultProps = {
 
 Comments.propTypes = {
     setComment: PropTypes.func.isRequired,
-    comments: PropTypes.string
+    comments: PropTypes.string,
+    status: PropTypes.string.isRequired
 };
 
 const mapStateToProps = (state) => ({
-    comments: state.ad.data.administration.comments
+    comments: state.ad.data.administration.comments,
+    status: state.ad.data.administration.status
 });
 
 const mapDispatchToProps = (dispatch) => ({

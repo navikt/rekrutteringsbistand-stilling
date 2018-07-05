@@ -140,7 +140,17 @@ export default function adReducer(state = initialState, action) {
 function* getAd(action) {
     yield put({ type: FETCH_AD_BEGIN});
     try {
-        const response = yield fetchGet(`${AD_API}ads/${action.uuid}`);
+        let response = yield fetchGet(`${AD_API}ads/${action.uuid}`);
+        if (!response.administration) { // TODO: Be backend om at administration dataene alltid er definert
+            response = {
+                ...response,
+                administration: {
+                    status: StatusEnum.PENDING,
+                    remarks: [],
+                    comments: ''
+                }
+            };
+        }
         yield put({ type: FETCH_AD_SUCCESS, response });
     } catch (e) {
         if (e instanceof ApiError) {

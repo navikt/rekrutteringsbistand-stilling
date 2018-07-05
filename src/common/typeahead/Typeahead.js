@@ -179,6 +179,7 @@ export default class Typeahead extends React.Component {
                     {this.props.label}
                 </label>
                 <input
+                    disabled={this.props.disabled}
                     id={this.props.id}
                     role="combobox"
                     type="search"
@@ -226,6 +227,10 @@ export default class Typeahead extends React.Component {
     }
 }
 
+Typeahead.defaultProps = {
+    disabled: false
+};
+
 Typeahead.propTypes = {
     onSelect: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,
@@ -238,5 +243,6 @@ Typeahead.propTypes = {
         }))
     ]).isRequired,
     value: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired
+    id: PropTypes.string.isRequired,
+    disabled: PropTypes.bool
 };
