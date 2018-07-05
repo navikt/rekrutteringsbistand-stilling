@@ -10,7 +10,7 @@ export default class Tag extends React.Component {
     render() {
         return (
             <div className="Tag">
-                <span className="typo-normal">{this.props.value}</span>
+                <span className="typo-normal">{this.props.label}</span>
                 <button className="Tag__remove" aria-label="Slett" onClick={this.onRemoveClick}>x</button>
             </div>
         );
@@ -19,6 +19,7 @@ export default class Tag extends React.Component {
 
 Tag.propTypes = {
     value: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
     onRemove: PropTypes.func.isRequired
 };
 

@@ -5,11 +5,10 @@ import './TypeaheadSuggestion.less';
 export default class TypeaheadSuggestion extends React.Component {
     constructor(props) {
         super();
-        this.value = props.value;
     }
 
     onClick = () => {
-        this.props.onClick(this.value);
+        this.props.onClick(this.props.item);
     };
 
     onMouseMove = () => {
@@ -17,7 +16,7 @@ export default class TypeaheadSuggestion extends React.Component {
     };
 
     render() {
-        const matchFound = this.value.toLowerCase().startsWith(this.props.match.toLowerCase());
+        const matchFound = this.props.value.toLowerCase().startsWith(this.props.match.toLowerCase());
 
         return (
             <li
@@ -35,18 +34,18 @@ export default class TypeaheadSuggestion extends React.Component {
                     <span
                         className={`TypeaheadSuggestion__inner ${this.props.active && 'TypeaheadSuggestion--active'}`}
                     >
-                        {this.value.substring(0, this.props.match.length)}
+                        {this.props.label.substring(0, this.props.match.length)}
                         <span
                             className="TypeaheadSuggestion__substring"
                         >
-                            {this.value.substring(this.props.match.length)}
+                            {this.props.label.substring(this.props.match.length)}
                         </span>
                     </span>
                 ) : (
                     <span
                         className={`TypeaheadSuggestion__inner ${this.props.active && 'TypeaheadSuggestion--active'}`}
                     >
-                        {this.value}
+                        {this.props.label}
                     </span>
                 )}
             </li>

@@ -140,9 +140,9 @@ export default class Typeahead extends React.Component {
 
     /**
      * Setter valgt forslag, og skjuler forslagslisten.
-     * @param suggestionValue
+     * @param suggestion
      */
-    setValue = (value) => {
+    setValue = (suggestion) => {
         this.setState({
             shouldShowSuggestions: false,
             activeSuggestionIndex: -1
@@ -150,7 +150,7 @@ export default class Typeahead extends React.Component {
             this.input.focus();
         });
         this.clearBlurDelay();
-        this.props.onSelect(value);
+        this.props.onSelect(suggestion);
     };
 
     avoidBlur = () => {
@@ -208,9 +208,11 @@ export default class Typeahead extends React.Component {
                     {showSuggestions && this.props.suggestions.map((suggestion, i) => (
                         <TypeaheadSuggestion
                             id={`${this.props.id}-item-${i}`}
-                            key={suggestion.key ? suggestion.key : suggestion}
+                            key={suggestion.value}
                             index={i}
-                            value={suggestion.value ? suggestion.value : suggestion}
+                            item={suggestion}
+                            value={suggestion.value}
+                            label={suggestion.label}
                             match={this.props.value}
                             active={i === this.state.activeSuggestionIndex}
                             onClick={this.setValue}
