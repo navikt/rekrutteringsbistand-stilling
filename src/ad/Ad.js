@@ -74,9 +74,9 @@ Ad.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    isFetchingStilling: state.stilling.isFetchingStilling,
-    stilling: state.stilling.stilling,
-    error: state.stilling.error
+    isFetchingStilling: state.ad.isFetchingStilling,
+    stilling: state.ad.stilling,
+    error: state.ad.error
 });
 
 const mapDispatchToProps = (dispatch) => ({
