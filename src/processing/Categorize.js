@@ -8,7 +8,7 @@ import './Categorize.less';
 
 export default function Categorize() {
     return (
-        <Panel border>
+        <Panel border className="blokk-xs">
             <Undertittel className="Categorize__head">Kategorisering</Undertittel>
             <Employer />
             <Location />

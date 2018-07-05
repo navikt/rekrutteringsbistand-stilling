@@ -15,7 +15,7 @@ import AdDetails from './adDetails/AdDetails';
 import NotFound from './notFound/NotFound';
 import Processing from './processing/Processing'
 import EmployerContact from './employerContact/EmployerContact'
-import Comment from './comment/Comment'
+import Comments from '../comments/Comments'
 import {FETCH_STILLING_BEGIN} from './stillingReducer';
 import './Stilling.less';
 
@@ -66,7 +66,7 @@ class Stilling extends React.Component {
                                 <Column xs="12" md="3">
                                     <Processing/>
                                     <EmployerContact />
-                                    <Comment />
+                                    <Comments />
                                 </Column>
                             </Row>
 
