@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import { Undertittel } from 'nav-frontend-typografi';
 import { Panel } from 'nav-frontend-paneler'
-import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
+import { Hovedknapp, Fareknapp, Knapp } from 'nav-frontend-knapper';
 import  EtikettBase  from 'nav-frontend-etiketter';
 import './Processing.less';
 import Reject from './Reject';
@@ -33,14 +33,13 @@ export class Processing extends React.Component {
                         >
                             Publiser stillingen
                         </Hovedknapp>
-                        <Hovedknapp className="blokk-xxs fullWidth" onClick={this.reject}
+                        <Fareknapp className="blokk-xxs fullWidth" onClick={this.reject}
                         >
                             Avvise stillingen
-                        </Hovedknapp>
-                        <Hovedknapp className="blokk-xxs fullWidth"
-                        >
+                        </Fareknapp>
+                        <Knapp className="blokk-xxs fullWidth">
                             Neste
-                        </Hovedknapp>
+                        </Knapp>
                     </Panel>
                 )}
                 { processingStatus === ProcessingStatusEnum.REJECT && (
