@@ -3,12 +3,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Column, Container, Row } from 'nav-frontend-grid';
-import AdText from './adText/AdText';
-import Processing from '../processing/Processing';
-import Categorize from '../processing/Categorize';
-import Comments from '../comments/Comments';
-import NotFound from './notFound/NotFound';
-import { FETCH_STILLING_BEGIN, SET_COMMENT } from './adReducer';
+import Preview from './preview/Preview';
+import Processing from './administration/Processing';
+import Categorize from './categorize/Categorize';
+import Comments from './comments/Comments';
+import { FETCH_AD, SET_COMMENT } from './adReducer';
 
 class Ad extends React.Component {
     constructor(props) {
@@ -28,7 +27,7 @@ class Ad extends React.Component {
             <Container>
                 {error && error.statusCode === 404 ? (
                     <Container>
-                        <NotFound />
+                        Fant ikke annonsen
                     </Container>
                 ) : error && (
                     <Container>
@@ -39,7 +38,7 @@ class Ad extends React.Component {
                 {!isFetchingStilling && stilling && (
                     <Row>
                         <Column xs="12" md="8">
-                            <AdText stilling={stilling} />
+                            <Preview stilling={stilling} />
                         </Column>
                         <Column xs="12" md="4">
                             <div className="Processing-and-categorize">
@@ -75,12 +74,12 @@ Ad.propTypes = {
 
 const mapStateToProps = (state) => ({
     isFetchingStilling: state.ad.isFetchingStilling,
-    stilling: state.ad.stilling,
+    stilling: state.ad.data,
     error: state.ad.error
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    getStilling: (uuid) => dispatch({ type: FETCH_STILLING_BEGIN, uuid }),
+    getStilling: (uuid) => dispatch({ type: FETCH_AD, uuid }),
     setComment: (comment) => dispatch({ type: SET_COMMENT, comment })
 });
 

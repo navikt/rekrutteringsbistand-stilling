@@ -1,5 +1,6 @@
-import { call, put, takeLatest, select } from 'redux-saga/effects';
-import { fetchAds, ApiError } from '../api/api';
+import { put, takeLatest, select } from 'redux-saga/effects';
+import { fetchGet, ApiError } from '../api/api';
+import { AD_API } from "../fasitProperties";
 
 export const FETCH_ADS = 'FETCH_ADS';
 export const FETCH_ADS_BEGIN = 'FETCH_ADS_BEGIN';
@@ -37,10 +38,10 @@ export default function adsReducer(state = initialState, action) {
     }
 }
 
-function* getAds(action) {
+function* getAds() {
     try {
         yield put({ type: FETCH_ADS_BEGIN });
-        const response = yield call(fetchAds);
+        const response = yield fetchGet(`${AD_API}ads/`);
         yield put({ type: FETCH_ADS_SUCCESS, response });
     } catch (e) {
         if (e instanceof ApiError) {

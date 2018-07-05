@@ -1,6 +1,3 @@
-import { AD_API } from '../fasitProperties';
-import locations from './kommuner';
-
 export class ApiError {
     constructor(message, statusCode) {
         this.message = message;
@@ -8,7 +5,7 @@ export class ApiError {
     }
 }
 
-async function get(url) {
+export async function fetchGet(url) {
     let response;
     try {
         response = await fetch(url, {
@@ -24,11 +21,11 @@ async function get(url) {
     return response.json();
 }
 
-async function post(url, query) {
+export async function fetchPost(url, body) {
     let response;
     try {
         response = await fetch(url, {
-            body: JSON.stringify(query),
+            body: JSON.stringify(body),
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -44,27 +41,27 @@ async function post(url, query) {
     return response.json();
 }
 
-export async function fetchStilling(uuid) {
-    return get(`${AD_API}ads/${uuid}`);
+export async function fetchPut(url, body) {
+    let response;
+    try {
+        response = await fetch(url, {
+            body: JSON.stringify(body),
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+    } catch (e) {
+        throw new ApiError(e.message, 0);
+    }
+
+    if (response.status !== 200) {
+        throw new ApiError(response.statusText, response.status);
+    }
+    return response.json();
 }
 
-export async function fetchAds() {
-    return get(`${AD_API}ads/`);
-}
 
 export async function fetchEmployerSuggestions(prefix) {
     return Promise.resolve([`${prefix}`, `${prefix} AS`, `${prefix} Norge`]);
 }
-
-export async function fetchLocationSuggestions(prefix) {
-    return Promise.resolve(locations.filter((l) => (
-            l.kode.toLowerCase().startsWith(prefix.toLowerCase()) ||
-            l.navn.toLowerCase().startsWith(prefix.toLowerCase())
-        )
-    ));
-}
-
-export async function fetchStyrk() {
-   return get(`${AD_API}categories/`);
-}
-

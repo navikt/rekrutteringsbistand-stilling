@@ -1,35 +1,43 @@
-import { call, put, takeLatest, select } from 'redux-saga/effects';
-import { fetchStilling, ApiError } from '../api/api';
-import { lookUpStyrk } from "../processing/styrk/styrkReducer";
+import { put, takeLatest, select } from 'redux-saga/effects';
+import { ApiError, fetchGet, fetchPut } from '../api/api';
+import { lookUpStyrk } from "./categorize/styrk/styrkReducer";
+import { AD_API } from "../fasitProperties";
 
-export const FETCH_STILLING_BEGIN = 'FETCH_STILLING_BEGIN';
-export const FETCH_STILLING_SUCCESS = 'FETCH_STILLING_SUCCESS';
-export const FETCH_STILLING_FAILURE = 'FETCH_STILLING_FAILURE';
+export const FETCH_AD = 'FETCH_AD';
+export const FETCH_AD_BEGIN = 'FETCH_AD_BEGIN';
+export const FETCH_AD_SUCCESS = 'FETCH_AD_SUCCESS';
+export const FETCH_AD_FAILURE = 'FETCH_AD_FAILURE';
+
+export const SAVE_AD = 'FETCH';
+export const SAVE_AD_BEGIN = 'SAVE_AD_BEGIN';
+export const SAVE_AD_SUCCESS = 'SAVE_AD_SUCCESS';
+export const SAVE_AD_FAILURE = 'SAVE_AD_FAILURE';
+
 export const SET_COMMENT = 'SET_COMMENT';
 export const ADD_STYRK = 'ADD_STYRK';
 export const REMOVE_STYRK = 'REMOVE_STYRK';
 
 const initialState = {
-    stilling: undefined,
+    data: undefined,
     error: undefined
 };
 
 export default function stillingReducer(state = initialState, action) {
     switch (action.type) {
-        case FETCH_STILLING_BEGIN:
+        case FETCH_AD_BEGIN:
             return {
                 ...state,
-                stilling: undefined,
+                data: undefined,
                 isFetchingStilling: true,
                 error: undefined
             };
-        case FETCH_STILLING_SUCCESS:
+        case FETCH_AD_SUCCESS:
             return {
                 ...state,
-                stilling: action.response,
+                data: action.response,
                 isFetchingStilling: false
             };
-        case FETCH_STILLING_FAILURE:
+        case FETCH_AD_FAILURE:
             return {
                 ...state,
                 error: action.error,
@@ -38,29 +46,29 @@ export default function stillingReducer(state = initialState, action) {
         case SET_COMMENT: {
             return {
                 ...state,
-                stilling: {
-                    ...state.stilling,
+                data: {
+                    ...state.data,
                     comment: action.comment
                 }
             };
         }
         case ADD_STYRK:
-            if (state.stilling.categoryList.find(s => (s.code === action.code))) {
+            if (state.data.categoryList.find(s => (s.code === action.code))) {
                 return state;
             }
             return {
                 ...state,
-                stilling: {
-                    ...state.stilling,
-                    categoryList: [...state.stilling.categoryList, lookUpStyrk(action.code)]
+                data: {
+                    ...state.data,
+                    categoryList: [...state.data.categoryList, lookUpStyrk(action.code)]
                 }
             };
         case REMOVE_STYRK:
             return {
                 ...state,
-                stilling: {
-                    ...state.stilling,
-                    categoryList: state.stilling.categoryList.filter((c) => (c.code !== action.code))
+                data: {
+                    ...state.data,
+                    categoryList: state.data.categoryList.filter((c) => (c.code !== action.code))
                 }
             };
         default:
@@ -68,13 +76,29 @@ export default function stillingReducer(state = initialState, action) {
     }
 }
 
-function* getStilling(action) {
+function* getAd(action) {
+    yield put({ type: FETCH_AD_BEGIN});
     try {
-        const response = yield call(fetchStilling, action.uuid);
-        yield put({ type: FETCH_STILLING_SUCCESS, response });
+        const response = yield fetchGet(`${AD_API}ads/${action.uuid}`);
+        yield put({ type: FETCH_AD_SUCCESS, response });
     } catch (e) {
         if (e instanceof ApiError) {
-            yield put({ type: FETCH_STILLING_FAILURE, error: e });
+            yield put({ type: FETCH_AD_FAILURE, error: e });
+        } else {
+            throw e;
+        }
+    }
+}
+
+function* saveAd() {
+    const state = yield select();
+    yield put({ type: SAVE_AD_BEGIN});
+    try {
+        const response = yield fetchPut(`${AD_API}ads/${action.uuid}`, state.ad.data);
+        yield put({ type: SAVE_AD_SUCCESS, response });
+    } catch (e) {
+        if (e instanceof ApiError) {
+            yield put({ type: SAVE_AD_FAILURE, error: e });
         } else {
             throw e;
         }
@@ -82,5 +106,6 @@ function* getStilling(action) {
 }
 
 export const adSaga = function* saga() {
-    yield takeLatest(FETCH_STILLING_BEGIN, getStilling);
+    yield takeLatest(FETCH_AD, getAd);
+    yield takeLatest(SAVE_AD, saveAd);
 };
