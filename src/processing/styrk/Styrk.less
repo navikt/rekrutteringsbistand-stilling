@@ -12,7 +12,26 @@
   margin: 0.25rem 0;
 }
 
-.Styrk__modal {
-  height: 36rem;
+.StyrkModal {
   width: 40rem;
+  height: 70%;
+  overflow: hidden;
+}
+
+.StyrkModal__content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.StyrkModal__header {
+  padding-bottom: 2rem;
+}
+
+.StyrkModal__body {
+  height: auto;
+  overflow-y: scroll;
+  flex: auto;
+  border: 1px solid #ddd;
 }

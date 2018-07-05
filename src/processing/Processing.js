@@ -25,15 +25,15 @@ export class Processing extends React.Component {
             <div>
                 { processingStatus !== ProcessingStatusEnum.REJECT && (
                     <Panel border className="Processing detail-section">
-                        <Undertittel className="detail-section__head">Behandling av stillingen</Undertittel>
-                        <EtikettBase type='fokus' className="blokk-s">
+                        <Undertittel className="blokk-xs">Behandling av stillingen</Undertittel>
+                        <EtikettBase type='fokus' className="blokk-m fullWidth">
                             {processingStatus === ProcessingStatusEnum.PUBLISHED ? 'Stillingen er publisert' : 'Stillingen er ikke publisert'}
                         </EtikettBase>
-                        <Hovedknapp className="blokk-xxs fullWidth" onClick={this.publish}
+                        <Hovedknapp className="blokk-xs fullWidth" onClick={this.publish}
                         >
                             Publiser stillingen
                         </Hovedknapp>
-                        <Fareknapp className="blokk-xxs fullWidth" onClick={this.reject}
+                        <Fareknapp className="blokk-m fullWidth" onClick={this.reject}
                         >
                             Avvise stillingen
                         </Fareknapp>

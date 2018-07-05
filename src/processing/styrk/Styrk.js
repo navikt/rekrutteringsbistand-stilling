@@ -57,14 +57,17 @@ class Styrk extends React.Component {
                 )}
 
                 <Modal
-                    className="Styrk__modal"
+                    className="StyrkModal"
+                    contentClass="StyrkModal__content"
                     isOpen={this.props.showStyrkModal}
                     onRequestClose={this.props.toggleList}
                     contentLabel="Heisann."
                     appElement={document.getElementById('app')}
                 >
-                    <Undertittel>Velg styrkkategori</Undertittel>
-                    <StyrkThree />
+                    <Undertittel className="StyrkModal__header">Velg styrkkategori</Undertittel>
+                    <div className="StyrkModal__body">
+                        <StyrkThree />
+                    </div>
                 </Modal>
 
             </div>
