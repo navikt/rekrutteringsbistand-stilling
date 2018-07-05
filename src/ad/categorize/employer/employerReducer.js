@@ -1,5 +1,5 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
-import { fetchEmployerSuggestions, ApiError } from '../../../api/api';
+import { put, takeLatest } from 'redux-saga/effects';
+import { ApiError } from '../../../api/api';
 
 export const SET_EMPLOYER = 'SET_EMPLOYER';
 export const FETCH_EMPLOYER_SUGGESTIONS = 'FETCH_EMPLOYER_SUGGESTIONS';
@@ -35,8 +35,7 @@ export default function employerReducer(state = initialState, action) {
 
 function* getEmployerSuggestions(action) {
     try {
-        const response = yield call(fetchEmployerSuggestions, action.value);
-        yield put({ type: FETCH_EMPLOYER_SUGGESTIONS_SUCCESS, response });
+        yield put({ type: FETCH_EMPLOYER_SUGGESTIONS_SUCCESS, response: [`${action.value}`, `${action.value} AS`, `${action.value} Norge`] });
     } catch (e) {
         if (e instanceof ApiError) {
             yield put({ type: FETCH_EMPLOYER_SUGGESTIONS_FAILURE, error: e });

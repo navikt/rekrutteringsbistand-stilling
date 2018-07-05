@@ -5,9 +5,9 @@ import Modal from 'nav-frontend-modal';
 import { Undertittel } from 'nav-frontend-typografi';
 import Typeahead from '../../../common/typeahead/Typeahead';
 import Tag from '../../../common/tag/Tag';
-import StyrkThree from "./StyrkThree";
+import StyrkThree from './StyrkThree';
 import { FETCH_STYRK, SET_STYRK_TYPEAHEAD_VALUE, TOGGLE_STYRK_MODAL } from './styrkReducer';
-import { ADD_STYRK, REMOVE_STYRK } from "../../../ad/adReducer";
+import { ADD_STYRK, REMOVE_STYRK } from '../../../ad/adReducer';
 import './Styrk.less';
 
 class Styrk extends React.Component {
@@ -35,7 +35,7 @@ class Styrk extends React.Component {
     render() {
         return (
             <div className="Styrk">
-                <label className="typo-normal">Arbeidsyrke</label>
+                <label htmlFor="Styrk__typeahead" className="typo-normal">Arbeidsyrke</label>
                 {' ('}<a href="#" className="typo-normal lenke" onClick={this.onShowListClick}>velg fra liste</a>)
                 <Typeahead
                     id="Styrk__typeahead"
@@ -87,12 +87,10 @@ Styrk.propTypes = {
         code: PropTypes.string,
         name: PropTypes.string
     })).isRequired,
-    addedStyrkItems:PropTypes.arrayOf(PropTypes.shape({
-        code: PropTypes.string,
-        name: PropTypes.string
-    })).isRequired,
     addStyrk: PropTypes.func.isRequired,
-    removeStyrk: PropTypes.func.isRequired
+    removeStyrk: PropTypes.func.isRequired,
+    showStyrkModal: PropTypes.bool.isRequired,
+    toggleList: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({

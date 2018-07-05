@@ -5,63 +5,43 @@ export class ApiError {
     }
 }
 
-export async function fetchGet(url) {
+async function request(url, options) {
     let response;
     try {
-        response = await fetch(url, {
-            method: 'GET'
-        });
+        response = await fetch(url, options);
     } catch (e) {
-        throw new ApiError(e.message, 0);
+        throw new ApiError('Network Error', 0);
     }
 
     if (response.status !== 200) {
         throw new ApiError(response.statusText, response.status);
     }
     return response.json();
+}
+
+export async function fetchGet(url) {
+    return request(url, {
+        method: 'GET'
+    });
 }
 
 export async function fetchPost(url, body) {
-    let response;
-    try {
-        response = await fetch(url, {
-            body: JSON.stringify(body),
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-    } catch (e) {
-        throw new ApiError(e.message, 0);
-    }
+    return request(url, {
+        body: JSON.stringify(body),
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
 
-    if (response.status !== 200) {
-        throw new ApiError(response.statusText, response.status);
-    }
-    return response.json();
 }
 
 export async function fetchPut(url, body) {
-    let response;
-    try {
-        response = await fetch(url, {
-            body: JSON.stringify(body),
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-    } catch (e) {
-        throw new ApiError(e.message, 0);
-    }
-
-    if (response.status !== 200) {
-        throw new ApiError(response.statusText, response.status);
-    }
-    return response.json();
-}
-
-
-export async function fetchEmployerSuggestions(prefix) {
-    return Promise.resolve([`${prefix}`, `${prefix} AS`, `${prefix} Norge`]);
+    return request(url, {
+        body: JSON.stringify(body),
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
 }

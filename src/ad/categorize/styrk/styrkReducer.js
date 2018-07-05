@@ -1,6 +1,6 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import { ApiError, fetchGet } from '../../../api/api';
-import { AD_API } from "../../../fasitProperties";
+import { AD_API } from '../../../fasitProperties';
 
 export const SET_STYRK_TYPEAHEAD_VALUE = 'SET_STYRK_TYPEAHEAD_VALUE';
 export const FETCH_STYRK = 'FETCH_STYRK';
@@ -10,8 +10,58 @@ export const EXPAND_STYRK_BRANCH = 'EXPAND_STYRK_BRANCH';
 export const COLLAPSE_STYRK_BRANCH = 'COLLAPSE_STYRK_BRANCH';
 export const TOGGLE_STYRK_MODAL = 'TOGGLE_STYRK_MODAL';
 
-export let cachedStyrk = undefined;
+let cachedStyrk;
 let cachedFlatStyrk = [];
+
+
+function collapse(categories, code) {
+    return categories.map((category) => {
+        if (code.startsWith(category.code)) {
+            return {
+                ...category,
+                expanded: !category.code.startsWith(code),
+                children: category.children ? collapse(category.children, code) : undefined
+            };
+        }
+        return category;
+    });
+}
+
+function expand(categories, code) {
+    return categories.map((category) => {
+        if (code.startsWith(category.code)) {
+            return {
+                ...category,
+                expanded: category.children && code.startsWith(category.code),
+                children: category.children ? expand(category.children, code) : undefined
+            };
+        }
+        return category;
+    });
+}
+
+function filterSiblings(categories, value) {
+    return categories.filter(((s) =>
+        s.code.length >= 6 && (
+            s.name.toLowerCase().indexOf(value.toLowerCase()) !== -1 ||
+                s.code.startsWith(value) ||
+                s.code.split('.').join('').startsWith(value)
+        )
+    ));
+}
+
+export function lookUpStyrk(code, levels = cachedStyrk) {
+    let found;
+    for (let i = 0; i < levels.length && !found; i += 1) {
+        const level = levels[i];
+        if (code.startsWith(level.code) && level.children) {
+            found = lookUpStyrk(code, level.children);
+        } else if (code.startsWith(level.code) && !level.children) {
+            found = level;
+        }
+    }
+    return found;
+}
 
 const initialState = {
     typeAheadSuggestions: [],
@@ -27,10 +77,11 @@ export default function styrkReducer(state = initialState, action) {
             return {
                 ...state,
                 typeAheadValue: action.value,
-                typeAheadSuggestions: action.value.length > 2 ? filterSiblings(cachedFlatStyrk, action.value).map((styrk) => ({
-                    value: styrk.code,
-                    label: `${styrk.code}: ${styrk.name}`
-                })) : []
+                typeAheadSuggestions: action.value.length > 1 ?
+                    filterSiblings(cachedFlatStyrk, action.value).map((styrk) => ({
+                        value: styrk.code,
+                        label: `${styrk.code}: ${styrk.name}`
+                    })) : []
             };
         case FETCH_STYRK_SUCCESS:
             return {
@@ -63,69 +114,20 @@ export default function styrkReducer(state = initialState, action) {
 }
 
 function mapStyrkThree(categories, parentId = null) {
-    return categories.filter(category => (category.parentId === parentId)).map((c) => {
+    return categories.filter((category) => (category.parentId === parentId)).map((c) => {
         const children = mapStyrkThree(categories, c.id);
         if (children.length > 0) {
             return {
                 ...c,
                 expanded: false,
                 children
-            }
+            };
         }
         return {
             ...c,
             expanded: false
-        }
+        };
     });
-}
-
-function collapse(categories, code) {
-    return categories.map((category) => {
-        if (code.startsWith(category.code)) {
-            return {
-                ...category,
-                expanded: !category.code.startsWith(code),
-                children: category.children ? collapse(category.children, code) : undefined
-            }
-        }
-        return category;
-    })
-}
-
-function expand(categories, code) {
-    return categories.map((category) => {
-        if (code.startsWith(category.code)) {
-            return {
-                ...category,
-                expanded: category.children && code.startsWith(category.code),
-                children: category.children ? expand(category.children, code) : undefined
-            }
-        }
-        return category;
-    })
-}
-
-function filterSiblings(categories, value) {
-    return categories.filter((s =>
-        s.code.length >= 6 && (
-            s.name.toLowerCase().indexOf(value.toLowerCase()) !== -1 ||
-            s.code.startsWith(value) ||
-            s.code.split('.').join('').startsWith(value)
-        )
-    ));
-}
-
-export function lookUpStyrk(code, levels = cachedStyrk) {
-    let found = undefined;
-    for (let i = 0; i < levels.length && !found; i++) {
-        const level = levels[i];
-        if (code.startsWith(level.code) && level.children) {
-            found = lookUpStyrk(code, level.children)
-        } else if (code.startsWith(level.code) && !level.children) {
-            found = level
-        }
-    }
-    return found;
 }
 
 function* getStyrk() {

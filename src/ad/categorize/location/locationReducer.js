@@ -1,6 +1,6 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { ApiError } from '../../../api/api';
-import locations from "./kommuner";
+import locations from './kommuner';
 
 export const SET_LOCATION_VALUE = 'SET_LOCATION_VALUE';
 export const ADD_LOCATION = 'ADD_LOCATION';
@@ -23,7 +23,7 @@ export default function locationReducer(state = initialState, action) {
                 value: action.value
             };
         case ADD_LOCATION:
-            if (state.locations.find(l => (l.value === action.value.value))) {
+            if (state.locations.find((l) => (l.value === action.value.value))) {
                 return state;
             }
             return {
@@ -51,20 +51,14 @@ export default function locationReducer(state = initialState, action) {
 }
 
 function* getLocationSuggestions(action) {
-    try {
-        const response = locations.filter((l) => (
-                l.kode.toLowerCase().startsWith(action.value.toLowerCase()) ||
-                l.navn.toLowerCase().startsWith(action.value.toLowerCase())
-            )
-        );
-        yield put({ type: FETCH_LOCATION_SUGGESTIONS_SUCCESS, response });
-    } catch (e) {
-        if (e instanceof ApiError) {
-            yield put({ type: FETCH_LOCATION_SUGGESTIONS_FAILURE, error: e });
-        } else {
-            throw e;
-        }
+    let response = [];
+    if (action.value.length > 0) {
+        response = locations.filter((l) => (
+            l.kode.toLowerCase().startsWith(action.value.toLowerCase()) ||
+            l.navn.toLowerCase().startsWith(action.value.toLowerCase())
+        )).slice(0, 10);
     }
+    yield put({ type: FETCH_LOCATION_SUGGESTIONS_SUCCESS, response });
 }
 
 export const locationSaga = function* saga() {

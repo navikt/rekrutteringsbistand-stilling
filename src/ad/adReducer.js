@@ -24,7 +24,9 @@ export const REMOVE_REMARK = 'REMOVE_REMARK';
 
 const initialState = {
     data: undefined,
-    error: undefined
+    error: undefined,
+    isSavingAd: false,
+    isFetchingStilling: false
 };
 
 export default function adReducer(state = initialState, action) {
@@ -48,12 +50,32 @@ export default function adReducer(state = initialState, action) {
                 error: action.error,
                 isFetchingStilling: false
             };
+        case SAVE_AD_BEGIN:
+            return {
+                ...state,
+                isSavingAd: true
+            };
+        case SAVE_AD_SUCCESS:
+            return {
+                ...state,
+                data: action.response,
+                isSavingAd: false
+            };
+        case SAVE_AD_FAILURE:
+            return {
+                ...state,
+                isSavingAd: false,
+                error: action.error
+            };
         case SET_COMMENT: {
             return {
                 ...state,
                 data: {
                     ...state.data,
-                    comment: action.comment
+                    administration: {
+                        ...state.data.administration,
+                        comments: action.comment
+                    }
                 }
             };
         }
@@ -146,7 +168,5 @@ function* saveAd() {
 
 export const adSaga = function* saga() {
     yield takeLatest(FETCH_AD, getAd);
-    yield takeLatest(SAVE_AD, saveAd);
-    yield takeLatest(ADD_STYRK, saveAd);
     yield takeLatest(SET_STATUS, saveAd);
 };

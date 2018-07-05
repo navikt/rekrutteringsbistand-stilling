@@ -11,6 +11,7 @@ import { SET_STATUS } from './../adReducer';
 import './Administration.less';
 import { TOGGLE_REMARKS_FORM } from "./administrationReducer";
 import RemarksEnum from "./RemarksEnum";
+import DelayedSpinner from "../../common/DelayedSpinner";
 
 export class Administration extends React.Component {
     onApproveClick = () => {
@@ -31,58 +32,66 @@ export class Administration extends React.Component {
     };
 
     render() {
-        const { status, remarks, showRemarksForm } = this.props;
+        const { status, remarks, isSavingAd, showRemarksForm } = this.props;
         return (
             <Panel border className="Administration detail-section">
                 <Undertittel className="blokk-xs">Behandling av stillingen</Undertittel>
-                {status === StatusEnum.APPROVED && (
-                    <AlertStripe solid type='suksess' className="Administration__status">
-                        Godkjent
-                    </AlertStripe>
-                )}
-                {status === StatusEnum.REJECTED && (
-                    <AlertStripe solid type='advarsel' className="Administration__status">
-                        <b>Avvist</b>: {remarks.map(remark => (RemarksEnum[remark].label)).join(', ')}
-                    </AlertStripe>
-                )}
-                {status === StatusEnum.PENDING && (
-                    <AlertStripe solid type='info' className="Administration__status">
-                        Ikke behandlet
-                    </AlertStripe>
-                )}
 
-                {!showRemarksForm && status === StatusEnum.PENDING && (
-                    <div>
-                        <Hovedknapp className="Administration__button" onClick={this.onApproveClick}>
-                            Godkjenn
-                        </Hovedknapp>
-                        <Fareknapp className="Administration__button" onClick={this.onToggleRemarksFormClick}>
-                            Avvis
-                        </Fareknapp>
-                        <Knapp className="Administration__button">
-                            Neste
-                        </Knapp>
+                {isSavingAd ? (
+                    <div className="Administration__spinner">
+                        <DelayedSpinner type="XL" />
                     </div>
-                )}
-                {!showRemarksForm && (status === StatusEnum.APPROVED || status === StatusEnum.REJECTED) && (
+                ) : (
                     <div>
-                        <Knapp className="Administration__button" onClick={this.onReopenClick}>
-                            Gjennåpne
-                        </Knapp>
-                        <Knapp className="Administration__button">
-                            Neste
-                        </Knapp>
-                    </div>
-                )}
-                {showRemarksForm && (
-                    <div>
-                        <Remarks />
-                        <Fareknapp className="Administration__button"  onClick={this.onRejectClick}>
-                            Avvis
-                        </Fareknapp>
-                        <Knapp className="Administration__button" onClick={this.onToggleRemarksFormClick}>
-                            Avbryt
-                        </Knapp>
+                        {status === StatusEnum.APPROVED && (
+                            <AlertStripe solid type='suksess' className="Administration__status">
+                                Godkjent
+                            </AlertStripe>
+                        )}
+                        {status === StatusEnum.REJECTED && (
+                            <AlertStripe solid type='advarsel' className="Administration__status">
+                                <b>Avvist</b>: {remarks.map(remark => (RemarksEnum[remark].label)).join(', ')}
+                            </AlertStripe>
+                        )}
+                        {status === StatusEnum.PENDING && (
+                            <AlertStripe solid type='info' className="Administration__status">
+                                Ikke behandlet
+                            </AlertStripe>
+                        )}
+                        {!showRemarksForm && status === StatusEnum.PENDING && (
+                            <div>
+                                <Hovedknapp className="Administration__button" onClick={this.onApproveClick}>
+                                    Godkjenn
+                                </Hovedknapp>
+                                <Fareknapp className="Administration__button" onClick={this.onToggleRemarksFormClick}>
+                                    Avvis
+                                </Fareknapp>
+                                <Knapp className="Administration__button">
+                                    Neste
+                                </Knapp>
+                            </div>
+                        )}
+                        {!showRemarksForm && (status === StatusEnum.APPROVED || status === StatusEnum.REJECTED) && (
+                            <div>
+                                <Knapp className="Administration__button" onClick={this.onReopenClick}>
+                                    Gjennåpne
+                                </Knapp>
+                                <Knapp className="Administration__button">
+                                    Neste
+                                </Knapp>
+                            </div>
+                        )}
+                        {showRemarksForm && (
+                            <div>
+                                <Remarks/>
+                                <Fareknapp className="Administration__button" onClick={this.onRejectClick}>
+                                    Avvis
+                                </Fareknapp>
+                                <Knapp className="Administration__button" onClick={this.onToggleRemarksFormClick}>
+                                    Avbryt
+                                </Knapp>
+                            </div>
+                        )}
                     </div>
                 )}
             </Panel>
@@ -98,12 +107,14 @@ Administration.defaultProps = {
 Administration.propTypes = {
     status: PropTypes.string,
     remarks: PropTypes.arrayOf(PropTypes.string),
+    isSavingAd: PropTypes.bool.isRequired,
     showRemarksForm: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state) => ({
     status: state.ad.data.administration.status,
     remarks: state.ad.data.administration.remarks,
+    isSavingAd: state.ad.isSavingAd,
     showRemarksForm: state.administration.showRemarksForm
 });
 
