@@ -20,7 +20,7 @@ class Employer extends React.Component {
         return (
             <div className="Employer">
                 <Typeahead
-                    disabled={this.props.status !== StatusEnum.PENDING}
+                    disabled={this.props.status !== StatusEnum.PENDING || this.props.isSavingAd}
                     id="Employer__typeahead"
                     label="Arbeidsgiver"
                     placeholder="Bedriftsnavn / org.nummer"
@@ -43,13 +43,15 @@ Employer.propTypes = {
     status: PropTypes.string.isRequired,
     suggestions: PropTypes.arrayOf(PropTypes.string).isRequired,
     setEmployer: PropTypes.func.isRequired,
-    fetchEmployerSuggestions: PropTypes.func.isRequired
+    fetchEmployerSuggestions: PropTypes.func.isRequired,
+    isSavingAd: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state) => ({
     value: state.employer.value,
     suggestions: state.employer.suggestions,
-    status: state.ad.data.administration.status
+    status: state.ad.data.administration.status,
+    isSavingAd: state.ad.isSavingAd
 });
 
 const mapDispatchToProps = (dispatch) => ({

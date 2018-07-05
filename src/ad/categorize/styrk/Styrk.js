@@ -37,7 +37,7 @@ class Styrk extends React.Component {
         return (
             <div className="Styrk">
                 <label htmlFor="Styrk__typeahead" className="typo-normal">Arbeidsyrke</label>
-                {this.props.status === StatusEnum.PENDING && (
+                {this.props.status === StatusEnum.PENDING && !this.props.isSavingAd && (
                     <span>
                         {' ('}
                         <a href="#" className="typo-normal lenke" onClick={this.onShowListClick}>velg fra liste</a>
@@ -45,7 +45,7 @@ class Styrk extends React.Component {
                     </span>
                 )}
                 <Typeahead
-                    disabled={this.props.status !== StatusEnum.PENDING}
+                    disabled={this.props.status !== StatusEnum.PENDING || this.props.isSavingAd}
                     id="Styrk__typeahead"
                     label=""
                     placeholder="Styrkkategori / kode"
@@ -62,7 +62,7 @@ class Styrk extends React.Component {
                                 key={styrk.code}
                                 value={styrk.code}
                                 label={`${styrk.code}: ${styrk.name}`}
-                                canRemove={this.props.status === StatusEnum.PENDING}
+                                canRemove={this.props.status === StatusEnum.PENDING && !this.props.isSavingAd}
                                 onRemove={this.onTagRemove}
                             />
                         ))}
@@ -100,7 +100,8 @@ Styrk.propTypes = {
     addStyrk: PropTypes.func.isRequired,
     removeStyrk: PropTypes.func.isRequired,
     showStyrkModal: PropTypes.bool.isRequired,
-    toggleList: PropTypes.func.isRequired
+    toggleList: PropTypes.func.isRequired,
+    isSavingAd: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -110,7 +111,8 @@ const mapStateToProps = (state) => ({
     styrkThree: state.styrk.styrkThree,
     showStyrkModal: state.styrk.showStyrkModal,
     stilling: state.ad.data,
-    status: state.ad.data.administration.status
+    status: state.ad.data.administration.status,
+    isSavingAd: state.ad.isSavingAd
 });
 
 const mapDispatchToProps = (dispatch) => ({

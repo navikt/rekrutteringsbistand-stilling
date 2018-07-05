@@ -35,7 +35,7 @@ class Comments extends React.Component {
         return (
             <Panel border>
                 <Textarea
-                    disabled={this.props.status !== StatusEnum.PENDING}
+                    disabled={this.props.status !== StatusEnum.PENDING || this.props.isSavingAd}
                     label="Kommentar til annonsen"
                     maxLength={255}
                     onChange={this.onChange}
@@ -54,12 +54,14 @@ Comments.defaultProps = {
 Comments.propTypes = {
     setComment: PropTypes.func.isRequired,
     comments: PropTypes.string,
-    status: PropTypes.string.isRequired
+    status: PropTypes.string.isRequired,
+    isSavingAd: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state) => ({
     comments: state.ad.data.administration.comments,
-    status: state.ad.data.administration.status
+    status: state.ad.data.administration.status,
+    isSavingAd: state.ad.isSavingAd
 });
 
 const mapDispatchToProps = (dispatch) => ({

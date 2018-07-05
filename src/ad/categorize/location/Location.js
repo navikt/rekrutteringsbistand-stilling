@@ -26,7 +26,7 @@ class Location extends React.Component {
         return (
             <div className="Location">
                 <Typeahead
-                    disabled={this.props.status !== StatusEnum.PENDING}
+                    disabled={this.props.status !== StatusEnum.PENDING || this.props.isSavingAd}
                     id="Location__typeahead"
                     label="Geografi"
                     placeholder="Kommunenavn / nummer"
@@ -45,7 +45,7 @@ class Location extends React.Component {
                                 key={location.value}
                                 value={location.value}
                                 label={`${location.label}`}
-                                canRemove={this.props.status === StatusEnum.PENDING}
+                                canRemove={this.props.status === StatusEnum.PENDING && !this.props.isSavingAd}
                                 onRemove={this.onLocationRemove}
                             />
                         ))}
@@ -70,14 +70,16 @@ Location.propTypes = {
     setValue: PropTypes.func.isRequired,
     fetchLocationSuggestions: PropTypes.func.isRequired,
     addLocation: PropTypes.func.isRequired,
-    removeLocation: PropTypes.func.isRequired
+    removeLocation: PropTypes.func.isRequired,
+    isSavingAd: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state) => ({
     value: state.location.value,
     suggestions: state.location.suggestions,
     locations: state.location.locations,
-    status: state.ad.data.administration.status
+    status: state.ad.data.administration.status,
+    isSavingAd: state.ad.isSavingAd
 });
 
 const mapDispatchToProps = (dispatch) => ({
