@@ -4,6 +4,7 @@ import { fetchStilling, ApiError } from '../api/api';
 export const FETCH_STILLING_BEGIN = 'FETCH_STILLING_BEGIN';
 export const FETCH_STILLING_SUCCESS = 'FETCH_STILLING_SUCCESS';
 export const FETCH_STILLING_FAILURE = 'FETCH_STILLING_FAILURE';
+export const SET_COMMENT = 'SET_COMMENT';
 
 const initialState = {
     stilling: undefined,
@@ -31,6 +32,15 @@ export default function stillingReducer(state = initialState, action) {
                 error: action.error,
                 isFetchingStilling: false
             };
+        case SET_COMMENT: {
+            return {
+                ...state,
+                stilling: {
+                    ...state.stilling,
+                    comment: action.comment
+                }
+            };
+        }
         default:
             return state;
     }

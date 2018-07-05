@@ -6,8 +6,9 @@ import { Column, Container, Row } from 'nav-frontend-grid';
 import AdText from './adText/AdText';
 import Processing from '../processing/Processing';
 import Categorize from '../processing/Categorize';
+import Comments from '../comments/Comments';
 import NotFound from './notFound/NotFound';
-import { FETCH_STILLING_BEGIN } from './adReducer';
+import { FETCH_STILLING_BEGIN, SET_COMMENT } from './adReducer';
 
 class Ad extends React.Component {
     constructor(props) {
@@ -21,7 +22,7 @@ class Ad extends React.Component {
 
     render() {
         const {
-            stilling, isFetchingStilling, error
+            stilling, isFetchingStilling, error, setComment
         } = this.props;
         return (
             <Container>
@@ -44,6 +45,7 @@ class Ad extends React.Component {
                             <div className="Processing-and-categorize">
                                 <Processing />
                                 <Categorize />
+                                <Comments comment={stilling.comment} setComment={setComment} />
                             </div>
                         </Column>
                     </Row>
@@ -67,6 +69,7 @@ Ad.propTypes = {
         }).isRequired
     }),
     getStilling: PropTypes.func.isRequired,
+    setComment: PropTypes.func.isRequired,
     isFetchingStilling: PropTypes.bool
 };
 
@@ -77,7 +80,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    getStilling: (uuid) => dispatch({ type: FETCH_STILLING_BEGIN, uuid })
+    getStilling: (uuid) => dispatch({ type: FETCH_STILLING_BEGIN, uuid }),
+    setComment: (comment) => dispatch({ type: SET_COMMENT, comment })
 });
 
 
