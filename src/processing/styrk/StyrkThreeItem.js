@@ -25,7 +25,7 @@ export default class StyrkThreeItem extends React.Component {
                     </button>
                 )}
                 {item.expanded && item.children && item.children.map((child) => (
-                    <StyrkThreeItem key={child.code} item={child} onClick={this.props.onClick} />
+                    <StyrkThreeItem key={child.id} item={child} onClick={this.props.onClick} />
                 ))}
             </div>
         );

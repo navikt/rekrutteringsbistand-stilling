@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import StyrkThreeItem from "./StyrkThreeItem";
-import { ADD_STYRK, COLLAPSE_STYRK_BRANCH, EXPAND_STYRK_BRANCH } from "./styrkReducer";
+import { COLLAPSE_STYRK_BRANCH, EXPAND_STYRK_BRANCH, TOGGLE_STYRK_MODAL } from "./styrkReducer";
+import { ADD_STYRK } from "../../ad/adReducer";
 import './StyrkThree.less';
 
 class StyrkThree extends React.Component {
@@ -16,6 +17,7 @@ class StyrkThree extends React.Component {
             }
         } else {
             this.props.addStyrk(item.code);
+            this.props.toggleList();
         }
     };
 
@@ -23,7 +25,7 @@ class StyrkThree extends React.Component {
         return (
             <div className="StyrkThree">
                 {this.props.styrkThree.map((item) => (
-                    <StyrkThreeItem key={item.code} item={item} onClick={this.onClick} />
+                    <StyrkThreeItem key={item.id} item={item} onClick={this.onClick} />
                 ))}
             </div>
         );
@@ -39,6 +41,7 @@ const mapDispatchToProps = (dispatch) => ({
     expandBranch: (code) => dispatch({ type: EXPAND_STYRK_BRANCH, code }),
     collapseBranch: (code) => dispatch({ type: COLLAPSE_STYRK_BRANCH, code }),
     addStyrk: (code) => dispatch({ type: ADD_STYRK, code }),
+    toggleList: () => dispatch({ type: TOGGLE_STYRK_MODAL })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(StyrkThree);

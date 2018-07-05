@@ -1,10 +1,13 @@
 import { call, put, takeLatest, select } from 'redux-saga/effects';
 import { fetchStilling, ApiError } from '../api/api';
+import { lookUpStyrk } from "../processing/styrk/styrkReducer";
 
 export const FETCH_STILLING_BEGIN = 'FETCH_STILLING_BEGIN';
 export const FETCH_STILLING_SUCCESS = 'FETCH_STILLING_SUCCESS';
 export const FETCH_STILLING_FAILURE = 'FETCH_STILLING_FAILURE';
 export const SET_COMMENT = 'SET_COMMENT';
+export const ADD_STYRK = 'ADD_STYRK';
+export const REMOVE_STYRK = 'REMOVE_STYRK';
 
 const initialState = {
     stilling: undefined,
@@ -41,6 +44,25 @@ export default function stillingReducer(state = initialState, action) {
                 }
             };
         }
+        case ADD_STYRK:
+            if (state.stilling.categoryList.find(s => (s.code === action.code))) {
+                return state;
+            }
+            return {
+                ...state,
+                stilling: {
+                    ...state.stilling,
+                    categoryList: [...state.stilling.categoryList, lookUpStyrk(action.code)]
+                }
+            };
+        case REMOVE_STYRK:
+            return {
+                ...state,
+                stilling: {
+                    ...state.stilling,
+                    categoryList: state.stilling.categoryList.filter((c) => (c.code !== action.code))
+                }
+            };
         default:
             return state;
     }

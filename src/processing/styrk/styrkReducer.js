@@ -1,38 +1,22 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { fetchStyrkSuggestions, ApiError } from '../../api/api';
-
-import styrk from '../../api/styrk';
-const styrkThree = styrk.filter(f => (f.level === '1')).map((m) => ({
-    ...m,
-    expanded: false,
-    children: styrk.filter(f1 => (f1.parentCode === m.code)).map((m1) => ({
-        ...m1,
-        expanded: false,
-        children: styrk.filter(f2 => (f2.parentCode === m1.code)).map((m2) => ({
-            ...m2,
-            expanded: false,
-            children: styrk.filter(f3 => (f3.parentCode === m2.code)).map((m3) => ({
-                ...m3
-            }))
-        }))
-    }))
-}));
+import { fetchStyrk, ApiError } from '../../api/api';
 
 export const SET_STYRK_TYPEAHEAD_VALUE = 'SET_STYRK_TYPEAHEAD_VALUE';
-export const ADD_STYRK = 'ADD_STYRK';
-export const REMOVE_STYRK = 'REMOVE_STYRK';
-export const FETCH_STYRK_SUGGESTIONS = 'FETCH_STYRK_SUGGESTIONS';
-export const FETCH_STYRK_SUGGESTIONS_SUCCESS = 'FETCH_STYRK_SUGGESTIONS_SUCCESS';
-export const FETCH_STYRK_SUGGESTIONS_FAILURE = 'FETCH_STYRK_SUGGESTIONS_FAILURE';
+export const FETCH_STYRK = 'FETCH_STYRK';
+export const FETCH_STYRK_SUCCESS = 'FETCH_STYRK_SUCCESS';
+export const FETCH_STYRK_FAILURE = 'FETCH_STYRK_FAILURE';
 export const EXPAND_STYRK_BRANCH = 'EXPAND_STYRK_BRANCH';
 export const COLLAPSE_STYRK_BRANCH = 'COLLAPSE_STYRK_BRANCH';
 export const TOGGLE_STYRK_MODAL = 'TOGGLE_STYRK_MODAL';
+
+export let cachedStyrk = undefined;
+let cachedFlatStyrk = [];
 
 const initialState = {
     typeAheadSuggestions: [],
     typeAheadValue: '',
     addedStyrkItems: [],
-    styrkThree: [...styrkThree],
+    styrkThree: [],
     showStyrkModal: false
 };
 
@@ -41,34 +25,18 @@ export default function styrkReducer(state = initialState, action) {
         case SET_STYRK_TYPEAHEAD_VALUE:
             return {
                 ...state,
-                typeAheadValue: action.value
-            };
-        case ADD_STYRK:
-            if (state.addedStyrkItems.find(s => (s.code === action.code))) {
-                return {
-                    ...state,
-                    showStyrkModal: false
-                }
-            }
-            return {
-                ...state,
-                addedStyrkItems: [...state.addedStyrkItems, lookUp(state.styrkThree, action.code)],
-                showStyrkModal: false
-            };
-        case REMOVE_STYRK:
-            return {
-                ...state,
-                addedStyrkItems: state.addedStyrkItems.filter((added) => (added.code !== action.code))
-            };
-        case FETCH_STYRK_SUGGESTIONS_SUCCESS:
-            return {
-                ...state,
-                typeAheadSuggestions: action.response.map((styrk) => ({
+                typeAheadValue: action.value,
+                typeAheadSuggestions: action.value.length > 2 ? filterSiblings(cachedFlatStyrk, action.value).map((styrk) => ({
                     value: styrk.code,
                     label: `${styrk.code}: ${styrk.name}`
-                }))
+                })) : []
             };
-        case FETCH_STYRK_SUGGESTIONS_FAILURE:
+        case FETCH_STYRK_SUCCESS:
+            return {
+                ...state,
+                styrkThree: action.response
+            };
+        case FETCH_STYRK_FAILURE:
             return {
                 ...state,
                 typeAheadSuggestions: []
@@ -93,38 +61,65 @@ export default function styrkReducer(state = initialState, action) {
     }
 }
 
-function collapse(levels, code) {
-    return levels.map((level) => {
-        if (code.startsWith(level.code)) {
+function mapStyrkThree(categories, parentId = null) {
+    return categories.filter(category => (category.parentId === parentId)).map((c) => {
+        const children = mapStyrkThree(categories, c.id);
+        if (children.length > 0) {
             return {
-                ...level,
-                expanded: !level.code.startsWith(code),
-                children: level.children ? collapse(level.children, code) : undefined
+                ...c,
+                expanded: false,
+                children
             }
         }
-        return level;
+        return {
+            ...c,
+            expanded: false
+        }
+    });
+}
+
+function collapse(categories, code) {
+    return categories.map((category) => {
+        if (code.startsWith(category.code)) {
+            return {
+                ...category,
+                expanded: !category.code.startsWith(code),
+                children: category.children ? collapse(category.children, code) : undefined
+            }
+        }
+        return category;
     })
 }
 
-function expand(levels, code) {
-    return levels.map((level) => {
-        if (code.startsWith(level.code)) {
+function expand(categories, code) {
+    return categories.map((category) => {
+        if (code.startsWith(category.code)) {
             return {
-                ...level,
-                expanded: level.children && code.startsWith(level.code),
-                children: level.children ? expand(level.children, code) : undefined
+                ...category,
+                expanded: category.children && code.startsWith(category.code),
+                children: category.children ? expand(category.children, code) : undefined
             }
         }
-        return level;
+        return category;
     })
 }
 
-function lookUp(levels, code) {
+function filterSiblings(categories, value) {
+    return categories.filter((s =>
+        s.code.length >= 6 && (
+            s.name.toLowerCase().indexOf(value.toLowerCase()) !== -1 ||
+            s.code.startsWith(value) ||
+            s.code.split('.').join('').startsWith(value)
+        )
+    ));
+}
+
+export function lookUpStyrk(code, levels = cachedStyrk) {
     let found = undefined;
-    for(let i = 0; i < levels.length && !found; i++) {
+    for (let i = 0; i < levels.length && !found; i++) {
         const level = levels[i];
         if (code.startsWith(level.code) && level.children) {
-            found = lookUp(level.children, code)
+            found = lookUpStyrk(code, level.children)
         } else if (code.startsWith(level.code) && !level.children) {
             found = level
         }
@@ -132,23 +127,23 @@ function lookUp(levels, code) {
     return found;
 }
 
-function* getStyrkSuggestions(action) {
-    try {
-        if(action.value && action.value.length > 0) {
-            const response = yield call(fetchStyrkSuggestions, action.value);
-            yield put({ type: FETCH_STYRK_SUGGESTIONS_SUCCESS, response });
-        } else {
-            yield put({ type: FETCH_STYRK_SUGGESTIONS_SUCCESS, response: [] });
-        }
-    } catch (e) {
-        if (e instanceof ApiError) {
-            yield put({ type: FETCH_STYRK_SUGGESTIONS_FAILURE, error: e });
-        } else {
-            throw e;
+function* getStyrk() {
+    if (!cachedStyrk) {
+        try {
+            const response = yield call(fetchStyrk);
+            cachedFlatStyrk = response;
+            cachedStyrk = mapStyrkThree(response);
+            yield put({ type: FETCH_STYRK_SUCCESS, response: cachedStyrk });
+        } catch (e) {
+            if (e instanceof ApiError) {
+                yield put({ type: FETCH_STYRK_FAILURE, error: e });
+            } else {
+                throw e;
+            }
         }
     }
 }
 
 export const styrkSaga = function* saga() {
-    yield takeLatest(FETCH_STYRK_SUGGESTIONS, getStyrkSuggestions);
+    yield takeLatest(FETCH_STYRK, getStyrk);
 };

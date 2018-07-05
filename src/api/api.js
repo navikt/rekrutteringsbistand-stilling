@@ -1,6 +1,5 @@
 import { AD_API } from '../fasitProperties';
 import locations from './kommuner';
-import styrk from './styrk';
 
 export class ApiError {
     constructor(message, statusCode) {
@@ -65,14 +64,7 @@ export async function fetchLocationSuggestions(prefix) {
     ));
 }
 
-export async function fetchStyrkSuggestions(prefix) {
-    return Promise.resolve(styrk.filter((s) => (
-            s.code.length === 4 && (
-                s.code.toLowerCase().startsWith(prefix.toLowerCase()) ||
-                s.name.toLowerCase().indexOf(prefix.toLowerCase()) !== -1
-            )
-        )
-    ));
+export async function fetchStyrk() {
+   return get(`${AD_API}categories/`);
 }
-
 

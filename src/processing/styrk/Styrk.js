@@ -6,13 +6,17 @@ import { Undertittel } from 'nav-frontend-typografi';
 import Typeahead from '../../common/typeahead/Typeahead';
 import Tag from '../../common/tag/Tag';
 import StyrkThree from "./StyrkThree";
-import { ADD_STYRK, FETCH_STYRK_SUGGESTIONS, REMOVE_STYRK, SET_STYRK_TYPEAHEAD_VALUE, TOGGLE_STYRK_MODAL } from './styrkReducer';
+import { FETCH_STYRK, SET_STYRK_TYPEAHEAD_VALUE, TOGGLE_STYRK_MODAL } from './styrkReducer';
+import { ADD_STYRK, REMOVE_STYRK } from "../../ad/adReducer";
 import './Styrk.less';
 
 class Styrk extends React.Component {
+    componentDidMount() {
+        this.props.fetchStyrk();
+    }
+
     onTypeAheadValueChange = (value) => {
         this.props.setTypeAheadValue(value);
-        this.props.fetchStyrkTypeAheadSuggestions(value);
     };
 
     onTypeAheadSuggestionSelected = (suggestion) => {
@@ -36,16 +40,16 @@ class Styrk extends React.Component {
                 <Typeahead
                     id="Styrk__typeahead"
                     label=""
-                    placeholder="Styrkkategori / 4-siffret styrkkode"
+                    placeholder="Styrkkategori / kode"
                     onSelect={this.onTypeAheadSuggestionSelected}
                     onChange={this.onTypeAheadValueChange}
                     suggestions={this.props.typeAheadSuggestions.slice(0, 10)}
                     value={this.props.typeAheadValue}
                 />
 
-                {this.props.addedStyrkItems.length > 0 && (
+                {this.props.stilling.categoryList.length > 0 && (
                     <div className="Styrk__tags">
-                        {this.props.addedStyrkItems.map((styrk) => (
+                        {this.props.stilling.categoryList.map((styrk) => (
                             <Tag
                                 key={styrk.code}
                                 value={styrk.code}
@@ -76,8 +80,8 @@ class Styrk extends React.Component {
 }
 
 Styrk.propTypes = {
+    fetchStyrk: PropTypes.func.isRequired,
     setTypeAheadValue: PropTypes.func.isRequired,
-    fetchStyrkTypeAheadSuggestions: PropTypes.func.isRequired,
     typeAheadValue: PropTypes.string.isRequired,
     typeAheadSuggestions: PropTypes.arrayOf(PropTypes.shape({
         code: PropTypes.string,
@@ -96,12 +100,13 @@ const mapStateToProps = (state) => ({
     typeAheadSuggestions: state.styrk.typeAheadSuggestions,
     addedStyrkItems: state.styrk.addedStyrkItems,
     styrkThree: state.styrk.styrkThree,
-    showStyrkModal: state.styrk.showStyrkModal
+    showStyrkModal: state.styrk.showStyrkModal,
+    stilling: state.ad.stilling
 });
 
 const mapDispatchToProps = (dispatch) => ({
+    fetchStyrk: () => dispatch({ type: FETCH_STYRK }),
     setTypeAheadValue: (value) => dispatch({ type: SET_STYRK_TYPEAHEAD_VALUE, value }),
-    fetchStyrkTypeAheadSuggestions: (value) => dispatch({ type: FETCH_STYRK_SUGGESTIONS, value }),
     addStyrk: (code) => dispatch({ type: ADD_STYRK, code }),
     removeStyrk: (code) => dispatch({ type: REMOVE_STYRK, code }),
     toggleList: () => dispatch({ type: TOGGLE_STYRK_MODAL })
