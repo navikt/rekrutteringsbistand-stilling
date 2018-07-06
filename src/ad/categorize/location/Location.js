@@ -5,7 +5,7 @@ import Typeahead from '../../../common/typeahead/Typeahead';
 import Tag from '../../../common/tag/Tag';
 import { ADD_LOCATION, FETCH_LOCATION_SUGGESTIONS, REMOVE_LOCATION, SET_LOCATION_VALUE } from './locationReducer';
 import './Location.less';
-import { StatusEnum } from "../../administration/StatusEnum";
+import AdminStatusEnum from "../../administration/AdminStatusEnum";
 
 class Location extends React.Component {
     onTypeAheadValueChange = (value) => {
@@ -26,7 +26,7 @@ class Location extends React.Component {
         return (
             <div className="Location">
                 <Typeahead
-                    disabled={this.props.status !== StatusEnum.PENDING || this.props.isSavingAd}
+                    disabled={this.props.status !== AdminStatusEnum.PENDING || this.props.isSavingAd}
                     id="Location__typeahead"
                     label="Geografi"
                     placeholder="Kommunenavn / nummer"
@@ -45,7 +45,7 @@ class Location extends React.Component {
                                 key={location.value}
                                 value={location.value}
                                 label={`${location.label}`}
-                                canRemove={this.props.status === StatusEnum.PENDING && !this.props.isSavingAd}
+                                canRemove={this.props.status === AdminStatusEnum.PENDING && !this.props.isSavingAd}
                                 onRemove={this.onLocationRemove}
                             />
                         ))}

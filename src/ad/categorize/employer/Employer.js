@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Typeahead from '../../../common/typeahead/Typeahead';
 import { FETCH_EMPLOYER_SUGGESTIONS, SET_EMPLOYER } from './employerReducer';
 import './Employer.less';
-import { StatusEnum } from "../../administration/StatusEnum";
+import AdminStatusEnum from "../../administration/AdminStatusEnum";
 
 class Employer extends React.Component {
     onTypeAheadValueChange = (value) => {
@@ -20,7 +20,7 @@ class Employer extends React.Component {
         return (
             <div className="Employer">
                 <Typeahead
-                    disabled={this.props.status !== StatusEnum.PENDING || this.props.isSavingAd}
+                    disabled={this.props.status !== AdminStatusEnum.PENDING || this.props.isSavingAd}
                     id="Employer__typeahead"
                     label="Arbeidsgiver"
                     placeholder="Bedriftsnavn / org.nummer"

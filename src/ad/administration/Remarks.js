@@ -1,15 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { SkjemaGruppe, Checkbox } from "nav-frontend-skjema";
-import RemarksEnum from "./RemarksEnum";
+import { SkjemaGruppe, Checkbox } from 'nav-frontend-skjema';
+import RemarksEnum from './RemarksEnum';
 import {
     ADD_REMARK,
     REMOVE_REMARK
 } from './../adReducer';
 
-export class Remarks extends React.Component {
-
+class Remarks extends React.Component {
     onRemarkClick = (e) => {
         const { value } = e.target;
         if (e.target.checked) {
@@ -22,7 +20,7 @@ export class Remarks extends React.Component {
     render() {
         const { remarks } = this.props;
         return (
-            <div className="Reject">
+            <div className="Remarks">
                 <SkjemaGruppe title="Oppgi årsak til avvising">
                     <Checkbox
                         onChange={this.onRemarkClick}

@@ -9,7 +9,7 @@ import StyrkThree from './StyrkThree';
 import { FETCH_STYRK, SET_STYRK_TYPEAHEAD_VALUE, TOGGLE_STYRK_MODAL } from './styrkReducer';
 import { ADD_STYRK, REMOVE_STYRK } from '../../../ad/adReducer';
 import './Styrk.less';
-import { StatusEnum } from '../../administration/StatusEnum';
+import AdminStatusEnum from '../../administration/AdminStatusEnum';
 
 class Styrk extends React.Component {
     componentDidMount() {
@@ -37,7 +37,7 @@ class Styrk extends React.Component {
         return (
             <div className="Styrk">
                 <label htmlFor="Styrk__typeahead" className="typo-normal">Arbeidsyrke</label>
-                {this.props.status === StatusEnum.PENDING && !this.props.isSavingAd && (
+                {this.props.status === AdminStatusEnum.PENDING && !this.props.isSavingAd && (
                     <span>
                         {' ('}
                         <a href="#" className="typo-normal lenke" onClick={this.onShowListClick}>velg fra liste</a>
@@ -45,7 +45,7 @@ class Styrk extends React.Component {
                     </span>
                 )}
                 <Typeahead
-                    disabled={this.props.status !== StatusEnum.PENDING || this.props.isSavingAd}
+                    disabled={this.props.status !== AdminStatusEnum.PENDING || this.props.isSavingAd}
                     id="Styrk__typeahead"
                     label=""
                     placeholder="Styrkkategori / kode"
@@ -62,7 +62,7 @@ class Styrk extends React.Component {
                                 key={styrk.code}
                                 value={styrk.code}
                                 label={`${styrk.code}: ${styrk.name}`}
-                                canRemove={this.props.status === StatusEnum.PENDING && !this.props.isSavingAd}
+                                canRemove={this.props.status === AdminStatusEnum.PENDING && !this.props.isSavingAd}
                                 onRemove={this.onTagRemove}
                             />
                         ))}

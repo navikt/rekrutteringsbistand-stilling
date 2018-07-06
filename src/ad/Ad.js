@@ -7,13 +7,12 @@ import Administration from './administration/Administration';
 import Categorize from './categorize/Categorize';
 import Comments from './comments/Comments';
 import { FETCH_AD } from './adReducer';
-import Error from "./error/Error";
+import Error from './error/Error';
+import DelayedSpinner from '../common/DelayedSpinner';
+import './Ad.less';
+import Faded from '../common/faded/Faded';
 
 class Ad extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     componentDidMount() {
         window.scrollTo(0, 0);
         this.props.getStilling(this.props.match.params.uuid);
@@ -22,23 +21,31 @@ class Ad extends React.Component {
     render() {
         const { stilling, isFetchingStilling } = this.props;
         return (
-            <Container>
-                {!isFetchingStilling && stilling && (
-                    <Row>
-                        <Column xs="12" md="8">
-                            <Preview stilling={stilling} />
-                        </Column>
-                        <Column xs="12" md="4">
-                            <div className="Processing-and-categorize">
-                                <Administration />
-                                <Categorize />
-                                <Comments />
+            <div className="Ad">
+                {!isFetchingStilling && stilling ? (
+                    <Faded>
+                        <div className="Ad__flex">
+                            <div className="Ad__flex__center">
+                                <div className="Ad__flex__center__inner">
+                                    <Preview stilling={stilling} />
+                                </div>
                             </div>
-                        </Column>
-                    </Row>
+                            <div className="Ad__flex__right">
+                                <div className="Ad__flex__right__inner">
+                                    <Administration />
+                                    <Categorize />
+                                    <Comments />
+                                </div>
+                            </div>
+                        </div>
+                    </Faded>
+                ) : (
+                    <div className="Ad__spinner">
+                        <DelayedSpinner />
+                    </div>
                 )}
                 <Error />
-            </Container>
+            </div>
         );
     }
 }

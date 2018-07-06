@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Panel from 'nav-frontend-paneler';
 import { Textarea } from 'nav-frontend-skjema';
-import { connect } from "react-redux";
-import { SET_COMMENT } from "../adReducer";
-import { StatusEnum } from "../administration/StatusEnum";
+import { connect } from 'react-redux';
+import { SET_COMMENT } from '../adReducer';
+import AdminStatusEnum from '../administration/AdminStatusEnum';
 
 class Comments extends React.Component {
     constructor(props) {
@@ -12,14 +11,14 @@ class Comments extends React.Component {
         this.state = {
             hasChanged: false,
             comments: props.comments
-        }
+        };
     }
 
     onChange = (e) => {
         this.setState({
             hasChanged: true,
             comments: e.target.value
-        })
+        });
     };
 
     onBlur = (e) => {
@@ -33,16 +32,16 @@ class Comments extends React.Component {
 
     render() {
         return (
-            <Panel border>
+            <div>
                 <Textarea
-                    disabled={this.props.status !== StatusEnum.PENDING || this.props.isSavingAd}
+                    disabled={this.props.status !== AdminStatusEnum.PENDING || this.props.isSavingAd}
                     label="Kommentar til annonsen"
                     maxLength={255}
                     onChange={this.onChange}
                     onBlur={this.onBlur}
                     value={this.state.comments || ''}
                 />
-            </Panel>
+            </div>
         );
     }
 }

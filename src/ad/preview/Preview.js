@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Innholdstittel } from 'nav-frontend-typografi';
-import { Panel } from 'nav-frontend-paneler';
 import { Column, Row } from 'nav-frontend-grid';
 import ReactHtmlParser from 'react-html-parser';
 import Application from './application/Application';
@@ -13,7 +12,7 @@ import './Preview.less';
 
 export default function Preview({ stilling }) {
     return (
-        <Panel border className="AdText">
+        <div className="AdText">
             <Row>
                 <Column xs="12" md="8">
                     <Innholdstittel className="AdText__title">
@@ -40,7 +39,7 @@ export default function Preview({ stilling }) {
                 </Column>
             </Row>
 
-        </Panel>
+        </div>
     );
 }
 
