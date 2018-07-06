@@ -15,6 +15,7 @@ import Ads from './ads/Ads';
 import TopMenu from './topmenu/TopMenu';
 import './styles.less';
 import './variables.less';
+import StartPage from "./startPage/StartPage";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -39,7 +40,7 @@ ReactDOM.render(
             <TopMenu />
             <BrowserRouter>
                 <Switch>
-                    <Route exact path="/" component={Ads}/>
+                    <Route exact path="/" component={StartPage}/>
                     <Route exact path="/ads" component={Ads}/>
                     <Route exact path="/ads/:uuid" component={Ad}/>
                 </Switch>
