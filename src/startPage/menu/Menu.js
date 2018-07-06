@@ -12,7 +12,7 @@ const Menu = () => (
                 <MenuBox
                     icon='📤'
                     text='Start med neste stillingsannonse'
-                    href='/ads'
+                    href='/ads/0f0fbd81-5096-4c52-9ca8-b0e21ca3147e'
                 />
             </Row>
             <Row className="menu-row">
