@@ -48,8 +48,6 @@ class Administration extends React.Component {
         } = this.props;
         return (
             <div className="Administration">
-                <Undertittel className="blokk-xs">Behandling av stillingen</Undertittel>
-
                 {isSavingAd ? (
                     <div className="Administration__spinner">
                         <DelayedSpinner type="XL" />
