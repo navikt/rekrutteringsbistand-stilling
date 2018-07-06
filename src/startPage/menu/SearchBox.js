@@ -12,7 +12,7 @@ export class SearchBox extends React.Component {
 
     render() {
         return (
-            <SkjemaGruppe className="search-box">
+            <SkjemaGruppe className="SearchBox">
                 <Input
                     label=""
                     ref={(ref) => this.searchInput = ref}

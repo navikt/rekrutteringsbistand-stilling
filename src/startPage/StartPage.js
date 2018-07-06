@@ -7,9 +7,9 @@ import Menu from "./menu/Menu";
 
 const StartPage = () => (
     <Column md="12">
-        <Container className="startPage">
-            <Row className="settings">
-                <Link className="settings-link" to="nav.no">
+        <Container className="StartPage">
+            <Row className="StartPage__settings">
+                <Link className="StartPage__settings__link" to="nav.no">
                     <Systemtittel>
                         <i>⚙</i>
                         Innstillinger

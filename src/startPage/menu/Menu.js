@@ -6,16 +6,16 @@ import MenuStatistics from './MenuStatistics';
 import "./Menu.less";
 
 const Menu = () => (
-    <div>
-        <Column md="4" xs="12" className="menu-col-left">
-            <Row className="menu-row">
+    <div className="Menu">
+        <Column md="4" xs="12" className="Menu__column--left">
+            <Row className="Menu__row">
                 <MenuBox
                     icon='📤'
                     text='Start med neste stillingsannonse'
                     href='/ads/0f0fbd81-5096-4c52-9ca8-b0e21ca3147e'
                 />
             </Row>
-            <Row className="menu-row">
+            <Row className="Menu__row">
                 <MenuBox
                     icon='📝'
                     text='Lag ny stillingsannonse'
@@ -23,11 +23,11 @@ const Menu = () => (
                 />
             </Row>
         </Column>
-        <Column md="4" xs="12" className="menu-col-right">
-            <Row className="menu-row">
+        <Column md="4" xs="12" className="Menu__column--right">
+            <Row className="Menu__row">
                 <MenuSearch/>
             </Row>
-            <Row className="menu-row">
+            <Row className="Menu__row">
                 <MenuStatistics/>
             </Row>
         </Column>

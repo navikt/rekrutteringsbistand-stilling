@@ -4,7 +4,7 @@ import {Normaltekst, Systemtittel} from 'nav-frontend-typografi';
 import './Menu.less'
 
 const MenuStatistics = () => (
-    <div className="menu-statistics">
+    <div className="Menu__statistics">
         <Row>
             <Systemtittel>Statistikk</Systemtittel>
         </Row>

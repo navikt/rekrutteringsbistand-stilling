@@ -1,26 +1,29 @@
 @import "../../../node_modules/nav-frontend-core/less/core";
 
-.menu-col {
+.Menu {
+}
+
+.Menu__column {
   display: block;
   vertical-align: top;
 }
 
-.menu-col-left {
-  .menu-col;
+.Menu__column--left {
+  .Menu__column;
   float: left !important;
 }
 
-.menu-col-right {
-  .menu-col;
+.Menu__column--right {
+  .Menu__column;
   float: right !important;
 }
 
-.menu-row {
+.Menu__row {
   margin-top: 2rem;
   margin-bottom: 2rem;
 }
 
-.menu-item {
+.Menu__item {
   min-height: 275px;
   max-height: 60%;
   min-width: 450px;
@@ -28,27 +31,40 @@
   text-decoration: none;
 }
 
-.menu-icon {
+.Menu__icon {
   font-size: 5rem;
   font-style: normal;
 }
 
-.menu-item-border {
-  .menu-item;
+.Menu__item__border {
+  .Menu__item;
   border: 1px solid @navGra80;
   padding: 4rem;
 }
 
-.menu-statistics {
-  .menu-item;
+.Menu__statistics {
+  .Menu__item;
   .text-left;
   padding: 0;
 }
 
-.menu-search {
-  .menu-item;
+.Menu__search {
+  .Menu__item;
   .text-left;
   padding: 2rem 0 6rem;
+}
+
+.Menu__item__border__link {
+  text-decoration: none;
+  color: black;
+}
+
+.SearchBox {
+
+}
+
+.SearchBox__button {
+  float: right !important;
 }
 
 .text-left {
@@ -57,17 +73,4 @@
 
 .text-center {
   text-align: center;
-}
-
-.box-link {
-  text-decoration: none;
-  color: black;
-}
-
-.search-box {
-
-}
-
-.search-box-button {
-  float: right !important;
 }

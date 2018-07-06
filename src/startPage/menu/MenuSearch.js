@@ -5,7 +5,7 @@ import './Menu.less'
 import {SearchBox} from "./SearchBox";
 
 const MenuSearch = () => (
-    <div className="menu-search">
+    <div className="Menu__search">
         <Row>
             <Systemtittel>Søk</Systemtittel>
             <Normaltekst>Finn riktig stilling/arbeidsgiver</Normaltekst>
