@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Element } from 'nav-frontend-typografi';
 import { formatISOString, isValidISOString } from '../../../utils';
+import {hasExcludingWordsInUrl} from '../markWords';
 
 export const tilpassEmail = (email) => {
     if (email.includes('@') && !email.includes('mailto:')) {
@@ -51,7 +52,7 @@ export default function Application({ source, properties }) {
                     <dt key="dt">Søknadslenke:</dt>,
                     <dd key="dd">
                         <a
-                            className="lenke"
+                            className={"lenke" + (hasExcludingWordsInUrl(sokUrl) ? " AdText__discriminating" : "")}
                             href={sokUrl}
                         >
                             {sokUrl}

@@ -7,6 +7,8 @@ import Application from './application/Application';
 import Employer from './employer/Employer';
 import Employment from './employment/Employment';
 import Summary from './summary/Summary';
+import markWords from './markWords';
+import {hasExcludingWordsInTitle} from './markWords';
 import './Preview.less';
 
 
@@ -15,7 +17,7 @@ export default function Preview({ stilling }) {
         <div className="AdText">
             <Row>
                 <Column xs="12" md="8">
-                    <Innholdstittel className="AdText__title">
+                    <Innholdstittel className={hasExcludingWordsInTitle(stilling.title, stilling.properties.employer) ? 'AdText__discriminating_title' : ''}>
                         {stilling.title}
                     </Innholdstittel>
                 </Column>
@@ -23,7 +25,7 @@ export default function Preview({ stilling }) {
             <Row>
                 <Column xs="12" md="8">
                     <div className="AdText__body">
-                        {ReactHtmlParser(stilling.properties.adtext)}
+                        {ReactHtmlParser(markWords(stilling.properties.adtext))}
                     </div>
                 </Column>
                 <Column xs="12" md="4">
