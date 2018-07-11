@@ -11,11 +11,16 @@ import Error from './error/Error';
 import DelayedSpinner from '../common/DelayedSpinner';
 import './Ad.less';
 import Faded from '../common/faded/Faded';
+import { removeShortcuts } from '../common/shortcuts/Shortcuts';
 
 class Ad extends React.Component {
     componentDidMount() {
         window.scrollTo(0, 0);
         this.props.getStilling(this.props.match.params.uuid);
+    }
+
+    componentWillUnmount() {
+        removeShortcuts('annonseDetaljer');
     }
 
     render() {

@@ -7,13 +7,21 @@ import Typeahead from '../../../common/typeahead/Typeahead';
 import Tag from '../../../common/tag/Tag';
 import StyrkThree from './StyrkThree';
 import { FETCH_STYRK, SET_STYRK_TYPEAHEAD_VALUE, TOGGLE_STYRK_MODAL } from './styrkReducer';
-import { ADD_STYRK, REMOVE_STYRK } from '../../../ad/adReducer';
+import { ADD_STYRK, REMOVE_STYRK } from '../../adReducer';
 import './Styrk.less';
 import AdminStatusEnum from '../../administration/AdminStatusEnum';
+import { registerShortcuts } from '../../../common/shortcuts/Shortcuts';
 
 class Styrk extends React.Component {
     componentDidMount() {
         this.props.fetchStyrk();
+
+        registerShortcuts('annonseDetaljer', {
+            'l y': (e) => {
+                e.preventDefault();
+                this.inputRef.setFocus();
+            }
+        });
     }
 
     onTypeAheadValueChange = (value) => {
@@ -53,6 +61,7 @@ class Styrk extends React.Component {
                     onChange={this.onTypeAheadValueChange}
                     suggestions={this.props.typeAheadSuggestions.slice(0, 10)}
                     value={this.props.typeAheadValue}
+                    ref={(instance) => { this.inputRef = instance; }}
                 />
 
                 {this.props.stilling.categoryList.length > 0 && (

@@ -165,6 +165,10 @@ export default class Typeahead extends React.Component {
         this.shouldBlur = true;
     };
 
+    setFocus = () => {
+        this.input.focus();
+    };
+
     render() {
         const showSuggestions = this.state.hasFocus &&
             this.state.shouldShowSuggestions &&

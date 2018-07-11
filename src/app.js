@@ -13,9 +13,10 @@ import administrationReducer from './ad/administration/administrationReducer';
 import Ad from './ad/Ad';
 import Ads from './ads/Ads';
 import TopMenu from './topmenu/TopMenu';
+import { initShortcuts } from './common/shortcuts/Shortcuts';
 import './styles.less';
 import './variables.less';
-import StartPage from "./startPage/StartPage";
+import StartPage from './startPage/StartPage';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -25,7 +26,7 @@ const store = createStore(combineReducers({
     employer: employerReducer,
     location: locationReducer,
     styrk: styrkReducer,
-    administration: administrationReducer,
+    administration: administrationReducer
 }), applyMiddleware(sagaMiddleware));
 
 sagaMiddleware.run(adSaga);
@@ -34,16 +35,31 @@ sagaMiddleware.run(employerSaga);
 sagaMiddleware.run(locationSaga);
 sagaMiddleware.run(styrkSaga);
 
+initShortcuts();
+
+const Main = () => (
+    <main>
+        <Switch>
+            <Route exact path="/" component={StartPage}/>
+            <Route exact path="/ads" component={Ads}/>
+            <Route exact path="/ads/:uuid" component={Ad}/>
+        </Switch>
+    </main>
+);
+
+const App = () => (
+    <div>
+        <TopMenu />
+        <Main />
+    </div>
+);
+
+
 ReactDOM.render(
     <Provider store={store}>
         <div>
-            <TopMenu />
             <BrowserRouter>
-                <Switch>
-                    <Route exact path="/" component={StartPage}/>
-                    <Route exact path="/ads" component={Ads}/>
-                    <Route exact path="/ads/:uuid" component={Ad}/>
-                </Switch>
+                <App />
             </BrowserRouter>
         </div>
     </Provider>,

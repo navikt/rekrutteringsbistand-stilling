@@ -4,9 +4,19 @@ import { connect } from 'react-redux';
 import Typeahead from '../../../common/typeahead/Typeahead';
 import { FETCH_EMPLOYER_SUGGESTIONS, SET_EMPLOYER } from './employerReducer';
 import './Employer.less';
-import AdminStatusEnum from "../../administration/AdminStatusEnum";
+import AdminStatusEnum from '../../administration/AdminStatusEnum';
+import { registerShortcuts } from '../../../common/shortcuts/Shortcuts';
 
 class Employer extends React.Component {
+    componentDidMount() {
+        registerShortcuts('annonseDetaljer', {
+            'l a': (e) => {
+                e.preventDefault();
+                this.inputRef.setFocus();
+            }
+        });
+    }
+
     onTypeAheadValueChange = (value) => {
         this.props.setEmployer(value);
         this.props.fetchEmployerSuggestions(value);
@@ -31,6 +41,7 @@ class Employer extends React.Component {
                         label: s
                     }))}
                     value={this.props.value ? this.props.value : ''}
+                    ref={(instance) => { this.inputRef = instance; }}
                 />
             </div>
         );

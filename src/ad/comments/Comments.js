@@ -5,6 +5,7 @@ import { Undertittel } from 'nav-frontend-typografi';
 import { connect } from 'react-redux';
 import { SET_COMMENT } from '../adReducer';
 import AdminStatusEnum from '../administration/AdminStatusEnum';
+import { registerShortcuts } from '../../common/shortcuts/Shortcuts';
 
 class Comments extends React.Component {
     constructor(props) {
@@ -13,6 +14,15 @@ class Comments extends React.Component {
             hasChanged: false,
             comments: props.comments
         };
+    }
+
+    componentDidMount() {
+        registerShortcuts('annonseDetaljer', {
+            '/': (e) => {
+                e.preventDefault();
+                this.commentArea.focus();
+            }
+        });
     }
 
     onChange = (e) => {
@@ -42,6 +52,7 @@ class Comments extends React.Component {
                     onChange={this.onChange}
                     onBlur={this.onBlur}
                     value={this.state.comments || ''}
+                    textareaRef={(ref) => { this.commentArea = ref; }}
                 />
             </div>
         );
