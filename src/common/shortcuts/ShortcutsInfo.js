@@ -50,7 +50,6 @@ export default class ShortcutsInfo extends React.Component {
                                 <dt><span>a a</span></dt><dd>Avvis annonsen</dd>
                                 <dt><span>s s</span></dt><dd>Stopp annonsen</dd>
                                 <dt><span>g j</span></dt><dd>Gjenåpne annonsen</dd>
-                                <dt><span>a a</span></dt><dd>Avvis annonsen</dd>
                                 <dt><span>v n</span></dt><dd>Neste annonse</dd>
                             </dl>
                         </Column>
