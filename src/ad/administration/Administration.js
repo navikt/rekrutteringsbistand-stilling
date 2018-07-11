@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Undertittel, EtikettLiten } from 'nav-frontend-typografi';
+import { EtikettLiten } from 'nav-frontend-typografi';
 import { Flatknapp, Hovedknapp, Fareknapp, Knapp } from 'nav-frontend-knapper';
 import Etikett from 'nav-frontend-etiketter';
 import Remarks from './Remarks';
@@ -12,8 +12,41 @@ import './Administration.less';
 import { TOGGLE_REMARKS_FORM } from './administrationReducer';
 import RemarksEnum from './RemarksEnum';
 import DelayedSpinner from '../../common/DelayedSpinner';
+import { registerShortcuts } from '../../common/shortcuts/Shortcuts';
 
 class Administration extends React.Component {
+
+    componentDidMount() {
+        const { adminStatus, adStatus, showRemarksForm } = this.props;
+        registerShortcuts('annonseDetaljer', {
+            'g g': () => {
+                this.onApproveClick();
+            },
+            'a a': () => {
+                if (showRemarksForm === true) {
+                    this.onRejectClick();
+                } else {
+                    this.onToggleRemarksFormClick();
+                }
+            },
+            'v n': () => {
+                if (adminStatus !== AdminStatusEnum.PENDING) {
+                    this.onNextClick();
+                }
+            },
+            'g j': () => {
+                if (this.showReopenButton(adminStatus, adStatus)) {
+                    this.onReopenClick();
+                }
+            },
+            's s': () => {
+                if (adminStatus === AdminStatusEnum.APPROVED && adStatus === AdStatusEnum.ACTIVE ) {
+                    this.onStopClick();
+                }
+            }
+        });
+    }
+
     onApproveClick = () => {
         this.props.setAdStatus(AdStatusEnum.ACTIVE);
         this.props.setAdminStatus(AdminStatusEnum.APPROVED);
@@ -41,6 +74,11 @@ class Administration extends React.Component {
     onToggleRemarksFormClick = () => {
         this.props.toggleRemarksForm();
     };
+
+    showReopenButton = (adminStatus, adStatus) => (
+        (adminStatus === AdminStatusEnum.APPROVED && adStatus === AdStatusEnum.INACTIVE)
+        || adminStatus === AdminStatusEnum.REJECTED
+        || adminStatus === AdminStatusEnum.STOPPED);
 
     render() {
         const {
@@ -128,18 +166,16 @@ class Administration extends React.Component {
                                         </Fareknapp>
                                     </div>
                                 )}
-                                {((adminStatus === AdminStatusEnum.APPROVED && adStatus === AdStatusEnum.INACTIVE) ||
-                                    adminStatus === AdminStatusEnum.REJECTED ||
-                                    adminStatus === AdminStatusEnum.STOPPED) && (
-                                        <div>
-                                            <Hovedknapp className="Administration__button" onClick={this.onNextClick}>
-                                                Neste
-                                            </Hovedknapp>
-                                            <Knapp className="Administration__button" onClick={this.onReopenClick}>
-                                                Gjenåpne
-                                            </Knapp>
-                                        </div>
-                                    )}
+                                {this.showReopenButton(adminStatus, adStatus) && (
+                                    <div>
+                                        <Hovedknapp className="Administration__button" onClick={this.onNextClick}>
+                                            Neste
+                                        </Hovedknapp>
+                                        <Knapp className="Administration__button" onClick={this.onReopenClick}>
+                                            Gjenåpne
+                                        </Knapp>
+                                    </div>
+                                )}
                             </div>
                         )}
                     </div>

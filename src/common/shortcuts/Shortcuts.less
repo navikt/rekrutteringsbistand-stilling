@@ -1,0 +1,33 @@
+.Shortcuts {
+  width:60%;
+}
+
+.Shortcuts__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+
+  dt {
+    flex: 0 17%;
+
+    span {
+      background: #ccc;
+      padding: 4px;
+      //margin: 2px;
+      border-radius: 2px;
+      font-family: monospace;
+    }
+  }
+
+  dd:not(:last-of-type),
+  dt:not(:last-of-type) {
+    margin-bottom: 1.0rem;
+  }
+
+  dd {
+    flex: 0 83%;
+    margin-left: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+}

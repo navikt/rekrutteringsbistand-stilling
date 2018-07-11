@@ -5,9 +5,19 @@ import Typeahead from '../../../common/typeahead/Typeahead';
 import Tag from '../../../common/tag/Tag';
 import { ADD_LOCATION, FETCH_LOCATION_SUGGESTIONS, REMOVE_LOCATION, SET_LOCATION_VALUE } from './locationReducer';
 import './Location.less';
-import AdminStatusEnum from "../../administration/AdminStatusEnum";
+import AdminStatusEnum from '../../administration/AdminStatusEnum';
+import { registerShortcuts } from '../../../common/shortcuts/Shortcuts';
 
 class Location extends React.Component {
+    componentDidMount() {
+        registerShortcuts('annonseDetaljer', {
+            'l g': (e) => {
+                e.preventDefault();
+                this.inputRef.setFocus();
+            }
+        });
+    }
+
     onTypeAheadValueChange = (value) => {
         this.props.setValue(value);
         this.props.fetchLocationSuggestions(value);
@@ -37,6 +47,7 @@ class Location extends React.Component {
                         label: `${s.navn} (${s.kode})`
                     }))}
                     value={this.props.value ? this.props.value : ''}
+                    ref={(instance) => { this.inputRef = instance; }}
                 />
                 {this.props.locations.length > 0 && (
                     <div className="Location__tags">
