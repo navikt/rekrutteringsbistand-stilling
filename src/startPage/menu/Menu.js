@@ -20,33 +20,31 @@ class Menu extends React.Component {
         });
     }
 
+    onSearchClick = () => {
+        this.props.history.push('/search');
+    };
+
     render() {
         return (
             <div className="Menu">
-                <Column md="4" xs="12" className="Menu__column--left">
-                    <Row className="Menu__row">
+                <Row className="blokk-s">
+                    <Column xs="12" md="4">
                         <MenuBox
-                            icon='📤'
-                            text='Start med neste stillingsannonse'
-                            href='/ads/0f0fbd81-5096-4c52-9ca8-b0e21ca3147e'
+                            icon="📤"
+                            text="Start med neste stillingsannonse"
+                            href="/ads/0f0fbd81-5096-4c52-9ca8-b0e21ca3147e"
                         />
-                    </Row>
-                    <Row className="Menu__row">
                         <MenuBox
-                            icon='📝'
-                            text='Lag ny stillingsannonse'
-                            href='www.nav.no'
+                            icon="📝"
+                            text="Lag ny stillingsannonse"
+                            href="www.nav.no"
                         />
-                    </Row>
-                </Column>
-                <Column md="4" xs="12" className="Menu__column--right">
-                    <Row className="Menu__row">
-                        <MenuSearch />
-                    </Row>
-                    <Row className="Menu__row">
-                        <MenuStatistics />
-                    </Row>
-                </Column>
+                    </Column>
+                    <Column xs="12" md="6">
+                        <MenuSearch onSearchClick={this.onSearchClick} />
+                        <MenuStatistics className="text-center" />
+                    </Column>
+                </Row>
             </div>
         );
     }

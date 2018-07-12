@@ -3,13 +3,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Column, Container, Row } from 'nav-frontend-grid';
-import { FETCH_ADS } from "./adsReducer";
-import Ad from "./Ad";
+import { FETCH_ADS } from './adsReducer';
+import Ad from './Ad';
 
 class Ads extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     componentDidMount() {
         window.scrollTo(0, 0);

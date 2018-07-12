@@ -17,6 +17,7 @@ import { initShortcuts } from './common/shortcuts/Shortcuts';
 import './styles.less';
 import './variables.less';
 import StartPage from './startPage/StartPage';
+import SearchPage from './searchPage/SearchPage';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -41,6 +42,7 @@ const Main = () => (
     <main>
         <Switch>
             <Route exact path="/" component={StartPage}/>
+            <Route exact path="/search" component={SearchPage}/>
             <Route exact path="/ads" component={Ads}/>
             <Route exact path="/ads/:uuid" component={Ad}/>
         </Switch>

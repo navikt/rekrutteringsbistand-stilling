@@ -6,18 +6,19 @@ import {Ingress} from 'nav-frontend-typografi';
 import './Menu.less';
 
 const MenuBox = (props) => (
-    <Link className="Menu__item__border__link" key={props.icon} to={props.href}>
-        <div className="Menu__item__border text-center">
+    <div className="Menu__box">
+        <Link className="Menu__box__link" key={props.icon} to={props.href}>
             <Row>
-                <i className="Menu__icon">{props.icon}</i>
+                <i className="Menu__box__icon">{props.icon}</i>
             </Row>
             <Row>
                 <Ingress>
                     {props.text}
                 </Ingress>
             </Row>
-        </div>
-    </Link>
+        </Link>
+    </div>
+
 );
 
 MenuBox.propTypes = {

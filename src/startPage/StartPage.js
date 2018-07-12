@@ -14,25 +14,20 @@ class StartPage extends React.Component {
 
     render() {
         return (
-            <Column md="12">
-                <Container className="StartPage">
-                    <Row className="StartPage__settings">
-                        <Link className="StartPage__settings__link" to="nav.no">
-                            <Systemtittel>
-                                <i>⚙</i>
-                                Innstillinger
-                            </Systemtittel>
-                        </Link> </Row>
-                    <Column md="8">
-                        <Row>
-                            <Sidetittel>Annonsemottak</Sidetittel>
-                        </Row>
-                        <Row>
-                            <Menu history={this.props.history}/>
-                        </Row>
-                    </Column>
-                </Container>
-            </Column>
+            <Container className="StartPage">
+                <Row className="StartPage__settings blokk-m">
+                    <Link className="StartPage__settings__link" to="nav.no">
+                        <Systemtittel>
+                            <i>⚙</i>
+                            Innstillinger
+                        </Systemtittel>
+                    </Link>
+                </Row>
+                <Row>
+                    <Sidetittel className="blokk-s">Annonsemottak</Sidetittel>
+                    <Menu history={this.props.history}/>
+                </Row>
+            </Container>
         );
     }
 }
