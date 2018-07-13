@@ -10,6 +10,7 @@ import styrkReducer, { styrkSaga } from './ad/categorize/styrk/styrkReducer';
 import adsReducer, { adsSaga } from './ads/adsReducer';
 import adReducer, { adSaga } from './ad/adReducer';
 import administrationReducer from './ad/administration/administrationReducer';
+import searchBoxReducer from './common/searchBox/searchBoxReducer';
 import Ad from './ad/Ad';
 import Ads from './ads/Ads';
 import TopMenu from './topmenu/TopMenu';
@@ -27,7 +28,8 @@ const store = createStore(combineReducers({
     employer: employerReducer,
     location: locationReducer,
     styrk: styrkReducer,
-    administration: administrationReducer
+    administration: administrationReducer,
+    searchBox: searchBoxReducer
 }), applyMiddleware(sagaMiddleware));
 
 sagaMiddleware.run(adSaga);

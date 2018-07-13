@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Container } from 'nav-frontend-grid';
 import { Innholdstittel } from 'nav-frontend-typografi';
 import SearchBox from '../common/searchBox/SearchBox';
+import ListHeaders from './ListHeaders';
 import ListItem from './ListItem';
 import Filter from './Filter';
 import { FETCH_ADS } from '../ads/adsReducer';
@@ -14,9 +15,19 @@ class SearchPage extends React.Component {
         this.props.getAds();
     }
 
-    onSearchClick = () => {
+    onSearchClick = (value) => {
 
+        this.searchEmployer(value);
+        this.searchAdTitle(value);
     };
+
+
+    searchEmployer = (value) => {
+    };
+
+    searchAdTitle = (value) => {
+    };
+
 
     render() {
         const { ads, isSearching } = this.props;
@@ -30,8 +41,8 @@ class SearchPage extends React.Component {
                     </div>
                     <div className="SearchPage__flex__right">
                         <div className="SearchPage__flex__right__inner">
-                            <Innholdstittel>Søkeresultat</Innholdstittel>
-                            <div className="SearchBox__wrapper">
+                            <Innholdstittel className="blokk-m">Søkeresultat</Innholdstittel>
+                            <div className="SearchBox__wrapper blokk-m">
                                 <SearchBox
                                     label="Finn stillingsannonse som inneholder:"
                                     onSearchClick={this.onSearchClick}
@@ -39,6 +50,7 @@ class SearchPage extends React.Component {
                                 />
                             </div>
 
+                            <ListHeaders />
                             {!isSearching && ads && ads.map((ad) => (
                                 <ListItem key={ad.uuid} ad={ad} />
                             ))}

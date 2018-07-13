@@ -20,6 +20,35 @@ export default class Filter extends React.Component {
                 <Checkbox
                     label="Stoppet"
                 />
+                <Checkbox
+                    label="Avvist"
+                />
+                <Checkbox
+                    label="Slettet"
+                    className="blokk-m"
+                />
+                <Undertittel className="blokk-xs">Kilde</Undertittel>
+                <Checkbox
+                    label="XML"
+                />
+                <Checkbox
+                    label="NAV"
+                />
+                <Checkbox
+                    label="DEXI"
+                />
+                <Checkbox
+                    label="Finn.no"
+                />
+                <Checkbox
+                    label="Amedia"
+                />
+                <Checkbox
+                    label="Lenke"
+                />
+                <Checkbox
+                    label="SBL"
+                />
             </div>
         );
     }
