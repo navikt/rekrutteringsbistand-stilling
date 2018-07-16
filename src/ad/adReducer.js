@@ -25,21 +25,7 @@ export const SET_ADMIN_STATUS = 'SET_ADMIN_STATUS';
 export const ADD_REMARK = 'ADD_REMARK';
 export const REMOVE_REMARK = 'REMOVE_REMARK';
 
-
-const uuidList = [
-    '0f0fbd81-5096-4c52-9ca8-b0e21ca3147e',
-    'ffdf0e08-e647-43a3-8730-28030dba27fd',
-    'ded6cc02-492c-4f0b-844d-13d1644dfc66',
-    'c1f74ef9-4189-4810-abde-7b4719678e70',
-    '0d43163c-eb90-4f72-a654-f611a0ae8d1f',
-    'c0242823-e08a-4cc7-a2c1-43b881fd61e6',
-    '9d95b63d-537e-4cd3-ab97-9317f0928f89',
-    '25a8efe3-a558-4df9-9493-9568755ebfd8',
-    '8bdb649e-ff03-4c18-be6f-59b861fbb63c',
-    '5d09f77d-4736-441e-b7b9-a5930d55fc60'
-];
-
-let uuidIndex = 0;
+const query = '?administrationStatus=RECEIVED&size=1';
 
 const initialState = {
     data: undefined,
@@ -188,13 +174,11 @@ function* getAd(action) {
     }
 }
 
-function* getNextAd(action) {
+function* getNextAd() {
     yield put({ type: FETCH_AD_BEGIN });
     try {
-        const uuid = uuidList[uuidIndex];
-        uuidIndex += 1;
-
-        let response = yield fetchGet(`${AD_API}ads/${uuid}`);
+        let r = yield fetchGet(`${AD_API}ads/${query}`);
+        let response = r.content[0];
         if (!response.administration) { // TODO: Be backend om at administration dataene alltid er definert
             response = {
                 ...response,
@@ -206,6 +190,8 @@ function* getNextAd(action) {
             };
         }
         yield put({ type: FETCH_AD_SUCCESS, response });
+        const status = AdminStatusEnum.PENDING;
+        yield put({ type: SET_ADMIN_STATUS, status: status });
     } catch (e) {
         if (e instanceof ApiError) {
             yield put({ type: FETCH_AD_FAILURE, error: e });

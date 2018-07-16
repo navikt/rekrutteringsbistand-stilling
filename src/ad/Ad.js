@@ -37,7 +37,7 @@ class Ad extends React.Component {
                             </div>
                             <div className="Ad__flex__right">
                                 <div className="Ad__flex__right__inner">
-                                    <Administration />
+                                    <Administration history={this.props.history}/>
                                     <Categorize />
                                     <Comments />
                                 </div>

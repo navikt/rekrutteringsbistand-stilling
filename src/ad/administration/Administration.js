@@ -17,7 +17,8 @@ import { registerShortcuts } from '../../common/shortcuts/Shortcuts';
 class Administration extends React.Component {
 
     componentDidMount() {
-        const { adminStatus, adStatus, showRemarksForm } = this.props;
+        const { adminStatus, adStatus, showRemarksForm, adUuid } = this.props;
+        this.props.history.push('/ads/' + adUuid);
         registerShortcuts('annonseDetaljer', {
             'g g': () => {
                 this.onApproveClick();
@@ -196,6 +197,7 @@ Administration.propTypes = {
     remarks: PropTypes.arrayOf(PropTypes.string),
     isSavingAd: PropTypes.bool.isRequired,
     showRemarksForm: PropTypes.bool.isRequired,
+    adUuid: PropTypes.string.isRequired,
     setAdminStatus: PropTypes.func.isRequired,
     setAdStatus: PropTypes.func.isRequired,
     toggleRemarksForm: PropTypes.func.isRequired,
@@ -207,7 +209,8 @@ const mapStateToProps = (state) => ({
     adminStatus: state.ad.data.administration.status,
     remarks: state.ad.data.administration.remarks,
     isSavingAd: state.ad.isSavingAd,
-    showRemarksForm: state.administration.showRemarksForm
+    showRemarksForm: state.administration.showRemarksForm,
+    adUuid: state.ad.data.uuid
 });
 
 const mapDispatchToProps = (dispatch) => ({
