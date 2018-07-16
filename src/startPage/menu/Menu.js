@@ -1,24 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Column, Row } from 'nav-frontend-grid';
 import MenuBox from './MenuBox';
 import MenuSearch from './MenuSearch';
 import MenuStatistics from './MenuStatistics';
 import './Menu.less';
 import { registerShortcuts } from '../../common/shortcuts/Shortcuts';
+import { FETCH_NEXT_AD } from '../../ad/adReducer';
 
 
 class Menu extends React.Component {
+    componentDidUpdate() {
+        if (this.props.adUuid) {
+            this.props.history.push('/ads/' + this.props.adUuid);
+        }
+    }
+
     componentDidMount() {
         registerShortcuts('forside', {
             'n s': () => {
-                this.props.history.push('/ads/0f0fbd81-5096-4c52-9ca8-b0e21ca3147e');
+                this.onNextClick();
             },
             'l n': () => {
                 this.props.history.push('/');
             }
         });
     }
+
+    onNextClick = () => {
+        this.props.getNextAd();
+    };
 
     render() {
         return (
@@ -28,7 +40,8 @@ class Menu extends React.Component {
                         <MenuBox
                             icon='📤'
                             text='Start med neste stillingsannonse'
-                            href='/ads/0f0fbd81-5096-4c52-9ca8-b0e21ca3147e'
+                            href=''
+                            onClick={this.onNextClick}
                         />
                     </Row>
                     <Row className="Menu__row">
@@ -53,7 +66,16 @@ class Menu extends React.Component {
 }
 
 Menu.propTypes = {
-    history: PropTypes.shape().isRequired
+    history: PropTypes.shape().isRequired,
+    getNextAd: PropTypes.func.isRequired
 };
 
-export default Menu;
+const mapStateToProps = (state) => ({
+    adUuid: state.ad.data ? state.ad.data.uuid : undefined
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    getNextAd: () => dispatch({ type: FETCH_NEXT_AD })
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Menu);

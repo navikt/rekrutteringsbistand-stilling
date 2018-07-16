@@ -6,7 +6,7 @@ import {Ingress} from 'nav-frontend-typografi';
 import './Menu.less';
 
 const MenuBox = (props) => (
-    <Link className="Menu__item__border__link" key={props.icon} to={props.href}>
+    <Link className="Menu__item__border__link" key={props.icon} to={props.href} onClick={props.onClick}>
         <div className="Menu__item__border text-center">
             <Row>
                 <i className="Menu__icon">{props.icon}</i>
