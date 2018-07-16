@@ -28,6 +28,10 @@ class Menu extends React.Component {
         });
     }
 
+    onSearchClick = () => {
+        this.props.history.push('/search');
+    };
+
     onNextClick = () => {
         this.props.getNextAd();
     };
@@ -35,31 +39,25 @@ class Menu extends React.Component {
     render() {
         return (
             <div className="Menu">
-                <Column md="4" xs="12" className="Menu__column--left">
-                    <Row className="Menu__row">
+                <Row className="blokk-s">
+                    <Column xs="12" md="4">
                         <MenuBox
-                            icon='📤'
-                            text='Start med neste stillingsannonse'
-                            href=''
+                            icon="📤"
+                            text="Start med neste stillingsannonse"
+                            href=""
                             onClick={this.onNextClick}
                         />
-                    </Row>
-                    <Row className="Menu__row">
                         <MenuBox
-                            icon='📝'
-                            text='Lag ny stillingsannonse'
-                            href='www.nav.no'
+                            icon="📝"
+                            text="Lag ny stillingsannonse"
+                            href="www.nav.no"
                         />
-                    </Row>
-                </Column>
-                <Column md="4" xs="12" className="Menu__column--right">
-                    <Row className="Menu__row">
-                        <MenuSearch />
-                    </Row>
-                    <Row className="Menu__row">
-                        <MenuStatistics />
-                    </Row>
-                </Column>
+                    </Column>
+                    <Column xs="12" md="6">
+                        <MenuSearch onSearchClick={this.onSearchClick} />
+                        <MenuStatistics className="text-center" />
+                    </Column>
+                </Row>
             </div>
         );
     }

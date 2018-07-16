@@ -21,7 +21,7 @@ export default class ShortcutsInfo extends React.Component {
                         <Column md="6">
                             <Systemtittel>Globale hurtigtaster</Systemtittel>
                             <dl className="Shortcuts__list blokk-m">
-                                <dt><span>?</span></dt><dd> Vise hurtigtastoverikten</dd>
+                                <dt><span>?</span></dt><dd> Vise hurtigtastoversikten</dd>
                                 <dt><span>g i</span></dt><dd> Gå til forsiden</dd>
                             </dl>
 

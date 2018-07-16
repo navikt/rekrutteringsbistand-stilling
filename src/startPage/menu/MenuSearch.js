@@ -1,17 +1,20 @@
 import React from 'react';
-import {Row} from 'nav-frontend-grid';
-import {Normaltekst, Systemtittel} from 'nav-frontend-typografi';
-import './Menu.less'
-import {SearchBox} from "./SearchBox";
+import { Row } from 'nav-frontend-grid';
+import { Systemtittel } from 'nav-frontend-typografi';
+import './Menu.less';
+import SearchBox from '../../common/searchBox/SearchBox';
 
-const MenuSearch = () => (
+const MenuSearch = (props) => (
     <div className="Menu__search">
         <Row>
             <Systemtittel>Søk</Systemtittel>
-            <Normaltekst>Finn riktig stilling/arbeidsgiver</Normaltekst>
         </Row>
         <Row>
-            <SearchBox/>
+            <SearchBox
+                label="Finn riktig stilling/arbeidsgiver"
+                placeholder="Søke etter stilling eller arbeidsgiver"
+                onSearchClick={props.onSearchClick}
+            />
         </Row>
     </div>
 );

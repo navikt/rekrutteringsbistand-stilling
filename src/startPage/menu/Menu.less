@@ -3,74 +3,34 @@
 .Menu {
 }
 
-.Menu__column {
-  display: block;
-  vertical-align: top;
-}
-
-.Menu__column--left {
-  .Menu__column;
-  float: left !important;
-}
-
-.Menu__column--right {
-  .Menu__column;
-  float: right !important;
-}
-
-.Menu__row {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-}
-
 .Menu__item {
+  margin:auto;
   min-height: 275px;
-  max-height: 60%;
-  min-width: 450px;
-  max-width: 60%;
-  text-decoration: none;
+  margin-bottom:2rem;
+  padding: 4rem;
 }
 
-.Menu__icon {
+.Menu__box{
+  .Menu__item;
+  border: 1px solid @navGra80;
+  text-align: center;
+}
+
+.Menu__box__icon {
   font-size: 5rem;
   font-style: normal;
 }
 
-.Menu__item__border {
-  .Menu__item;
-  border: 1px solid @navGra80;
-  padding: 4rem;
-}
-
-.Menu__statistics {
-  .Menu__item;
-  .text-left;
-  padding: 0;
-}
-
-.Menu__search {
-  .Menu__item;
-  .text-left;
-  padding: 2rem 0 6rem;
-}
-
-.Menu__item__border__link {
+.Menu__box__link {
   text-decoration: none;
   color: black;
 }
 
-.SearchBox {
-
+.Menu__statistics {
+  .Menu__item;
 }
 
-.SearchBox__button {
-  float: right !important;
+.Menu__search {
+  .Menu__item;
 }
 
-.text-left {
-  text-align: left;
-}
-
-.text-center {
-  text-align: center;
-}

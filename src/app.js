@@ -10,6 +10,7 @@ import styrkReducer, { styrkSaga } from './ad/categorize/styrk/styrkReducer';
 import adsReducer, { adsSaga } from './ads/adsReducer';
 import adReducer, { adSaga } from './ad/adReducer';
 import administrationReducer from './ad/administration/administrationReducer';
+import searchBoxReducer from './common/searchBox/searchBoxReducer';
 import Ad from './ad/Ad';
 import Ads from './ads/Ads';
 import TopMenu from './topmenu/TopMenu';
@@ -17,6 +18,7 @@ import { initShortcuts } from './common/shortcuts/Shortcuts';
 import './styles.less';
 import './variables.less';
 import StartPage from './startPage/StartPage';
+import SearchPage from './searchPage/SearchPage';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -26,7 +28,8 @@ const store = createStore(combineReducers({
     employer: employerReducer,
     location: locationReducer,
     styrk: styrkReducer,
-    administration: administrationReducer
+    administration: administrationReducer,
+    searchBox: searchBoxReducer
 }), applyMiddleware(sagaMiddleware));
 
 sagaMiddleware.run(adSaga);
@@ -41,6 +44,7 @@ const Main = () => (
     <main>
         <Switch>
             <Route exact path="/" component={StartPage}/>
+            <Route exact path="/search" component={SearchPage}/>
             <Route exact path="/ads" component={Ads}/>
             <Route exact path="/ads/:uuid" component={Ad}/>
         </Switch>
