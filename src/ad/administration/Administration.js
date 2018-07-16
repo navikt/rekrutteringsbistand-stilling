@@ -15,6 +15,16 @@ import DelayedSpinner from '../../common/DelayedSpinner';
 import { registerShortcuts } from '../../common/shortcuts/Shortcuts';
 
 class Administration extends React.Component {
+    componentDidUpdate() {
+        const { adminStatus } = this.props;
+        registerShortcuts('annonseDetaljer', {
+            'v n': () => {
+                if (adminStatus !== AdminStatusEnum.PENDING) {
+                    this.onNextClick();
+                }
+            }
+        });
+    }
 
     componentDidMount() {
         const { adminStatus, adStatus, showRemarksForm, adUuid } = this.props;
