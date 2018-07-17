@@ -1,6 +1,6 @@
 const StatusEnum = {
-    PENDING: 'Ikke publiserte',
-    APPROVED: 'Publisert',
+    RECEIVED: 'Ikke publiserte',
+    APPROVED: 'Publiserte',
     STOPPED: 'Stoppet',
     REJECTED: 'Avvist'
 };
