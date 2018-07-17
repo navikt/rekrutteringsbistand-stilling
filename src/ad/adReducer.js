@@ -177,11 +177,11 @@ function* getAd(action) {
 function* getNextAd() {
     yield put({ type: FETCH_AD_BEGIN });
     try {
-        let r = yield fetchGet(`${AD_API}ads/${query}`);
-        let response = r.content[0];
-        if (!response.administration) { // TODO: Be backend om at administration dataene alltid er definert
-            response = {
-                ...response,
+        let response = yield fetchGet(`${AD_API}ads/${query}`);
+        let nextAd = response.content[0];
+        if (!nextAd.administration) { // TODO: Be backend om at administration dataene alltid er definert
+            nextAd = {
+                ...nextAd,
                 administration: {
                     status: AdminStatusEnum.PENDING,
                     remarks: [],
@@ -189,7 +189,7 @@ function* getNextAd() {
                 }
             };
         }
-        yield put({ type: FETCH_AD_SUCCESS, response });
+        yield put({ type: FETCH_AD_SUCCESS, response: nextAd });
         const status = AdminStatusEnum.PENDING;
         yield put({ type: SET_ADMIN_STATUS, status: status });
     } catch (e) {
