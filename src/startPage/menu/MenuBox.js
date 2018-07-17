@@ -7,7 +7,7 @@ import './Menu.less';
 
 const MenuBox = (props) => (
     <div className="Menu__box">
-        <Link className="Menu__box__link" key={props.icon} to={props.href}>
+        <Link className="Menu__box__link" key={props.icon} to={props.href} onClick={props.onClick}>
             <Row>
                 <i className="Menu__box__icon">{props.icon}</i>
             </Row>
