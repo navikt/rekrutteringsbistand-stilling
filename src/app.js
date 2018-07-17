@@ -9,6 +9,8 @@ import locationReducer, { locationSaga } from './ad/categorize/location/location
 import styrkReducer, { styrkSaga } from './ad/categorize/styrk/styrkReducer';
 import adsReducer, { adsSaga } from './ads/adsReducer';
 import adReducer, { adSaga } from './ad/adReducer';
+import searchReducer, { searchSaga } from './searchPage/searchReducer';
+import filterReducer from './searchPage/filter/filterReducer';
 import administrationReducer from './ad/administration/administrationReducer';
 import searchBoxReducer from './common/searchBox/searchBoxReducer';
 import Ad from './ad/Ad';
@@ -29,7 +31,9 @@ const store = createStore(combineReducers({
     location: locationReducer,
     styrk: styrkReducer,
     administration: administrationReducer,
-    searchBox: searchBoxReducer
+    searchBox: searchBoxReducer,
+    filter: filterReducer,
+    search: searchReducer
 }), applyMiddleware(sagaMiddleware));
 
 sagaMiddleware.run(adSaga);
@@ -37,6 +41,7 @@ sagaMiddleware.run(adsSaga);
 sagaMiddleware.run(employerSaga);
 sagaMiddleware.run(locationSaga);
 sagaMiddleware.run(styrkSaga);
+sagaMiddleware.run(searchSaga);
 
 initShortcuts();
 

@@ -6,8 +6,8 @@ import { Innholdstittel } from 'nav-frontend-typografi';
 import SearchBox from '../common/searchBox/SearchBox';
 import ListHeaders from './ListHeaders';
 import ListItem from './ListItem';
-import Filter from './Filter';
-import { FETCH_ADS } from '../ads/adsReducer';
+import Filter from './filter/Filter';
+import { FETCH_ADS } from './searchReducer';
 import './SearchPage.less';
 
 class SearchPage extends React.Component {
