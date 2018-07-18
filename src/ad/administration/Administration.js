@@ -13,31 +13,29 @@ import { TOGGLE_REMARKS_FORM } from './administrationReducer';
 import RemarksEnum from './RemarksEnum';
 import DelayedSpinner from '../../common/DelayedSpinner';
 import { registerShortcuts } from '../../common/shortcuts/Shortcuts';
+import { withRouter } from 'react-router-dom';
 
 class Administration extends React.Component {
-    componentDidUpdate() {
-        const { adminStatus } = this.props;
-        registerShortcuts('annonseDetaljer', {
-            'v n': () => {
-                if (adminStatus !== AdminStatusEnum.PENDING) {
-                    this.onNextClick();
-                }
-            }
-        });
+    componentDidMount() {
+        const { adUuid } = this.props;
+        this.props.history.push('/ads/' + adUuid);
     }
 
-    componentDidMount() {
-        const { adminStatus, adStatus, showRemarksForm, adUuid } = this.props;
-        this.props.history.push('/ads/' + adUuid);
+    componentDidUpdate() {
+        const { adminStatus, adStatus, showRemarksForm } = this.props;
         registerShortcuts('annonseDetaljer', {
             'g g': () => {
-                this.onApproveClick();
+                if (adminStatus === AdminStatusEnum.PENDING && !showRemarksForm) {
+                    this.onApproveClick();
+                }
             },
             'a a': () => {
-                if (showRemarksForm === true) {
-                    this.onRejectClick();
-                } else {
-                    this.onToggleRemarksFormClick();
+                if (adminStatus === AdminStatusEnum.PENDING) {
+                    if (showRemarksForm) {
+                        this.onRejectClick();
+                    } else {
+                        this.onToggleRemarksFormClick();
+                    }
                 }
             },
             'v n': () => {
@@ -230,4 +228,4 @@ const mapDispatchToProps = (dispatch) => ({
     toggleRemarksForm: () => dispatch({ type: TOGGLE_REMARKS_FORM })
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Administration);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Administration));
