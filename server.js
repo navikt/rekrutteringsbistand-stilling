@@ -18,7 +18,7 @@ server.set('view engine', 'mustache');
 server.engine('html', mustacheExpress());
 
 const fasitProperties = {
-    PAM_AD_API: 'http://localhost:9001/',
+    PAM_AD_API: ${process.env.PAMADAPIBACKEND_URL}',
     PAM_CONTEXT_PATH: ''
 };
 
