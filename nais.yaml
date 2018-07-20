@@ -1,5 +1,6 @@
 name: pam-nss-admin
 image: repo.adeo.no:5443/pam-nss-admin
+team: pam
 replicas:
   min: 2
   max: 3
