@@ -17,16 +17,11 @@ server.set('views', `${currentDirectory}`);
 server.set('view engine', 'mustache');
 server.engine('html', mustacheExpress());
 
-const fasitProperties = {
-    PAM_AD_API: '${process.env.PAMADAPIBACKEND_URL}',
-    PAM_CONTEXT_PATH: ''
-};
-
 
 const writeEnvironmentVariablesToFile = () => {
     const fileContent =
-        `window.__PAM_AD_API__="${fasitProperties.PAM_AD_API}";\n`+
-        `window.__PAM_CONTEXT_PATH__="${fasitProperties.PAM_CONTEXT_PATH}";\n`;
+        `window.__PAM_AD_API__="${process.env.PAMADAPIBACKEND_URL}";\n`+
+        `window.__PAM_CONTEXT_PATH__="";\n`;
 
     fs.writeFile(path.resolve(__dirname, 'dist/js/env.js'), fileContent, (err) => {
         if (err) throw err;
