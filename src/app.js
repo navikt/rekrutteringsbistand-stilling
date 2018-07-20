@@ -12,7 +12,6 @@ import adReducer, { adSaga } from './ad/adReducer';
 import searchReducer, { searchSaga } from './searchPage/searchReducer';
 import filterReducer from './searchPage/filter/filterReducer';
 import administrationReducer from './ad/administration/administrationReducer';
-import searchBoxReducer from './common/searchBox/searchBoxReducer';
 import Ad from './ad/Ad';
 import Ads from './ads/Ads';
 import TopMenu from './topmenu/TopMenu';
@@ -31,7 +30,6 @@ const store = createStore(combineReducers({
     location: locationReducer,
     styrk: styrkReducer,
     administration: administrationReducer,
-    searchBox: searchBoxReducer,
     filter: filterReducer,
     search: searchReducer
 }), applyMiddleware(sagaMiddleware));

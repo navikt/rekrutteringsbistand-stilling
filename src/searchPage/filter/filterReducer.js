@@ -5,10 +5,10 @@ export const CHANGE_SEARCH_EMPLOYER = 'CHANGE_SEARCH_EMPLOYER';
 export const CHANGE_SEARCH_TITLE = 'CHANGE_SEARCH_TITLE';
 
 const initialState = {
-    source: '',
-    administrationStatus: '',
-    employerName: '',
-    title: ''
+    source: undefined,
+    administrationStatus: undefined,
+    employerName: undefined,
+    title: undefined
 };
 
 export default function filterReducer(state = initialState, action) {
@@ -26,14 +26,14 @@ export default function filterReducer(state = initialState, action) {
         case CHANGE_SEARCH_EMPLOYER:
             return {
                 ...state,
-                title: '',
+                title: undefined,
                 employerName: action.employer
             };
         case CHANGE_SEARCH_TITLE:
             return {
                 ...state,
                 title: action.title,
-                employerName: ''
+                employerName: undefined
             };
         default:
             return state;

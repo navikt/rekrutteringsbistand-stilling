@@ -12,7 +12,9 @@ import './SearchPage.less';
 
 class SearchPage extends React.Component {
     componentDidMount() {
-        this.props.getAds();
+        if (this.props.ads.length === 0) {
+            this.props.getAds();
+        }
     }
 
     render() {
