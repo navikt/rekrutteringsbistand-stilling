@@ -7,7 +7,7 @@ import Etikett from 'nav-frontend-etiketter';
 import Remarks from './Remarks';
 import AdminStatusEnum from './AdminStatusEnum';
 import AdStatusEnum from './AdStatusEnum';
-import { FETCH_NEXT_AD, SET_AD_STATUS, SET_ADMIN_STATUS } from './../adReducer';
+import { FETCH_NEXT_AD, SET_AD_STATUS, SET_ADMIN_STATUS, FETCH_AD } from './../adReducer';
 import './Administration.less';
 import { TOGGLE_REMARKS_FORM } from './administrationReducer';
 import RemarksEnum from './RemarksEnum';
@@ -17,11 +17,26 @@ import { withRouter } from 'react-router-dom';
 
 class Administration extends React.Component {
     componentDidMount() {
+        this.shortcuts();
+
         const { adUuid } = this.props;
-        this.props.history.push('/ads/' + adUuid);
+        const uuidHasChangedInUrl = adUuid !== this.props.match.params.uuid;
+        if (uuidHasChangedInUrl) {
+            this.props.history.push('/ads/' + adUuid);
+        }
     }
 
     componentDidUpdate() {
+        this.shortcuts();
+
+        const { adUuid } = this.props;
+        const uuidHasChangedInUrl = adUuid !== this.props.match.params.uuid;
+        if (uuidHasChangedInUrl) {
+            this.props.getStilling(this.props.match.params.uuid);
+        }
+    }
+
+    shortcuts = () => {
         const { adminStatus, adStatus, showRemarksForm } = this.props;
         registerShortcuts('annonseDetaljer', {
             'g g': () => {
@@ -54,7 +69,7 @@ class Administration extends React.Component {
                 }
             }
         });
-    }
+    };
 
     onApproveClick = () => {
         this.props.setAdStatus(AdStatusEnum.ACTIVE);
@@ -209,7 +224,8 @@ Administration.propTypes = {
     setAdminStatus: PropTypes.func.isRequired,
     setAdStatus: PropTypes.func.isRequired,
     toggleRemarksForm: PropTypes.func.isRequired,
-    getNextAd: PropTypes.func.isRequired
+    getNextAd: PropTypes.func.isRequired,
+    getStilling: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -225,7 +241,8 @@ const mapDispatchToProps = (dispatch) => ({
     getNextAd: () => dispatch({ type: FETCH_NEXT_AD }),
     setAdminStatus: (status) => dispatch({ type: SET_ADMIN_STATUS, status }),
     setAdStatus: (status) => dispatch({ type: SET_AD_STATUS, status }),
-    toggleRemarksForm: () => dispatch({ type: TOGGLE_REMARKS_FORM })
+    toggleRemarksForm: () => dispatch({ type: TOGGLE_REMARKS_FORM }),
+    getStilling: (uuid) => dispatch({ type: FETCH_AD, uuid })
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Administration));
