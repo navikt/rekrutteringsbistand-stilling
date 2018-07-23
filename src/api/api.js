@@ -21,7 +21,11 @@ async function request(url, options) {
 
 export async function fetchGet(url) {
     return request(url, {
-        method: 'GET'
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+            'X-Requested-With' : 'XMLHttpRequest'
+        }
     });
 }
 
@@ -29,8 +33,10 @@ export async function fetchPost(url, body) {
     return request(url, {
         body: JSON.stringify(body),
         method: 'POST',
+        credentials: 'include',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'X-Requested-With' : 'XMLHttpRequest'
         }
     });
 
@@ -40,8 +46,10 @@ export async function fetchPut(url, body) {
     return request(url, {
         body: JSON.stringify(body),
         method: 'PUT',
+        credentials: 'include',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'X-Requested-With' : 'XMLHttpRequest'
         }
     });
 }
