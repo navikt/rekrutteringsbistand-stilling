@@ -12,7 +12,7 @@ class Filter extends React.Component {
         if (e.target.value !== 'Alle') {
             this.props.changeSourceFilter(e.target.value);
         } else {
-            this.props.changeSourceFilter('');
+            this.props.changeSourceFilter(undefined);
         }
     };
 
@@ -20,7 +20,7 @@ class Filter extends React.Component {
         if (e.target.value !== 'Alle') {
             this.props.changeStatusFilter(e.target.value);
         } else {
-            this.props.changeStatusFilter('');
+            this.props.changeStatusFilter(undefined);
         }
     };
 

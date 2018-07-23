@@ -12,22 +12,10 @@ import './SearchPage.less';
 
 class SearchPage extends React.Component {
     componentDidMount() {
-        this.props.getAds();
+        if (this.props.ads.length === 0) {
+            this.props.getAds();
+        }
     }
-
-    onSearchClick = (value) => {
-
-        this.searchEmployer(value);
-        this.searchAdTitle(value);
-    };
-
-
-    searchEmployer = (value) => {
-    };
-
-    searchAdTitle = (value) => {
-    };
-
 
     render() {
         const { ads, isSearching } = this.props;
@@ -44,8 +32,7 @@ class SearchPage extends React.Component {
                             <Innholdstittel className="blokk-m">Søkeresultat</Innholdstittel>
                             <div className="SearchBox__wrapper blokk-m">
                                 <SearchBox
-                                    label="Finn stillingsannonse som inneholder:"
-                                    onSearchClick={this.onSearchClick}
+                                    label=""
                                     placeholder="Skriv inn søk..."
                                 />
                             </div>
