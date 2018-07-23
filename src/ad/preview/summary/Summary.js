@@ -16,8 +16,12 @@ export default function AdDetails({ stilling }) {
                     <dt key="dt">Hentet fra:</dt>,
                     <dd key="dd">{stilling.medium}</dd>
                 ]}
+                {stilling.id && [
+                    <dt key="dt">Løpenr.:</dt>,
+                    <dd key="dd">{stilling.id}</dd>
+                ]}
                 {stilling.reference && [
-                    <dt key="dt">ID nr.:</dt>,
+                    <dt key="dt">Referanse:</dt>,
                     <dd key="dd">{stilling.reference}</dd>
                 ]}
                 {stilling.expires && [
@@ -31,6 +35,7 @@ export default function AdDetails({ stilling }) {
 
 AdDetails.propTypes = {
     stilling: PropTypes.shape({
+        id: PropTypes.string,
         updated: PropTypes.string,
         medium: PropTypes.string,
         reference: PropTypes.string,
