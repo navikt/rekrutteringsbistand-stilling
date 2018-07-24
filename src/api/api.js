@@ -1,3 +1,5 @@
+import {redirectToLogin} from "../login";
+
 export class ApiError {
     constructor(message, statusCode) {
         this.message = message;
@@ -14,7 +16,12 @@ async function request(url, options) {
     }
 
     if (response.status !== 200) {
-        throw new ApiError(response.statusText, response.status);
+       if ( response.status === 401 ) {
+           redirectToLogin();
+       }
+       else {
+           throw new ApiError(response.statusText, response.status);
+       }
     }
     return response.json();
 }
