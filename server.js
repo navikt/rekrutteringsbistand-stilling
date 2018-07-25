@@ -31,7 +31,7 @@ const writeEnvironmentVariablesToFile = () => {
 const renderApp = (htmlPages) => (
     new Promise((resolve, reject) => {
         server.render(
-            'index.html', htmlPages, (err, html) => {
+            './dist/index.html', htmlPages, (err, html) => {
                 if (err) {
                     reject(err);
                 } else {

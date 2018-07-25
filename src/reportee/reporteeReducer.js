@@ -42,7 +42,6 @@ export default function reporteeReducer(state = initialState, action) {
                 error: undefined
             };
         case FETCH_REPORTEE_SUCCESS:
-            console.log("fetch reportee success " + action.response.displayName);
             return {
                 ...state,
                 data: action.response,
