@@ -35,7 +35,7 @@ export default function AdDetails({ stilling }) {
 
 AdDetails.propTypes = {
     stilling: PropTypes.shape({
-        id: PropTypes.string,
+        id: PropTypes.number,
         updated: PropTypes.string,
         medium: PropTypes.string,
         reference: PropTypes.string,
