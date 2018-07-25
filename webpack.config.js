@@ -12,7 +12,6 @@ module.exports = () => {
                     'process.env.NODE_ENV': JSON.stringify('production')
                 }),
                 new HtmlWebpackPlugin({
-                        title: 'Custom template',
                         template: './src/index.html'
                     }
                 ),
