@@ -6,9 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = merge(common, {
     devtool: 'inline-source-map',
     devServer: {
-        historyApiFallback: {
-            index: './index.html'
-        }
+        historyApiFallback: true
     },
     plugins: [
         new webpack.DefinePlugin({
