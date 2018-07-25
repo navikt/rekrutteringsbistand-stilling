@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import { Systemtittel } from 'nav-frontend-typografi';
 import './TopMenu.less';
 import ShortcutsInfo from '../common/shortcuts/ShortcutsInfo';
 import { registerShortcuts, removeShortcuts } from '../common/shortcuts/Shortcuts';
-import {connect} from "react-redux";
-import {FETCH_REPORTEE} from "../reportee/reporteeReducer";
-import DelayedSpinner from '../common/DelayedSpinner';
+import Reportee from "../reportee/Reportee";
 
 class TopMenu extends React.Component {
     constructor(props) {
@@ -17,7 +16,6 @@ class TopMenu extends React.Component {
     }
 
     componentDidMount() {
-        this.props.getReportee();
         registerShortcuts('global', {
             '?': () => {
                 this.openModal();
@@ -26,7 +24,6 @@ class TopMenu extends React.Component {
                 this.props.history.push('/');
             }
         });
-
     }
 
     componentWillUnmount() {
@@ -42,7 +39,6 @@ class TopMenu extends React.Component {
     };
 
     render() {
-        const { reportee, isFetchingReportee } = this.props;
         return (
             <div className="TopMenu">
                 <Systemtittel className="TopMenu__title">NSS Admin</Systemtittel>
@@ -50,36 +46,14 @@ class TopMenu extends React.Component {
                     Hurtigtaster
                 </button>
                 <ShortcutsInfo closeModal={this.closeModal} isOpen={this.state.modalIsOpen} />
-                { (!isFetchingReportee && reportee) ?
-                    <div className="TopMenu__reportee">{reportee.displayName}</div>
-                :   <div className="Ad__spinner">
-                        <DelayedSpinner />
-                    </div>};
+                <Reportee />
             </div>
         );
     }
 }
 
-TopMenu.defaultProps = {
-    reportee: undefined,
-    isFetchingReportee: false
-};
-
-const mapStateToProps = (state) => ({
-    isFetchingReportee: state.reportee.isFetchingReportee,
-    reportee: state.reportee.data
-});
-
-const mapDispatchToProps = (dispatch) => ({
-    getReportee: () => dispatch({ type: FETCH_REPORTEE })
-});
-
-
 TopMenu.propTypes = {
-    history: PropTypes.shape().isRequired,
-    reportee: PropTypes.shape().isRequired,
-    getReportee: PropTypes.func.isRequired,
-    isFetchingReportee: PropTypes.bool
+    history: PropTypes.shape().isRequired
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(TopMenu);
+export default withRouter(TopMenu);

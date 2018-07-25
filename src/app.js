@@ -32,8 +32,8 @@ const store = createStore(combineReducers({
     styrk: styrkReducer,
     administration: administrationReducer,
     filter: filterReducer,
+    reportee: reporteeReducer,
     search: searchReducer,
-    reportee: reporteeReducer
 }), applyMiddleware(sagaMiddleware));
 
 sagaMiddleware.run(reporteeSaga);
