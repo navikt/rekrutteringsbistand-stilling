@@ -2,7 +2,6 @@ import { put, takeLatest } from 'redux-saga/effects';
 import { ApiError, fetchGet } from '../api/api';
 import { AD_API } from '../fasitProperties';
 
-export const FETCH_REPORTEE = 'FETCH_REPORTEE';
 export const FETCH_REPORTEE_BEGIN = 'FETCH_REPORTEE_BEGIN';
 export const FETCH_REPORTEE_SUCCESS = 'FETCH_REPORTEE_SUCCESS';
 export const FETCH_REPORTEE_FAILURE = 'FETCH_REPORTEE_FAILURE';
@@ -14,7 +13,6 @@ const initialState = {
 };
 
 function* getReportee() {
-    yield put({ type: FETCH_REPORTEE_BEGIN });
     try {
         let response = yield fetchGet(`${AD_API}reportee/`);
         yield put({ type: FETCH_REPORTEE_SUCCESS, response });
@@ -32,12 +30,6 @@ export default function reporteeReducer(state = initialState, action) {
             return {
                 ...state,
                 data: undefined,
-                isFetchingReportee: true,
-                error: undefined
-            };
-        case FETCH_REPORTEE:
-            return {
-                ...state,
                 isFetchingReportee: true,
                 error: undefined
             };
@@ -59,5 +51,5 @@ export default function reporteeReducer(state = initialState, action) {
 }
 
 export const reporteeSaga = function* saga() {
-    yield takeLatest(FETCH_REPORTEE, getReportee);
+    yield takeLatest(FETCH_REPORTEE_BEGIN, getReportee);
 };

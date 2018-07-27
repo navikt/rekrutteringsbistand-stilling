@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
-import {FETCH_REPORTEE} from "./reporteeReducer";
+import {FETCH_REPORTEE_BEGIN} from "./reporteeReducer";
 import PropTypes from "prop-types";
 
 class Reportee extends React.Component {
@@ -36,7 +36,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    getReportee: () => dispatch({ type: FETCH_REPORTEE })
+    getReportee: () => dispatch({ type: FETCH_REPORTEE_BEGIN })
 });
 
 
