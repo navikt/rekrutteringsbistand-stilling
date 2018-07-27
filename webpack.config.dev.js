@@ -8,6 +8,17 @@ module.exports = merge(common, {
     devServer: {
         historyApiFallback: true
     },
+    module: {
+        loaders: [{
+            test: /index\.html$/,
+            loader: 'mustache-loader',
+            options: {
+                render: {
+                    isProduction: false,
+                }
+            }
+        }]
+    },
     plugins: [
         new webpack.DefinePlugin({
             __PAM_CONTEXT_PATH__: "''",

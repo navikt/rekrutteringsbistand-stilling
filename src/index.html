@@ -6,10 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <title>NSS Admin</title>
     <link type="text/css" href="/css/styles.css" rel="stylesheet"/>
-    <% if( process.env.NODE_ENV === 'production') { %>
-        <script type="text/javascript" src="/js/env.js"></script>
-    <% } %>
-
+    {{#isProduction}}
+    <script type="text/javascript" src="/js/env.js"></script>
+    {{/isProduction}}
 </head>
 <body>
 <div id="app"></div>

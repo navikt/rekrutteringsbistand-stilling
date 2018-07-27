@@ -7,6 +7,17 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = () => {
     return (
         merge(common, {
+            module: {
+                loaders: [{
+                    test: /index\.html$/,
+                    loader: 'mustache-loader',
+                    options: {
+                        render: {
+                            isProduction: true,
+                        }
+                    }
+                }]
+            },
             plugins: [
                 new webpack.DefinePlugin({
                     'process.env.NODE_ENV': JSON.stringify('production')
