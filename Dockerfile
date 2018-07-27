@@ -6,7 +6,6 @@ COPY package.json server.js ./
 
 COPY dist/ ./dist
 COPY node_modules/ ./node_modules
-COPY index.html ./
 
 EXPOSE 8080
 

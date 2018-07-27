@@ -5,6 +5,7 @@ import { Systemtittel } from 'nav-frontend-typografi';
 import './TopMenu.less';
 import ShortcutsInfo from '../common/shortcuts/ShortcutsInfo';
 import { registerShortcuts, removeShortcuts } from '../common/shortcuts/Shortcuts';
+import Reportee from "../reportee/Reportee";
 
 class TopMenu extends React.Component {
     constructor(props) {
@@ -45,6 +46,7 @@ class TopMenu extends React.Component {
                     Hurtigtaster
                 </button>
                 <ShortcutsInfo closeModal={this.closeModal} isOpen={this.state.modalIsOpen} />
+                <Reportee />
             </div>
         );
     }

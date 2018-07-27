@@ -20,7 +20,7 @@ import './styles.less';
 import './variables.less';
 import StartPage from './startPage/StartPage';
 import SearchPage from './searchPage/SearchPage';
-import reporteeSaga from './reportee/reporteeSaga';
+import reporteeReducer, { reporteeSaga } from './reportee/reporteeReducer';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -32,7 +32,8 @@ const store = createStore(combineReducers({
     styrk: styrkReducer,
     administration: administrationReducer,
     filter: filterReducer,
-    search: searchReducer
+    reportee: reporteeReducer,
+    search: searchReducer,
 }), applyMiddleware(sagaMiddleware));
 
 sagaMiddleware.run(reporteeSaga);
