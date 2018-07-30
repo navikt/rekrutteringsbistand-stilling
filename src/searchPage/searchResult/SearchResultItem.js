@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
-import { formatISOString } from '../utils';
+import { formatISOString } from '../../utils';
 
-export default class ListItem extends React.Component {
+export default class SearchResultItem extends React.Component {
 
     render() {
         const { ad } = this.props;
         const { properties } = ad;
         return (
-            <Row className="ListItem">
+            <Row className="SearchResultItem">
                 <Column md="1">
                     <Normaltekst>
                         {ad.id ? ad.id : ''}
@@ -57,7 +57,7 @@ export default class ListItem extends React.Component {
     }
 }
 
-ListItem.propTypes = {
+SearchResultItem.propTypes = {
     ad: PropTypes.shape({
         uuid: PropTypes.string,
         title: PropTypes.string

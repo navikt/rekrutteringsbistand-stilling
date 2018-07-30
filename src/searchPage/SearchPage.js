@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { Container } from 'nav-frontend-grid';
 import { Innholdstittel } from 'nav-frontend-typografi';
 import SearchBox from '../common/searchBox/SearchBox';
-import ListHeaders from './ListHeaders';
-import ListItem from './ListItem';
+import SearchResultHeaders from './searchResult/SearchResultHeaders';
+import SearchResultItem from './searchResult/SearchResultItem';
 import Filter from './filter/Filter';
 import { FETCH_ADS } from './searchReducer';
 import './SearchPage.less';
@@ -36,10 +36,9 @@ class SearchPage extends React.Component {
                                     placeholder="Skriv inn søk..."
                                 />
                             </div>
-
-                            <ListHeaders />
+                            <SearchResultHeaders />
                             {!isSearching && ads && ads.map((ad) => (
-                                <ListItem key={ad.uuid} ad={ad} />
+                                <SearchResultItem key={ad.uuid} ad={ad} />
                             ))}
                         </div>
                     </div>

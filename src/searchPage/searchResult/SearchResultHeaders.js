@@ -2,10 +2,10 @@ import React from 'react';
 import { Element } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
 
-export default class ListHeaders extends React.Component {
+export default class SearchResultHeaders extends React.Component {
     render() {
         return (
-            <Row className="ListHeaders">
+            <Row className="SearchResultHeaders">
                 <Column md="1">
                     <Element>ID</Element>
                 </Column>
