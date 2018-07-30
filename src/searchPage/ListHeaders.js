@@ -6,10 +6,13 @@ export default class ListHeaders extends React.Component {
     render() {
         return (
             <Row className="ListHeaders">
+                <Column md="1">
+                    <Element>ID</Element>
+                </Column>
                 <Column md="3">
                     <Element>Stillingsoverskrift</Element>
                 </Column>
-                <Column md="3">
+                <Column md="2">
                     <Element>Stillingstittel</Element>
                 </Column>
                 <Column md="2">

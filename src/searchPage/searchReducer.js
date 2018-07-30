@@ -1,8 +1,10 @@
 import { put, takeLatest, select } from 'redux-saga/effects';
 import { fetchGet, ApiError } from '../api/api';
 import { AD_API } from '../fasitProperties';
-import { CHANGE_SEARCH_TITLE, CHANGE_SEARCH_EMPLOYER, CHANGE_SOURCE_FILTER,
-    CHANGE_STATUS_FILTER } from './filter/filterReducer';
+import {
+    CHANGE_SEARCH_TITLE, CHANGE_SEARCH_EMPLOYER, CHANGE_SOURCE_FILTER,
+    CHANGE_STATUS_FILTER, CHANGE_SEARCH_ID
+} from './filter/filterReducer';
 
 export const FETCH_ADS = 'FETCH_ADS';
 export const FETCH_ADS_BEGIN = 'FETCH_ADS_BEGIN';
@@ -97,5 +99,6 @@ export const searchSaga = function* saga() {
         CHANGE_STATUS_FILTER,
         CHANGE_SEARCH_EMPLOYER,
         CHANGE_SEARCH_TITLE,
+        CHANGE_SEARCH_ID,
         FETCH_ADS], getAds);
 };

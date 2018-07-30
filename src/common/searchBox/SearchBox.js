@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { Input, SkjemaGruppe, Select } from 'nav-frontend-skjema';
 import './SearchBox.less';
-import { CHANGE_SEARCH_EMPLOYER, CHANGE_SEARCH_TITLE } from '../../searchPage/filter/filterReducer';
+import { CHANGE_SEARCH_EMPLOYER, CHANGE_SEARCH_TITLE, CHANGE_SEARCH_ID } from '../../searchPage/filter/filterReducer';
 
 class SearchBox extends React.Component {
     onSearch = (e) => {
@@ -12,6 +12,8 @@ class SearchBox extends React.Component {
         const input = this.searchInput.value;
         if (this.searchType.value === 'title') {
             this.props.changeSearchTitle(input);
+        } else if (this.searchType.value === 'id') {
+            this.props.changeSearchId(input);
         } else {
             this.props.changeSearchEmployer(input);
         }
@@ -41,13 +43,21 @@ class SearchBox extends React.Component {
                     >
                         <option
                             value="employer"
-                            key="employer">
+                            key="employer"
+                        >
                             Arbeidsgiver
                         </option>
                         <option
                             value="title"
-                            key="title">
+                            key="title"
+                        >
                             Stillingstittel
+                        </option>
+                        <option
+                            value="id"
+                            key="id"
+                        >
+                            ID
                         </option>
                     </Select>
                     <Input
@@ -56,7 +66,7 @@ class SearchBox extends React.Component {
                         type="search"
                         placeholder={this.props.placeholder}
                         className="SearchBox__input "
-                        defaultValue={searchTerm }
+                        defaultValue={searchTerm}
                     />
                     <Hovedknapp className="SearchBox__button" onClick={this.onSearch}>
                         Søk
@@ -88,7 +98,8 @@ SearchBox.propTypes = {
 
 const mapDispatchToProps = (dispatch) => ({
     changeSearchEmployer: (employer) => dispatch({ type: CHANGE_SEARCH_EMPLOYER, employer }),
-    changeSearchTitle: (title) => dispatch({ type: CHANGE_SEARCH_TITLE, title })
+    changeSearchTitle: (title) => dispatch({ type: CHANGE_SEARCH_TITLE, title }),
+    changeSearchId: (id) => dispatch({ type: CHANGE_SEARCH_ID, id })
 });
 
 const mapStateToProps = (state) => ({

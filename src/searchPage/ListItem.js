@@ -12,6 +12,11 @@ export default class ListItem extends React.Component {
         const { properties } = ad;
         return (
             <Row className="ListItem">
+                <Column md="1">
+                    <Normaltekst>
+                        {ad.id ? ad.id : ''}
+                    </Normaltekst>
+                </Column>
                 <Column md="3">
                     <Link
                         className="Ad"
@@ -22,7 +27,7 @@ export default class ListItem extends React.Component {
                         </Normaltekst>
                     </Link>
                 </Column>
-                <Column md="3">
+                <Column md="2">
                     <Normaltekst>
                         {properties.jobtitle ? properties.jobtitle : ''}
                     </Normaltekst>

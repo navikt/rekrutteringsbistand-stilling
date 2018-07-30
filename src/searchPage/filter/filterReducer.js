@@ -3,12 +3,14 @@ export const CHANGE_SOURCE_FILTER = 'CHANGE_SOURCE_FILTER';
 export const CHANGE_STATUS_FILTER = 'CHANGE_STATUS_FILTER';
 export const CHANGE_SEARCH_EMPLOYER = 'CHANGE_SEARCH_EMPLOYER';
 export const CHANGE_SEARCH_TITLE = 'CHANGE_SEARCH_TITLE';
+export const CHANGE_SEARCH_ID = 'CHANGE_SEARCH_ID';
 
 const initialState = {
     source: undefined,
     administrationStatus: undefined,
     employerName: undefined,
-    title: undefined
+    title: undefined,
+    id: undefined
 };
 
 export default function filterReducer(state = initialState, action) {
@@ -27,12 +29,21 @@ export default function filterReducer(state = initialState, action) {
             return {
                 ...state,
                 title: undefined,
-                employerName: action.employer
+                employerName: action.employer,
+                id: undefined
             };
         case CHANGE_SEARCH_TITLE:
             return {
                 ...state,
                 title: action.title,
+                employerName: undefined,
+                id: undefined
+            };
+        case CHANGE_SEARCH_ID:
+            return {
+                ...state,
+                id: action.id,
+                title: undefined,
                 employerName: undefined
             };
         default:
