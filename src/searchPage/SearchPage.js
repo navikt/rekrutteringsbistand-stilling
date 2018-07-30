@@ -6,6 +6,7 @@ import { Innholdstittel } from 'nav-frontend-typografi';
 import SearchBox from '../common/searchBox/SearchBox';
 import SearchResultHeaders from './searchResult/SearchResultHeaders';
 import SearchResultItem from './searchResult/SearchResultItem';
+import NoResults from './noResults/NoResults';
 import Filter from './filter/Filter';
 import { FETCH_ADS } from './searchReducer';
 import './SearchPage.less';
@@ -37,6 +38,9 @@ class SearchPage extends React.Component {
                                 />
                             </div>
                             <SearchResultHeaders />
+                            {!isSearching && ads && ads.length === 0 && (
+                                <NoResults />
+                            )}
                             {!isSearching && ads && ads.map((ad) => (
                                 <SearchResultItem key={ad.uuid} ad={ad} />
                             ))}

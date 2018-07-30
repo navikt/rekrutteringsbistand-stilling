@@ -1,6 +1,7 @@
 import React from 'react';
 import { Element } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
+import './SearchResult.less';
 
 export default class SearchResultHeaders extends React.Component {
     render() {

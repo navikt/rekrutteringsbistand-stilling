@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
 import { formatISOString } from '../../utils';
+import './SearchResult.less';
 
 export default class SearchResultItem extends React.Component {
 
