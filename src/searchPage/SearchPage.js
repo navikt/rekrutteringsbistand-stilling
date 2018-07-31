@@ -7,6 +7,7 @@ import SearchBox from '../common/searchBox/SearchBox';
 import SearchResultHeaders from './searchResult/SearchResultHeaders';
 import SearchResultItem from './searchResult/SearchResultItem';
 import NoResults from './noResults/NoResults';
+import Loading from './loading/Loading';
 import Filter from './filter/Filter';
 import { FETCH_ADS } from './searchReducer';
 import './SearchPage.less';
@@ -38,6 +39,9 @@ class SearchPage extends React.Component {
                                 />
                             </div>
                             <SearchResultHeaders />
+                            {isSearching && (
+                                <Loading />
+                            )}
                             {!isSearching && ads && ads.length === 0 && (
                                 <NoResults />
                             )}
