@@ -215,13 +215,6 @@ class Administration extends React.Component {
                                         </Knapp>
                                     </div>
                                 )}
-                                {adminStatus === AdminStatusEnum.RECEIVED && (
-                                    <div>
-                                        <Hovedknapp className="Administration__button" onClick={this.onNextClick}>
-                                            Neste
-                                        </Hovedknapp>
-                                    </div>
-                                )}
                             </div>
                         )}
                     </div>
