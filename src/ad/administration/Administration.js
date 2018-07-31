@@ -157,7 +157,8 @@ class Administration extends React.Component {
                             </div>
                             <div className="Administration__status__column">
                                 <EtikettLiten className="blokk-xxxs">Publiseringsstatus:</EtikettLiten>
-                                {adStatus === AdStatusEnu                            <Etikett type="suksess">
+                                {adStatus === AdStatusEnum.ACTIVE && (
+                                    <Etikett type="suksess">
                                         Aktiv
                                     </Etikett>
                                 )}
