@@ -91,6 +91,16 @@ class Administration extends React.Component {
         this.props.setAdminStatus(AdminStatusEnum.STOPPED);
     };
 
+    onCancelWorkClick = (e) => {
+        e.preventDefault();
+        this.props.setAdminStatus(AdminStatusEnum.RECEIVED);
+    };
+
+    onStartWorkClick = (e) => {
+        e.preventDefault();
+        this.props.setAdminStatus(AdminStatusEnum.PENDING);
+    };
+
     onNextClick = () => {
         this.props.getNextAd();
     };
@@ -119,6 +129,11 @@ class Administration extends React.Component {
                         <div className="Administration__status">
                             <div className="Administration__status__column">
                                 <EtikettLiten className="blokk-xxxs">Behandlingsstatus:</EtikettLiten>
+                                {adminStatus === AdminStatusEnum.RECEIVED && (
+                                    <Etikett type="info">
+                                        Klar til behandling (<a href="#" className="lenke" onClick={this.onStartWorkClick}>Start</a>)
+                                    </Etikett>
+                                )}
                                 {adminStatus === AdminStatusEnum.APPROVED && (
                                     <Etikett type="suksess">
                                         Godkjent
@@ -130,8 +145,8 @@ class Administration extends React.Component {
                                     </Etikett>
                                 )}
                                 {adminStatus === AdminStatusEnum.PENDING && (
-                                    <Etikett type="info">
-                                        Under arbeid
+                                    <Etikett type="fokus">
+                                        Under behandling (<a href="#" className="lenke" onClick={this.onCancelWorkClick}>Avbryt</a>)
                                     </Etikett>
                                 )}
                                 {adminStatus === AdminStatusEnum.STOPPED && (
@@ -142,8 +157,7 @@ class Administration extends React.Component {
                             </div>
                             <div className="Administration__status__column">
                                 <EtikettLiten className="blokk-xxxs">Publiseringsstatus:</EtikettLiten>
-                                {adStatus === AdStatusEnum.ACTIVE && (
-                                    <Etikett type="suksess">
+                                {adStatus === AdStatusEnu                            <Etikett type="suksess">
                                         Aktiv
                                     </Etikett>
                                 )}
@@ -198,6 +212,13 @@ class Administration extends React.Component {
                                         <Knapp className="Administration__button" onClick={this.onReopenClick}>
                                             Gjenåpne
                                         </Knapp>
+                                    </div>
+                                )}
+                                {adminStatus === AdminStatusEnum.RECEIVED && (
+                                    <div>
+                                        <Hovedknapp className="Administration__button" onClick={this.onNextClick}>
+                                            Neste
+                                        </Hovedknapp>
                                     </div>
                                 )}
                             </div>
