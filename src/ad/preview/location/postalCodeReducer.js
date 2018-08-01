@@ -41,7 +41,8 @@ export default function postalCodeReducer(state = initialState, action) {
         case SAVE_AD_SUCCESS:
             return {
                 ...state,
-                value: undefined
+                value: undefined,
+                suggestions: []
             };
         case SET_LOCATION_VALUE:
             return {
