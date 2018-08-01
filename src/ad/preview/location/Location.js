@@ -20,7 +20,7 @@ export class Location extends React.Component {
                 <Element className="detail-section__head">Sted</Element>
                 <Input
                     disabled={status !== AdminStatusEnum.PENDING || isSavingAd}
-                    label="Adresse"
+                    label="Gateadresse"
                     className="typo-normal"
                     value={location && location.address ? location.address : ''}
                     onChange={this.onAddressChange}
