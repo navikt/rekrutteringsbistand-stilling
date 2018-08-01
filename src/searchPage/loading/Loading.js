@@ -7,7 +7,6 @@ export default function Loading() {
     return (
         <div className="Loading">
             <Spinner type="L" />
-            <Element>Henter annonser...</Element>
         </div>
     );
 }
