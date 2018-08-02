@@ -43,7 +43,7 @@ class PostalCode extends React.Component {
                         disabled={this.props.status !== AdminStatusEnum.PENDING || this.props.isSavingAd}
                         id="PostalCode__input"
                         className="PostalCode__code"
-                        label="Postnr."
+                        label="Postnummer"
                         onSelect={this.onTypeAheadSuggestionSelected}
                         onChange={this.onTypeAheadValueChange}
                         onBlur={this.onTypeAheadBlur}
