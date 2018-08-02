@@ -1,7 +1,7 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import { ApiError, fetchGet } from '../../../api/api';
 import { AD_API } from "../../../fasitProperties";
-import { FETCH_AD_BEGIN, SAVE_AD_SUCCESS } from "../../adReducer";
+import { FETCH_AD_BEGIN, FETCH_AD_SUCCESS, SAVE_AD_SUCCESS, SET_LOCATION_POSTAL_CODE } from "../../adReducer";
 
 export const SET_LOCATION_VALUE = 'SET_LOCATION_VALUE';
 export const FETCH_LOCATION_SUGGESTIONS = 'FETCH_LOCATION_SUGGESTIONS';
@@ -38,11 +38,21 @@ export function lookUpLocation(postalCode) {
 export default function postalCodeReducer(state = initialState, action) {
     switch (action.type) {
         case FETCH_AD_BEGIN:
-        case SAVE_AD_SUCCESS:
             return {
                 ...state,
                 value: undefined,
-                suggestions: []
+                suggestions: [],
+                isValid: undefined
+            };
+        case FETCH_AD_SUCCESS:
+            return {
+                ...state,
+                isValid: action.response.location !== undefined && action.response.location !== null && action.response.location.postalCode !== undefined
+            };
+        case SET_LOCATION_POSTAL_CODE:
+            return {
+                ...state,
+                isValid: lookUpLocation(action.postalCode) !== undefined
             };
         case SET_LOCATION_VALUE:
             return {

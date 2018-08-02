@@ -109,20 +109,24 @@ export default function adReducer(state = initialState, action) {
             };
         case SET_LOCATION_POSTAL_CODE:
             const found = lookUpLocation(action.postalCode);
-            return {
-                ...state,
-                data: {
-                    ...state.data,
-                    location: {
-                        ...state.data.location,
-                        city: found.city,
-                        county: found.county,
-                        municipal: found.municipality,
-                        municipalCode: found.municipalityCode,
-                        postalCode: found.postalCode
+            if (found) {
+                return {
+                    ...state,
+                    data: {
+                        ...state.data,
+                        location: {
+                            ...state.data.location,
+                            city: found.city,
+                            county: found.county,
+                            municipal: found.municipality,
+                            municipalCode: found.municipalityCode,
+                            postalCode: found.postalCode
+                        }
                     }
-                }
-            };
+                };
+            } else {
+                return state
+            }
         case SET_LOCATION_ADDRESS:
             return {
                 ...state,
