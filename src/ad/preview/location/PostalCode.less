@@ -1,3 +1,6 @@
+@import "../../../../node_modules/nav-frontend-typografi-style/src/index";
+@import "../../../../node_modules/nav-frontend-skjema-style/src/validering";
+
 .PostalCode__flex {
   display: flex;
   position: relative;
@@ -8,10 +11,16 @@
 }
 
 .PostalCode__city {
+  .typo-normal;
   margin-left: 0.5rem!important;
   margin-bottom: 0!important;
 }
 
-#PostalCode__code-input {
+.PostalCode__error {
+  .typo-normal;
+  .skjemaelement__feilmelding;
+}
+
+#PostalCode__input {
   width: 4rem;
 }

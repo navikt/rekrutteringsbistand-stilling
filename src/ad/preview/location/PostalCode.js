@@ -36,20 +36,14 @@ class PostalCode extends React.Component {
     };
 
     render() {
-        let value = "";
-        if (this.props.value !== undefined) {
-            value = this.props.value;
-        } else if (this.props.location && this.props.location.postalCode) {
-            value = this.props.location.postalCode
-        }
         return (
             <div className="PostalCode">
                 <div className="PostalCode__flex">
                     <Typeahead
                         disabled={this.props.status !== AdminStatusEnum.PENDING || this.props.isSavingAd}
-                        id="PostalCode__code-input"
+                        id="PostalCode__input"
                         className="PostalCode__code"
-                        label="Postnr"
+                        label="Postnr."
                         onSelect={this.onTypeAheadSuggestionSelected}
                         onChange={this.onTypeAheadValueChange}
                         onBlur={this.onTypeAheadBlur}
@@ -57,21 +51,21 @@ class PostalCode extends React.Component {
                             value: location.postalCode,
                             label: `${location.postalCode} ${location.city}`
                         }))}
-                        value={value}
+                        value={this.props.value}
                         ref={(instance) => {
                             this.inputRef = instance;
                         }}
-                        error={this.props.isValid === false}
+                        error={!this.props.isValid}
                     />
                     <Input
                         disabled
                         label="Poststed"
-                        className="PostalCode__city typo-normal"
+                        className="PostalCode__city"
                         value={this.props.location && this.props.location.city ? this.props.location.city : ''}
                     />
                 </div>
-                {this.props.isValid === false && (
-                    <div className="skjemaelement__feilmelding">Ugyldig postnummer</div>
+                {!this.props.isValid && (
+                    <div className="PostalCode__error">Ugyldig postnummer</div>
                 )}
             </div>
         );

@@ -37,17 +37,18 @@ export function lookUpLocation(postalCode) {
 
 export default function postalCodeReducer(state = initialState, action) {
     switch (action.type) {
+        case FETCH_AD_SUCCESS:
+            return {
+                ...state,
+                value: action.response.location && action.response.location.postalCode ? action.response.location.postalCode : '',
+                isValid: action.response.location !== undefined && action.response.location !== null && action.response.location.postalCode !== undefined
+            };
         case FETCH_AD_BEGIN:
             return {
                 ...state,
                 value: undefined,
-                suggestions: [],
-                isValid: undefined
-            };
-        case FETCH_AD_SUCCESS:
-            return {
-                ...state,
-                isValid: action.response.location !== undefined && action.response.location !== null && action.response.location.postalCode !== undefined
+                isValid: undefined,
+                suggestions: []
             };
         case SET_LOCATION_POSTAL_CODE:
             return {
