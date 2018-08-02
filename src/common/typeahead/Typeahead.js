@@ -232,13 +232,14 @@ export default class Typeahead extends React.Component {
 }
 
 Typeahead.defaultProps = {
-    disabled: false
+    disabled: false,
+    placeholder: undefined
 };
 
 Typeahead.propTypes = {
     onSelect: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,
-    placeholder: PropTypes.string.isRequired,
+    placeholder: PropTypes.string,
     suggestions: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.string).isRequired,
         PropTypes.arrayOf(PropTypes.shape({

@@ -10,6 +10,7 @@ import Summary from './summary/Summary';
 import markWords from './markWords';
 import {hasExcludingWordsInTitle} from './markWords';
 import './Preview.less';
+import Location from "./location/Location";
 
 
 export default function Preview({ stilling }) {
@@ -35,6 +36,7 @@ export default function Preview({ stilling }) {
                             properties={stilling.properties}
                         />
                         <Employment properties={stilling.properties} />
+                        <Location />
                         <Employer properties={stilling.properties} />
                         <Summary stilling={stilling} />
                     </div>

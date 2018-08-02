@@ -3,6 +3,7 @@ import { ApiError, fetchGet, fetchPut } from '../api/api';
 import { lookUpStyrk } from './categorize/styrk/styrkReducer';
 import { AD_API } from '../fasitProperties';
 import AdminStatusEnum from './administration/AdminStatusEnum';
+import { lookUpLocation } from "./preview/location/postalCodeReducer";
 
 export const FETCH_AD = 'FETCH_AD';
 export const FETCH_AD_BEGIN = 'FETCH_AD_BEGIN';
@@ -19,6 +20,9 @@ export const SAVE_AD_FAILURE = 'SAVE_AD_FAILURE';
 export const SET_COMMENT = 'SET_COMMENT';
 export const ADD_STYRK = 'ADD_STYRK';
 export const REMOVE_STYRK = 'REMOVE_STYRK';
+
+export const SET_LOCATION_POSTAL_CODE = 'SET_LOCATION_POSTAL_CODE';
+export const SET_LOCATION_ADDRESS = 'SET_LOCATION_ADDRESS';
 
 export const SET_AD_STATUS = 'SET_AD_STATUS';
 export const SET_ADMIN_STATUS = 'SET_ADMIN_STATUS';
@@ -101,6 +105,33 @@ export default function adReducer(state = initialState, action) {
                 data: {
                     ...state.data,
                     categoryList: state.data.categoryList.filter((c) => (c.code !== action.code))
+                }
+            };
+        case SET_LOCATION_POSTAL_CODE:
+            const found = lookUpLocation(action.postalCode);
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    location: {
+                        ...state.data.location,
+                        city: found.city,
+                        county: found.county,
+                        municipal: found.municipality,
+                        municipalCode: found.municipalityCode,
+                        postalCode: found.postalCode
+                    }
+                }
+            };
+        case SET_LOCATION_ADDRESS:
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    location: {
+                        ...state.data.location,
+                       address: action.address
+                    }
                 }
             };
         case SET_AD_STATUS:

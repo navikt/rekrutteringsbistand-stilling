@@ -15,10 +15,6 @@ export default function EmployerDetails({ properties }) {
                     <dt key="dt">Arbeidsgiver:</dt>,
                     <dd key="dd">{properties.employer}</dd>
                 ]}
-                {properties.address && [
-                    <dt key="dt">Adresse:</dt>,
-                    <dd key="dd">{properties.address}</dd>
-                ]}
             </dl>
             {properties.employerdescription && (
                 <div className="EmployerDetails__description">{ ReactHtmlParser(markWords(properties.employerdescription)) }</div>
