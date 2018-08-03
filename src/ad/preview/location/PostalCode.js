@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Input } from 'nav-frontend-skjema';
 import Typeahead from '../../../common/typeahead/Typeahead';
 import { FETCH_LOCATION_SUGGESTIONS, SET_LOCATION_VALUE } from './postalCodeReducer';
 import AdminStatusEnum from '../../administration/AdminStatusEnum';
 import { registerShortcuts } from '../../../common/shortcuts/Shortcuts';
 import { SET_LOCATION_POSTAL_CODE } from "../../adReducer";
+import './PostalCode.less';
 
 class PostalCode extends React.Component {
     componentDidMount() {
@@ -22,43 +24,57 @@ class PostalCode extends React.Component {
         this.props.setValue(value);
     };
 
+    onTypeAheadBlur = (value) => {
+        this.props.setLocationPostalCode(value);
+    };
+
     onTypeAheadSuggestionSelected = (location) => {
         if (location) {
-            this.props.setValue(location.label);
+            this.props.setValue(location.value);
             this.props.setLocationPostalCode(location.value);
         }
     };
 
     render() {
-        let value = "";
-        if(this.props.value !== undefined) {
-            value = this.props.value;
-        } else if (this.props.location && this.props.location.postalCode && this.props.location.city) {
-            value = `${this.props.location.postalCode} ${this.props.location.city}`
-        }
-
         return (
-            <div className="Location">
-                <Typeahead
-                    disabled={this.props.status !== AdminStatusEnum.PENDING || this.props.isSavingAd}
-                    id="Location__typeahead"
-                    label="Poststed"
-                    onSelect={this.onTypeAheadSuggestionSelected}
-                    onChange={this.onTypeAheadValueChange}
-                    suggestions={this.props.suggestions.map((location) => ({
-                        value: location.postalCode,
-                        label: `${location.postalCode} ${location.city}`
-                    }))}
-                    value={value}
-                    ref={(instance) => { this.inputRef = instance; }}
-                />
+            <div className="PostalCode">
+                <div className="PostalCode__flex">
+                    <Typeahead
+                        disabled={this.props.status !== AdminStatusEnum.PENDING || this.props.isSavingAd}
+                        id="PostalCode__input"
+                        className="PostalCode__code"
+                        label="Postnummer"
+                        onSelect={this.onTypeAheadSuggestionSelected}
+                        onChange={this.onTypeAheadValueChange}
+                        onBlur={this.onTypeAheadBlur}
+                        suggestions={this.props.suggestions.map((location) => ({
+                            value: location.postalCode,
+                            label: `${location.postalCode} ${location.city}`
+                        }))}
+                        value={this.props.value}
+                        ref={(instance) => {
+                            this.inputRef = instance;
+                        }}
+                        error={!this.props.isValid}
+                    />
+                    <Input
+                        disabled
+                        label="Poststed"
+                        className="PostalCode__city"
+                        value={this.props.location && this.props.location.city ? this.props.location.city : ''}
+                    />
+                </div>
+                {!this.props.isValid && (
+                    <div className="PostalCode__error">Ugyldig postnummer</div>
+                )}
             </div>
         );
     }
 }
 
 PostalCode.defaultProps = {
-    value: undefined
+    value: undefined,
+    isValid: undefined
 };
 
 PostalCode.propTypes = {
@@ -71,11 +87,13 @@ PostalCode.propTypes = {
     setValue: PropTypes.func.isRequired,
     fetchLocationSuggestions: PropTypes.func.isRequired,
     setLocationPostalCode: PropTypes.func.isRequired,
+    isValid: PropTypes.bool,
     isSavingAd: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state) => ({
     value: state.postalCode.value,
+    isValid: state.postalCode.isValid,
     suggestions: state.postalCode.suggestions,
     status: state.ad.data.administration.status,
     location: state.ad.data.location,

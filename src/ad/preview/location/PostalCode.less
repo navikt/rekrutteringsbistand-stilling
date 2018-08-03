@@ -1,0 +1,27 @@
+@import "../../../../node_modules/nav-frontend-typografi-style/src/index";
+@import "../../../../node_modules/nav-frontend-skjema-style/src/validering";
+
+.PostalCode__flex {
+  display: flex;
+  position: relative;
+}
+
+.PostalCode__code {
+  position: initial;
+}
+
+.PostalCode__city {
+  .typo-normal;
+  flex: auto;
+  margin-left: 1rem!important;
+  margin-bottom: 0!important;
+}
+
+.PostalCode__error {
+  .typo-normal;
+  .skjemaelement__feilmelding;
+}
+
+#PostalCode__input {
+  width: 6rem;
+}

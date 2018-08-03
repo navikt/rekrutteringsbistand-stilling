@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/mouse-events-have-key-events,no-trailing-spaces */
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import TypeaheadSuggestion from './TypeaheadSuggestion';
 import './Typeahead.less';
 
@@ -116,12 +117,16 @@ export default class Typeahead extends React.Component {
      * suggestions-listen. Men når man trykker med musen på et forslag, trenger vi
      * at forslagene ikke skjules, slik at setValue rekker å bli kjørt.
      */
-    onBlur = () => {
+    onBlur = (e) => {
+        const value = e.target.value;
         this.blurDelay = setTimeout(() => {
             if (this.shouldBlur) {
                 this.setState({
                     hasFocus: false
                 });
+                if(this.props.onBlur) {
+                    this.props.onBlur(value);
+                }
             }
         }, 10);
     };
@@ -178,7 +183,7 @@ export default class Typeahead extends React.Component {
             `${this.props.id}-item-${this.state.activeSuggestionIndex}` : undefined;
 
         return (
-            <div className="Typeahead">
+            <div className={classNames("Typeahead", this.props.className)}>
                 <label className="skjemaelement__label" htmlFor={this.props.id}>
                     {this.props.label}
                 </label>
@@ -203,7 +208,7 @@ export default class Typeahead extends React.Component {
                     ref={(input) => {
                         this.input = input;
                     }}
-                    className="Typeahead__input typo-normal"
+                    className={classNames('Typeahead__input typo-normal', {'skjemaelement__input--harFeil': this.props.error})}
                 />
                 <ul
                     id={`${this.props.id}-suggestions`}
@@ -233,7 +238,8 @@ export default class Typeahead extends React.Component {
 
 Typeahead.defaultProps = {
     disabled: false,
-    placeholder: undefined
+    placeholder: undefined,
+    error: false
 };
 
 Typeahead.propTypes = {
@@ -249,5 +255,6 @@ Typeahead.propTypes = {
     ]).isRequired,
     value: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
+    error: PropTypes.bool
 };
