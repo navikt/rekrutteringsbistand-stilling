@@ -37,6 +37,7 @@ export function lookUpLocation(postalCode) {
 
 export default function postalCodeReducer(state = initialState, action) {
     switch (action.type) {
+        case SAVE_AD_SUCCESS:
         case FETCH_AD_SUCCESS:
             return {
                 ...state,
