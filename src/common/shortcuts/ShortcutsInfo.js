@@ -27,9 +27,11 @@ export default class ShortcutsInfo extends React.Component {
 
                             <Systemtittel>Forside</Systemtittel>
                             <dl className="Shortcuts__list">
-                                <dt><span>/</span></dt><dd>Søk på stilling eller arbeidsgiver</dd>
                                 <dt><span>n s</span></dt><dd>Vis neste stillingsannonse</dd>
                                 <dt><span>l n</span></dt><dd>Lag ny stillingsannonse</dd>
+                                <dt><span>s s</span></dt><dd>Søk på stilling</dd>
+                                <dt><span>s a</span></dt><dd>Søk på arbeidsgiver</dd>
+                                <dt><span>s i</span></dt><dd>Søk på ID</dd>
                             </dl>
                         </Column>
                         <Column md="6">

@@ -5,8 +5,29 @@ import { Hovedknapp } from 'nav-frontend-knapper';
 import { Input, SkjemaGruppe, Select } from 'nav-frontend-skjema';
 import './SearchBox.less';
 import { CHANGE_SEARCH_EMPLOYER, CHANGE_SEARCH_TITLE, CHANGE_SEARCH_ID } from '../../searchPage/filter/filterReducer';
+import { registerShortcuts } from '../shortcuts/Shortcuts';
 
 class SearchBox extends React.Component {
+    componentDidMount() {
+        registerShortcuts('forside', {
+            's a': (e) => {
+                e.preventDefault();
+                this.searchType.value = 'employer';
+                this.searchInput.focus();
+            },
+            's s': (e) => {
+                e.preventDefault();
+                this.searchType.value = 'title';
+                this.searchInput.focus();
+            },
+            's i': (e) => {
+                e.preventDefault();
+                this.searchType.value = 'id';
+                this.searchInput.focus();
+            }
+        });
+    }
+
     onSearch = (e) => {
         e.preventDefault();
         const input = this.searchInput.value;
@@ -29,6 +50,9 @@ class SearchBox extends React.Component {
         } else if (this.props.searchTitle) {
             searchType = 'title';
             searchTerm = this.props.searchTitle;
+        } else if (this.props.searchId) {
+            searchType = 'id';
+            searchTerm = this.props.searchId;
         }
 
         return (
@@ -82,6 +106,7 @@ SearchBox.defaultProps = {
     placeholder: '',
     searchEmployer: undefined,
     searchTitle: undefined,
+    searchId: undefined,
     onSearchClick: (f) => f
 };
 
@@ -91,9 +116,10 @@ SearchBox.propTypes = {
     onSearchClick: PropTypes.func,
     changeSearchEmployer: PropTypes.func.isRequired,
     changeSearchTitle: PropTypes.func.isRequired,
+    changeSearchId: PropTypes.func.isRequired,
     searchEmployer: PropTypes.string,
-    searchTitle: PropTypes.string
-
+    searchTitle: PropTypes.string,
+    searchId: PropTypes.string
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -104,7 +130,8 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => ({
     searchEmployer: state.filter.employerName,
-    searchTitle: state.filter.title
+    searchTitle: state.filter.title,
+    searchId: state.filter.id
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBox);
