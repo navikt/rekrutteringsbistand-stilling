@@ -3,7 +3,7 @@ import { ApiError, fetchGet, fetchPut } from '../api/api';
 import { lookUpStyrk } from './categorize/styrk/styrkReducer';
 import { AD_API } from '../fasitProperties';
 import AdminStatusEnum from './administration/AdminStatusEnum';
-import { lookUpLocation } from "./preview/location/postalCodeReducer";
+import { lookUpPostalCodes } from "./preview/location/postalCodeReducer";
 
 export const FETCH_AD = 'FETCH_AD';
 export const FETCH_AD_BEGIN = 'FETCH_AD_BEGIN';
@@ -108,7 +108,7 @@ export default function adReducer(state = initialState, action) {
                 }
             };
         case SET_LOCATION_POSTAL_CODE:
-            const found = lookUpLocation(action.postalCode);
+            const found = lookUpPostalCodes(action.postalCode);
             if (found) {
                 return {
                     ...state,

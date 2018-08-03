@@ -3,10 +3,10 @@ import { ApiError, fetchGet } from '../../../api/api';
 import { AD_API } from "../../../fasitProperties";
 import { FETCH_AD_BEGIN, FETCH_AD_SUCCESS, SAVE_AD_SUCCESS, SET_LOCATION_POSTAL_CODE } from "../../adReducer";
 
-export const SET_LOCATION_VALUE = 'SET_LOCATION_VALUE';
-export const FETCH_LOCATION_SUGGESTIONS = 'FETCH_LOCATION_SUGGESTIONS';
-export const FETCH_LOCATION_SUGGESTIONS_SUCCESS = 'FETCH_LOCATION_SUGGESTIONS_SUCCESS';
-export const FETCH_LOCATION_SUGGESTIONS_FAILURE = 'FETCH_LOCATION_SUGGESTIONS_FAILURE';
+export const SET_POSTAL_CODE_VALUE = 'SET_POSTAL_CODE_VALUE';
+export const FETCH_POSTAL_CODES_SUGGESTIONS = 'FETCH_POSTAL_CODES_SUGGESTIONS';
+export const FETCH_POSTAL_CODES_SUGGESTIONS_SUCCESS = 'FETCH_POSTAL_CODES_SUGGESTIONS_SUCCESS';
+export const FETCH_POSTAL_CODES_SUGGESTIONS_FAILURE = 'FETCH_POSTAL_CODES_SUGGESTIONS_FAILURE';
 
 const initialState = {
     suggestions: []
@@ -14,25 +14,25 @@ const initialState = {
 
 let cached;
 
-function filterLocations(locations, value) {
-    return locations.filter(((l) =>
-        l.city.toLowerCase().startsWith(value.toLowerCase()) ||
-        l.postalCode.startsWith(value)
+function filterPostalCodes(postalCodes, value) {
+    return postalCodes.filter(((postalCode) =>
+            postalCode.city.toLowerCase().startsWith(value.toLowerCase()) ||
+            postalCode.postalCode.startsWith(value)
     )).slice(0, 10);
 }
 
-function sortLocations(locations) {
-    return locations.sort(function(a, b){
-        if(a.city < b.city) return -1;
-        if(a.city > b.city) return 1;
-        if(a.postalCode < b.postalCode) return -1;
-        if(a.postalCode > b.postalCode) return 1;
+function sortPostalCodes(postalCodes) {
+    return postalCodes.sort(function (a, b) {
+        if (a.city < b.city) return -1;
+        if (a.city > b.city) return 1;
+        if (a.postalCode < b.postalCode) return -1;
+        if (a.postalCode > b.postalCode) return 1;
         return 0;
     })
 }
 
-export function lookUpLocation(postalCode) {
-    return cached.find(location => (location.postalCode === postalCode))
+export function lookUpPostalCodes(value) {
+    return cached.find(postalCode => (postalCode.postalCode === value))
 }
 
 export default function postalCodeReducer(state = initialState, action) {
@@ -54,20 +54,20 @@ export default function postalCodeReducer(state = initialState, action) {
         case SET_LOCATION_POSTAL_CODE:
             return {
                 ...state,
-                isValid: lookUpLocation(action.postalCode) !== undefined
+                isValid: lookUpPostalCodes(action.postalCode) !== undefined
             };
-        case SET_LOCATION_VALUE:
+        case SET_POSTAL_CODE_VALUE:
             return {
                 ...state,
                 value: action.value,
-                suggestions: action.value.length > 1 ? filterLocations(cached, action.value) : []
+                suggestions: action.value.length > 1 ? filterPostalCodes(cached, action.value) : []
             };
-        case FETCH_LOCATION_SUGGESTIONS_SUCCESS:
+        case FETCH_POSTAL_CODES_SUGGESTIONS_SUCCESS:
             return {
                 ...state,
                 suggestions: []
             };
-        case FETCH_LOCATION_SUGGESTIONS_FAILURE:
+        case FETCH_POSTAL_CODES_SUGGESTIONS_FAILURE:
             return {
                 ...state,
                 suggestions: []
@@ -77,15 +77,15 @@ export default function postalCodeReducer(state = initialState, action) {
     }
 }
 
-function* getLocationSuggestions() {
+function* getPostalCodesSuggestions() {
     if (!cached) {
         try {
             const response = yield fetchGet(`${AD_API}postdata/`);
-            cached = sortLocations(response);
-            yield put({ type: FETCH_LOCATION_SUGGESTIONS_SUCCESS, response: cached });
+            cached = sortPostalCodes(response);
+            yield put({ type: FETCH_POSTAL_CODES_SUGGESTIONS_SUCCESS, response: cached });
         } catch (e) {
             if (e instanceof ApiError) {
-                yield put({ type: FETCH_LOCATION_SUGGESTIONS_FAILURE, error: e });
+                yield put({ type: FETCH_POSTAL_CODES_SUGGESTIONS_FAILURE, error: e });
             } else {
                 throw e;
             }
@@ -94,5 +94,5 @@ function* getLocationSuggestions() {
 }
 
 export const postalCodeSaga = function* saga() {
-    yield takeLatest(FETCH_LOCATION_SUGGESTIONS, getLocationSuggestions);
+    yield takeLatest(FETCH_POSTAL_CODES_SUGGESTIONS, getPostalCodesSuggestions);
 };

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Input } from 'nav-frontend-skjema';
 import Typeahead from '../../../common/typeahead/Typeahead';
-import { FETCH_LOCATION_SUGGESTIONS, SET_LOCATION_VALUE } from './postalCodeReducer';
+import { FETCH_POSTAL_CODES_SUGGESTIONS, SET_POSTAL_CODE_VALUE } from './postalCodeReducer';
 import AdminStatusEnum from '../../administration/AdminStatusEnum';
 import { registerShortcuts } from '../../../common/shortcuts/Shortcuts';
 import { SET_LOCATION_POSTAL_CODE } from "../../adReducer";
@@ -101,9 +101,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    setValue: (value) => dispatch({ type: SET_LOCATION_VALUE, value }),
+    setValue: (value) => dispatch({ type: SET_POSTAL_CODE_VALUE, value }),
     setLocationPostalCode: (postalCode) => dispatch({ type: SET_LOCATION_POSTAL_CODE, postalCode }),
-    fetchLocationSuggestions: (value) => dispatch({ type: FETCH_LOCATION_SUGGESTIONS, value })
+    fetchLocationSuggestions: (value) => dispatch({ type: FETCH_POSTAL_CODES_SUGGESTIONS, value })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostalCode);
