@@ -1,5 +1,6 @@
-@import "../../../node_modules/nav-frontend-chevron-style/src/index";
-
+@triangleUp: url(data:image/png;base64,R0lGODlhCwALAJEAAAAAAP///xUVFf///yH5BAEAAAMALAAAAAALAAsAAAIRnC2nKLnT4or00Puy3rx7VQAAOw==) no-repeat center right;
+@triangleDown: url(data:image/gif;base64,R0lGODlhCwALAJEAAAAAAP///xUVFf///yH5BAEAAAMALAAAAAALAAsAAAIPnI+py+0/hJzz0IruwjsVADs=) no-repeat center right;
+@triangleUpDown: url(data:image/gif;base64,R0lGODlhCwALAJEAAAAAAP///xUVFf///yH5BAEAAAMALAAAAAALAAsAAAIUnC2nKLnT4or00PvyrQwrPzUZshQAOw==) no-repeat center right;
 
 .SearchResultItem {
   padding-top: 1rem;
@@ -17,19 +18,33 @@
   min-width: 20px;
   min-height: 12px;
   display: inline-block;
-  background: url(data:image/png;base64,R0lGODlhCwALAJEAAAAAAP///xUVFf///yH5BAEAAAMALAAAAAALAAsAAAIRnC2nKLnT4or00Puy3rx7VQAAOw==) no-repeat center right;
+  background: @triangleUp;
 }
 
 .SearchResultHeader--sorted-desc {
   min-width: 20px;
   min-height: 12px;
   display: inline-block;
-  background: url(data:image/gif;base64,R0lGODlhCwALAJEAAAAAAP///xUVFf///yH5BAEAAAMALAAAAAALAAsAAAIPnI+py+0/hJzz0IruwjsVADs=) no-repeat center right;
+  background: @triangleDown
 }
 
 p:hover .SearchResultHeader--unsorted{
   min-width: 20px;
   min-height: 12px;
   display: inline-block;
-  background: url(data:image/gif;base64,R0lGODlhCwALAJEAAAAAAP///xUVFf///yH5BAEAAAMALAAAAAALAAsAAAIUnC2nKLnT4or00PvyrQwrPzUZshQAOw==) no-repeat center right;
+  background: @triangleUpDown;
+}
+
+p:hover .SearchResultHeader--sorted-asc{
+  min-width: 20px;
+  min-height: 12px;
+  display: inline-block;
+  background: @triangleUpDown;
+}
+
+p:hover .SearchResultHeader--sorted-desc{
+  min-width: 20px;
+  min-height: 12px;
+  display: inline-block;
+  background: @triangleUpDown;
 }
