@@ -1,31 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Element } from 'nav-frontend-typografi';
-import { Input } from 'nav-frontend-skjema';
-import PostalCode from "./PostalCode";
-import { SET_LOCATION_ADDRESS } from "../../adReducer";
-import { connect } from "react-redux";
-import AdminStatusEnum from "../../administration/AdminStatusEnum";
+import { SET_LOCATION_ADDRESS } from '../../adReducer';
 
 export class Location extends React.Component {
-
-    onAddressChange = (e) => {
-        this.props.setAddress(e.target.value);
-    };
-
     render() {
-        const { location, status, isSavingAd } = this.props;
+        const { location } = this.props;
         return (
             <div className="detail-section">
                 <Element className="detail-section__head">Sted</Element>
-                <Input
-                    disabled={status !== AdminStatusEnum.PENDING || isSavingAd}
-                    label="Gateadresse"
-                    className="typo-normal"
-                    value={location && location.address ? location.address : ''}
-                    onChange={this.onAddressChange}
-                />
-                <PostalCode />
+                <dl className="dl-flex typo-normal">
+                    {location && location.address && [
+                        <dt key="dt">Gateadresse:</dt>,
+                        <dd key="dd">{location.address}</dd>]
+                    }
+                    {location && location.postalCode && [
+                        <dt key="dt">Poststed:</dt>,
+                        <dd key="dd">{location.postalCode} {location.city}</dd>]
+                    }
+                </dl>
             </div>
         );
     }
@@ -36,21 +30,17 @@ Location.defaultProps = {
 };
 
 Location.propTypes = {
-    status: PropTypes.string.isRequired,
     location: PropTypes.shape({
         address: PropTypes.string
-    }),
-    isSavingAd: PropTypes.bool.isRequired
+    })
 };
 
 const mapStateToProps = (state) => ({
-    status: state.ad.data.administration.status,
-    location: state.ad.data.location,
-    isSavingAd: state.ad.isSavingAd
+    location: state.ad.data.location
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    setAddress: (address) => dispatch({ type: SET_LOCATION_ADDRESS, address }),
+    setAddress: (address) => dispatch({ type: SET_LOCATION_ADDRESS, address })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Location);

@@ -3,7 +3,8 @@ import { ApiError, fetchGet, fetchPut } from '../api/api';
 import { lookUpStyrk } from './categorize/styrk/styrkReducer';
 import { AD_API } from '../fasitProperties';
 import AdminStatusEnum from './administration/AdminStatusEnum';
-import { lookUpPostalCodes } from "./preview/location/postalCodeReducer";
+import { lookUpPostalCodes } from './edit/postalCode/postalCodeReducer';
+import { hasExcludingWordsInTitle } from './preview/markWords';
 
 export const FETCH_AD = 'FETCH_AD';
 export const FETCH_AD_BEGIN = 'FETCH_AD_BEGIN';
@@ -29,14 +30,43 @@ export const SET_ADMIN_STATUS = 'SET_ADMIN_STATUS';
 export const ADD_REMARK = 'ADD_REMARK';
 export const REMOVE_REMARK = 'REMOVE_REMARK';
 
+export const SHOW_AD_FORM = 'SHOW_AD_FORM';
+export const HIDE_AD_FORM = 'HIDE_AD_FORM';
+export const DISCARD_AD_CHANGES = 'DISCARD_AD_CHANGES';
+export const SET_AD_TITLE = 'SET_AD_TITLE';
+
 const query = '?administrationStatus=RECEIVED&size=1';
 
 const initialState = {
+    shouldShowAdForm: false,
     data: undefined,
     error: undefined,
     isSavingAd: false,
-    isFetchingStilling: false
+    isFetchingStilling: false,
+    validation: {
+        title: undefined
+    }
 };
+
+function validateTitle(title, employer) {
+    return hasExcludingWordsInTitle(title, employer) ? 'Tittel inneholder ord som ikke er tillatt' : undefined;
+}
+
+function validateLocation(location) {
+    if (location === null || location === undefined ||
+        location.postalCode === null || location.postalCode === undefined) {
+        return 'Postnummer mangler';
+    }
+    return undefined;
+}
+
+
+function validateAll(data) {
+    return {
+        title: validateTitle(data.title, data.properties.employer),
+        location: validateLocation(data.location)
+    };
+}
 
 export default function adReducer(state = initialState, action) {
     switch (action.type) {
@@ -51,7 +81,10 @@ export default function adReducer(state = initialState, action) {
             return {
                 ...state,
                 data: action.response,
-                isFetchingStilling: false
+                originalData: { ...action.response },
+                isFetchingStilling: false,
+                shouldShowAdForm: false,
+                validation: validateAll(action.response)
             };
         case FETCH_AD_FAILURE:
             return {
@@ -68,13 +101,32 @@ export default function adReducer(state = initialState, action) {
             return {
                 ...state,
                 data: action.response,
-                isSavingAd: false
+                originalData: { ...action.response },
+                isSavingAd: false,
+                shouldShowAdForm: false
             };
         case SAVE_AD_FAILURE:
             return {
                 ...state,
                 isSavingAd: false,
                 error: action.error
+            };
+        case SHOW_AD_FORM:
+            return {
+                ...state,
+                shouldShowAdForm: true
+            };
+        case HIDE_AD_FORM:
+            return {
+                ...state,
+                shouldShowAdForm: false
+            };
+        case DISCARD_AD_CHANGES:
+            return {
+                ...state,
+                data: { ...state.originalData },
+                validation: validateAll(state.originalData),
+                shouldShowAdForm: false
             };
         case SET_COMMENT: {
             return {
@@ -107,6 +159,19 @@ export default function adReducer(state = initialState, action) {
                     categoryList: state.data.categoryList.filter((c) => (c.code !== action.code))
                 }
             };
+        case SET_AD_TITLE: {
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    title: action.title
+                },
+                validation: {
+                    ...state.validation,
+                    title: validateTitle(action.title, state.data.properties.employer)
+                }
+            };
+        }
         case SET_LOCATION_POSTAL_CODE:
             const found = lookUpPostalCodes(action.postalCode);
             if (found) {
@@ -122,11 +187,32 @@ export default function adReducer(state = initialState, action) {
                             municipalCode: found.municipalityCode,
                             postalCode: found.postalCode
                         }
+                    },
+                    validation: {
+                        ...state.validation,
+                        location: undefined
                     }
                 };
-            } else {
-                return state
             }
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    location: {
+                        ...state.data.location,
+                        city: null,
+                        county: null,
+                        municipal: null,
+                        municipalCode: null,
+                        postalCode: action.postalCode
+                    }
+                },
+                validation: {
+                    ...state.validation,
+                    location: 'Ugyldig postnummer'
+                }
+            };
+
         case SET_LOCATION_ADDRESS:
             return {
                 ...state,
@@ -134,7 +220,7 @@ export default function adReducer(state = initialState, action) {
                     ...state.data,
                     location: {
                         ...state.data.location,
-                       address: action.address
+                        address: action.address
                     }
                 }
             };
@@ -212,7 +298,7 @@ function* getAd(action) {
 function* getNextAd() {
     yield put({ type: FETCH_AD_BEGIN });
     try {
-        let response = yield fetchGet(`${AD_API}ads/${query}`);
+        const response = yield fetchGet(`${AD_API}ads/${query}`);
         let nextAd = response.content[0];
         if (!nextAd.administration) { // TODO: Be backend om at administration dataene alltid er definert
             nextAd = {
@@ -226,7 +312,7 @@ function* getNextAd() {
         }
         yield put({ type: FETCH_AD_SUCCESS, response: nextAd });
         const status = AdminStatusEnum.PENDING;
-        yield put({ type: SET_ADMIN_STATUS, status: status });
+        yield put({ type: SET_ADMIN_STATUS, status });
     } catch (e) {
         if (e instanceof ApiError) {
             yield put({ type: FETCH_AD_FAILURE, error: e });
@@ -255,4 +341,5 @@ export const adSaga = function* saga() {
     yield takeLatest(FETCH_AD, getAd);
     yield takeLatest(FETCH_NEXT_AD, getNextAd);
     yield takeLatest(SET_ADMIN_STATUS, saveAd);
+    yield takeLatest(SAVE_AD, saveAd);
 };

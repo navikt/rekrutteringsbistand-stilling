@@ -18,7 +18,7 @@ export default function Preview({ stilling }) {
         <div className="AdText">
             <Row>
                 <Column xs="12" md="8">
-                    <Innholdstittel className={hasExcludingWordsInTitle(stilling.title, stilling.properties.employer) ? 'AdText__discriminating_title' : ''}>
+                    <Innholdstittel className={hasExcludingWordsInTitle(stilling.title, stilling.properties.employer) ? 'AdText__title AdText__discriminating_title' : 'AdText__title'}>
                         {stilling.title}
                     </Innholdstittel>
                 </Column>

@@ -4,8 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { applyMiddleware, createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
-import employerReducer, { employerSaga } from './ad/categorize/employer/employerReducer';
-import postalCodeReducer, { postalCodeSaga } from './ad/preview/location/postalCodeReducer';
+import postalCodeReducer, { postalCodeSaga } from './ad/edit/postalCode/postalCodeReducer';
 import styrkReducer, { styrkSaga } from './ad/categorize/styrk/styrkReducer';
 import adsReducer, { adsSaga } from './ads/adsReducer';
 import adReducer, { adSaga } from './ad/adReducer';
@@ -27,7 +26,6 @@ const sagaMiddleware = createSagaMiddleware();
 const store = createStore(combineReducers({
     ad: adReducer,
     ads: adsReducer,
-    employer: employerReducer,
     postalCode: postalCodeReducer,
     styrk: styrkReducer,
     administration: administrationReducer,
@@ -39,7 +37,6 @@ const store = createStore(combineReducers({
 sagaMiddleware.run(reporteeSaga);
 sagaMiddleware.run(adSaga);
 sagaMiddleware.run(adsSaga);
-sagaMiddleware.run(employerSaga);
 sagaMiddleware.run(postalCodeSaga);
 sagaMiddleware.run(styrkSaga);
 sagaMiddleware.run(searchSaga);
