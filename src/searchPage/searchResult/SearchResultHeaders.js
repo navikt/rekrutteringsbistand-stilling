@@ -1,34 +1,93 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Element } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
+import { CHANGE_SORTING } from '../searchReducer';
+
 import './SearchResult.less';
 
-export default class SearchResultHeaders extends React.Component {
+class SearchResultHeaders extends React.Component {
+    onSortClick = (field) => {
+        let order = 'asc';
+        if ((this.props.sortField === field) && this.props.sortDir === 'asc'){
+            order = 'desc'; // change to desc if field already sorted on asc. Otherwise, sort on asc.
+        }
+        this.props.changeSorting(field, order);
+    };
+
     render() {
+        const { sortField, sortDir } = this.props;
+
+        let className = 'SearchResultHeader--unsorted';
+        if (sortDir === 'asc') {
+            className = 'SearchResultHeader--sorted-asc';
+        } else if (sortDir === 'desc') {
+            className = 'SearchResultHeader--sorted-desc';
+        }
+
         return (
             <Row className="SearchResultHeaders">
-                <Column md="1">
-                    <Element>ID</Element>
+                <Column md="1" onClick={() => this.onSortClick('id')}>
+                    <Element>
+                        ID
+                        <i className={sortField === 'id' ? className : 'SearchResultHeader--unsorted'}/>
+                    </Element>
                 </Column>
-                <Column md="3">
-                    <Element>Stillingsoverskrift</Element>
-                </Column>
-                <Column md="2">
-                    <Element>Stillingstittel</Element>
-                </Column>
-                <Column md="2">
-                    <Element>Arbeidsgiver</Element>
-                </Column>
-                <Column md="1">
-                    <Element>Kilde</Element>
+                <Column md="3" onClick={() => this.onSortClick('title')}>
+                    <Element>
+                        Stillingsoverskrift
+                        <i className={sortField === 'title' ? className : 'SearchResultHeader--unsorted'} />
+                    </Element>
                 </Column>
                 <Column md="2">
-                    <Element>Publiseringsdato</Element>
+                    {/* sorting on properties.jobtitle is not supported from backend */}
+                    <Element>
+                        Stillingstittel
+                    </Element>
                 </Column>
-                <Column md="1">
-                    <Element>Status</Element>
+                <Column md="2" onClick={() => this.onSortClick('employerName')}>
+                    <Element>
+                        Arbeidsgiver
+                        <i className={sortField === 'employerName' ? className : 'SearchResultHeader--unsorted'} />
+                    </Element>
+                </Column>
+                <Column md="1" onClick={() => this.onSortClick('source')}>
+                    <Element>
+                        Kilde
+                        <i className={sortField === 'source' ? className : 'SearchResultHeader--unsorted'} />
+                    </Element>
+                </Column>
+                <Column md="2" onClick={() => this.onSortClick('published')}>
+                    <Element>
+                        Publiseringsdato
+                        <i className={sortField === 'published' ? className : 'SearchResultHeader--unsorted'} />
+                    </Element>
+                </Column>
+                <Column md="1" onClick={() => this.onSortClick('administrationStatus')}>
+                    <Element>
+                        Status
+                        <i className={sortField === 'administrationStatus' ? className : 'SearchResultHeader--unsorted'} />
+                    </Element>
                 </Column>
             </Row>
-        )
+        );
     }
 }
+
+SearchResultHeaders.propTypes = {
+    changeSorting: PropTypes.func.isRequired,
+    sortDir: PropTypes.string.isRequired,
+    sortField: PropTypes.string.isRequired
+};
+
+const mapStateToProps = (state) => ({
+    sortDir: state.search.sortDir,
+    sortField: state.search.sortField
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    changeSorting: (field, dir) => dispatch({ type: CHANGE_SORTING, field, dir })
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchResultHeaders);

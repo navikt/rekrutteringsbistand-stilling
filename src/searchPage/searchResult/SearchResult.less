@@ -1,3 +1,7 @@
+@triangleUp: url(data:image/png;base64,R0lGODlhCwALAJEAAAAAAP///xUVFf///yH5BAEAAAMALAAAAAALAAsAAAIRnC2nKLnT4or00Puy3rx7VQAAOw==) no-repeat center right;
+@triangleDown: url(data:image/gif;base64,R0lGODlhCwALAJEAAAAAAP///xUVFf///yH5BAEAAAMALAAAAAALAAsAAAIPnI+py+0/hJzz0IruwjsVADs=) no-repeat center right;
+@triangleUpDown: url(data:image/gif;base64,R0lGODlhCwALAJEAAAAAAP///xUVFf///yH5BAEAAAMALAAAAAALAAsAAAIUnC2nKLnT4or00PvyrQwrPzUZshQAOw==) no-repeat center right;
+
 .SearchResultItem {
   padding-top: 1rem;
   padding-bottom: 1rem;
@@ -8,4 +12,39 @@
   padding-bottom: 16px;
   border-bottom: 1px solid #eee;
   font-weight: bold;
+}
+
+.SearchResultHeader--sorted-asc {
+  min-width: 20px;
+  min-height: 12px;
+  display: inline-block;
+  background: @triangleUp;
+}
+
+.SearchResultHeader--sorted-desc {
+  min-width: 20px;
+  min-height: 12px;
+  display: inline-block;
+  background: @triangleDown
+}
+
+p:hover .SearchResultHeader--unsorted{
+  min-width: 20px;
+  min-height: 12px;
+  display: inline-block;
+  background: @triangleUpDown;
+}
+
+p:hover .SearchResultHeader--sorted-asc{
+  min-width: 20px;
+  min-height: 12px;
+  display: inline-block;
+  background: @triangleUpDown;
+}
+
+p:hover .SearchResultHeader--sorted-desc{
+  min-width: 20px;
+  min-height: 12px;
+  display: inline-block;
+  background: @triangleUpDown;
 }

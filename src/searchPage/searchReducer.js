@@ -10,11 +10,14 @@ export const FETCH_ADS = 'FETCH_ADS';
 export const FETCH_ADS_BEGIN = 'FETCH_ADS_BEGIN';
 export const FETCH_ADS_SUCCESS = 'FETCH_ADS_SUCCESS';
 export const FETCH_ADS_FAILURE = 'FETCH_ADS_FAILURE';
+export const CHANGE_SORTING = 'CHANGE_SORTING';
 
 const initialState = {
     items: [],
     error: undefined,
-    isSearching: false
+    isSearching: false,
+    sortField: 'id',
+    sortDir: 'asc'
 };
 
 export default function searchReducer(state = initialState, action) {
@@ -36,6 +39,12 @@ export default function searchReducer(state = initialState, action) {
                 ...state,
                 error: action.error,
                 isSearching: false
+            };
+        case CHANGE_SORTING:
+            return {
+                ...state,
+                sortField: action.field,
+                sortDir: action.dir,
             };
         default:
             return state;
@@ -64,7 +73,8 @@ const toUrl = (query) => {
     const urlQuery = Object.keys(result)
         .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(result[key])}`)
         .join('&')
-        .replace(/%20/g, '+');
+        .replace(/%20/g, '+')
+        .replace(/%2C/g, ',');
 
 
     return urlQuery && urlQuery.length > 0 ? `?${urlQuery}` : '';
@@ -77,9 +87,12 @@ function* getAds() {
         const state = yield select();
 
         const { filter } = state;
-
-        const searchUrl = toUrl(filter);
-
+        const { sortField, sortDir } = state.search;
+        const query = {
+            ...filter,
+            sort: `${sortField},${sortDir}`
+        };
+        const searchUrl = toUrl(query);
         const url = `${AD_API}ads/${searchUrl}`;
 
         const response = yield fetchGet(url);
@@ -100,5 +113,6 @@ export const searchSaga = function* saga() {
         CHANGE_SEARCH_EMPLOYER,
         CHANGE_SEARCH_TITLE,
         CHANGE_SEARCH_ID,
+        CHANGE_SORTING,
         FETCH_ADS], getAds);
 };
