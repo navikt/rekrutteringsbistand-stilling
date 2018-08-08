@@ -594,6 +594,5 @@ function* saveAd() {
 export const adSaga = function* saga() {
     yield takeLatest(FETCH_AD, getAd);
     yield takeLatest(FETCH_NEXT_AD, getNextAd);
-    yield takeLatest(SET_ADMIN_STATUS, saveAd);
     yield takeLatest(SAVE_AD, saveAd);
 };

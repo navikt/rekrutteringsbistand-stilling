@@ -1,34 +1,45 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { EtikettLiten } from 'nav-frontend-typografi';
-import { Flatknapp, Hovedknapp, Fareknapp, Knapp } from 'nav-frontend-knapper';
+import { withRouter } from 'react-router-dom';
+import { Hovedknapp, Fareknapp, Knapp } from 'nav-frontend-knapper';
+import { Normaltekst, EtikettLiten } from 'nav-frontend-typografi';
+import Modal from 'nav-frontend-modal';
 import Etikett from 'nav-frontend-etiketter';
+import AlertStripe from 'nav-frontend-alertstriper';
 import Remarks from './Remarks';
 import AdminStatusEnum from './AdminStatusEnum';
 import AdStatusEnum from './AdStatusEnum';
-import { FETCH_NEXT_AD, SET_AD_STATUS, SET_ADMIN_STATUS, FETCH_AD } from './../adReducer';
+import { FETCH_NEXT_AD, SET_AD_STATUS, SET_ADMIN_STATUS, FETCH_AD, SAVE_AD } from './../adReducer';
 import './Administration.less';
 import { TOGGLE_REMARKS_FORM } from './administrationReducer';
-import RemarksEnum from './RemarksEnum';
-import DelayedSpinner from '../../common/DelayedSpinner';
 import { registerShortcuts } from '../../common/shortcuts/Shortcuts';
-import { withRouter } from 'react-router-dom';
 
 class Administration extends React.Component {
     componentDidMount() {
-        this.shortcuts();
+        registerShortcuts('annonseDetaljer', {
+            'g g': () => {
+                this.props.setAdStatus(AdStatusEnum.ACTIVE);
+            },
+            'a a': () => {
+                this.props.setAdStatus(AdStatusEnum.REJECTED);
+            },
+            's s': () => {
+                this.props.setAdStatus(AdStatusEnum.STOPPED);
+            },
+            'v n': () => {
+                this.props.getNextAd();
+            }
+        });
 
         const { adUuid } = this.props;
         const uuidHasChangedInUrl = adUuid !== this.props.match.params.uuid;
         if (uuidHasChangedInUrl) {
-            this.props.history.push('/ads/' + adUuid);
+            this.props.history.push(`/ads/${adUuid}`);
         }
     }
 
     componentDidUpdate() {
-        this.shortcuts();
-
         const { adUuid } = this.props;
         const uuidHasChangedInUrl = adUuid !== this.props.match.params.uuid;
         if (uuidHasChangedInUrl) {
@@ -36,188 +47,143 @@ class Administration extends React.Component {
         }
     }
 
-    shortcuts = () => {
-        const { adminStatus, adStatus, showRemarksForm } = this.props;
-        registerShortcuts('annonseDetaljer', {
-            'g g': () => {
-                if (adminStatus === AdminStatusEnum.PENDING && !showRemarksForm) {
-                    this.onApproveClick();
-                }
-            },
-            'a a': () => {
-                if (adminStatus === AdminStatusEnum.PENDING) {
-                    if (showRemarksForm) {
-                        this.onRejectClick();
-                    } else {
-                        this.onToggleRemarksFormClick();
-                    }
-                }
-            },
-            'v n': () => {
-                if (adminStatus !== AdminStatusEnum.PENDING) {
-                    this.onNextClick();
-                }
-            },
-            'g j': () => {
-                if (this.showReopenButton(adminStatus, adStatus)) {
-                    this.onReopenClick();
-                }
-            },
-            's s': () => {
-                if (adminStatus === AdminStatusEnum.APPROVED && adStatus === AdStatusEnum.ACTIVE ) {
-                    this.onStopClick();
-                }
-            }
-        });
-    };
-
-    onApproveClick = () => {
+    onPublishClick = () => {
         this.props.setAdStatus(AdStatusEnum.ACTIVE);
-        this.props.setAdminStatus(AdminStatusEnum.APPROVED);
+        this.props.setAdminStatus(AdminStatusEnum.DONE);
+        this.props.saveAd();
     };
 
     onRejectClick = () => {
         this.props.toggleRemarksForm();
-        this.props.setAdStatus(AdStatusEnum.INACTIVE);
-        this.props.setAdminStatus(AdminStatusEnum.REJECTED);
     };
 
-    onReopenClick = () => {
-        this.props.setAdminStatus(AdminStatusEnum.PENDING);
+    onRejectConfirmClick = () => {
+        this.props.toggleRemarksForm();
+        this.props.setAdStatus(AdStatusEnum.REJECTED);
+        this.props.setAdminStatus(AdminStatusEnum.DONE);
+        this.props.saveAd();
     };
 
     onStopClick = () => {
-        this.props.setAdStatus(AdStatusEnum.INACTIVE);
-        this.props.setAdminStatus(AdminStatusEnum.STOPPED);
-    };
-
-    onCancelWorkClick = (e) => {
-        e.preventDefault();
-        this.props.setAdminStatus(AdminStatusEnum.RECEIVED);
-    };
-
-    onStartWorkClick = (e) => {
-        e.preventDefault();
-        this.props.setAdminStatus(AdminStatusEnum.PENDING);
+        this.props.setAdStatus(AdStatusEnum.STOPPED);
+        this.props.setAdminStatus(AdminStatusEnum.DONE);
+        this.props.saveAd();
     };
 
     onNextClick = () => {
         this.props.getNextAd();
     };
 
-    onToggleRemarksFormClick = () => {
-        this.props.toggleRemarksForm();
+    onSetToReceivedClick = (e) => {
+        e.preventDefault();
+        this.props.setAdminStatus(AdminStatusEnum.RECEIVED);
     };
 
-    showReopenButton = (adminStatus, adStatus) => (
-        (adminStatus === AdminStatusEnum.APPROVED && adStatus === AdStatusEnum.INACTIVE)
-        || adminStatus === AdminStatusEnum.REJECTED
-        || adminStatus === AdminStatusEnum.STOPPED);
+    onSetToPendingClick = (e) => {
+        e.preventDefault();
+        this.props.setAdminStatus(AdminStatusEnum.PENDING);
+    };
 
     render() {
         const {
-            adminStatus, remarks, isSavingAd, showRemarksForm, adStatus
+            adminStatus, isSavingAd, adStatus, showRemarksForm
         } = this.props;
         return (
             <div className="Administration">
-                {isSavingAd ? (
-                    <div className="Administration__spinner">
-                        <DelayedSpinner type="XL" />
-                    </div>
-                ) : (
-                    <div>
-                        <div className="Administration__status">
-                            <div className="Administration__status__column">
-                                <EtikettLiten className="blokk-xxxs">Behandlingsstatus:</EtikettLiten>
-                                {adminStatus === AdminStatusEnum.RECEIVED && (
-                                    <Etikett type="info">
-                                        Klar til behandling (<a href="#" className="lenke" onClick={this.onStartWorkClick}>Start</a>)
-                                    </Etikett>
-                                )}
-                                {adminStatus === AdminStatusEnum.APPROVED && (
-                                    <Etikett type="suksess">
-                                        Godkjent
-                                    </Etikett>
-                                )}
-                                {adminStatus === AdminStatusEnum.REJECTED && (
-                                    <Etikett type="advarsel">
-                                        Avvist ({remarks.map((remark) => (RemarksEnum[remark].label)).join(', ')})
-                                    </Etikett>
-                                )}
-                                {adminStatus === AdminStatusEnum.PENDING && (
-                                    <Etikett type="fokus">
-                                        Under behandling (<a href="#" className="lenke" onClick={this.onCancelWorkClick}>Avbryt</a>)
-                                    </Etikett>
-                                )}
-                                {adminStatus === AdminStatusEnum.STOPPED && (
-                                    <Etikett type="advarsel">
-                                        Stoppet
-                                    </Etikett>
-                                )}
-                            </div>
-                            <div className="Administration__status__column">
-                                <EtikettLiten className="blokk-xxxs">Publiseringsstatus:</EtikettLiten>
-                                {adStatus === AdStatusEnum.ACTIVE && (
-                                    <Etikett type="suksess">
-                                        Aktiv
-                                    </Etikett>
-                                )}
-                                {adStatus === AdStatusEnum.INACTIVE && (
-                                    <Etikett type="info">
-                                        Inaktiv
-                                    </Etikett>
-                                )}
-                            </div>
-                        </div>
-
-                        {showRemarksForm ? (
-                            <div>
-                                <Remarks />
-                                <Fareknapp className="Administration__button" onClick={this.onRejectClick}>
-                                    Avvis
-                                </Fareknapp>
-                                <Flatknapp className="Administration__button" onClick={this.onToggleRemarksFormClick}>
-                                    Avbryt
-                                </Flatknapp>
-                            </div>
-                        ) : (
-                            <div>
-                                {adminStatus === AdminStatusEnum.PENDING && (
-                                    <div>
-                                        <Hovedknapp className="Administration__button" onClick={this.onApproveClick}>
-                                            Godkjenn
-                                        </Hovedknapp>
-                                        <Knapp
-                                            className="Administration__button"
-                                            onClick={this.onToggleRemarksFormClick}
-                                        >
-                                            Avvis
-                                        </Knapp>
-                                    </div>
-                                )}
-                                {adminStatus === AdminStatusEnum.APPROVED && adStatus === AdStatusEnum.ACTIVE && (
-                                    <div>
-                                        <Hovedknapp className="Administration__button" onClick={this.onNextClick}>
-                                            Neste
-                                        </Hovedknapp>
-                                        <Fareknapp className="Administration__button" onClick={this.onStopClick}>
-                                            Stopp
-                                        </Fareknapp>
-                                    </div>
-                                )}
-                                {this.showReopenButton(adminStatus, adStatus) && (
-                                    <div>
-                                        <Hovedknapp className="Administration__button" onClick={this.onNextClick}>
-                                            Neste
-                                        </Hovedknapp>
-                                        <Knapp className="Administration__button" onClick={this.onReopenClick}>
-                                            Gjenåpne
-                                        </Knapp>
-                                    </div>
-                                )}
-                            </div>
-                        )}
-                    </div>
+                <div className="Administration__adminStatus">
+                    {adminStatus === AdminStatusEnum.RECEIVED && (
+                        <Normaltekst>
+                            Ikke behandlet (<a href="#" className="lenke" onClick={this.onSetToPendingClick}>Start
+                            saksbehnadling
+                        </a>)
+                        </Normaltekst>
+                    )}
+                    {adminStatus === AdminStatusEnum.PENDING && (
+                        <Normaltekst>
+                            Under behandling (<a href="#" className="lenke" onClick={this.onSetToReceivedClick}>Stopp
+                            saksbehnadling
+                        </a>)
+                        </Normaltekst>
+                    )}
+                    {adminStatus === AdminStatusEnum.DONE && (
+                        <Normaltekst>
+                            Ferdigbehandlet (<a href="#" className="lenke" onClick={this.onSetToPendingClick}>Gjennåpne
+                            saksbehnadling
+                        </a>)
+                        </Normaltekst>
+                    )}
+                </div>
+                <div className="Administration__adStatus">
+                    {adStatus === AdStatusEnum.INACTIVE && (
+                        <AlertStripe type="info" solid>
+                            Annonsen er ikke publisert
+                        </AlertStripe>
+                    )}
+                    {adStatus === AdStatusEnum.ACTIVE && (
+                        <AlertStripe type="suksess" solid>
+                            Annonsen er publisert
+                        </AlertStripe>
+                    )}
+                    {adStatus === AdStatusEnum.REJECTED && (
+                        <AlertStripe type="advarsel" solid>
+                            Annonsen er avvist
+                        </AlertStripe>
+                    )}
+                    {adStatus === AdStatusEnum.STOPPED && (
+                        <AlertStripe type="stopp" solid>
+                            Annonsen er stoppet
+                        </AlertStripe>
+                    )}
+                    {adStatus === AdStatusEnum.DELETED && (
+                        <AlertStripe type="advarsel">
+                            Annonsen er slettet
+                        </AlertStripe>
+                    )}
+                </div>
+                <div className="Administration__changeAdStatus">
+                    {adStatus === AdStatusEnum.INACTIVE && (
+                        <Hovedknapp className="Administration__button" onClick={this.onPublishClick}>
+                            Publisér annonsen
+                        </Hovedknapp>
+                    )}
+                    {adStatus === AdStatusEnum.STOPPED && (
+                        <Hovedknapp className="Administration__button" onClick={this.onPublishClick}>
+                            Publisér annonsen på nytt
+                        </Hovedknapp>
+                    )}
+                    {(adStatus === AdStatusEnum.INACTIVE || adStatus === AdStatusEnum.STOPPED) && (
+                        <Knapp className="Administration__button" onClick={this.onRejectClick}>
+                            Avvis annonsen
+                        </Knapp>
+                    )}
+                    {adminStatus !== AdminStatusEnum.PENDING && (
+                        <Knapp className="Administration__button" onClick={this.onNextClick}>
+                            Neste annonse
+                        </Knapp>
+                    )}
+                    {adStatus === AdStatusEnum.ACTIVE && (
+                        <Fareknapp className="Administration__button" onClick={this.onStopClick}>
+                            Stopp annonsen
+                        </Fareknapp>
+                    )}
+                </div>
+                {showRemarksForm && (
+                    <Modal
+                        isOpen={showRemarksForm}
+                        onRequestClose={this.props.toggleRemarksForm}
+                        closeButton
+                        contentLabel="Oppgi årsak til avvising"
+                        className="RemarksModal"
+                        appElement={document.getElementById('app')}
+                    >
+                        <Remarks/>
+                        <Fareknapp className="Administration__button" onClick={this.onRejectConfirmClick}>
+                            Avvis annonse
+                        </Fareknapp>
+                        <Knapp className="Administration__button" onClick={this.props.toggleRemarksForm}>
+                            Avbryt
+                        </Knapp>
+                    </Modal>
                 )}
             </div>
         );
@@ -240,6 +206,7 @@ Administration.propTypes = {
     setAdStatus: PropTypes.func.isRequired,
     toggleRemarksForm: PropTypes.func.isRequired,
     getNextAd: PropTypes.func.isRequired,
+    saveAd: PropTypes.func.isRequired,
     getStilling: PropTypes.func.isRequired
 };
 
@@ -254,6 +221,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     getNextAd: () => dispatch({ type: FETCH_NEXT_AD }),
+    saveAd: () => dispatch({ type: SAVE_AD }),
     setAdminStatus: (status) => dispatch({ type: SET_ADMIN_STATUS, status }),
     setAdStatus: (status) => dispatch({ type: SET_AD_STATUS, status }),
     toggleRemarksForm: () => dispatch({ type: TOGGLE_REMARKS_FORM }),
