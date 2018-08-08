@@ -5,7 +5,7 @@ import { Radio } from 'nav-frontend-skjema';
 import { Undertittel } from 'nav-frontend-typografi';
 import { CHANGE_SOURCE_FILTER, CHANGE_STATUS_FILTER } from './filterReducer';
 import SourceEnum from '../enums/SourceEnum';
-import StatusEnum from '../enums/StatusEnum';
+import StatusEnum from '../enums/AdStatusEnum';
 import './Filter.less';
 
 class Filter extends React.Component {
