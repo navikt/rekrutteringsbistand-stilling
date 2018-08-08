@@ -1,7 +1,8 @@
-import React from "react";
-import {connect} from "react-redux";
-import {FETCH_REPORTEE_BEGIN} from "./reporteeReducer";
-import PropTypes from "prop-types";
+import React from 'react';
+import { connect } from 'react-redux';
+import { FETCH_REPORTEE_BEGIN } from './reporteeReducer';
+import PropTypes from 'prop-types';
+import { Normaltekst } from 'nav-frontend-typografi';
 
 class Reportee extends React.Component {
     componentDidMount() {
@@ -16,12 +17,12 @@ class Reportee extends React.Component {
         return (
             <div className="TopMenu__reportee">
                 {!isFetchingReportee && reportee ? (
-                        <div>{reportee.displayName}</div>
+                    <Normaltekst>{reportee.displayName}</Normaltekst>
                 ) : (
-                    <div>Not logged in</div>
+                    <Normaltekst>Not logged in</Normaltekst>
                 )}
             </div>
-            );
+        );
     }
 }
 
