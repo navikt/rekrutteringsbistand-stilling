@@ -16,7 +16,7 @@ import {
     SET_EMPLOYMENT_LOCATION, SET_EMPLOYMENT_POSITIONCOUNT,
     SET_EMPLOYMENT_SECTOR, SET_EMPLOYMENT_STARTTIME, SET_EMPLOYMENT_WORKDAY,
     SET_EMPLOYMENT_WORKHOURS, SET_EXPIRATION_DATE, SET_ID, SET_LAST_UPDATED,
-    SET_LOCATION_ADDRESS, SET_MEDIUM, SET_REFERENCE
+    SET_LOCATION_ADDRESS, SET_MEDIUM, SET_REFERENCE, SET_SOURCEURL
 } from '../adReducer';
 import PostalCode from './postalCode/PostalCode';
 import './Edit.less';
@@ -67,7 +67,6 @@ class Edit extends React.Component {
         this.props.setStartTime(e.target.value);
     };
 
-
     onAddressChange = (e) => {
         this.props.setAddress(e.target.value);
     };
@@ -82,6 +81,10 @@ class Edit extends React.Component {
 
     onApplicationUrlChange = (e) => {
         this.props.setApplicationUrl(e.target.value);
+    };
+
+    onSourceUrlChange = (e) => {
+        this.props.setSourceUrl(e.target.value);
     };
 
     onEmployerChange = (e) => {
@@ -155,8 +158,14 @@ class Edit extends React.Component {
                                 />
                                 <Input
                                     label="Søknadslenke"
-                                    value={getApplicationUrl(ad.source, ad.properties) || ''}
+                                    value={ad.properties.applicationurl || ''}
                                     onChange={this.onApplicationUrlChange}
+                                    className="typo-normal"
+                                />
+                                <Input
+                                    label="Kildelenke"
+                                    value={ad.properties.sourceurl || ''}
+                                    onChange={this.onSourceUrlChange}
                                     className="typo-normal"
                                 />
                             </SkjemaGruppe>
@@ -305,6 +314,7 @@ Edit.propTypes = {
     setApplicationDue: PropTypes.func.isRequired,
     setApplicationEmail: PropTypes.func.isRequired,
     setApplicationUrl: PropTypes.func.isRequired,
+    setSourceUrl: PropTypes.func.isRequired,
     setEmployer: PropTypes.func.isRequired,
     setEmployerDescription: PropTypes.func.isRequired,
     setLastUpdated: PropTypes.func.isRequired,
@@ -336,6 +346,7 @@ const mapDispatchToProps = (dispatch) => ({
     setApplicationDue: (applicationdue) => dispatch({ type: SET_APPLICATIONDUE, applicationdue }),
     setApplicationEmail: (applicationemail) => dispatch({ type: SET_APPLICATIONEMAIL, applicationemail }),
     setApplicationUrl: (applicationurl) => dispatch({ type: SET_APPLICATIONURL, applicationurl }),
+    setSourceUrl: (sourceurl) => dispatch({ type: SET_SOURCEURL, sourceurl }),
     setEmployer: (employer) => dispatch({ type: SET_EMPLOYER, employer }),
     setEmployerDescription: (employerdescription) => dispatch({ type: SET_EMPLOYERDESCRIPTION, employerdescription }),
     setLastUpdated: (updated) => dispatch({ type: SET_LAST_UPDATED, updated }),

@@ -39,6 +39,7 @@ export const SET_EMPLOYMENT_STARTTIME = 'SET_EMPLOYMENT_STARTTIME';
 export const SET_APPLICATIONDUE = 'SET_APPLICATIONDUE';
 export const SET_APPLICATIONEMAIL = 'SET_APPLICATIONEMAIL';
 export const SET_APPLICATIONURL = 'SET_APPLICATIONURL';
+export const SET_SOURCEURL = 'SET_SOURCEURL';
 
 export const SET_EMPLOYER = 'SET_EMPLOYER';
 export const SET_EMPLOYERDESCRIPTION = 'SET_EMPLOYERDESCRIPTION';
@@ -383,18 +384,6 @@ export default function adReducer(state = initialState, action) {
                 }
             };
         case SET_APPLICATIONURL:
-            if (state.data.source === 'FINN') {
-                return {
-                    ...state,
-                    data: {
-                        ...state.data,
-                        properties: {
-                            ...state.data.properties,
-                            sourceurl: action.applicationurl
-                        }
-                    }
-                };
-            }
             return {
                 ...state,
                 data: {
@@ -402,6 +391,17 @@ export default function adReducer(state = initialState, action) {
                     properties: {
                         ...state.data.properties,
                         applicationurl: action.applicationurl
+                    }
+                }
+            };
+        case SET_SOURCEURL:
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    properties: {
+                        ...state.data.properties,
+                        sourceurl: action.sourceurl
                     }
                 }
             };
