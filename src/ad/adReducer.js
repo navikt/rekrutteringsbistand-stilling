@@ -25,6 +25,32 @@ export const REMOVE_STYRK = 'REMOVE_STYRK';
 export const SET_LOCATION_POSTAL_CODE = 'SET_LOCATION_POSTAL_CODE';
 export const SET_LOCATION_ADDRESS = 'SET_LOCATION_ADDRESS';
 
+export const SET_EMPLOYMENT_JOBTITLE = 'SET_EMPLOYMENT_JOBTITLE';
+export const SET_EMPLOYMENT_LOCATION = 'SET_EMPLOYMENT_LOCATION';
+export const SET_EMPLOYMENT_ENGAGEMENTTYPE = 'SET_EMPLOYMENT_ENGAGEMENTTYPE';
+export const SET_EMPLOYMENT_EXTENT = 'SET_EMPLOYMENT_EXTENT';
+export const SET_EMPLOYMENT_POSITIONCOUNT = 'SET_EMPLOYMENT_POSITIONCOUNT';
+export const SET_EMPLOYMENT_SECTOR = 'SET_EMPLOYMENT_SECTOR';
+export const SET_EMPLOYMENT_WORKDAY = 'SET_EMPLOYMENT_WORKDAY';
+export const SET_EMPLOYMENT_WORKHOURS = 'SET_EMPLOYMENT_WORKHOURS';
+export const SET_EMPLOYMENT_JOBARRANGEMENT = 'SET_EMPLOYMENT_JOBARRANGEMENT';
+export const SET_EMPLOYMENT_STARTTIME = 'SET_EMPLOYMENT_STARTTIME';
+
+export const SET_APPLICATIONDUE = 'SET_APPLICATIONDUE';
+export const SET_APPLICATIONEMAIL = 'SET_APPLICATIONEMAIL';
+export const SET_APPLICATIONURL = 'SET_APPLICATIONURL';
+
+export const SET_EMPLOYER = 'SET_EMPLOYER';
+export const SET_EMPLOYERDESCRIPTION = 'SET_EMPLOYERDESCRIPTION';
+
+export const SET_LAST_UPDATED = 'SET_LAST_UPDATED';
+export const SET_MEDIUM = 'SET_MEDIUM';
+export const SET_ID = 'SET_ID';
+export const SET_REFERENCE = 'SET_REFERENCE';
+export const SET_EXPIRATION_DATE = 'SET_EXPIRATION_DATE';
+
+export const SET_AD_TEXT = 'SET_AD_TEXT';
+
 export const SET_AD_STATUS = 'SET_AD_STATUS';
 export const SET_ADMIN_STATUS = 'SET_ADMIN_STATUS';
 export const ADD_REMARK = 'ADD_REMARK';
@@ -221,6 +247,234 @@ export default function adReducer(state = initialState, action) {
                     location: {
                         ...state.data.location,
                         address: action.address
+                    }
+                }
+            };
+        case SET_EMPLOYMENT_JOBTITLE:
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    properties: {
+                        ...state.data.properties,
+                        jobtitle: action.jobtitle
+                    }
+                }
+            };
+        case SET_EMPLOYMENT_LOCATION:
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    properties: {
+                        ...state.data.properties,
+                        location: action.location
+                    }
+                }
+            };
+        case SET_EMPLOYMENT_ENGAGEMENTTYPE:
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    properties: {
+                        ...state.data.properties,
+                        engagementtype: action.engagementtype
+                    }
+                }
+            };
+        case SET_EMPLOYMENT_EXTENT:
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    properties: {
+                        ...state.data.properties,
+                        extent: action.extent
+                    }
+                }
+            };
+        case SET_EMPLOYMENT_POSITIONCOUNT:
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    properties: {
+                        ...state.data.properties,
+                        positioncount: action.positioncount
+                    }
+                }
+            };
+        case SET_EMPLOYMENT_SECTOR:
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    properties: {
+                        ...state.data.properties,
+                        sector: action.sector
+                    }
+                }
+            };
+        case SET_EMPLOYMENT_WORKDAY:
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    properties: {
+                        ...state.data.properties,
+                        workday: action.workday
+                    }
+                }
+            };
+        case SET_EMPLOYMENT_WORKHOURS:
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    properties: {
+                        ...state.data.properties,
+                        workhours: action.workhours
+                    }
+                }
+            };
+        case SET_EMPLOYMENT_JOBARRANGEMENT:
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    properties: {
+                        ...state.data.properties,
+                        jobarrangement: action.jobarrangement
+                    }
+                }
+            };
+        case SET_EMPLOYMENT_STARTTIME:
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    properties: {
+                        ...state.data.properties,
+                        starttime: action.starttime
+                    }
+                }
+            };
+        case SET_APPLICATIONDUE:
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    properties: {
+                        ...state.data.properties,
+                        applicationdue: action.applicationdue
+                    }
+                }
+            };
+        case SET_APPLICATIONEMAIL:
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    properties: {
+                        ...state.data.properties,
+                        applicationemail: action.applicationemail
+                    }
+                }
+            };
+        case SET_APPLICATIONURL:
+            if (state.data.source === 'FINN') {
+                return {
+                    ...state,
+                    data: {
+                        ...state.data,
+                        properties: {
+                            ...state.data.properties,
+                            sourceurl: action.applicationurl
+                        }
+                    }
+                };
+            }
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    properties: {
+                        ...state.data.properties,
+                        applicationurl: action.applicationurl
+                    }
+                }
+            };
+        case SET_EMPLOYER:
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    properties: {
+                        ...state.data.properties,
+                        employer: action.employer
+                    }
+                }
+            };
+        case SET_EMPLOYERDESCRIPTION:
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    properties: {
+                        ...state.data.properties,
+                        employerdescription: action.employerdescription
+                    }
+                }
+            };
+        case SET_LAST_UPDATED:
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    updated: action.updated
+                }
+            };
+        case SET_MEDIUM:
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    medium: action.medium
+                }
+            };
+        case SET_ID:
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    id: action.id
+                }
+            };
+        case SET_REFERENCE:
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    reference: action.reference
+                }
+            };
+        case SET_EXPIRATION_DATE:
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    expires: action.expires
+                }
+            };
+        case SET_AD_TEXT:
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    properties: {
+                        ...state.data.properties,
+                        adtext: action.adtext
                     }
                 }
             };
