@@ -76,13 +76,46 @@ class Remarks extends React.Component {
                 <CheckboksPanelGruppe
                     legend="Oppgi årsak til avvising"
                     checkboxes={[
-                        { label: RemarksEnum.DISCRIMINATING.label, value: RemarksEnum.DISCRIMINATING.value },
-                        { label: RemarksEnum.DUPLICATE.label, value: RemarksEnum.DUPLICATE.value },
-                        { label: RemarksEnum.NO_EMPLOYMENT.label, value: RemarksEnum.NO_EMPLOYMENT.value },
-                        { label: RemarksEnum.NOT_APPROVED_BY_LABOUR_INSPECTION.label, value: RemarksEnum.NOT_APPROVED_BY_LABOUR_INSPECTION.value },
-                        { label: RemarksEnum.REJECT_BECAUSE_CAPACITY.label, value: RemarksEnum.REJECT_BECAUSE_CAPACITY.value },
-                        { label: RemarksEnum.FOREIGN_JOB.label, value: RemarksEnum.FOREIGN_JOB.value },
-                        { label: RemarksEnum.COLLECTION_JOB.label, value: RemarksEnum.COLLECTION_JOB.value }
+                        {
+                            label: RemarksEnum.DISCRIMINATING.label,
+                            value: RemarksEnum.DISCRIMINATING.value,
+                            checked: remarks.includes(RemarksEnum.DISCRIMINATING.value)
+                        },
+                        {
+                            label: RemarksEnum.DUPLICATE.label,
+                            value: RemarksEnum.DUPLICATE.value,
+                            checked: remarks.includes(RemarksEnum.DUPLICATE.value)
+                        },
+                        {
+                            label: RemarksEnum.NO_EMPLOYMENT.label,
+                            value: RemarksEnum.NO_EMPLOYMENT.value,
+                            checked: remarks.includes(RemarksEnum.NO_EMPLOYMENT.value)
+                        },
+                        {
+                            label: RemarksEnum.NOT_APPROVED_BY_LABOUR_INSPECTION.label,
+                            value: RemarksEnum.NOT_APPROVED_BY_LABOUR_INSPECTION.value,
+                            checked: remarks.includes(RemarksEnum.NOT_APPROVED_BY_LABOUR_INSPECTION.value)
+                        },
+                        {
+                            label: RemarksEnum.REJECT_BECAUSE_CAPACITY.label,
+                            value: RemarksEnum.REJECT_BECAUSE_CAPACITY.value,
+                            checked: remarks.includes(RemarksEnum.REJECT_BECAUSE_CAPACITY.value)
+                        },
+                        {
+                            label: RemarksEnum.FOREIGN_JOB.label,
+                            value: RemarksEnum.FOREIGN_JOB.value,
+                            checked: remarks.includes(RemarksEnum.FOREIGN_JOB.value)
+                        },
+                        {
+                            label: RemarksEnum.COLLECTION_JOB.label,
+                            value: RemarksEnum.COLLECTION_JOB.value,
+                            checked: remarks.includes(RemarksEnum.COLLECTION_JOB.value)
+                        },
+                        {
+                            label: RemarksEnum.OTHER.label,
+                            value: RemarksEnum.OTHER.value,
+                            checked: remarks.includes(RemarksEnum.OTHER.value)
+                        }
                     ]}
                     onChange={this.onRemarkClick}
                 />
