@@ -7,7 +7,7 @@ export const CHANGE_SEARCH_ID = 'CHANGE_SEARCH_ID';
 
 const initialState = {
     source: undefined,
-    administrationStatus: undefined,
+    status: undefined,
     employerName: undefined,
     title: undefined,
     id: undefined
@@ -23,7 +23,7 @@ export default function filterReducer(state = initialState, action) {
         case CHANGE_STATUS_FILTER:
             return {
                 ...state,
-                administrationStatus: action.value
+                status: action.value
             };
         case CHANGE_SEARCH_EMPLOYER:
             return {

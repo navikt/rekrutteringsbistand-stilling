@@ -64,10 +64,10 @@ class SearchResultHeaders extends React.Component {
                         <i className={sortField === 'published' ? className : 'SearchResultHeader--unsorted'} />
                     </Element>
                 </Column>
-                <Column md="1" onClick={() => this.onSortClick('administrationStatus')}>
+                <Column md="1" onClick={() => this.onSortClick('status')}>
                     <Element>
                         Status
-                        <i className={sortField === 'administrationStatus' ? className : 'SearchResultHeader--unsorted'} />
+                        <i className={sortField === 'status' ? className : 'SearchResultHeader--unsorted'} />
                     </Element>
                 </Column>
             </Row>

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
 import { formatISOString } from '../../utils';
+import AdStatusEnum from '../enums/AdStatusEnum';
 import './SearchResult.less';
 
 export default class SearchResultItem extends React.Component {
@@ -50,7 +51,7 @@ export default class SearchResultItem extends React.Component {
                 </Column>
                 <Column md="1">
                     <Normaltekst>
-                        {ad.administration && ad.administration.status ? ad.administration.status : ''}
+                        {ad.status ? AdStatusEnum[ad.status] : ''}
                     </Normaltekst>
                 </Column>
             </Row>
