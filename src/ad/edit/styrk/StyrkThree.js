@@ -1,16 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import StyrkThreeItem from "./StyrkThreeItem";
-import { COLLAPSE_STYRK_BRANCH, EXPAND_STYRK_BRANCH, TOGGLE_STYRK_MODAL } from "./styrkReducer";
-import { ADD_STYRK } from "../../../ad/adReducer";
+import StyrkThreeItem from './StyrkThreeItem';
+import { COLLAPSE_STYRK_BRANCH, EXPAND_STYRK_BRANCH, TOGGLE_STYRK_MODAL } from './styrkReducer';
+import { ADD_STYRK } from '../../adReducer';
 import './StyrkThree.less';
 
 class StyrkThree extends React.Component {
-
     onClick = (item) => {
-        if(item.children) {
-            if(item.expanded) {
+        if (item.children) {
+            if (item.expanded) {
                 this.props.collapseBranch(item.code);
             } else {
                 this.props.expandBranch(item.code);

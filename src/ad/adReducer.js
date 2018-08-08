@@ -1,6 +1,6 @@
 import { put, takeLatest, select } from 'redux-saga/effects';
 import { ApiError, fetchGet, fetchPut } from '../api/api';
-import { lookUpStyrk } from './categorize/styrk/styrkReducer';
+import { lookUpStyrk } from './edit/styrk/styrkReducer';
 import { AD_API } from '../fasitProperties';
 import AdminStatusEnum from './administration/AdminStatusEnum';
 import { lookUpPostalCodes } from './edit/postalCode/postalCodeReducer';
@@ -70,9 +70,7 @@ const initialState = {
     error: undefined,
     isSavingAd: false,
     isFetchingStilling: false,
-    validation: {
-        title: undefined
-    }
+    validation: {}
 };
 
 function validateTitle(title, employer) {
@@ -87,11 +85,20 @@ function validateLocation(location) {
     return undefined;
 }
 
+function validateStyrk(categoryList) {
+    if (categoryList === null || categoryList === undefined ||
+        categoryList.length === 0) {
+        return 'STYRK mangler';
+    }
+    return undefined;
+}
+
 
 function validateAll(data) {
     return {
-        title: validateTitle(data.title, data.properties.employer),
-        location: validateLocation(data.location)
+        styrk: validateStyrk(data.categoryList),
+        location: validateLocation(data.location),
+        title: validateTitle(data.title, data.properties.employer)
     };
 }
 
@@ -130,7 +137,8 @@ export default function adReducer(state = initialState, action) {
                 data: action.response,
                 originalData: { ...action.response },
                 isSavingAd: false,
-                shouldShowAdForm: false
+                shouldShowAdForm: false,
+                validation: validateAll(action.response)
             };
         case SAVE_AD_FAILURE:
             return {
@@ -171,19 +179,29 @@ export default function adReducer(state = initialState, action) {
             if (state.data.categoryList.find((s) => (s.code === action.code))) {
                 return state;
             }
+            const categoryListAdd = [...state.data.categoryList, lookUpStyrk(action.code)]
             return {
                 ...state,
                 data: {
                     ...state.data,
-                    categoryList: [...state.data.categoryList, lookUpStyrk(action.code)]
+                    categoryList: categoryListAdd
+                },
+                validation: {
+                    ...state.validation,
+                    styrk: validateStyrk(categoryListAdd)
                 }
             };
         case REMOVE_STYRK:
+            const categoryListRemove = state.data.categoryList.filter((c) => (c.code !== action.code));
             return {
                 ...state,
                 data: {
                     ...state.data,
-                    categoryList: state.data.categoryList.filter((c) => (c.code !== action.code))
+                    categoryList: categoryListRemove
+                },
+                validation: {
+                    ...state.validation,
+                    styrk: validateStyrk(categoryListRemove)
                 }
             };
         case SET_AD_TITLE: {

@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Knapp } from 'nav-frontend-knapper';
 import Preview from './preview/Preview';
 import Administration from './administration/Administration';
-import Categorize from './categorize/Categorize';
 import Comments from './comments/Comments';
 import { DISCARD_AD_CHANGES, FETCH_AD, SAVE_AD, SHOW_AD_FORM } from './adReducer';
 import Error from './error/Error';
@@ -88,7 +87,6 @@ class Ad extends React.Component {
                             <div className="Ad__flex__right">
                                 <div className="Ad__flex__right__inner">
                                     <Administration />
-                                    <Categorize />
                                     <Comments />
                                 </div>
                             </div>

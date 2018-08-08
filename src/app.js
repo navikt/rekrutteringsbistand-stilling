@@ -5,7 +5,7 @@ import { applyMiddleware, createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 import postalCodeReducer, { postalCodeSaga } from './ad/edit/postalCode/postalCodeReducer';
-import styrkReducer, { styrkSaga } from './ad/categorize/styrk/styrkReducer';
+import styrkReducer, { styrkSaga } from './ad/edit/styrk/styrkReducer';
 import adsReducer, { adsSaga } from './ads/adsReducer';
 import adReducer, { adSaga } from './ad/adReducer';
 import searchReducer, { searchSaga } from './searchPage/searchReducer';

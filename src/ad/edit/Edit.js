@@ -21,6 +21,8 @@ import {
 import PostalCode from './postalCode/PostalCode';
 import './Edit.less';
 import {getApplicationUrl} from "../preview/application/Application";
+import StyrkThreeItem from "./styrk/StyrkThreeItem";
+import Styrk from "./styrk/Styrk";
 
 class Edit extends React.Component {
     onTitleChange = (e) => {
@@ -143,6 +145,9 @@ class Edit extends React.Component {
                     </Column>
                     <Column xs="12" md="4">
                         <div className="Edit__details">
+                            <SkjemaGruppe title="STYRK-kode">
+                                <Styrk />
+                            </SkjemaGruppe>
                             <SkjemaGruppe title="Søknad">
                                 <Input
                                     label="Søknadsfrist"

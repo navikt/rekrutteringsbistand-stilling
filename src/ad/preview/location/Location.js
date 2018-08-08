@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Element } from 'nav-frontend-typografi';
 import { SET_LOCATION_ADDRESS } from '../../adReducer';
 
-export class Location extends React.Component {
+class Location extends React.Component {
     render() {
         const { location } = this.props;
         return (

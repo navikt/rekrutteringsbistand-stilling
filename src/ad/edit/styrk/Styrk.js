@@ -45,15 +45,12 @@ class Styrk extends React.Component {
         return (
             <div className="Styrk">
                 <label htmlFor="Styrk__typeahead" className="typo-normal">Arbeidsyrke</label>
-                {this.props.status === AdminStatusEnum.PENDING && !this.props.isSavingAd && (
-                    <span>
-                        {' ('}
-                        <a href="#" className="typo-normal lenke" onClick={this.onShowListClick}>velg fra liste</a>
-                        {')'}
-                    </span>
-                )}
+                <span>
+                    {' ('}
+                    <a href="#" className="typo-normal lenke" onClick={this.onShowListClick}>velg fra liste</a>
+                    {')'}
+                </span>
                 <Typeahead
-                    disabled={this.props.status !== AdminStatusEnum.PENDING || this.props.isSavingAd}
                     id="Styrk__typeahead"
                     label=""
                     placeholder="Styrkkategori / kode"
@@ -71,7 +68,7 @@ class Styrk extends React.Component {
                                 key={styrk.code}
                                 value={styrk.code}
                                 label={`${styrk.code}: ${styrk.name}`}
-                                canRemove={this.props.status === AdminStatusEnum.PENDING && !this.props.isSavingAd}
+                                canRemove
                                 onRemove={this.onTagRemove}
                             />
                         ))}

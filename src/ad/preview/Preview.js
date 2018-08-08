@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Innholdstittel } from 'nav-frontend-typografi';
+import { Innholdstittel, Element, Normaltekst } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
 import ReactHtmlParser from 'react-html-parser';
 import Application from './application/Application';
@@ -8,17 +8,15 @@ import Employer from './employer/Employer';
 import Employment from './employment/Employment';
 import Summary from './summary/Summary';
 import markWords from './markWords';
-import {hasExcludingWordsInTitle} from './markWords';
 import './Preview.less';
-import Location from "./location/Location";
-
+import Location from './location/Location';
 
 export default function Preview({ stilling }) {
     return (
         <div className="AdText">
             <Row>
                 <Column xs="12" md="8">
-                    <Innholdstittel className={hasExcludingWordsInTitle(stilling.title, stilling.properties.employer) ? 'AdText__title AdText__discriminating_title' : 'AdText__title'}>
+                    <Innholdstittel className="AdText__title">
                         {stilling.title}
                     </Innholdstittel>
                 </Column>
@@ -31,6 +29,14 @@ export default function Preview({ stilling }) {
                 </Column>
                 <Column xs="12" md="4">
                     <div className="AdText__details">
+                        <div className="detail-section">
+                            <Element className="detail-section__head">STYRK</Element>
+                            {stilling.categoryList.map((styrk) => (
+                                <Normaltekst key={styrk.code}>
+                                    {styrk.code}: {styrk.name}
+                                </Normaltekst>
+                            ))}
+                        </div>
                         <Application
                             source={stilling.source}
                             properties={stilling.properties}
@@ -56,5 +62,4 @@ Preview.propTypes = {
     adText: PropTypes.string,
     title: PropTypes.string
 };
-
 
