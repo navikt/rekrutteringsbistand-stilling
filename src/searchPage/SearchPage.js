@@ -6,9 +6,11 @@ import { Innholdstittel } from 'nav-frontend-typografi';
 import SearchBox from '../common/searchBox/SearchBox';
 import SearchResultHeaders from './searchResult/SearchResultHeaders';
 import SearchResultItem from './searchResult/SearchResultItem';
+import SearchResultCount from './searchResult/SearchResultCount';
 import NoResults from './noResults/NoResults';
 import Loading from './loading/Loading';
 import Filter from './filter/Filter';
+import Pagination from './pagination/Pagination';
 import { FETCH_ADS } from './searchReducer';
 import './SearchPage.less';
 
@@ -21,6 +23,7 @@ class SearchPage extends React.Component {
 
     render() {
         const { ads, isSearching } = this.props;
+        const adsFound = !isSearching && ads && ads.length > 0;
         return (
             <Container className="SearchPage">
                 <div className="SearchPage__flex">
@@ -32,12 +35,16 @@ class SearchPage extends React.Component {
                     <div className="SearchPage__flex__right">
                         <div className="SearchPage__flex__right__inner">
                             <Innholdstittel className="blokk-m">Søkeresultat</Innholdstittel>
-                            <div className="SearchBox__wrapper blokk-m">
+                            <div className="SearchBox__wrapper blokk-xs">
                                 <SearchBox
                                     label=""
                                     placeholder="Skriv inn søk..."
                                 />
                             </div>
+
+                            {adsFound && (
+                                <SearchResultCount />
+                            )}
                             <SearchResultHeaders />
                             {isSearching && (
                                 <Loading />
@@ -45,9 +52,12 @@ class SearchPage extends React.Component {
                             {!isSearching && ads && ads.length === 0 && (
                                 <NoResults />
                             )}
-                            {!isSearching && ads && ads.map((ad) => (
+                            {adsFound && ads.map((ad) => (
                                 <SearchResultItem key={ad.uuid} ad={ad} />
                             ))}
+                            {adsFound && (
+                                <Pagination />
+                            )}
                         </div>
                     </div>
                 </div>
@@ -65,8 +75,8 @@ SearchPage.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    ads: state.ads.items,
-    isSearching: state.ads.isSearching
+    ads: state.search.items,
+    isSearching: state.search.isSearching
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -11,13 +11,18 @@ export const FETCH_ADS_BEGIN = 'FETCH_ADS_BEGIN';
 export const FETCH_ADS_SUCCESS = 'FETCH_ADS_SUCCESS';
 export const FETCH_ADS_FAILURE = 'FETCH_ADS_FAILURE';
 export const CHANGE_SORTING = 'CHANGE_SORTING';
+export const CHANGE_PAGE = 'CHANGE_PAGE';
+export const RESET_PAGE = 'RESET_PAGE';
 
 const initialState = {
     items: [],
     error: undefined,
     isSearching: false,
     sortField: 'id',
-    sortDir: 'asc'
+    sortDir: 'asc',
+    totalElements: 0,
+    totalPages: 0,
+    page: 0
 };
 
 export default function searchReducer(state = initialState, action) {
@@ -32,7 +37,9 @@ export default function searchReducer(state = initialState, action) {
             return {
                 ...state,
                 items: action.response.content,
-                isSearching: false
+                isSearching: false,
+                totalElements: action.response.totalElements,
+                totalPages: action.response.totalPages
             };
         case FETCH_ADS_FAILURE:
             return {
@@ -45,6 +52,16 @@ export default function searchReducer(state = initialState, action) {
                 ...state,
                 sortField: action.field,
                 sortDir: action.dir,
+            };
+        case CHANGE_PAGE:
+            return {
+                ...state,
+                page: action.page
+            };
+        case RESET_PAGE:
+            return {
+                ...state,
+                page: 0
             };
         default:
             return state;
@@ -80,17 +97,21 @@ const toUrl = (query) => {
     return urlQuery && urlQuery.length > 0 ? `?${urlQuery}` : '';
 };
 
-function* getAds() {
+function* getAds(action) {
     try {
+        if (action.type !== CHANGE_PAGE) {
+            yield put({ type: RESET_PAGE });
+        }
         yield put({ type: FETCH_ADS_BEGIN });
 
         const state = yield select();
 
         const { filter } = state;
-        const { sortField, sortDir } = state.search;
+        const { sortField, sortDir, page } = state.search;
         const query = {
             ...filter,
-            sort: `${sortField},${sortDir}`
+            sort: `${sortField},${sortDir}`,
+            page
         };
         const searchUrl = toUrl(query);
         const url = `${AD_API}ads/${searchUrl}`;
@@ -114,5 +135,6 @@ export const searchSaga = function* saga() {
         CHANGE_SEARCH_TITLE,
         CHANGE_SEARCH_ID,
         CHANGE_SORTING,
+        CHANGE_PAGE,
         FETCH_ADS], getAds);
 };

@@ -31,7 +31,7 @@ const store = createStore(combineReducers({
     administration: administrationReducer,
     filter: filterReducer,
     reportee: reporteeReducer,
-    search: searchReducer,
+    search: searchReducer
 }), applyMiddleware(sagaMiddleware));
 
 sagaMiddleware.run(reporteeSaga);
