@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Column, Row } from 'nav-frontend-grid';
 import {
-    Input, SkjemaGruppe, Textarea
+    Input, SkjemaGruppe
 } from 'nav-frontend-skjema';
 import { connect } from 'react-redux';
+import RichTextEditor from 'react-rte';
 import {
     SET_AD_TEXT,
     SET_AD_TITLE, SET_APPLICATIONDUE, SET_APPLICATIONEMAIL, SET_APPLICATIONURL,
@@ -20,11 +21,18 @@ import {
 } from '../adReducer';
 import PostalCode from './postalCode/PostalCode';
 import './Edit.less';
-import {getApplicationUrl} from "../preview/application/Application";
 import StyrkThreeItem from "./styrk/StyrkThreeItem";
 import Styrk from "./styrk/Styrk";
+import {createEmptyOrHTMLStringFromRTEValue} from "./CreateEmptyOrHTMLStringFromRTEValue";
 
 class Edit extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            soknadsTekst: this.props.ad.properties.adtext ? RichTextEditor.createValueFromString(this.props.ad.properties.adtext, 'html') : null
+        }
+    }
+
     onTitleChange = (e) => {
         this.props.setAdTitle(e.target.value);
     };
@@ -117,12 +125,26 @@ class Edit extends React.Component {
         this.props.setExpirationDate(e.target.value);
     };
 
-    onAdTextChange = (e) => {
-        this.props.setAdText(e.target.value);
+    onAdTextChange = (soknadsTekst) => {
+        this.setState({
+            soknadsTekst
+        });
+        const nyTekst = createEmptyOrHTMLStringFromRTEValue(soknadsTekst);
+        this.props.setAdText(nyTekst);
     };
 
     render() {
         const { ad, validation } = this.props;
+        const toolbarConfig = {
+            display: ['INLINE_STYLE_BUTTONS', 'BLOCK_TYPE_BUTTONS', 'HISTORY_BUTTONS'],
+            INLINE_STYLE_BUTTONS: [
+                { label: 'Fet', style: 'BOLD', className: 'custom-css-class' },
+                { label: 'Kursiv', style: 'ITALIC' }
+            ],
+            BLOCK_TYPE_BUTTONS: [
+                { label: 'Punkt', style: 'unordered-list-item' }
+            ]
+        };
 
         return (
             <div className="Edit">
@@ -136,10 +158,11 @@ class Edit extends React.Component {
                                 className="typo-normal Edit__title"
                                 feil={validation.title ? { feilmelding: validation.title } : undefined}
                             />
-                            <Textarea
-                                label=""
+                            <RichTextEditor
+                                toolbarConfig={toolbarConfig}
+                                className="Edit__rte"
+                                value={this.state.soknadsTekst || RichTextEditor.createEmptyValue()}
                                 onChange={this.onAdTextChange}
-                                value={ad.properties.adtext || ''}
                             />
                         </div>
                     </Column>
@@ -253,7 +276,7 @@ class Edit extends React.Component {
                                     className="typo-normal"
                                 />
                                 <Input
-                                    label="Arbeidsgiver"
+                                    label="Beskrivelse arbeidsgiver"
                                     value={ad.properties.employerdescription || ''}
                                     onChange={this.onEmployerDescriptionChange}
                                     className="typo-normal"
