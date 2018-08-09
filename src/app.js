@@ -6,12 +6,10 @@ import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 import postalCodeReducer, { postalCodeSaga } from './ad/edit/postalCode/postalCodeReducer';
 import styrkReducer, { styrkSaga } from './ad/edit/styrk/styrkReducer';
-import adsReducer, { adsSaga } from './ads/adsReducer';
 import adReducer, { adSaga } from './ad/adReducer';
 import searchReducer, { searchSaga } from './searchPage/searchReducer';
 import filterReducer from './searchPage/filter/filterReducer';
 import Ad from './ad/Ad';
-import Ads from './ads/Ads';
 import TopMenu from './topmenu/TopMenu';
 import { initShortcuts } from './common/shortcuts/Shortcuts';
 import './styles.less';
@@ -24,7 +22,6 @@ const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(combineReducers({
     ad: adReducer,
-    ads: adsReducer,
     postalCode: postalCodeReducer,
     styrk: styrkReducer,
     filter: filterReducer,
@@ -34,7 +31,6 @@ const store = createStore(combineReducers({
 
 sagaMiddleware.run(reporteeSaga);
 sagaMiddleware.run(adSaga);
-sagaMiddleware.run(adsSaga);
 sagaMiddleware.run(postalCodeSaga);
 sagaMiddleware.run(styrkSaga);
 sagaMiddleware.run(searchSaga);
@@ -44,10 +40,10 @@ initShortcuts();
 const Main = () => (
     <main>
         <Switch>
-            <Route exact path="/" component={StartPage}/>
-            <Route exact path="/search" component={SearchPage}/>
-            <Route exact path="/ads" component={Ads}/>
-            <Route exact path="/ads/:uuid" component={Ad}/>
+            <Route exact path="/" component={StartPage} />
+            <Route exact path="/search" component={SearchPage} />
+            <Route exact path="/ads/:uuid" component={Ad} />
+            <Route exact path="*" component={StartPage} />
         </Switch>
     </main>
 );
