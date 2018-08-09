@@ -4,25 +4,25 @@ import { connect } from 'react-redux';
 import { Element } from 'nav-frontend-typografi';
 import { SET_LOCATION_ADDRESS } from '../../adReducer';
 
-class Location extends React.Component {
-    render() {
-        const { location } = this.props;
-        return (
-            <div className="detail-section">
-                <Element className="detail-section__head">Sted</Element>
-                <dl className="dl-flex typo-normal">
-                    {location && location.address && [
-                        <dt key="dt">Gateadresse:</dt>,
-                        <dd key="dd">{location.address}</dd>]
-                    }
-                    {location && location.postalCode && [
-                        <dt key="dt">Poststed:</dt>,
-                        <dd key="dd">{location.postalCode} {location.city}</dd>]
-                    }
-                </dl>
-            </div>
-        );
+function Location({ location }) {
+    if (!location) {
+        return null;
     }
+    return (
+        <div className="detail-section">
+            <Element className="detail-section__head">Sted</Element>
+            <dl className="dl-flex typo-normal">
+                {location && location.address && [
+                    <dt key="dt">Gateadresse:</dt>,
+                    <dd key="dd">{location.address}</dd>]
+                }
+                {location && location.postalCode && [
+                    <dt key="dt">Poststed:</dt>,
+                    <dd key="dd">{location.postalCode} {location.city}</dd>]
+                }
+            </dl>
+        </div>
+    );
 }
 
 Location.defaultProps = {
