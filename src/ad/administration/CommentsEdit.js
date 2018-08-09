@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Textarea } from 'nav-frontend-skjema';
-import { Undertittel } from 'nav-frontend-typografi';
+import { Element } from 'nav-frontend-typografi';
 import { connect } from 'react-redux';
 import { SET_COMMENT } from '../adReducer';
-import AdminStatusEnum from '../administration/AdminStatusEnum';
 import { registerShortcuts } from '../../common/shortcuts/Shortcuts';
 
-class Comments extends React.Component {
+class CommentsEdit extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -43,37 +42,33 @@ class Comments extends React.Component {
 
     render() {
         return (
-            <div>
-                <Undertittel className="Categorize__head">Kommentarer</Undertittel>
+            <div className="CommentsEdit">
+                <Element>Kommentarer</Element>
                 <Textarea
-                    disabled={this.props.status !== AdminStatusEnum.PENDING || this.props.isSavingAd}
                     label=""
                     maxLength={255}
                     onChange={this.onChange}
                     onBlur={this.onBlur}
                     value={this.state.comments || ''}
                     textareaRef={(ref) => { this.commentArea = ref; }}
+                    textareaClass="typo-normal"
                 />
             </div>
         );
     }
 }
 
-Comments.defaultProps = {
+CommentsEdit.defaultProps = {
     comments: ''
 };
 
-Comments.propTypes = {
+CommentsEdit.propTypes = {
     setComment: PropTypes.func.isRequired,
-    comments: PropTypes.string,
-    status: PropTypes.string.isRequired,
-    isSavingAd: PropTypes.bool.isRequired
+    comments: PropTypes.string
 };
 
 const mapStateToProps = (state) => ({
-    comments: state.ad.data.administration.comments,
-    status: state.ad.data.administration.status,
-    isSavingAd: state.ad.isSavingAd
+    comments: state.ad.data.administration.comments
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -81,4 +76,4 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Comments);
+export default connect(mapStateToProps, mapDispatchToProps)(CommentsEdit);
