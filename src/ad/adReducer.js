@@ -44,6 +44,7 @@ export const SET_SOURCEURL = 'SET_SOURCEURL';
 export const SET_EMPLOYER = 'SET_EMPLOYER';
 export const SET_EMPLOYERDESCRIPTION = 'SET_EMPLOYERDESCRIPTION';
 
+export const SET_PUBLISHED = 'SET_PUBLISHED';
 export const SET_LAST_UPDATED = 'SET_LAST_UPDATED';
 export const SET_MEDIUM = 'SET_MEDIUM';
 export const SET_ID = 'SET_ID';
@@ -457,6 +458,14 @@ export default function adReducer(state = initialState, action) {
                 data: {
                     ...state.data,
                     updated: action.updated
+                }
+            };
+        case SET_PUBLISHED:
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    published: action.published
                 }
             };
         case SET_MEDIUM:

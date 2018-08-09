@@ -8,6 +8,10 @@ export default function AdDetails({ stilling }) {
         <div className="detail-section">
             <Element className="AdDetails__head detail-section__head">Om annonsen</Element>
             <dl className="dl-flex typo-normal">
+                {stilling.published && [
+                    <dt key="dt">Publisert:</dt>,
+                    <dd key="dd">{formatISOString(stilling.published, 'D. MMMM YYYY HH:MM')}</dd>
+                ]}
                 {stilling.updated && [
                     <dt key="dt">Sist endret:</dt>,
                     <dd key="dd">{formatISOString(stilling.updated, 'D. MMMM YYYY HH:MM')}</dd>

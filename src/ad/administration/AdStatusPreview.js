@@ -5,17 +5,14 @@ import { Element } from 'nav-frontend-typografi';
 import Alertstripe from 'nav-frontend-alertstriper';
 import AdStatusEnum from './AdStatusEnum';
 import RemarksEnum from './RemarksEnum';
-import { formatISOString, isValidISOString } from '../../utils';
 
-function AdStatusPreview({ adStatus, remarks, publishedDate }) {
+function AdStatusPreview({ adStatus, remarks }) {
     const remarksLabels = remarks.map((remark) => {
         if (RemarksEnum[remark]) {
             return RemarksEnum[remark].label;
         }
         return remark;
     });
-
-    const publisedDateForamted = isValidISOString(publishedDate) ? formatISOString(publishedDate, 'D. MMMM HH:MM') : undefined;
 
     return (
         <div className="AdStatusPreview">
@@ -28,7 +25,7 @@ function AdStatusPreview({ adStatus, remarks, publishedDate }) {
                 )}
                 {adStatus === AdStatusEnum.ACTIVE && (
                     <Alertstripe type="suksess" solid>
-                        Annonsen ble publisert {publisedDateForamted}
+                        Annonsen er publisert
                     </Alertstripe>
                 )}
                 {adStatus === AdStatusEnum.REJECTED && (
@@ -52,19 +49,16 @@ function AdStatusPreview({ adStatus, remarks, publishedDate }) {
 }
 
 AdStatusPreview.defaultProps = {
-    remarks: [],
-    publishedDate: undefined
+    remarks: []
 };
 
 AdStatusPreview.propTypes = {
     adStatus: PropTypes.string.isRequired,
-    remarks: PropTypes.arrayOf(PropTypes.string),
-    publishedDate: PropTypes.string
+    remarks: PropTypes.arrayOf(PropTypes.string)
 };
 
 const mapStateToProps = (state) => ({
     adStatus: state.ad.data.status,
-    publishedDate: state.ad.data.published,
     remarks: state.ad.data.administration.remarks
 });
 
