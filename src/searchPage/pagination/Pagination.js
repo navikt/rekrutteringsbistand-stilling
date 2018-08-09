@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Chevron from 'nav-frontend-chevron';
 import { Flatknapp } from 'nav-frontend-knapper';
-import { Element } from 'nav-frontend-typografi';
+import { Undertekst } from 'nav-frontend-typografi';
 import { CHANGE_PAGE } from '../searchReducer';
 import './Pagination.less';
 
@@ -22,9 +22,9 @@ class Pagination extends React.Component {
         }
         return (
             <div className="Pagination">
-                <Element className="blokk-xs">
+                <Undertekst className="blokk-xs">
                     {`Viser side ${this.props.page + 1} av ${this.props.totalPages}`}
-                </Element>
+                </Undertekst>
                 <div className="Pagination__buttons">
                     {this.props.page > 0 && (
                         <Flatknapp

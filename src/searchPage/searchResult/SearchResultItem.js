@@ -21,12 +21,10 @@ export default class SearchResultItem extends React.Component {
                 </Column>
                 <Column md="3">
                     <Link
-                        className="Ad"
+                        className="typo-normal lenke"
                         to={`/ads/${ad.uuid}`}
                     >
-                        <Normaltekst>
-                            {ad.title ? ad.title : ''}
-                        </Normaltekst>
+                        {ad.title ? ad.title : ''}
                     </Link>
                 </Column>
                 <Column md="2">

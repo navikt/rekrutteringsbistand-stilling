@@ -1,12 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Radio } from 'nav-frontend-skjema';
-import { Undertittel } from 'nav-frontend-typografi';
+import { Radio, SkjemaGruppe } from 'nav-frontend-skjema';
 import { CHANGE_SOURCE_FILTER, CHANGE_STATUS_FILTER } from './filterReducer';
 import SourceEnum from '../enums/SourceEnum';
 import StatusEnum from '../enums/AdStatusEnum';
-import './Filter.less';
 
 class Filter extends React.Component {
     onSourceFilterChange = (e) => {
@@ -25,44 +23,45 @@ class Filter extends React.Component {
         }
     };
 
-
     render() {
         return (
             <div>
-                <Undertittel className="blokk-xs">Status</Undertittel>
-                <Radio
-                    label="Alle"
-                    value="Alle"
-                    defaultChecked
-                    name="status"
-                    onChange={this.onStatusFilterChange}
-                />
-                {Object.keys(StatusEnum).map((key) => (
+                <SkjemaGruppe title="Status" className="blokk">
                     <Radio
-                        key={key}
-                        label={StatusEnum[key]}
-                        value={key}
+                        label="Alle"
+                        value="Alle"
+                        defaultChecked
                         name="status"
                         onChange={this.onStatusFilterChange}
                     />
-                ))}
-                <Undertittel className="Filter__header">Kilde</Undertittel>
-                <Radio
-                    label="Alle"
-                    value="Alle"
-                    defaultChecked
-                    name="kilde"
-                    onChange={this.onSourceFilterChange}
-                />
-                {Object.keys(SourceEnum).map((key) => (
+                    {Object.keys(StatusEnum).map((key) => (
+                        <Radio
+                            key={key}
+                            label={StatusEnum[key]}
+                            value={key}
+                            name="status"
+                            onChange={this.onStatusFilterChange}
+                        />
+                    ))}
+                </SkjemaGruppe>
+                <SkjemaGruppe title="Kilde">
                     <Radio
-                        key={key}
-                        label={SourceEnum[key]}
-                        value={key}
+                        label="Alle"
+                        value="Alle"
+                        defaultChecked
                         name="kilde"
                         onChange={this.onSourceFilterChange}
                     />
-                ))}
+                    {Object.keys(SourceEnum).map((key) => (
+                        <Radio
+                            key={key}
+                            label={SourceEnum[key]}
+                            value={key}
+                            name="kilde"
+                            onChange={this.onSourceFilterChange}
+                        />
+                    ))}
+                </SkjemaGruppe>
             </div>
         );
     }
@@ -73,8 +72,7 @@ Filter.propTypes = {
     changeSourceFilter: PropTypes.func.isRequired
 };
 
-const mapStateToProps = () => ({
-});
+const mapStateToProps = () => ({});
 
 const mapDispatchToProps = (dispatch) => ({
     changeSourceFilter: (value) => dispatch({ type: CHANGE_SOURCE_FILTER, value }),
