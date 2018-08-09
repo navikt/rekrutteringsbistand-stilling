@@ -10,7 +10,6 @@ import adsReducer, { adsSaga } from './ads/adsReducer';
 import adReducer, { adSaga } from './ad/adReducer';
 import searchReducer, { searchSaga } from './searchPage/searchReducer';
 import filterReducer from './searchPage/filter/filterReducer';
-import administrationReducer from './ad/administration/administrationReducer';
 import Ad from './ad/Ad';
 import Ads from './ads/Ads';
 import TopMenu from './topmenu/TopMenu';
@@ -28,7 +27,6 @@ const store = createStore(combineReducers({
     ads: adsReducer,
     postalCode: postalCodeReducer,
     styrk: styrkReducer,
-    administration: administrationReducer,
     filter: filterReducer,
     reportee: reporteeReducer,
     search: searchReducer
