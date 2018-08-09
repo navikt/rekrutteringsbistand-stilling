@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Innholdstittel, Element, Normaltekst } from 'nav-frontend-typografi';
+import {
+    Innholdstittel, Element, Normaltekst,
+    Systemtittel
+} from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
 import ReactHtmlParser from 'react-html-parser';
 import Application from './application/Application';
@@ -25,6 +28,14 @@ export default function Preview({ stilling }) {
                 <Column xs="12" md="8">
                     <div className="AdText__body">
                         {ReactHtmlParser(markWords(stilling.properties.adtext))}
+                    </div>
+                    <div>
+                        <Systemtittel>Om arbeidsgiver</Systemtittel>
+                        {stilling.properties.employerdescription && (
+                            <div className="EmployerDetails__description">
+                                { ReactHtmlParser(markWords(stilling.properties.employerdescription)) }
+                            </div>
+                        )}
                     </div>
                 </Column>
                 <Column xs="12" md="4">

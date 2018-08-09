@@ -23,13 +23,25 @@ import PostalCode from './postalCode/PostalCode';
 import './Edit.less';
 import StyrkThreeItem from "./styrk/StyrkThreeItem";
 import Styrk from "./styrk/Styrk";
-import {createEmptyOrHTMLStringFromRTEValue} from "./CreateEmptyOrHTMLStringFromRTEValue";
+import { Undertittel } from "nav-frontend-typografi";
+
+export const createEmptyOrHTMLStringFromRTEValue = (rteValue) => {
+    const tomromEllerIkkeOrdRegex = /^(\s|\W)+$/g;
+    const tekstMarkdown = rteValue.toString('markdown');
+    let nyTekst = '';
+    if (tekstMarkdown.search(tomromEllerIkkeOrdRegex) < 0) {
+        nyTekst = rteValue.toString('html');
+    }
+
+    return nyTekst;
+};
 
 class Edit extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            soknadsTekst: this.props.ad.properties.adtext ? RichTextEditor.createValueFromString(this.props.ad.properties.adtext, 'html') : null
+            soknadsTekst: this.props.ad.properties.adtext ? RichTextEditor.createValueFromString(this.props.ad.properties.adtext, 'html') : null,
+            omArbeidsgiver: this.props.ad.properties.employerdescription ? RichTextEditor.createValueFromString(this.props.ad.properties.employerdescription, 'html') : null
         }
     }
 
@@ -101,8 +113,12 @@ class Edit extends React.Component {
         this.props.setEmployer(e.target.value);
     };
 
-    onEmployerDescriptionChange = (e) => {
-        this.props.setEmployerDescription(e.target.value);
+    onEmployerDescriptionChange = (omArbeidsgiver) => {
+        this.setState({
+            omArbeidsgiver
+        });
+        const nyTekst = createEmptyOrHTMLStringFromRTEValue(omArbeidsgiver);
+        this.props.setEmployerDescription(nyTekst);
     };
 
     onLastUpdatedChange = (e) => {
@@ -136,13 +152,24 @@ class Edit extends React.Component {
     render() {
         const { ad, validation } = this.props;
         const toolbarConfig = {
-            display: ['INLINE_STYLE_BUTTONS', 'BLOCK_TYPE_BUTTONS', 'HISTORY_BUTTONS'],
+            display: ['INLINE_STYLE_BUTTONS', 'BLOCK_TYPE_BUTTONS', 'LINK_BUTTONS', 'BLOCK_TYPE_DROPDOWN', 'HISTORY_BUTTONS'],
             INLINE_STYLE_BUTTONS: [
                 { label: 'Fet', style: 'BOLD', className: 'custom-css-class' },
-                { label: 'Kursiv', style: 'ITALIC' }
+                { label: 'Kursiv', style: 'ITALIC' },
+                { label: 'Gjennomstreking', style: 'STRIKETHROUGH' },
+                { label: 'Monospace', style: 'CODE' },
+                { label: 'Understreking', style: 'UNDERLINE' }
+            ],
+            BLOCK_TYPE_DROPDOWN: [
+                { label: 'Normal', style: 'unstyled' },
+                { label: 'Overskrift stor', style: 'header-one' },
+                { label: 'Overskrift medium', style: 'header-two' },
+                { label: 'Overskrift liten', style: 'header-three' }
             ],
             BLOCK_TYPE_BUTTONS: [
-                { label: 'Punkt', style: 'unordered-list-item' }
+                { label: 'Punkt', style: 'unordered-list-item' },
+                { label: 'Tall', style: 'ordered-list-item' },
+                { label: 'Sitat', style: 'blockquote' }
             ]
         };
 
@@ -163,6 +190,13 @@ class Edit extends React.Component {
                                 className="Edit__rte"
                                 value={this.state.soknadsTekst || RichTextEditor.createEmptyValue()}
                                 onChange={this.onAdTextChange}
+                            />
+                            <Undertittel className="Edit__title-arbeidsgiver">Om arbeidsgiver</Undertittel>
+                            <RichTextEditor
+                                toolbarConfig={toolbarConfig}
+                                className="Edit__rte"
+                                value={this.state.omArbeidsgiver || RichTextEditor.createEmptyValue()}
+                                onChange={this.onEmployerDescriptionChange}
                             />
                         </div>
                     </Column>
@@ -273,12 +307,6 @@ class Edit extends React.Component {
                                     label="Arbeidsgiver"
                                     value={ad.properties.employer || ''}
                                     onChange={this.onEmployerChange}
-                                    className="typo-normal"
-                                />
-                                <Input
-                                    label="Beskrivelse arbeidsgiver"
-                                    value={ad.properties.employerdescription || ''}
-                                    onChange={this.onEmployerDescriptionChange}
                                     className="typo-normal"
                                 />
                             </SkjemaGruppe>
