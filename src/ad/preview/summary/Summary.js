@@ -10,7 +10,7 @@ export default function AdDetails({ stilling }) {
             <dl className="dl-flex typo-normal">
                 {stilling.updated && [
                     <dt key="dt">Sist endret:</dt>,
-                    <dd key="dd">{formatISOString(stilling.updated, 'D. MMMM YYYY')}</dd>
+                    <dd key="dd">{formatISOString(stilling.updated, 'D. MMMM YYYY HH:MM')}</dd>
                 ]}
                 {stilling.medium && [
                     <dt key="dt">Hentet fra:</dt>,
