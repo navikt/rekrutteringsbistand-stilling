@@ -78,9 +78,15 @@ function validateTitle(title, employer) {
 }
 
 function validateLocation(location) {
-    if (location === null || location === undefined ||
-        location.postalCode === null || location.postalCode === undefined) {
+    if (location === null ||
+        location === undefined ||
+        location.postalCode === null ||
+        location.postalCode === undefined ||
+        location.postalCode.length === 0) {
         return 'Postnummer mangler';
+    }
+    if (location.postalCode.length !== 4) {
+        return 'Ugyldig postnummer';
     }
     return undefined;
 }
@@ -179,7 +185,7 @@ export default function adReducer(state = initialState, action) {
             if (state.data.categoryList.find((s) => (s.code === action.code))) {
                 return state;
             }
-            const categoryListAdd = [...state.data.categoryList, lookUpStyrk(action.code)]
+            const categoryListAdd = [...state.data.categoryList, lookUpStyrk(action.code)];
             return {
                 ...state,
                 data: {

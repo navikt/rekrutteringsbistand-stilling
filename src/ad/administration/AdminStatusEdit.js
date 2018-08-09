@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import { FETCH_NEXT_AD, SAVE_AD, SET_ADMIN_STATUS } from '../adReducer';
 import AdminStatusEnum from './AdminStatusEnum';
+import AdStatusEnum from './AdStatusEnum';
 
 class AdminStatusEdit extends React.Component {
     onSaveClick = () => {
@@ -25,7 +26,13 @@ class AdminStatusEdit extends React.Component {
     };
 
     render() {
-        const { adminStatus, isSavingAd } = this.props;
+        const {
+            adminStatus, adStatus, isSavingAd, validation
+        } = this.props;
+
+        const hasErrors = Object.keys(validation).find((key) => (
+            validation[key] !== undefined
+        ));
         return (
             <div className="AdminStatusEdit">
                 {adminStatus === AdminStatusEnum.RECEIVED && (
@@ -43,6 +50,7 @@ class AdminStatusEdit extends React.Component {
                         <Hovedknapp
                             className="AdminStatusEdit__button"
                             onClick={this.onSetToDoneClick}
+                            disabled={hasErrors && adStatus === AdStatusEnum.ACTIVE}
                         >
                             Lagre og avslutt saksbehandling
                         </Hovedknapp>
@@ -50,6 +58,7 @@ class AdminStatusEdit extends React.Component {
                             spinner={isSavingAd}
                             className="AdminStatusEdit__button"
                             onClick={this.onSaveClick}
+                            disabled={hasErrors && adStatus === AdStatusEnum.ACTIVE}
                         >
                             Lagre
                         </Knapp>
@@ -72,15 +81,19 @@ class AdminStatusEdit extends React.Component {
 
 AdminStatusEdit.propTypes = {
     adminStatus: PropTypes.string.isRequired,
+    adStatus: PropTypes.string.isRequired,
     isSavingAd: PropTypes.bool.isRequired,
     setAdminStatus: PropTypes.func.isRequired,
     getNextAd: PropTypes.func.isRequired,
-    saveAd: PropTypes.func.isRequired
+    saveAd: PropTypes.func.isRequired,
+    validation: PropTypes.shape({}).isRequired
 };
 
 const mapStateToProps = (state) => ({
     adminStatus: state.ad.data.administration.status,
-    isSavingAd: state.ad.isSavingAd
+    adStatus: state.ad.data.status,
+    isSavingAd: state.ad.isSavingAd,
+    validation: state.ad.validation
 });
 
 const mapDispatchToProps = (dispatch) => ({
