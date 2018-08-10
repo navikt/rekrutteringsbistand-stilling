@@ -20,12 +20,12 @@ function AdStatusPreview({ adStatus, remarks }) {
             <div className="blokk">
                 {adStatus === AdStatusEnum.INACTIVE && (
                     <Alertstripe type="info" solid>
-                        Annonsen er ikke publisert
+                        Annonsen er inaktiv
                     </Alertstripe>
                 )}
                 {adStatus === AdStatusEnum.ACTIVE && (
                     <Alertstripe type="suksess" solid>
-                        Annonsen er publisert
+                        Annonsen er aktiv
                     </Alertstripe>
                 )}
                 {adStatus === AdStatusEnum.REJECTED && (
