@@ -2,14 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Element } from 'nav-frontend-typografi';
 import { formatISOString, isValidISOString } from '../../../utils';
-import {hasExcludingWordsInUrl} from '../markWords';
-
-export const tilpassEmail = (email) => {
-    if (email.includes('@') && !email.includes('mailto:')) {
-        return `mailto:${email}`;
-    }
-    return email;
-};
+import { hasExcludingWordsInUrl } from '../markWords';
 
 export function getApplicationUrl(source, properties) {
     if (source === 'FINN') {
@@ -39,30 +32,21 @@ export default function Application({ source, properties }) {
                 {!finn && properties.applicationemail && [
                     <dt key="dt">Send søknad til:</dt>,
                     <dd key="dd">
-                        <a
-                            className="lenke"
-                            href={tilpassEmail(properties.applicationemail)}
-                        >
-                            {properties.applicationemail}
-                        </a>
+                        {properties.applicationemail}
                     </dd>
                 ]}
 
                 {sokUrl && sokUrl.startsWith('http') && [
                     <dt key="dt">Søknadslenke:</dt>,
                     <dd key="dd">
-                        <a
-                            className={"lenke" + (hasExcludingWordsInUrl(sokUrl) ? " AdText__discriminating" : "")}
-                            href={sokUrl}
-                        >
+                        <span className={hasExcludingWordsInUrl(sokUrl) ? ' AdText__discriminating' : ''}>
                             {sokUrl}
-                        </a>
+                        </span>
                     </dd>
                 ]}
             </dl>
         </div>
     );
-
 }
 
 Application.propTypes = {
