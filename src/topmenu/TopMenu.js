@@ -42,9 +42,6 @@ class TopMenu extends React.Component {
         return (
             <div className="TopMenu">
                 <Systemtittel className="TopMenu__title">NSS Admin</Systemtittel>
-                <button type="button" className="TopMenu__shortcuts link" onClick={this.openModal}>
-                    Hurtigtaster
-                </button>
                 <ShortcutsInfo closeModal={this.closeModal} isOpen={this.state.modalIsOpen} />
                 <Reportee />
             </div>

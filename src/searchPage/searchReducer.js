@@ -1,10 +1,6 @@
 import { put, takeLatest, select } from 'redux-saga/effects';
 import { fetchGet, ApiError } from '../api/api';
 import { AD_API } from '../fasitProperties';
-import {
-    CHANGE_SEARCH_TITLE, CHANGE_SEARCH_EMPLOYER, CHANGE_SOURCE_FILTER,
-    CHANGE_STATUS_FILTER, CHANGE_SEARCH_ID
-} from './filter/filterReducer';
 
 export const FETCH_ADS = 'FETCH_ADS';
 export const FETCH_ADS_BEGIN = 'FETCH_ADS_BEGIN';
@@ -13,6 +9,10 @@ export const FETCH_ADS_FAILURE = 'FETCH_ADS_FAILURE';
 export const CHANGE_SORTING = 'CHANGE_SORTING';
 export const CHANGE_PAGE = 'CHANGE_PAGE';
 export const RESET_PAGE = 'RESET_PAGE';
+export const SET_SEARCH_VALUE = 'SET_SEARCH_VALUE';
+export const SET_SEARCH_FIELD = 'SET_SEARCH_FIELD';
+export const CHANGE_SOURCE_FILTER = 'CHANGE_SOURCE_FILTER';
+export const CHANGE_STATUS_FILTER = 'CHANGE_STATUS_FILTER';
 
 const initialState = {
     items: [],
@@ -22,11 +22,41 @@ const initialState = {
     sortDir: 'asc',
     totalElements: 0,
     totalPages: 0,
-    page: 0
+    page: 0,
+    value: '',
+    field: 'employerName',
+    suggestions: [],
+    source: undefined,
+    status: undefined
 };
 
 export default function searchReducer(state = initialState, action) {
     switch (action.type) {
+        case SET_SEARCH_VALUE:
+            return {
+                ...state,
+                value: action.value,
+                suggestions: action.value.length === 0 ? [] : [
+                    { label: `Søk på "${action.value}" i arbeidsgiver`, value: 'employerName' },
+                    { label: `Søk på "${action.value}" i annonseoverskrift`, value: 'title' },
+                    { label: `Søk på "${action.value}" i ID`, value: 'id' }
+                ]
+            };
+        case SET_SEARCH_FIELD:
+            return {
+                ...state,
+                field: action.field
+            };
+        case CHANGE_SOURCE_FILTER:
+            return {
+                ...state,
+                source: action.value
+            };
+        case CHANGE_STATUS_FILTER:
+            return {
+                ...state,
+                status: action.value
+            };
         case FETCH_ADS_BEGIN:
             return {
                 ...state,
@@ -51,7 +81,7 @@ export default function searchReducer(state = initialState, action) {
             return {
                 ...state,
                 sortField: action.field,
-                sortDir: action.dir,
+                sortDir: action.dir
             };
         case CHANGE_PAGE:
             return {
@@ -97,6 +127,21 @@ const toUrl = (query) => {
     return urlQuery && urlQuery.length > 0 ? `?${urlQuery}` : '';
 };
 
+export function toQuery(state) {
+    const { search } = state;
+    const {
+        sortField, sortDir, page, source, status
+    } = search;
+    const query = {
+        source,
+        status,
+        sort: `${sortField},${sortDir}`,
+        page
+    };
+    query[search.field] = search.value;
+    return query;
+}
+
 function* getAds(action) {
     try {
         if (action.type !== CHANGE_PAGE) {
@@ -105,14 +150,7 @@ function* getAds(action) {
         yield put({ type: FETCH_ADS_BEGIN });
 
         const state = yield select();
-
-        const { filter } = state;
-        const { sortField, sortDir, page } = state.search;
-        const query = {
-            ...filter,
-            sort: `${sortField},${sortDir}`,
-            page
-        };
+        const query = toQuery(state);
         const searchUrl = toUrl(query);
         const url = `${AD_API}ads/${searchUrl}`;
 
@@ -129,12 +167,12 @@ function* getAds(action) {
 
 
 export const searchSaga = function* saga() {
-    yield takeLatest([CHANGE_SOURCE_FILTER,
+    yield takeLatest([
+        CHANGE_SOURCE_FILTER,
         CHANGE_STATUS_FILTER,
-        CHANGE_SEARCH_EMPLOYER,
-        CHANGE_SEARCH_TITLE,
-        CHANGE_SEARCH_ID,
+        SET_SEARCH_FIELD,
         CHANGE_SORTING,
         CHANGE_PAGE,
-        FETCH_ADS], getAds);
+        FETCH_ADS
+    ], getAds);
 };

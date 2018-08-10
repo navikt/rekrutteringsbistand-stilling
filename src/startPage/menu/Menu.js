@@ -2,18 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Column, Row } from 'nav-frontend-grid';
+import { Systemtittel } from 'nav-frontend-typografi';
 import MenuBox from './MenuBox';
-import MenuSearch from './MenuSearch';
 import MenuStatistics from './MenuStatistics';
 import './Menu.less';
 import { registerShortcuts } from '../../common/shortcuts/Shortcuts';
 import { FETCH_NEXT_AD } from '../../ad/adReducer';
+import SearchBox from '../../searchPage/searchBox/SearchBox';
 
 
 class Menu extends React.Component {
     componentDidUpdate() {
         if (this.props.adUuid) {
-            this.props.history.push('/ads/' + this.props.adUuid);
+            this.props.history.push(`/ads/${this.props.adUuid}`);
         }
     }
 
@@ -54,7 +55,14 @@ class Menu extends React.Component {
                         />
                     </Column>
                     <Column xs="12" md="6">
-                        <MenuSearch onSearchClick={this.onSearchClick} />
+                        <div className="Menu__search">
+                            <Row>
+                                <Systemtittel className="blokk-xs">Søk</Systemtittel>
+                            </Row>
+                            <Row>
+                                <SearchBox onSearch={this.onSearchClick} />
+                            </Row>
+                        </div>
                         <MenuStatistics className="text-center" />
                     </Column>
                 </Row>

@@ -8,7 +8,6 @@ import postalCodeReducer, { postalCodeSaga } from './ad/edit/postalCode/postalCo
 import styrkReducer, { styrkSaga } from './ad/edit/styrk/styrkReducer';
 import adReducer, { adSaga } from './ad/adReducer';
 import searchReducer, { searchSaga } from './searchPage/searchReducer';
-import filterReducer from './searchPage/filter/filterReducer';
 import Ad from './ad/Ad';
 import TopMenu from './topmenu/TopMenu';
 import { initShortcuts } from './common/shortcuts/Shortcuts';
@@ -24,7 +23,6 @@ const store = createStore(combineReducers({
     ad: adReducer,
     postalCode: postalCodeReducer,
     styrk: styrkReducer,
-    filter: filterReducer,
     reportee: reporteeReducer,
     search: searchReducer
 }), applyMiddleware(sagaMiddleware));

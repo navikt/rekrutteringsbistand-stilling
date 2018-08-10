@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Radio, SkjemaGruppe } from 'nav-frontend-skjema';
-import { CHANGE_SOURCE_FILTER, CHANGE_STATUS_FILTER } from './filterReducer';
+import { CHANGE_SOURCE_FILTER, CHANGE_STATUS_FILTER } from '../searchReducer';
 import SourceEnum from '../enums/SourceEnum';
 import StatusEnum from '../enums/AdStatusEnum';
 
