@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import './SearchBox.less';
 import Typeahead from '../../common/typeahead/Typeahead';
-import { SET_SEARCH_FIELD, SET_SEARCH_VALUE } from '../../searchPage/searchReducer';
+import { SET_SEARCH_FIELD, SET_SEARCH_VALUE, Fields } from '../searchReducer';
 
 class SearchBox extends React.Component {
     onTypeAheadChange = (value) => {
@@ -11,7 +11,7 @@ class SearchBox extends React.Component {
     };
 
     onTypeAheadSelect = (selected) => {
-        this.props.setSearchField(selected && selected.value ? selected.value : 'employerName');
+        this.props.setSearchField(selected && selected.value ? selected.value : Fields.EMPLOYER_NAME);
         if (this.props.onSearch) {
             this.props.onSearch();
         }
@@ -21,7 +21,6 @@ class SearchBox extends React.Component {
         return (
             <div className="SearchBox">
                 <Typeahead
-                    className="SearchBox__input"
                     onChange={this.onTypeAheadChange}
                     onSelect={this.onTypeAheadSelect}
                     suggestions={this.props.suggestions}
@@ -29,13 +28,9 @@ class SearchBox extends React.Component {
                     placeholder="Søk på arbeidsgiver, overskrift eller id"
                     id="SearchPageSearchbox"
                 />
-                <button
-                    type="submit"
-                    className="SearchBox__button"
-                    aria-label="Søk"
-                >
+                <span className="SearchBox__button">
                     <i className="SearchBox__button__icon" />
-                </button>
+                </span>
             </div>
         );
     }

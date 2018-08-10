@@ -36,7 +36,7 @@ class SearchResultHeaders extends React.Component {
                 </Column>
                 <Column md="3" onClick={() => this.onSortClick('title')}>
                     <Element>
-                        Stillingsoverskrift
+                        Annonseoverskrift
                         <i className={sortField === 'title' ? className : 'SearchResultHeader--unsorted'} />
                     </Element>
                 </Column>

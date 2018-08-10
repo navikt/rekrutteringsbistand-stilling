@@ -14,6 +14,12 @@ export const SET_SEARCH_FIELD = 'SET_SEARCH_FIELD';
 export const CHANGE_SOURCE_FILTER = 'CHANGE_SOURCE_FILTER';
 export const CHANGE_STATUS_FILTER = 'CHANGE_STATUS_FILTER';
 
+export const Fields = {
+    EMPLOYER_NAME: 'employerName',
+    TITLE: 'title',
+    ID: 'id'
+};
+
 const initialState = {
     items: [],
     error: undefined,
@@ -24,7 +30,7 @@ const initialState = {
     totalPages: 0,
     page: 0,
     value: '',
-    field: 'employerName',
+    field: undefined,
     suggestions: [],
     source: undefined,
     status: undefined
@@ -37,9 +43,9 @@ export default function searchReducer(state = initialState, action) {
                 ...state,
                 value: action.value,
                 suggestions: action.value.length === 0 ? [] : [
-                    { label: `Søk på "${action.value}" i arbeidsgiver`, value: 'employerName' },
-                    { label: `Søk på "${action.value}" i annonseoverskrift`, value: 'title' },
-                    { label: `Søk på "${action.value}" i ID`, value: 'id' }
+                    { label: `Søk på "${action.value}" i arbeidsgiver`, value: Fields.EMPLOYER_NAME },
+                    { label: `Søk på "${action.value}" i annonseoverskrift`, value: Fields.TITLE },
+                    { label: `Søk på "${action.value}" i ID`, value: Fields.ID }
                 ]
             };
         case SET_SEARCH_FIELD:

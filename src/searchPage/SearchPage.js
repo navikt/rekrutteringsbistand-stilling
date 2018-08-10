@@ -33,7 +33,7 @@ class SearchPage extends React.Component {
                     </div>
                     <div className="SearchPage__flex__right">
                         <div className="SearchPage__flex__right__inner">
-                            <div className="SearchBox__wrapper blokk-xs">
+                            <div className="SearchBox__wrapper">
                                 <SearchBox />
                             </div>
 
