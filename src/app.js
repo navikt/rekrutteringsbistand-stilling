@@ -16,12 +16,14 @@ import './variables.less';
 import StartPage from './startPage/StartPage';
 import SearchPage from './searchPage/SearchPage';
 import reporteeReducer, { reporteeSaga } from './reportee/reporteeReducer';
+import engagementTypeReducer from "./ad/edit/engagementType/engagementTypeReducer";
 
 const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(combineReducers({
     ad: adReducer,
     postalCode: postalCodeReducer,
+    engagementType: engagementTypeReducer,
     styrk: styrkReducer,
     reportee: reporteeReducer,
     search: searchReducer
