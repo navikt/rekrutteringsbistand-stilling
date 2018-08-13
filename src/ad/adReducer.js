@@ -5,6 +5,7 @@ import { AD_API } from '../fasitProperties';
 import AdminStatusEnum from './administration/AdminStatusEnum';
 import { lookUpPostalCodes } from './edit/postalCode/postalCodeReducer';
 import { hasExcludingWordsInTitle } from './preview/markWords';
+import { toQuery, toUrl } from "../searchPage/searchReducer";
 
 export const FETCH_AD = 'FETCH_AD';
 export const FETCH_AD_BEGIN = 'FETCH_AD_BEGIN';
@@ -578,11 +579,13 @@ function* getAd(action) {
 
 function* getNextAd() {
     yield put({ type: FETCH_AD_BEGIN });
+    const state = yield select();
+    const queryString = toUrl({ ...toQuery(state), size: 1 });
     let wasAbleToAssign = false;
     let ad;
     while (!wasAbleToAssign) {
         try {
-            const responseList = yield fetchGet(`${AD_API}ads/${query}`);
+            const responseList = yield fetchGet(`${AD_API}ads/${queryString}`);
             ad = responseList.content[0];
         } catch (e) {
             if (e instanceof ApiError) {

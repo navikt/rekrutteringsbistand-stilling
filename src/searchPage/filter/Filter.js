@@ -2,9 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Radio, SkjemaGruppe } from 'nav-frontend-skjema';
-import { CHANGE_SOURCE_FILTER, CHANGE_STATUS_FILTER } from '../searchReducer';
+import {
+    CHANGE_ADMINISTRATION_STATUS_FILTER, CHANGE_SOURCE_FILTER,
+    CHANGE_STATUS_FILTER
+} from '../searchReducer';
 import SourceEnum from '../enums/SourceEnum';
 import StatusEnum from '../enums/AdStatusEnum';
+import AdministrationStatusEnum from '../enums/AdministrationStatusEnum';
 
 class Filter extends React.Component {
     onSourceFilterChange = (e) => {
@@ -20,6 +24,15 @@ class Filter extends React.Component {
             this.props.changeStatusFilter(e.target.value);
         } else {
             this.props.changeStatusFilter(undefined);
+        }
+    };
+
+    onAdministrationStatusFilterChange = (e) => {
+        console.log(e.target.value);
+        if (e.target.value !== 'RECEIVED') {
+            this.props.changeAdministrationStatusFilter(e.target.value);
+        } else {
+            this.props.changeAdministrationStatusFilter('RECEIVED');
         }
     };
 
@@ -64,6 +77,18 @@ class Filter extends React.Component {
                         />
                     ))}
                 </SkjemaGruppe>
+                <SkjemaGruppe title="Saksbehandlerstatus">
+                    {Object.keys(AdministrationStatusEnum).map((key) => (
+                        <Radio
+                            key={key}
+                            label={AdministrationStatusEnum[key]}
+                            value={key}
+                            defaultChecked={key === 'RECEIVED'}
+                            name="Saksbehandlerstatus"
+                            onChange={this.onAdministrationStatusFilterChange}
+                        />
+                    ))}
+                </SkjemaGruppe>
             </div>
         );
     }
@@ -77,6 +102,7 @@ Filter.defaultProps = {
 Filter.propTypes = {
     changeStatusFilter: PropTypes.func.isRequired,
     changeSourceFilter: PropTypes.func.isRequired,
+    changeAdministrationStatusFilter: PropTypes.func.isRequired,
     status: PropTypes.string,
     source: PropTypes.string
 };
@@ -88,7 +114,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     changeSourceFilter: (value) => dispatch({ type: CHANGE_SOURCE_FILTER, value }),
-    changeStatusFilter: (value) => dispatch({ type: CHANGE_STATUS_FILTER, value })
+    changeStatusFilter: (value) => dispatch({ type: CHANGE_STATUS_FILTER, value }),
+    changeAdministrationStatusFilter: (value) => dispatch({ type: CHANGE_ADMINISTRATION_STATUS_FILTER, value })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Filter);

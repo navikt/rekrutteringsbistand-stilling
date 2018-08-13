@@ -12,6 +12,7 @@ import Filter from './filter/Filter';
 import Pagination from './pagination/Pagination';
 import { FETCH_ADS } from './searchReducer';
 import './SearchPage.less';
+import {Link} from "react-router-dom";
 
 class SearchPage extends React.Component {
     componentDidMount() {
@@ -35,6 +36,14 @@ class SearchPage extends React.Component {
                         <div className="SearchPage__flex__right__inner">
                             <div className="SearchBox__wrapper">
                                 <SearchBox />
+                            </div>
+                            <div className="SearchPage__button__right">
+                                <Link
+                                    className="knapp"
+                                    to={`/ads/${adsFound ? ads[0].uuid : ''}`}
+                                >
+                                    Start behandling
+                                </Link>
                             </div>
 
                             <SearchResultCount />
