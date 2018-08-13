@@ -299,7 +299,7 @@ export default function adReducer(state = initialState, action) {
                     ...state.data,
                     properties: {
                         ...state.data.properties,
-                        engagementtype: action.engagementtype
+                        engagementtype: action.engagementType
                     }
                 }
             };

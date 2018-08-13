@@ -30,17 +30,21 @@ class EngagementType extends React.Component {
                         label: s
                     }))}
                     value={this.props.engagementType ? this.props.engagementType : ''}
-                    ref={(instance) => { this.inputRef = instance; }}
                 />
             </div>
         );
     }
 }
 
+EngagementType.defaultProps = {
+    engagementType: undefined
+};
+
 EngagementType.propTypes = {
     suggestions: PropTypes.arrayOf(PropTypes.string).isRequired,
     setEngagementTypeAheadValue: PropTypes.func.isRequired,
-    setEngagementType: PropTypes.func.isRequired
+    setEngagementType: PropTypes.func.isRequired,
+    engagementType: PropTypes.string
 };
 
 const mapStateToProps = (state) => ({
@@ -50,7 +54,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     setEngagementTypeAheadValue: (value) => dispatch({ type: SET_ENGAGEMENTTYPE_TYPEAHEAD_VALUE, value }),
-    setEngagementType: (engagementtype) => dispatch({ type: SET_EMPLOYMENT_ENGAGEMENTTYPE, engagementtype })
+    setEngagementType: (engagementType) => dispatch({ type: SET_EMPLOYMENT_ENGAGEMENTTYPE, engagementType })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EngagementType);
