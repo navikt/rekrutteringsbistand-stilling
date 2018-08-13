@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import { Knapp } from 'nav-frontend-knapper';
 import AdminStatusEnum from './AdminStatusEnum';
 import AdStatusEnum from './AdStatusEnum';
@@ -13,25 +12,9 @@ import CommentsPreview from './CommentsPreview';
 import AdminStatusPreview from './AdminStatusPreview';
 import AdminStatusEdit from './AdminStatusEdit';
 import './Administration.less';
-import { FETCH_AD, SAVE_AD, EDIT_AD, DISCARD_AD_CHANGES } from '../adReducer';
+import { SAVE_AD, EDIT_AD, DISCARD_AD_CHANGES } from '../adReducer';
 
 class Administration extends React.Component {
-    componentDidMount() {
-        const { adUuid } = this.props;
-        const uuidHasChangedInUrl = adUuid !== this.props.match.params.uuid;
-        if (uuidHasChangedInUrl) {
-            this.props.history.push(`/ads/${adUuid}`);
-        }
-    }
-
-    componentDidUpdate() {
-        const { adUuid } = this.props;
-        const uuidHasChangedInUrl = adUuid !== this.props.match.params.uuid;
-        if (uuidHasChangedInUrl) {
-            this.props.getStilling(this.props.match.params.uuid);
-        }
-    }
-
     onSaveClick = () => {
         this.props.saveAd();
     };
@@ -112,10 +95,8 @@ Administration.defaultProps = {
 Administration.propTypes = {
     adStatus: PropTypes.string.isRequired,
     adminStatus: PropTypes.string,
-    adUuid: PropTypes.string.isRequired,
     isEditingAd: PropTypes.bool.isRequired,
     isSavingAd: PropTypes.bool.isRequired,
-    getStilling: PropTypes.func.isRequired,
     editAd: PropTypes.func.isRequired,
     discardAdChanges: PropTypes.func.isRequired,
     saveAd: PropTypes.func.isRequired,
@@ -132,10 +113,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    getStilling: (uuid) => dispatch({ type: FETCH_AD, uuid }),
     editAd: () => dispatch({ type: EDIT_AD }),
     discardAdChanges: () => dispatch({ type: DISCARD_AD_CHANGES }),
     saveAd: () => dispatch({ type: SAVE_AD })
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Administration));
+export default connect(mapStateToProps, mapDispatchToProps)(Administration);

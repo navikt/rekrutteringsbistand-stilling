@@ -3,12 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Preview from './preview/Preview';
 import Administration from './administration/Administration';
-import { FETCH_AD } from './adReducer';
+import { FETCH_AD, FETCH_NEXT_AD } from './adReducer';
 import Error from './error/Error';
 import DelayedSpinner from '../common/DelayedSpinner';
 import './Ad.less';
 import Faded from '../common/faded/Faded';
-import { removeShortcuts } from '../common/shortcuts/Shortcuts';
 import Edit from './edit/Edit';
 import ValidationSummary from './validation/ValidationSummary';
 import AdminStatusEnum from './administration/AdminStatusEnum';
@@ -16,11 +15,28 @@ import AdminStatusEnum from './administration/AdminStatusEnum';
 class Ad extends React.Component {
     componentDidMount() {
         window.scrollTo(0, 0);
-        this.props.getStilling(this.props.match.params.uuid);
+        if (this.props.match.params.uuid) {
+            this.uuid = this.props.match.params.uuid;
+            this.props.getStilling(this.uuid);
+        } else {
+            this.props.getNextAd();
+        }
     }
 
-    componentWillUnmount() {
-        removeShortcuts('annonseDetaljer');
+    componentDidUpdate() {
+        if (this.props.match.params.uuid === undefined && this.props.stilling) {
+            // Skjer når man kommer rett til /ads uten uuid
+            this.uuid = this.props.stilling.uuid;
+            this.props.history.replace(`/ads/${this.uuid}`);
+        } else if (this.props.match.params.uuid && this.props.match.params.uuid !== this.uuid) {
+            // Skjer når man trykker tilbake i browser
+            this.uuid = this.props.match.params.uuid;
+            this.props.getStilling(this.uuid);
+        } else if (this.props.stilling && this.props.stilling.uuid !== this.uuid) {
+            // Skjer når man har trykket hent neste
+            this.uuid = this.props.stilling.uuid;
+            this.props.history.push(`/ads/${this.uuid}`);
+        }
     }
 
     render() {
@@ -83,6 +99,7 @@ Ad.propTypes = {
         }).isRequired
     }),
     getStilling: PropTypes.func.isRequired,
+    getNextAd: PropTypes.func.isRequired,
     isEditingAd: PropTypes.bool.isRequired,
     isFetchingStilling: PropTypes.bool
 };
@@ -94,7 +111,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    getStilling: (uuid) => dispatch({ type: FETCH_AD, uuid })
+    getStilling: (uuid) => dispatch({ type: FETCH_AD, uuid }),
+    getNextAd: () => dispatch({ type: FETCH_NEXT_AD })
 });
 
 

@@ -40,6 +40,7 @@ const Main = () => (
         <Switch>
             <Route exact path="/" component={StartPage} />
             <Route exact path="/search" component={SearchPage} />
+            <Route exact path="/ads" component={Ad} />
             <Route exact path="/ads/:uuid" component={Ad} />
             <Route exact path="*" component={StartPage} />
         </Switch>

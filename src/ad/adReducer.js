@@ -560,7 +560,7 @@ function* getAd(action) {
             response = {
                 ...response,
                 administration: {
-                    status: AdminStatusEnum.PENDING,
+                    status: AdminStatusEnum.RECEIVED,
                     remarks: [],
                     comments: ''
                 }
@@ -578,27 +578,35 @@ function* getAd(action) {
 
 function* getNextAd() {
     yield put({ type: FETCH_AD_BEGIN });
-    try {
-        const response = yield fetchGet(`${AD_API}ads/${query}`);
-        let nextAd = response.content[0];
-        if (!nextAd.administration) { // TODO: Be backend om at administration dataene alltid er definert
-            nextAd = {
-                ...nextAd,
-                administration: {
-                    status: AdminStatusEnum.PENDING,
-                    remarks: [],
-                    comments: ''
-                }
-            };
+    let wasAbleToAssign = false;
+    let ad;
+    while (!wasAbleToAssign) {
+        try {
+            const responseList = yield fetchGet(`${AD_API}ads/${query}`);
+            ad = responseList.content[0];
+        } catch (e) {
+            if (e instanceof ApiError) {
+                yield put({ type: FETCH_AD_FAILURE, error: e });
+            } else {
+                throw e;
+            }
         }
-        yield put({ type: FETCH_AD_SUCCESS, response: nextAd });
-        const status = AdminStatusEnum.PENDING;
-        yield put({ type: SET_ADMIN_STATUS, status });
-    } catch (e) {
-        if (e instanceof ApiError) {
-            yield put({ type: FETCH_AD_FAILURE, error: e });
-        } else {
-            throw e;
+        try {
+            const responsePut = yield fetchPut(`${AD_API}ads/${ad.uuid}`, {
+                ...ad,
+                administration: {
+                    ...ad.administration,
+                    status: AdminStatusEnum.PENDING
+                }
+            });
+            wasAbleToAssign = true;
+            yield put({ type: FETCH_AD_SUCCESS, response: responsePut });
+        } catch (e) {
+            if (e instanceof ApiError && e.statusCode === 412) {
+                wasAbleToAssign = false;
+            } else {
+                throw e;
+            }
         }
     }
 }

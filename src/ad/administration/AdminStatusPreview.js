@@ -6,7 +6,8 @@ import AdminStatusEnum from './AdminStatusEnum';
 import { SAVE_AD, SET_ADMIN_STATUS } from '../adReducer';
 
 class AdminStatusPreview extends React.Component {
-    onSetToReceivedClick = () => {
+    onSetToReceivedClick = (e) => {
+        e.preventDefault();
         this.props.setAdminStatus(AdminStatusEnum.RECEIVED);
         this.props.saveAd();
     };
@@ -24,7 +25,7 @@ class AdminStatusPreview extends React.Component {
                     <Normaltekst>
                         <b>Saksbehandling:</b> Under behandling {' ('}
                         <a href="#" className="lenke typo-normal" onClick={this.onSetToReceivedClick}>
-                                Sett tilbake til Mottatt
+                            Sett tilbake til Mottatt
                         </a>{')'}
                     </Normaltekst>
                 )}

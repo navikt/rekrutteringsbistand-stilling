@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
-import { FETCH_NEXT_AD, SET_ADMIN_STATUS } from '../adReducer';
+import { FETCH_NEXT_AD, SAVE_AD, SET_ADMIN_STATUS } from '../adReducer';
 import AdminStatusEnum from './AdminStatusEnum';
 import AdStatusEnum from './AdStatusEnum';
 
@@ -37,7 +37,7 @@ class AdminStatusEdit extends React.Component {
                             Start saksbehandling
                         </Hovedknapp>
                         <Knapp className="AdminStatusEdit__button" onClick={this.onNextClick}>
-                            Hent ny annonse
+                            Gå til neste annonse
                         </Knapp>
                     </div>
                 )}
@@ -48,14 +48,14 @@ class AdminStatusEdit extends React.Component {
                             onClick={this.onSetToDoneClick}
                             disabled={hasErrors && adStatus === AdStatusEnum.ACTIVE}
                         >
-                            Lagre og avslutt saksbehandling
+                            Avslutt saksbehandling
                         </Hovedknapp>
                     </div>
                 )}
                 {adminStatus === AdminStatusEnum.DONE && (
                     <div>
                         <Hovedknapp className="AdminStatusEdit__button" onClick={this.onNextClick}>
-                            Hent ny annonse
+                            Gå til neste annonse
                         </Hovedknapp>
                         <Knapp className="AdminStatusEdit__button" onClick={this.onSetToPendingClick}>
                             Gjennåpne saksbehandling
@@ -84,6 +84,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     setAdminStatus: (status) => dispatch({ type: SET_ADMIN_STATUS, status }),
+    saveAd: () => dispatch({ type: SAVE_AD }),
     getNextAd: () => dispatch({ type: FETCH_NEXT_AD })
 });
 
