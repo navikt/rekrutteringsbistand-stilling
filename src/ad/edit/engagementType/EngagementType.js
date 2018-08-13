@@ -39,8 +39,8 @@ class EngagementType extends React.Component {
 
 EngagementType.propTypes = {
     suggestions: PropTypes.arrayOf(PropTypes.string).isRequired,
-    setEngagementTypeReducer: PropTypes.func.isRequired,
-    setEngagementTypeAd: PropTypes.func.isRequired
+    setEngagementTypeAheadValue: PropTypes.func.isRequired,
+    setEngagementType: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
