@@ -557,16 +557,6 @@ function* getAd(action) {
     yield put({ type: FETCH_AD_BEGIN });
     try {
         let response = yield fetchGet(`${AD_API}ads/${action.uuid}`);
-        if (!response.administration) { // TODO: Be backend om at administration dataene alltid er definert
-            response = {
-                ...response,
-                administration: {
-                    status: AdminStatusEnum.RECEIVED,
-                    remarks: [],
-                    comments: ''
-                }
-            };
-        }
         yield put({ type: FETCH_AD_SUCCESS, response });
     } catch (e) {
         if (e instanceof ApiError) {

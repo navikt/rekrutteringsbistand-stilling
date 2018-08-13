@@ -1,6 +1,7 @@
 import { put, takeLatest, select } from 'redux-saga/effects';
 import { fetchGet, ApiError } from '../api/api';
 import { AD_API } from '../fasitProperties';
+import AdminStatusEnum from "../ad/administration/AdminStatusEnum";
 
 export const FETCH_ADS = 'FETCH_ADS';
 export const FETCH_ADS_BEGIN = 'FETCH_ADS_BEGIN';
@@ -25,7 +26,7 @@ const initialState = {
     items: [],
     error: undefined,
     isSearching: false,
-    sortField: 'id',
+    sortField: 'created',
     sortDir: 'asc',
     totalElements: 0,
     totalPages: 0,
@@ -35,7 +36,7 @@ const initialState = {
     suggestions: [],
     source: undefined,
     status: undefined,
-    administrationStatus: 'RECEIVED'
+    administrationStatus: undefined
 };
 
 export default function searchReducer(state = initialState, action) {

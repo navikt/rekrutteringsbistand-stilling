@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Container } from 'nav-frontend-grid';
 import SearchBox from './searchBox/SearchBox';
@@ -12,13 +13,10 @@ import Filter from './filter/Filter';
 import Pagination from './pagination/Pagination';
 import { FETCH_ADS } from './searchReducer';
 import './SearchPage.less';
-import {Link} from "react-router-dom";
 
 class SearchPage extends React.Component {
     componentDidMount() {
-        if (this.props.ads.length === 0) {
-            this.props.getAds();
-        }
+        this.props.getAds();
     }
 
     render() {

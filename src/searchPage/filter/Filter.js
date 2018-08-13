@@ -8,7 +8,7 @@ import {
 } from '../searchReducer';
 import SourceEnum from '../enums/SourceEnum';
 import StatusEnum from '../enums/AdStatusEnum';
-import AdministrationStatusEnum from '../enums/AdministrationStatusEnum';
+import AdminStatusEnum from '../enums/AdminStatusEnum';
 
 class Filter extends React.Component {
     onSourceFilterChange = (e) => {
@@ -28,11 +28,10 @@ class Filter extends React.Component {
     };
 
     onAdministrationStatusFilterChange = (e) => {
-        console.log(e.target.value);
-        if (e.target.value !== 'RECEIVED') {
+        if (e.target.value !== 'Alle') {
             this.props.changeAdministrationStatusFilter(e.target.value);
         } else {
-            this.props.changeAdministrationStatusFilter('RECEIVED');
+            this.props.changeAdministrationStatusFilter(undefined);
         }
     };
 
@@ -43,8 +42,8 @@ class Filter extends React.Component {
                     <Radio
                         label="Alle"
                         value="Alle"
-                        name="status"
-                        checked={this.props.status === undefined}
+                        name="adStatus"
+                        checked={this.props.adStatus === undefined}
                         onChange={this.onStatusFilterChange}
                     />
                     {Object.keys(StatusEnum).map((key) => (
@@ -52,18 +51,18 @@ class Filter extends React.Component {
                             key={key}
                             label={StatusEnum[key]}
                             value={key}
-                            checked={this.props.status === key}
-                            name="status"
+                            checked={this.props.adStatus === key}
+                            name="adStatus"
                             onChange={this.onStatusFilterChange}
                         />
                     ))}
                 </SkjemaGruppe>
-                <SkjemaGruppe title="Kilde">
+                <SkjemaGruppe title="Kilde" className="blokk">
                     <Radio
                         label="Alle"
                         value="Alle"
                         checked={this.props.source === undefined}
-                        name="kilde"
+                        name="source"
                         onChange={this.onSourceFilterChange}
                     />
                     {Object.keys(SourceEnum).map((key) => (
@@ -71,20 +70,27 @@ class Filter extends React.Component {
                             key={key}
                             label={SourceEnum[key]}
                             value={key}
-                            name="kilde"
+                            name="source"
                             checked={this.props.source === key}
                             onChange={this.onSourceFilterChange}
                         />
                     ))}
                 </SkjemaGruppe>
                 <SkjemaGruppe title="Saksbehandlerstatus">
-                    {Object.keys(AdministrationStatusEnum).map((key) => (
+                    <Radio
+                        label="Alle"
+                        value="Alle"
+                        checked={this.props.adminStatus === undefined}
+                        name="adminStatus"
+                        onChange={this.onAdministrationStatusFilterChange}
+                    />
+                    {Object.keys(AdminStatusEnum).map((key) => (
                         <Radio
                             key={key}
-                            label={AdministrationStatusEnum[key]}
+                            label={AdminStatusEnum[key]}
                             value={key}
-                            defaultChecked={key === 'RECEIVED'}
-                            name="Saksbehandlerstatus"
+                            checked={this.props.adminStatus === key}
+                            name="adminStatus"
                             onChange={this.onAdministrationStatusFilterChange}
                         />
                     ))}
@@ -95,7 +101,8 @@ class Filter extends React.Component {
 }
 
 Filter.defaultProps = {
-    status: undefined,
+    adStatus: undefined,
+    adminStatus: undefined,
     source: undefined
 };
 
@@ -103,12 +110,14 @@ Filter.propTypes = {
     changeStatusFilter: PropTypes.func.isRequired,
     changeSourceFilter: PropTypes.func.isRequired,
     changeAdministrationStatusFilter: PropTypes.func.isRequired,
-    status: PropTypes.string,
+    adStatus: PropTypes.string,
+    adminStatus: PropTypes.string,
     source: PropTypes.string
 };
 
 const mapStateToProps = (state) => ({
-    status: state.search.status,
+    adStatus: state.search.status,
+    adminStatus: state.search.administrationStatus,
     source: state.search.source
 });
 
