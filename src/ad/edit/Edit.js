@@ -9,7 +9,6 @@ import {
     SET_AD_TEXT,
     SET_AD_TITLE, SET_APPLICATIONDUE, SET_APPLICATIONEMAIL, SET_APPLICATIONURL,
     SET_EMPLOYER, SET_EMPLOYERDESCRIPTION,
-    SET_EMPLOYMENT_ENGAGEMENTTYPE,
     SET_EMPLOYMENT_EXTENT,
     SET_EMPLOYMENT_JOBARRANGEMENT,
     SET_EMPLOYMENT_JOBTITLE,
@@ -23,6 +22,7 @@ import './Edit.less';
 import {getApplicationUrl} from "../preview/application/Application";
 import StyrkThreeItem from "./styrk/StyrkThreeItem";
 import Styrk from "./styrk/Styrk";
+import EngagementType from "./engagementType/EngagementType"
 
 class Edit extends React.Component {
     onTitleChange = (e) => {
@@ -35,10 +35,6 @@ class Edit extends React.Component {
 
     onLocationChange = (e) => {
         this.props.setEmploymentLocation(e.target.value);
-    };
-
-    onEngagementtypeChange = (e) => {
-        this.props.setEngagementType(e.target.value);
     };
 
     onExtentChange = (e) => {
@@ -191,12 +187,7 @@ class Edit extends React.Component {
                                     onChange={this.onLocationChange}
                                     className="typo-normal"
                                 />
-                                <Input
-                                    label="Ansettelsesform"
-                                    value={ad.properties.engagementtype || ''}
-                                    onChange={this.onEngagementtypeChange}
-                                    className="typo-normal"
-                                />
+                                <EngagementType />
                                 <Input
                                     label="Heltid/deltid"
                                     value={ad.properties.extent || ''}
@@ -317,7 +308,6 @@ Edit.propTypes = {
     setAdTitle: PropTypes.func.isRequired,
     setJobTitle: PropTypes.func.isRequired,
     setEmploymentLocation: PropTypes.func.isRequired,
-    setEngagementType: PropTypes.func.isRequired,
     setExtent: PropTypes.func.isRequired,
     setPositionCount: PropTypes.func.isRequired,
     setSector: PropTypes.func.isRequired,
@@ -349,7 +339,6 @@ const mapDispatchToProps = (dispatch) => ({
     setAdTitle: (title) => dispatch({ type: SET_AD_TITLE, title }),
     setJobTitle: (jobtitle) => dispatch({ type: SET_EMPLOYMENT_JOBTITLE, jobtitle }),
     setEmploymentLocation: (location) => dispatch({ type: SET_EMPLOYMENT_LOCATION, location }),
-    setEngagementType: (engagementtype) => dispatch({ type: SET_EMPLOYMENT_ENGAGEMENTTYPE, engagementtype }),
     setExtent: (extent) => dispatch({ type: SET_EMPLOYMENT_EXTENT, extent }),
     setPositionCount: (positioncount) => dispatch({ type: SET_EMPLOYMENT_POSITIONCOUNT, positioncount }),
     setSector: (sector) => dispatch({ type: SET_EMPLOYMENT_SECTOR, sector }),
