@@ -143,10 +143,10 @@ class Edit extends React.Component {
                         />
                     </div>
                     <div className="Edit__details">
-                        <Ekspanderbartpanel className="Edit__panel" tittel="STYRK-kode" tittelProps="undertittel" border="true" apen="true">
+                        <Ekspanderbartpanel className="Edit__panel" tittel="STYRK-kode" tittelProps="undertittel" border={true} apen={true}>
                             <Styrk />
                         </Ekspanderbartpanel>
-                        <Ekspanderbartpanel className="Edit__panel" tittel="Sted" tittelProps="undertittel" border="true" apen="true">
+                        <Ekspanderbartpanel className="Edit__panel" tittel="Sted" tittelProps="undertittel" border={true} apen={true}>
                             <Input
                                 label="Gateadresse"
                                 value={ad.location && ad.location.address ? ad.location.address : ''}
@@ -155,7 +155,7 @@ class Edit extends React.Component {
                             />
                             <PostalCode />
                         </Ekspanderbartpanel>
-                        <Ekspanderbartpanel className="Edit__panel" tittel="Søknad" tittelProps="undertittel" border="true">
+                        <Ekspanderbartpanel className="Edit__panel" tittel="Søknad" tittelProps="undertittel" border={true}>
                             <Input
                                 label="Søknadsfrist"
                                 value={ad.properties.applicationdue || ''}
@@ -181,7 +181,7 @@ class Edit extends React.Component {
                                 className="typo-normal"
                             />
                         </Ekspanderbartpanel>
-                        <Ekspanderbartpanel className="Edit__panel" tittel="Om stillingen" tittelProps="undertittel" border="true">
+                        <Ekspanderbartpanel className="Edit__panel" tittel="Om stillingen" tittelProps="undertittel" border={true}>
                             <Input
                                 label="Stillingstittel"
                                 value={ad.properties.jobtitle || ''}
@@ -238,7 +238,7 @@ class Edit extends React.Component {
                                 className="typo-normal"
                             />
                         </Ekspanderbartpanel>
-                        <Ekspanderbartpanel className="Edit__panel" tittel="Om arbeidsgiver" tittelProps="undertittel" border="true">
+                        <Ekspanderbartpanel className="Edit__panel" tittel="Om arbeidsgiver" tittelProps="undertittel" border={true}>
                             <Input
                                 label="Arbeidsgiver"
                                 value={ad.properties.employer || ''}
@@ -252,7 +252,7 @@ class Edit extends React.Component {
                                 className="typo-normal"
                             />
                         </Ekspanderbartpanel>
-                        <Ekspanderbartpanel className="Edit__panel" tittel="Om annonsen" tittelProps="undertittel" border="true">
+                        <Ekspanderbartpanel className="Edit__panel" tittel="Om annonsen" tittelProps="undertittel" border={true}>
                             <Input
                                 label="Publisert"
                                 value={ad.published || ''}
