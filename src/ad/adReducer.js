@@ -58,20 +58,19 @@ export const SET_ADMIN_STATUS = 'SET_ADMIN_STATUS';
 export const ADD_REMARK = 'ADD_REMARK';
 export const REMOVE_REMARK = 'REMOVE_REMARK';
 
-export const SHOW_AD_FORM = 'SHOW_AD_FORM';
-export const HIDE_AD_FORM = 'HIDE_AD_FORM';
+export const EDIT_AD = 'EDIT_AD';
 export const DISCARD_AD_CHANGES = 'DISCARD_AD_CHANGES';
 export const SET_AD_TITLE = 'SET_AD_TITLE';
 
 const query = '?administrationStatus=RECEIVED&size=1';
 
 const initialState = {
-    shouldShowAdForm: false,
     data: undefined,
     error: undefined,
     isSavingAd: false,
     isFetchingStilling: false,
-    validation: {}
+    validation: {},
+    isEditingAd: false
 };
 
 function validateTitle(title, employer) {
@@ -124,7 +123,7 @@ export default function adReducer(state = initialState, action) {
                 data: action.response,
                 originalData: { ...action.response },
                 isFetchingStilling: false,
-                shouldShowAdForm: false,
+                isEditingAd: false,
                 validation: validateAll(action.response)
             };
         case FETCH_AD_FAILURE:
@@ -144,7 +143,7 @@ export default function adReducer(state = initialState, action) {
                 data: action.response,
                 originalData: { ...action.response },
                 isSavingAd: false,
-                shouldShowAdForm: false,
+                isEditingAd: false,
                 validation: validateAll(action.response)
             };
         case SAVE_AD_FAILURE:
@@ -153,22 +152,17 @@ export default function adReducer(state = initialState, action) {
                 isSavingAd: false,
                 error: action.error
             };
-        case SHOW_AD_FORM:
+        case EDIT_AD:
             return {
                 ...state,
-                shouldShowAdForm: true
-            };
-        case HIDE_AD_FORM:
-            return {
-                ...state,
-                shouldShowAdForm: false
+                isEditingAd: true
             };
         case DISCARD_AD_CHANGES:
             return {
                 ...state,
                 data: { ...state.originalData },
                 validation: validateAll(state.originalData),
-                shouldShowAdForm: false
+                isEditingAd: false
             };
         case SET_COMMENT: {
             return {

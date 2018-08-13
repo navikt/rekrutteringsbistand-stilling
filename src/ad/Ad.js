@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Knapp } from 'nav-frontend-knapper';
 import Preview from './preview/Preview';
 import Administration from './administration/Administration';
-import { FETCH_AD, HIDE_AD_FORM, SHOW_AD_FORM } from './adReducer';
+import { FETCH_AD } from './adReducer';
 import Error from './error/Error';
 import DelayedSpinner from '../common/DelayedSpinner';
 import './Ad.less';
@@ -13,7 +12,6 @@ import { removeShortcuts } from '../common/shortcuts/Shortcuts';
 import Edit from './edit/Edit';
 import ValidationSummary from './validation/ValidationSummary';
 import AdminStatusEnum from './administration/AdminStatusEnum';
-import AdStatusEnum from './administration/AdStatusEnum';
 
 class Ad extends React.Component {
     componentDidMount() {
@@ -25,17 +23,9 @@ class Ad extends React.Component {
         removeShortcuts('annonseDetaljer');
     }
 
-    onShowAdFormClick = () => {
-        this.props.showAdForm();
-    };
-
-    onHideAdFormClick = () => {
-        this.props.hideAdForm();
-    };
-
     render() {
         const {
-            stilling, isFetchingStilling, shouldShowAdForm
+            stilling, isFetchingStilling, isEditingAd
         } = this.props;
 
         return (
@@ -49,22 +39,7 @@ class Ad extends React.Component {
                                         <ValidationSummary />
                                         {stilling.administration.status === AdminStatusEnum.PENDING ? (
                                             <div>
-                                                {shouldShowAdForm ? (
-                                                    <Knapp
-                                                        className="Ad__hideAdFormButton"
-                                                        onClick={this.onHideAdFormClick}
-                                                    >
-                                                        Forhåndsvis
-                                                    </Knapp>
-                                                ) : (
-                                                    <Knapp
-                                                        className="Ad__showAdFormButton"
-                                                        onClick={this.onShowAdFormClick}
-                                                    >
-                                                        Rediger
-                                                    </Knapp>
-                                                )}
-                                                {shouldShowAdForm ? (
+                                                {isEditingAd ? (
                                                     <Edit />
                                                 ) : (
                                                     <Preview stilling={stilling} />
@@ -108,22 +83,18 @@ Ad.propTypes = {
         }).isRequired
     }),
     getStilling: PropTypes.func.isRequired,
-    showAdForm: PropTypes.func.isRequired,
-    hideAdForm: PropTypes.func.isRequired,
-    shouldShowAdForm: PropTypes.bool.isRequired,
+    isEditingAd: PropTypes.bool.isRequired,
     isFetchingStilling: PropTypes.bool
 };
 
 const mapStateToProps = (state) => ({
     isFetchingStilling: state.ad.isFetchingStilling,
     stilling: state.ad.data,
-    shouldShowAdForm: state.ad.shouldShowAdForm
+    isEditingAd: state.ad.isEditingAd
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    getStilling: (uuid) => dispatch({ type: FETCH_AD, uuid }),
-    showAdForm: () => dispatch({ type: SHOW_AD_FORM }),
-    hideAdForm: () => dispatch({ type: HIDE_AD_FORM })
+    getStilling: (uuid) => dispatch({ type: FETCH_AD, uuid })
 });
 
 
