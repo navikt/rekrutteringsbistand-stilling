@@ -2,29 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Typeahead from '../../../common/typeahead/Typeahead';
-import { SET_ENGAGEMENTTYPE_VALUE } from './engagementTypeReducer';
+import { SET_ENGAGEMENTTYPE_TYPEAHEAD_VALUE } from './engagementTypeReducer';
 import { SET_EMPLOYMENT_ENGAGEMENTTYPE } from '../../adReducer';
-import { registerShortcuts } from '../../../common/shortcuts/Shortcuts';
 import './EngagementType.less';
 
 class EngagementType extends React.Component {
-    componentDidMount() {
-        registerShortcuts('annonseDetaljer', {
-            'l g': (e) => {
-                e.preventDefault();
-                this.inputRef.setFocus();
-            }
-        });
-    }
-
     onTypeAheadValueChange = (engagementType) => {
-        this.props.setEngagementTypeReducer(engagementType);
-        this.props.setEngagementTypeAd(engagementType);
+        this.props.setEngagementTypeAheadValue(engagementType);
+        this.props.setEngagementType(engagementType);
     };
 
     onTypeAheadSuggestionSelected = (engagementType) => {
-        this.props.setEngagementTypeReducer(engagementType.value);
-        this.props.setEngagementTypeAd(engagementType.value);
+        this.props.setEngagementTypeAheadValue(engagementType.value);
+        this.props.setEngagementType(engagementType.value);
     };
 
     render() {
@@ -59,8 +49,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    setEngagementTypeReducer: (value) => dispatch({ type: SET_ENGAGEMENTTYPE_VALUE, value }),
-    setEngagementTypeAd: (engagementtype) => dispatch({ type: SET_EMPLOYMENT_ENGAGEMENTTYPE, engagementtype })
+    setEngagementTypeAheadValue: (value) => dispatch({ type: SET_ENGAGEMENTTYPE_TYPEAHEAD_VALUE, value }),
+    setEngagementType: (engagementtype) => dispatch({ type: SET_EMPLOYMENT_ENGAGEMENTTYPE, engagementtype })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EngagementType);
