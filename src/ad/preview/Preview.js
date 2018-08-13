@@ -37,12 +37,12 @@ export default function Preview({ stilling }) {
                                 </Normaltekst>
                             ))}
                         </div>
+                        <Location />
                         <Application
                             source={stilling.source}
                             properties={stilling.properties}
                         />
                         <Employment properties={stilling.properties} />
-                        <Location />
                         <Employer properties={stilling.properties} />
                         <Summary stilling={stilling} />
                     </div>

@@ -83,10 +83,10 @@ function validateLocation(location) {
         location.postalCode === null ||
         location.postalCode === undefined ||
         location.postalCode.length === 0) {
-        return 'Postnummer mangler';
+        return 'Geografisk plassering av stillingen mangler';
     }
     if (location.postalCode.length !== 4) {
-        return 'Ugyldig postnummer';
+        return 'Geografisk plassering har ugyldig postnummer';
     }
     return undefined;
 }
@@ -255,7 +255,7 @@ export default function adReducer(state = initialState, action) {
                 },
                 validation: {
                     ...state.validation,
-                    location: 'Ugyldig postnummer'
+                    location: 'Geografisk plassering har ugyldig postnummer'
                 }
             };
 
