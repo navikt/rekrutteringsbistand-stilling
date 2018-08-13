@@ -13,6 +13,7 @@ export const SET_SEARCH_VALUE = 'SET_SEARCH_VALUE';
 export const SET_SEARCH_FIELD = 'SET_SEARCH_FIELD';
 export const CHANGE_SOURCE_FILTER = 'CHANGE_SOURCE_FILTER';
 export const CHANGE_STATUS_FILTER = 'CHANGE_STATUS_FILTER';
+export const CHANGE_ADMINISTRATION_STATUS_FILTER = 'CHANGE_ADMINISTRATION_STATUS_FILTER';
 
 const initialState = {
     items: [],
@@ -27,7 +28,8 @@ const initialState = {
     field: 'employerName',
     suggestions: [],
     source: undefined,
-    status: undefined
+    status: undefined,
+    administrationStatus: 'RECEIVED'
 };
 
 export default function searchReducer(state = initialState, action) {
@@ -56,6 +58,11 @@ export default function searchReducer(state = initialState, action) {
             return {
                 ...state,
                 status: action.value
+            };
+        case CHANGE_ADMINISTRATION_STATUS_FILTER:
+            return {
+                ...state,
+                administrationStatus: action.value
             };
         case FETCH_ADS_BEGIN:
             return {
@@ -103,7 +110,7 @@ export default function searchReducer(state = initialState, action) {
  * @param query: f.ex: {q: "Java", fruits: ["Apple", "Banana"], count: 10}
  * @returns {string} f.ex: q=Java&names=Apple_Banana&count=10
  */
-const toUrl = (query) => {
+export const toUrl = (query) => {
     let result = {};
 
     Object.keys(query).forEach((key) => {
@@ -130,13 +137,14 @@ const toUrl = (query) => {
 export function toQuery(state) {
     const { search } = state;
     const {
-        sortField, sortDir, page, source, status
+        sortField, sortDir, page, source, status, administrationStatus
     } = search;
     const query = {
         source,
         status,
         sort: `${sortField},${sortDir}`,
-        page
+        page,
+        administrationStatus
     };
     query[search.field] = search.value;
     return query;
@@ -170,6 +178,7 @@ export const searchSaga = function* saga() {
     yield takeLatest([
         CHANGE_SOURCE_FILTER,
         CHANGE_STATUS_FILTER,
+        CHANGE_ADMINISTRATION_STATUS_FILTER,
         SET_SEARCH_FIELD,
         CHANGE_SORTING,
         CHANGE_PAGE,

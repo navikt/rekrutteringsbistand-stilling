@@ -5,6 +5,7 @@ import { AD_API } from '../fasitProperties';
 import AdminStatusEnum from './administration/AdminStatusEnum';
 import { lookUpPostalCodes } from './edit/postalCode/postalCodeReducer';
 import { hasExcludingWordsInTitle } from './preview/markWords';
+import { toQuery, toUrl } from "../searchPage/searchReducer";
 
 export const FETCH_AD = 'FETCH_AD';
 export const FETCH_AD_BEGIN = 'FETCH_AD_BEGIN';
@@ -585,7 +586,13 @@ function* getAd(action) {
 function* getNextAd() {
     yield put({ type: FETCH_AD_BEGIN });
     try {
-        const response = yield fetchGet(`${AD_API}ads/${query}`);
+        const state = yield select();
+        // let queryString = query;
+        /* if (isSearchModified(state.search)) {
+            queryString = toUrl({ ...toQuery(state), size: 1 });
+        } */
+        const queryString = toUrl({ ...toQuery(state), size: 1 });
+        const response = yield fetchGet(`${AD_API}ads/${queryString}`);
         let nextAd = response.content[0];
         if (!nextAd.administration) { // TODO: Be backend om at administration dataene alltid er definert
             nextAd = {
