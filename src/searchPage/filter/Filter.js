@@ -30,8 +30,8 @@ class Filter extends React.Component {
                     <Radio
                         label="Alle"
                         value="Alle"
-                        defaultChecked
                         name="status"
+                        checked={this.props.status === undefined}
                         onChange={this.onStatusFilterChange}
                     />
                     {Object.keys(StatusEnum).map((key) => (
@@ -39,6 +39,7 @@ class Filter extends React.Component {
                             key={key}
                             label={StatusEnum[key]}
                             value={key}
+                            checked={this.props.status === key}
                             name="status"
                             onChange={this.onStatusFilterChange}
                         />
@@ -48,7 +49,7 @@ class Filter extends React.Component {
                     <Radio
                         label="Alle"
                         value="Alle"
-                        defaultChecked
+                        checked={this.props.source === undefined}
                         name="kilde"
                         onChange={this.onSourceFilterChange}
                     />
@@ -58,6 +59,7 @@ class Filter extends React.Component {
                             label={SourceEnum[key]}
                             value={key}
                             name="kilde"
+                            checked={this.props.source === key}
                             onChange={this.onSourceFilterChange}
                         />
                     ))}
@@ -67,12 +69,22 @@ class Filter extends React.Component {
     }
 }
 
-Filter.propTypes = {
-    changeStatusFilter: PropTypes.func.isRequired,
-    changeSourceFilter: PropTypes.func.isRequired
+Filter.defaultProps = {
+    status: undefined,
+    source: undefined
 };
 
-const mapStateToProps = () => ({});
+Filter.propTypes = {
+    changeStatusFilter: PropTypes.func.isRequired,
+    changeSourceFilter: PropTypes.func.isRequired,
+    status: PropTypes.string,
+    source: PropTypes.string
+};
+
+const mapStateToProps = (state) => ({
+    status: state.search.status,
+    source: state.search.source
+});
 
 const mapDispatchToProps = (dispatch) => ({
     changeSourceFilter: (value) => dispatch({ type: CHANGE_SOURCE_FILTER, value }),
