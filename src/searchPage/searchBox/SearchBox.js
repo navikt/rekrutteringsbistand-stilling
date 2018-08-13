@@ -12,9 +12,6 @@ class SearchBox extends React.Component {
 
     onTypeAheadSelect = (selected) => {
         this.props.setSearchField(selected && selected.value ? selected.value : Fields.EMPLOYER_NAME);
-        if (this.props.onSearch) {
-            this.props.onSearch();
-        }
     };
 
     render() {
@@ -36,10 +33,6 @@ class SearchBox extends React.Component {
     }
 }
 
-SearchBox.defaultProps = {
-    onSearch: undefined
-};
-
 SearchBox.propTypes = {
     value: PropTypes.string.isRequired,
     setSearchField: PropTypes.func.isRequired,
@@ -47,8 +40,7 @@ SearchBox.propTypes = {
     suggestions: PropTypes.arrayOf(PropTypes.shape({
         label: PropTypes.string,
         value: PropTypes.string
-    })).isRequired,
-    onSearch: PropTypes.func
+    })).isRequired
 };
 
 const mapDispatchToProps = (dispatch) => ({
