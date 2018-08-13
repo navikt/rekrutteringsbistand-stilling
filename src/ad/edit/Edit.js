@@ -26,22 +26,22 @@ import Styrk from "./styrk/Styrk";
 import { Undertittel } from "nav-frontend-typografi";
 
 export const createEmptyOrHTMLStringFromRTEValue = (rteValue) => {
-    const tomromEllerIkkeOrdRegex = /^(\s|\W)+$/g;
-    const tekstMarkdown = rteValue.toString('markdown');
-    let nyTekst = '';
-    if (tekstMarkdown.search(tomromEllerIkkeOrdRegex) < 0) {
-        nyTekst = rteValue.toString('html');
+    const emptySpaceOrNotWordRegex = /^(\s|\W)+$/g;
+    const textMarkdown = rteValue.toString('markdown');
+    let newText = '';
+    if (textMarkdown.search(emptySpaceOrNotWordRegex) < 0) {
+        newText = rteValue.toString('html');
     }
 
-    return nyTekst;
+    return newText;
 };
 
 class Edit extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            soknadsTekst: this.props.ad.properties.adtext ? RichTextEditor.createValueFromString(this.props.ad.properties.adtext, 'html') : null,
-            omArbeidsgiver: this.props.ad.properties.employerdescription ? RichTextEditor.createValueFromString(this.props.ad.properties.employerdescription, 'html') : null
+            adText: this.props.ad.properties.adtext ? RichTextEditor.createValueFromString(this.props.ad.properties.adtext, 'html') : null,
+            employerDescription: this.props.ad.properties.employerdescription ? RichTextEditor.createValueFromString(this.props.ad.properties.employerdescription, 'html') : null
         }
     }
 
@@ -113,12 +113,12 @@ class Edit extends React.Component {
         this.props.setEmployer(e.target.value);
     };
 
-    onEmployerDescriptionChange = (omArbeidsgiver) => {
+    onEmployerDescriptionChange = (employerDescription) => {
         this.setState({
-            omArbeidsgiver
+            employerDescription
         });
-        const nyTekst = createEmptyOrHTMLStringFromRTEValue(omArbeidsgiver);
-        this.props.setEmployerDescription(nyTekst);
+        const newText = createEmptyOrHTMLStringFromRTEValue(employerDescription);
+        this.props.setEmployerDescription(newText);
     };
 
     onLastUpdatedChange = (e) => {
@@ -141,12 +141,12 @@ class Edit extends React.Component {
         this.props.setExpirationDate(e.target.value);
     };
 
-    onAdTextChange = (soknadsTekst) => {
+    onAdTextChange = (adText) => {
         this.setState({
-            soknadsTekst
+            adText
         });
-        const nyTekst = createEmptyOrHTMLStringFromRTEValue(soknadsTekst);
-        this.props.setAdText(nyTekst);
+        const newText = createEmptyOrHTMLStringFromRTEValue(adText);
+        this.props.setAdText(newText);
     };
 
     render() {
@@ -188,14 +188,14 @@ class Edit extends React.Component {
                             <RichTextEditor
                                 toolbarConfig={toolbarConfig}
                                 className="Edit__rte"
-                                value={this.state.soknadsTekst || RichTextEditor.createEmptyValue()}
+                                value={this.state.adText || RichTextEditor.createEmptyValue()}
                                 onChange={this.onAdTextChange}
                             />
-                            <Undertittel className="Edit__title-arbeidsgiver">Om arbeidsgiver</Undertittel>
+                            <Undertittel className="Edit__title-employer">Om arbeidsgiver</Undertittel>
                             <RichTextEditor
                                 toolbarConfig={toolbarConfig}
                                 className="Edit__rte"
-                                value={this.state.omArbeidsgiver || RichTextEditor.createEmptyValue()}
+                                value={this.state.employerDescription || RichTextEditor.createEmptyValue()}
                                 onChange={this.onEmployerDescriptionChange}
                             />
                         </div>
