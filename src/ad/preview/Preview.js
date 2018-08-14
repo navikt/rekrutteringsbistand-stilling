@@ -49,7 +49,7 @@ export default function Preview({ stilling }) {
                             ))}
                         </div>
                         <Location />
-                        <Employer properties={stilling.properties} employer={stilling.employer} />
+                        <Employer employer={stilling.employer} />
                         <Application
                             source={stilling.source}
                             properties={stilling.properties}
