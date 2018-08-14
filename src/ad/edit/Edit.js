@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Column, Row } from 'nav-frontend-grid';
-import {
-    Input, SkjemaGruppe
-} from 'nav-frontend-skjema';
+import { Input } from 'nav-frontend-skjema';
+import { Undertittel } from 'nav-frontend-typografi';
+import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { connect } from 'react-redux';
 import RichTextEditor from 'react-rte';
 import {
@@ -21,10 +20,9 @@ import {
 import PostalCode from './postalCode/PostalCode';
 import Employer from './employer/Employer';
 import './Edit.less';
-import StyrkThreeItem from "./styrk/StyrkThreeItem";
-import Styrk from "./styrk/Styrk";
-import { Undertittel } from "nav-frontend-typografi";
-import EngagementType from "./engagementType/EngagementType";
+import Styrk from './styrk/Styrk';
+import EngagementType from './engagementType/EngagementType';
+import { Column, Row } from 'nav-frontend-grid';
 
 export const createEmptyOrHTMLStringFromRTEValue = (rteValue) => {
     const emptySpaceOrNotWordRegex = /^(\s|\W)+$/g;
@@ -43,7 +41,7 @@ class Edit extends React.Component {
         this.state = {
             adText: this.props.ad.properties.adtext ? RichTextEditor.createValueFromString(this.props.ad.properties.adtext, 'html') : null,
             employerDescription: this.props.ad.properties.employerdescription ? RichTextEditor.createValueFromString(this.props.ad.properties.employerdescription, 'html') : null
-        }
+        };
     }
 
     onTitleChange = (e) => {
@@ -176,9 +174,10 @@ class Edit extends React.Component {
 
         return (
             <div className="Edit">
-                <Row>
-                    <Column xs="12" md="8">
-                        <div className="Edit__body">
+                <div className="Edit__inner">
+                    <div className="Edit__left">
+                        <Ekspanderbartpanel className="Edit__panel" tittel="Annonsetekst" tittelProps="undertittel"
+                                            apen>
                             <Input
                                 label="Tittel"
                                 value={ad.title}
@@ -192,156 +191,157 @@ class Edit extends React.Component {
                                 value={this.state.adText || RichTextEditor.createEmptyValue()}
                                 onChange={this.onAdTextChange}
                             />
-                            <Undertittel className="Edit__title-employer">Om arbeidsgiver</Undertittel>
+                        </Ekspanderbartpanel>
+                        <Ekspanderbartpanel className="Edit__panel" tittel="Beskrivelse av arbeidsgiver"
+                                            tittelProps="undertittel" apen>
                             <RichTextEditor
                                 toolbarConfig={toolbarConfig}
                                 className="Edit__rte"
                                 value={this.state.employerDescription || RichTextEditor.createEmptyValue()}
                                 onChange={this.onEmployerDescriptionChange}
                             />
-                        </div>
-                    </Column>
-                    <Column xs="12" md="4">
-                        <div className="Edit__details">
-                            <SkjemaGruppe title="STYRK-kode">
-                                <Styrk />
-                            </SkjemaGruppe>
-                            <SkjemaGruppe title="Søknad">
-                                <Input
-                                    label="Søknadsfrist"
-                                    value={ad.properties.applicationdue || ''}
-                                    onChange={this.onApplicationDueChange}
-                                    className="typo-normal"
-                                />
-                                <Input
-                                    label="Send søknad til"
-                                    value={ad.properties.applicationemail || ''}
-                                    onChange={this.onApplicationEmailChange}
-                                    className="typo-normal"
-                                />
-                                <Input
-                                    label="Søknadslenke"
-                                    value={ad.properties.applicationurl || ''}
-                                    onChange={this.onApplicationUrlChange}
-                                    className="typo-normal"
-                                />
-                                <Input
-                                    label="Kildelenke"
-                                    value={ad.properties.sourceurl || ''}
-                                    onChange={this.onSourceUrlChange}
-                                    className="typo-normal"
-                                />
-                            </SkjemaGruppe>
-                            <SkjemaGruppe title="Om stillingen">
-                                <Input
-                                    label="Stillingstittel"
-                                    value={ad.properties.jobtitle || ''}
-                                    onChange={this.onJobtitleChange}
-                                    className="typo-normal"
-                                />
-                                <Input
-                                    label="Arbeidssted"
-                                    value={ad.properties.location || ''}
-                                    onChange={this.onLocationChange}
-                                    className="typo-normal"
-                                />
-                                <EngagementType />
-                                <Input
-                                    label="Heltid/deltid"
-                                    value={ad.properties.extent || ''}
-                                    onChange={this.onExtentChange}
-                                    className="typo-normal"
-                                />
-                                <Input
-                                    label="Antall stillinger"
-                                    value={ad.properties.positioncount || ''}
-                                    onChange={this.onPositioncountChange}
-                                    className="typo-normal"
-                                />
-                                <Input
-                                    label="Sektor"
-                                    value={ad.properties.sector || ''}
-                                    onChange={this.onSectorChange}
-                                    className="typo-normal"
-                                />
-                                <Input
-                                    label="Arbeidsdager"
-                                    value={ad.properties.workday || ''}
-                                    onChange={this.onWorkdayChange}
-                                    className="typo-normal"
-                                />
-                                <Input
-                                    label="Arbeidstid"
-                                    value={ad.properties.workhours || ''}
-                                    onChange={this.onWorkhoursChange}
-                                    className="typo-normal"
-                                />
-                                <Input
-                                    label="Arb.tidordning"
-                                    value={ad.properties.jobarrangement || ''}
-                                    onChange={this.onJobarrangementChange}
-                                    className="typo-normal"
-                                />
-                                <Input
-                                    label="Oppstart"
-                                    value={ad.properties.starttime || ''}
-                                    onChange={this.onStarttimeChange}
-                                    className="typo-normal"
-                                />
-                            </SkjemaGruppe>
-                            <SkjemaGruppe title="Sted">
-                                <Input
-                                    label="Gateadresse"
-                                    value={ad.location && ad.location.address ? ad.location.address : ''}
-                                    onChange={this.onAddressChange}
-                                    className="typo-normal"
-                                />
-                                <PostalCode />
-                            </SkjemaGruppe>
-                            <SkjemaGruppe title="Om arbeidsgiver">
-                                <Employer />
-                            </SkjemaGruppe>
-                            <SkjemaGruppe title="Om annonsen">
-                                <Input
-                                    label="Publisert"
-                                    value={ad.published || ''}
-                                    onChange={this.onPublishedChange}
-                                    className="typo-normal"
-                                />
-                                <Input
-                                    label="Sist endret"
-                                    value={ad.updated || ''}
-                                    onChange={this.onLastUpdatedChange}
-                                    className="typo-normal"
-                                />
-                                <Input
-                                    label="Hentet fra"
-                                    value={ad.medium || ''}
-                                    onChange={this.onMediumChange}
-                                    className="typo-normal"
-                                />
-                                <Input
-                                    label="Løpenr"
-                                    value={ad.id || ''}
-                                    onChange={this.onIdChange}
-                                    className="typo-normal"
-                                />
-                                <Input
-                                    label="Referanse"
-                                    value={ad.reference || ''}
-                                    onChange={this.onReferenceChange}
-                                    className="typo-normal"
-                                />
-                                <Input
-                                    label="Utløpsdato"
-                                    value={ad.expires || ''}
-                                    onChange={this.onExpiresChange}
-                                    className="typo-normal"
-                                />
-                            </SkjemaGruppe>
-                        </div>
-                    </Column>
-                </Row>
+                        </Ekspanderbartpanel>
+                    </div>
+                    <div className="Edit__right">
+                        <Ekspanderbartpanel className="Edit__panel" tittel="STYRK-kode" tittelProps="undertittel" apen>
+                            <Styrk/>
+                        </Ekspanderbartpanel>
+
+                        <Ekspanderbartpanel className="Edit__panel" tittel="Geografisk plassering av stillingen"
+                                            tittelProps="undertittel" apen>
+                            <PostalCode/>
+                        </Ekspanderbartpanel>
+
+                        <Ekspanderbartpanel className="Edit__panel" tittel="Om arbeidsgiver" tittelProps="undertittel"
+                                            apen>
+                            <Employer />
+                        </Ekspanderbartpanel>
+
+                        <Ekspanderbartpanel className="Edit__panel" tittel="Søknad" tittelProps="undertittel" apen>
+                            <Input
+                                label="Søknadsfrist"
+                                value={ad.properties.applicationdue || ''}
+                                onChange={this.onApplicationDueChange}
+                                className="typo-normal"
+                            />
+                            <Input
+                                label="Send søknad til"
+                                value={ad.properties.applicationemail || ''}
+                                onChange={this.onApplicationEmailChange}
+                                className="typo-normal"
+                            />
+                            <Input
+                                label="Søknadslenke"
+                                value={ad.properties.applicationurl || ''}
+                                onChange={this.onApplicationUrlChange}
+                                className="typo-normal"
+                            />
+                            <Input
+                                label="Kildelenke"
+                                value={ad.properties.sourceurl || ''}
+                                onChange={this.onSourceUrlChange}
+                                className="typo-normal"
+                            />
+                        </Ekspanderbartpanel>
+
+                        <Ekspanderbartpanel className="Edit__panel" tittel="Om stillingen" tittelProps="undertittel">
+                            <Input
+                                label="Stillingstittel"
+                                value={ad.properties.jobtitle || ''}
+                                onChange={this.onJobtitleChange}
+                                className="typo-normal"
+                            />
+                            <Input
+                                label="Arbeidssted"
+                                value={ad.properties.location || ''}
+                                onChange={this.onLocationChange}
+                                className="typo-normal"
+                            />
+                            <EngagementType/>
+                            <Input
+                                label="Heltid/deltid"
+                                value={ad.properties.extent || ''}
+                                onChange={this.onExtentChange}
+                                className="typo-normal"
+                            />
+                            <Input
+                                label="Antall stillinger"
+                                value={ad.properties.positioncount || ''}
+                                onChange={this.onPositioncountChange}
+                                className="typo-normal"
+                            />
+                            <Input
+                                label="Sektor"
+                                value={ad.properties.sector || ''}
+                                onChange={this.onSectorChange}
+                                className="typo-normal"
+                            />
+                            <Input
+                                label="Arbeidsdager"
+                                value={ad.properties.workday || ''}
+                                onChange={this.onWorkdayChange}
+                                className="typo-normal"
+                            />
+                            <Input
+                                label="Arbeidstid"
+                                value={ad.properties.workhours || ''}
+                                onChange={this.onWorkhoursChange}
+                                className="typo-normal"
+                            />
+                            <Input
+                                label="Arb.tidordning"
+                                value={ad.properties.jobarrangement || ''}
+                                onChange={this.onJobarrangementChange}
+                                className="typo-normal"
+                            />
+                            <Input
+                                label="Oppstart"
+                                value={ad.properties.starttime || ''}
+                                onChange={this.onStarttimeChange}
+                                className="typo-normal"
+                            />
+                        </Ekspanderbartpanel>
+
+                        <Ekspanderbartpanel className="Edit__panel" tittel="Om annonsen" tittelProps="undertittel">
+                            <Input
+                                label="Publisert"
+                                value={ad.published || ''}
+                                onChange={this.onPublishedChange}
+                                className="typo-normal"
+                            />
+                            <Input
+                                label="Sist endret"
+                                value={ad.updated || ''}
+                                onChange={this.onLastUpdatedChange}
+                                className="typo-normal"
+                            />
+                            <Input
+                                label="Hentet fra"
+                                value={ad.medium || ''}
+                                onChange={this.onMediumChange}
+                                className="typo-normal"
+                            />
+                            <Input
+                                label="Løpenr"
+                                value={ad.id || ''}
+                                onChange={this.onIdChange}
+                                className="typo-normal"
+                            />
+                            <Input
+                                label="Referanse"
+                                value={ad.reference || ''}
+                                onChange={this.onReferenceChange}
+                                className="typo-normal"
+                            />
+                            <Input
+                                label="Utløpsdato"
+                                value={ad.expires || ''}
+                                onChange={this.onExpiresChange}
+                                className="typo-normal"
+                            />
+                        </Ekspanderbartpanel>
+                    </div>
+                </div>
             </div>
         );
     }

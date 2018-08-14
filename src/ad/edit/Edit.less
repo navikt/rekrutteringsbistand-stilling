@@ -1,21 +1,36 @@
 @import "../../variables";
 
+.Edit {
+  background: @navLysGra;
+}
+
+.Edit__inner {
+  max-width: 1400px;
+  display: flex;
+  padding: 2rem 5rem;
+  margin: 0 auto;
+}
+
+.Edit__left {
+  flex: 2;
+  margin-right: 2rem;
+}
+
+.Edit__right {
+  flex: 1;
+}
+
 .Edit__title {
   margin-bottom: 0!important;
 }
 
-.Edit__details {
-  border-left: solid 1px @navLysGra;
-  margin-top: 1.5rem;
-  padding-left: 1.5rem;
-}
-
-.Edit__body {
-  margin-right: 4rem;
+.Edit__panel {
+  margin-bottom: 2rem;
 }
 
 .Edit__rte {
   margin-top: 1rem;
+  min-height: 30rem;
 }
 
 .Edit__title-employer {
