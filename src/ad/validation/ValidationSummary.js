@@ -12,7 +12,7 @@ function ValidationSummary({ validation }) {
     if (validationErrors.length > 0) {
         return (
             <div className="ValidationSummary">
-                <AlertStripeAdvarsel solid>
+                <AlertStripeAdvarsel solid className="ValidationSummary__alertstripe">
                     <b>Annonsen har {validationErrors.length} feil:</b>
                     <ul className="ValidationSummary__list">
                         {validationErrors.map((error) => (
