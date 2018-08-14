@@ -4,16 +4,39 @@ import { connect } from 'react-redux';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { FETCH_NEXT_AD, SAVE_AD, SET_ADMIN_STATUS } from '../adReducer';
 import AdminStatusEnum from './AdminStatusEnum';
+import ConfirmationPopup from "./ConfirmationPopup";
 
 class AdminStatusEdit extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isModalOpen: false
+        };
+    }
+
+    onClosePopup = () => {
+        this.setState({
+            isModalOpen: false
+        });
+    };
+
     onSetToPendingClick = () => {
+        this.setState({
+            isModalOpen: false
+        });
         this.props.setAdminStatus(AdminStatusEnum.PENDING);
         this.props.saveAd();
     };
 
     onSetToDoneClick = () => {
-        this.props.setAdminStatus(AdminStatusEnum.DONE);
-        this.props.saveAd();
+        if (this.props.isEditingAd) {
+            this.setState({
+                isModalOpen: true
+            });
+        } else {
+            this.props.setAdminStatus(AdminStatusEnum.DONE);
+            this.props.saveAd();
+        }
     };
 
     render() {
@@ -36,6 +59,10 @@ class AdminStatusEdit extends React.Component {
                         >
                             Avslutt saksbehandling
                         </Hovedknapp>
+                        <ConfirmationPopup
+                            isOpen={this.state.isModalOpen}
+                            onCancel={this.onClosePopup}
+                        />
                     </div>
                 )}
                 {adminStatus === AdminStatusEnum.DONE && (
@@ -54,11 +81,13 @@ class AdminStatusEdit extends React.Component {
 AdminStatusEdit.propTypes = {
     adminStatus: PropTypes.string.isRequired,
     setAdminStatus: PropTypes.func.isRequired,
-    saveAd: PropTypes.func.isRequired
+    saveAd: PropTypes.func.isRequired,
+    isEditingAd: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state) => ({
-    adminStatus: state.ad.data.administration.status
+    adminStatus: state.ad.data.administration.status,
+    isEditingAd: state.ad.isEditingAd
 });
 
 const mapDispatchToProps = (dispatch) => ({

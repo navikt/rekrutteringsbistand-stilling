@@ -45,9 +45,11 @@ class Administration extends React.Component {
                         <AdminStatusPreview />
                         <div className="Administration__buttons">
                             <AdminStatusEdit />
-                            <Knapp className="AdminStatusEdit__button" onClick={this.onNextClick}>
-                                Gå til neste annonse
-                            </Knapp>
+                            {adminStatus !== AdminStatusEnum.PENDING && (
+                                <Knapp className="AdminStatusEdit__button" onClick={this.onNextClick}>
+                                    Gå til neste annonse
+                                </Knapp>
+                            )}
                         </div>
                     </div>
                 </div>
