@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Container } from 'nav-frontend-grid';
+import { Knapp } from 'nav-frontend-knapper';
 import SearchBox from './searchBox/SearchBox';
 import SearchResultHeaders from './searchResult/SearchResultHeaders';
 import SearchResultItem from './searchResult/SearchResultItem';
@@ -12,12 +12,23 @@ import Loading from './loading/Loading';
 import Filter from './filter/Filter';
 import Pagination from './pagination/Pagination';
 import { FETCH_ADS } from './searchReducer';
+import { SET_WORK_PRIORITY } from '../ad/adReducer';
 import './SearchPage.less';
 
 class SearchPage extends React.Component {
     componentDidMount() {
         this.props.getAds();
     }
+
+    onStartWorkClick = () => {
+        const query = {
+            source: this.props.search.source,
+            status: this.props.search.status
+        };
+        query[this.props.search.field] = this.props.search.value;
+        this.props.setWorkPriority(query);
+        this.props.history.push(`/ads`);
+    };
 
     render() {
         const { ads, isSearching } = this.props;
@@ -36,12 +47,9 @@ class SearchPage extends React.Component {
                                 <SearchBox />
                             </div>
                             <div className="SearchPage__button__right">
-                                <Link
-                                    className="knapp"
-                                    to={`/ads/${adsFound ? ads[0].uuid : ''}`}
-                                >
+                                <Knapp onClick={this.onStartWorkClick}>
                                     Start behandling
-                                </Link>
+                                </Knapp>
                             </div>
 
                             <SearchResultCount />
@@ -66,21 +74,22 @@ class SearchPage extends React.Component {
     }
 }
 
-SearchPage.defaultProps = {};
-
 SearchPage.propTypes = {
     ads: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
     isSearching: PropTypes.bool.isRequired,
-    getAds: PropTypes.func.isRequired
+    getAds: PropTypes.func.isRequired,
+    setWorkPriority: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
     ads: state.search.items,
-    isSearching: state.search.isSearching
+    isSearching: state.search.isSearching,
+    search: state.search
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    getAds: () => dispatch({ type: FETCH_ADS })
+    getAds: () => dispatch({ type: FETCH_ADS }),
+    setWorkPriority: (workPriority) => dispatch({ type: SET_WORK_PRIORITY, workPriority })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchPage);
