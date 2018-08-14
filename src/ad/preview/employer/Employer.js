@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Element } from 'nav-frontend-typografi';
-import ReactHtmlParser from 'react-html-parser';
-import markWords from '../markWords';
 import './Employer.less';
 
 
@@ -16,9 +14,6 @@ export default function EmployerDetails({ properties }) {
                     <dd key="dd">{properties.employer}</dd>
                 ]}
             </dl>
-            {properties.employerdescription && (
-                <div className="EmployerDetails__description">{ ReactHtmlParser(markWords(properties.employerdescription)) }</div>
-            )}
         </div>
     );
 }

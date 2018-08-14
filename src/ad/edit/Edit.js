@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Column, Row } from 'nav-frontend-grid';
 import {
-    Input, SkjemaGruppe, Textarea
+    Input, SkjemaGruppe
 } from 'nav-frontend-skjema';
 import { connect } from 'react-redux';
+import RichTextEditor from 'react-rte';
 import {
     SET_AD_TEXT,
     SET_AD_TITLE, SET_APPLICATIONDUE, SET_APPLICATIONEMAIL, SET_APPLICATIONURL,
@@ -19,12 +20,31 @@ import {
 } from '../adReducer';
 import PostalCode from './postalCode/PostalCode';
 import './Edit.less';
-import {getApplicationUrl} from "../preview/application/Application";
 import StyrkThreeItem from "./styrk/StyrkThreeItem";
 import Styrk from "./styrk/Styrk";
-import EngagementType from "./engagementType/EngagementType"
+import { Undertittel } from "nav-frontend-typografi";
+import EngagementType from "./engagementType/EngagementType";
+
+export const createEmptyOrHTMLStringFromRTEValue = (rteValue) => {
+    const emptySpaceOrNotWordRegex = /^(\s|\W)+$/g;
+    const textMarkdown = rteValue.toString('markdown');
+    let newText = '';
+    if (textMarkdown.search(emptySpaceOrNotWordRegex) < 0) {
+        newText = rteValue.toString('html');
+    }
+
+    return newText;
+};
 
 class Edit extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            adText: this.props.ad.properties.adtext ? RichTextEditor.createValueFromString(this.props.ad.properties.adtext, 'html') : null,
+            employerDescription: this.props.ad.properties.employerdescription ? RichTextEditor.createValueFromString(this.props.ad.properties.employerdescription, 'html') : null
+        }
+    }
+
     onTitleChange = (e) => {
         this.props.setAdTitle(e.target.value);
     };
@@ -89,8 +109,12 @@ class Edit extends React.Component {
         this.props.setEmployer(e.target.value);
     };
 
-    onEmployerDescriptionChange = (e) => {
-        this.props.setEmployerDescription(e.target.value);
+    onEmployerDescriptionChange = (employerDescription) => {
+        this.setState({
+            employerDescription
+        });
+        const newText = createEmptyOrHTMLStringFromRTEValue(employerDescription);
+        this.props.setEmployerDescription(newText);
     };
 
     onPublishedChange = (e) => {
@@ -117,12 +141,37 @@ class Edit extends React.Component {
         this.props.setExpirationDate(e.target.value);
     };
 
-    onAdTextChange = (e) => {
-        this.props.setAdText(e.target.value);
+    onAdTextChange = (adText) => {
+        this.setState({
+            adText
+        });
+        const newText = createEmptyOrHTMLStringFromRTEValue(adText);
+        this.props.setAdText(newText);
     };
 
     render() {
         const { ad, validation } = this.props;
+        const toolbarConfig = {
+            display: ['INLINE_STYLE_BUTTONS', 'BLOCK_TYPE_BUTTONS', 'LINK_BUTTONS', 'BLOCK_TYPE_DROPDOWN', 'HISTORY_BUTTONS'],
+            INLINE_STYLE_BUTTONS: [
+                { label: 'Fet', style: 'BOLD', className: 'custom-css-class' },
+                { label: 'Kursiv', style: 'ITALIC' },
+                { label: 'Gjennomstreking', style: 'STRIKETHROUGH' },
+                { label: 'Monospace', style: 'CODE' },
+                { label: 'Understreking', style: 'UNDERLINE' }
+            ],
+            BLOCK_TYPE_DROPDOWN: [
+                { label: 'Normal', style: 'unstyled' },
+                { label: 'Overskrift stor', style: 'header-one' },
+                { label: 'Overskrift medium', style: 'header-two' },
+                { label: 'Overskrift liten', style: 'header-three' }
+            ],
+            BLOCK_TYPE_BUTTONS: [
+                { label: 'Punkt', style: 'unordered-list-item' },
+                { label: 'Tall', style: 'ordered-list-item' },
+                { label: 'Sitat', style: 'blockquote' }
+            ]
+        };
 
         return (
             <div className="Edit">
@@ -136,10 +185,18 @@ class Edit extends React.Component {
                                 className="typo-normal Edit__title"
                                 feil={validation.title ? { feilmelding: validation.title } : undefined}
                             />
-                            <Textarea
-                                label=""
+                            <RichTextEditor
+                                toolbarConfig={toolbarConfig}
+                                className="Edit__rte"
+                                value={this.state.adText || RichTextEditor.createEmptyValue()}
                                 onChange={this.onAdTextChange}
-                                value={ad.properties.adtext || ''}
+                            />
+                            <Undertittel className="Edit__title-employer">Om arbeidsgiver</Undertittel>
+                            <RichTextEditor
+                                toolbarConfig={toolbarConfig}
+                                className="Edit__rte"
+                                value={this.state.employerDescription || RichTextEditor.createEmptyValue()}
+                                onChange={this.onEmployerDescriptionChange}
                             />
                         </div>
                     </Column>
@@ -245,12 +302,6 @@ class Edit extends React.Component {
                                     label="Arbeidsgiver"
                                     value={ad.properties.employer || ''}
                                     onChange={this.onEmployerChange}
-                                    className="typo-normal"
-                                />
-                                <Input
-                                    label="Arbeidsgiver"
-                                    value={ad.properties.employerdescription || ''}
-                                    onChange={this.onEmployerDescriptionChange}
                                     className="typo-normal"
                                 />
                             </SkjemaGruppe>
