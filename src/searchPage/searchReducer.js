@@ -36,7 +36,7 @@ const initialState = {
     suggestions: [],
     source: undefined,
     status: undefined,
-    administrationStatus: undefined
+    administrationStatus: AdminStatusEnum.RECEIVED
 };
 
 export default function searchReducer(state = initialState, action) {
@@ -141,8 +141,7 @@ export const toUrl = (query) => {
     return urlQuery && urlQuery.length > 0 ? `?${urlQuery}` : '';
 };
 
-export function toQuery(state) {
-    const { search } = state;
+export function toQuery(search) {
     const {
         sortField, sortDir, page, source, status, administrationStatus
     } = search;
@@ -165,7 +164,7 @@ function* getAds(action) {
         yield put({ type: FETCH_ADS_BEGIN });
 
         const state = yield select();
-        const query = toQuery(state);
+        const query = toQuery(state.search);
         const searchUrl = toUrl(query);
         const url = `${AD_API}ads/${searchUrl}`;
 

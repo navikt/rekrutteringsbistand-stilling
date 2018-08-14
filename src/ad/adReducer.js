@@ -63,7 +63,9 @@ export const EDIT_AD = 'EDIT_AD';
 export const DISCARD_AD_CHANGES = 'DISCARD_AD_CHANGES';
 export const SET_AD_TITLE = 'SET_AD_TITLE';
 
-const query = '?administrationStatus=RECEIVED&size=1';
+export const SET_WORK_PRIORITY = 'SET_WORK_PRIORITY';
+export const RESET_WORK_PRIORITY = 'RESET_WORK_PRIORITY';
+
 
 const initialState = {
     data: undefined,
@@ -71,7 +73,10 @@ const initialState = {
     isSavingAd: false,
     isFetchingStilling: false,
     validation: {},
-    isEditingAd: false
+    isEditingAd: false,
+    workPriority: {
+        administrationStatus: AdminStatusEnum.RECEIVED
+    }
 };
 
 function validateTitle(title, employer) {
@@ -548,6 +553,16 @@ export default function adReducer(state = initialState, action) {
                     }
                 }
             };
+        case SET_WORK_PRIORITY:
+            return {
+                ...state,
+                workPriority: action.workPriority
+            };
+        case RESET_WORK_PRIORITY:
+            return {
+                ...state,
+                workPriority: initialState.workPriority
+            };
         default:
             return state;
     }
@@ -556,7 +571,7 @@ export default function adReducer(state = initialState, action) {
 function* getAd(action) {
     yield put({ type: FETCH_AD_BEGIN });
     try {
-        let response = yield fetchGet(`${AD_API}ads/${action.uuid}`);
+        const response = yield fetchGet(`${AD_API}ads/${action.uuid}`);
         yield put({ type: FETCH_AD_SUCCESS, response });
     } catch (e) {
         if (e instanceof ApiError) {
@@ -570,7 +585,7 @@ function* getAd(action) {
 function* getNextAd() {
     yield put({ type: FETCH_AD_BEGIN });
     const state = yield select();
-    const queryString = toUrl({ ...toQuery(state), size: 1 });
+    const queryString = toUrl({ ...state.ad.workPriority, size: 1, sort: 'created,asc', administrationStatus: AdminStatusEnum.RECEIVED });
     let wasAbleToAssign = false;
     let ad;
     while (!wasAbleToAssign) {
