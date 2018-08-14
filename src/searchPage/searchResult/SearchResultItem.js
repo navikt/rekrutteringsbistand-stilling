@@ -11,7 +11,6 @@ import './SearchResult.less';
 export default class SearchResultItem extends React.Component {
     render() {
         const { ad } = this.props;
-        const { properties } = ad;
         return (
             <Row className="SearchResultItem">
                 <Column md="2">
@@ -46,7 +45,8 @@ export default class SearchResultItem extends React.Component {
                 </Column>
                 <Column md="1">
                     <Normaltekst className="SearchResultItem__column">
-                        {ad.administration && ad.administration.status ? AdminStatusEnum[ad.administration.status] : ''}
+                        {ad.administration && ad.administration.status && AdminStatusEnum[ad.administration.status] ?
+                            AdminStatusEnum[ad.administration.status] : ''}
                     </Normaltekst>
                 </Column>
             </Row>
