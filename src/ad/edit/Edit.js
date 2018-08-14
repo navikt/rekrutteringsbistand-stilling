@@ -19,6 +19,7 @@ import {
     SET_LOCATION_ADDRESS, SET_MEDIUM, SET_PUBLISHED, SET_REFERENCE, SET_SOURCEURL
 } from '../adReducer';
 import PostalCode from './postalCode/PostalCode';
+import Employer from './employer/Employer';
 import './Edit.less';
 import {getApplicationUrl} from "../preview/application/Application";
 import StyrkThreeItem from "./styrk/StyrkThreeItem";
@@ -250,12 +251,7 @@ class Edit extends React.Component {
                                 <PostalCode />
                             </SkjemaGruppe>
                             <SkjemaGruppe title="Om arbeidsgiver">
-                                <Input
-                                    label="Arbeidsgiver"
-                                    value={ad.properties.employer || ''}
-                                    onChange={this.onEmployerChange}
-                                    className="typo-normal"
-                                />
+                                <Employer />
                                 <Input
                                     label="Arbeidsgiver"
                                     value={ad.properties.employerdescription || ''}

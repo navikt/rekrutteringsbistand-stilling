@@ -100,12 +100,21 @@ function validateStyrk(categoryList) {
     return undefined;
 }
 
+function validateEmployer(employer) {
+    if (employer === null || employer === undefined ||
+        employer.name === null || employer.name === undefined || employer.name.length === 0 ||
+        employer.orgnr === null || employer.orgnr === undefined || employer.orgnr.length === 0) {
+        return 'Arbeidsgiver mangler';
+    }
+    return undefined;
+}
 
 function validateAll(data) {
     return {
         styrk: validateStyrk(data.categoryList),
         location: validateLocation(data.location),
-        title: validateTitle(data.title, data.properties.employer)
+        title: validateTitle(data.title, data.properties.employer),
+        employer: validateEmployer(data.employer)
     };
 }
 
@@ -431,14 +440,36 @@ export default function adReducer(state = initialState, action) {
                 }
             };
         case SET_EMPLOYER:
+            if (action.foundEmployer) {
+                return {
+                    ...state,
+                    data: {
+                        ...state.data,
+                        employer: {
+                            ...state.data.employer,
+                            name: action.foundEmployer.name,
+                            orgnr: action.foundEmployer.orgnr
+                        }
+                    },
+                    validation: {
+                        ...state.validation,
+                        employer: undefined
+                    }
+                };
+            }
             return {
                 ...state,
                 data: {
                     ...state.data,
-                    properties: {
-                        ...state.data.properties,
-                        employer: action.employer
+                    employer: {
+                        ...state.data.employer,
+                        name: action.value,
+                        orgnr: ''
                     }
+                },
+                validation: {
+                    ...state.validation,
+                    employer: 'Ukjent arbeidsgiver'
                 }
             };
         case SET_EMPLOYERDESCRIPTION:
