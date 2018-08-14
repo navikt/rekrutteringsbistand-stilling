@@ -183,7 +183,11 @@ export default function adReducer(state = initialState, action) {
         case DISCARD_AD_CHANGES:
             return {
                 ...state,
-                data: { ...state.originalData },
+                data: {
+                    ...state.originalData,
+                    administration: state.data.administration,
+                    status: state.data.status
+                },
                 validation: validateAll(state.originalData),
                 isEditingAd: false
             };
