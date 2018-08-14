@@ -7,6 +7,7 @@ import { FETCH_POSTAL_CODES_SUGGESTIONS, SET_POSTAL_CODE_VALUE } from './postalC
 import { registerShortcuts } from '../../../common/shortcuts/Shortcuts';
 import { SET_LOCATION_POSTAL_CODE } from '../../adReducer';
 import './PostalCode.less';
+import { Normaltekst } from "nav-frontend-typografi";
 
 class PostalCode extends React.Component {
     componentDidMount() {
@@ -59,6 +60,7 @@ class PostalCode extends React.Component {
                         value={this.props.location && this.props.location.city ? this.props.location.city : ''}
                     />
                 </div>
+                <Normaltekst>Kommune: {this.props.location.municipal}, Fylke: {this.props.location.county}</Normaltekst>
                 {this.props.validation.location && (
                     <div className="PostalCode__error">{this.props.validation.location}</div>
                 )}
