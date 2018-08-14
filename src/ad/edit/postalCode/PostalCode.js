@@ -60,7 +60,9 @@ class PostalCode extends React.Component {
                         value={this.props.location && this.props.location.city ? this.props.location.city : ''}
                     />
                 </div>
-                <Normaltekst>Kommune: {this.props.location.municipal}, Fylke: {this.props.location.county}</Normaltekst>
+                {this.props.location && (
+                    <Normaltekst>Kommune: {this.props.location.municipal}, Fylke: {this.props.location.county}</Normaltekst>
+                )}
                 {this.props.validation.location && (
                     <div className="PostalCode__error">{this.props.validation.location}</div>
                 )}

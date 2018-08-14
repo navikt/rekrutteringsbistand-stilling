@@ -18,8 +18,8 @@ class AdStatusEdit extends React.Component {
                     name="Annonsestatus"
                     legend="Annonsestatus"
                     radios={[
-                        { label: 'Inaktiv', value: AdStatusEnum.INACTIVE },
-                        { label: 'Aktiv', value: AdStatusEnum.ACTIVE },
+                        { label: 'Ikke publisert', value: AdStatusEnum.INACTIVE },
+                        { label: 'Publisert', value: AdStatusEnum.ACTIVE },
                         { label: 'Avvist', value: AdStatusEnum.REJECTED },
                         { label: 'Stoppet', value: AdStatusEnum.STOPPED },
                         { label: 'Slettet', value: AdStatusEnum.DELETED }

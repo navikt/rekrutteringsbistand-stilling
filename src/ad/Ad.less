@@ -4,17 +4,18 @@
 
 .Ad__flex {
   display: flex;
+  height: 100vh;
 }
 
 .Ad__flex__center {
   flex: auto;
-  height: 100vh;
+  height: 100%;
 }
 
 .Ad__flex__right {
   width: 30rem;
   border-left: 1px solid #d1d1d1;
-  height: 100vh;
+  height: 100%;
 }
 
 .Ad__flex__center__inner {
@@ -22,14 +23,19 @@
   overflow-y: scroll;
 }
 
-.Ad__flex__center__inner__content {
-  margin: 0 auto;
-}
-
 .Ad__flex__right__inner {
-  padding: 2rem 1.5rem;
   height: 100%;
   overflow-y: auto;
+}
+
+.Ad__preview {
+  padding-top: 2rem;
+  margin: 0 auto;
+  max-width: 64rem;
+}
+
+.Ad__preview__edit-button {
+  float: right;
 }
 
 .Ad__spinner {

@@ -6,6 +6,7 @@ import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { connect } from 'react-redux';
 import RichTextEditor from 'react-rte';
 import {
+    DISCARD_AD_CHANGES, SAVE_AD,
     SET_AD_TEXT,
     SET_AD_TITLE, SET_APPLICATIONDUE, SET_APPLICATIONEMAIL, SET_APPLICATIONURL,
     SET_EMPLOYER, SET_EMPLOYERDESCRIPTION,
@@ -21,7 +22,7 @@ import PostalCode from './postalCode/PostalCode';
 import './Edit.less';
 import Styrk from './styrk/Styrk';
 import EngagementType from './engagementType/EngagementType';
-import { Column, Row } from 'nav-frontend-grid';
+import { Hovedknapp, Knapp } from "nav-frontend-knapper";
 
 export const createEmptyOrHTMLStringFromRTEValue = (rteValue) => {
     const emptySpaceOrNotWordRegex = /^(\s|\W)+$/g;
@@ -147,6 +148,15 @@ class Edit extends React.Component {
         this.props.setAdText(newText);
     };
 
+    onDiscardAdChanges = (e) => {
+        e.preventDefault();
+        this.props.discardAdChanges();
+    };
+
+    onSaveClick = () => {
+        this.props.saveAd();
+    };
+
     render() {
         const { ad, validation } = this.props;
         const toolbarConfig = {
@@ -173,10 +183,17 @@ class Edit extends React.Component {
 
         return (
             <div className="Edit">
+                <div className="Edit__top">
+                    <Hovedknapp className="Edit__top__knapp" onClick={this.onSaveClick}>
+                        Lagre annonsen
+                    </Hovedknapp>
+                    <Knapp onClick={this.onDiscardAdChanges}>
+                        Avbryt endringer
+                    </Knapp>
+                </div>
                 <div className="Edit__inner">
                     <div className="Edit__left">
-                        <Ekspanderbartpanel className="Edit__panel" tittel="Annonsetekst" tittelProps="undertittel"
-                                            apen>
+                        <Ekspanderbartpanel className="Edit__panel" tittel="Annonsetekst" tittelProps="undertittel" apen>
                             <Input
                                 label="Tittel"
                                 value={ad.title}
@@ -346,6 +363,14 @@ class Edit extends React.Component {
                         </Ekspanderbartpanel>
                     </div>
                 </div>
+                <div className="Edit__bottom">
+                    <Hovedknapp className="Edit__bottom__knapp" onClick={this.onSaveClick}>
+                        Lagre annonsen
+                    </Hovedknapp>
+                    <Knapp onClick={this.onDiscardAdChanges}>
+                        Avbryt endringer
+                    </Knapp>
+                </div>
             </div>
         );
     }
@@ -378,7 +403,9 @@ Edit.propTypes = {
     setId: PropTypes.func.isRequired,
     setReference: PropTypes.func.isRequired,
     setExpirationDate: PropTypes.func.isRequired,
-    setAdText: PropTypes.func.isRequired
+    setAdText: PropTypes.func.isRequired,
+    discardAdChanges: PropTypes.func.isRequired,
+    saveAd: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -410,7 +437,9 @@ const mapDispatchToProps = (dispatch) => ({
     setId: (id) => dispatch({ type: SET_ID, id }),
     setReference: (reference) => dispatch({ type: SET_REFERENCE, reference }),
     setExpirationDate: (expires) => dispatch({ type: SET_EXPIRATION_DATE, expires }),
-    setAdText: (adtext) => dispatch({ type: SET_AD_TEXT, adtext })
+    setAdText: (adtext) => dispatch({ type: SET_AD_TEXT, adtext }),
+    discardAdChanges: () => dispatch({ type: DISCARD_AD_CHANGES }),
+    saveAd: () => dispatch({ type: SAVE_AD })
 });
 
 

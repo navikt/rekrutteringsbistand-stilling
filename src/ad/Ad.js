@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Preview from './preview/Preview';
 import Administration from './administration/Administration';
-import { FETCH_AD, FETCH_NEXT_AD } from './adReducer';
+import { EDIT_AD, FETCH_AD, FETCH_NEXT_AD } from './adReducer';
 import Error from './error/Error';
 import DelayedSpinner from '../common/DelayedSpinner';
 import './Ad.less';
@@ -11,6 +11,7 @@ import Faded from '../common/faded/Faded';
 import Edit from './edit/Edit';
 import ValidationSummary from './validation/ValidationSummary';
 import AdminStatusEnum from './administration/AdminStatusEnum';
+import { Knapp } from "nav-frontend-knapper";
 
 class Ad extends React.Component {
     componentDidMount() {
@@ -39,6 +40,10 @@ class Ad extends React.Component {
         }
     }
 
+    onEditAdClick = () => {
+        this.props.editAd();
+    };
+
     render() {
         const {
             stilling, isFetchingStilling, isEditingAd
@@ -51,20 +56,25 @@ class Ad extends React.Component {
                         <div className="Ad__flex">
                             <div className="Ad__flex__center">
                                 <div className="Ad__flex__center__inner">
-                                    <div className="Ad__flex__center__inner__content">
-                                        <ValidationSummary />
-                                        {stilling.administration.status === AdminStatusEnum.PENDING ? (
-                                            <div>
-                                                {isEditingAd ? (
-                                                    <Edit />
-                                                ) : (
+                                    <ValidationSummary />
+                                    {stilling.administration.status === AdminStatusEnum.PENDING ? (
+                                        <div>
+                                            {isEditingAd ? (
+                                                <Edit />
+                                            ) : (
+                                                <div className="Ad__preview">
+                                                    <Knapp className="Ad__preview__edit-button" onClick={this.onEditAdClick}>
+                                                        Rediger annonsen
+                                                    </Knapp>
                                                     <Preview stilling={stilling} />
-                                                )}
-                                            </div>
-                                        ) : (
+                                                </div>
+                                            )}
+                                        </div>
+                                    ) : (
+                                        <div className="Ad__preview">
                                             <Preview stilling={stilling} />
-                                        )}
-                                    </div>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                             <div className="Ad__flex__right">
@@ -112,7 +122,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     getStilling: (uuid) => dispatch({ type: FETCH_AD, uuid }),
-    getNextAd: () => dispatch({ type: FETCH_NEXT_AD })
+    getNextAd: () => dispatch({ type: FETCH_NEXT_AD }),
+    editAd: () => dispatch({ type: EDIT_AD })
 });
 
 

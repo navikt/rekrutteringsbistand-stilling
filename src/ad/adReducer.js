@@ -73,7 +73,7 @@ const initialState = {
     isSavingAd: false,
     isFetchingStilling: false,
     validation: {},
-    isEditingAd: true,
+    isEditingAd: false,
     workPriority: {
         administrationStatus: AdminStatusEnum.RECEIVED
     }

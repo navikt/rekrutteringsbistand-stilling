@@ -1,6 +1,6 @@
 const AdStatusEnum = {
-    INACTIVE: 'Inaktiv',
-    ACTIVE: 'Aktiv',
+    INACTIVE: 'Ikke publisert',
+    ACTIVE: 'Publisert',
     DELETED: 'Slettet',
     STOPPED: 'Stoppet',
     REJECTED: 'Avvist'

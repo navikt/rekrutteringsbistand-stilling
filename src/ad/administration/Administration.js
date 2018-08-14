@@ -12,77 +12,45 @@ import CommentsPreview from './CommentsPreview';
 import AdminStatusPreview from './AdminStatusPreview';
 import AdminStatusEdit from './AdminStatusEdit';
 import './Administration.less';
-import { SAVE_AD, EDIT_AD, DISCARD_AD_CHANGES } from '../adReducer';
+import { FETCH_NEXT_AD } from '../adReducer';
 
 class Administration extends React.Component {
-    onSaveClick = () => {
-        this.props.saveAd();
-    };
-
-    onEditAdClick = () => {
-        this.props.editAd();
-    };
-
-    onDiscardAdChanges = (e) => {
-        e.preventDefault();
-        this.props.discardAdChanges();
+    onNextClick = () => {
+        this.props.getNextAd();
     };
 
     render() {
-        const {
-            adStatus, adminStatus, isEditingAd, validation, isSavingAd
-        } = this.props;
-        const hasErrors = Object.keys(validation).find((key) => (
-            validation[key] !== undefined
-        ));
-
+        const { adStatus, adminStatus } = this.props;
         return (
             <div className="Administration">
-                <AdminStatusPreview />
-                <div className="Administration__buttons">
-                    <AdminStatusEdit />
-                    {adminStatus === AdminStatusEnum.PENDING && (
-                        <div>
-                            {isEditingAd ? (
-                                <div>
-                                    <Knapp
-                                        spinner={isSavingAd}
-                                        className="AdminStatusEdit__button"
-                                        onClick={this.onSaveClick}
-                                        disabled={hasErrors && adStatus === AdStatusEnum.ACTIVE}
-                                    >
-                                        Lagre annonsen
-                                    </Knapp>
-                                    <a href="#" className="typo-normal lenke" onClick={this.onDiscardAdChanges}>
-                                        Avbryt endringer
-                                    </a>
-                                </div>
-                            ) : (
-                                <Knapp
-                                    className="AdminStatusEdit__button"
-                                    onClick={this.onEditAdClick}
-                                >
-                                    Rediger annonsen
-                                </Knapp>
-                            )}
-                        </div>
-                    )}
-                </div>
-
-                {adminStatus === AdminStatusEnum.PENDING ? (
-                    <div>
-                        <AdStatusEdit />
-                        {adStatus === AdStatusEnum.REJECTED && (
-                            <RemarksEdit />
+                <div className="Administration__flex">
+                    <div className="Administration__flex__top">
+                        {adminStatus === AdminStatusEnum.PENDING ? (
+                            <div>
+                                <AdStatusEdit />
+                                {adStatus === AdStatusEnum.REJECTED && (
+                                    <RemarksEdit />
+                                )}
+                                <CommentsEdit />
+                            </div>
+                        ) : (
+                            <div>
+                                <AdStatusPreview />
+                                <CommentsPreview />
+                            </div>
                         )}
-                        <CommentsEdit />
                     </div>
-                ) : (
-                    <div>
-                        <AdStatusPreview />
-                        <CommentsPreview />
+
+                    <div className="Administration__flex__bottom">
+                        <AdminStatusPreview />
+                        <div className="Administration__buttons">
+                            <AdminStatusEdit />
+                            <Knapp className="AdminStatusEdit__button" onClick={this.onNextClick}>
+                                Gå til neste annonse
+                            </Knapp>
+                        </div>
                     </div>
-                )}
+                </div>
             </div>
         );
     }
@@ -95,27 +63,16 @@ Administration.defaultProps = {
 Administration.propTypes = {
     adStatus: PropTypes.string.isRequired,
     adminStatus: PropTypes.string,
-    isEditingAd: PropTypes.bool.isRequired,
-    isSavingAd: PropTypes.bool.isRequired,
-    editAd: PropTypes.func.isRequired,
-    discardAdChanges: PropTypes.func.isRequired,
-    saveAd: PropTypes.func.isRequired,
-    validation: PropTypes.shape({}).isRequired
+    getNextAd: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
     adStatus: state.ad.data.status,
-    adminStatus: state.ad.data.administration.status,
-    adUuid: state.ad.data.uuid,
-    validation: state.ad.validation,
-    isSavingAd: state.ad.isSavingAd,
-    isEditingAd: state.ad.isEditingAd
+    adminStatus: state.ad.data.administration.status
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    editAd: () => dispatch({ type: EDIT_AD }),
-    discardAdChanges: () => dispatch({ type: DISCARD_AD_CHANGES }),
-    saveAd: () => dispatch({ type: SAVE_AD })
+    getNextAd: () => dispatch({ type: FETCH_NEXT_AD })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Administration);

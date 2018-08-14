@@ -1,15 +1,31 @@
 .Administration {
-  margin-bottom: 1rem;
-  padding-bottom: 1rem;
-  min-height: 285px;
+  height: 100%;
+}
+
+.Administration__flex {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.Administration__flex__top {
+  flex: auto;
+  overflow-y: auto;
+  padding: 2rem;
+}
+
+.Administration__flex__bottom {
+  overflow-y: auto;
+  padding: 2rem 2rem 2rem;
+  min-height: 20rem;
 }
 
 .AdminStatusPreview {
+  margin-top: 2rem;
   margin-bottom: 1rem;
 }
 
 .AdStatusEdit,
-.AdStatusPreview,
 .RemarksEdit{
   margin-bottom: 1rem;
 }
