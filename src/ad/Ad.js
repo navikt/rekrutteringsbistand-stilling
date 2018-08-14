@@ -1,44 +1,47 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Knapp } from 'nav-frontend-knapper';
 import Preview from './preview/Preview';
 import Administration from './administration/Administration';
-import Comments from './comments/Comments';
-import { DISCARD_AD_CHANGES, FETCH_AD, SAVE_AD, SHOW_AD_FORM } from './adReducer';
+import { FETCH_AD, FETCH_NEXT_AD } from './adReducer';
 import Error from './error/Error';
 import DelayedSpinner from '../common/DelayedSpinner';
 import './Ad.less';
 import Faded from '../common/faded/Faded';
-import { removeShortcuts } from '../common/shortcuts/Shortcuts';
 import Edit from './edit/Edit';
 import ValidationSummary from './validation/ValidationSummary';
+import AdminStatusEnum from './administration/AdminStatusEnum';
 
 class Ad extends React.Component {
     componentDidMount() {
         window.scrollTo(0, 0);
-        this.props.getStilling(this.props.match.params.uuid);
+        if (this.props.match.params.uuid) {
+            this.uuid = this.props.match.params.uuid;
+            this.props.getStilling(this.uuid);
+        } else {
+            this.props.getNextAd();
+        }
     }
 
-    componentWillUnmount() {
-        removeShortcuts('annonseDetaljer');
+    componentDidUpdate() {
+        if (this.props.match.params.uuid === undefined && this.props.stilling) {
+            // Skjer når man kommer rett til /ads uten uuid
+            this.uuid = this.props.stilling.uuid;
+            this.props.history.replace(`/ads/${this.uuid}`);
+        } else if (this.props.match.params.uuid && this.props.match.params.uuid !== this.uuid) {
+            // Skjer når man trykker tilbake i browser
+            this.uuid = this.props.match.params.uuid;
+            this.props.getStilling(this.uuid);
+        } else if (this.props.stilling && this.props.stilling.uuid !== this.uuid) {
+            // Skjer når man har trykket hent neste
+            this.uuid = this.props.stilling.uuid;
+            this.props.history.push(`/ads/${this.uuid}`);
+        }
     }
-
-    onShowAdFormClick = () => {
-        this.props.showAdForm();
-    };
-
-    onDiscardClick = () => {
-        this.props.discardAdChanges();
-    };
-
-    onSaveAdClick = () => {
-        this.props.saveAd();
-    };
 
     render() {
         const {
-            stilling, isFetchingStilling, shouldShowAdForm, isSavingAd
+            stilling, isFetchingStilling, isEditingAd
         } = this.props;
 
         return (
@@ -49,35 +52,15 @@ class Ad extends React.Component {
                             <div className="Ad__flex__center">
                                 <div className="Ad__flex__center__inner">
                                     <div className="Ad__flex__center__inner__content">
-                                        {shouldShowAdForm ? (
-                                            <div>
-                                                <Knapp
-                                                    className="Ad__hideAdFormButton"
-                                                    onClick={this.onSaveAdClick}
-                                                    spinner={isSavingAd}
-                                                >
-                                                    Lagre
-                                                </Knapp>
-                                                <Knapp
-                                                    className="Ad__hideAdFormButton"
-                                                    onClick={this.onDiscardClick}
-                                                >
-                                                    Avbryt
-                                                </Knapp>
-                                            </div>
-                                        ) : (
-                                            <div>
-                                                <Knapp
-                                                    className="Ad__showAdFormButton"
-                                                    onClick={this.onShowAdFormClick}
-                                                >
-                                                    Rediger
-                                                </Knapp>
-                                            </div>
-                                        )}
                                         <ValidationSummary />
-                                        {shouldShowAdForm ? (
-                                            <Edit />
+                                        {stilling.administration.status === AdminStatusEnum.PENDING ? (
+                                            <div>
+                                                {isEditingAd ? (
+                                                    <Edit />
+                                                ) : (
+                                                    <Preview stilling={stilling} />
+                                                )}
+                                            </div>
                                         ) : (
                                             <Preview stilling={stilling} />
                                         )}
@@ -87,7 +70,6 @@ class Ad extends React.Component {
                             <div className="Ad__flex__right">
                                 <div className="Ad__flex__right__inner">
                                     <Administration />
-                                    <Comments />
                                 </div>
                             </div>
                         </div>
@@ -117,26 +99,20 @@ Ad.propTypes = {
         }).isRequired
     }),
     getStilling: PropTypes.func.isRequired,
-    showAdForm: PropTypes.func.isRequired,
-    saveAd: PropTypes.func.isRequired,
-    discardAdChanges: PropTypes.func.isRequired,
-    shouldShowAdForm: PropTypes.bool.isRequired,
-    isFetchingStilling: PropTypes.bool,
-    isSavingAd: PropTypes.bool.isRequired
+    getNextAd: PropTypes.func.isRequired,
+    isEditingAd: PropTypes.bool.isRequired,
+    isFetchingStilling: PropTypes.bool
 };
 
 const mapStateToProps = (state) => ({
     isFetchingStilling: state.ad.isFetchingStilling,
     stilling: state.ad.data,
-    shouldShowAdForm: state.ad.shouldShowAdForm,
-    isSavingAd: state.ad.isSavingAd
+    isEditingAd: state.ad.isEditingAd
 });
 
 const mapDispatchToProps = (dispatch) => ({
     getStilling: (uuid) => dispatch({ type: FETCH_AD, uuid }),
-    showAdForm: () => dispatch({ type: SHOW_AD_FORM }),
-    discardAdChanges: () => dispatch({ type: DISCARD_AD_CHANGES }),
-    saveAd: () => dispatch({ type: SAVE_AD })
+    getNextAd: () => dispatch({ type: FETCH_NEXT_AD })
 });
 
 

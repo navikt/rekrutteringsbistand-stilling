@@ -5,6 +5,7 @@ import { AD_API } from '../fasitProperties';
 import AdminStatusEnum from './administration/AdminStatusEnum';
 import { lookUpPostalCodes } from './edit/postalCode/postalCodeReducer';
 import { hasExcludingWordsInTitle } from './preview/markWords';
+import { toQuery, toUrl } from "../searchPage/searchReducer";
 
 export const FETCH_AD = 'FETCH_AD';
 export const FETCH_AD_BEGIN = 'FETCH_AD_BEGIN';
@@ -44,6 +45,7 @@ export const SET_SOURCEURL = 'SET_SOURCEURL';
 export const SET_EMPLOYER = 'SET_EMPLOYER';
 export const SET_EMPLOYERDESCRIPTION = 'SET_EMPLOYERDESCRIPTION';
 
+export const SET_PUBLISHED = 'SET_PUBLISHED';
 export const SET_LAST_UPDATED = 'SET_LAST_UPDATED';
 export const SET_MEDIUM = 'SET_MEDIUM';
 export const SET_ID = 'SET_ID';
@@ -57,20 +59,19 @@ export const SET_ADMIN_STATUS = 'SET_ADMIN_STATUS';
 export const ADD_REMARK = 'ADD_REMARK';
 export const REMOVE_REMARK = 'REMOVE_REMARK';
 
-export const SHOW_AD_FORM = 'SHOW_AD_FORM';
-export const HIDE_AD_FORM = 'HIDE_AD_FORM';
+export const EDIT_AD = 'EDIT_AD';
 export const DISCARD_AD_CHANGES = 'DISCARD_AD_CHANGES';
 export const SET_AD_TITLE = 'SET_AD_TITLE';
 
 const query = '?administrationStatus=RECEIVED&size=1';
 
 const initialState = {
-    shouldShowAdForm: false,
     data: undefined,
     error: undefined,
     isSavingAd: false,
     isFetchingStilling: false,
-    validation: {}
+    validation: {},
+    isEditingAd: false
 };
 
 function validateTitle(title, employer) {
@@ -78,9 +79,15 @@ function validateTitle(title, employer) {
 }
 
 function validateLocation(location) {
-    if (location === null || location === undefined ||
-        location.postalCode === null || location.postalCode === undefined) {
-        return 'Postnummer mangler';
+    if (location === null ||
+        location === undefined ||
+        location.postalCode === null ||
+        location.postalCode === undefined ||
+        location.postalCode.length === 0) {
+        return 'Geografisk plassering av stillingen mangler';
+    }
+    if (location.postalCode.length !== 4) {
+        return 'Geografisk plassering har ugyldig postnummer';
     }
     return undefined;
 }
@@ -117,7 +124,7 @@ export default function adReducer(state = initialState, action) {
                 data: action.response,
                 originalData: { ...action.response },
                 isFetchingStilling: false,
-                shouldShowAdForm: false,
+                isEditingAd: false,
                 validation: validateAll(action.response)
             };
         case FETCH_AD_FAILURE:
@@ -137,7 +144,7 @@ export default function adReducer(state = initialState, action) {
                 data: action.response,
                 originalData: { ...action.response },
                 isSavingAd: false,
-                shouldShowAdForm: false,
+                isEditingAd: false,
                 validation: validateAll(action.response)
             };
         case SAVE_AD_FAILURE:
@@ -146,22 +153,17 @@ export default function adReducer(state = initialState, action) {
                 isSavingAd: false,
                 error: action.error
             };
-        case SHOW_AD_FORM:
+        case EDIT_AD:
             return {
                 ...state,
-                shouldShowAdForm: true
-            };
-        case HIDE_AD_FORM:
-            return {
-                ...state,
-                shouldShowAdForm: false
+                isEditingAd: true
             };
         case DISCARD_AD_CHANGES:
             return {
                 ...state,
                 data: { ...state.originalData },
                 validation: validateAll(state.originalData),
-                shouldShowAdForm: false
+                isEditingAd: false
             };
         case SET_COMMENT: {
             return {
@@ -179,7 +181,7 @@ export default function adReducer(state = initialState, action) {
             if (state.data.categoryList.find((s) => (s.code === action.code))) {
                 return state;
             }
-            const categoryListAdd = [...state.data.categoryList, lookUpStyrk(action.code)]
+            const categoryListAdd = [...state.data.categoryList, lookUpStyrk(action.code)];
             return {
                 ...state,
                 data: {
@@ -254,7 +256,7 @@ export default function adReducer(state = initialState, action) {
                 },
                 validation: {
                     ...state.validation,
-                    location: 'Ugyldig postnummer'
+                    location: 'Geografisk plassering har ugyldig postnummer'
                 }
             };
 
@@ -298,7 +300,7 @@ export default function adReducer(state = initialState, action) {
                     ...state.data,
                     properties: {
                         ...state.data.properties,
-                        engagementtype: action.engagementtype
+                        engagementtype: action.engagementType
                     }
                 }
             };
@@ -453,6 +455,14 @@ export default function adReducer(state = initialState, action) {
                     updated: action.updated
                 }
             };
+        case SET_PUBLISHED:
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    published: action.published
+                }
+            };
         case SET_MEDIUM:
             return {
                 ...state,
@@ -547,16 +557,6 @@ function* getAd(action) {
     yield put({ type: FETCH_AD_BEGIN });
     try {
         let response = yield fetchGet(`${AD_API}ads/${action.uuid}`);
-        if (!response.administration) { // TODO: Be backend om at administration dataene alltid er definert
-            response = {
-                ...response,
-                administration: {
-                    status: AdminStatusEnum.PENDING,
-                    remarks: [],
-                    comments: ''
-                }
-            };
-        }
         yield put({ type: FETCH_AD_SUCCESS, response });
     } catch (e) {
         if (e instanceof ApiError) {
@@ -569,27 +569,37 @@ function* getAd(action) {
 
 function* getNextAd() {
     yield put({ type: FETCH_AD_BEGIN });
-    try {
-        const response = yield fetchGet(`${AD_API}ads/${query}`);
-        let nextAd = response.content[0];
-        if (!nextAd.administration) { // TODO: Be backend om at administration dataene alltid er definert
-            nextAd = {
-                ...nextAd,
-                administration: {
-                    status: AdminStatusEnum.PENDING,
-                    remarks: [],
-                    comments: ''
-                }
-            };
+    const state = yield select();
+    const queryString = toUrl({ ...toQuery(state), size: 1 });
+    let wasAbleToAssign = false;
+    let ad;
+    while (!wasAbleToAssign) {
+        try {
+            const responseList = yield fetchGet(`${AD_API}ads/${queryString}`);
+            ad = responseList.content[0];
+        } catch (e) {
+            if (e instanceof ApiError) {
+                yield put({ type: FETCH_AD_FAILURE, error: e });
+            } else {
+                throw e;
+            }
         }
-        yield put({ type: FETCH_AD_SUCCESS, response: nextAd });
-        const status = AdminStatusEnum.PENDING;
-        yield put({ type: SET_ADMIN_STATUS, status });
-    } catch (e) {
-        if (e instanceof ApiError) {
-            yield put({ type: FETCH_AD_FAILURE, error: e });
-        } else {
-            throw e;
+        try {
+            const responsePut = yield fetchPut(`${AD_API}ads/${ad.uuid}`, {
+                ...ad,
+                administration: {
+                    ...ad.administration,
+                    status: AdminStatusEnum.PENDING
+                }
+            });
+            wasAbleToAssign = true;
+            yield put({ type: FETCH_AD_SUCCESS, response: responsePut });
+        } catch (e) {
+            if (e instanceof ApiError && e.statusCode === 412) {
+                wasAbleToAssign = false;
+            } else {
+                throw e;
+            }
         }
     }
 }

@@ -14,21 +14,34 @@ export function toDate(isoString) {
     return new Date(isoString);
 }
 
-export function formatISOString(isoString, format = 'MMMM YYYY') {
+export function formatISOString(isoString, format = 'D. MMMM YYYY') {
     if (isValidISOString(isoString)) {
-        const dt = isoString.split('-');
-        if (format === 'D. MMMM YYYY') {
-            const day = dt[2].split('T')[0];
-            return `${day}.${dt[1]}.${dt[0]}`;
-        } else if (format === 'MMMM YYYY') {
-            return `${months[dt[1] - 1]} ${dt[0]}`;
-        } else if (format === 'DD.MMM') {
-            const day = dt[2].split('T')[0];
-            return `${day}. ${months[dt[1] - 1].substring(0, 3)}.`;
+        try {
+            const dt = isoString.split('-');
+            const year = dt[0];
+            const month = dt[1];
+            const monthName = months[month - 1];
+            const dayAndTime = dt[2].split('T');
+            const day = dayAndTime[0];
+            const dayWithoutZero = day.substring(0, 1) === '0' ? day.substring(1) : day;
+            const time = dayAndTime[1].split(':');
+            const hours = time[0];
+            const mins = time[1];
+            if (format === 'D. MMMM YYYY') {
+                return `${dayWithoutZero}. ${monthName} ${year}`;
+            } else if (format === 'D. MMMM HH:MM') {
+                return `${dayWithoutZero}. ${monthName} ${hours}:${mins}`;
+            } else if (format === 'D. MMMM YYYY HH:MM') {
+                return `${dayWithoutZero}. ${monthName} ${year} ${hours}:${mins}`;
+            } else if (format === 'DD.MM.YY HH:MM') {
+                return `${day}.${month}.${year} ${hours}:${mins}`;
+            }
+            return isoString;
+        } catch (e) {
+            return isoString;
         }
-        throw Error(`Unknown date format: ${format}`);
     }
-    return '';
+    return isoString;
 }
 
 export default toDate;

@@ -1,34 +1,31 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import { Sidetittel } from 'nav-frontend-typografi';
 import { Column, Container, Row } from 'nav-frontend-grid';
-import { Sidetittel, Systemtittel } from 'nav-frontend-typografi';
 import './StartPage.less';
-import Menu from './menu/Menu';
-import { removeShortcuts } from '../common/shortcuts/Shortcuts';
-
+import SearchBox from '../searchPage/searchBox/SearchBox';
 
 class StartPage extends React.Component {
-    componentWillUnmount() {
-        removeShortcuts('forside');
-    }
+    onSearch = () => {
+        this.props.history.push('/search');
+    };
 
     render() {
         return (
             <Container className="StartPage">
-                <Row className="StartPage__settings blokk-m">
-                    <Link className="StartPage__settings__link" to="nav.no">
-                        <Systemtittel>
-                            <i>⚙</i>
-                            Innstillinger
-                        </Systemtittel>
-                    </Link>
-                </Row>
                 <Row>
-                    <Sidetittel className="blokk-s">Annonsemottak</Sidetittel>
-                    <Menu history={this.props.history}/>
+                    <Column xs="12" md="4" />
+                    <Column xs="12" md="4">
+                        <Sidetittel className="StartPage__sidetittel">Annonsemottak</Sidetittel>
+                        <SearchBox onSearch={this.onSearch} />
+                        <Link to="/ads" className="knapp knapp--hoved StartPage__button">
+                            Start med neste ledige annonse
+                        </Link>
+                    </Column>
                 </Row>
             </Container>
         );
     }
 }
-export default StartPage;
+
+export default withRouter(StartPage);

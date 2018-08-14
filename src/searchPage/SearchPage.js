@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Container } from 'nav-frontend-grid';
-import { Innholdstittel } from 'nav-frontend-typografi';
-import SearchBox from '../common/searchBox/SearchBox';
+import SearchBox from './searchBox/SearchBox';
 import SearchResultHeaders from './searchResult/SearchResultHeaders';
 import SearchResultItem from './searchResult/SearchResultItem';
 import SearchResultCount from './searchResult/SearchResultCount';
@@ -16,9 +16,7 @@ import './SearchPage.less';
 
 class SearchPage extends React.Component {
     componentDidMount() {
-        if (this.props.ads.length === 0) {
-            this.props.getAds();
-        }
+        this.props.getAds();
     }
 
     render() {
@@ -34,17 +32,19 @@ class SearchPage extends React.Component {
                     </div>
                     <div className="SearchPage__flex__right">
                         <div className="SearchPage__flex__right__inner">
-                            <Innholdstittel className="blokk-m">Søkeresultat</Innholdstittel>
-                            <div className="SearchBox__wrapper blokk-xs">
-                                <SearchBox
-                                    label=""
-                                    placeholder="Skriv inn søk..."
-                                />
+                            <div className="SearchBox__wrapper">
+                                <SearchBox />
+                            </div>
+                            <div className="SearchPage__button__right">
+                                <Link
+                                    className="knapp"
+                                    to={`/ads/${adsFound ? ads[0].uuid : ''}`}
+                                >
+                                    Start behandling
+                                </Link>
                             </div>
 
-                            {adsFound && (
-                                <SearchResultCount />
-                            )}
+                            <SearchResultCount />
                             <SearchResultHeaders />
                             {isSearching && (
                                 <Loading />

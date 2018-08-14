@@ -1,10 +1,7 @@
 import { put, takeLatest, select } from 'redux-saga/effects';
 import { fetchGet, ApiError } from '../api/api';
 import { AD_API } from '../fasitProperties';
-import {
-    CHANGE_SEARCH_TITLE, CHANGE_SEARCH_EMPLOYER, CHANGE_SOURCE_FILTER,
-    CHANGE_STATUS_FILTER, CHANGE_SEARCH_ID
-} from './filter/filterReducer';
+import AdminStatusEnum from "../ad/administration/AdminStatusEnum";
 
 export const FETCH_ADS = 'FETCH_ADS';
 export const FETCH_ADS_BEGIN = 'FETCH_ADS_BEGIN';
@@ -13,20 +10,67 @@ export const FETCH_ADS_FAILURE = 'FETCH_ADS_FAILURE';
 export const CHANGE_SORTING = 'CHANGE_SORTING';
 export const CHANGE_PAGE = 'CHANGE_PAGE';
 export const RESET_PAGE = 'RESET_PAGE';
+export const SET_SEARCH_VALUE = 'SET_SEARCH_VALUE';
+export const SET_SEARCH_FIELD = 'SET_SEARCH_FIELD';
+export const CHANGE_SOURCE_FILTER = 'CHANGE_SOURCE_FILTER';
+export const CHANGE_STATUS_FILTER = 'CHANGE_STATUS_FILTER';
+export const CHANGE_ADMINISTRATION_STATUS_FILTER = 'CHANGE_ADMINISTRATION_STATUS_FILTER';
+
+export const Fields = {
+    EMPLOYER_NAME: 'employerName',
+    TITLE: 'title',
+    ID: 'id'
+};
 
 const initialState = {
     items: [],
     error: undefined,
     isSearching: false,
-    sortField: 'id',
+    sortField: 'created',
     sortDir: 'asc',
     totalElements: 0,
     totalPages: 0,
-    page: 0
+    page: 0,
+    value: '',
+    field: undefined,
+    suggestions: [],
+    source: undefined,
+    status: undefined,
+    administrationStatus: undefined
 };
 
 export default function searchReducer(state = initialState, action) {
     switch (action.type) {
+        case SET_SEARCH_VALUE:
+            return {
+                ...state,
+                value: action.value,
+                suggestions: action.value.length === 0 ? [] : [
+                    { label: `Søk på "${action.value}" i arbeidsgiver`, value: Fields.EMPLOYER_NAME },
+                    { label: `Søk på "${action.value}" i annonseoverskrift`, value: Fields.TITLE },
+                    { label: `Søk på "${action.value}" i ID`, value: Fields.ID }
+                ]
+            };
+        case SET_SEARCH_FIELD:
+            return {
+                ...state,
+                field: action.field
+            };
+        case CHANGE_SOURCE_FILTER:
+            return {
+                ...state,
+                source: action.value
+            };
+        case CHANGE_STATUS_FILTER:
+            return {
+                ...state,
+                status: action.value
+            };
+        case CHANGE_ADMINISTRATION_STATUS_FILTER:
+            return {
+                ...state,
+                administrationStatus: action.value
+            };
         case FETCH_ADS_BEGIN:
             return {
                 ...state,
@@ -51,7 +95,7 @@ export default function searchReducer(state = initialState, action) {
             return {
                 ...state,
                 sortField: action.field,
-                sortDir: action.dir,
+                sortDir: action.dir
             };
         case CHANGE_PAGE:
             return {
@@ -73,7 +117,7 @@ export default function searchReducer(state = initialState, action) {
  * @param query: f.ex: {q: "Java", fruits: ["Apple", "Banana"], count: 10}
  * @returns {string} f.ex: q=Java&names=Apple_Banana&count=10
  */
-const toUrl = (query) => {
+export const toUrl = (query) => {
     let result = {};
 
     Object.keys(query).forEach((key) => {
@@ -97,6 +141,22 @@ const toUrl = (query) => {
     return urlQuery && urlQuery.length > 0 ? `?${urlQuery}` : '';
 };
 
+export function toQuery(state) {
+    const { search } = state;
+    const {
+        sortField, sortDir, page, source, status, administrationStatus
+    } = search;
+    const query = {
+        source,
+        status,
+        sort: `${sortField},${sortDir}`,
+        page,
+        administrationStatus
+    };
+    query[search.field] = search.value;
+    return query;
+}
+
 function* getAds(action) {
     try {
         if (action.type !== CHANGE_PAGE) {
@@ -105,14 +165,7 @@ function* getAds(action) {
         yield put({ type: FETCH_ADS_BEGIN });
 
         const state = yield select();
-
-        const { filter } = state;
-        const { sortField, sortDir, page } = state.search;
-        const query = {
-            ...filter,
-            sort: `${sortField},${sortDir}`,
-            page
-        };
+        const query = toQuery(state);
         const searchUrl = toUrl(query);
         const url = `${AD_API}ads/${searchUrl}`;
 
@@ -129,12 +182,13 @@ function* getAds(action) {
 
 
 export const searchSaga = function* saga() {
-    yield takeLatest([CHANGE_SOURCE_FILTER,
+    yield takeLatest([
+        CHANGE_SOURCE_FILTER,
         CHANGE_STATUS_FILTER,
-        CHANGE_SEARCH_EMPLOYER,
-        CHANGE_SEARCH_TITLE,
-        CHANGE_SEARCH_ID,
+        CHANGE_ADMINISTRATION_STATUS_FILTER,
+        SET_SEARCH_FIELD,
         CHANGE_SORTING,
         CHANGE_PAGE,
-        FETCH_ADS], getAds);
+        FETCH_ADS
+    ], getAds);
 };
