@@ -11,7 +11,7 @@ import Faded from '../common/faded/Faded';
 import Edit from './edit/Edit';
 import ValidationSummary from './validation/ValidationSummary';
 import AdminStatusEnum from './administration/AdminStatusEnum';
-import { Knapp } from "nav-frontend-knapper";
+import { Knapp } from 'nav-frontend-knapper';
 
 class Ad extends React.Component {
     componentDidMount() {
@@ -56,13 +56,19 @@ class Ad extends React.Component {
                         <div className="Ad__flex">
                             <div className="Ad__flex__center">
                                 <div className="Ad__flex__center__inner">
-                                    <ValidationSummary />
+
                                     {stilling.administration.status === AdminStatusEnum.PENDING ? (
                                         <div>
                                             {isEditingAd ? (
-                                                <Edit />
+                                                <div className="Ad__edit" >
+                                                    <div className="Ad__edit__inner" >
+                                                        <ValidationSummary />
+                                                        <Edit />
+                                                    </div>
+                                                </div>
                                             ) : (
                                                 <div className="Ad__preview">
+                                                    <ValidationSummary />
                                                     <Knapp className="Ad__preview__edit-button" onClick={this.onEditAdClick}>
                                                         Rediger annonsen
                                                     </Knapp>
@@ -72,6 +78,7 @@ class Ad extends React.Component {
                                         </div>
                                     ) : (
                                         <div className="Ad__preview">
+                                            <ValidationSummary />
                                             <Preview stilling={stilling} />
                                         </div>
                                     )}
