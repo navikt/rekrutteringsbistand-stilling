@@ -1,4 +1,5 @@
-import {redirectToLogin} from "../login";
+import { redirectToLogin } from '../login';
+import { SEARCH_API } from '../fasitProperties';
 
 export class ApiError {
     constructor(message, statusCode) {
@@ -16,12 +17,11 @@ async function request(url, options) {
     }
 
     if (response.status !== 200) {
-       if ( response.status === 401 ) {
-           redirectToLogin();
-       }
-       else {
-           throw new ApiError(response.statusText, response.status);
-       }
+        if (response.status === 401) {
+            redirectToLogin();
+        } else {
+            throw new ApiError(response.statusText, response.status);
+        }
     }
     return response.json();
 }
@@ -31,7 +31,7 @@ export async function fetchGet(url) {
         method: 'GET',
         credentials: 'include',
         headers: {
-            'X-Requested-With' : 'XMLHttpRequest'
+            'X-Requested-With': 'XMLHttpRequest'
         }
     });
 }
@@ -43,7 +43,7 @@ export async function fetchPost(url, body) {
         credentials: 'include',
         headers: {
             'Content-Type': 'application/json',
-            'X-Requested-With' : 'XMLHttpRequest'
+            'X-Requested-With': 'XMLHttpRequest'
         }
     });
 
@@ -56,7 +56,47 @@ export async function fetchPut(url, body) {
         credentials: 'include',
         headers: {
             'Content-Type': 'application/json',
-            'X-Requested-With' : 'XMLHttpRequest'
+            'X-Requested-With': 'XMLHttpRequest'
         }
     });
+}
+
+const suggestionsTemplate = (match) => ({
+    suggest: {
+        navn_suggest: {
+            prefix: match,
+            completion: {
+                field: 'navn_suggest',
+                size: 10
+            }
+        }
+    }
+});
+
+export async function fetchEmployerSuggestions(match) {
+    const result = await fetchPost(`${SEARCH_API}underenhet/_search`, suggestionsTemplate(match));
+
+    return {
+        match,
+        result: [
+            ...result.suggest.navn_suggest[0].options.map((suggestion) => ({
+                name: suggestion._source.navn,
+                orgnr: suggestion._source.organisasjonsnummer
+            })).sort()
+        ]
+    };
+}
+
+export async function fetchOrgnrSuggestions(match) {
+    const result = await fetchGet(`${SEARCH_API}underenhet/_search?q=organisasjonsnummer:${match}*`);
+
+    return {
+        match,
+        result: [
+            ...result.hits.hits.map((employer) => ({
+                name: employer._source.navn,
+                orgnr: employer._source.organisasjonsnummer
+            })).sort()
+        ]
+    };
 }

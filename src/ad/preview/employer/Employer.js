@@ -3,26 +3,31 @@ import PropTypes from 'prop-types';
 import { Element } from 'nav-frontend-typografi';
 import './Employer.less';
 
-
-export default function EmployerDetails({ properties }) {
+export default function Employer({ properties, employer }) {
     return (
         <div className="detail-section">
             <Element className="detail-section__head">Om arbeidsgiver</Element>
             <dl className="dl-flex typo-normal">
-                {properties.employer && [
+                {employer && employer.name && [
                     <dt key="dt">Arbeidsgiver:</dt>,
-                    <dd key="dd">{properties.employer}</dd>
+                    <dd key="dd">{employer.name}</dd>
                 ]}
             </dl>
         </div>
     );
 }
 
-EmployerDetails.propTypes = {
+Employer.defaultProps = {
+    employer: null
+};
+
+Employer.propTypes = {
     properties: PropTypes.shape({
         employer: PropTypes.string,
         address: PropTypes.string,
         employerdescription: PropTypes.string
-    }).isRequired
+    }).isRequired,
+    employer: PropTypes.shape({
+        name: PropTypes.string
+    })
 };
-

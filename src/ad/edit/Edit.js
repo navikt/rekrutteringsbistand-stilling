@@ -19,6 +19,7 @@ import {
     SET_LOCATION_ADDRESS, SET_MEDIUM, SET_PUBLISHED, SET_REFERENCE, SET_SOURCEURL
 } from '../adReducer';
 import PostalCode from './postalCode/PostalCode';
+import Employer from './employer/Employer';
 import './Edit.less';
 import Styrk from './styrk/Styrk';
 import EngagementType from './engagementType/EngagementType';
@@ -230,12 +231,7 @@ class Edit extends React.Component {
 
                         <Ekspanderbartpanel className="Edit__panel" tittel="Om arbeidsgiver" tittelProps="undertittel"
                                             apen>
-                            <Input
-                                label="Arbeidsgiver"
-                                value={ad.properties.employer || ''}
-                                onChange={this.onEmployerChange}
-                                className="typo-normal"
-                            />
+                            <Employer />
                         </Ekspanderbartpanel>
 
                         <Ekspanderbartpanel className="Edit__panel" tittel="Søknad" tittelProps="undertittel" apen>
