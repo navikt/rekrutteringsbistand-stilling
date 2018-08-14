@@ -3,15 +3,35 @@ import PropTypes from 'prop-types';
 import { Element } from 'nav-frontend-typografi';
 import './Employer.less';
 
-export default function Employer({ properties, employer }) {
+export default function Employer({ employer }) {
+    if (!employer) {
+        return null;
+    }
+    const { location } = employer;
     return (
         <div className="detail-section">
             <Element className="detail-section__head">Om arbeidsgiver</Element>
             <dl className="dl-flex typo-normal">
-                {employer && employer.name && [
+                {employer.name && [
                     <dt key="dt">Arbeidsgiver:</dt>,
                     <dd key="dd">{employer.name}</dd>
                 ]}
+                {location && location.address && [
+                    <dt key="dt">Gateadresse:</dt>,
+                    <dd key="dd">{location.address}</dd>]
+                }
+                {location && location.postalCode && [
+                    <dt key="dt">Poststed:</dt>,
+                    <dd key="dd">{location.postalCode} {location.city}</dd>]
+                }
+                {location && location.municipal && [
+                    <dt key="dt">Kommune:</dt>,
+                    <dd key="dd">{location.municipal}</dd>]
+                }
+                {location && location.county && [
+                    <dt key="dt">Fylke:</dt>,
+                    <dd key="dd">{location.county}</dd>]
+                }
             </dl>
         </div>
     );
@@ -22,12 +42,14 @@ Employer.defaultProps = {
 };
 
 Employer.propTypes = {
-    properties: PropTypes.shape({
-        employer: PropTypes.string,
-        address: PropTypes.string,
-        employerdescription: PropTypes.string
-    }).isRequired,
     employer: PropTypes.shape({
-        name: PropTypes.string
+        name: PropTypes.string,
+        location: PropTypes.shape({
+            address: PropTypes.string,
+            postalCode: PropTypes.string,
+            city: PropTypes.string,
+            municipal: PropTypes.string,
+            county: PropTypes.string
+        })
     })
 };

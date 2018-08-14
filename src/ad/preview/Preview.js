@@ -54,7 +54,7 @@ export default function Preview({ stilling }) {
                             properties={stilling.properties}
                         />
                         <Employment properties={stilling.properties} />
-                        <Employer properties={stilling.properties} employer={stilling.employer} />
+                        <Employer employer={stilling.employer} />
                         <Summary stilling={stilling} />
                     </div>
                 </Column>
