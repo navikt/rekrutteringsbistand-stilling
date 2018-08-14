@@ -5,6 +5,7 @@ import { Normaltekst } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
 import { formatISOString } from '../../utils';
 import AdStatusEnum from '../enums/AdStatusEnum';
+import AdminStatusEnum from '../enums/AdminStatusEnum';
 import './SearchResult.less';
 
 export default class SearchResultItem extends React.Component {
@@ -13,12 +14,12 @@ export default class SearchResultItem extends React.Component {
         const { properties } = ad;
         return (
             <Row className="SearchResultItem">
-                <Column md="1">
+                <Column md="2">
                     <Normaltekst className="SearchResultItem__column">
-                        {ad.id ? ad.id : ''}
+                        {ad.created ? formatISOString(ad.created, 'D. MMMM YYYY HH:MM') : ''}
                     </Normaltekst>
                 </Column>
-                <Column md="3">
+                <Column md="4">
                     <div className="SearchResultItem__column">
                         <Link
                             className="typo-normal lenke"
@@ -28,12 +29,7 @@ export default class SearchResultItem extends React.Component {
                         </Link>
                     </div>
                 </Column>
-                <Column md="2">
-                    <Normaltekst className="SearchResultItem__column">
-                        {properties.jobtitle ? properties.jobtitle : ''}
-                    </Normaltekst>
-                </Column>
-                <Column md="2">
+                <Column md="3">
                     <Normaltekst className="SearchResultItem__column">
                         {ad.employer && ad.employer.name ? ad.employer.name : ''}
                     </Normaltekst>
@@ -43,14 +39,14 @@ export default class SearchResultItem extends React.Component {
                         {ad.source ? ad.source : ''}
                     </Normaltekst>
                 </Column>
-                <Column md="2">
+                <Column md="1">
                     <Normaltekst className="SearchResultItem__column">
-                        {ad.published ? formatISOString(ad.published, 'D. MMMM YYYY') : ''}
+                        {ad.status ? AdStatusEnum[ad.status] : ''}
                     </Normaltekst>
                 </Column>
                 <Column md="1">
                     <Normaltekst className="SearchResultItem__column">
-                        {ad.status ? AdStatusEnum[ad.status] : ''}
+                        {ad.administration && ad.administration.status ? AdminStatusEnum[ad.administration.status] : ''}
                     </Normaltekst>
                 </Column>
             </Row>

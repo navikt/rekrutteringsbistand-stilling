@@ -17,6 +17,7 @@ import './variables.less';
 import StartPage from './startPage/StartPage';
 import SearchPage from './searchPage/SearchPage';
 import reporteeReducer, { reporteeSaga } from './reportee/reporteeReducer';
+import engagementTypeReducer from "./ad/edit/engagementType/engagementTypeReducer";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -24,6 +25,7 @@ const store = createStore(combineReducers({
     ad: adReducer,
     employer: employerReducer,
     postalCode: postalCodeReducer,
+    engagementType: engagementTypeReducer,
     styrk: styrkReducer,
     reportee: reporteeReducer,
     search: searchReducer
@@ -43,6 +45,7 @@ const Main = () => (
         <Switch>
             <Route exact path="/" component={StartPage} />
             <Route exact path="/search" component={SearchPage} />
+            <Route exact path="/ads" component={Ad} />
             <Route exact path="/ads/:uuid" component={Ad} />
             <Route exact path="*" component={StartPage} />
         </Switch>

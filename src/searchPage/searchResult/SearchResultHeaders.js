@@ -28,25 +28,19 @@ class SearchResultHeaders extends React.Component {
 
         return (
             <Row className="SearchResultHeaders">
-                <Column md="1" onClick={() => this.onSortClick('id')}>
+                <Column md="2" onClick={() => this.onSortClick('created')}>
                     <Element>
-                        ID
-                        <i className={sortField === 'id' ? className : 'SearchResultHeader--unsorted'}/>
+                        Mottatt
+                        <i className={sortField === 'created' ? className : 'SearchResultHeader--unsorted'} />
                     </Element>
                 </Column>
-                <Column md="3" onClick={() => this.onSortClick('title')}>
+                <Column md="4" onClick={() => this.onSortClick('title')}>
                     <Element>
                         Annonseoverskrift
                         <i className={sortField === 'title' ? className : 'SearchResultHeader--unsorted'} />
                     </Element>
                 </Column>
-                <Column md="2">
-                    {/* sorting on properties.jobtitle is not supported from backend */}
-                    <Element>
-                        Stillingstittel
-                    </Element>
-                </Column>
-                <Column md="2" onClick={() => this.onSortClick('employerName')}>
+                <Column md="3" onClick={() => this.onSortClick('employerName')}>
                     <Element>
                         Arbeidsgiver
                         <i className={sortField === 'employerName' ? className : 'SearchResultHeader--unsorted'} />
@@ -58,16 +52,16 @@ class SearchResultHeaders extends React.Component {
                         <i className={sortField === 'source' ? className : 'SearchResultHeader--unsorted'} />
                     </Element>
                 </Column>
-                <Column md="2" onClick={() => this.onSortClick('published')}>
-                    <Element>
-                        Publiseringsdato
-                        <i className={sortField === 'published' ? className : 'SearchResultHeader--unsorted'} />
-                    </Element>
-                </Column>
                 <Column md="1" onClick={() => this.onSortClick('status')}>
                     <Element>
                         Status
                         <i className={sortField === 'status' ? className : 'SearchResultHeader--unsorted'} />
+                    </Element>
+                </Column>
+                <Column md="1" onClick={() => this.onSortClick('id')}>
+                    <Element>
+                        Admin
+                        <i className={sortField === 'id' ? className : 'SearchResultHeader--unsorted'}/>
                     </Element>
                 </Column>
             </Row>

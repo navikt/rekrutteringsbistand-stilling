@@ -1,15 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Undertittel } from 'nav-frontend-typografi';
+import { Normaltekst } from 'nav-frontend-typografi';
 import { Fields } from '../searchReducer';
 
 function SearchResultCount({ count, field, isSearching }) {
     if (isSearching) {
         return (
-            <Undertittel className="blokk-xs">
+            <Normaltekst className="blokk-s">
                 &nbsp;
-            </Undertittel>
+            </Normaltekst>
         );
     }
 
@@ -23,9 +23,9 @@ function SearchResultCount({ count, field, isSearching }) {
     }
     return (
         <div>
-            <Undertittel className="blokk-xs">
-                {`${count} treff`} {fieldName}
-            </Undertittel>
+            <Normaltekst className="blokk-s">
+               Søket ga <b>{`${count} treff`}</b> {fieldName}
+            </Normaltekst>
         </div>
     );
 }

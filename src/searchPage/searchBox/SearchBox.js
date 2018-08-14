@@ -44,11 +44,11 @@ SearchBox.propTypes = {
     value: PropTypes.string.isRequired,
     setSearchField: PropTypes.func.isRequired,
     setSearchValue: PropTypes.func.isRequired,
+    onSearch: PropTypes.func,
     suggestions: PropTypes.arrayOf(PropTypes.shape({
         label: PropTypes.string,
         value: PropTypes.string
-    })).isRequired,
-    onSearch: PropTypes.func
+    })).isRequired
 };
 
 const mapDispatchToProps = (dispatch) => ({

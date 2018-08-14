@@ -7,10 +7,6 @@ import AdminStatusEnum from './AdminStatusEnum';
 import AdStatusEnum from './AdStatusEnum';
 
 class AdminStatusEdit extends React.Component {
-    onSaveClick = () => {
-        this.props.saveAd();
-    };
-
     onNextClick = () => {
         this.props.getNextAd();
     };
@@ -27,7 +23,7 @@ class AdminStatusEdit extends React.Component {
 
     render() {
         const {
-            adminStatus, adStatus, isSavingAd, validation
+            adminStatus, adStatus, validation
         } = this.props;
 
         const hasErrors = Object.keys(validation).find((key) => (
@@ -41,7 +37,7 @@ class AdminStatusEdit extends React.Component {
                             Start saksbehandling
                         </Hovedknapp>
                         <Knapp className="AdminStatusEdit__button" onClick={this.onNextClick}>
-                            Hent ny annonse
+                            Gå til neste annonse
                         </Knapp>
                     </div>
                 )}
@@ -52,22 +48,14 @@ class AdminStatusEdit extends React.Component {
                             onClick={this.onSetToDoneClick}
                             disabled={hasErrors && adStatus === AdStatusEnum.ACTIVE}
                         >
-                            Lagre og avslutt saksbehandling
+                            Avslutt saksbehandling
                         </Hovedknapp>
-                        <Knapp
-                            spinner={isSavingAd}
-                            className="AdminStatusEdit__button"
-                            onClick={this.onSaveClick}
-                            disabled={hasErrors && adStatus === AdStatusEnum.ACTIVE}
-                        >
-                            Lagre
-                        </Knapp>
                     </div>
                 )}
                 {adminStatus === AdminStatusEnum.DONE && (
                     <div>
                         <Hovedknapp className="AdminStatusEdit__button" onClick={this.onNextClick}>
-                            Hent ny annonse
+                            Gå til neste annonse
                         </Hovedknapp>
                         <Knapp className="AdminStatusEdit__button" onClick={this.onSetToPendingClick}>
                             Gjennåpne saksbehandling
@@ -82,7 +70,6 @@ class AdminStatusEdit extends React.Component {
 AdminStatusEdit.propTypes = {
     adminStatus: PropTypes.string.isRequired,
     adStatus: PropTypes.string.isRequired,
-    isSavingAd: PropTypes.bool.isRequired,
     setAdminStatus: PropTypes.func.isRequired,
     getNextAd: PropTypes.func.isRequired,
     saveAd: PropTypes.func.isRequired,
@@ -92,14 +79,13 @@ AdminStatusEdit.propTypes = {
 const mapStateToProps = (state) => ({
     adminStatus: state.ad.data.administration.status,
     adStatus: state.ad.data.status,
-    isSavingAd: state.ad.isSavingAd,
     validation: state.ad.validation
 });
 
 const mapDispatchToProps = (dispatch) => ({
     setAdminStatus: (status) => dispatch({ type: SET_ADMIN_STATUS, status }),
-    getNextAd: () => dispatch({ type: FETCH_NEXT_AD }),
-    saveAd: () => dispatch({ type: SAVE_AD })
+    saveAd: () => dispatch({ type: SAVE_AD }),
+    getNextAd: () => dispatch({ type: FETCH_NEXT_AD })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminStatusEdit);

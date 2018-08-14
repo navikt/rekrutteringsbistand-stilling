@@ -10,7 +10,7 @@ function Location({ location }) {
     }
     return (
         <div className="detail-section">
-            <Element className="detail-section__head">Sted</Element>
+            <Element className="detail-section__head">Geografisk plassering av stillingen</Element>
             <dl className="dl-flex typo-normal">
                 {location && location.address && [
                     <dt key="dt">Gateadresse:</dt>,
@@ -19,6 +19,14 @@ function Location({ location }) {
                 {location && location.postalCode && [
                     <dt key="dt">Poststed:</dt>,
                     <dd key="dd">{location.postalCode} {location.city}</dd>]
+                }
+                {location && location.municipal && [
+                    <dt key="dt">Kommune:</dt>,
+                    <dd key="dd">{location.municipal}</dd>]
+                }
+                {location && location.county && [
+                    <dt key="dt">Fylke:</dt>,
+                    <dd key="dd">{location.county}</dd>]
                 }
             </dl>
         </div>

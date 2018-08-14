@@ -1,6 +1,7 @@
 import { put, takeLatest, select } from 'redux-saga/effects';
 import { fetchGet, ApiError } from '../api/api';
 import { AD_API } from '../fasitProperties';
+import AdminStatusEnum from "../ad/administration/AdminStatusEnum";
 
 export const FETCH_ADS = 'FETCH_ADS';
 export const FETCH_ADS_BEGIN = 'FETCH_ADS_BEGIN';
@@ -13,6 +14,7 @@ export const SET_SEARCH_VALUE = 'SET_SEARCH_VALUE';
 export const SET_SEARCH_FIELD = 'SET_SEARCH_FIELD';
 export const CHANGE_SOURCE_FILTER = 'CHANGE_SOURCE_FILTER';
 export const CHANGE_STATUS_FILTER = 'CHANGE_STATUS_FILTER';
+export const CHANGE_ADMINISTRATION_STATUS_FILTER = 'CHANGE_ADMINISTRATION_STATUS_FILTER';
 
 export const Fields = {
     EMPLOYER_NAME: 'employerName',
@@ -24,7 +26,7 @@ const initialState = {
     items: [],
     error: undefined,
     isSearching: false,
-    sortField: 'id',
+    sortField: 'created',
     sortDir: 'asc',
     totalElements: 0,
     totalPages: 0,
@@ -33,7 +35,8 @@ const initialState = {
     field: undefined,
     suggestions: [],
     source: undefined,
-    status: undefined
+    status: undefined,
+    administrationStatus: undefined
 };
 
 export default function searchReducer(state = initialState, action) {
@@ -62,6 +65,11 @@ export default function searchReducer(state = initialState, action) {
             return {
                 ...state,
                 status: action.value
+            };
+        case CHANGE_ADMINISTRATION_STATUS_FILTER:
+            return {
+                ...state,
+                administrationStatus: action.value
             };
         case FETCH_ADS_BEGIN:
             return {
@@ -109,7 +117,7 @@ export default function searchReducer(state = initialState, action) {
  * @param query: f.ex: {q: "Java", fruits: ["Apple", "Banana"], count: 10}
  * @returns {string} f.ex: q=Java&names=Apple_Banana&count=10
  */
-const toUrl = (query) => {
+export const toUrl = (query) => {
     let result = {};
 
     Object.keys(query).forEach((key) => {
@@ -136,13 +144,14 @@ const toUrl = (query) => {
 export function toQuery(state) {
     const { search } = state;
     const {
-        sortField, sortDir, page, source, status
+        sortField, sortDir, page, source, status, administrationStatus
     } = search;
     const query = {
         source,
         status,
         sort: `${sortField},${sortDir}`,
-        page
+        page,
+        administrationStatus
     };
     query[search.field] = search.value;
     return query;
@@ -176,6 +185,7 @@ export const searchSaga = function* saga() {
     yield takeLatest([
         CHANGE_SOURCE_FILTER,
         CHANGE_STATUS_FILTER,
+        CHANGE_ADMINISTRATION_STATUS_FILTER,
         SET_SEARCH_FIELD,
         CHANGE_SORTING,
         CHANGE_PAGE,

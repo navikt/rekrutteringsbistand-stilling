@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Container } from 'nav-frontend-grid';
 import SearchBox from './searchBox/SearchBox';
@@ -15,9 +16,7 @@ import './SearchPage.less';
 
 class SearchPage extends React.Component {
     componentDidMount() {
-        if (this.props.ads.length === 0) {
-            this.props.getAds();
-        }
+        this.props.getAds();
     }
 
     render() {
@@ -35,6 +34,14 @@ class SearchPage extends React.Component {
                         <div className="SearchPage__flex__right__inner">
                             <div className="SearchBox__wrapper">
                                 <SearchBox />
+                            </div>
+                            <div className="SearchPage__button__right">
+                                <Link
+                                    className="knapp"
+                                    to={`/ads/${adsFound ? ads[0].uuid : ''}`}
+                                >
+                                    Start behandling
+                                </Link>
                             </div>
 
                             <SearchResultCount />
