@@ -35,7 +35,7 @@ class PostalCode extends React.Component {
     render() {
         return (
             <div className="PostalCode">
-                <div className="PostalCode__flex">
+                <div className="PostalCode__flex blokk-xs">
                     <Typeahead
                         id="PostalCode__input"
                         className="PostalCode__code"
@@ -60,8 +60,11 @@ class PostalCode extends React.Component {
                         value={this.props.location && this.props.location.city ? this.props.location.city : ''}
                     />
                 </div>
-                {this.props.location &&
-                    <Normaltekst>Kommune: {this.props.location.municipal}, Fylke: {this.props.location.county}</Normaltekst>
+                {this.props.location && this.props.location.municipal &&
+                    <Normaltekst>{`Kommune: ${this.props.location.municipal}`}</Normaltekst>
+                }
+                {this.props.location && this.props.location.county &&
+                    <Normaltekst>{`Fylke: ${this.props.location.county}`}</Normaltekst>
                 }
                 {this.props.validation.location && (
                     <div className="PostalCode__error">{this.props.validation.location}</div>
