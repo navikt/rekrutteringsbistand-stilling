@@ -220,7 +220,7 @@ class Edit extends React.Component {
                         </Ekspanderbartpanel>
                     </div>
                     <div className="Edit__right">
-                        <Ekspanderbartpanel className="Edit__panel" tittel="STYRK-kode" tittelProps="undertittel" apen>
+                        <Ekspanderbartpanel className="Edit__panel" tittel="STYRK" tittelProps="undertittel" apen>
                             <Styrk/>
                         </Ekspanderbartpanel>
 
