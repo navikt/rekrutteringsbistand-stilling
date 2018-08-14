@@ -46,8 +46,16 @@ class Ad extends React.Component {
 
     render() {
         const {
-            stilling, isFetchingStilling, isEditingAd
+            stilling, isFetchingStilling, isEditingAd, endOfList
         } = this.props;
+
+        if (endOfList) {
+            return (
+                <div className="Ad__end-of-list">
+                    Fant ingen flere annonser.
+                </div>
+            );
+        }
 
         return (
             <div className="Ad">
@@ -105,7 +113,8 @@ class Ad extends React.Component {
 
 Ad.defaultProps = {
     stilling: undefined,
-    isFetchingStilling: false
+    isFetchingStilling: false,
+    endOfList: false
 };
 
 Ad.propTypes = {
@@ -117,14 +126,17 @@ Ad.propTypes = {
     }),
     getStilling: PropTypes.func.isRequired,
     getNextAd: PropTypes.func.isRequired,
+    editAd: PropTypes.func.isRequired,
     isEditingAd: PropTypes.bool.isRequired,
-    isFetchingStilling: PropTypes.bool
+    isFetchingStilling: PropTypes.bool,
+    endOfList: PropTypes.bool
 };
 
 const mapStateToProps = (state) => ({
     isFetchingStilling: state.ad.isFetchingStilling,
     stilling: state.ad.data,
-    isEditingAd: state.ad.isEditingAd
+    isEditingAd: state.ad.isEditingAd,
+    endOfList: state.ad.endOfList
 });
 
 const mapDispatchToProps = (dispatch) => ({

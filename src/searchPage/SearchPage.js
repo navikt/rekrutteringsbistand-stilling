@@ -23,7 +23,8 @@ class SearchPage extends React.Component {
     onStartWorkClick = () => {
         const query = {
             source: this.props.search.source,
-            status: this.props.search.status
+            status: this.props.search.status,
+            sort: `${this.props.search.sortField},${this.props.search.sortDir}`
         };
         query[this.props.search.field] = this.props.search.value;
         this.props.setWorkPriority(query);
