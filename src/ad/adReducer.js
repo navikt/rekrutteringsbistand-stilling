@@ -460,7 +460,8 @@ export default function adReducer(state = initialState, action) {
                         employer: {
                             ...state.data.employer,
                             name: action.foundEmployer.name,
-                            orgnr: action.foundEmployer.orgnr
+                            orgnr: action.foundEmployer.orgnr,
+                            location: action.foundEmployer.location
                         }
                     },
                     validation: {
@@ -476,7 +477,8 @@ export default function adReducer(state = initialState, action) {
                     employer: {
                         ...state.data.employer,
                         name: action.value,
-                        orgnr: ''
+                        orgnr: undefined,
+                        location: undefined
                     }
                 },
                 validation: {

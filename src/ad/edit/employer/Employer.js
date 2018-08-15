@@ -30,9 +30,11 @@ class Employer extends React.Component {
     };
 
     render() {
+        const { employer } = this.props;
+        const location = employer ? employer.location : undefined;
         return (
             <div className="Employer">
-                <div className="">
+                <div className="blokk-xxs">
                     <Typeahead
                         id="Employer__typeahead"
                         className="Employer__typeahead"
@@ -51,6 +53,18 @@ class Employer extends React.Component {
                         error={this.props.validation.employer !== undefined}
                     />
                 </div>
+                {employer && location &&
+                    <dl className="dl-flex typo-normal">
+                        {location.address && [
+                            <dt key="dt">Gateadresse:</dt>,
+                            <dd key="dd">{location.address}</dd>]
+                        }
+                        {location && location.postalCode && [
+                            <dt key="dt">Poststed:</dt>,
+                            <dd key="dd">{location.postalCode} {location.city}</dd>]
+                        }
+                    </dl>
+                }
                 {this.props.validation.employer && (
                     <div className="Employer__error">{this.props.validation.employer}</div>
                 )}

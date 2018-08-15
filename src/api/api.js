@@ -81,7 +81,12 @@ export async function fetchEmployerSuggestions(match) {
         result: [
             ...result.suggest.navn_suggest[0].options.map((suggestion) => ({
                 name: suggestion._source.navn,
-                orgnr: suggestion._source.organisasjonsnummer
+                orgnr: suggestion._source.organisasjonsnummer,
+                location: (suggestion._source.adresse ? {
+                    address: suggestion._source.adresse.adresse,
+                    postalCode: suggestion._source.adresse.postnummer,
+                    city: suggestion._source.adresse.poststed
+                } : undefined)
             })).sort()
         ]
     };
@@ -95,7 +100,12 @@ export async function fetchOrgnrSuggestions(match) {
         result: [
             ...result.hits.hits.map((employer) => ({
                 name: employer._source.navn,
-                orgnr: employer._source.organisasjonsnummer
+                orgnr: employer._source.organisasjonsnummer,
+                location: (suggestion._source.adresse ? {
+                    address: suggestion._source.adresse.adresse,
+                    postalCode: suggestion._source.adresse.postnummer,
+                    city: suggestion._source.adresse.poststed
+                } : undefined)
             })).sort()
         ]
     };

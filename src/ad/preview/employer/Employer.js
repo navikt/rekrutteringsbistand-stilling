@@ -24,14 +24,6 @@ export default function Employer({ employer }) {
                     <dt key="dt">Poststed:</dt>,
                     <dd key="dd">{location.postalCode} {location.city}</dd>]
                 }
-                {location && location.municipal && [
-                    <dt key="dt">Kommune:</dt>,
-                    <dd key="dd">{location.municipal}</dd>]
-                }
-                {location && location.county && [
-                    <dt key="dt">Fylke:</dt>,
-                    <dd key="dd">{location.county}</dd>]
-                }
             </dl>
         </div>
     );

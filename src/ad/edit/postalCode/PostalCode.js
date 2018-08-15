@@ -61,7 +61,16 @@ class PostalCode extends React.Component {
                     />
                 </div>
                 {this.props.location &&
-                    <Normaltekst>Kommune: {this.props.location.municipal}, Fylke: {this.props.location.county}</Normaltekst>
+                    <dl className="dl-flex typo-normal">
+                        {this.props.location.municipal && [
+                            <dt key="dt">Kommune:</dt>,
+                            <dd key="dd">{this.props.location.municipal}</dd>]
+                        }
+                        {this.props.location.county && [
+                            <dt key="dt">Fylke:</dt>,
+                            <dd key="dd">{this.props.location.county}</dd>]
+                        }
+                    </dl>
                 }
                 {this.props.validation.location && (
                     <div className="PostalCode__error">{this.props.validation.location}</div>
