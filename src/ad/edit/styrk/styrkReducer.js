@@ -136,8 +136,13 @@ function* getStyrk() {
     if (!cachedStyrk) {
         try {
             const response = yield fetchGet(`${AD_API}categories/`);
-            cachedFlatStyrk = response;
-            cachedStyrk = mapStyrkThree(response);
+            const sorted = response.sort((a, b) => {
+                if (a.code < b.code) return -1;
+                if (a.code > b.code) return 1;
+                return 0;
+            });
+            cachedFlatStyrk = sorted;
+            cachedStyrk = mapStyrkThree(sorted);
             yield put({ type: FETCH_STYRK_SUCCESS, response: cachedStyrk });
         } catch (e) {
             if (e instanceof ApiError) {
