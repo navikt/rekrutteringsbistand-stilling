@@ -1,5 +1,4 @@
 import { put, takeLatest } from 'redux-saga/es/effects';
-import AdminStatusEnum from './administration/AdminStatusEnum';
 import { lookUpStyrk } from './edit/styrk/styrkReducer';
 import { findLocationByPostalCode } from './edit/postalCode/postalCodeReducer';
 
@@ -285,8 +284,7 @@ export default function adDataReducer(state = initialState, action) {
                 ...state,
                 administration: {
                     ...state.administration,
-                    status: action.status,
-                    remarks: action.status === AdminStatusEnum.DONE ? [] : state.administration.remarks
+                    status: action.status
                 }
             };
         case ADD_REMARK:
