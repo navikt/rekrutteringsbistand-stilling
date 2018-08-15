@@ -1,9 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import {Hovedknapp, Knapp} from 'nav-frontend-knapper';
+import {Normaltekst, Systemtittel} from "nav-frontend-typografi";
 import Preview from './preview/Preview';
 import Administration from './administration/Administration';
-import { EDIT_AD, FETCH_AD, FETCH_NEXT_AD } from './adReducer';
+import {
+    EDIT_AD, FETCH_AD, FETCH_NEXT_AD,
+    RESET_WORK_PRIORITY
+} from './adReducer';
 import Error from './error/Error';
 import DelayedSpinner from '../common/DelayedSpinner';
 import './Ad.less';
@@ -11,7 +16,13 @@ import Faded from '../common/faded/Faded';
 import Edit from './edit/Edit';
 import ValidationSummary from './validation/ValidationSummary';
 import AdminStatusEnum from './administration/AdminStatusEnum';
-import { Knapp } from 'nav-frontend-knapper';
+
+const isDefaultWorkPriority = (workPriority) =>
+    workPriority.source === undefined && workPriority.status === undefined &&
+    workPriority.sort === 'created,asc' &&
+    (workPriority.employerName === undefined || workPriority.employerName === '') &&
+    (workPriority.title === undefined || workPriority.title === '') &&
+    (workPriority.id === undefined || workPriority.id === '');
 
 class Ad extends React.Component {
     componentDidMount() {
@@ -44,15 +55,47 @@ class Ad extends React.Component {
         this.props.editAd();
     };
 
+    onNextAdClick = () => {
+        this.props.resetWorkPriority();
+        this.props.getNextAd()
+    };
+
     render() {
         const {
-            stilling, isFetchingStilling, isEditingAd, endOfList
+            stilling, isFetchingStilling, isEditingAd, endOfList, workPriority
         } = this.props;
 
         if (endOfList) {
             return (
                 <div className="Ad__end-of-list">
-                    Fant ingen flere annonser.
+                    {isDefaultWorkPriority(workPriority) ? (
+                        <div>
+                            <Systemtittel className="Ad__title__end-of-list">
+                                Fant ingen flere annonser
+                            </Systemtittel>
+                            <Normaltekst>
+                                Alle annonser er ferdigbehandlet
+                            </Normaltekst>
+                        </div>
+                    ) : (
+                        <div>
+                            <Systemtittel className="Ad__title__end-of-list">
+                                Listen er tom
+                            </Systemtittel>
+                            <Normaltekst>
+                                Du jobber med et filter hvor alle annonser er under behandling eller ferdigbehandlet.
+                            </Normaltekst>
+                            <Normaltekst className="Ad__text__end-of-list">
+                                Trykk for å fortsette med neste ledige annonse.
+                            </Normaltekst>
+                            <Hovedknapp
+                                className=""
+                                onClick={this.onNextAdClick}
+                            >
+                                Gå til neste
+                            </Hovedknapp>
+                        </div>
+                    )}
                 </div>
             );
         }
@@ -129,20 +172,31 @@ Ad.propTypes = {
     editAd: PropTypes.func.isRequired,
     isEditingAd: PropTypes.bool.isRequired,
     isFetchingStilling: PropTypes.bool,
-    endOfList: PropTypes.bool
+    endOfList: PropTypes.bool,
+    workPriority: PropTypes.shape({
+        source: PropTypes.string,
+        status: PropTypes.string,
+        sort: PropTypes.string,
+        employerName: PropTypes.string,
+        title: PropTypes.string,
+        id: PropTypes.string
+    }).isRequired,
+    resetWorkPriority: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
     isFetchingStilling: state.ad.isFetchingStilling,
     stilling: state.adData,
     isEditingAd: state.ad.isEditingAd,
-    endOfList: state.ad.endOfList
+    endOfList: state.ad.endOfList,
+    workPriority: state.ad.workPriority
 });
 
 const mapDispatchToProps = (dispatch) => ({
     getStilling: (uuid) => dispatch({ type: FETCH_AD, uuid }),
     getNextAd: () => dispatch({ type: FETCH_NEXT_AD }),
-    editAd: () => dispatch({ type: EDIT_AD })
+    editAd: () => dispatch({ type: EDIT_AD }),
+    resetWorkPriority: () => dispatch({ type: RESET_WORK_PRIORITY })
 });
 
 
