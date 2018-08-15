@@ -40,14 +40,16 @@ export default function Preview({ stilling }) {
                 </Column>
                 <Column xs="12" md="4">
                     <div className="AdText__details">
-                        <div className="detail-section">
-                            <Element className="detail-section__head">STYRK</Element>
-                            {stilling.categoryList.map((styrk) => (
-                                <Normaltekst key={styrk.code}>
-                                    {styrk.code}: {styrk.name}
-                                </Normaltekst>
-                            ))}
-                        </div>
+                        {stilling.categoryList && stilling.categoryList.length > 0 && (
+                            <div className="detail-section">
+                                <Element className="detail-section__head">Arbeidsyrke</Element>
+                                {stilling.categoryList.map((styrk) => (
+                                    <Normaltekst key={styrk.code}>
+                                        {styrk.code}: {styrk.name}
+                                    </Normaltekst>
+                                ))}
+                            </div>
+                        )}
                         <Location />
                         <Employer employer={stilling.employer} />
                         <Application

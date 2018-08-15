@@ -61,7 +61,7 @@ function* validateStyrk() {
 
     if (categoryList === null || categoryList === undefined ||
         categoryList.length === 0) {
-        yield put({ type: ADD_VALIDATION_ERROR, field: 'styrk', message: 'STYRK mangler' });
+        yield put({ type: ADD_VALIDATION_ERROR, field: 'styrk', message: 'Arbeidsyrke mangler' });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'styrk' });
     }

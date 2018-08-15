@@ -10,7 +10,7 @@ export default function Employer({ employer }) {
     const { location } = employer;
     return (
         <div className="detail-section">
-            <Element className="detail-section__head">Om arbeidsgiver</Element>
+            <Element className="detail-section__head">Arbeidsgiver</Element>
             <dl className="dl-flex typo-normal">
                 {employer.name && [
                     <dt key="dt">Arbeidsgiver:</dt>,

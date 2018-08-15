@@ -43,7 +43,7 @@ class Styrk extends React.Component {
     render() {
         return (
             <div className="Styrk">
-                <label htmlFor="Styrk__typeahead" className="typo-normal">Arbeidsyrke</label>
+                <label htmlFor="Styrk__typeahead" className="typo-normal">STYRK</label>
                 <span>
                     {' ('}
                     <a href="#" className="typo-normal lenke" onClick={this.onShowListClick}>velg fra liste</a>
@@ -87,7 +87,7 @@ class Styrk extends React.Component {
                     contentLabel="Heisann."
                     appElement={document.getElementById('app')}
                 >
-                    <Undertittel className="StyrkModal__header">Velg styrkkategori</Undertittel>
+                    <Undertittel className="StyrkModal__header">Velg STYRK</Undertittel>
                     <div className="StyrkModal__body">
                         <StyrkThree />
                     </div>

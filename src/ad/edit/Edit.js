@@ -223,7 +223,7 @@ class Edit extends React.Component {
                         </Ekspanderbartpanel>
                     </div>
                     <div className="Edit__right">
-                        <Ekspanderbartpanel className="Edit__panel" tittel="STYRK" tittelProps="undertittel" apen>
+                        <Ekspanderbartpanel className="Edit__panel" tittel="Arbeidsyrke" tittelProps="undertittel" apen>
                             <Styrk />
                         </Ekspanderbartpanel>
 
@@ -238,7 +238,7 @@ class Edit extends React.Component {
 
                         <Ekspanderbartpanel
                             className="Edit__panel"
-                            tittel="Om arbeidsgiver"
+                            tittel="Arbeidsgiver"
                             tittelProps="undertittel"
                             apen
                         >
