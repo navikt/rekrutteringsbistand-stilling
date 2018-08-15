@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import NavFrontendModal from 'nav-frontend-modal';
-import {Normaltekst, Undertittel} from "nav-frontend-typografi";
-import {Hovedknapp, Knapp} from "nav-frontend-knapper";
-import AdminStatusEnum from "./AdminStatusEnum";
-import {DISCARD_AD_CHANGES, SAVE_AD, SET_ADMIN_STATUS} from "../adReducer";
+import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
+import AdminStatusEnum from './AdminStatusEnum';
+import { DISCARD_AD_CHANGES, SAVE_AD } from '../adReducer';
+import { SET_ADMIN_STATUS } from '../adDataReducer';
 import './ConfirmationPopup.less';
 
 class ConfirmationPopup extends React.Component {
@@ -29,7 +30,7 @@ class ConfirmationPopup extends React.Component {
         return (
             <NavFrontendModal
                 isOpen={isOpen}
-                contentLabel={'Fortsett'}
+                contentLabel="Fortsett"
                 onRequestClose={onCancel}
                 className="blokk-m"
                 closeButton

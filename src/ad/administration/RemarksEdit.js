@@ -7,7 +7,7 @@ import { registerShortcuts } from '../../common/shortcuts/Shortcuts';
 import {
     ADD_REMARK,
     REMOVE_REMARK
-} from './../adReducer';
+} from './../adDataReducer';
 
 class RemarksEdit extends React.Component {
     componentDidMount() {
@@ -140,7 +140,7 @@ RemarksEdit.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    remarks: state.ad.data.administration.remarks
+    remarks: state.adData.administration.remarks
 });
 
 const mapDispatchToProps = (dispatch) => ({

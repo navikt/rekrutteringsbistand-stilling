@@ -32,7 +32,7 @@ export default function employerReducer(state = initialState, action) {
     }
 }
 
-const getEmployer = (state) => state.ad.data.employer;
+const getEmployer = (state) => state.adData.employer;
 
 function* getEmployerSuggestions() {
     const employer = yield select(getEmployer);

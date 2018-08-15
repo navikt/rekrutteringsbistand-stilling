@@ -21,7 +21,7 @@ CommentsPreview.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    comments: state.ad.data.administration.comments
+    comments: state.adData.administration.comments
 });
 
 export default connect(mapStateToProps)(CommentsPreview);

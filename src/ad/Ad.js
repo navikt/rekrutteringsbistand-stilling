@@ -134,7 +134,7 @@ Ad.propTypes = {
 
 const mapStateToProps = (state) => ({
     isFetchingStilling: state.ad.isFetchingStilling,
-    stilling: state.ad.data,
+    stilling: state.adData,
     isEditingAd: state.ad.isEditingAd,
     endOfList: state.ad.endOfList
 });

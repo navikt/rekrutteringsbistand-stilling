@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Typeahead from '../../../common/typeahead/Typeahead';
 import { SET_ENGAGEMENTTYPE_TYPEAHEAD_VALUE } from './engagementTypeReducer';
-import { SET_EMPLOYMENT_ENGAGEMENTTYPE } from '../../adReducer';
+import { SET_EMPLOYMENT_ENGAGEMENTTYPE } from '../../adDataReducer';
 import './EngagementType.less';
 
 class EngagementType extends React.Component {
@@ -49,7 +49,7 @@ EngagementType.propTypes = {
 
 const mapStateToProps = (state) => ({
     suggestions: state.engagementType.suggestions,
-    engagementType: state.ad.data.properties.engagementtype
+    engagementType: state.adData.properties.engagementtype
 });
 
 const mapDispatchToProps = (dispatch) => ({

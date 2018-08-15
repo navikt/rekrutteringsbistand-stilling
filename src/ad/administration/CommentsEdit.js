@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Textarea } from 'nav-frontend-skjema';
 import { Element } from 'nav-frontend-typografi';
 import { connect } from 'react-redux';
-import { SET_COMMENT } from '../adReducer';
+import { SET_COMMENT } from '../adDataReducer';
 import { registerShortcuts } from '../../common/shortcuts/Shortcuts';
 
 class CommentsEdit extends React.Component {
@@ -68,7 +68,7 @@ CommentsEdit.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    comments: state.ad.data.administration.comments
+    comments: state.adData.administration.comments
 });
 
 const mapDispatchToProps = (dispatch) => ({

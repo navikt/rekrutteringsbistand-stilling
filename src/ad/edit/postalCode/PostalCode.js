@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Input } from 'nav-frontend-skjema';
+import { Normaltekst } from "nav-frontend-typografi";
 import Typeahead from '../../../common/typeahead/Typeahead';
 import { FETCH_POSTAL_CODES_SUGGESTIONS, SET_POSTAL_CODE_VALUE } from './postalCodeReducer';
 import { registerShortcuts } from '../../../common/shortcuts/Shortcuts';
-import { SET_LOCATION_POSTAL_CODE } from '../../adReducer';
+import { SET_LOCATION_POSTAL_CODE } from '../../adDataReducer';
 import './PostalCode.less';
-import { Normaltekst } from "nav-frontend-typografi";
 
 class PostalCode extends React.Component {
     componentDidMount() {
@@ -98,8 +98,8 @@ PostalCode.propTypes = {
 const mapStateToProps = (state) => ({
     isValid: state.postalCode.isValid,
     suggestions: state.postalCode.suggestions,
-    location: state.ad.data.location,
-    validation: state.ad.validation
+    location: state.adData.location,
+    validation: state.adValidation.errors
 });
 
 const mapDispatchToProps = (dispatch) => ({

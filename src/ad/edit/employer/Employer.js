@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Typeahead from '../../../common/typeahead/Typeahead';
 import { FETCH_EMPLOYER_SUGGESTIONS } from './employerReducer';
-import { SET_EMPLOYER } from '../../adReducer';
+import { SET_EMPLOYER } from '../../adDataReducer';
 import './Employer.less';
 
 
@@ -95,8 +95,8 @@ Employer.propTypes = {
 
 const mapStateToProps = (state) => ({
     suggestions: state.employer.suggestions,
-    employer: state.ad.data.employer,
-    validation: state.ad.validation
+    employer: state.adData.employer,
+    validation: state.adValidation.errors
 });
 
 const mapDispatchToProps = (dispatch) => ({

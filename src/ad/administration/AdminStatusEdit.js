@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Hovedknapp } from 'nav-frontend-knapper';
-import { FETCH_NEXT_AD, SAVE_AD, SET_ADMIN_STATUS } from '../adReducer';
+import { FETCH_NEXT_AD, SAVE_AD } from '../adReducer';
+import { SET_ADMIN_STATUS } from '../adDataReducer';
 import AdminStatusEnum from './AdminStatusEnum';
-import ConfirmationPopup from "./ConfirmationPopup";
+import ConfirmationPopup from './ConfirmationPopup';
 
 class AdminStatusEdit extends React.Component {
     constructor(props) {
@@ -86,7 +87,7 @@ AdminStatusEdit.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    adminStatus: state.ad.data.administration.status,
+    adminStatus: state.adData.administration.status,
     isEditingAd: state.ad.isEditingAd
 });
 

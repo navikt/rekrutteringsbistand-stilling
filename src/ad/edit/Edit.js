@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Input } from 'nav-frontend-skjema';
-import { Undertittel } from 'nav-frontend-typografi';
+import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { connect } from 'react-redux';
 import RichTextEditor from 'react-rte';
+import { DISCARD_AD_CHANGES, SAVE_AD } from '../adReducer';
 import {
-    DISCARD_AD_CHANGES, SAVE_AD,
     SET_AD_TEXT,
     SET_AD_TITLE, SET_APPLICATIONDUE, SET_APPLICATIONEMAIL, SET_APPLICATIONURL,
     SET_EMPLOYER, SET_EMPLOYERDESCRIPTION,
@@ -17,13 +17,12 @@ import {
     SET_EMPLOYMENT_SECTOR, SET_EMPLOYMENT_STARTTIME, SET_EMPLOYMENT_WORKDAY,
     SET_EMPLOYMENT_WORKHOURS, SET_EXPIRATION_DATE, SET_ID, SET_LAST_UPDATED,
     SET_LOCATION_ADDRESS, SET_MEDIUM, SET_PUBLISHED, SET_REFERENCE, SET_SOURCEURL
-} from '../adReducer';
+} from '../adDataReducer';
 import PostalCode from './postalCode/PostalCode';
 import Employer from './employer/Employer';
 import './Edit.less';
 import Styrk from './styrk/Styrk';
 import EngagementType from './engagementType/EngagementType';
-import { Hovedknapp, Knapp } from "nav-frontend-knapper";
 
 export const createEmptyOrHTMLStringFromRTEValue = (rteValue) => {
     const emptySpaceOrNotWordRegex = /^(\s|\W)+$/g;
@@ -209,8 +208,12 @@ class Edit extends React.Component {
                                 onChange={this.onAdTextChange}
                             />
                         </Ekspanderbartpanel>
-                        <Ekspanderbartpanel className="Edit__panel" tittel="Beskrivelse av arbeidsgiver"
-                                            tittelProps="undertittel" apen>
+                        <Ekspanderbartpanel
+                            className="Edit__panel"
+                            tittel="Beskrivelse av arbeidsgiver"
+                            tittelProps="undertittel"
+                            apen
+                        >
                             <RichTextEditor
                                 toolbarConfig={toolbarConfig}
                                 className="Edit__rte"
@@ -221,16 +224,24 @@ class Edit extends React.Component {
                     </div>
                     <div className="Edit__right">
                         <Ekspanderbartpanel className="Edit__panel" tittel="STYRK" tittelProps="undertittel" apen>
-                            <Styrk/>
+                            <Styrk />
                         </Ekspanderbartpanel>
 
-                        <Ekspanderbartpanel className="Edit__panel" tittel="Geografisk plassering av stillingen"
-                                            tittelProps="undertittel" apen>
-                            <PostalCode/>
+                        <Ekspanderbartpanel
+                            className="Edit__panel"
+                            tittel="Geografisk plassering av stillingen"
+                            tittelProps="undertittel"
+                            apen
+                        >
+                            <PostalCode />
                         </Ekspanderbartpanel>
 
-                        <Ekspanderbartpanel className="Edit__panel" tittel="Om arbeidsgiver" tittelProps="undertittel"
-                                            apen>
+                        <Ekspanderbartpanel
+                            className="Edit__panel"
+                            tittel="Om arbeidsgiver"
+                            tittelProps="undertittel"
+                            apen
+                        >
                             <Employer />
                         </Ekspanderbartpanel>
 
@@ -274,7 +285,7 @@ class Edit extends React.Component {
                                 onChange={this.onLocationChange}
                                 className="typo-normal"
                             />
-                            <EngagementType/>
+                            <EngagementType />
                             <Input
                                 label="Heltid/deltid"
                                 value={ad.properties.extent || ''}
@@ -405,8 +416,8 @@ Edit.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    ad: state.ad.data,
-    validation: state.ad.validation
+    ad: state.adData,
+    validation: state.adValidation.errors
 });
 
 const mapDispatchToProps = (dispatch) => ({

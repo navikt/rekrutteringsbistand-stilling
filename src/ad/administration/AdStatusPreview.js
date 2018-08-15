@@ -58,8 +58,8 @@ AdStatusPreview.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    adStatus: state.ad.data.status,
-    remarks: state.ad.data.administration.remarks
+    adStatus: state.adData.status,
+    remarks: state.adData.administration.remarks
 });
 
 export default connect(mapStateToProps)(AdStatusPreview);

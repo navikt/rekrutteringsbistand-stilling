@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Normaltekst } from 'nav-frontend-typografi';
 import AdminStatusEnum from './AdminStatusEnum';
-import { SAVE_AD, SET_ADMIN_STATUS } from '../adReducer';
+import { SAVE_AD, SET_ADMIN_STATUS } from '../adDataReducer';
 
 class AdminStatusPreview extends React.Component {
     onSetToReceivedClick = (e) => {
@@ -46,7 +46,7 @@ AdminStatusPreview.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    adminStatus: state.ad.data.administration.status
+    adminStatus: state.adData.administration.status
 });
 
 const mapDispatchToProps = (dispatch) => ({

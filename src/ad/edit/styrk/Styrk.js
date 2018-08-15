@@ -7,9 +7,8 @@ import Typeahead from '../../../common/typeahead/Typeahead';
 import Tag from '../../../common/tag/Tag';
 import StyrkThree from './StyrkThree';
 import { FETCH_STYRK, SET_STYRK_TYPEAHEAD_VALUE, TOGGLE_STYRK_MODAL } from './styrkReducer';
-import { ADD_STYRK, REMOVE_STYRK } from '../../adReducer';
+import { ADD_STYRK, REMOVE_STYRK } from '../../adDataReducer';
 import './Styrk.less';
-import AdminStatusEnum from '../../administration/AdminStatusEnum';
 import { registerShortcuts } from '../../../common/shortcuts/Shortcuts';
 
 class Styrk extends React.Component {
@@ -59,7 +58,12 @@ class Styrk extends React.Component {
                     suggestions={this.props.typeAheadSuggestions.slice(0, 10)}
                     value={this.props.typeAheadValue}
                     ref={(instance) => { this.inputRef = instance; }}
+                    error={this.props.validation.styrk !== undefined}
                 />
+
+                {this.props.validation.styrk && (
+                    <div className="PostalCode__error">{this.props.validation.styrk}</div>
+                )}
 
                 {this.props.stilling.categoryList.length > 0 && (
                     <div className="Styrk__tags">
@@ -116,9 +120,10 @@ const mapStateToProps = (state) => ({
     addedStyrkItems: state.styrk.addedStyrkItems,
     styrkThree: state.styrk.styrkThree,
     showStyrkModal: state.styrk.showStyrkModal,
-    stilling: state.ad.data,
-    status: state.ad.data.administration.status,
-    isSavingAd: state.ad.isSavingAd
+    stilling: state.adData,
+    status: state.adData.administration.status,
+    isSavingAd: state.ad.isSavingAd,
+    validation: state.adValidation.errors
 });
 
 const mapDispatchToProps = (dispatch) => ({

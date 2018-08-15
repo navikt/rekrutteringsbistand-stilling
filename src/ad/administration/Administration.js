@@ -69,8 +69,8 @@ Administration.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    adStatus: state.ad.data.status,
-    adminStatus: state.ad.data.administration.status
+    adStatus: state.adData.status,
+    adminStatus: state.adData.administration.status
 });
 
 const mapDispatchToProps = (dispatch) => ({

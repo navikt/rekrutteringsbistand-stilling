@@ -17,12 +17,16 @@ import './variables.less';
 import StartPage from './startPage/StartPage';
 import SearchPage from './searchPage/SearchPage';
 import reporteeReducer, { reporteeSaga } from './reportee/reporteeReducer';
-import engagementTypeReducer from "./ad/edit/engagementType/engagementTypeReducer";
+import engagementTypeReducer from './ad/edit/engagementType/engagementTypeReducer';
+import adDataReducer from './ad/adDataReducer';
+import adValidationReducer, { validationSaga } from './ad/adValidationReducer';
 
 const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(combineReducers({
     ad: adReducer,
+    adData: adDataReducer,
+    adValidation: adValidationReducer,
     employer: employerReducer,
     postalCode: postalCodeReducer,
     engagementType: engagementTypeReducer,
@@ -33,6 +37,7 @@ const store = createStore(combineReducers({
 
 sagaMiddleware.run(reporteeSaga);
 sagaMiddleware.run(adSaga);
+sagaMiddleware.run(validationSaga);
 sagaMiddleware.run(employerSaga);
 sagaMiddleware.run(postalCodeSaga);
 sagaMiddleware.run(styrkSaga);

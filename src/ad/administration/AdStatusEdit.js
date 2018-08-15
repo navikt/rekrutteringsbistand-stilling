@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { RadioPanelGruppe } from 'nav-frontend-skjema';
 import AdStatusEnum from './AdStatusEnum';
-import { SET_AD_STATUS } from '../adReducer';
+import { SET_AD_STATUS } from '../adDataReducer';
 
 class AdStatusEdit extends React.Component {
     onAdStatusChange = (e, value) => {
@@ -38,7 +38,7 @@ AdStatusEdit.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    adStatus: state.ad.data.status
+    adStatus: state.adData.status
 });
 
 const mapDispatchToProps = (dispatch) => ({

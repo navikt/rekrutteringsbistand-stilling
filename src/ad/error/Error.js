@@ -49,9 +49,4 @@ const mapStateToProps = (state) => ({
     error: state.ad.error
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    setComment: (comment) => dispatch({ type: SET_COMMENT, comment })
-});
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(Error);
+export default connect(mapStateToProps)(Error);

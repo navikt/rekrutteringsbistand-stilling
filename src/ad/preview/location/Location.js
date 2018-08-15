@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Element } from 'nav-frontend-typografi';
-import { SET_LOCATION_ADDRESS } from '../../adReducer';
+import { SET_LOCATION_ADDRESS } from '../../adDataReducer';
 
 function Location({ location }) {
     if (!location) {
@@ -44,7 +44,7 @@ Location.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    location: state.ad.data.location
+    location: state.adData.location
 });
 
 const mapDispatchToProps = (dispatch) => ({
