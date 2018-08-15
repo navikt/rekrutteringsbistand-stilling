@@ -16,7 +16,7 @@ class CommentsEdit extends React.Component {
     }
 
     componentDidMount() {
-        registerShortcuts('annonseDetaljer', {
+        registerShortcuts('administrationEdit', {
             '/': (e) => {
                 e.preventDefault();
                 this.commentArea.focus();

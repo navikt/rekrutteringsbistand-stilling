@@ -3,60 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { SkjemaGruppe, Checkbox } from 'nav-frontend-skjema';
 import RemarksEnum from './RemarksEnum';
-import { registerShortcuts } from '../../common/shortcuts/Shortcuts';
 import {
     ADD_REMARK,
     REMOVE_REMARK
 } from './../adDataReducer';
 
 class RemarksEdit extends React.Component {
-    componentDidMount() {
-        registerShortcuts('annonseDetaljer', {
-            'm i': () => {
-                this.changeRemark(
-                    !this.props.remarks.includes(RemarksEnum.DISCRIMINATING.value),
-                    RemarksEnum.DISCRIMINATING.value
-                );
-            },
-            'm d': () => {
-                this.changeRemark(
-                    !this.props.remarks.includes(RemarksEnum.DUPLICATE.value),
-                    RemarksEnum.DUPLICATE.value
-                );
-            },
-            'm a': () => {
-                this.changeRemark(
-                    !this.props.remarks.includes(RemarksEnum.NO_EMPLOYMENT.value),
-                    RemarksEnum.NO_EMPLOYMENT.value
-                );
-            },
-            'm b': () => {
-                this.changeRemark(
-                    !this.props.remarks.includes(RemarksEnum.NOT_APPROVED_BY_LABOUR_INSPECTION.value),
-                    RemarksEnum.NOT_APPROVED_BY_LABOUR_INSPECTION.value
-                );
-            },
-            'm k': () => {
-                this.changeRemark(
-                    !this.props.remarks.includes(RemarksEnum.REJECT_BECAUSE_CAPACITY.value),
-                    RemarksEnum.REJECT_BECAUSE_CAPACITY.value
-                );
-            },
-            'm u': () => {
-                this.changeRemark(
-                    !this.props.remarks.includes(RemarksEnum.FOREIGN_JOB.value),
-                    RemarksEnum.FOREIGN_JOB.value
-                );
-            },
-            'm s': () => {
-                this.changeRemark(
-                    !this.props.remarks.includes(RemarksEnum.COLLECTION_JOB.value),
-                    RemarksEnum.COLLECTION_JOB.value
-                );
-            }
-        });
-    }
-
     onRemarkClick = (e) => {
         const { checked, value } = e.target;
         this.changeRemark(checked, value);
