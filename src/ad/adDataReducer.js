@@ -216,7 +216,8 @@ export default function adDataReducer(state = initialState, action) {
                     employer: {
                         ...state.employer,
                         name: action.foundEmployer.name,
-                        orgnr: action.foundEmployer.orgnr
+                        orgnr: action.foundEmployer.orgnr,
+                        location: action.foundEmployer.location
                     }
                 };
             }
@@ -225,7 +226,8 @@ export default function adDataReducer(state = initialState, action) {
                 employer: {
                     ...state.employer,
                     name: action.value,
-                    orgnr: ''
+                    orgnr: undefined,
+                    location: undefined
                 }
             };
         case SET_EMPLOYERDESCRIPTION:
