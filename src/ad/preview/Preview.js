@@ -32,7 +32,7 @@ export default function Preview({ stilling }) {
                     <div>
                         {stilling.properties.employerdescription && (
                             <div className="EmployerDetails__description">
-                                <Systemtittel>Om arbeidsgiver</Systemtittel>
+                                <Systemtittel>Beskrivelse av arbeidsgiver</Systemtittel>
                                 { ReactHtmlParser(markWords(stilling.properties.employerdescription)) }
                             </div>
                         )}
