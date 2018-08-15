@@ -7,7 +7,7 @@ function CommentsPreview({ comments }) {
     return (
         <div className="CommentsPreview">
             <Element>Kommentarer</Element>
-            <Normaltekst>{comments || 'Ingen kommentrarer'}</Normaltekst>
+            <Normaltekst>{comments || 'Ingen kommentarer'}</Normaltekst>
         </div>
     );
 }
