@@ -101,10 +101,10 @@ export async function fetchOrgnrSuggestions(match) {
             ...result.hits.hits.map((employer) => ({
                 name: employer._source.navn,
                 orgnr: employer._source.organisasjonsnummer,
-                location: (suggestion._source.adresse ? {
-                    address: suggestion._source.adresse.adresse,
-                    postalCode: suggestion._source.adresse.postnummer,
-                    city: suggestion._source.adresse.poststed
+                location: (employer._source.adresse ? {
+                    address: employer._source.adresse.adresse,
+                    postalCode: employer._source.adresse.postnummer,
+                    city: employer._source.adresse.poststed
                 } : undefined)
             })).sort()
         ]
