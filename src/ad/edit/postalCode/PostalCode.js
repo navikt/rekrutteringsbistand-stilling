@@ -2,9 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Input } from 'nav-frontend-skjema';
-import { Normaltekst } from "nav-frontend-typografi";
 import Typeahead from '../../../common/typeahead/Typeahead';
-import { FETCH_POSTAL_CODES_SUGGESTIONS, SET_POSTAL_CODE_VALUE } from './postalCodeReducer';
+import { FETCH_LOCATIONS, SET_LOCATION_TYPE_AHEAD_VALUE } from './postalCodeReducer';
 import { registerShortcuts } from '../../../common/shortcuts/Shortcuts';
 import { SET_LOCATION_POSTAL_CODE } from '../../adDataReducer';
 import './PostalCode.less';
@@ -17,17 +16,17 @@ class PostalCode extends React.Component {
                 this.inputRef.setFocus();
             }
         });
-        this.props.fetchLocationSuggestions();
+        this.props.fetchLocations();
     }
 
     onTypeAheadValueChange = (value) => {
-        this.props.setValue(value);
+        this.props.setLocationTypeAheadValue(value);
         this.props.setLocationPostalCode(value);
     };
 
     onTypeAheadSuggestionSelected = (location) => {
         if (location) {
-            this.props.setValue(location.value);
+            this.props.setLocationTypeAheadValue(location.value);
             this.props.setLocationPostalCode(location.value);
         }
     };
@@ -80,32 +79,26 @@ class PostalCode extends React.Component {
     }
 }
 
-PostalCode.defaultProps = {
-    isValid: undefined
-};
-
 PostalCode.propTypes = {
     suggestions: PropTypes.arrayOf(PropTypes.shape({
         kode: PropTypes.string,
         navn: PropTypes.string
     })).isRequired,
-    setValue: PropTypes.func.isRequired,
-    fetchLocationSuggestions: PropTypes.func.isRequired,
-    setLocationPostalCode: PropTypes.func.isRequired,
-    isValid: PropTypes.bool
+    setLocationTypeAheadValue: PropTypes.func.isRequired,
+    fetchLocations: PropTypes.func.isRequired,
+    setLocationPostalCode: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
-    isValid: state.postalCode.isValid,
     suggestions: state.postalCode.suggestions,
     location: state.adData.location,
     validation: state.adValidation.errors
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    setValue: (value) => dispatch({ type: SET_POSTAL_CODE_VALUE, value }),
+    setLocationTypeAheadValue: (value) => dispatch({ type: SET_LOCATION_TYPE_AHEAD_VALUE, value }),
     setLocationPostalCode: (postalCode) => dispatch({ type: SET_LOCATION_POSTAL_CODE, postalCode }),
-    fetchLocationSuggestions: (value) => dispatch({ type: FETCH_POSTAL_CODES_SUGGESTIONS, value })
+    fetchLocations: () => dispatch({ type: FETCH_LOCATIONS })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostalCode);

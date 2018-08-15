@@ -18,7 +18,7 @@ import StartPage from './startPage/StartPage';
 import SearchPage from './searchPage/SearchPage';
 import reporteeReducer, { reporteeSaga } from './reportee/reporteeReducer';
 import engagementTypeReducer from './ad/edit/engagementType/engagementTypeReducer';
-import adDataReducer from './ad/adDataReducer';
+import adDataReducer, { adDataSaga } from './ad/adDataReducer';
 import adValidationReducer, { validationSaga } from './ad/adValidationReducer';
 
 const sagaMiddleware = createSagaMiddleware();
@@ -42,6 +42,7 @@ sagaMiddleware.run(employerSaga);
 sagaMiddleware.run(postalCodeSaga);
 sagaMiddleware.run(styrkSaga);
 sagaMiddleware.run(searchSaga);
+sagaMiddleware.run(adDataSaga);
 
 initShortcuts();
 

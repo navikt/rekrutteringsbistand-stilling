@@ -111,8 +111,8 @@ function* getAd(action) {
     yield put({ type: FETCH_AD_BEGIN });
     try {
         const response = yield fetchGet(`${AD_API}ads/${action.uuid}`);
-        yield put({ type: FETCH_AD_SUCCESS, response });
         yield put({ type: SET_AD_DATA, data: response });
+        yield put({ type: FETCH_AD_SUCCESS, response });
     } catch (e) {
         if (e instanceof ApiError) {
             yield put({ type: FETCH_AD_FAILURE, error: e });

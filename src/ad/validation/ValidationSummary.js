@@ -4,7 +4,6 @@ import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import './ValidationSummary.less';
 
 function ValidationSummary({ validation }) {
-    console.log(validation)
     const validationErrors = Object.keys(validation).map((key) => ({
         key,
         value: validation[key]

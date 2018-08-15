@@ -1,5 +1,5 @@
 import { put, select, takeLatest } from 'redux-saga/es/effects';
-import { lookUpPostalCodes } from './edit/postalCode/postalCodeReducer';
+import { findLocationByPostalCode } from './edit/postalCode/postalCodeReducer';
 import { hasExcludingWordsInTitle } from './preview/markWords';
 import {
     DISCARD_AD_CHANGES,
@@ -13,7 +13,7 @@ const REMOVE_VALIDATION_ERROR = 'REMOVE_VALIDATION_ERROR';
 
 function* validateTitle() {
     const state = yield select();
-    if (hasExcludingWordsInTitle(state.adData.title, state.adData.employer.name)) {
+    if (hasExcludingWordsInTitle(state.adData.title, state.adData.employer ? state.adData.employer.name : undefined)) {
         yield put({
             type: ADD_VALIDATION_ERROR,
             field: 'title',
@@ -27,28 +27,28 @@ function* validateTitle() {
 function* validateLocation() {
     const state = yield select();
     const { location } = state.adData;
-
-    if (location === null ||
-        location === undefined ||
-        location.postalCode === null ||
-        location.postalCode === undefined ||
-        location.postalCode.length === 0) {
+    if (location &&
+        location.postalCode &&
+        location.postalCode.length === 4 &&
+        findLocationByPostalCode(location.postalCode) === undefined) {
         yield put({
             type: ADD_VALIDATION_ERROR,
             field: 'location',
-            message: 'Geografisk plassering av stillingen mangler'
+            message: 'Geografisk plassering har ukjent postnummer'
         });
-    } else if (location.postalCode.length !== 4) {
+    } else if (location &&
+        location.postalCode &&
+        location.postalCode.length !== 4) {
         yield put({
             type: ADD_VALIDATION_ERROR,
             field: 'location',
             message: 'Geografisk plassering har ugyldig postnummer'
         });
-    } else if (lookUpPostalCodes(location.postalCode) === undefined) {
+    } else if (!location || !location.postalCode) {
         yield put({
             type: ADD_VALIDATION_ERROR,
             field: 'location',
-            message: 'Geografisk plassering har ukjent postnummer'
+            message: 'Geografisk plassering av stillingen mangler'
         });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'location' });

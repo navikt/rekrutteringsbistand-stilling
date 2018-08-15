@@ -1,7 +1,7 @@
+import { put, takeLatest } from 'redux-saga/es/effects';
 import AdminStatusEnum from './administration/AdminStatusEnum';
 import { lookUpStyrk } from './edit/styrk/styrkReducer';
-import { lookUpPostalCodes } from './edit/postalCode/postalCodeReducer';
-
+import { findLocationByPostalCode } from './edit/postalCode/postalCodeReducer';
 
 export const SET_AD_DATA = 'SET_AD_DATA';
 
@@ -9,6 +9,7 @@ export const SET_COMMENT = 'SET_COMMENT';
 export const ADD_STYRK = 'ADD_STYRK';
 export const REMOVE_STYRK = 'REMOVE_STYRK';
 export const SET_LOCATION_POSTAL_CODE = 'SET_LOCATION_POSTAL_CODE';
+export const SET_LOCATION = 'SET_LOCATION';
 export const SET_LOCATION_ADDRESS = 'SET_LOCATION_ADDRESS';
 export const SET_EMPLOYMENT_JOBTITLE = 'SET_EMPLOYMENT_JOBTITLE';
 export const SET_EMPLOYMENT_LOCATION = 'SET_EMPLOYMENT_LOCATION';
@@ -44,10 +45,7 @@ const initialState = null;
 export default function adDataReducer(state = initialState, action) {
     switch (action.type) {
         case SET_AD_DATA:
-            return {
-                ...state,
-                ...action.data
-            };
+            return action.data;
         case SET_COMMENT: {
             return {
                 ...state,
@@ -61,16 +59,14 @@ export default function adDataReducer(state = initialState, action) {
             if (state.categoryList.find((s) => (s.code === action.code))) {
                 return state;
             }
-            const categoryListAdd = [...state.categoryList, lookUpStyrk(action.code)];
             return {
                 ...state,
-                categoryList: categoryListAdd
+                categoryList: [...state.categoryList, lookUpStyrk(action.code)]
             };
         case REMOVE_STYRK:
-            const categoryListRemove = state.categoryList.filter((c) => (c.code !== action.code));
             return {
                 ...state,
-                categoryList: categoryListRemove
+                categoryList: state.categoryList.filter((c) => (c.code !== action.code))
             };
         case SET_AD_TITLE: {
             return {
@@ -79,24 +75,9 @@ export default function adDataReducer(state = initialState, action) {
             };
         }
         case SET_LOCATION_POSTAL_CODE:
-            const found = lookUpPostalCodes(action.postalCode);
-            if (found) {
-                return {
-                    ...state,
-                    location: {
-                        ...state.location,
-                        city: found.city,
-                        county: found.county,
-                        municipal: found.municipality,
-                        municipalCode: found.municipalityCode,
-                        postalCode: found.postalCode
-                    }
-                };
-            }
             return {
                 ...state,
                 location: {
-                    ...state.location,
                     city: null,
                     county: null,
                     municipal: null,
@@ -104,7 +85,11 @@ export default function adDataReducer(state = initialState, action) {
                     postalCode: action.postalCode
                 }
             };
-
+        case SET_LOCATION:
+            return {
+                ...state,
+                location: action.location
+            };
         case SET_LOCATION_ADDRESS:
             return {
                 ...state,
@@ -301,7 +286,7 @@ export default function adDataReducer(state = initialState, action) {
                 administration: {
                     ...state.administration,
                     status: action.status,
-                    remarks: action.status === AdminStatusEnum.APPROVED ? [] : state.administration.remarks
+                    remarks: action.status === AdminStatusEnum.DONE ? [] : state.administration.remarks
                 }
             };
         case ADD_REMARK:
@@ -325,3 +310,22 @@ export default function adDataReducer(state = initialState, action) {
     }
 }
 
+function* lookUpLocation(action) {
+    const location = yield findLocationByPostalCode(action.postalCode);
+    if (location !== undefined) {
+        yield put({
+            type: SET_LOCATION,
+            location: {
+                city: location.city,
+                county: location.county,
+                municipal: location.municipality,
+                municipalCode: location.municipalityCode,
+                postalCode: location.postalCode
+            }
+        });
+    }
+}
+
+export const adDataSaga = function* saga() {
+    yield takeLatest(SET_LOCATION_POSTAL_CODE, lookUpLocation);
+};
