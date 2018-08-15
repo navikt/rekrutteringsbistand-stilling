@@ -21,7 +21,7 @@ export default function AdDetails({ stilling }) {
                     <dd key="dd">{stilling.medium}</dd>
                 ]}
                 {stilling.id && [
-                    <dt key="dt">Løpenr.:</dt>,
+                    <dt key="dt">Stillingsnummer:</dt>,
                     <dd key="dd">{stilling.id}</dd>
                 ]}
                 {stilling.reference && [
