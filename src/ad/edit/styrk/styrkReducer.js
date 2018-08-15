@@ -27,6 +27,16 @@ function collapse(categories, code) {
     });
 }
 
+function collapseAll(categories) {
+    return categories.map((category) => {
+        return {
+            ...category,
+            expanded: false,
+            children: category.children ? collapseAll(category.children) : undefined
+        };
+    });
+}
+
 function expand(categories, code) {
     return categories.map((category) => {
         if (code.startsWith(category.code)) {
@@ -97,7 +107,8 @@ export default function styrkReducer(state = initialState, action) {
         case TOGGLE_STYRK_MODAL:
             return {
                 ...state,
-                showStyrkModal: !state.showStyrkModal
+                showStyrkModal: !state.showStyrkModal,
+                styrkThree: collapseAll(state.styrkThree)
             };
         default:
             return state;
