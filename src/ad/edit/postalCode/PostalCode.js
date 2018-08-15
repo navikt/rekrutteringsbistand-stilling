@@ -4,18 +4,11 @@ import { connect } from 'react-redux';
 import { Input } from 'nav-frontend-skjema';
 import Typeahead from '../../../common/typeahead/Typeahead';
 import { FETCH_LOCATIONS, SET_LOCATION_TYPE_AHEAD_VALUE } from './postalCodeReducer';
-import { registerShortcuts } from '../../../common/shortcuts/Shortcuts';
 import { SET_LOCATION_POSTAL_CODE } from '../../adDataReducer';
 import './PostalCode.less';
 
 class PostalCode extends React.Component {
     componentDidMount() {
-        registerShortcuts('annonseDetaljer', {
-            'l g': (e) => {
-                e.preventDefault();
-                this.inputRef.setFocus();
-            }
-        });
         this.props.fetchLocations();
     }
 

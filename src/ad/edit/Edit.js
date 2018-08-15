@@ -23,6 +23,10 @@ import Employer from './employer/Employer';
 import './Edit.less';
 import Styrk from './styrk/Styrk';
 import EngagementType from './engagementType/EngagementType';
+import {
+    registerShortcuts,
+    removeShortcuts
+} from "../../common/shortcuts/Shortcuts";
 
 export const createEmptyOrHTMLStringFromRTEValue = (rteValue) => {
     const emptySpaceOrNotWordRegex = /^(\s|\W)+$/g;
@@ -42,6 +46,18 @@ class Edit extends React.Component {
             adText: this.props.ad.properties.adtext ? RichTextEditor.createValueFromString(this.props.ad.properties.adtext, 'html') : null,
             employerDescription: this.props.ad.properties.employerdescription ? RichTextEditor.createValueFromString(this.props.ad.properties.employerdescription, 'html') : null
         };
+    }
+
+    componentDidMount() {
+        registerShortcuts('annonseDetaljerRedigering', {
+            's s': () => {
+                this.onSaveClick();
+            }
+        });
+    }
+
+    componentWillUnmount() {
+        removeShortcuts('annonseDetaljerRedigering');
     }
 
     onTitleChange = (e) => {

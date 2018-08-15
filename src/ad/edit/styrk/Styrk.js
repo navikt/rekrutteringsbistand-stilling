@@ -9,18 +9,10 @@ import StyrkThree from './StyrkThree';
 import { FETCH_STYRK, SET_STYRK_TYPEAHEAD_VALUE, TOGGLE_STYRK_MODAL } from './styrkReducer';
 import { ADD_STYRK, REMOVE_STYRK } from '../../adDataReducer';
 import './Styrk.less';
-import { registerShortcuts } from '../../../common/shortcuts/Shortcuts';
 
 class Styrk extends React.Component {
     componentDidMount() {
         this.props.fetchStyrk();
-
-        registerShortcuts('annonseDetaljer', {
-            'l y': (e) => {
-                e.preventDefault();
-                this.inputRef.setFocus();
-            }
-        });
     }
 
     onTypeAheadValueChange = (value) => {

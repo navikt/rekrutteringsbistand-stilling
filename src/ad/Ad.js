@@ -16,6 +16,10 @@ import Faded from '../common/faded/Faded';
 import Edit from './edit/Edit';
 import ValidationSummary from './validation/ValidationSummary';
 import AdminStatusEnum from './administration/AdminStatusEnum';
+import {
+    registerShortcuts,
+    removeShortcuts
+} from "../common/shortcuts/Shortcuts";
 
 const isDefaultWorkPriority = (workPriority) =>
     workPriority.source === undefined && workPriority.status === undefined &&
@@ -33,6 +37,13 @@ class Ad extends React.Component {
         } else {
             this.props.getNextAd();
         }
+        registerShortcuts('annonse', {
+            'r r': () => {
+                if (!this.props.isEditingAd) {
+                    this.onEditAdClick();
+                }
+            }
+        })
     }
 
     componentDidUpdate() {
@@ -49,6 +60,10 @@ class Ad extends React.Component {
             this.uuid = this.props.stilling.uuid;
             this.props.history.push(`/ads/${this.uuid}`);
         }
+    }
+
+    componentWillUnmount() {
+        removeShortcuts('annonse');
     }
 
     onEditAdClick = () => {

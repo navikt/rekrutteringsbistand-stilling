@@ -6,6 +6,10 @@ import { FETCH_NEXT_AD, SAVE_AD } from '../adReducer';
 import { SET_ADMIN_STATUS } from '../adDataReducer';
 import AdminStatusEnum from './AdminStatusEnum';
 import ConfirmationPopup from './ConfirmationPopup';
+import {
+    registerShortcuts,
+    removeShortcuts
+} from "../../common/shortcuts/Shortcuts";
 
 class AdminStatusEdit extends React.Component {
     constructor(props) {
@@ -13,6 +17,25 @@ class AdminStatusEdit extends React.Component {
         this.state = {
             isModalOpen: false
         };
+    }
+
+    componentDidMount() {
+        registerShortcuts('administration', {
+            'a a': () => {
+                if (this.props.adminStatus === AdminStatusEnum.PENDING) {
+                    this.onSetToDoneClick();
+                }
+            },
+            'n n': () => {
+                if (this.props.adminStatus !== AdminStatusEnum.PENDING) {
+                    this.props.getNextAd();
+                }
+            }
+        });
+    }
+
+    componentWillUnmount() {
+        removeShortcuts('administration');
     }
 
     onClosePopup = () => {
@@ -83,7 +106,8 @@ AdminStatusEdit.propTypes = {
     adminStatus: PropTypes.string.isRequired,
     setAdminStatus: PropTypes.func.isRequired,
     saveAd: PropTypes.func.isRequired,
-    isEditingAd: PropTypes.bool.isRequired
+    isEditingAd: PropTypes.bool.isRequired,
+    getNextAd: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
