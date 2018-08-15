@@ -350,7 +350,7 @@ class Edit extends React.Component {
                                 className="typo-normal"
                             />
                             <Input
-                                label="Løpenr"
+                                label="Stillingsnummer"
                                 value={ad.id || ''}
                                 onChange={this.onIdChange}
                                 className="typo-normal"
