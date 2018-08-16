@@ -33,3 +33,5 @@ fasitResources:
     resourceType: baseurl
     propertyMap:
       url: LOGIN_URL
+  - alias: pamAdApiBackendSearch
+    resourceType: baseurl

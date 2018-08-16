@@ -21,7 +21,7 @@ server.engine('html', mustacheExpress());
 const writeEnvironmentVariablesToFile = () => {
     const fileContent =
         `window.__PAM_AD_API__="${process.env.PAMADAPIBACKEND_URL}";\n`+
-        `window.__PAM_SEARCH_API__="${process.env.STILLINGSOKES_URL}";\n`+
+        `window.__PAM_SEARCH_API__="${process.env.PAMADAPIBACKENDSEARCH_URL}";\n`+
         `window.__PAM_CONTEXT_PATH__="";\n`+
         `window.__PAM_LOGIN_URL__="${process.env.LOGIN_URL}";\n`;
 
