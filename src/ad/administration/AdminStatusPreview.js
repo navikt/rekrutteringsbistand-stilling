@@ -3,28 +3,29 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Normaltekst } from 'nav-frontend-typografi';
 import AdminStatusEnum from './AdminStatusEnum';
-import { SAVE_AD } from '../adReducer';
 import { SET_ADMIN_STATUS } from '../adDataReducer';
 
 class AdminStatusPreview extends React.Component {
     onSetToReceivedClick = (e) => {
         e.preventDefault();
         this.props.setAdminStatus(AdminStatusEnum.RECEIVED);
-        this.props.saveAd();
     };
 
     render() {
-        const { adminStatus } = this.props;
+        const { adminStatus, reportee } = this.props;
+
         return (
             <div className="AdminStatusPreview">
                 {adminStatus === AdminStatusEnum.RECEIVED && (
                     <Normaltekst>
-                        <b>Saksbehandling:</b> Mottatt
+                        <b>Saksbehandler:</b> {reportee || 'Ingen'}
+                        <br /><b>Saksbehandling:</b> Mottatt
                     </Normaltekst>
                 )}
                 {adminStatus === AdminStatusEnum.PENDING && (
                     <Normaltekst>
-                        <b>Saksbehandling:</b> Under behandling {' ('}
+                        <b>Saksbehandler:</b> {reportee || 'Ingen'}
+                        <br /><b>Saksbehandling:</b> Under behandling {' ('}
                         <a href="#" className="lenke typo-normal" onClick={this.onSetToReceivedClick}>
                             Sett tilbake til Mottatt
                         </a>{')'}
@@ -32,7 +33,8 @@ class AdminStatusPreview extends React.Component {
                 )}
                 {adminStatus === AdminStatusEnum.DONE && (
                     <Normaltekst>
-                        <b>Saksbehandling:</b> Ferdig
+                        <b>Saksbehandler:</b> {reportee || 'Ingen'}
+                        <br /><b>Saksbehandling:</b> Ferdig
                     </Normaltekst>
                 )}
             </div>
@@ -40,19 +42,23 @@ class AdminStatusPreview extends React.Component {
     }
 }
 
+AdminStatusPreview.defaultProps = {
+    reportee: undefined
+};
+
 AdminStatusPreview.propTypes = {
     adminStatus: PropTypes.string.isRequired,
-    setAdminStatus: PropTypes.func.isRequired,
-    saveAd: PropTypes.func.isRequired
+    reportee: PropTypes.string,
+    setAdminStatus: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
-    adminStatus: state.adData.administration.status
+    adminStatus: state.adData.administration.status,
+    reportee: state.adData.administration.reportee
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    setAdminStatus: (status) => dispatch({ type: SET_ADMIN_STATUS, status }),
-    saveAd: () => dispatch({ type: SAVE_AD })
+    setAdminStatus: (status) => dispatch({ type: SET_ADMIN_STATUS, status })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminStatusPreview);

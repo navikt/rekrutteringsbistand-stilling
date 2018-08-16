@@ -17,7 +17,7 @@ class Reportee extends React.Component {
         return (
             <div className="TopMenu__reportee">
                 {!isFetchingReportee && reportee ? (
-                    <Normaltekst>{reportee.displayName}</Normaltekst>
+                    <Normaltekst>Du er innlogget som {reportee.displayName}</Normaltekst>
                 ) : (
                     <Normaltekst>Not logged in</Normaltekst>
                 )}

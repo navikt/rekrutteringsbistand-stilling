@@ -3,7 +3,8 @@ import { ApiError, fetchGet, fetchPut } from '../api/api';
 import { AD_API } from '../fasitProperties';
 import AdminStatusEnum from './administration/AdminStatusEnum';
 import { toUrl } from '../searchPage/searchReducer';
-import { SET_AD_DATA } from './adDataReducer';
+import { SET_REPORTEE, SET_AD_DATA, SET_ADMIN_STATUS } from './adDataReducer';
+import { getReportee } from '../reportee/reporteeReducer';
 
 export const FETCH_AD = 'FETCH_AD';
 export const FETCH_AD_BEGIN = 'FETCH_AD_BEGIN';
@@ -147,12 +148,14 @@ function* getNextAd() {
             }
         }
         if (ad) {
+            const reportee = yield getReportee();
             try {
                 const responsePut = yield fetchPut(`${AD_API}ads/${ad.uuid}`, {
                     ...ad,
                     administration: {
                         ...ad.administration,
-                        status: AdminStatusEnum.PENDING
+                        status: AdminStatusEnum.PENDING,
+                        reportee: reportee.displayName
                     }
                 });
                 shouldRetry = false;
@@ -188,6 +191,28 @@ function* saveAd() {
     }
 }
 
+function* setAdminStatus() {
+    let state = yield select();
+    try {
+        if (state.adData.administration.status === AdminStatusEnum.RECEIVED) {
+            yield put({ type: SET_REPORTEE, reportee: null });
+        } else {
+            const reportee = yield getReportee();
+            yield put({ type: SET_REPORTEE, reportee: reportee.displayName });
+        }
+        state = yield select();
+        const response = yield fetchPut(`${AD_API}ads/${state.adData.uuid}`, state.adData);
+        yield put({ type: SET_AD_DATA, data: response });
+        yield put({ type: SAVE_AD_SUCCESS, response });
+    } catch (e) {
+        if (e instanceof ApiError) {
+            yield put({ type: SAVE_AD_FAILURE, error: e });
+        } else {
+            throw e;
+        }
+    }
+}
+
 function* discardChanges() {
     const state = yield select();
     yield put({
@@ -205,4 +230,5 @@ export const adSaga = function* saga() {
     yield takeLatest(FETCH_NEXT_AD, getNextAd);
     yield takeLatest(DISCARD_AD_CHANGES, discardChanges);
     yield takeLatest(SAVE_AD, saveAd);
+    yield takeLatest(SET_ADMIN_STATUS, setAdminStatus);
 };

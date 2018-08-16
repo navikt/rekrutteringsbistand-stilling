@@ -38,6 +38,7 @@ export const SET_ADMIN_STATUS = 'SET_ADMIN_STATUS';
 export const ADD_REMARK = 'ADD_REMARK';
 export const REMOVE_REMARK = 'REMOVE_REMARK';
 export const SET_AD_TITLE = 'SET_AD_TITLE';
+export const SET_REPORTEE = 'SET_REPORTEE';
 
 const initialState = null;
 
@@ -303,6 +304,14 @@ export default function adDataReducer(state = initialState, action) {
                 administration: {
                     ...state.administration,
                     remarks: state.administration.remarks.filter((remark) => (remark !== action.remark))
+                }
+            };
+        case SET_REPORTEE:
+            return {
+                ...state,
+                administration: {
+                    ...state.administration,
+                    reportee: action.reportee
                 }
             };
         default:
