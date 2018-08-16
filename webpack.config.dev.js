@@ -22,9 +22,9 @@ module.exports = merge(common, {
     plugins: [
         new webpack.DefinePlugin({
             __PAM_CONTEXT_PATH__: "''",
-            __PAM_AD_API__: "'https://pam-ad-api.nais.preprod.local/api/v1/'",
-            __PAM_SEARCH_API__: "'https://pam-search-api.nais.oera-q.local/'",
-            __PAM_LOGIN_URL__: "'http://localhost:9014/login'"
+            __PAM_AD_API__: "'http://localhost:9014/api/v1/'",
+            __PAM_SEARCH_API__: "'http://localhost:9014/search-api/'",
+            __PAM_LOGIN_URL__: "'http://localhost:9015/login'"
         }),
         new HtmlWebpackPlugin({
                 template: './src/index.html'
