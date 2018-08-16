@@ -11,7 +11,7 @@ class SearchBox extends React.Component {
     };
 
     onTypeAheadSelect = (selected) => {
-        this.props.setSearchField(selected && selected.value ? selected.value : Fields.EMPLOYER_NAME);
+        this.props.setSearchField(selected && selected.value ? selected.value : undefined);
         if (this.props.onSearch) {
             this.props.onSearch();
         }
