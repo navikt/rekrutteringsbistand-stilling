@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { Element } from 'nav-frontend-typografi';
 import { formatISOString } from '../../../utils';
 
-export default function AdDetails({ stilling }) {
+export default function Summary({ stilling }) {
     return (
         <div className="detail-section">
-            <Element className="AdDetails__head detail-section__head">Om annonsen</Element>
+            <Element className="detail-section__head">Om annonsen</Element>
             <dl className="dl-flex typo-normal">
                 {stilling.published && [
                     <dt key="dt">Publisert:</dt>,
@@ -37,7 +37,7 @@ export default function AdDetails({ stilling }) {
     );
 }
 
-AdDetails.propTypes = {
+Summary.propTypes = {
     stilling: PropTypes.shape({
         id: PropTypes.number,
         updated: PropTypes.string,
@@ -46,4 +46,3 @@ AdDetails.propTypes = {
         expires: PropTypes.string
     }).isRequired
 };
-

@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {Hovedknapp, Knapp} from 'nav-frontend-knapper';
-import {Normaltekst, Systemtittel} from "nav-frontend-typografi";
+import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
+import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import Preview from './preview/Preview';
 import Administration from './administration/Administration';
 import {
@@ -19,7 +19,7 @@ import AdminStatusEnum from './administration/AdminStatusEnum';
 import {
     registerShortcuts,
     removeShortcuts
-} from "../common/shortcuts/Shortcuts";
+} from '../common/shortcuts/Shortcuts';
 
 const isDefaultWorkPriority = (workPriority) =>
     workPriority.source === undefined && workPriority.status === undefined &&
@@ -43,7 +43,7 @@ class Ad extends React.Component {
                     this.onEditAdClick();
                 }
             }
-        })
+        });
     }
 
     componentDidUpdate() {
@@ -72,7 +72,7 @@ class Ad extends React.Component {
 
     onNextAdClick = () => {
         this.props.resetWorkPriority();
-        this.props.getNextAd()
+        this.props.getNextAd();
     };
 
     render() {
@@ -126,8 +126,8 @@ class Ad extends React.Component {
                                     {stilling.administration.status === AdminStatusEnum.PENDING ? (
                                         <div>
                                             {isEditingAd ? (
-                                                <div className="Ad__edit" >
-                                                    <div className="Ad__edit__inner" >
+                                                <div className="Ad__edit">
+                                                    <div className="Ad__edit__inner">
                                                         <ValidationSummary />
                                                         <Edit />
                                                     </div>

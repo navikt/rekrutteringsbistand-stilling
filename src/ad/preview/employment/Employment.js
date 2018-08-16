@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Element } from 'nav-frontend-typografi';
 import { formatISOString, isValidISOString } from '../../../utils';
 
-export default function EmploymentDetails({ properties }) {
+export default function Employment({ properties }) {
 
     return (
         <div className="detail-section">
@@ -58,7 +58,7 @@ export default function EmploymentDetails({ properties }) {
     );
 }
 
-EmploymentDetails.propTypes = {
+Employment.propTypes = {
     properties: PropTypes.shape({
         jobtitle: PropTypes.string,
         location: PropTypes.string,

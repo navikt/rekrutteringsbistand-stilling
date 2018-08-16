@@ -9,7 +9,7 @@ import ConfirmationPopup from './ConfirmationPopup';
 import {
     registerShortcuts,
     removeShortcuts
-} from "../../common/shortcuts/Shortcuts";
+} from '../../common/shortcuts/Shortcuts';
 
 class AdminStatusEdit extends React.Component {
     constructor(props) {
