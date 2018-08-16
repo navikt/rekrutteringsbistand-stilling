@@ -8,7 +8,6 @@ import { Hovedknapp } from 'nav-frontend-knapper';
 import './StartPage.less';
 import SearchBox from '../searchPage/searchBox/SearchBox';
 import { RESET_WORK_PRIORITY } from '../ad/adReducer';
-import Reportee from "../reportee/Reportee";
 
 class StartPage extends React.Component {
     onSearch = () => {
@@ -34,9 +33,6 @@ class StartPage extends React.Component {
                         >
                             Start med neste ledige annonse
                         </Hovedknapp>
-                        <Reportee />
-                    </Column>
-                    <Column xs="12" md="4">
                     </Column>
                 </Row>
             </Container>
