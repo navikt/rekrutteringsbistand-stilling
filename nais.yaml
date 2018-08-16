@@ -29,3 +29,9 @@ fasitResources:
   used:
   - alias: pamAdApiBackend
     resourceType: baseurl
+  - alias: loginservice_isso_login
+    resourceType: baseurl
+    propertyMap:
+      url: LOGIN_URL
+  - alias: pamAdApiBackendSearch
+    resourceType: baseurl
