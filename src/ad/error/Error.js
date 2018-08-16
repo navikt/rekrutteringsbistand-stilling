@@ -16,7 +16,7 @@ function Error({ error }) {
                     closeButton={false}
                     onRequestClose={() => {
                     }}
-                    contentLabel="Heisann."
+                    contentLabel="Feilmelding"
                     appElement={document.getElementById('app')}
                 >
                     <div className="Error">

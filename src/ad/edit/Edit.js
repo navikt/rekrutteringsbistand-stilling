@@ -26,7 +26,7 @@ import EngagementType from './engagementType/EngagementType';
 import {
     registerShortcuts,
     removeShortcuts
-} from "../../common/shortcuts/Shortcuts";
+} from '../../common/shortcuts/Shortcuts';
 
 export const createEmptyOrHTMLStringFromRTEValue = (rteValue) => {
     const emptySpaceOrNotWordRegex = /^(\s|\W)+$/g;
@@ -100,10 +100,6 @@ class Edit extends React.Component {
         this.props.setStartTime(e.target.value);
     };
 
-    onAddressChange = (e) => {
-        this.props.setAddress(e.target.value);
-    };
-
     onApplicationDueChange = (e) => {
         this.props.setApplicationDue(e.target.value);
     };
@@ -118,10 +114,6 @@ class Edit extends React.Component {
 
     onSourceUrlChange = (e) => {
         this.props.setSourceUrl(e.target.value);
-    };
-
-    onEmployerChange = (e) => {
-        this.props.setEmployer(e.target.value);
     };
 
     onEmployerDescriptionChange = (employerDescription) => {
