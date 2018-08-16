@@ -1,28 +1,14 @@
 import { put, select, takeLatest } from 'redux-saga/es/effects';
 import { findLocationByPostalCode } from './edit/postalCode/postalCodeReducer';
-import { hasExcludingWordsInTitle } from './preview/markWords';
 import {
     DISCARD_AD_CHANGES,
     FETCH_AD_SUCCESS,
     SAVE_AD_SUCCESS
 } from './adReducer';
-import { ADD_STYRK, REMOVE_STYRK, SET_AD_TITLE, SET_EMPLOYER, SET_LOCATION_POSTAL_CODE } from './adDataReducer';
+import { ADD_STYRK, REMOVE_STYRK, SET_EMPLOYER, SET_LOCATION_POSTAL_CODE } from './adDataReducer';
 
 const ADD_VALIDATION_ERROR = 'ADD_VALIDATION_ERROR';
 const REMOVE_VALIDATION_ERROR = 'REMOVE_VALIDATION_ERROR';
-
-function* validateTitle() {
-    const state = yield select();
-    if (hasExcludingWordsInTitle(state.adData.title, state.adData.employer ? state.adData.employer.name : undefined)) {
-        yield put({
-            type: ADD_VALIDATION_ERROR,
-            field: 'title',
-            message: 'Tittel inneholder ord som ikke er tillatt'
-        });
-    } else {
-        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'title' });
-    }
-}
 
 function* validateLocation() {
     const state = yield select();
@@ -87,7 +73,6 @@ function* validateAll() {
     if (state.adData !== null) {
         yield validateStyrk();
         yield validateLocation();
-        yield validateTitle();
         yield validateEmployer();
     }
 }
@@ -121,7 +106,6 @@ export default function adValidationReducer(state = initialState, action) {
 export const validationSaga = function* saga() {
     yield takeLatest([FETCH_AD_SUCCESS, SAVE_AD_SUCCESS, DISCARD_AD_CHANGES], validateAll);
     yield takeLatest([ADD_STYRK, REMOVE_STYRK], validateStyrk);
-    yield takeLatest(SET_AD_TITLE, validateTitle);
     yield takeLatest(SET_EMPLOYER, validateEmployer);
     yield takeLatest(SET_LOCATION_POSTAL_CODE, validateLocation);
 };

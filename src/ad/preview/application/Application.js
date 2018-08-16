@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Element } from 'nav-frontend-typografi';
 import { formatISOString, isValidISOString } from '../../../utils';
-import { hasExcludingWordsInUrl } from '../markWords';
 
 export function getApplicationUrl(source, properties) {
     if (source === 'FINN') {
@@ -39,7 +38,7 @@ export default function Application({ source, properties }) {
                 {sokUrl && sokUrl.startsWith('http') && [
                     <dt key="dt">Søknadslenke:</dt>,
                     <dd key="dd">
-                        <span className={hasExcludingWordsInUrl(sokUrl) ? ' AdText__discriminating' : ''}>
+                        <span>
                             {sokUrl}
                         </span>
                     </dd>

@@ -10,7 +10,6 @@ import Application from './application/Application';
 import Employer from './employer/Employer';
 import Employment from './employment/Employment';
 import Summary from './summary/Summary';
-import markWords from './markWords';
 import './Preview.less';
 import Location from './location/Location';
 
@@ -27,13 +26,13 @@ export default function Preview({ stilling }) {
             <Row>
                 <Column xs="12" md="8">
                     <div className="AdText__body">
-                        {ReactHtmlParser(markWords(stilling.properties.adtext))}
+                        {ReactHtmlParser(stilling.properties.adtext)}
                     </div>
                     <div>
                         {stilling.properties.employerdescription && (
                             <div className="EmployerDetails__description">
                                 <Systemtittel>Beskrivelse av arbeidsgiver</Systemtittel>
-                                { ReactHtmlParser(markWords(stilling.properties.employerdescription)) }
+                                { ReactHtmlParser(stilling.properties.employerdescription) }
                             </div>
                         )}
                     </div>
