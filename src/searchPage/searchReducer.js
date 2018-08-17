@@ -1,7 +1,8 @@
-import { put, takeLatest, select } from 'redux-saga/effects';
+import { put, takeLatest, select, call } from 'redux-saga/effects';
 import { fetchGet, ApiError } from '../api/api';
 import { AD_API } from '../fasitProperties';
 import AdminStatusEnum from '../ad/administration/AdminStatusEnum';
+import { getReportee } from '../reportee/reporteeReducer';
 
 export const FETCH_ADS = 'FETCH_ADS';
 export const FETCH_ADS_BEGIN = 'FETCH_ADS_BEGIN';
@@ -15,6 +16,7 @@ export const SET_SEARCH_FIELD = 'SET_SEARCH_FIELD';
 export const CHANGE_SOURCE_FILTER = 'CHANGE_SOURCE_FILTER';
 export const CHANGE_STATUS_FILTER = 'CHANGE_STATUS_FILTER';
 export const CHANGE_ADMINISTRATION_STATUS_FILTER = 'CHANGE_ADMINISTRATION_STATUS_FILTER';
+export const CHANGE_REPORTEE_FILTER = 'CHANGE_REPORTEE_FILTER';
 
 export const Fields = {
     EMPLOYER_NAME: 'employerName',
@@ -36,7 +38,8 @@ const initialState = {
     suggestions: [],
     source: undefined,
     status: undefined,
-    administrationStatus: AdminStatusEnum.RECEIVED
+    administrationStatus: AdminStatusEnum.RECEIVED,
+    reportee: undefined
 };
 
 export default function searchReducer(state = initialState, action) {
@@ -70,6 +73,11 @@ export default function searchReducer(state = initialState, action) {
             return {
                 ...state,
                 administrationStatus: action.value
+            };
+        case CHANGE_REPORTEE_FILTER:
+            return {
+                ...state,
+                reportee: action.value
             };
         case FETCH_ADS_BEGIN:
             return {
@@ -143,14 +151,15 @@ export const toUrl = (query) => {
 
 export function toQuery(search) {
     const {
-        sortField, sortDir, page, source, status, administrationStatus
+        sortField, sortDir, page, source, status, administrationStatus, reportee
     } = search;
     const query = {
         source,
         status,
         sort: `${sortField},${sortDir}`,
         page,
-        administrationStatus
+        administrationStatus,
+        reportee
     };
     query[search.field] = search.value;
     return query;
@@ -163,7 +172,18 @@ function* getAds(action) {
         }
         yield put({ type: FETCH_ADS_BEGIN });
 
-        const state = yield select();
+        let state = yield select();
+        if (state.search.reportee === 'mine') {
+            const reportee = yield call(getReportee);
+            state = {
+                ...state,
+                search: {
+                    ...state.search,
+                    reportee: reportee.displayName
+                }
+            };
+        }
+
         const query = toQuery(state.search);
         const searchUrl = toUrl(query);
         const url = `${AD_API}ads/${searchUrl}`;
@@ -185,6 +205,7 @@ export const searchSaga = function* saga() {
         CHANGE_SOURCE_FILTER,
         CHANGE_STATUS_FILTER,
         CHANGE_ADMINISTRATION_STATUS_FILTER,
+        CHANGE_REPORTEE_FILTER,
         SET_SEARCH_FIELD,
         CHANGE_SORTING,
         CHANGE_PAGE,
