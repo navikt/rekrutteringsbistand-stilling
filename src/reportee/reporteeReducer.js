@@ -3,7 +3,7 @@ import { ApiError, fetchGet } from '../api/api';
 import { AD_API } from '../fasitProperties';
 import toUrl from '../common/toUrl';
 import AdminStatusEnum from '../ad/administration/AdminStatusEnum';
-import { FETCH_NEXT_AD_SUCCESS, SET_ADMIN_STATUS_SUCCESS } from '../ad/adReducer';
+import { FETCH_NEXT_AD_SUCCESS, SAVE_AD_SUCCESS } from '../ad/adReducer';
 
 export const FETCH_REPORTEE = 'FETCH_REPORTEE';
 export const FETCH_REPORTEE_BEGIN = 'FETCH_REPORTEE_BEGIN';
@@ -95,5 +95,5 @@ export function* getNumberOfPendingAds() {
 export const reporteeSaga = function* saga() {
     // yield takeLatest(FETCH_REPORTEE, getReportee);
     yield takeLatest(FETCH_NUMBER_OF_PENDING_ADS, getNumberOfPendingAds);
-    yield takeLatest([SET_ADMIN_STATUS_SUCCESS, FETCH_NEXT_AD_SUCCESS], getNumberOfPendingAds);
+    yield takeLatest([SAVE_AD_SUCCESS, FETCH_NEXT_AD_SUCCESS], getNumberOfPendingAds);
 };

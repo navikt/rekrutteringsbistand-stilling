@@ -184,23 +184,8 @@ function* getNextAd() {
 }
 
 function* saveAd() {
-    const state = yield select();
-    yield put({ type: SAVE_AD_BEGIN });
-    try {
-        const response = yield fetchPut(`${AD_API}ads/${state.adData.uuid}`, state.adData);
-        yield put({ type: SET_AD_DATA, data: response });
-        yield put({ type: SAVE_AD_SUCCESS, response });
-    } catch (e) {
-        if (e instanceof ApiError) {
-            yield put({ type: SAVE_AD_FAILURE, error: e });
-        } else {
-            throw e;
-        }
-    }
-}
-
-function* setAdminStatus() {
     let state = yield select();
+    yield put({ type: SAVE_AD_BEGIN });
     try {
         if (state.adData.administration.status === AdminStatusEnum.RECEIVED) {
             yield put({ type: SET_REPORTEE, reportee: null });
@@ -212,7 +197,6 @@ function* setAdminStatus() {
         const response = yield fetchPut(`${AD_API}ads/${state.adData.uuid}`, state.adData);
         yield put({ type: SET_AD_DATA, data: response });
         yield put({ type: SAVE_AD_SUCCESS, response });
-        yield put({ type: SET_ADMIN_STATUS_SUCCESS });
     } catch (e) {
         if (e instanceof ApiError) {
             yield put({ type: SAVE_AD_FAILURE, error: e });
@@ -239,5 +223,4 @@ export const adSaga = function* saga() {
     yield takeLatest(FETCH_NEXT_AD, getNextAd);
     yield takeLatest(DISCARD_AD_CHANGES, discardChanges);
     yield takeLatest(SAVE_AD, saveAd);
-    yield takeLatest(SET_ADMIN_STATUS, setAdminStatus);
 };

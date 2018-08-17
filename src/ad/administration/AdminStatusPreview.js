@@ -4,11 +4,13 @@ import { connect } from 'react-redux';
 import { Normaltekst } from 'nav-frontend-typografi';
 import AdminStatusEnum from './AdminStatusEnum';
 import { SET_ADMIN_STATUS } from '../adDataReducer';
+import { SAVE_AD } from '../adReducer';
 
 class AdminStatusPreview extends React.Component {
     onSetToReceivedClick = (e) => {
         e.preventDefault();
         this.props.setAdminStatus(AdminStatusEnum.RECEIVED);
+        this.props.saveAd();
     };
 
     render() {
@@ -49,7 +51,8 @@ AdminStatusPreview.defaultProps = {
 AdminStatusPreview.propTypes = {
     adminStatus: PropTypes.string.isRequired,
     reportee: PropTypes.string,
-    setAdminStatus: PropTypes.func.isRequired
+    setAdminStatus: PropTypes.func.isRequired,
+    saveAd: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -58,7 +61,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    setAdminStatus: (status) => dispatch({ type: SET_ADMIN_STATUS, status })
+    setAdminStatus: (status) => dispatch({ type: SET_ADMIN_STATUS, status }),
+    saveAd: () => dispatch({ type: SAVE_AD })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminStatusPreview);
