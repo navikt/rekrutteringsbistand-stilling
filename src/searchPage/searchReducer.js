@@ -38,7 +38,7 @@ const initialState = {
     suggestions: [],
     source: undefined,
     status: undefined,
-    administrationStatus: AdminStatusEnum.RECEIVED,
+    administrationStatus: undefined,
     reportee: undefined
 };
 
