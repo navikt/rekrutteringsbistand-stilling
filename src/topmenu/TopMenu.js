@@ -41,11 +41,8 @@ class TopMenu extends React.Component {
     render() {
         return (
             <div className="TopMenu">
-                <Link to={'/'} className="TopMenu__item">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-                        <path d="M0 0h24v24H0z" fill="none" />
-                    </svg>
+                <Link to={'/'} className="TopMenu__item TopMenu__title">
+                    <Systemtittel>NSS Admin</Systemtittel>
                 </Link>
                 <Link to={'/search'} className="TopMenu__item">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
