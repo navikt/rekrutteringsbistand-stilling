@@ -25,7 +25,7 @@ class SearchBox extends React.Component {
                     onSelect={this.onTypeAheadSelect}
                     suggestions={this.props.suggestions}
                     value={this.props.value}
-                    placeholder="Søk på arbeidsgiver, overskrift eller id"
+                    placeholder="Søk på arbeidsgiver, overskrift eller stillingsnummer"
                     id="SearchPageSearchbox"
                 />
                 <span className="SearchBox__button">

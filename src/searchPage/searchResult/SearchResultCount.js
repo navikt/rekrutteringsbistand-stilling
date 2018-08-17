@@ -19,7 +19,7 @@ function SearchResultCount({ count, field, isSearching }) {
     } else if (field === Fields.TITLE) {
         fieldName = 'i annonseoverskrift';
     } else if (field === Fields.ID) {
-        fieldName = 'i ID';
+        fieldName = 'i stillingsnummer';
     }
     return (
         <div>
