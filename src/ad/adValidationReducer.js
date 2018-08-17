@@ -2,7 +2,7 @@ import { put, select, takeLatest } from 'redux-saga/es/effects';
 import { findLocationByPostalCode } from './edit/postalCode/postalCodeReducer';
 import {
     DISCARD_AD_CHANGES,
-    FETCH_AD_SUCCESS,
+    FETCH_AD_SUCCESS, FETCH_NEXT_AD_SUCCESS,
     SAVE_AD_SUCCESS
 } from './adReducer';
 import { ADD_STYRK, REMOVE_STYRK, SET_EMPLOYER, SET_LOCATION_POSTAL_CODE } from './adDataReducer';
@@ -104,7 +104,7 @@ export default function adValidationReducer(state = initialState, action) {
 }
 
 export const validationSaga = function* saga() {
-    yield takeLatest([FETCH_AD_SUCCESS, SAVE_AD_SUCCESS, DISCARD_AD_CHANGES], validateAll);
+    yield takeLatest([FETCH_AD_SUCCESS, SAVE_AD_SUCCESS, DISCARD_AD_CHANGES, FETCH_NEXT_AD_SUCCESS], validateAll);
     yield takeLatest([ADD_STYRK, REMOVE_STYRK], validateStyrk);
     yield takeLatest(SET_EMPLOYER, validateEmployer);
     yield takeLatest(SET_LOCATION_POSTAL_CODE, validateLocation);

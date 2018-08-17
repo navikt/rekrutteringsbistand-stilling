@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Input } from 'nav-frontend-skjema';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
+import { Column, Row } from 'nav-frontend-grid';
 import { connect } from 'react-redux';
 import RichTextEditor from 'react-rte';
 import { DISCARD_AD_CHANGES, SAVE_AD } from '../adReducer';
@@ -229,6 +230,149 @@ class Edit extends React.Component {
                                 onChange={this.onEmployerDescriptionChange}
                             />
                         </Ekspanderbartpanel>
+                        <Ekspanderbartpanel className="Edit__panel" tittel="Om stillingen" tittelProps="undertittel" apen>
+                            <Row>
+                                <Column md="6">
+                                    <Input
+                                        label="Stillingstittel"
+                                        value={ad.properties.jobtitle || ''}
+                                        onChange={this.onJobtitleChange}
+                                        className="typo-normal"
+                                    />
+                                </Column>
+                                <Column md="6">
+                                    <Input
+                                        label="Arbeidssted"
+                                        value={ad.properties.location || ''}
+                                        onChange={this.onLocationChange}
+                                        className="typo-normal"
+                                    />
+                                </Column>
+                            </Row>
+                            <Row>
+                                <Column md="6">
+                                    <EngagementType />
+                                </Column>
+                                <Column md="6">
+                                    <Input
+                                        label="Heltid/deltid"
+                                        value={ad.properties.extent || ''}
+                                        onChange={this.onExtentChange}
+                                        className="typo-normal"
+                                    />
+                                </Column>
+                            </Row>
+                            <Row>
+                                <Column md="6">
+                                    <Input
+                                        label="Arbeidsdager"
+                                        value={ad.properties.workday || ''}
+                                        onChange={this.onWorkdayChange}
+                                        className="typo-normal"
+                                    />
+                                </Column>
+                                <Column md="6">
+                                    <Input
+                                        label="Arbeidstid"
+                                        value={ad.properties.workhours || ''}
+                                        onChange={this.onWorkhoursChange}
+                                        className="typo-normal"
+                                    />
+                                </Column>
+                            </Row>
+                            <Row>
+                                <Column md="6">
+                                    <Input
+                                        label="Arb.tidordning"
+                                        value={ad.properties.jobarrangement || ''}
+                                        onChange={this.onJobarrangementChange}
+                                        className="typo-normal"
+                                    />
+                                </Column>
+                                <Column md="6">
+                                    <Input
+                                        label="Sektor"
+                                        value={ad.properties.sector || ''}
+                                        onChange={this.onSectorChange}
+                                        className="typo-normal"
+                                    />
+                                </Column>
+                            </Row>
+                            <Row>
+                                <Column md="6">
+                                    <Input
+                                        label="Antall stillinger"
+                                        value={ad.properties.positioncount || ''}
+                                        onChange={this.onPositioncountChange}
+                                        className="typo-normal"
+                                    />
+                                </Column>
+                                <Column md="6">
+                                    <Input
+                                        label="Oppstart"
+                                        value={ad.properties.starttime || ''}
+                                        onChange={this.onStarttimeChange}
+                                        className="typo-normal"
+                                    />
+                                </Column>
+                            </Row>
+                        </Ekspanderbartpanel>
+                        <Ekspanderbartpanel className="Edit__panel" tittel="Om annonsen" tittelProps="undertittel" apen>
+                            <Row>
+                                <Column md="6">
+                                    <Input
+                                        label="Publisert"
+                                        value={ad.published || ''}
+                                        onChange={this.onPublishedChange}
+                                        className="typo-normal"
+                                    />
+                                </Column>
+                                <Column md="6">
+                                    <Input
+                                        label="Utløpsdato"
+                                        value={ad.expires || ''}
+                                        onChange={this.onExpiresChange}
+                                        className="typo-normal"
+                                    />
+                                </Column>
+                            </Row>
+                            <Row>
+                                <Column md="6">
+                                    <Input
+                                        label="Sist endret"
+                                        value={ad.updated || ''}
+                                        onChange={this.onLastUpdatedChange}
+                                        className="typo-normal"
+                                    />
+                                </Column>
+                                <Column md="6">
+                                    <Input
+                                        label="Hentet fra"
+                                        value={ad.medium || ''}
+                                        onChange={this.onMediumChange}
+                                        className="typo-normal"
+                                    />
+                                </Column>
+                            </Row>
+                            <Row>
+                                <Column md="6">
+                                    <Input
+                                        label="Stillingsnummer"
+                                        value={ad.id || ''}
+                                        onChange={this.onIdChange}
+                                        className="typo-normal"
+                                    />
+                                </Column>
+                                <Column md="6">
+                                    <Input
+                                        label="Referanse"
+                                        value={ad.reference || ''}
+                                        onChange={this.onReferenceChange}
+                                        className="typo-normal"
+                                    />
+                                </Column>
+                            </Row>
+                        </Ekspanderbartpanel>
                     </div>
                     <div className="Edit__right">
                         <Ekspanderbartpanel className="Edit__panel" tittel="Arbeidsyrke" tittelProps="undertittel" apen>
@@ -276,103 +420,6 @@ class Edit extends React.Component {
                                 label="Kildelenke"
                                 value={ad.properties.sourceurl || ''}
                                 onChange={this.onSourceUrlChange}
-                                className="typo-normal"
-                            />
-                        </Ekspanderbartpanel>
-
-                        <Ekspanderbartpanel className="Edit__panel" tittel="Om stillingen" tittelProps="undertittel">
-                            <Input
-                                label="Stillingstittel"
-                                value={ad.properties.jobtitle || ''}
-                                onChange={this.onJobtitleChange}
-                                className="typo-normal"
-                            />
-                            <Input
-                                label="Arbeidssted"
-                                value={ad.properties.location || ''}
-                                onChange={this.onLocationChange}
-                                className="typo-normal"
-                            />
-                            <EngagementType />
-                            <Input
-                                label="Heltid/deltid"
-                                value={ad.properties.extent || ''}
-                                onChange={this.onExtentChange}
-                                className="typo-normal"
-                            />
-                            <Input
-                                label="Antall stillinger"
-                                value={ad.properties.positioncount || ''}
-                                onChange={this.onPositioncountChange}
-                                className="typo-normal"
-                            />
-                            <Input
-                                label="Sektor"
-                                value={ad.properties.sector || ''}
-                                onChange={this.onSectorChange}
-                                className="typo-normal"
-                            />
-                            <Input
-                                label="Arbeidsdager"
-                                value={ad.properties.workday || ''}
-                                onChange={this.onWorkdayChange}
-                                className="typo-normal"
-                            />
-                            <Input
-                                label="Arbeidstid"
-                                value={ad.properties.workhours || ''}
-                                onChange={this.onWorkhoursChange}
-                                className="typo-normal"
-                            />
-                            <Input
-                                label="Arb.tidordning"
-                                value={ad.properties.jobarrangement || ''}
-                                onChange={this.onJobarrangementChange}
-                                className="typo-normal"
-                            />
-                            <Input
-                                label="Oppstart"
-                                value={ad.properties.starttime || ''}
-                                onChange={this.onStarttimeChange}
-                                className="typo-normal"
-                            />
-                        </Ekspanderbartpanel>
-
-                        <Ekspanderbartpanel className="Edit__panel" tittel="Om annonsen" tittelProps="undertittel">
-                            <Input
-                                label="Publisert"
-                                value={ad.published || ''}
-                                onChange={this.onPublishedChange}
-                                className="typo-normal"
-                            />
-                            <Input
-                                label="Sist endret"
-                                value={ad.updated || ''}
-                                onChange={this.onLastUpdatedChange}
-                                className="typo-normal"
-                            />
-                            <Input
-                                label="Hentet fra"
-                                value={ad.medium || ''}
-                                onChange={this.onMediumChange}
-                                className="typo-normal"
-                            />
-                            <Input
-                                label="Stillingsnummer"
-                                value={ad.id || ''}
-                                onChange={this.onIdChange}
-                                className="typo-normal"
-                            />
-                            <Input
-                                label="Referanse"
-                                value={ad.reference || ''}
-                                onChange={this.onReferenceChange}
-                                className="typo-normal"
-                            />
-                            <Input
-                                label="Utløpsdato"
-                                value={ad.expires || ''}
-                                onChange={this.onExpiresChange}
                                 className="typo-normal"
                             />
                         </Ekspanderbartpanel>
