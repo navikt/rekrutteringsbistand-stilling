@@ -1,8 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { FETCH_REPORTEE_BEGIN } from './reporteeReducer';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Normaltekst } from 'nav-frontend-typografi';
+import { FETCH_REPORTEE_BEGIN } from './reporteeReducer';
 
 class Reportee extends React.Component {
     componentDidMount() {
@@ -15,11 +15,11 @@ class Reportee extends React.Component {
     render() {
         const { reportee, isFetchingReportee } = this.props;
         return (
-            <div className="TopMenu__reportee">
+            <div>
                 {!isFetchingReportee && reportee ? (
-                    <Normaltekst>Du er innlogget som {reportee.displayName}</Normaltekst>
+                    <Normaltekst>{reportee.displayName}</Normaltekst>
                 ) : (
-                    <Normaltekst>Not logged in</Normaltekst>
+                    <Normaltekst>Ikke innlogget</Normaltekst>
                 )}
             </div>
         );
@@ -29,6 +29,12 @@ class Reportee extends React.Component {
 Reportee.defaultProps = {
     reportee: undefined,
     isFetchingReportee: false
+};
+
+Reportee.propTypes = {
+    reportee: PropTypes.shape({
+        displayName: PropTypes.string
+    })
 };
 
 const mapStateToProps = (state) => ({

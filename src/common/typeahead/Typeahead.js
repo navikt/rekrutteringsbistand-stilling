@@ -184,9 +184,11 @@ export default class Typeahead extends React.Component {
 
         return (
             <div className={classNames("Typeahead", this.props.className)}>
-                <label className="skjemaelement__label" htmlFor={this.props.id}>
-                    {this.props.label}
-                </label>
+                {this.props.label && (
+                    <label className="skjemaelement__label" htmlFor={this.props.id}>
+                        {this.props.label}
+                    </label>
+                )}
                 <input
                     disabled={this.props.disabled}
                     id={this.props.id}

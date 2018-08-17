@@ -35,12 +35,14 @@ class Styrk extends React.Component {
     render() {
         return (
             <div className="Styrk">
-                <label htmlFor="Styrk__typeahead" className="typo-normal">STYRK</label>
-                <span>
-                    {' ('}
-                    <a href="#" className="typo-normal lenke" onClick={this.onShowListClick}>velg fra liste</a>
-                    {')'}
-                </span>
+                <div className="skjemaelement__label">
+                    <label htmlFor="Styrk__typeahead">STYRK</label>
+                    <span>
+                        {' ('}
+                        <a href="#" className="typo-normal lenke" onClick={this.onShowListClick}>velg fra liste</a>
+                        {')'}
+                    </span>
+                </div>
                 <Typeahead
                     id="Styrk__typeahead"
                     label=""

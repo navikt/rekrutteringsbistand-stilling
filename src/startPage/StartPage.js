@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Sidetittel } from 'nav-frontend-typografi';
 import { Column, Container, Row } from 'nav-frontend-grid';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import './StartPage.less';
@@ -21,21 +20,16 @@ class StartPage extends React.Component {
 
     render() {
         return (
-            <Container className="StartPage">
-                <Row>
-                    <Column xs="12" md="4" />
-                    <Column xs="12" md="4">
-                        <Sidetittel className="StartPage__sidetittel">Annonsemottak</Sidetittel>
-                        <SearchBox onSearch={this.onSearch} />
-                        <Hovedknapp
-                            className="StartPage__button"
-                            onClick={this.onStartWorkClick}
-                        >
-                            Start med neste ledige annonse
-                        </Hovedknapp>
-                    </Column>
-                </Row>
-            </Container>
+            <div className="StartPage">
+                <SearchBox onSearch={this.onSearch} />
+                <br/><br/><br/><br/>
+                <Hovedknapp
+                    className="StartPage__button"
+                    onClick={this.onStartWorkClick}
+                >
+                    Start med neste ledige annonse
+                </Hovedknapp>
+            </div>
         );
     }
 }
