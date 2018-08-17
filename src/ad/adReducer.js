@@ -3,7 +3,10 @@ import { ApiError, fetchGet, fetchPut } from '../api/api';
 import { AD_API } from '../fasitProperties';
 import AdminStatusEnum from './administration/AdminStatusEnum';
 import toUrl from '../common/toUrl';
-import { SET_REPORTEE, SET_AD_DATA, SET_ADMIN_STATUS } from './adDataReducer';
+import {
+    SET_REPORTEE, SET_AD_DATA, SET_ADMIN_STATUS,
+    SET_ADMIN_STATUS_AND_GET_NEXT_AD
+} from './adDataReducer';
 import { getReportee } from '../reportee/reporteeReducer';
 
 export const FETCH_AD = 'FETCH_AD';
@@ -218,9 +221,16 @@ function* discardChanges() {
     });
 }
 
+function* setAdminStatusAndGetNextAd(action) {
+    yield put({ type: SET_ADMIN_STATUS, status: action.status });
+    yield saveAd();
+    yield getNextAd();
+}
+
 export const adSaga = function* saga() {
     yield takeLatest(FETCH_AD, getAd);
     yield takeLatest(FETCH_NEXT_AD, getNextAd);
     yield takeLatest(DISCARD_AD_CHANGES, discardChanges);
     yield takeLatest(SAVE_AD, saveAd);
+    yield takeLatest(SET_ADMIN_STATUS_AND_GET_NEXT_AD, setAdminStatusAndGetNextAd);
 };

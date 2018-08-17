@@ -5,20 +5,12 @@ import { Hovedknapp } from 'nav-frontend-knapper';
 import { FETCH_NEXT_AD, SAVE_AD } from '../adReducer';
 import { SET_ADMIN_STATUS } from '../adDataReducer';
 import AdminStatusEnum from './AdminStatusEnum';
-import ConfirmationPopup from './ConfirmationPopup';
 import {
     registerShortcuts,
     removeShortcuts
 } from '../../common/shortcuts/Shortcuts';
 
 class AdminStatusEdit extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isModalOpen: false
-        };
-    }
-
     componentDidMount() {
         registerShortcuts('administration', {
             'a a': () => {
@@ -38,25 +30,15 @@ class AdminStatusEdit extends React.Component {
         removeShortcuts('administration');
     }
 
-    onClosePopup = () => {
-        this.setState({
-            isModalOpen: false
-        });
-    };
-
     onSetToPendingClick = () => {
-        this.setState({
-            isModalOpen: false
-        });
+        this.props.closeModal();
         this.props.setAdminStatus(AdminStatusEnum.PENDING);
         this.props.saveAd();
     };
 
     onSetToDoneClick = () => {
         if (this.props.isEditingAd) {
-            this.setState({
-                isModalOpen: true
-            });
+            this.props.openModal();
         } else {
             this.props.setAdminStatus(AdminStatusEnum.DONE);
             this.props.saveAd()
@@ -83,10 +65,6 @@ class AdminStatusEdit extends React.Component {
                         >
                             Avslutt saksbehandling
                         </Hovedknapp>
-                        <ConfirmationPopup
-                            isOpen={this.state.isModalOpen}
-                            onCancel={this.onClosePopup}
-                        />
                     </div>
                 )}
                 {adminStatus === AdminStatusEnum.DONE && (
