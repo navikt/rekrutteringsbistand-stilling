@@ -1,16 +1,22 @@
-import { put, takeLatest } from 'redux-saga/effects';
+import { select, put, takeLatest } from 'redux-saga/effects';
 import { ApiError, fetchGet } from '../api/api';
 import { AD_API } from '../fasitProperties';
-import { select } from "redux-saga/es/effects";
+import toUrl from '../common/toUrl';
+import AdminStatusEnum from '../ad/administration/AdminStatusEnum';
+import { FETCH_NEXT_AD_SUCCESS, SET_ADMIN_STATUS_SUCCESS } from '../ad/adReducer';
 
+export const FETCH_REPORTEE = 'FETCH_REPORTEE';
 export const FETCH_REPORTEE_BEGIN = 'FETCH_REPORTEE_BEGIN';
 export const FETCH_REPORTEE_SUCCESS = 'FETCH_REPORTEE_SUCCESS';
 export const FETCH_REPORTEE_FAILURE = 'FETCH_REPORTEE_FAILURE';
+export const FETCH_NUMBER_OF_PENDING_ADS = 'FETCH_NUMBER_OF_PENDING_ADS';
+export const FETCH_NUMBER_OF_PENDING_ADS_SUCCESS = 'FETCH_NUMBER_OF_PENDING_ADS_SUCCESS';
 
 const initialState = {
     data: undefined,
     error: undefined,
-    isFetchingReportee: false
+    isFetchingReportee: false,
+    numberOfPendingAds: undefined
 };
 
 export default function reporteeReducer(state = initialState, action) {
@@ -34,6 +40,11 @@ export default function reporteeReducer(state = initialState, action) {
                 error: action.error,
                 isFetchingReportee: false
             };
+        case FETCH_NUMBER_OF_PENDING_ADS_SUCCESS:
+            return {
+                ...state,
+                numberOfPendingAds: action.numberOfPendingAds
+            };
         default:
             return state;
     }
@@ -42,6 +53,7 @@ export default function reporteeReducer(state = initialState, action) {
 export function* getReportee() {
     let state = yield select();
     if (!state.reportee.data) {
+        yield put({ type: FETCH_REPORTEE_BEGIN });
         try {
             const response = yield fetchGet(`${AD_API}reportee/`);
             yield put({ type: FETCH_REPORTEE_SUCCESS, response });
@@ -57,6 +69,31 @@ export function* getReportee() {
     return state.reportee.data;
 }
 
+export function* getNumberOfPendingAds() {
+    let state = yield select();
+    if (!state.reportee.data) {
+        yield getReportee();
+        state = yield select();
+    }
+    try {
+        const searchUrl = toUrl({
+            reportee: state.reportee.data.displayName,
+            administrationStatus: AdminStatusEnum.PENDING
+        });
+        const url = `${AD_API}ads/${searchUrl}`;
+        const response = yield fetchGet(url);
+        yield put({ type: FETCH_NUMBER_OF_PENDING_ADS_SUCCESS, numberOfPendingAds: response.totalElements });
+    } catch (e) {
+        if (e instanceof ApiError) {
+            // Ignore
+        } else {
+            throw e;
+        }
+    }
+}
+
 export const reporteeSaga = function* saga() {
-    yield takeLatest(FETCH_REPORTEE_BEGIN, getReportee);
+    // yield takeLatest(FETCH_REPORTEE, getReportee);
+    yield takeLatest(FETCH_NUMBER_OF_PENDING_ADS, getNumberOfPendingAds);
+    yield takeLatest([SET_ADMIN_STATUS_SUCCESS, FETCH_NEXT_AD_SUCCESS], getNumberOfPendingAds);
 };

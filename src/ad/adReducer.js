@@ -2,7 +2,7 @@ import { put, takeLatest, select } from 'redux-saga/effects';
 import { ApiError, fetchGet, fetchPut } from '../api/api';
 import { AD_API } from '../fasitProperties';
 import AdminStatusEnum from './administration/AdminStatusEnum';
-import { toUrl } from '../searchPage/searchReducer';
+import toUrl from '../common/toUrl';
 import { SET_REPORTEE, SET_AD_DATA, SET_ADMIN_STATUS } from './adDataReducer';
 import { getReportee } from '../reportee/reporteeReducer';
 
@@ -22,8 +22,12 @@ export const DISCARD_AD_CHANGES = 'DISCARD_AD_CHANGES';
 export const SET_WORK_PRIORITY = 'SET_WORK_PRIORITY';
 export const RESET_WORK_PRIORITY = 'RESET_WORK_PRIORITY';
 export const FETCH_NEXT_AD = 'FETCH_NEXT_AD';
+export const FETCH_NEXT_AD_BEGIN = 'FETCH_NEXT_AD_BEGIN';
+export const FETCH_NEXT_AD_SUCCESS = 'FETCH_NEXT_AD_SUCCESS';
+export const FETCH_NEXT_AD_FAILURE = 'FETCH_NEXT_AD_FAILURE';
 export const SET_END_OF_LIST = 'SET_END_OF_LIST';
 
+export const SET_ADMIN_STATUS_SUCCESS = 'SET_ADMIN_STATUS_SUCCESS';
 
 const initialState = {
     error: undefined,
@@ -40,6 +44,7 @@ const initialState = {
 export default function adReducer(state = initialState, action) {
     switch (action.type) {
         case FETCH_AD_BEGIN:
+        case FETCH_NEXT_AD_BEGIN:
             return {
                 ...state,
                 isFetchingStilling: true,
@@ -48,6 +53,7 @@ export default function adReducer(state = initialState, action) {
                 originalData: undefined
             };
         case FETCH_AD_SUCCESS:
+        case FETCH_NEXT_AD_SUCCESS:
             return {
                 ...state,
                 isFetchingStilling: false,
@@ -55,6 +61,7 @@ export default function adReducer(state = initialState, action) {
                 originalData: { ...action.response }
             };
         case FETCH_AD_FAILURE:
+        case FETCH_NEXT_AD_FAILURE:
             return {
                 ...state,
                 error: action.error,
@@ -125,7 +132,7 @@ function* getAd(action) {
 }
 
 function* getNextAd() {
-    yield put({ type: FETCH_AD_BEGIN });
+    yield put({ type: FETCH_NEXT_AD_BEGIN });
     const state = yield select();
     const queryString = toUrl({
         ...state.ad.workPriority, size: 1, sort: 'created,asc', administrationStatus: AdminStatusEnum.RECEIVED
@@ -143,7 +150,7 @@ function* getNextAd() {
             }
         } catch (e) {
             if (e instanceof ApiError) {
-                yield put({ type: FETCH_AD_FAILURE, error: e });
+                yield put({ type: FETCH_NEXT_AD_FAILURE, error: e });
             } else {
                 throw e;
             }
@@ -161,7 +168,7 @@ function* getNextAd() {
                 });
                 shouldRetry = false;
                 yield put({ type: SET_AD_DATA, data: responsePut });
-                yield put({ type: FETCH_AD_SUCCESS, response: responsePut });
+                yield put({ type: FETCH_NEXT_AD_SUCCESS, response: responsePut });
             } catch (e) {
                 if (e instanceof ApiError && e.statusCode === 412) {
                     shouldRetry = true;
@@ -205,6 +212,7 @@ function* setAdminStatus() {
         const response = yield fetchPut(`${AD_API}ads/${state.adData.uuid}`, state.adData);
         yield put({ type: SET_AD_DATA, data: response });
         yield put({ type: SAVE_AD_SUCCESS, response });
+        yield put({ type: SET_ADMIN_STATUS_SUCCESS });
     } catch (e) {
         if (e instanceof ApiError) {
             yield put({ type: SAVE_AD_FAILURE, error: e });

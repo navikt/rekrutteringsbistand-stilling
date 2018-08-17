@@ -22,7 +22,7 @@ class EngagementType extends React.Component {
             <div className="EngagementType">
                 <Typeahead
                     id="EngagementType__input"
-                    label="Ansettelsesform"
+                    label="Ansettelsesforhold"
                     onSelect={this.onTypeAheadSuggestionSelected}
                     onChange={this.onTypeAheadValueChange}
                     suggestions={this.props.suggestions.map((s) => ({

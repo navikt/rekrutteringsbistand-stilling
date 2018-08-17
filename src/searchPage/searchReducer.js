@@ -1,8 +1,8 @@
 import { put, takeLatest, select, call } from 'redux-saga/effects';
 import { fetchGet, ApiError } from '../api/api';
 import { AD_API } from '../fasitProperties';
-import AdminStatusEnum from '../ad/administration/AdminStatusEnum';
 import { getReportee } from '../reportee/reporteeReducer';
+import toUrl from '../common/toUrl';
 
 export const FETCH_ADS = 'FETCH_ADS';
 export const FETCH_ADS_BEGIN = 'FETCH_ADS_BEGIN';
@@ -119,35 +119,6 @@ export default function searchReducer(state = initialState, action) {
             return state;
     }
 }
-
-/**
- * Takes an object representing the url query and transform it into a string
- * @param query: f.ex: {q: "Java", fruits: ["Apple", "Banana"], count: 10}
- * @returns {string} f.ex: q=Java&names=Apple_Banana&count=10
- */
-export const toUrl = (query) => {
-    let result = {};
-
-    Object.keys(query).forEach((key) => {
-        if (query[key] !== undefined) {
-            if (query[key] !== '') {
-                result = {
-                    ...result,
-                    [key]: query[key]
-                };
-            }
-        }
-    });
-
-    const urlQuery = Object.keys(result)
-        .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(result[key])}`)
-        .join('&')
-        .replace(/%20/g, '+')
-        .replace(/%2C/g, ',');
-
-
-    return urlQuery && urlQuery.length > 0 ? `?${urlQuery}` : '';
-};
 
 export function toQuery(search) {
     const {

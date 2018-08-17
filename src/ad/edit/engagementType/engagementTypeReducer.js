@@ -4,7 +4,7 @@ const initialState = {
     suggestions: []
 };
 
-const engagementTypes = ['Fast', 'Vikariat', 'Engasjement', 'Prosjekt', 'Sesong', 'Sommerjobb', 'Trainee og lærling', 'Annet'];
+const engagementTypes = ['Fast', 'Vikariat', 'Engasjement', 'Prosjekt', 'Sesong', 'Trainee og lærling', 'Annet'];
 
 export default function engagementTypeReducer(state = initialState, action) {
     switch (action.type) {

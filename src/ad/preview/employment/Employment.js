@@ -18,7 +18,7 @@ export default function Employment({ properties }) {
                     <dd key="dd">{properties.location}</dd>
                 ]}
                 {properties.engagementtype && [
-                    <dt key="dt">Ansettelsesform:</dt>,
+                    <dt key="dt">Ansettelsesforhold:</dt>,
                     <dd key="dd">{properties.engagementtype }</dd>
                 ]}
                 {properties.extent && [
