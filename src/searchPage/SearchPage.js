@@ -22,11 +22,11 @@ class SearchPage extends React.Component {
 
     onStartWorkClick = () => {
         const query = {
-            source: this.props.search.source,
-            status: this.props.search.status,
-            sort: `${this.props.search.sortField},${this.props.search.sortDir}`
+            source: this.props.adSource,
+            status: this.props.adStatus,
+            sort: `${this.props.sortField},${this.props.sortDir}`
         };
-        query[this.props.search.field] = this.props.search.value;
+        query[this.props.searchField] = this.props.searchValue;
         this.props.setWorkPriority(query);
         this.props.history.push(`/ads`);
     };
@@ -79,13 +79,35 @@ SearchPage.propTypes = {
     ads: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
     isSearching: PropTypes.bool.isRequired,
     getAds: PropTypes.func.isRequired,
-    setWorkPriority: PropTypes.func.isRequired
+    setWorkPriority: PropTypes.func.isRequired,
+    history: PropTypes.shape().isRequired,
+    adSource: PropTypes.string,
+    adStatus: PropTypes.string,
+    sortField: PropTypes.string.isRequired,
+    sortDir: PropTypes.string.isRequired,
+    searchField: PropTypes.string,
+    searchValue: PropTypes.string
+
+};
+
+SearchPage.defaultProps = {
+    adSource: undefined,
+    adStatus: undefined,
+    searchField: undefined,
+    searchValue: ''
+
 };
 
 const mapStateToProps = (state) => ({
     ads: state.search.items,
     isSearching: state.search.isSearching,
-    search: state.search
+    adSource: state.search.source,
+    adStatus: state.search.status,
+    sortField: state.search.sortDir,
+    sortDir: state.search.sortDir,
+    searchField: state.search.field,
+    searchValue: state.search.value
+
 });
 
 const mapDispatchToProps = (dispatch) => ({

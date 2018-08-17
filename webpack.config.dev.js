@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const common = require('./webpack.common.js');
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = merge(common, {
     devtool: 'inline-source-map',
@@ -27,8 +27,7 @@ module.exports = merge(common, {
             __PAM_LOGIN_URL__: "'http://localhost:9015/login'"
         }),
         new HtmlWebpackPlugin({
-                template: './src/index.html'
-            }
-        )
+            template: './src/index.html'
+        })
     ]
 });

@@ -1,8 +1,8 @@
 import { put, takeLatest, select, call } from 'redux-saga/effects';
 import { fetchGet, ApiError } from '../api/api';
 import { AD_API } from '../fasitProperties';
-import AdminStatusEnum from "../ad/administration/AdminStatusEnum";
-import { getReportee } from "../reportee/reporteeReducer";
+import AdminStatusEnum from '../ad/administration/AdminStatusEnum';
+import { getReportee } from '../reportee/reporteeReducer';
 
 export const FETCH_ADS = 'FETCH_ADS';
 export const FETCH_ADS_BEGIN = 'FETCH_ADS_BEGIN';
