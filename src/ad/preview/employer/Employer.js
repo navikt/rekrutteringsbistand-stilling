@@ -3,27 +3,34 @@ import PropTypes from 'prop-types';
 import { Element } from 'nav-frontend-typografi';
 import './Employer.less';
 
-export default function Employer({ employer }) {
-    if (!employer) {
-        return null;
-    }
-    const { location } = employer;
+export default function Employer({ employer, properties }) {
     return (
         <div className="detail-section">
-            <Element className="detail-section__head">Arbeidsgiver</Element>
+            {employer && (
+                <div>
+                    <Element className="detail-section__head">Arbeidsgiver fra Enhetsregisteret</Element>
+                    <dl className="dl-flex typo-normal blokk-s">
+                        {employer.name && [
+                            <dt key="dt">Arbeidsgivernavn:</dt>,
+                            <dd key="dd">{employer.name}</dd>
+                        ]}
+                        {employer.location && employer.location.address && [
+                            <dt key="dt">Gateadresse:</dt>,
+                            <dd key="dd">{employer.location.address}</dd>]
+                        }
+                        {employer.location && employer.location.postalCode && [
+                            <dt key="dt">Poststed:</dt>,
+                            <dd key="dd">{employer.location.postalCode} {employer.location.city}</dd>]
+                        }
+                    </dl>
+                </div>
+            )}
+            <Element className="detail-section__head">Oppgitt arbeidsgiver</Element>
             <dl className="dl-flex typo-normal">
-                {employer.name && [
-                    <dt key="dt">Arbeidsgiver:</dt>,
-                    <dd key="dd">{employer.name}</dd>
+                {properties.employer && [
+                    <dt key="dt">Arbeidsgivernavn:</dt>,
+                    <dd key="dd">{properties.employer}</dd>
                 ]}
-                {location && location.address && [
-                    <dt key="dt">Gateadresse:</dt>,
-                    <dd key="dd">{location.address}</dd>]
-                }
-                {location && location.postalCode && [
-                    <dt key="dt">Poststed:</dt>,
-                    <dd key="dd">{location.postalCode} {location.city}</dd>]
-                }
             </dl>
         </div>
     );

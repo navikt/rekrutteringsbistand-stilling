@@ -50,7 +50,10 @@ export default function Preview({ stilling }) {
                             </div>
                         )}
                         <Location />
-                        <Employer employer={stilling.employer} />
+                        <Employer
+                            employer={stilling.employer}
+                            properties={stilling.properties}
+                        />
                         <Application
                             source={stilling.source}
                             properties={stilling.properties}

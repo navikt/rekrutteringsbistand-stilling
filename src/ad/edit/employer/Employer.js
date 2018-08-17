@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Normaltekst } from 'nav-frontend-typografi';
 import Typeahead from '../../../common/typeahead/Typeahead';
 import { FETCH_EMPLOYER_SUGGESTIONS } from './employerReducer';
 import { SET_EMPLOYER } from '../../adDataReducer';
@@ -25,20 +26,26 @@ class Employer extends React.Component {
         }
     };
 
-    lookUpEmployer = (value) => {
-        return this.props.suggestions.find((employer) => (employer.name === value || employer.orgnr === value));
-    };
+    lookUpEmployer = (value) => this.props.suggestions.find((employer) => (employer.name === value || employer.orgnr === value));
 
     render() {
-        const { employer } = this.props;
+        const { employer, properties } = this.props;
         const location = employer ? employer.location : undefined;
         return (
             <div className="Employer">
+                {properties.employer && (
+                    <dl className="dl-flex typo-normal blokk-s">
+                        <dt key="dt">Oppgitt arb.giver:</dt>
+                        <dd key="dd">{properties.employer}</dd>
+                    </dl>
+                )}
+
                 <div className="blokk-xxs">
                     <Typeahead
                         id="Employer__typeahead"
                         className="Employer__typeahead"
-                        label="Arbeidsgiver"
+                        label="Koble arbeidsgiver med Enhetsregisteret"
+                        placeholder="Søk etter arbeidsgiver"
                         onSelect={this.onTypeAheadSuggestionSelected}
                         onChange={this.onTypeAheadValueChange}
                         suggestions={this.props.suggestions.map((employer) => ({
@@ -54,16 +61,20 @@ class Employer extends React.Component {
                     />
                 </div>
                 {employer && location &&
-                    <dl className="dl-flex typo-normal">
-                        {location.address && [
-                            <dt key="dt">Gateadresse:</dt>,
-                            <dd key="dd">{location.address}</dd>]
-                        }
-                        {location && location.postalCode && [
-                            <dt key="dt">Poststed:</dt>,
-                            <dd key="dd">{location.postalCode} {location.city}</dd>]
-                        }
-                    </dl>
+                <dl className="dl-flex typo-normal">
+                    {employer.name && [
+                        <dt key="dt">Arbeidsgiver</dt>,
+                        <dd key="dd">{employer.name}</dd>]
+                    }
+                    {location.address && [
+                        <dt key="dt">Gateadresse:</dt>,
+                        <dd key="dd">{location.address}</dd>]
+                    }
+                    {location && location.postalCode && [
+                        <dt key="dt">Poststed:</dt>,
+                        <dd key="dd">{location.postalCode} {location.city}</dd>]
+                    }
+                </dl>
                 }
                 {this.props.validation.employer && (
                     <div className="Employer__error">{this.props.validation.employer}</div>
@@ -74,7 +85,10 @@ class Employer extends React.Component {
 }
 
 Employer.defaultProps = {
-    employer: {}
+    employer: {},
+    properties: {
+        employer: ' - '
+    }
 };
 
 Employer.propTypes = {
@@ -87,6 +101,9 @@ Employer.propTypes = {
     validation: PropTypes.shape({
         employer: PropTypes.string
     }).isRequired,
+    properties: PropTypes.shape({
+        employer: PropTypes.string
+    }).isRequired,
     employer: PropTypes.shape({
         orgnr: PropTypes.string,
         name: PropTypes.string
@@ -96,6 +113,7 @@ Employer.propTypes = {
 const mapStateToProps = (state) => ({
     suggestions: state.employer.suggestions,
     employer: state.adData.employer,
+    properties: state.adData.properties,
     validation: state.adValidation.errors
 });
 

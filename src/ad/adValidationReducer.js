@@ -61,7 +61,7 @@ function* validateEmployer() {
     if (employer === null || employer === undefined ||
         employer.name === null || employer.name === undefined || employer.name.length === 0 ||
         employer.orgnr === null || employer.orgnr === undefined || employer.orgnr.length === 0) {
-        yield put({ type: ADD_VALIDATION_ERROR, field: 'employer', message: 'Arbeidsgiver mangler' });
+        yield put({ type: ADD_VALIDATION_ERROR, field: 'employer', message: 'Arbeidsgiver er ikke koblet til Enhetsregisteret' });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'employer' });
     }
