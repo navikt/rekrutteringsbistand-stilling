@@ -35,7 +35,8 @@ class StartPage extends React.Component {
 }
 
 StartPage.propTypes = {
-    resetWorkPriority: PropTypes.func.isRequired
+    resetWorkPriority: PropTypes.func.isRequired,
+    history: PropTypes.shape().isRequired
 };
 
 const mapStateToProps = () => ({});
@@ -45,4 +46,3 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(StartPage));
-
