@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Radio, SkjemaGruppe } from 'nav-frontend-skjema';
 import {
-    CHANGE_ADMINISTRATION_STATUS_FILTER, CHANGE_SOURCE_FILTER,
+    CHANGE_ADMINISTRATION_STATUS_FILTER, CHANGE_REPORTEE_FILTER,
+    CHANGE_SOURCE_FILTER,
     CHANGE_STATUS_FILTER
 } from '../searchReducer';
 import SourceEnum from '../enums/SourceEnum';
@@ -32,6 +33,14 @@ class Filter extends React.Component {
             this.props.changeAdministrationStatusFilter(e.target.value);
         } else {
             this.props.changeAdministrationStatusFilter(undefined);
+        }
+    };
+
+    onReporteeFilterChange = (e) => {
+        if (e.target.value !== 'Alle') {
+            this.props.changeReporteeFilter(e.target.value);
+        } else {
+            this.props.changeReporteeFilter(undefined);
         }
     };
 
@@ -95,6 +104,22 @@ class Filter extends React.Component {
                         />
                     ))}
                 </SkjemaGruppe>
+                <SkjemaGruppe title="Synlige annonser">
+                    <Radio
+                        label="Alle"
+                        value="Alle"
+                        checked={this.props.reportee === undefined}
+                        name="reportee"
+                        onChange={this.onReporteeFilterChange}
+                    />
+                    <Radio
+                        label="Vis bare mine"
+                        value="mine"
+                        checked={this.props.reportee === 'mine'}
+                        name="reportee"
+                        onChange={this.onReporteeFilterChange}
+                    />
+                </SkjemaGruppe>
             </div>
         );
     }
@@ -103,28 +128,33 @@ class Filter extends React.Component {
 Filter.defaultProps = {
     adStatus: undefined,
     adminStatus: undefined,
-    source: undefined
+    source: undefined,
+    reportee: undefined
 };
 
 Filter.propTypes = {
     changeStatusFilter: PropTypes.func.isRequired,
     changeSourceFilter: PropTypes.func.isRequired,
     changeAdministrationStatusFilter: PropTypes.func.isRequired,
+    changeReporteeFilter: PropTypes.func.isRequired,
     adStatus: PropTypes.string,
     adminStatus: PropTypes.string,
-    source: PropTypes.string
+    source: PropTypes.string,
+    reportee: PropTypes.string
 };
 
 const mapStateToProps = (state) => ({
     adStatus: state.search.status,
     adminStatus: state.search.administrationStatus,
-    source: state.search.source
+    source: state.search.source,
+    reportee: state.search.reportee
 });
 
 const mapDispatchToProps = (dispatch) => ({
     changeSourceFilter: (value) => dispatch({ type: CHANGE_SOURCE_FILTER, value }),
     changeStatusFilter: (value) => dispatch({ type: CHANGE_STATUS_FILTER, value }),
-    changeAdministrationStatusFilter: (value) => dispatch({ type: CHANGE_ADMINISTRATION_STATUS_FILTER, value })
+    changeAdministrationStatusFilter: (value) => dispatch({ type: CHANGE_ADMINISTRATION_STATUS_FILTER, value }),
+    changeReporteeFilter: (value) => dispatch({ type: CHANGE_REPORTEE_FILTER, value })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Filter);
