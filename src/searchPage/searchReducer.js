@@ -44,16 +44,23 @@ const initialState = {
 
 export default function searchReducer(state = initialState, action) {
     switch (action.type) {
-        case SET_SEARCH_VALUE:
+        case SET_SEARCH_VALUE: {
+            // only allow spaces and numbers for search on 'stillingsnummer'
+            const isNumbersOnly = action.value.match(/^[ 0-9]+$/) !== null;
+            const suggestions = [];
+            if (action.value.length > 0) {
+                suggestions.push({ label: `Søk på "${action.value}" i arbeidsgiver`, value: Fields.EMPLOYER_NAME });
+                suggestions.push({ label: `Søk på "${action.value}" i annonseoverskrift`, value: Fields.TITLE });
+                if (isNumbersOnly) {
+                    suggestions.push({ label: `Søk på "${action.value}" i stillingsnummer`, value: Fields.ID });
+                }
+            }
             return {
                 ...state,
                 value: action.value,
-                suggestions: action.value.length === 0 ? [] : [
-                    { label: `Søk på "${action.value}" i arbeidsgiver`, value: Fields.EMPLOYER_NAME },
-                    { label: `Søk på "${action.value}" i annonseoverskrift`, value: Fields.TITLE },
-                    { label: `Søk på "${action.value}" i ID`, value: Fields.ID }
-                ]
+                suggestions
             };
+        }
         case SET_SEARCH_FIELD:
             return {
                 ...state,
