@@ -20,6 +20,7 @@ import {
     registerShortcuts,
     removeShortcuts
 } from '../common/shortcuts/Shortcuts';
+import { SET_AD_DATA } from './adDataReducer';
 
 const isDefaultWorkPriority = (workPriority) =>
     workPriority.source === undefined && workPriority.status === undefined &&
@@ -47,22 +48,23 @@ class Ad extends React.Component {
     }
 
     componentDidUpdate() {
-        if (this.props.match.params.uuid === undefined && this.props.stilling) {
+        if (!this.uuid && this.props.stilling) {
             // Skjer når man kommer rett til /ads uten uuid
             this.uuid = this.props.stilling.uuid;
             this.props.history.replace(`/ads/${this.uuid}`);
+        } else if (this.uuid && this.props.stilling && this.props.stilling.uuid !== this.uuid) {
+            // Skjer når man har trykket hent neste
+            this.uuid = this.props.stilling.uuid;
+            this.props.history.push(`/ads/${this.uuid}`);
         } else if (this.props.match.params.uuid && this.props.match.params.uuid !== this.uuid) {
             // Skjer når man trykker tilbake i browser
             this.uuid = this.props.match.params.uuid;
             this.props.getStilling(this.uuid);
-        } else if (this.props.stilling && this.props.stilling.uuid !== this.uuid) {
-            // Skjer når man har trykket hent neste
-            this.uuid = this.props.stilling.uuid;
-            this.props.history.push(`/ads/${this.uuid}`);
         }
     }
 
     componentWillUnmount() {
+        this.props.unsetAd();
         removeShortcuts('annonse');
     }
 
@@ -135,7 +137,10 @@ class Ad extends React.Component {
                                             ) : (
                                                 <div className="Ad__preview">
                                                     <ValidationSummary />
-                                                    <Knapp className="Ad__preview__edit-button" onClick={this.onEditAdClick}>
+                                                    <Knapp
+                                                        className="Ad__preview__edit-button"
+                                                        onClick={this.onEditAdClick}
+                                                    >
                                                         Rediger annonsen
                                                     </Knapp>
                                                     <Preview stilling={stilling} />
@@ -211,6 +216,7 @@ const mapDispatchToProps = (dispatch) => ({
     getStilling: (uuid) => dispatch({ type: FETCH_AD, uuid }),
     getNextAd: () => dispatch({ type: FETCH_NEXT_AD }),
     editAd: () => dispatch({ type: EDIT_AD }),
+    unsetAd: () => dispatch({ type: SET_AD_DATA, data: null }),
     resetWorkPriority: () => dispatch({ type: RESET_WORK_PRIORITY })
 });
 

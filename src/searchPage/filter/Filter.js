@@ -85,7 +85,7 @@ class Filter extends React.Component {
                         />
                     ))}
                 </SkjemaGruppe>
-                <SkjemaGruppe title="Saksbehandlerstatus">
+                <SkjemaGruppe title="Saksbehandlerstatus" className="blokk">
                     <Radio
                         label="Alle"
                         value="Alle"
@@ -104,7 +104,7 @@ class Filter extends React.Component {
                         />
                     ))}
                 </SkjemaGruppe>
-                <SkjemaGruppe title="Synlige annonser">
+                <SkjemaGruppe title="Saksbehandler" className="blokk">
                     <Radio
                         label="Alle"
                         value="Alle"

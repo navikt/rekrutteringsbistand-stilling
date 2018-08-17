@@ -110,6 +110,7 @@ export default function adReducer(state = initialState, action) {
 
 function* getAd(action) {
     yield put({ type: FETCH_AD_BEGIN });
+    yield put({ type: SET_AD_DATA, data: null });
     try {
         const response = yield fetchGet(`${AD_API}ads/${action.uuid}`);
         yield put({ type: SET_AD_DATA, data: response });
