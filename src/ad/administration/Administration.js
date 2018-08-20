@@ -110,18 +110,9 @@ class Administration extends React.Component {
                         ) : (
                             <div>
                                 <AdStatusPreview />
-                                <div className="blokk">
-                                    <Element>Yrke</Element>
-                                    <StyrkPreview />
-                                </div>
-                                <div className="blokk">
-                                    <Element>Arbeidsgiver fra Enhetsregisteret</Element>
-                                    <EmployerPreview />
-                                </div>
-                                <div className="blokk">
-                                    <Element>Arbeidssted</Element>
-                                    <LocationPreview />
-                                </div>
+                                <StyrkPreview />
+                                <EmployerPreview />
+                                <LocationPreview />
                                 <CommentsPreview />
                             </div>
                         )}
