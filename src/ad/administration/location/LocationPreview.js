@@ -6,7 +6,7 @@ import { Normaltekst } from 'nav-frontend-typografi';
 function LocationPreview({ location }) {
     return (
         <div className="LocationPreview">
-            {location && (
+            {location ? (
                 <div>
                     {location.postalCode && location.city && (
                         <Normaltekst>Poststed: {location.postalCode} {location.city}</Normaltekst>
@@ -18,8 +18,9 @@ function LocationPreview({ location }) {
                         <Normaltekst>Fylke: {location.county}</Normaltekst>
                     )}
                 </div>
-            )
-            }
+            ) : (
+                <Normaltekst>Mangler</Normaltekst>
+            )}
         </div>
     );
 }
