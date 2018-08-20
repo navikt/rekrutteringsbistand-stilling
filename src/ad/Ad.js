@@ -14,7 +14,6 @@ import DelayedSpinner from '../common/DelayedSpinner';
 import './Ad.less';
 import Faded from '../common/faded/Faded';
 import Edit from './edit/Edit';
-import ValidationSummary from './validation/ValidationSummary';
 import AdminStatusEnum from './administration/adminStatus/AdminStatusEnum';
 import {
     registerShortcuts,
