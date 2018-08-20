@@ -2,7 +2,7 @@ import { select, put, takeLatest } from 'redux-saga/effects';
 import { ApiError, fetchGet } from '../api/api';
 import { AD_API } from '../fasitProperties';
 import toUrl from '../common/toUrl';
-import AdminStatusEnum from '../ad/administration/AdminStatusEnum';
+import AdminStatusEnum from '../ad/administration/adminStatus/AdminStatusEnum';
 import { FETCH_NEXT_AD_SUCCESS, SAVE_AD_SUCCESS } from '../ad/adReducer';
 
 export const FETCH_REPORTEE = 'FETCH_REPORTEE';

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import NavFrontendModal from 'nav-frontend-modal';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
-import AdminStatusEnum from './AdminStatusEnum';
+import AdminStatusEnum from './adminStatus/AdminStatusEnum';
 import {DISCARD_AD_CHANGES, FETCH_NEXT_AD, SAVE_AD} from '../adReducer';
 import {
     SET_ADMIN_STATUS,

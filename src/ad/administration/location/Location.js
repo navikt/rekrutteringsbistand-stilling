@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Input } from 'nav-frontend-skjema';
+import { Undertekst } from 'nav-frontend-typografi';
 import Typeahead from '../../../common/typeahead/Typeahead';
-import { FETCH_LOCATIONS, SET_LOCATION_TYPE_AHEAD_VALUE } from './postalCodeReducer';
+import { FETCH_LOCATIONS, SET_LOCATION_TYPE_AHEAD_VALUE } from './locationCodeReducer';
 import { SET_LOCATION_POSTAL_CODE } from '../../adDataReducer';
-import './PostalCode.less';
+import './Location.less';
 
-class PostalCode extends React.Component {
+class Location extends React.Component {
     componentDidMount() {
         this.props.fetchLocations();
     }
@@ -26,7 +27,7 @@ class PostalCode extends React.Component {
 
     render() {
         return (
-            <div className="PostalCode">
+            <div className="Location">
                 <div className="PostalCode__flex">
                     <Typeahead
                         id="PostalCode__input"
@@ -53,16 +54,11 @@ class PostalCode extends React.Component {
                     />
                 </div>
                 {this.props.location &&
-                    <dl className="dl-flex typo-normal">
-                        {this.props.location.municipal && [
-                            <dt key="dt">Kommune:</dt>,
-                            <dd key="dd">{this.props.location.municipal}</dd>]
-                        }
-                        {this.props.location.county && [
-                            <dt key="dt">Fylke:</dt>,
-                            <dd key="dd">{this.props.location.county}</dd>]
-                        }
-                    </dl>
+                    <div>
+                        {this.props.location.municipal && this.props.location.county && (
+                            <Undertekst>Kommune: {this.props.location.municipal} / Fylke: {this.props.location.county}</Undertekst>
+                        )}
+                    </div>
                 }
                 {this.props.validation.location && (
                     <div className="PostalCode__error">{this.props.validation.location}</div>
@@ -72,7 +68,7 @@ class PostalCode extends React.Component {
     }
 }
 
-PostalCode.propTypes = {
+Location.propTypes = {
     suggestions: PropTypes.arrayOf(PropTypes.shape({
         kode: PropTypes.string,
         navn: PropTypes.string
@@ -83,7 +79,7 @@ PostalCode.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    suggestions: state.postalCode.suggestions,
+    suggestions: state.location.suggestions,
     location: state.adData.location,
     validation: state.adValidation.errors
 });
@@ -94,4 +90,4 @@ const mapDispatchToProps = (dispatch) => ({
     fetchLocations: () => dispatch({ type: FETCH_LOCATIONS })
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostalCode);
+export default connect(mapStateToProps, mapDispatchToProps)(Location);

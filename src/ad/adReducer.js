@@ -1,7 +1,7 @@
 import { put, takeLatest, select } from 'redux-saga/effects';
 import { ApiError, fetchGet, fetchPut } from '../api/api';
 import { AD_API } from '../fasitProperties';
-import AdminStatusEnum from './administration/AdminStatusEnum';
+import AdminStatusEnum from './administration/adminStatus/AdminStatusEnum';
 import toUrl from '../common/toUrl';
 import {
     SET_REPORTEE, SET_AD_DATA, SET_ADMIN_STATUS,

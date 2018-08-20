@@ -2,18 +2,25 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Knapp } from 'nav-frontend-knapper';
-import AdminStatusEnum from './AdminStatusEnum';
-import AdStatusEnum from './AdStatusEnum';
-import AdStatusPreview from './AdStatusPreview';
-import AdStatusEdit from './AdStatusEdit';
-import RemarksEdit from './RemarksEdit';
-import CommentsEdit from './CommentsEdit';
-import CommentsPreview from './CommentsPreview';
-import AdminStatusPreview from './AdminStatusPreview';
-import AdminStatusEdit from './AdminStatusEdit';
+import { Element } from 'nav-frontend-typografi';
+import AdminStatusEnum from './adminStatus/AdminStatusEnum';
+import AdStatusEnum from './adStatus/AdStatusEnum';
+import AdStatusPreview from './adStatus/AdStatusPreview';
+import AdStatusEdit from './adStatus/AdStatusEdit';
+import RemarksEdit from './adStatus/RemarksEdit';
+import CommentsEdit from './comments/CommentsEdit';
+import CommentsPreview from './comments/CommentsPreview';
+import AdminStatusPreview from './adminStatus/AdminStatusPreview';
+import AdminStatusEdit from './adminStatus/AdminStatusEdit';
 import './Administration.less';
 import { FETCH_NEXT_AD } from '../adReducer';
-import ConfirmationPopup from "./ConfirmationPopup";
+import ConfirmationPopup from './ConfirmationPopup';
+import Styrk from './styrk/Styrk';
+import Location from './location/Location';
+import Employer from './employer/Employer';
+import LocationPreview from './location/LocationPreview';
+import StyrkPreview from './styrk/StyrkPreview';
+import EmployerPreview from "./employer/EmployerPreview";
 
 class Administration extends React.Component {
     constructor(props) {
@@ -43,26 +50,53 @@ class Administration extends React.Component {
         this.setState({
             isModalOpen: true,
             next
-        })
+        });
     };
 
     render() {
-        const { adStatus, adminStatus } = this.props;
+        const { adStatus, adminStatus, categoryList } = this.props;
         return (
             <div className="Administration">
                 <div className="Administration__flex">
                     <div className="Administration__flex__top">
                         {adminStatus === AdminStatusEnum.PENDING ? (
                             <div>
-                                <AdStatusEdit />
-                                {adStatus === AdStatusEnum.REJECTED && (
-                                    <RemarksEdit />
-                                )}
+                                <div className="blokk">
+                                    <Element>Yrke</Element>
+                                    <Styrk />
+                                </div>
+                                <div className="blokk">
+                                    <Element>Sted</Element>
+                                    <Location />
+                                </div>
+                                <div className="blokk">
+                                    <Element>Arbeidsgiver fra Enhetsregisteret</Element>
+                                    <Employer />
+                                </div>
+                                <div className="blokk">
+                                    <Element>Annonsestatus</Element>
+                                    <AdStatusEdit />
+                                    {adStatus === AdStatusEnum.REJECTED && (
+                                        <RemarksEdit />
+                                    )}
+                                </div>
                                 <CommentsEdit />
                             </div>
                         ) : (
                             <div>
                                 <AdStatusPreview />
+                                <div className="blokk">
+                                    <Element>Yrke</Element>
+                                    <StyrkPreview />
+                                </div>
+                                <div className="blokk">
+                                    <Element>Sted</Element>
+                                    <LocationPreview />
+                                </div>
+                                <div className="blokk">
+                                    <Element>Arbeidsgiver fra Enhetsregisteret</Element>
+                                    <EmployerPreview />
+                                </div>
                                 <CommentsPreview />
                             </div>
                         )}

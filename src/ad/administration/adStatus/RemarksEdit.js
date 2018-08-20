@@ -6,7 +6,8 @@ import RemarksEnum from './RemarksEnum';
 import {
     ADD_REMARK,
     REMOVE_REMARK
-} from '../adDataReducer';
+} from '../../adDataReducer';
+import './RemarksEdit.less';
 
 class RemarksEdit extends React.Component {
     onRemarkClick = (e) => {

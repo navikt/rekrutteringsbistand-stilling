@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Normaltekst } from 'nav-frontend-typografi';
 import AdminStatusEnum from './AdminStatusEnum';
-import { SET_ADMIN_STATUS } from '../adDataReducer';
-import { SAVE_AD } from '../adReducer';
+import { SET_ADMIN_STATUS } from '../../adDataReducer';
+import { SAVE_AD } from '../../adReducer';
 
 class AdminStatusPreview extends React.Component {
     onSetToReceivedClick = (e) => {

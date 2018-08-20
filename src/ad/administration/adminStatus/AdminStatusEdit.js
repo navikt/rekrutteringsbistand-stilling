@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Hovedknapp } from 'nav-frontend-knapper';
-import { FETCH_NEXT_AD, SAVE_AD } from '../adReducer';
-import { SET_ADMIN_STATUS } from '../adDataReducer';
+import { FETCH_NEXT_AD, SAVE_AD } from '../../adReducer';
+import { SET_ADMIN_STATUS } from '../../adDataReducer';
 import AdminStatusEnum from './AdminStatusEnum';
 import {
     registerShortcuts,
     removeShortcuts
-} from '../../common/shortcuts/Shortcuts';
+} from '../../../common/shortcuts/Shortcuts';
 
 class AdminStatusEdit extends React.Component {
     componentDidMount() {
