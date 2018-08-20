@@ -130,13 +130,11 @@ class Ad extends React.Component {
                                             {isEditingAd ? (
                                                 <div className="Ad__edit">
                                                     <div className="Ad__edit__inner">
-                                                        <ValidationSummary />
                                                         <Edit />
                                                     </div>
                                                 </div>
                                             ) : (
                                                 <div className="Ad__preview">
-                                                    <ValidationSummary />
                                                     <Knapp
                                                         className="Ad__preview__edit-button"
                                                         onClick={this.onEditAdClick}
@@ -149,7 +147,6 @@ class Ad extends React.Component {
                                         </div>
                                     ) : (
                                         <div className="Ad__preview">
-                                            <ValidationSummary />
                                             <Preview ad={stilling} />
                                         </div>
                                     )}

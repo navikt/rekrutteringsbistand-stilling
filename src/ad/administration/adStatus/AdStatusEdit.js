@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Select } from 'nav-frontend-skjema';
+import { Select, SkjemaGruppe } from 'nav-frontend-skjema';
 import AdStatusEnum from './AdStatusEnum';
 import { SET_AD_STATUS } from '../../adDataReducer';
 import {
     registerShortcuts,
     removeShortcuts
 } from '../../../common/shortcuts/Shortcuts';
+import RemarksEdit from "./RemarksEdit";
 
 class AdStatusEdit extends React.Component {
     componentDidMount() {
@@ -29,9 +30,9 @@ class AdStatusEdit extends React.Component {
     render() {
         const { adStatus } = this.props;
         return (
-            <div className="AdStatusEdit">
+            <SkjemaGruppe title="Annonsestatus" className="AdStatusEdit">
                 <Select
-                    label="Velg annonsestatus"
+                    label=""
                     value={adStatus}
                     onChange={this.onAdStatusChange}
                     className="typo-normal"
@@ -42,7 +43,10 @@ class AdStatusEdit extends React.Component {
                     <option value={AdStatusEnum.STOPPED} key={AdStatusEnum.STOPPED}>Stoppet</option>
                     <option value={AdStatusEnum.DELETED} key={AdStatusEnum.DELETED}>Slettet</option>
                 </Select>
-            </div>
+                {adStatus === AdStatusEnum.REJECTED && (
+                    <RemarksEdit />
+                )}
+            </SkjemaGruppe>
         );
     }
 }

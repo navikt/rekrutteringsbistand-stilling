@@ -7,7 +7,6 @@ import AdminStatusEnum from './adminStatus/AdminStatusEnum';
 import AdStatusEnum from './adStatus/AdStatusEnum';
 import AdStatusPreview from './adStatus/AdStatusPreview';
 import AdStatusEdit from './adStatus/AdStatusEdit';
-import RemarksEdit from './adStatus/RemarksEdit';
 import CommentsEdit from './comments/CommentsEdit';
 import CommentsPreview from './comments/CommentsPreview';
 import Styrk from './styrk/Styrk';
@@ -86,25 +85,10 @@ class Administration extends React.Component {
                     <div className="Administration__flex__top">
                         {adminStatus === AdminStatusEnum.PENDING ? (
                             <div>
-                                <div className="blokk">
-                                    <Element>Yrke</Element>
-                                    <Styrk />
-                                </div>
-                                <div className="blokk">
-                                    <Element>Sted</Element>
-                                    <Location />
-                                </div>
-                                <div className="blokk">
-                                    <Element>Arbeidsgiver fra Enhetsregisteret</Element>
-                                    <Employer />
-                                </div>
-                                <div className="blokk">
-                                    <Element>Annonsestatus</Element>
-                                    <AdStatusEdit />
-                                    {adStatus === AdStatusEnum.REJECTED && (
-                                        <RemarksEdit />
-                                    )}
-                                </div>
+                                <Styrk />
+                                <Location />
+                                <Employer />
+                                <AdStatusEdit />
                                 <CommentsEdit />
                             </div>
                         ) : (
