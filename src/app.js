@@ -4,9 +4,9 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { applyMiddleware, createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
-import employerReducer, { employerSaga } from './ad/edit/employer/employerReducer';
-import postalCodeReducer, { postalCodeSaga } from './ad/edit/postalCode/postalCodeReducer';
-import styrkReducer, { styrkSaga } from './ad/edit/styrk/styrkReducer';
+import employerReducer, { employerSaga } from './ad/administration/employer/employerReducer';
+import locationCodeReducer, { locationSaga } from './ad/administration/location/locationCodeReducer';
+import styrkReducer, { styrkSaga } from './ad/administration/styrk/styrkReducer';
 import adReducer, { adSaga } from './ad/adReducer';
 import searchReducer, { searchSaga } from './searchPage/searchReducer';
 import Ad from './ad/Ad';
@@ -28,7 +28,7 @@ const store = createStore(combineReducers({
     adData: adDataReducer,
     adValidation: adValidationReducer,
     employer: employerReducer,
-    postalCode: postalCodeReducer,
+    location: locationCodeReducer,
     engagementType: engagementTypeReducer,
     styrk: styrkReducer,
     reportee: reporteeReducer,
@@ -39,7 +39,7 @@ sagaMiddleware.run(reporteeSaga);
 sagaMiddleware.run(adSaga);
 sagaMiddleware.run(validationSaga);
 sagaMiddleware.run(employerSaga);
-sagaMiddleware.run(postalCodeSaga);
+sagaMiddleware.run(locationSaga);
 sagaMiddleware.run(styrkSaga);
 sagaMiddleware.run(searchSaga);
 sagaMiddleware.run(adDataSaga);

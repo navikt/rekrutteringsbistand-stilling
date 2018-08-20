@@ -12,7 +12,7 @@ const initialState = {
     locations: undefined
 };
 
-export default function postalCodeReducer(state = initialState, action) {
+export default function locationlCodeReducer(state = initialState, action) {
     switch (action.type) {
         case FETCH_LOCATIONS_SUCCESS:
             return {
@@ -40,7 +40,7 @@ export default function postalCodeReducer(state = initialState, action) {
 
 export function* fetchLocations() {
     const state = yield select();
-    if (!state.postalCode.locations) {
+    if (!state.location.locations) {
         const response = yield fetchGet(`${AD_API}postdata/`);
         const sorted = response.sort((a, b) => {
             if (a.city < b.city) return -1;
@@ -55,16 +55,17 @@ export function* fetchLocations() {
 
 export function* findLocationByPostalCode(value) {
     let state = yield select();
-    if (!state.postalCode.locations) {
+    if (!state.location.locations) {
+        yield put({ type: FETCH_LOCATIONS });
         yield fetchLocations();
     }
     state = yield select();
-    if (state.postalCode.locations) {
-        return state.postalCode.locations.find((location) => (location.postalCode === value));
+    if (state.location.locations) {
+        return state.location.locations.find((location) => (location.postalCode === value));
     }
     return undefined;
 }
 
-export const postalCodeSaga = function* saga() {
+export const locationSaga = function* saga() {
     yield takeLatest(FETCH_LOCATIONS, fetchLocations);
 };

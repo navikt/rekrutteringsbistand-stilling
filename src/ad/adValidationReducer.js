@@ -1,5 +1,5 @@
 import { put, select, takeLatest } from 'redux-saga/es/effects';
-import { findLocationByPostalCode } from './edit/postalCode/postalCodeReducer';
+import { findLocationByPostalCode } from './administration/location/locationCodeReducer';
 import {
     DISCARD_AD_CHANGES,
     FETCH_AD_SUCCESS, FETCH_NEXT_AD_SUCCESS,

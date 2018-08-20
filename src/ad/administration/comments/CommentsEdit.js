@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { Textarea } from 'nav-frontend-skjema';
 import { Element } from 'nav-frontend-typografi';
 import { connect } from 'react-redux';
-import { SET_COMMENT } from '../adDataReducer';
-import { registerShortcuts } from '../../common/shortcuts/Shortcuts';
+import { SET_COMMENT } from '../../adDataReducer';
+import { registerShortcuts } from '../../../common/shortcuts/Shortcuts';
 
 class CommentsEdit extends React.Component {
     constructor(props) {

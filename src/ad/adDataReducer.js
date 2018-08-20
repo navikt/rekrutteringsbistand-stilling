@@ -1,6 +1,6 @@
 import { put, takeLatest } from 'redux-saga/es/effects';
-import { lookUpStyrk } from './edit/styrk/styrkReducer';
-import { findLocationByPostalCode } from './edit/postalCode/postalCodeReducer';
+import { lookUpStyrk } from './administration/styrk/styrkReducer';
+import { findLocationByPostalCode } from './administration/location/locationCodeReducer';
 
 export const SET_AD_DATA = 'SET_AD_DATA';
 

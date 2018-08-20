@@ -15,7 +15,7 @@ import './Ad.less';
 import Faded from '../common/faded/Faded';
 import Edit from './edit/Edit';
 import ValidationSummary from './validation/ValidationSummary';
-import AdminStatusEnum from './administration/AdminStatusEnum';
+import AdminStatusEnum from './administration/adminStatus/AdminStatusEnum';
 import {
     registerShortcuts,
     removeShortcuts
@@ -143,14 +143,14 @@ class Ad extends React.Component {
                                                     >
                                                         Rediger annonsen
                                                     </Knapp>
-                                                    <Preview stilling={stilling} />
+                                                    <Preview ad={stilling} />
                                                 </div>
                                             )}
                                         </div>
                                     ) : (
                                         <div className="Ad__preview">
                                             <ValidationSummary />
-                                            <Preview stilling={stilling} />
+                                            <Preview ad={stilling} />
                                         </div>
                                     )}
                                 </div>
