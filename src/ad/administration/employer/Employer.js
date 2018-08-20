@@ -6,6 +6,7 @@ import Typeahead from '../../../common/typeahead/Typeahead';
 import { FETCH_EMPLOYER_SUGGESTIONS } from './employerReducer';
 import { SET_EMPLOYER } from '../../adDataReducer';
 import './Employer.less';
+import { SkjemaGruppe } from "nav-frontend-skjema";
 
 
 class Employer extends React.Component {
@@ -32,7 +33,7 @@ class Employer extends React.Component {
         const { employer, properties } = this.props;
         const location = employer ? employer.location : undefined;
         return (
-            <div className="Employer">
+            <SkjemaGruppe title="Arbeidsgiver fra Enhetsregisteret" className="Employer">
                 <div className="blokk-xxs">
                     <Typeahead
                         id="Employer__typeahead"
@@ -59,7 +60,7 @@ class Employer extends React.Component {
                 {this.props.validation.employer && (
                     <div className="Employer__error">{this.props.validation.employer}</div>
                 )}
-            </div>
+            </SkjemaGruppe>
         );
     }
 }

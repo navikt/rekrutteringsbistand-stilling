@@ -21,6 +21,7 @@ import Employer from './employer/Employer';
 import LocationPreview from './location/LocationPreview';
 import StyrkPreview from './styrk/StyrkPreview';
 import EmployerPreview from "./employer/EmployerPreview";
+import { SkjemaGruppe } from "nav-frontend-skjema";
 
 class Administration extends React.Component {
     constructor(props) {
@@ -61,25 +62,10 @@ class Administration extends React.Component {
                     <div className="Administration__flex__top">
                         {adminStatus === AdminStatusEnum.PENDING ? (
                             <div>
-                                <div className="blokk">
-                                    <Element>Yrke</Element>
-                                    <Styrk />
-                                </div>
-                                <div className="blokk">
-                                    <Element>Sted</Element>
-                                    <Location />
-                                </div>
-                                <div className="blokk">
-                                    <Element>Arbeidsgiver fra Enhetsregisteret</Element>
-                                    <Employer />
-                                </div>
-                                <div className="blokk">
-                                    <Element>Annonsestatus</Element>
-                                    <AdStatusEdit />
-                                    {adStatus === AdStatusEnum.REJECTED && (
-                                        <RemarksEdit />
-                                    )}
-                                </div>
+                                <Styrk />
+                                <Location />
+                                <Employer />
+                                <AdStatusEdit />
                                 <CommentsEdit />
                             </div>
                         ) : (

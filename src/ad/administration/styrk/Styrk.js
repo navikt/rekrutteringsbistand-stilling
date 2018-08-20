@@ -9,6 +9,7 @@ import StyrkThree from './StyrkThree';
 import { FETCH_STYRK, SET_STYRK_TYPEAHEAD_VALUE, TOGGLE_STYRK_MODAL } from './styrkReducer';
 import { ADD_STYRK, REMOVE_STYRK } from '../../adDataReducer';
 import './Styrk.less';
+import { SkjemaGruppe } from "nav-frontend-skjema";
 
 class Styrk extends React.Component {
     componentDidMount() {
@@ -34,7 +35,7 @@ class Styrk extends React.Component {
 
     render() {
         return (
-            <div className="Styrk">
+            <SkjemaGruppe title="Yrke" className="Styrk">
                 <div className="skjemaelement__label">
                     <label htmlFor="Styrk__typeahead">STYRK</label>
                     <span>
@@ -87,7 +88,7 @@ class Styrk extends React.Component {
                     </div>
                 </Modal>
 
-            </div>
+            </SkjemaGruppe>
         );
     }
 }

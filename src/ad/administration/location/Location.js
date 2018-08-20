@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Input } from 'nav-frontend-skjema';
+import { Input, SkjemaGruppe } from 'nav-frontend-skjema';
 import { Undertekst } from 'nav-frontend-typografi';
 import Typeahead from '../../../common/typeahead/Typeahead';
 import { FETCH_LOCATIONS, SET_LOCATION_TYPE_AHEAD_VALUE } from './locationCodeReducer';
@@ -27,7 +27,7 @@ class Location extends React.Component {
 
     render() {
         return (
-            <div className="Location">
+            <SkjemaGruppe title="Sted" className="Location">
                 <div className="PostalCode__flex">
                     <Typeahead
                         id="PostalCode__input"
@@ -63,7 +63,7 @@ class Location extends React.Component {
                 {this.props.validation.location && (
                     <div className="PostalCode__error">{this.props.validation.location}</div>
                 )}
-            </div>
+            </SkjemaGruppe>
         );
     }
 }
