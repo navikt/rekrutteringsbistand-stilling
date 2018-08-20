@@ -2,16 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Hovedknapp } from 'nav-frontend-knapper';
-import {DISCARD_AD_CHANGES, FETCH_NEXT_AD, SAVE_AD} from '../adReducer';
+import { DISCARD_AD_CHANGES, FETCH_NEXT_AD, SAVE_AD } from '../adReducer';
 import { SET_ADMIN_STATUS } from '../adDataReducer';
 import AdminStatusEnum from './AdminStatusEnum';
 import {
     registerShortcuts,
     removeShortcuts
 } from '../../common/shortcuts/Shortcuts';
-import AdNotSavedPopup from "./AdNotSavedPopup";
-import AdStatusEnum from "./AdStatusEnum";
-import AdContainsErrorPopup from "./AdContainsErrorPopup";
+import AdNotSavedPopup from './AdNotSavedPopup';
+import AdStatusEnum from './AdStatusEnum';
+import AdContainsErrorPopup from './AdContainsErrorPopup';
 
 class AdminStatusEdit extends React.Component {
     constructor(props) {

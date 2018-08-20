@@ -12,10 +12,10 @@ import CommentsPreview from './CommentsPreview';
 import AdminStatusPreview from './AdminStatusPreview';
 import AdminStatusEdit from './AdminStatusEdit';
 import { DISCARD_AD_CHANGES, FETCH_NEXT_AD, SAVE_AD } from '../adReducer';
-import { SET_ADMIN_STATUS_AND_GET_NEXT_AD } from "../adDataReducer";
-import AdminStatusNotSavedPopup from "./AdminStatusNotSavedPopup";
-import AdNotSavedPopup from "./AdNotSavedPopup";
-import AdContainsErrorPopup from "./AdContainsErrorPopup";
+import { SET_ADMIN_STATUS_AND_GET_NEXT_AD } from '../adDataReducer';
+import AdminStatusNotSavedPopup from './AdminStatusNotSavedPopup';
+import AdNotSavedPopup from './AdNotSavedPopup';
+import AdContainsErrorPopup from './AdContainsErrorPopup';
 import './Administration.less';
 
 class Administration extends React.Component {
