@@ -57,6 +57,7 @@ export function* findLocationByPostalCode(value) {
     let state = yield select();
     if (!state.location.locations) {
         yield put({ type: FETCH_LOCATIONS });
+        yield fetchLocations();
     }
     state = yield select();
     if (state.location.locations) {
