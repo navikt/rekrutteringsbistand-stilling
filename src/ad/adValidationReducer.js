@@ -1,14 +1,20 @@
 import { put, select, takeLatest } from 'redux-saga/es/effects';
 import { findLocationByPostalCode } from './edit/postalCode/postalCodeReducer';
+import AdStatusEnum from './administration/AdStatusEnum';
+import RemarksEnum from './administration/RemarksEnum';
 import {
     DISCARD_AD_CHANGES,
     FETCH_AD_SUCCESS, FETCH_NEXT_AD_SUCCESS,
     SAVE_AD_SUCCESS
 } from './adReducer';
-import { ADD_STYRK, REMOVE_STYRK, SET_EMPLOYER, SET_LOCATION_POSTAL_CODE } from './adDataReducer';
+import { ADD_STYRK, REMOVE_STYRK, SET_EMPLOYER, SET_LOCATION_POSTAL_CODE,
+    SET_AD_STATUS, ADD_REMARK, REMOVE_REMARK, SET_COMMENT} from './adDataReducer';
 
 const ADD_VALIDATION_ERROR = 'ADD_VALIDATION_ERROR';
 const REMOVE_VALIDATION_ERROR = 'REMOVE_VALIDATION_ERROR';
+
+
+const valueIsNotSet = (value) => (value === undefined || value === null || value.length === 0);
 
 function* validateLocation() {
     const state = yield select();
@@ -49,8 +55,7 @@ function* validateStyrk() {
     const state = yield select();
     const { categoryList } = state.adData;
 
-    if (categoryList === null || categoryList === undefined ||
-        categoryList.length === 0) {
+    if (valueIsNotSet(categoryList)) {
         yield put({ type: ADD_VALIDATION_ERROR, field: 'styrk', message: 'Arbeidsyrke mangler' });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'styrk' });
@@ -63,14 +68,27 @@ function* validateEmployer() {
     const { employer } = state.adData;
 
     if (employer === null || employer === undefined ||
-        employer.name === null || employer.name === undefined || employer.name.length === 0 ||
-        employer.orgnr === null || employer.orgnr === undefined || employer.orgnr.length === 0) {
+        valueIsNotSet(employer.name) ||
+        valueIsNotSet(employer.orgnr)) {
         yield put({ type: ADD_VALIDATION_ERROR, field: 'employer', message: 'Arbeidsgiver er ikke koblet til Enhetsregisteret' });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'employer' });
     }
 }
 
+function* validateAdministration() {
+    const state = yield select();
+    const { status } = state.adData;
+    const { remarks, comments } = state.adData.administration;
+
+    if (status === AdStatusEnum.REJECTED && (remarks.length === 0)) {
+        yield put({ type: ADD_VALIDATION_ERROR, field: 'administration', message: 'Årsak til avvising er ikke oppgitt' });
+    } else if (remarks.includes(RemarksEnum.OTHER.value) && valueIsNotSet(comments)) {
+        yield put({ type: ADD_VALIDATION_ERROR, field: 'administration', message: 'Ved valg av avvisingsårsak \'Annet\' må kommentar være oppgitt' });
+    } else {
+        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'administration' });
+    }
+}
 
 function* validateAll() {
     const state = yield select();
@@ -78,6 +96,7 @@ function* validateAll() {
         yield validateStyrk();
         yield validateLocation();
         yield validateEmployer();
+        yield validateAdministration();
     }
 }
 
@@ -112,5 +131,6 @@ export const validationSaga = function* saga() {
     yield takeLatest([ADD_STYRK, REMOVE_STYRK], validateStyrk);
     yield takeLatest(SET_EMPLOYER, validateEmployer);
     yield takeLatest(SET_LOCATION_POSTAL_CODE, validateLocation);
+    yield takeLatest([ADD_REMARK, REMOVE_REMARK, SET_AD_STATUS, SET_COMMENT], validateAdministration);
 };
 

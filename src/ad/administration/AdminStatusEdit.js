@@ -41,7 +41,7 @@ class AdminStatusEdit extends React.Component {
             this.props.openModal();
         } else {
             this.props.setAdminStatus(AdminStatusEnum.DONE);
-            this.props.saveAd()
+            this.props.saveAd();
         }
     };
 

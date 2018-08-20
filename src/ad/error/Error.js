@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Modal from 'nav-frontend-modal';
 import { Normaltekst } from 'nav-frontend-typografi';
 import './Error.less';
-import {Hovedknapp} from "nav-frontend-knapper";
+import { Hovedknapp } from 'nav-frontend-knapper';
 
 function Error({ error }) {
     if (error) {
