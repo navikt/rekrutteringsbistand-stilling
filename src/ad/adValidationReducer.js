@@ -15,13 +15,17 @@ function* validateLocation() {
     const { location } = state.adData;
     if (location &&
         location.postalCode &&
-        location.postalCode.length === 4 &&
-        findLocationByPostalCode(location.postalCode) === undefined) {
-        yield put({
-            type: ADD_VALIDATION_ERROR,
-            field: 'location',
-            message: 'Geografisk plassering har ukjent postnummer'
-        });
+        location.postalCode.length === 4) {
+        const locationByPostalCode = yield findLocationByPostalCode(location.postalCode);
+        if (locationByPostalCode === undefined) {
+            yield put({
+                type: ADD_VALIDATION_ERROR,
+                field: 'location',
+                message: 'Geografisk plassering har ukjent postnummer'
+            });
+        } else {
+            yield put({ type: REMOVE_VALIDATION_ERROR, field: 'location' });
+        }
     } else if (location &&
         location.postalCode &&
         location.postalCode.length !== 4) {
