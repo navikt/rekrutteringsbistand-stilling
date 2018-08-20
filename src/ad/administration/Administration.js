@@ -22,6 +22,10 @@ import { SET_ADMIN_STATUS_AND_GET_NEXT_AD } from '../adDataReducer';
 import AdminStatusNotSavedPopup from './AdminStatusNotSavedPopup';
 import AdNotSavedPopup from './AdNotSavedPopup';
 import AdContainsErrorPopup from './AdContainsErrorPopup';
+import {
+    registerShortcuts,
+    removeShortcuts
+} from '../../common/shortcuts/Shortcuts';
 import './Administration.less';
 
 class Administration extends React.Component {
@@ -31,6 +35,18 @@ class Administration extends React.Component {
             isModalOpen: false,
             isErrorModalOpen: false
         };
+    }
+
+    componentDidMount() {
+        registerShortcuts('administration', {
+            'n n': () => {
+                this.onNextClick();
+            }
+        });
+    }
+
+    componentWillUnmount() {
+        removeShortcuts('administration');
     }
 
     onNextClick = () => {

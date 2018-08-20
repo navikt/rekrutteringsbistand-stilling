@@ -10,10 +10,24 @@ import { FETCH_STYRK, SET_STYRK_TYPEAHEAD_VALUE, TOGGLE_STYRK_MODAL } from './st
 import { ADD_STYRK, REMOVE_STYRK } from '../../adDataReducer';
 import './Styrk.less';
 import { SkjemaGruppe } from "nav-frontend-skjema";
+import {
+    registerShortcuts,
+    removeShortcuts
+} from '../../../common/shortcuts/Shortcuts';
 
 class Styrk extends React.Component {
     componentDidMount() {
         this.props.fetchStyrk();
+        registerShortcuts('styrkEdit', {
+            'y y': (e) => {
+                e.preventDefault();
+                this.inputRef.input.focus();
+            }
+        });
+    }
+
+    componentWillUnmount() {
+        removeShortcuts('styrkEdit');
     }
 
     onTypeAheadValueChange = (value) => {
