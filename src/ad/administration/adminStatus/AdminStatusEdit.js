@@ -22,22 +22,17 @@ class AdminStatusEdit extends React.Component {
     }
 
     componentDidMount() {
-        registerShortcuts('administration', {
-            'a a': () => {
+        registerShortcuts('administrationStatus', {
+            'x x': () => {
                 if (this.props.adminStatus === AdminStatusEnum.PENDING) {
                     this.onSetToDoneClick();
-                }
-            },
-            'n n': () => {
-                if (this.props.adminStatus !== AdminStatusEnum.PENDING) {
-                    this.props.getNextAd();
                 }
             }
         });
     }
 
     componentWillUnmount() {
-        removeShortcuts('administration');
+        removeShortcuts('administrationStatus');
     }
 
     onSetToPendingClick = () => {

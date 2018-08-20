@@ -7,11 +7,25 @@ import { FETCH_EMPLOYER_SUGGESTIONS } from './employerReducer';
 import { SET_EMPLOYER } from '../../adDataReducer';
 import './Employer.less';
 import { SkjemaGruppe } from "nav-frontend-skjema";
+import {
+    registerShortcuts,
+    removeShortcuts
+} from '../../../common/shortcuts/Shortcuts';
 
 
 class Employer extends React.Component {
     componentDidMount() {
         this.props.fetchEmployerSuggestions();
+        registerShortcuts('employerEdit', {
+            'a a': (e) => {
+                e.preventDefault();
+                this.inputRef.input.focus();
+            }
+        });
+    }
+
+    componentWillUnmount() {
+        removeShortcuts('employerEdit');
     }
 
     onTypeAheadValueChange = (value) => {
