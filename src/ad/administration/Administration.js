@@ -28,6 +28,9 @@ import {
 } from '../../common/shortcuts/Shortcuts';
 import './Administration.less';
 
+const validationError = (validation) => validation.styrk !== undefined ||
+    validation.location !== undefined || validation.employer !== undefined;
+
 class Administration extends React.Component {
     constructor(props) {
         super(props);
@@ -83,7 +86,7 @@ class Administration extends React.Component {
     };
 
     onNextAndFinishClick = () => {
-        if (this.props.adStatus === AdStatusEnum.ACTIVE && this.props.validation.employer !== undefined) {
+        if (this.props.adStatus === AdStatusEnum.ACTIVE && validationError(this.props.validation)) {
             this.setState({
                 isErrorModalOpen: true,
                 isModalOpen: false
@@ -94,7 +97,7 @@ class Administration extends React.Component {
     };
 
     render() {
-        const { adStatus, adminStatus, isEditingAd, categoryList } = this.props;
+        const { adminStatus, isEditingAd, validation } = this.props;
         return (
             <div className="Administration">
                 <div className="Administration__flex">
@@ -140,6 +143,7 @@ class Administration extends React.Component {
                             <AdContainsErrorPopup
                                 onClose={this.onClosePopup}
                                 isOpen={this.state.isErrorModalOpen}
+                                validation={validation}
                             />
                         </div>
                     </div>
