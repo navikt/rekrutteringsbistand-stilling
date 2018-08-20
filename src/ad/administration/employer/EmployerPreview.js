@@ -6,7 +6,7 @@ import { Normaltekst } from 'nav-frontend-typografi';
 function EmployerPreview({ employer }) {
     return (
         <div className="EmployerPreview">
-            {employer && (
+            {employer ? (
                 <div>
                     {employer.name && (
                         <Normaltekst>{employer.name}</Normaltekst>
@@ -18,6 +18,8 @@ function EmployerPreview({ employer }) {
                         <Normaltekst>{employer.location.postalCode} {employer.location.city}</Normaltekst>
                     )}
                 </div>
+            ) : (
+                <Normaltekst>Mangler</Normaltekst>
             )}
         </div>
     );
