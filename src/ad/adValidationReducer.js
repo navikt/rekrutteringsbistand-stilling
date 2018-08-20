@@ -1,7 +1,7 @@
 import { put, select, takeLatest } from 'redux-saga/es/effects';
-import { findLocationByPostalCode } from './edit/postalCode/postalCodeReducer';
-import AdStatusEnum from './administration/AdStatusEnum';
-import RemarksEnum from './administration/RemarksEnum';
+import { findLocationByPostalCode } from './administration/location/locationCodeReducer';
+import AdStatusEnum from './administration/adStatus/AdStatusEnum';
+import RemarksEnum from './administration/adStatus/RemarksEnum';
 import {
     DISCARD_AD_CHANGES,
     FETCH_AD_SUCCESS, FETCH_NEXT_AD_SUCCESS,

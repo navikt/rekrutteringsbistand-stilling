@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Element } from 'nav-frontend-typografi';
 import Alertstripe from 'nav-frontend-alertstriper';
 import AdStatusEnum from './AdStatusEnum';
 import RemarksEnum from './RemarksEnum';
@@ -16,7 +15,6 @@ function AdStatusPreview({ adStatus, remarks }) {
 
     return (
         <div className="AdStatusPreview">
-            <Element className="blokk-xs">Annonsestatus</Element>
             <div className="blokk">
                 {adStatus === AdStatusEnum.INACTIVE && (
                     <Alertstripe type="info" solid>

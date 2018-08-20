@@ -14,8 +14,7 @@ import DelayedSpinner from '../common/DelayedSpinner';
 import './Ad.less';
 import Faded from '../common/faded/Faded';
 import Edit from './edit/Edit';
-import ValidationSummary from './validation/ValidationSummary';
-import AdminStatusEnum from './administration/AdminStatusEnum';
+import AdminStatusEnum from './administration/adminStatus/AdminStatusEnum';
 import {
     registerShortcuts,
     removeShortcuts
@@ -130,27 +129,24 @@ class Ad extends React.Component {
                                             {isEditingAd ? (
                                                 <div className="Ad__edit">
                                                     <div className="Ad__edit__inner">
-                                                        <ValidationSummary />
                                                         <Edit />
                                                     </div>
                                                 </div>
                                             ) : (
                                                 <div className="Ad__preview">
-                                                    <ValidationSummary />
                                                     <Knapp
                                                         className="Ad__preview__edit-button"
                                                         onClick={this.onEditAdClick}
                                                     >
                                                         Rediger annonsen
                                                     </Knapp>
-                                                    <Preview stilling={stilling} />
+                                                    <Preview ad={stilling} />
                                                 </div>
                                             )}
                                         </div>
                                     ) : (
                                         <div className="Ad__preview">
-                                            <ValidationSummary />
-                                            <Preview stilling={stilling} />
+                                            <Preview ad={stilling} />
                                         </div>
                                     )}
                                 </div>

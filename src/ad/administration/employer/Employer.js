@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { Undertekst } from 'nav-frontend-typografi';
 import Typeahead from '../../../common/typeahead/Typeahead';
 import { FETCH_EMPLOYER_SUGGESTIONS } from './employerReducer';
 import { SET_EMPLOYER } from '../../adDataReducer';
 import './Employer.less';
+import { SkjemaGruppe } from "nav-frontend-skjema";
 
 
 class Employer extends React.Component {
@@ -32,19 +33,12 @@ class Employer extends React.Component {
         const { employer, properties } = this.props;
         const location = employer ? employer.location : undefined;
         return (
-            <div className="Employer">
-                {properties.employer && (
-                    <dl className="dl-flex typo-normal blokk-s">
-                        <dt key="dt">Oppgitt arb.giver:</dt>
-                        <dd key="dd">{properties.employer}</dd>
-                    </dl>
-                )}
-
+            <SkjemaGruppe title="Arbeidsgiver fra Enhetsregisteret" className="Employer">
                 <div className="blokk-xxs">
                     <Typeahead
                         id="Employer__typeahead"
                         className="Employer__typeahead"
-                        label="Koble arbeidsgiver med Enhetsregisteret"
+                        label=""
                         placeholder="Søk etter arbeidsgiver"
                         onSelect={this.onTypeAheadSuggestionSelected}
                         onChange={this.onTypeAheadValueChange}
@@ -61,25 +55,12 @@ class Employer extends React.Component {
                     />
                 </div>
                 {employer && location &&
-                <dl className="dl-flex typo-normal">
-                    {employer.name && [
-                        <dt key="dt">Arbeidsgiver</dt>,
-                        <dd key="dd">{employer.name}</dd>]
-                    }
-                    {location.address && [
-                        <dt key="dt">Gateadresse:</dt>,
-                        <dd key="dd">{location.address}</dd>]
-                    }
-                    {location && location.postalCode && [
-                        <dt key="dt">Poststed:</dt>,
-                        <dd key="dd">{location.postalCode} {location.city}</dd>]
-                    }
-                </dl>
+                    <Undertekst>{employer.name}, {location.address}, {location.postalCode} {location.city}</Undertekst>
                 }
                 {this.props.validation.employer && (
                     <div className="Employer__error">{this.props.validation.employer}</div>
                 )}
-            </div>
+            </SkjemaGruppe>
         );
     }
 }
