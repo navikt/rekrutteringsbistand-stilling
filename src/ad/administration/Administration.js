@@ -86,8 +86,8 @@ class Administration extends React.Component {
                         {adminStatus === AdminStatusEnum.PENDING ? (
                             <div>
                                 <Styrk />
-                                <Location />
                                 <Employer />
+                                <Location />
                                 <AdStatusEdit />
                                 <CommentsEdit />
                             </div>
@@ -99,12 +99,12 @@ class Administration extends React.Component {
                                     <StyrkPreview />
                                 </div>
                                 <div className="blokk">
-                                    <Element>Sted</Element>
-                                    <LocationPreview />
-                                </div>
-                                <div className="blokk">
                                     <Element>Arbeidsgiver fra Enhetsregisteret</Element>
                                     <EmployerPreview />
+                                </div>
+                                <div className="blokk">
+                                    <Element>Arbeidssted</Element>
+                                    <LocationPreview />
                                 </div>
                                 <CommentsPreview />
                             </div>

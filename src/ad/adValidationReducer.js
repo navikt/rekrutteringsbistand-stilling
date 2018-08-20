@@ -21,7 +21,7 @@ function* validateLocation() {
             yield put({
                 type: ADD_VALIDATION_ERROR,
                 field: 'location',
-                message: 'Geografisk plassering har ukjent postnummer'
+                message: 'Ukjent postnummer'
             });
         } else {
             yield put({ type: REMOVE_VALIDATION_ERROR, field: 'location' });
@@ -32,13 +32,13 @@ function* validateLocation() {
         yield put({
             type: ADD_VALIDATION_ERROR,
             field: 'location',
-            message: 'Geografisk plassering har ugyldig postnummer'
+            message: 'Ugyldig postnummer'
         });
     } else if (!location || !location.postalCode) {
         yield put({
             type: ADD_VALIDATION_ERROR,
             field: 'location',
-            message: 'Geografisk plassering av stillingen mangler'
+            message: 'Arbeidssted mangler'
         });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'location' });
@@ -51,7 +51,7 @@ function* validateStyrk() {
 
     if (categoryList === null || categoryList === undefined ||
         categoryList.length === 0) {
-        yield put({ type: ADD_VALIDATION_ERROR, field: 'styrk', message: 'Arbeidsyrke mangler' });
+        yield put({ type: ADD_VALIDATION_ERROR, field: 'styrk', message: 'Yrke mangler' });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'styrk' });
     }
@@ -65,7 +65,7 @@ function* validateEmployer() {
     if (employer === null || employer === undefined ||
         employer.name === null || employer.name === undefined || employer.name.length === 0 ||
         employer.orgnr === null || employer.orgnr === undefined || employer.orgnr.length === 0) {
-        yield put({ type: ADD_VALIDATION_ERROR, field: 'employer', message: 'Arbeidsgiver er ikke koblet til Enhetsregisteret' });
+        yield put({ type: ADD_VALIDATION_ERROR, field: 'employer', message: 'Arbeidsgiver mangler' });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'employer' });
     }

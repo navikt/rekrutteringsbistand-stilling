@@ -33,13 +33,13 @@ class Employer extends React.Component {
         const { employer, properties } = this.props;
         const location = employer ? employer.location : undefined;
         return (
-            <SkjemaGruppe title="Arbeidsgiver fra Enhetsregisteret" className="Employer">
+            <SkjemaGruppe title="Arbeidsgiver" className="Employer">
                 <div className="blokk-xxs">
                     <Typeahead
                         id="Employer__typeahead"
                         className="Employer__typeahead"
                         label=""
-                        placeholder="Søk etter arbeidsgiver"
+                        placeholder="Arb.givernavn eller org.nr"
                         onSelect={this.onTypeAheadSuggestionSelected}
                         onChange={this.onTypeAheadValueChange}
                         suggestions={this.props.suggestions.map((employer) => ({

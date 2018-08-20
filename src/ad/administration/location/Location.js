@@ -27,7 +27,7 @@ class Location extends React.Component {
 
     render() {
         return (
-            <SkjemaGruppe title="Sted" className="Location">
+            <SkjemaGruppe title="Arbeidssted" className="Location">
                 <div className="PostalCode__flex">
                     <Typeahead
                         id="PostalCode__input"
