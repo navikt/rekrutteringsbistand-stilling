@@ -4,25 +4,9 @@ import { connect } from 'react-redux';
 import { Select, SkjemaGruppe } from 'nav-frontend-skjema';
 import AdStatusEnum from './AdStatusEnum';
 import { SET_AD_STATUS } from '../../adDataReducer';
-import {
-    registerShortcuts,
-    removeShortcuts
-} from '../../../common/shortcuts/Shortcuts';
-import RemarksEdit from "./RemarksEdit";
+import RemarksEdit from './RemarksEdit';
 
 class AdStatusEdit extends React.Component {
-    componentDidMount() {
-        registerShortcuts('administrationEdit', {
-            'p p': () => {
-                this.props.setAdStatus(AdStatusEnum.ACTIVE);
-            }
-        });
-    }
-
-    componentWillUnmount() {
-        removeShortcuts('administrationEdit');
-    }
-
     onAdStatusChange = (e) => {
         this.props.setAdStatus(e.target.value);
     };
