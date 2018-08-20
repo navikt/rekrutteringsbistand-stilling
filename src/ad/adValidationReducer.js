@@ -15,7 +15,7 @@ function* validateLocation() {
     const { location } = state.adData;
     if (location &&
         location.postalCode &&
-        location.postalCode.length === 4) {
+        location.postalCode.match('^[0-9]{4}$')) {
         const locationByPostalCode = yield findLocationByPostalCode(location.postalCode);
         if (locationByPostalCode === undefined) {
             yield put({
@@ -28,7 +28,7 @@ function* validateLocation() {
         }
     } else if (location &&
         location.postalCode &&
-        location.postalCode.length !== 4) {
+        !location.postalCode.match('^[0-9]{4}$')) {
         yield put({
             type: ADD_VALIDATION_ERROR,
             field: 'location',
