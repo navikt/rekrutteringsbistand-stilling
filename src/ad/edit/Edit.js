@@ -46,18 +46,6 @@ class Edit extends React.Component {
         };
     }
 
-    componentDidMount() {
-        registerShortcuts('annonseDetaljerRedigering', {
-            's s': () => {
-                this.onSaveClick();
-            }
-        });
-    }
-
-    componentWillUnmount() {
-        removeShortcuts('annonseDetaljerRedigering');
-    }
-
     onTitleChange = (e) => {
         this.props.setAdTitle(e.target.value);
     };
