@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { SkjemaGruppe, Checkbox } from 'nav-frontend-skjema';
 import RemarksEnum from './RemarksEnum';
+import CommentsEdit from './CommentsEdit';
 import {
     ADD_REMARK,
     REMOVE_REMARK
@@ -72,10 +73,13 @@ class RemarksEdit extends React.Component {
                     />
                     <Checkbox
                         onChange={this.onRemarkClick}
-                        checked={remarks.includes(RemarksEnum.OTHER.value)}
-                        value={RemarksEnum.OTHER.value}
-                        label={RemarksEnum.OTHER.label}
+                        checked={remarks.includes(RemarksEnum.UNKNOWN.value)}
+                        value={RemarksEnum.UNKNOWN.value}
+                        label={RemarksEnum.UNKNOWN.label}
                     />
+                    {remarks.includes(RemarksEnum.UNKNOWN.value) && (
+                        <CommentsEdit />
+                    )}
                 </SkjemaGruppe>
             </div>
         );

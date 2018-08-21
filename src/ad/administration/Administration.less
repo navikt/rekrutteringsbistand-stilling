@@ -1,3 +1,6 @@
+@import "../../../node_modules/nav-frontend-typografi-style/src/index";
+@import "../../../node_modules/nav-frontend-skjema-style/src/validering";
+
 .Administration {
   height: 100%;
 }
@@ -20,6 +23,21 @@
   min-height: 18rem;
 }
 
+.Styrk,
+.Employer,
+.Location {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 1rem;
+}
+
+.StyrkPreview,
+.EmployerPreview,
+.LocationPreview {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+
 .AdminStatusPreview {
   margin-top: 2rem;
   margin-bottom: 1rem;
@@ -35,4 +53,10 @@
   padding: 1.125rem 3rem!important;
   display: block;
   margin-bottom: 0.5rem;
+}
+
+
+.Administration_error {
+  .typo-normal;
+  .skjemaelement__feilmelding;
 }

@@ -13,6 +13,9 @@ import AdNotSavedPopup from '../AdNotSavedPopup';
 import AdContainsErrorPopup from '../AdContainsErrorPopup';
 import AdStatusEnum from '../adStatus/AdStatusEnum';
 
+const validationError = (validation) => validation.styrk !== undefined ||
+    validation.location !== undefined || validation.employer !== undefined;
+
 class AdminStatusEdit extends React.Component {
     constructor(props) {
         super(props);
@@ -22,22 +25,17 @@ class AdminStatusEdit extends React.Component {
     }
 
     componentDidMount() {
-        registerShortcuts('administration', {
-            'a a': () => {
+        registerShortcuts('administrationStatus', {
+            'x x': () => {
                 if (this.props.adminStatus === AdminStatusEnum.PENDING) {
                     this.onSetToDoneClick();
-                }
-            },
-            'n n': () => {
-                if (this.props.adminStatus !== AdminStatusEnum.PENDING) {
-                    this.props.getNextAd();
                 }
             }
         });
     }
 
     componentWillUnmount() {
-        removeShortcuts('administration');
+        removeShortcuts('administrationStatus');
     }
 
     onSetToPendingClick = () => {
@@ -48,7 +46,7 @@ class AdminStatusEdit extends React.Component {
 
     onSetToDoneClick = () => {
         if (this.props.isEditingAd ||
-            (this.props.adStatus === AdStatusEnum.ACTIVE && this.props.validation.employer !== undefined)) {
+            (this.props.adStatus === AdStatusEnum.ACTIVE && validationError(this.props.validation))) {
             this.setState({
                 isModalOpen: true
             });
@@ -66,7 +64,7 @@ class AdminStatusEdit extends React.Component {
 
     onSaveAdClick = () => {
         if (this.props.adStatus === AdStatusEnum.ACTIVE) {
-            if (this.props.validation.employer === undefined) {
+            if (!validationError(this.props.validation)) {
                 this.props.setAdminStatus(AdminStatusEnum.DONE);
                 this.onCloseModal();
             }
@@ -80,7 +78,7 @@ class AdminStatusEdit extends React.Component {
     onDiscardClick = () => {
         this.props.discardAdChanges();
         if (this.props.adStatus === AdStatusEnum.ACTIVE) {
-            if (this.props.validation.employer === undefined) {
+            if (!validationError(this.props.validation)) {
                 this.props.setAdminStatus(AdminStatusEnum.DONE);
                 this.onCloseModal();
             }
@@ -91,7 +89,7 @@ class AdminStatusEdit extends React.Component {
     };
 
     render() {
-        const { adminStatus, isEditingAd } = this.props;
+        const { adminStatus, isEditingAd, validation } = this.props;
 
         return (
             <div className="AdminStatusEdit">
@@ -129,6 +127,7 @@ class AdminStatusEdit extends React.Component {
                 <AdContainsErrorPopup
                     isOpen={this.state.isModalOpen && !isEditingAd}
                     onClose={this.onCloseModal}
+                    validation={validation}
                 />
             </div>
         );

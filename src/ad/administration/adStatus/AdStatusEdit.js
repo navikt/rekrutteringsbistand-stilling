@@ -4,25 +4,9 @@ import { connect } from 'react-redux';
 import { Select, SkjemaGruppe } from 'nav-frontend-skjema';
 import AdStatusEnum from './AdStatusEnum';
 import { SET_AD_STATUS } from '../../adDataReducer';
-import {
-    registerShortcuts,
-    removeShortcuts
-} from '../../../common/shortcuts/Shortcuts';
-import RemarksEdit from "./RemarksEdit";
+import RemarksEdit from './RemarksEdit';
 
 class AdStatusEdit extends React.Component {
-    componentDidMount() {
-        registerShortcuts('administrationEdit', {
-            'p p': () => {
-                this.props.setAdStatus(AdStatusEnum.ACTIVE);
-            }
-        });
-    }
-
-    componentWillUnmount() {
-        removeShortcuts('administrationEdit');
-    }
-
     onAdStatusChange = (e) => {
         this.props.setAdStatus(e.target.value);
     };
@@ -46,6 +30,10 @@ class AdStatusEdit extends React.Component {
                 {adStatus === AdStatusEnum.REJECTED && (
                     <RemarksEdit />
                 )}
+                {this.props.validation.administration && (
+                    <div className="Administration_error">{this.props.validation.administration}</div>
+                )}
+
             </SkjemaGruppe>
         );
     }
@@ -53,11 +41,15 @@ class AdStatusEdit extends React.Component {
 
 AdStatusEdit.propTypes = {
     adStatus: PropTypes.string.isRequired,
-    setAdStatus: PropTypes.func.isRequired
+    setAdStatus: PropTypes.func.isRequired,
+    validation: PropTypes.shape({
+        administration: PropTypes.string
+    }).isRequired
 };
 
 const mapStateToProps = (state) => ({
-    adStatus: state.adData.status
+    adStatus: state.adData.status,
+    validation: state.adValidation.errors
 });
 
 const mapDispatchToProps = (dispatch) => ({

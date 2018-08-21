@@ -5,9 +5,11 @@ import Alertstripe from 'nav-frontend-alertstriper';
 import AdStatusEnum from './AdStatusEnum';
 import RemarksEnum from './RemarksEnum';
 
-function AdStatusPreview({ adStatus, remarks }) {
+function AdStatusPreview({ adStatus, remarks, comments }) {
     const remarksLabels = remarks.map((remark) => {
-        if (RemarksEnum[remark]) {
+        if (remark === RemarksEnum.UNKNOWN.value) {
+            return comments;
+        } else if (RemarksEnum[remark]) {
             return RemarksEnum[remark].label;
         }
         return remark;
@@ -47,17 +49,20 @@ function AdStatusPreview({ adStatus, remarks }) {
 }
 
 AdStatusPreview.defaultProps = {
-    remarks: []
+    remarks: [],
+    comments: null
 };
 
 AdStatusPreview.propTypes = {
     adStatus: PropTypes.string.isRequired,
-    remarks: PropTypes.arrayOf(PropTypes.string)
+    remarks: PropTypes.arrayOf(PropTypes.string),
+    comments: PropTypes.string
 };
 
 const mapStateToProps = (state) => ({
     adStatus: state.adData.status,
-    remarks: state.adData.administration.remarks
+    remarks: state.adData.administration.remarks,
+    comments: state.adData.administration.comments
 });
 
 export default connect(mapStateToProps)(AdStatusPreview);

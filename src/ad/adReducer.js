@@ -30,8 +30,6 @@ export const FETCH_NEXT_AD_SUCCESS = 'FETCH_NEXT_AD_SUCCESS';
 export const FETCH_NEXT_AD_FAILURE = 'FETCH_NEXT_AD_FAILURE';
 export const SET_END_OF_LIST = 'SET_END_OF_LIST';
 
-export const SET_ADMIN_STATUS_SUCCESS = 'SET_ADMIN_STATUS_SUCCESS';
-
 const initialState = {
     error: undefined,
     isSavingAd: false,
@@ -216,6 +214,8 @@ function* discardChanges() {
         data: {
             ...state.ad.originalData,
             administration: state.adData.administration,
+            location: state.adData.location,
+            employer: state.adData.employer,
             status: state.adData.status
         }
     });

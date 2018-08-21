@@ -5,7 +5,7 @@ import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import './ConfirmationPopup.less';
 
-const AdContainsErrorPopup = ({ isOpen, onClose }) => (
+const AdContainsErrorPopup = ({ isOpen, onClose, validation }) => (
     <NavFrontendModal
         isOpen={isOpen}
         contentLabel="Fortsett"
@@ -18,8 +18,25 @@ const AdContainsErrorPopup = ({ isOpen, onClose }) => (
             Kan ikke publisere annonsen
         </Undertittel>
         <Normaltekst className="ConfirmationPopup__message">
-            Annonser uten arbeidsgivertilknytning kan ikke publiseres
+            Annonsen kan ikke publiseres før følgende feil er rettet:
         </Normaltekst>
+        <ul>
+            {validation.styrk && (
+                <li className="ConfirmationPopup__message skjemaelement__feilmelding">
+                    {validation.styrk}
+                </li>
+            )}
+            {validation.location && (
+                <li className="ConfirmationPopup__message skjemaelement__feilmelding">
+                    {validation.location}
+                </li>
+            )}
+            {validation.employer && (
+                <li className="ConfirmationPopup__message skjemaelement__feilmelding">
+                    {validation.employer}
+                </li>
+            )}
+        </ul>
         <Hovedknapp
             onClick={onClose}
             className="ConfirmationPopup__button"
@@ -31,7 +48,12 @@ const AdContainsErrorPopup = ({ isOpen, onClose }) => (
 
 AdContainsErrorPopup.propTypes = {
     onClose: PropTypes.func.isRequired,
-    isOpen: PropTypes.bool.isRequired
+    isOpen: PropTypes.bool.isRequired,
+    validation: PropTypes.shape({
+        styrk: PropTypes.string,
+        location: PropTypes.string,
+        employer: PropTypes.string
+    }).isRequired
 };
 
 export default AdContainsErrorPopup;

@@ -43,7 +43,7 @@ class CommentsEdit extends React.Component {
     render() {
         return (
             <div className="CommentsEdit">
-                <Element>Kommentarer</Element>
+                <Element>Annen årsak:</Element>
                 <Textarea
                     label=""
                     maxLength={255}

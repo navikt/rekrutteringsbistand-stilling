@@ -37,13 +37,6 @@ class Ad extends React.Component {
         } else {
             this.props.getNextAd();
         }
-        registerShortcuts('annonse', {
-            'r r': () => {
-                if (!this.props.isEditingAd) {
-                    this.onEditAdClick();
-                }
-            }
-        });
     }
 
     componentDidUpdate() {
@@ -60,11 +53,6 @@ class Ad extends React.Component {
             this.uuid = this.props.match.params.uuid;
             this.props.getStilling(this.uuid);
         }
-    }
-
-    componentWillUnmount() {
-        this.props.unsetAd();
-        removeShortcuts('annonse');
     }
 
     onEditAdClick = () => {

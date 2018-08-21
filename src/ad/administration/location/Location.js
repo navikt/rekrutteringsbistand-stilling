@@ -6,11 +6,25 @@ import { Undertekst } from 'nav-frontend-typografi';
 import Typeahead from '../../../common/typeahead/Typeahead';
 import { FETCH_LOCATIONS, SET_LOCATION_TYPE_AHEAD_VALUE } from './locationCodeReducer';
 import { SET_LOCATION_POSTAL_CODE } from '../../adDataReducer';
+import {
+    registerShortcuts,
+    removeShortcuts
+} from '../../../common/shortcuts/Shortcuts';
 import './Location.less';
 
 class Location extends React.Component {
     componentDidMount() {
         this.props.fetchLocations();
+        registerShortcuts('locationEdit', {
+            's s': (e) => {
+                e.preventDefault();
+                this.inputRef.input.focus();
+            }
+        });
+    }
+
+    componentWillUnmount() {
+        removeShortcuts('locationEdit');
     }
 
     onTypeAheadValueChange = (value) => {
@@ -27,7 +41,7 @@ class Location extends React.Component {
 
     render() {
         return (
-            <SkjemaGruppe title="Sted" className="Location">
+            <SkjemaGruppe title="Arbeidssted" className="Location">
                 <div className="PostalCode__flex">
                     <Typeahead
                         id="PostalCode__input"

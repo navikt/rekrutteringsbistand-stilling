@@ -27,7 +27,7 @@ function* validateLocation() {
             yield put({
                 type: ADD_VALIDATION_ERROR,
                 field: 'location',
-                message: 'Geografisk plassering har ukjent postnummer'
+                message: 'Ukjent postnummer'
             });
         } else {
             yield put({ type: REMOVE_VALIDATION_ERROR, field: 'location' });
@@ -38,13 +38,13 @@ function* validateLocation() {
         yield put({
             type: ADD_VALIDATION_ERROR,
             field: 'location',
-            message: 'Geografisk plassering har ugyldig postnummer'
+            message: 'Ugyldig postnummer'
         });
     } else if (!location || !location.postalCode) {
         yield put({
             type: ADD_VALIDATION_ERROR,
             field: 'location',
-            message: 'Geografisk plassering av stillingen mangler'
+            message: 'Arbeidssted mangler'
         });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'location' });
@@ -56,7 +56,7 @@ function* validateStyrk() {
     const { categoryList } = state.adData;
 
     if (valueIsNotSet(categoryList)) {
-        yield put({ type: ADD_VALIDATION_ERROR, field: 'styrk', message: 'Arbeidsyrke mangler' });
+        yield put({ type: ADD_VALIDATION_ERROR, field: 'styrk', message: 'Yrke mangler' });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'styrk' });
     }
@@ -70,7 +70,7 @@ function* validateEmployer() {
     if (employer === null || employer === undefined ||
         valueIsNotSet(employer.name) ||
         valueIsNotSet(employer.orgnr)) {
-        yield put({ type: ADD_VALIDATION_ERROR, field: 'employer', message: 'Arbeidsgiver er ikke koblet til Enhetsregisteret' });
+        yield put({ type: ADD_VALIDATION_ERROR, field: 'employer', message: 'Arbeidsgiver mangler' });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'employer' });
     }
@@ -82,9 +82,9 @@ function* validateAdministration() {
     const { remarks, comments } = state.adData.administration;
 
     if (status === AdStatusEnum.REJECTED && (remarks.length === 0)) {
-        yield put({ type: ADD_VALIDATION_ERROR, field: 'administration', message: 'Årsak til avvising er ikke oppgitt' });
-    } else if (remarks.includes(RemarksEnum.OTHER.value) && valueIsNotSet(comments)) {
-        yield put({ type: ADD_VALIDATION_ERROR, field: 'administration', message: 'Ved valg av avvisingsårsak \'Annet\' må kommentar være oppgitt' });
+        yield put({ type: ADD_VALIDATION_ERROR, field: 'administration', message: 'Årsak til avvising mangler' });
+    } else if (remarks.includes(RemarksEnum.UNKNOWN.value) && valueIsNotSet(comments)) {
+        yield put({ type: ADD_VALIDATION_ERROR, field: 'administration', message: 'Beskrivelse av annen årsak mangler' });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'administration' });
     }

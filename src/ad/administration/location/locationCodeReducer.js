@@ -1,7 +1,7 @@
 import { put, takeLatest, select } from 'redux-saga/effects';
 import { fetchGet } from '../../../api/api';
 import { AD_API } from '../../../fasitProperties';
-import { FETCH_AD_BEGIN } from '../../adReducer';
+import { FETCH_AD_BEGIN, FETCH_NEXT_AD_BEGIN } from '../../adReducer';
 
 export const FETCH_LOCATIONS = 'FETCH_LOCATIONS';
 export const FETCH_LOCATIONS_SUCCESS = 'FETCH_LOCATIONS_SUCCESS';
@@ -20,6 +20,7 @@ export default function locationlCodeReducer(state = initialState, action) {
                 locations: action.locations
             };
         case FETCH_AD_BEGIN:
+        case FETCH_NEXT_AD_BEGIN:
             return {
                 ...state,
                 suggestions: []

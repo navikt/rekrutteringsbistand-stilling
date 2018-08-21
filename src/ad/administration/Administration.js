@@ -7,14 +7,12 @@ import AdminStatusEnum from './adminStatus/AdminStatusEnum';
 import AdStatusEnum from './adStatus/AdStatusEnum';
 import AdStatusPreview from './adStatus/AdStatusPreview';
 import AdStatusEdit from './adStatus/AdStatusEdit';
-import CommentsEdit from './comments/CommentsEdit';
-import CommentsPreview from './comments/CommentsPreview';
 import Styrk from './styrk/Styrk';
 import Location from './location/Location';
 import Employer from './employer/Employer';
 import LocationPreview from './location/LocationPreview';
 import StyrkPreview from './styrk/StyrkPreview';
-import EmployerPreview from "./employer/EmployerPreview";
+import EmployerPreview from './employer/EmployerPreview';
 import AdminStatusPreview from './adminStatus/AdminStatusPreview';
 import AdminStatusEdit from './adminStatus/AdminStatusEdit';
 import { DISCARD_AD_CHANGES, FETCH_NEXT_AD, SAVE_AD } from '../adReducer';
@@ -22,7 +20,14 @@ import { SET_ADMIN_STATUS_AND_GET_NEXT_AD } from '../adDataReducer';
 import AdminStatusNotSavedPopup from './AdminStatusNotSavedPopup';
 import AdNotSavedPopup from './AdNotSavedPopup';
 import AdContainsErrorPopup from './AdContainsErrorPopup';
+import {
+    registerShortcuts,
+    removeShortcuts
+} from '../../common/shortcuts/Shortcuts';
 import './Administration.less';
+
+const validationError = (validation) => validation.styrk !== undefined ||
+    validation.location !== undefined || validation.employer !== undefined;
 
 class Administration extends React.Component {
     constructor(props) {
@@ -31,6 +36,18 @@ class Administration extends React.Component {
             isModalOpen: false,
             isErrorModalOpen: false
         };
+    }
+
+    componentDidMount() {
+        registerShortcuts('administration', {
+            'n n': () => {
+                this.onNextClick();
+            }
+        });
+    }
+
+    componentWillUnmount() {
+        removeShortcuts('administration');
     }
 
     onNextClick = () => {
@@ -67,7 +84,7 @@ class Administration extends React.Component {
     };
 
     onNextAndFinishClick = () => {
-        if (this.props.adStatus === AdStatusEnum.ACTIVE && this.props.validation.employer !== undefined) {
+        if (this.props.adStatus === AdStatusEnum.ACTIVE && validationError(this.props.validation)) {
             this.setState({
                 isErrorModalOpen: true,
                 isModalOpen: false
@@ -78,7 +95,7 @@ class Administration extends React.Component {
     };
 
     render() {
-        const { adStatus, adminStatus, isEditingAd, categoryList } = this.props;
+        const { adminStatus, isEditingAd, validation } = this.props;
         return (
             <div className="Administration">
                 <div className="Administration__flex">
@@ -86,27 +103,16 @@ class Administration extends React.Component {
                         {adminStatus === AdminStatusEnum.PENDING ? (
                             <div>
                                 <Styrk />
-                                <Location />
                                 <Employer />
+                                <Location />
                                 <AdStatusEdit />
-                                <CommentsEdit />
                             </div>
                         ) : (
                             <div>
                                 <AdStatusPreview />
-                                <div className="blokk">
-                                    <Element>Yrke</Element>
-                                    <StyrkPreview />
-                                </div>
-                                <div className="blokk">
-                                    <Element>Sted</Element>
-                                    <LocationPreview />
-                                </div>
-                                <div className="blokk">
-                                    <Element>Arbeidsgiver fra Enhetsregisteret</Element>
-                                    <EmployerPreview />
-                                </div>
-                                <CommentsPreview />
+                                <StyrkPreview />
+                                <EmployerPreview />
+                                <LocationPreview />
                             </div>
                         )}
                     </div>
@@ -133,6 +139,7 @@ class Administration extends React.Component {
                             <AdContainsErrorPopup
                                 onClose={this.onClosePopup}
                                 isOpen={this.state.isErrorModalOpen}
+                                validation={validation}
                             />
                         </div>
                     </div>

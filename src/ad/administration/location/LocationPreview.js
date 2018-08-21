@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { Element, Normaltekst } from 'nav-frontend-typografi';
 
 function LocationPreview({ location }) {
     return (
         <div className="LocationPreview">
+            <Element>Arbeidssted</Element>
             {location ? (
                 <div>
                     {location.postalCode && location.city && (
