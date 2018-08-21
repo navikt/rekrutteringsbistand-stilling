@@ -119,7 +119,7 @@ class Administration extends React.Component {
                         <div className="Administration__buttons">
                             <AdminStatusEdit />
                             <Knapp className="AdminStatusEdit__button" onClick={this.onNextClick}>
-                                Gå til neste annonse
+                                Start på neste annonse
                             </Knapp>
                             <AdminStatusNotSavedPopup
                                 isOpen={this.state.isModalOpen && !isEditingAd}

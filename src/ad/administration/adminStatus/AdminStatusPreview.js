@@ -13,19 +13,16 @@ class AdminStatusPreview extends React.Component {
                 {adminStatus === AdminStatusEnum.RECEIVED && (
                     <Normaltekst>
                         <b>Saksbehandler:</b> {reportee || 'Ingen'}
-                        <br /><b>Saksbehandling:</b> Mottatt
                     </Normaltekst>
                 )}
                 {adminStatus === AdminStatusEnum.PENDING && (
                     <Normaltekst>
                         <b>Saksbehandler:</b> {reportee || 'Ingen'}
-                        <br /><b>Saksbehandling:</b> Under behandling
                     </Normaltekst>
                 )}
                 {adminStatus === AdminStatusEnum.DONE && (
                     <Normaltekst>
                         <b>Saksbehandler:</b> {reportee || 'Ingen'}
-                        <br /><b>Saksbehandling:</b> Ferdig
                     </Normaltekst>
                 )}
             </div>

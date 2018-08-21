@@ -12,10 +12,6 @@ import './RemarksEdit.less';
 
 class RemarksEdit extends React.Component {
 
-    componentDidMount() {
-        this.remarksView.scrollIntoView(true);
-    }
-
     onRemarkClick = (e) => {
         const { checked, value } = e.target;
         this.changeRemark(checked, value);
@@ -32,10 +28,7 @@ class RemarksEdit extends React.Component {
     render() {
         const { remarks } = this.props;
         return (
-            <div
-                className="RemarksEdit"
-                ref={(ref) => {this.remarksView = ref;}}
-            >
+            <div className="RemarksEdit">
                 <SkjemaGruppe title="Oppgi årsak til avvising">
                     <div className={this.props.validation.remark ? 'skjema__feilomrade--harFeil' : ''} >
                         <Checkbox
