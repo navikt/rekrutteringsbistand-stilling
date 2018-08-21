@@ -10,7 +10,7 @@ import { DISCARD_AD_CHANGES, SAVE_AD } from '../adReducer';
 import {
     SET_AD_TEXT,
     SET_AD_TITLE, SET_APPLICATIONDUE, SET_APPLICATIONEMAIL, SET_APPLICATIONURL,
-    SET_EMPLOYER, SET_EMPLOYERDESCRIPTION,
+    SET_EMPLOYER, SET_EMPLOYER_NAME, SET_EMPLOYER_ADDRESS, SET_EMPLOYER_HOMEPAGE, SET_EMPLOYERDESCRIPTION,
     SET_EMPLOYMENT_EXTENT,
     SET_EMPLOYMENT_JOBARRANGEMENT,
     SET_EMPLOYMENT_JOBTITLE,
@@ -110,6 +110,18 @@ class Edit extends React.Component {
         this.props.setEmployerDescription(newText);
     };
 
+    onEmployerNameChange = (e) => {
+        this.props.setEmployerName(e.target.value);
+    };
+
+    onEmployerAddressChange = (e) => {
+        this.props.setEmployerAddress(e.target.value);
+    };
+
+    onEmployerHomepageChange = (e) => {
+        this.props.setEmployerHomepage(e.target.value);
+    };
+
     onPublishedChange = (e) => {
         this.props.setPublished(e.target.value);
     };
@@ -207,6 +219,24 @@ class Edit extends React.Component {
                         tittelProps="undertittel"
                         apen
                     >
+                        <Input
+                            label="Arbeidsgiver"
+                            value={ad.properties.employer || ''}
+                            onChange={this.onEmployerNameChange}
+                            className="typo-normal"
+                        />
+                        <Input
+                            label="Adresse"
+                            value={ad.properties.address || ''}
+                            onChange={this.onEmployerAddressChange}
+                            className="typo-normal"
+                        />
+                        <Input
+                            label="Hjemmeside"
+                            value={ad.properties.employerhomepage || ''}
+                            onChange={this.onEmployerHomepageChange}
+                            className="typo-normal"
+                        />
                         <RichTextEditor
                             toolbarConfig={toolbarConfig}
                             className="Edit__rte"
@@ -418,6 +448,9 @@ Edit.propTypes = {
     setApplicationUrl: PropTypes.func.isRequired,
     setSourceUrl: PropTypes.func.isRequired,
     setEmployer: PropTypes.func.isRequired,
+    setEmployerName: PropTypes.func.isRequired,
+    setEmployerAddress: PropTypes.func.isRequired,
+    setEmployerHomepage: PropTypes.func.isRequired,
     setEmployerDescription: PropTypes.func.isRequired,
     setLastUpdated: PropTypes.func.isRequired,
     setMedium: PropTypes.func.isRequired,
@@ -451,6 +484,9 @@ const mapDispatchToProps = (dispatch) => ({
     setApplicationUrl: (applicationurl) => dispatch({ type: SET_APPLICATIONURL, applicationurl }),
     setSourceUrl: (sourceurl) => dispatch({ type: SET_SOURCEURL, sourceurl }),
     setEmployer: (employer) => dispatch({ type: SET_EMPLOYER, employer }),
+    setEmployerName: (employername) => dispatch({ type: SET_EMPLOYER_NAME, employername }),
+    setEmployerAddress: (employeraddress) => dispatch({ type: SET_EMPLOYER_ADDRESS, employeraddress }),
+    setEmployerHomepage: (employerhomepage) => dispatch({ type: SET_EMPLOYER_HOMEPAGE, employerhomepage }),
     setEmployerDescription: (employerdescription) => dispatch({ type: SET_EMPLOYERDESCRIPTION, employerdescription }),
     setPublished: (published) => dispatch({ type: SET_PUBLISHED, published }),
     setLastUpdated: (updated) => dispatch({ type: SET_LAST_UPDATED, updated }),
