@@ -142,12 +142,6 @@ class Administration extends React.Component {
                                 onNextAndFinishClick={this.onNextAndFinishClick}
                                 onNextWithoutFinishClick={this.onNextWithoutFinishClick}
                             />
-                            <AdNotSavedPopup
-                                isOpen={this.state.isModalOpen && isEditingAd}
-                                onClose={this.onClosePopup}
-                                onDiscard={this.onDiscardClick}
-                                onSave={this.onSaveAdClick}
-                            />
                             <AdContainsErrorPopup
                                 onClose={this.onClosePopup}
                                 isOpen={this.state.isErrorModalOpen}

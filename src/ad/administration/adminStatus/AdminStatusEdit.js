@@ -45,14 +45,13 @@ class AdminStatusEdit extends React.Component {
     };
 
     onSetToDoneClick = () => {
-        if (this.props.isEditingAd ||
-            (this.props.adStatus === AdStatusEnum.ACTIVE && validationError(this.props.validation))) {
+        if (this.props.adStatus === AdStatusEnum.ACTIVE && validationError(this.props.validation)) {
             this.setState({
                 isModalOpen: true
             });
         } else {
             this.props.setAdminStatus(AdminStatusEnum.DONE);
-            this.props.saveAd()
+            this.props.saveAd();
         }
     };
 
@@ -96,34 +95,29 @@ class AdminStatusEdit extends React.Component {
                 {adminStatus === AdminStatusEnum.RECEIVED && (
                     <div>
                         <Hovedknapp className="AdminStatusEdit__button" onClick={this.onSetToPendingClick}>
-                            Start saksbehandling
+                            Start
                         </Hovedknapp>
                     </div>
                 )}
                 {adminStatus === AdminStatusEnum.PENDING && (
                     <div>
                         <Hovedknapp
+                            disabled={!this.props.hasChanges}
                             className="AdminStatusEdit__button"
                             onClick={this.onSetToDoneClick}
                         >
-                            Avslutt saksbehandling
+                            Lagre
                         </Hovedknapp>
                     </div>
                 )}
                 {adminStatus === AdminStatusEnum.DONE && (
                     <div>
                         <Hovedknapp className="AdminStatusEdit__button" onClick={this.onSetToPendingClick}>
-                            Gjennåpne saksbehandling
+                            Gjennåpne
                         </Hovedknapp>
 
                     </div>
                 )}
-                <AdNotSavedPopup
-                    isOpen={this.state.isModalOpen && isEditingAd}
-                    onSave={this.onSaveAdClick}
-                    onDiscard={this.onDiscardClick}
-                    onClose={this.onCloseModal}
-                />
                 <AdContainsErrorPopup
                     isOpen={this.state.isModalOpen && !isEditingAd}
                     onClose={this.onCloseModal}
@@ -151,7 +145,8 @@ const mapStateToProps = (state) => ({
     adminStatus: state.adData.administration.status,
     adStatus: state.adData.status,
     isEditingAd: state.ad.isEditingAd,
-    validation: state.adValidation.errors
+    validation: state.adValidation.errors,
+    hasChanges: state.ad.hasChanges
 });
 
 const mapDispatchToProps = (dispatch) => ({

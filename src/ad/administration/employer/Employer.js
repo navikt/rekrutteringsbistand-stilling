@@ -53,7 +53,7 @@ class Employer extends React.Component {
                         id="Employer__typeahead"
                         className="Employer__typeahead"
                         label="Arbeidsgiver fra Enhetsregisteret"
-                        placeholder="Arb.givernavn eller org.nr"
+                        placeholder="Skriv inn arb.givernavn eller org.nr"
                         onSelect={this.onTypeAheadSuggestionSelected}
                         onChange={this.onTypeAheadValueChange}
                         suggestions={this.props.suggestions.map((employer) => ({

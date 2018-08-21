@@ -6,7 +6,7 @@ import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import Preview from './preview/Preview';
 import Administration from './administration/Administration';
 import {
-    EDIT_AD, FETCH_AD, FETCH_NEXT_AD,
+    EDIT_AD, PREVIEW_EDIT_AD, FETCH_AD, FETCH_NEXT_AD,
     RESET_WORK_PRIORITY
 } from './adReducer';
 import Error from './error/Error';
@@ -57,6 +57,10 @@ class Ad extends React.Component {
 
     onEditAdClick = () => {
         this.props.editAd();
+    };
+
+    onPreviewAdClick = () => {
+        this.props.previewAd();
     };
 
     onNextAdClick = () => {
@@ -117,6 +121,12 @@ class Ad extends React.Component {
                                             {isEditingAd ? (
                                                 <div className="Ad__edit">
                                                     <div className="Ad__edit__inner">
+                                                        <Knapp
+                                                            className="Ad__preview__edit-button"
+                                                            onClick={this.onPreviewAdClick}
+                                                        >
+                                                            Forhåndsvis
+                                                        </Knapp>
                                                         <Edit />
                                                     </div>
                                                 </div>
@@ -174,6 +184,7 @@ Ad.propTypes = {
     getStilling: PropTypes.func.isRequired,
     getNextAd: PropTypes.func.isRequired,
     editAd: PropTypes.func.isRequired,
+    previewAd: PropTypes.func.isRequired,
     isEditingAd: PropTypes.bool.isRequired,
     isFetchingStilling: PropTypes.bool,
     endOfList: PropTypes.bool,
@@ -200,6 +211,7 @@ const mapDispatchToProps = (dispatch) => ({
     getStilling: (uuid) => dispatch({ type: FETCH_AD, uuid }),
     getNextAd: () => dispatch({ type: FETCH_NEXT_AD }),
     editAd: () => dispatch({ type: EDIT_AD }),
+    previewAd: () => dispatch({ type: PREVIEW_EDIT_AD }),
     unsetAd: () => dispatch({ type: SET_AD_DATA, data: null }),
     resetWorkPriority: () => dispatch({ type: RESET_WORK_PRIORITY })
 });
