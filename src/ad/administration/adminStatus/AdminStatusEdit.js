@@ -49,7 +49,7 @@ class AdminStatusEdit extends React.Component {
                 {adminStatus === AdminStatusEnum.RECEIVED && (
                     <div>
                         <Hovedknapp className="AdminStatusEdit__button" onClick={this.onSetToPendingClick}>
-                            Start
+                            Start behandling
                         </Hovedknapp>
                     </div>
                 )}
@@ -66,7 +66,7 @@ class AdminStatusEdit extends React.Component {
                 {adminStatus === AdminStatusEnum.DONE && (
                     <div>
                         <Hovedknapp className="AdminStatusEdit__button" onClick={this.onSetToPendingClick}>
-                            Gjennåpne
+                            Behandle på nytt
                         </Hovedknapp>
 
                     </div>
