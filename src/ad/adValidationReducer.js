@@ -82,11 +82,15 @@ function* validateAdministration() {
     const { remarks, comments } = state.adData.administration;
 
     if (status === AdStatusEnum.REJECTED && (remarks.length === 0)) {
-        yield put({ type: ADD_VALIDATION_ERROR, field: 'administration', message: 'Årsak til avvising mangler' });
-    } else if (remarks.includes(RemarksEnum.UNKNOWN.value) && valueIsNotSet(comments)) {
-        yield put({ type: ADD_VALIDATION_ERROR, field: 'administration', message: 'Beskrivelse av annen årsak mangler' });
+        yield put({ type: ADD_VALIDATION_ERROR, field: 'remark', message: 'Årsak til avvising mangler' });
     } else {
-        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'administration' });
+        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'remark' });
+    }
+
+    if (remarks.includes(RemarksEnum.UNKNOWN.value) && valueIsNotSet(comments)) {
+        yield put({ type: ADD_VALIDATION_ERROR, field: 'comment', message: 'Beskrivelse av annen årsak mangler' });
+    } else {
+        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'comment' });
     }
 }
 

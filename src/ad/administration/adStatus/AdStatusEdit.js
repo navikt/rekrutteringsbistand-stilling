@@ -30,10 +30,6 @@ class AdStatusEdit extends React.Component {
                 {adStatus === AdStatusEnum.REJECTED && (
                     <RemarksEdit />
                 )}
-                {this.props.validation.administration && (
-                    <div className="Administration_error">{this.props.validation.administration}</div>
-                )}
-
             </SkjemaGruppe>
         );
     }
@@ -41,15 +37,11 @@ class AdStatusEdit extends React.Component {
 
 AdStatusEdit.propTypes = {
     adStatus: PropTypes.string.isRequired,
-    setAdStatus: PropTypes.func.isRequired,
-    validation: PropTypes.shape({
-        administration: PropTypes.string
-    }).isRequired
+    setAdStatus: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
-    adStatus: state.adData.status,
-    validation: state.adValidation.errors
+    adStatus: state.adData.status
 });
 
 const mapDispatchToProps = (dispatch) => ({
