@@ -41,12 +41,13 @@ class Location extends React.Component {
 
     render() {
         return (
-            <SkjemaGruppe title="Arbeidssted" className="Location">
-                <div className="PostalCode__flex">
+            <div className="Location">
+                <div className="blokk-xxs">
                     <Typeahead
                         id="PostalCode__input"
                         className="PostalCode__code"
-                        label="Postnummer"
+                        label="Arbeidssted (postnummer)"
+                        placeholder="Skriv inn postnummer eller poststed"
                         onSelect={this.onTypeAheadSuggestionSelected}
                         onChange={this.onTypeAheadValueChange}
                         suggestions={this.props.suggestions.map((location) => ({
@@ -60,24 +61,18 @@ class Location extends React.Component {
                         }}
                         error={this.props.validation.location !== undefined}
                     />
-                    <Input
-                        disabled
-                        label="Poststed"
-                        className="PostalCode__city"
-                        value={this.props.location && this.props.location.city ? this.props.location.city : ''}
-                    />
                 </div>
                 {this.props.location &&
                     <div>
-                        {this.props.location.municipal && this.props.location.county && (
-                            <Undertekst>Kommune: {this.props.location.municipal} / Fylke: {this.props.location.county}</Undertekst>
+                        {this.props.location.city && this.props.location.municipal && this.props.location.county && (
+                            <Undertekst>Sted: {this.props.location.city} Kommune: {this.props.location.municipal} / Fylke: {this.props.location.county}</Undertekst>
                         )}
                     </div>
                 }
                 {this.props.validation.location && (
                     <div className="PostalCode__error">{this.props.validation.location}</div>
                 )}
-            </SkjemaGruppe>
+            </div>
         );
     }
 }

@@ -21,10 +21,6 @@ import {
 } from '../adDataReducer';
 import './Edit.less';
 import EngagementType from './engagementType/EngagementType';
-import {
-    registerShortcuts,
-    removeShortcuts
-} from '../../common/shortcuts/Shortcuts';
 
 export const createEmptyOrHTMLStringFromRTEValue = (rteValue) => {
     const emptySpaceOrNotWordRegex = /^(\s|\W)+$/g;
@@ -142,15 +138,6 @@ class Edit extends React.Component {
         this.props.setAdText(newText);
     };
 
-    onDiscardAdChanges = (e) => {
-        e.preventDefault();
-        this.props.discardAdChanges();
-    };
-
-    onSaveClick = () => {
-        this.props.saveAd();
-    };
-
     render() {
         const { ad, validation } = this.props;
         const toolbarConfig = {
@@ -177,14 +164,6 @@ class Edit extends React.Component {
 
         return (
             <div className="Edit">
-                <div className="Edit__top">
-                    <Hovedknapp className="Edit__top__knapp" onClick={this.onSaveClick}>
-                        Lagre annonsen
-                    </Hovedknapp>
-                    <Knapp onClick={this.onDiscardAdChanges}>
-                        Avbryt endringer
-                    </Knapp>
-                </div>
                 <div className="Edit__inner">
                     <Ekspanderbartpanel className="Edit__panel" tittel="Annonsetekst" tittelProps="undertittel" apen>
                         <Input
@@ -384,14 +363,6 @@ class Edit extends React.Component {
                         </Row>
                     </Ekspanderbartpanel>
                 </div>
-                <div className="Edit__bottom">
-                    <Hovedknapp className="Edit__bottom__knapp" onClick={this.onSaveClick}>
-                        Lagre annonsen
-                    </Hovedknapp>
-                    <Knapp onClick={this.onDiscardAdChanges}>
-                        Avbryt endringer
-                    </Knapp>
-                </div>
             </div>
         );
     }
@@ -424,9 +395,7 @@ Edit.propTypes = {
     setId: PropTypes.func.isRequired,
     setReference: PropTypes.func.isRequired,
     setExpirationDate: PropTypes.func.isRequired,
-    setAdText: PropTypes.func.isRequired,
-    discardAdChanges: PropTypes.func.isRequired,
-    saveAd: PropTypes.func.isRequired
+    setAdText: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -458,9 +427,7 @@ const mapDispatchToProps = (dispatch) => ({
     setId: (id) => dispatch({ type: SET_ID, id }),
     setReference: (reference) => dispatch({ type: SET_REFERENCE, reference }),
     setExpirationDate: (expires) => dispatch({ type: SET_EXPIRATION_DATE, expires }),
-    setAdText: (adtext) => dispatch({ type: SET_AD_TEXT, adtext }),
-    discardAdChanges: () => dispatch({ type: DISCARD_AD_CHANGES }),
-    saveAd: () => dispatch({ type: SAVE_AD })
+    setAdText: (adtext) => dispatch({ type: SET_AD_TEXT, adtext })
 });
 
 

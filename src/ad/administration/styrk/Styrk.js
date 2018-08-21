@@ -49,7 +49,7 @@ class Styrk extends React.Component {
 
     render() {
         return (
-            <SkjemaGruppe title="Yrke" className="Styrk">
+            <div className="Styrk">
                 <div className="skjemaelement__label">
                     <label htmlFor="Styrk__typeahead">STYRK</label>
                     <span>
@@ -102,7 +102,7 @@ class Styrk extends React.Component {
                     </div>
                 </Modal>
 
-            </SkjemaGruppe>
+            </div>
         );
     }
 }

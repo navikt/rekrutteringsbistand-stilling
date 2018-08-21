@@ -24,6 +24,7 @@ import {
     removeShortcuts
 } from '../../common/shortcuts/Shortcuts';
 import './Administration.less';
+import RemarksEdit from './adStatus/RemarksEdit';
 
 
 class Administration extends React.Component {
@@ -92,7 +93,7 @@ class Administration extends React.Component {
     };
 
     render() {
-        const { adminStatus, isEditingAd, validation, adStatus } = this.props;
+        const {adStatus, adminStatus, isEditingAd, validation } = this.props;
         return (
             <div className="Administration">
                 <div className="Administration__flex">
@@ -103,6 +104,9 @@ class Administration extends React.Component {
                                 <Employer />
                                 <Location />
                                 <AdStatusEdit />
+                                {adStatus === AdStatusEnum.REJECTED && (
+                                    <RemarksEdit />
+                                )}
                             </div>
                         ) : (
                             <div>
@@ -114,7 +118,11 @@ class Administration extends React.Component {
                         )}
                     </div>
 
-                    <div className="Administration__flex__bottom">
+                    <div
+                        className={adStatus === AdStatusEnum.REJECTED ?
+                            'Administration__flex__bottom Administration__flex__bottom--shadow' :
+                            'Administration__flex__bottom'}
+                    >
                         <AdminStatusPreview />
                         <div className="Administration__buttons">
                             <AdminStatusEdit />
@@ -126,12 +134,6 @@ class Administration extends React.Component {
                                 onClose={this.onClosePopup}
                                 onNextAndFinishClick={this.onNextAndFinishClick}
                                 onNextWithoutFinishClick={this.onNextWithoutFinishClick}
-                            />
-                            <AdNotSavedPopup
-                                isOpen={this.state.isModalOpen && isEditingAd}
-                                onClose={this.onClosePopup}
-                                onDiscard={this.onDiscardClick}
-                                onSave={this.onSaveAdClick}
                             />
                             <AdContainsErrorPopup
                                 onClose={this.onClosePopup}

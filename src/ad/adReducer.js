@@ -4,8 +4,17 @@ import { AD_API } from '../fasitProperties';
 import AdminStatusEnum from './administration/adminStatus/AdminStatusEnum';
 import toUrl from '../common/toUrl';
 import {
-    SET_REPORTEE, SET_AD_DATA, SET_ADMIN_STATUS,
-    SET_ADMIN_STATUS_AND_GET_NEXT_AD
+    SET_REPORTEE,
+    SET_AD_DATA,
+    SET_ADMIN_STATUS,
+    SET_ADMIN_STATUS_AND_GET_NEXT_AD,
+    SET_EMPLOYER,
+    SET_LOCATION,
+    ADD_STYRK,
+    REMOVE_STYRK,
+    SET_COMMENT,
+    ADD_REMARK,
+    REMOVE_REMARK, SET_AD_STATUS
 } from './adDataReducer';
 import { getReportee } from '../reportee/reporteeReducer';
 
@@ -20,6 +29,7 @@ export const SAVE_AD_SUCCESS = 'SAVE_AD_SUCCESS';
 export const SAVE_AD_FAILURE = 'SAVE_AD_FAILURE';
 
 export const EDIT_AD = 'EDIT_AD';
+export const PREVIEW_EDIT_AD = 'PREVIEW_EDIT_AD';
 export const DISCARD_AD_CHANGES = 'DISCARD_AD_CHANGES';
 
 export const SET_WORK_PRIORITY = 'SET_WORK_PRIORITY';
@@ -39,7 +49,8 @@ const initialState = {
     originalData: undefined,
     workPriority: {
         sort: 'created,asc'
-    }
+    },
+    hasChanges: false
 };
 
 export default function adReducer(state = initialState, action) {
@@ -48,6 +59,7 @@ export default function adReducer(state = initialState, action) {
         case FETCH_NEXT_AD_BEGIN:
             return {
                 ...state,
+                hasChanges: false,
                 isFetchingStilling: true,
                 error: undefined,
                 endOfList: false,
@@ -78,6 +90,7 @@ export default function adReducer(state = initialState, action) {
                 ...state,
                 isSavingAd: false,
                 isEditingAd: false,
+                hasChanges: false,
                 originalData: { ...action.response }
             };
         case SAVE_AD_FAILURE:
@@ -94,7 +107,13 @@ export default function adReducer(state = initialState, action) {
         case EDIT_AD:
             return {
                 ...state,
-                isEditingAd: true
+                isEditingAd: true,
+                hasChanges: true
+            };
+        case PREVIEW_EDIT_AD:
+            return {
+                ...state,
+                isEditingAd: false
             };
         case DISCARD_AD_CHANGES:
             return {
@@ -110,6 +129,18 @@ export default function adReducer(state = initialState, action) {
             return {
                 ...state,
                 workPriority: initialState.workPriority
+            };
+        case SET_AD_STATUS:
+        case SET_EMPLOYER:
+        case SET_COMMENT:
+        case ADD_REMARK:
+        case REMOVE_REMARK:
+        case SET_LOCATION:
+        case ADD_STYRK:
+        case REMOVE_STYRK:
+            return {
+                ...state,
+                hasChanges: true
             };
         default:
             return state;
