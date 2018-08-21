@@ -20,6 +20,7 @@ import reporteeReducer, { reporteeSaga } from './reportee/reporteeReducer';
 import engagementTypeReducer from './ad/edit/engagementType/engagementTypeReducer';
 import adDataReducer, { adDataSaga } from './ad/adDataReducer';
 import adValidationReducer, { validationSaga } from './ad/adValidationReducer';
+import modalReducer from "./ad/administration/modals/modalReducer";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -32,7 +33,8 @@ const store = createStore(combineReducers({
     engagementType: engagementTypeReducer,
     styrk: styrkReducer,
     reportee: reporteeReducer,
-    search: searchReducer
+    search: searchReducer,
+    modal: modalReducer
 }), applyMiddleware(sagaMiddleware));
 
 sagaMiddleware.run(reporteeSaga);
