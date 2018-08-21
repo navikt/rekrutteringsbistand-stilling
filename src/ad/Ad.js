@@ -15,11 +15,6 @@ import './Ad.less';
 import Faded from '../common/faded/Faded';
 import Edit from './edit/Edit';
 import AdminStatusEnum from './administration/adminStatus/AdminStatusEnum';
-import {
-    registerShortcuts,
-    removeShortcuts
-} from '../common/shortcuts/Shortcuts';
-import { SET_AD_DATA } from './adDataReducer';
 
 const isDefaultWorkPriority = (workPriority) =>
     workPriority.source === undefined && workPriority.status === undefined &&
@@ -212,7 +207,6 @@ const mapDispatchToProps = (dispatch) => ({
     getNextAd: () => dispatch({ type: FETCH_NEXT_AD }),
     editAd: () => dispatch({ type: EDIT_AD }),
     previewAd: () => dispatch({ type: PREVIEW_EDIT_AD }),
-    unsetAd: () => dispatch({ type: SET_AD_DATA, data: null }),
     resetWorkPriority: () => dispatch({ type: RESET_WORK_PRIORITY })
 });
 

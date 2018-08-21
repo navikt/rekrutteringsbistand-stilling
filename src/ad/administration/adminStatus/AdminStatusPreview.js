@@ -3,14 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Normaltekst } from 'nav-frontend-typografi';
 import AdminStatusEnum from './AdminStatusEnum';
-import { SET_ADMIN_STATUS } from '../../adDataReducer';
-import { SAVE_AD } from '../../adReducer';
+import { DISCARD_AD_CHANGES } from '../../adReducer';
 
 class AdminStatusPreview extends React.Component {
-    onSetToReceivedClick = (e) => {
+    onCancelClick = (e) => {
         e.preventDefault();
-        this.props.setAdminStatus(AdminStatusEnum.RECEIVED);
-        this.props.saveAd();
+        this.props.discardAdChanges();
     };
 
     render() {
@@ -28,8 +26,8 @@ class AdminStatusPreview extends React.Component {
                     <Normaltekst>
                         <b>Saksbehandler:</b> {reportee || 'Ingen'}
                         <br /><b>Saksbehandling:</b> Under behandling {' ('}
-                        <a href="#" className="lenke typo-normal" onClick={this.onSetToReceivedClick}>
-                            Sett tilbake til Mottatt
+                        <a href="#" className="lenke typo-normal" onClick={this.onCancelClick}>
+                            Avbryt
                         </a>{')'}
                     </Normaltekst>
                 )}
@@ -51,8 +49,7 @@ AdminStatusPreview.defaultProps = {
 AdminStatusPreview.propTypes = {
     adminStatus: PropTypes.string.isRequired,
     reportee: PropTypes.string,
-    setAdminStatus: PropTypes.func.isRequired,
-    saveAd: PropTypes.func.isRequired
+    discardAdChanges: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -61,8 +58,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    setAdminStatus: (status) => dispatch({ type: SET_ADMIN_STATUS, status }),
-    saveAd: () => dispatch({ type: SAVE_AD })
+    discardAdChanges: () => dispatch({ type: DISCARD_AD_CHANGES })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminStatusPreview);

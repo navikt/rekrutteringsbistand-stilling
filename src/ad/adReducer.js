@@ -5,7 +5,6 @@ import AdminStatusEnum from './administration/adminStatus/AdminStatusEnum';
 import toUrl from '../common/toUrl';
 import {
     SET_REPORTEE,
-    SET_AD_DATA,
     SET_ADMIN_STATUS,
     SET_ADMIN_STATUS_AND_GET_NEXT_AD,
     SET_EMPLOYER,
@@ -14,7 +13,7 @@ import {
     REMOVE_STYRK,
     SET_COMMENT,
     ADD_REMARK,
-    REMOVE_REMARK, SET_AD_STATUS
+    REMOVE_REMARK, SET_AD_STATUS, SET_AD_DATA
 } from './adDataReducer';
 import { getReportee } from '../reportee/reporteeReducer';
 
@@ -50,7 +49,8 @@ const initialState = {
     workPriority: {
         sort: 'created,asc'
     },
-    hasChanges: false
+    hasChanges: false,
+    originalAdminStatus: undefined
 };
 
 export default function adReducer(state = initialState, action) {
@@ -71,7 +71,8 @@ export default function adReducer(state = initialState, action) {
                 ...state,
                 isFetchingStilling: false,
                 isEditingAd: false,
-                originalData: { ...action.response }
+                originalData: { ...action.response },
+                originalAdminStatus: action.previousAdminStatus
             };
         case FETCH_AD_FAILURE:
         case FETCH_NEXT_AD_FAILURE:
@@ -149,11 +150,9 @@ export default function adReducer(state = initialState, action) {
 
 function* getAd(action) {
     yield put({ type: FETCH_AD_BEGIN });
-    yield put({ type: SET_AD_DATA, data: null });
     try {
         const response = yield fetchGet(`${AD_API}ads/${action.uuid}`);
-        yield put({ type: SET_AD_DATA, data: response });
-        yield put({ type: FETCH_AD_SUCCESS, response });
+        yield put({ type: FETCH_AD_SUCCESS, response, previousAdminStatus: response.administration.status });
     } catch (e) {
         if (e instanceof ApiError) {
             yield put({ type: FETCH_AD_FAILURE, error: e });
@@ -199,8 +198,7 @@ function* getNextAd() {
                     }
                 });
                 shouldRetry = false;
-                yield put({ type: SET_AD_DATA, data: responsePut });
-                yield put({ type: FETCH_NEXT_AD_SUCCESS, response: responsePut });
+                yield put({ type: FETCH_NEXT_AD_SUCCESS, response: responsePut, previousAdminStatus: ad.administration.status });
             } catch (e) {
                 if (e instanceof ApiError && e.statusCode === 412) {
                     shouldRetry = true;
@@ -227,7 +225,6 @@ function* saveAd() {
         }
         state = yield select();
         const response = yield fetchPut(`${AD_API}ads/${state.adData.uuid}`, state.adData);
-        yield put({ type: SET_AD_DATA, data: response });
         yield put({ type: SAVE_AD_SUCCESS, response });
     } catch (e) {
         if (e instanceof ApiError) {
@@ -240,16 +237,9 @@ function* saveAd() {
 
 function* discardChanges() {
     const state = yield select();
-    yield put({
-        type: SET_AD_DATA,
-        data: {
-            ...state.ad.originalData,
-            administration: state.adData.administration,
-            location: state.adData.location,
-            employer: state.adData.employer,
-            status: state.adData.status
-        }
-    });
+    yield put({ type: SET_AD_DATA, data: state.ad.originalData });
+    yield put({ type: SET_ADMIN_STATUS, status: state.ad.originalAdminStatus });
+    yield saveAd();
 }
 
 function* setAdminStatusAndGetNextAd(action) {

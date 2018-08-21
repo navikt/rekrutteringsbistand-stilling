@@ -1,6 +1,7 @@
 import { put, takeLatest } from 'redux-saga/es/effects';
 import { lookUpStyrk } from './administration/styrk/styrkReducer';
 import { findLocationByPostalCode } from './administration/location/locationCodeReducer';
+import { FETCH_AD_BEGIN, FETCH_AD_SUCCESS, FETCH_NEXT_AD_SUCCESS, SAVE_AD_SUCCESS } from "./adReducer";
 
 export const SET_AD_DATA = 'SET_AD_DATA';
 
@@ -45,6 +46,12 @@ const initialState = null;
 
 export default function adDataReducer(state = initialState, action) {
     switch (action.type) {
+        case FETCH_AD_BEGIN:
+            return initialState;
+        case FETCH_AD_SUCCESS:
+        case FETCH_NEXT_AD_SUCCESS:
+        case SAVE_AD_SUCCESS:
+            return action.response;
         case SET_AD_DATA:
             return action.data;
         case SET_COMMENT: {
