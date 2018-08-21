@@ -33,12 +33,12 @@ function AdStatusPreview({ adStatus, remarks, comments }) {
                 </Alertstripe>
             )}
             {adStatus === AdStatusEnum.STOPPED && (
-                <Alertstripe type="stopp">
+                <Alertstripe type="advarsel" solid>
                         Annonsen er stoppet
                 </Alertstripe>
             )}
             {adStatus === AdStatusEnum.DELETED && (
-                <Alertstripe type="advarsel">
+                <Alertstripe type="advarsel" solid>
                         Annonsen er slettet
                 </Alertstripe>
             )}
