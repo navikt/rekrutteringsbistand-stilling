@@ -102,7 +102,6 @@ class AdminStatusEdit extends React.Component {
                 {adminStatus === AdminStatusEnum.PENDING && (
                     <div>
                         <Hovedknapp
-                            disabled={!this.props.hasChanges}
                             className="AdminStatusEdit__button"
                             onClick={this.onSetToDoneClick}
                         >
@@ -145,8 +144,7 @@ const mapStateToProps = (state) => ({
     adminStatus: state.adData.administration.status,
     adStatus: state.adData.status,
     isEditingAd: state.ad.isEditingAd,
-    validation: state.adValidation.errors,
-    hasChanges: state.ad.hasChanges
+    validation: state.adValidation.errors
 });
 
 const mapDispatchToProps = (dispatch) => ({
