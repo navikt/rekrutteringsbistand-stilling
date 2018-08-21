@@ -2,13 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Knapp } from 'nav-frontend-knapper';
-import { Element } from 'nav-frontend-typografi';
 import AdminStatusEnum from './adminStatus/AdminStatusEnum';
 import AdStatusEnum from './adStatus/AdStatusEnum';
 import AdStatusPreview from './adStatus/AdStatusPreview';
 import AdStatusEdit from './adStatus/AdStatusEdit';
-import CommentsEdit from './comments/CommentsEdit';
-import CommentsPreview from './comments/CommentsPreview';
 import Styrk from './styrk/Styrk';
 import Location from './location/Location';
 import Employer from './employer/Employer';
@@ -21,7 +18,7 @@ import { FETCH_NEXT_AD, SAVE_AD } from '../adReducer';
 import { SET_ADMIN_STATUS_AND_GET_NEXT_AD } from '../adDataReducer';
 import AdminStatusNotSavedPopup from './AdminStatusNotSavedPopup';
 import AdNotSavedPopup from './AdNotSavedPopup';
-import AdContainsErrorPopup from './AdContainsErrorPopup';
+import AdContainsErrorPopup, { adContainsError } from './errorPopup/AdContainsErrorPopup';
 import {
     registerShortcuts,
     removeShortcuts
@@ -29,8 +26,6 @@ import {
 import './Administration.less';
 import RemarksEdit from './adStatus/RemarksEdit';
 
-const validationError = (validation) => validation.styrk !== undefined ||
-    validation.location !== undefined || validation.employer !== undefined;
 
 class Administration extends React.Component {
     constructor(props) {
@@ -79,7 +74,7 @@ class Administration extends React.Component {
     };
 
     onNextAndFinishClick = () => {
-        if (this.props.adStatus === AdStatusEnum.ACTIVE && validationError(this.props.validation)) {
+        if (adContainsError(this.props.adStatus, this.props.validation)) {
             this.setState({
                 isErrorModalOpen: true,
                 isModalOpen: false
@@ -90,9 +85,7 @@ class Administration extends React.Component {
     };
 
     render() {
-        const {
-            adStatus, adminStatus, isEditingAd, validation
-        } = this.props;
+        const {adStatus, adminStatus, isEditingAd, validation } = this.props;
         return (
             <div className="Administration">
                 <div className="Administration__flex">
@@ -138,6 +131,7 @@ class Administration extends React.Component {
                                 onClose={this.onClosePopup}
                                 isOpen={this.state.isErrorModalOpen}
                                 validation={validation}
+                                adStatus={adStatus}
                             />
                         </div>
                     </div>

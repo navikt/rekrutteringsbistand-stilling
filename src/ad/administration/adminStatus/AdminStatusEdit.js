@@ -10,11 +10,9 @@ import {
     removeShortcuts
 } from '../../../common/shortcuts/Shortcuts';
 import AdNotSavedPopup from '../AdNotSavedPopup';
-import AdContainsErrorPopup from '../AdContainsErrorPopup';
+import AdContainsErrorPopup, { adContainsError } from '../errorPopup/AdContainsErrorPopup';
 import AdStatusEnum from '../adStatus/AdStatusEnum';
 
-const validationError = (validation) => validation.styrk !== undefined ||
-    validation.location !== undefined || validation.employer !== undefined;
 
 class AdminStatusEdit extends React.Component {
     constructor(props) {
@@ -45,7 +43,7 @@ class AdminStatusEdit extends React.Component {
     };
 
     onSetToDoneClick = () => {
-        if (this.props.adStatus === AdStatusEnum.ACTIVE && validationError(this.props.validation)) {
+        if (adContainsError(this.props.adStatus, this.props.validation)) {
             this.setState({
                 isModalOpen: true
             });
@@ -88,7 +86,7 @@ class AdminStatusEdit extends React.Component {
     };
 
     render() {
-        const { adminStatus, isEditingAd, validation } = this.props;
+        const { adminStatus, isEditingAd, validation, adStatus } = this.props;
 
         return (
             <div className="AdminStatusEdit">
@@ -121,6 +119,7 @@ class AdminStatusEdit extends React.Component {
                     isOpen={this.state.isModalOpen && !isEditingAd}
                     onClose={this.onCloseModal}
                     validation={validation}
+                    adStatus={adStatus}
                 />
             </div>
         );
