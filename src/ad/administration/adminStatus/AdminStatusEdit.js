@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Hovedknapp } from 'nav-frontend-knapper';
+import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import { FETCH_NEXT_AD, SAVE_AD } from '../../adReducer';
 import { SET_ADMIN_STATUS } from '../../adDataReducer';
 import AdminStatusEnum from './AdminStatusEnum';
@@ -9,8 +9,8 @@ import {
     registerShortcuts,
     removeShortcuts
 } from '../../../common/shortcuts/Shortcuts';
-import { OPEN_MODAL } from "../modals/modalReducer";
-import {adContainsError} from "../errorPopup/AdContainsErrorPopup";
+import { OPEN_MODAL } from '../modals/modalReducer';
+import { adContainsError } from '../errorPopup/AdContainsErrorPopup';
 
 
 class AdminStatusEdit extends React.Component {
@@ -35,7 +35,7 @@ class AdminStatusEdit extends React.Component {
 
     onSetToDoneClick = () => {
         if (adContainsError(this.props.adStatus, this.props.validation)) {
-            this.props.openModal(false);
+            this.props.openModal();
         } else {
             this.props.setAdminStatus(AdminStatusEnum.DONE);
             this.props.saveAd();
@@ -65,9 +65,9 @@ class AdminStatusEdit extends React.Component {
                 )}
                 {adminStatus === AdminStatusEnum.DONE && (
                     <div>
-                        <Hovedknapp className="AdminStatusEdit__button" onClick={this.onSetToPendingClick}>
+                        <Knapp className="AdminStatusEdit__button" onClick={this.onSetToPendingClick}>
                             Behandle på nytt
-                        </Hovedknapp>
+                        </Knapp>
 
                     </div>
                 )}
@@ -99,8 +99,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     setAdminStatus: (status) => dispatch({ type: SET_ADMIN_STATUS, status }),
     saveAd: () => dispatch({ type: SAVE_AD }),
-    openModal: (value) => dispatch({ type: OPEN_MODAL, value }),
-    getNextAd: () => dispatch({ type: FETCH_NEXT_AD }),
+    openModal: () => dispatch({ type: OPEN_MODAL }),
+    getNextAd: () => dispatch({ type: FETCH_NEXT_AD })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminStatusEdit);

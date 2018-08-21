@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Knapp } from 'nav-frontend-knapper';
+import { Hovedknapp } from 'nav-frontend-knapper';
 import AdminStatusEnum from './adminStatus/AdminStatusEnum';
 import AdStatusEnum from './adStatus/AdStatusEnum';
 import AdStatusPreview from './adStatus/AdStatusPreview';
@@ -21,14 +21,15 @@ import {
 } from '../../common/shortcuts/Shortcuts';
 import './Administration.less';
 import RemarksEdit from './adStatus/RemarksEdit';
-import ConfirmationModal from "./modals/ConfirmationModal";
-import { OPEN_MODAL } from "./modals/modalReducer";
+import ConfirmationModal from './modals/ConfirmationModal';
 
 class Administration extends React.Component {
     componentDidMount() {
         registerShortcuts('administration', {
             'n n': () => {
-                this.onNextClick();
+                if (this.props.adminStatus === AdminStatusEnum.DONE) {
+                    this.onNextClick();
+                }
             }
         });
     }
@@ -38,11 +39,7 @@ class Administration extends React.Component {
     }
 
     onNextClick = () => {
-        if (this.props.adminStatus === AdminStatusEnum.PENDING) {
-            this.props.openModal(true);
-        } else {
-            this.props.getNextAd();
-        }
+        this.props.getNextAd();
     };
 
     render() {
@@ -81,9 +78,11 @@ class Administration extends React.Component {
                         <AdminStatusPreview />
                         <div className="Administration__buttons">
                             <AdminStatusEdit />
-                            <Knapp className="AdminStatusEdit__button" onClick={this.onNextClick}>
-                                Hent neste annonse
-                            </Knapp>
+                            {adminStatus === AdminStatusEnum.DONE && (
+                                <Hovedknapp className="AdminStatusEdit__button" onClick={this.onNextClick}>
+                                    Hent neste annonse
+                                </Hovedknapp>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -109,8 +108,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    getNextAd: () => dispatch({ type: FETCH_NEXT_AD }),
-    openModal: (value) => dispatch({ type: OPEN_MODAL, value })
+    getNextAd: () => dispatch({ type: FETCH_NEXT_AD })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Administration);

@@ -3,8 +3,7 @@ export const CLOSE_MODAL = 'CLOSE_MODAL';
 
 
 const initialState = {
-    modalOpen: false,
-    nextClicked: false
+    modalOpen: false
 };
 
 export default function modalReducer(state = initialState, action) {
@@ -12,14 +11,12 @@ export default function modalReducer(state = initialState, action) {
         case OPEN_MODAL:
             return {
                 ...state,
-                modalOpen: true,
-                nextClicked: action.value
+                modalOpen: true
             };
         case CLOSE_MODAL:
             return {
                 ...state,
-                modalOpen: false,
-                nextClicked: false
+                modalOpen: false
             };
         default:
             return state;
