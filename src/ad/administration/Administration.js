@@ -74,7 +74,7 @@ class Administration extends React.Component {
                     </div>
 
                     <div
-                        className={adStatus === AdStatusEnum.REJECTED ?
+                        className={adStatus === AdStatusEnum.REJECTED && adminStatus === AdminStatusEnum.PENDING ?
                             'Administration__flex__bottom Administration__flex__bottom--shadow' :
                             'Administration__flex__bottom'}
                     >
@@ -82,7 +82,7 @@ class Administration extends React.Component {
                         <div className="Administration__buttons">
                             <AdminStatusEdit />
                             <Knapp className="AdminStatusEdit__button" onClick={this.onNextClick}>
-                                Gå til neste annonse
+                                Start på neste annonse
                             </Knapp>
                         </div>
                     </div>

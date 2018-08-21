@@ -6,7 +6,6 @@ import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Column, Row } from 'nav-frontend-grid';
 import { connect } from 'react-redux';
 import RichTextEditor from 'react-rte';
-import { DISCARD_AD_CHANGES, SAVE_AD } from '../adReducer';
 import {
     SET_AD_TEXT,
     SET_AD_TITLE, SET_APPLICATIONDUE, SET_APPLICATIONEMAIL, SET_APPLICATIONURL,

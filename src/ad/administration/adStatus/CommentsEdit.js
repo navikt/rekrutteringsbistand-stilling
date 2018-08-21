@@ -43,7 +43,7 @@ class CommentsEdit extends React.Component {
     render() {
         return (
             <div className="CommentsEdit">
-                <Element>Kommentarer</Element>
+                <Element>Annen årsak:</Element>
                 <Textarea
                     label=""
                     maxLength={255}
@@ -52,6 +52,7 @@ class CommentsEdit extends React.Component {
                     value={this.state.comments || ''}
                     textareaRef={(ref) => { this.commentArea = ref; }}
                     textareaClass="typo-normal"
+                    feil={this.props.error ? { feilmelding: this.props.error} : undefined}
                 />
             </div>
         );
@@ -59,12 +60,14 @@ class CommentsEdit extends React.Component {
 }
 
 CommentsEdit.defaultProps = {
-    comments: ''
+    comments: '',
+    error: undefined
 };
 
 CommentsEdit.propTypes = {
     setComment: PropTypes.func.isRequired,
-    comments: PropTypes.string
+    comments: PropTypes.string,
+    error: PropTypes.string
 };
 
 const mapStateToProps = (state) => ({

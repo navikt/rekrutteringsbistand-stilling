@@ -6,7 +6,7 @@ import { Element, Normaltekst } from 'nav-frontend-typografi';
 function EmployerPreview({ employer }) {
     return (
         <div className="EmployerPreview">
-            <Element>Arbeidsgiver</Element>
+            <Element>Arbeidsgiver fra Enhetsregisteret</Element>
             {employer ? (
                 <div>
                     {employer.name && (

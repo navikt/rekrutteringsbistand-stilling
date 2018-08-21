@@ -8,15 +8,12 @@ import './ConfirmationModal.less';
 import { FETCH_NEXT_AD, SAVE_AD } from "../../adReducer";
 import { SET_ADMIN_STATUS_AND_GET_NEXT_AD } from "../../adDataReducer";
 import { CLOSE_MODAL, OPEN_MODAL } from "./modalReducer";
-import AdStatusEnum from "../adStatus/AdStatusEnum";
 import AdminStatusEnum from "../adminStatus/AdminStatusEnum";
-
-const validationError = (validation) => validation.styrk !== undefined ||
-    validation.location !== undefined || validation.employer !== undefined;
+import AdContainsErrorPopup, {adContainsError} from "../errorPopup/AdContainsErrorPopup";
 
 class ConfirmationModal extends React.Component {
     onNextAndFinishClick = () => {
-        if (this.props.adStatus === AdStatusEnum.ACTIVE && validationError(this.props.validation)) {
+        if (adContainsError(this.props.adStatus, this.props.validation)) {
             this.props.openModal(false);
         } else {
             this.props.setAdminStatusAndGetNextAd(AdminStatusEnum.DONE);
@@ -65,46 +62,14 @@ class ConfirmationModal extends React.Component {
                     </Knapp>
                 </NavFrontendModal>
             );
-        } else if (adStatus === AdStatusEnum.ACTIVE && validationError(validation)) {
+        } else if (adContainsError(adStatus, validation)) {
             return (
-                <NavFrontendModal
+                <AdContainsErrorPopup
                     isOpen={modalOpen}
-                    contentLabel="Fortsett"
-                    onRequestClose={this.onClose}
-                    className="blokk-m"
-                    closeButton
-                    appElement={document.getElementById('app')}
-                >
-                    <Undertittel className="ConfirmationPopup__title">
-                        Kan ikke lagre annonsen
-                    </Undertittel>
-                    <Normaltekst className="ConfirmationPopup__message">
-                        Annonsen kan ikke lagres før følgende feil er rettet:
-                    </Normaltekst>
-                    <ul>
-                        {validation.styrk && (
-                            <li className="ConfirmationPopup__message skjemaelement__feilmelding">
-                                {validation.styrk}
-                            </li>
-                        )}
-                        {validation.location && (
-                            <li className="ConfirmationPopup__message skjemaelement__feilmelding">
-                                {validation.location}
-                            </li>
-                        )}
-                        {validation.employer && (
-                            <li className="ConfirmationPopup__message skjemaelement__feilmelding">
-                                {validation.employer}
-                            </li>
-                        )}
-                    </ul>
-                    <Hovedknapp
-                        onClick={this.onClose}
-                        className="ConfirmationPopup__button"
-                    >
-                        Lukk
-                    </Hovedknapp>
-                </NavFrontendModal>
+                    onClose={this.onClose}
+                    validation={validation}
+                    adStatus={adStatus}
+                />
             );
         }
         return (<div></div>);
