@@ -30,18 +30,35 @@ class AdStatusEdit extends React.Component {
         const { adStatus } = this.props;
         return (
             <div className="AdStatusEdit">
-                <RadioPanelGruppe
-                    name="Annonsestatus"
-                    legend="Annonsestatus"
-                    radios={[
-                        { label: 'Ikke publisert', value: AdStatusEnum.INACTIVE },
-                        { label: 'Publisert', value: AdStatusEnum.ACTIVE },
-                        { label: 'Avvist', value: AdStatusEnum.REJECTED },
-                        { label: 'Stoppet', value: AdStatusEnum.STOPPED }
-                    ]}
-                    checked={adStatus}
-                    onChange={this.onAdStatusChange}
-                />
+                {adStatus === AdStatusEnum.DELETED ? (
+                    <RadioPanelGruppe
+                        name="Annonsestatus"
+                        legend="Annonsestatus"
+                        radios={[
+                            { label: 'Ikke publisert', value: AdStatusEnum.INACTIVE },
+                            { label: 'Publisert', value: AdStatusEnum.ACTIVE },
+                            { label: 'Avvist', value: AdStatusEnum.REJECTED },
+                            { label: 'Stoppet', value: AdStatusEnum.STOPPED },
+                            { label: 'Slettet', value: AdStatusEnum.DELETED }
+                        ]}
+                        checked={adStatus}
+                        onChange={this.onAdStatusChange}
+                    />
+
+                ) : (
+                    <RadioPanelGruppe
+                        name="Annonsestatus"
+                        legend="Annonsestatus"
+                        radios={[
+                            { label: 'Ikke publisert', value: AdStatusEnum.INACTIVE },
+                            { label: 'Publisert', value: AdStatusEnum.ACTIVE },
+                            { label: 'Avvist', value: AdStatusEnum.REJECTED },
+                            { label: 'Stoppet', value: AdStatusEnum.STOPPED }
+                        ]}
+                        checked={adStatus}
+                        onChange={this.onAdStatusChange}
+                    />
+                )}
             </div>
         );
     }
