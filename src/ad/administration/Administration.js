@@ -111,7 +111,7 @@ class Administration extends React.Component {
                     </div>
 
                     <div
-                        className={adStatus === AdStatusEnum.REJECTED ?
+                        className={adStatus === AdStatusEnum.REJECTED && adminStatus === AdminStatusEnum.PENDING ?
                             'Administration__flex__bottom Administration__flex__bottom--shadow' :
                             'Administration__flex__bottom'}
                     >
