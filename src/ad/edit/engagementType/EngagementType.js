@@ -1,36 +1,35 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Typeahead from '../../../common/typeahead/Typeahead';
-import { SET_ENGAGEMENTTYPE_TYPEAHEAD_VALUE } from './engagementTypeReducer';
+import { Select } from 'nav-frontend-skjema';
+import EngagementTypeEnum from './EngagementTypeEnum';
 import { SET_EMPLOYMENT_ENGAGEMENTTYPE } from '../../adDataReducer';
 import './EngagementType.less';
 
 class EngagementType extends React.Component {
-    onTypeAheadValueChange = (engagementType) => {
-        this.props.setEngagementTypeAheadValue(engagementType);
-        this.props.setEngagementType(engagementType);
-    };
-
-    onTypeAheadSuggestionSelected = (engagementType) => {
-        this.props.setEngagementTypeAheadValue(engagementType.value);
-        this.props.setEngagementType(engagementType.value);
+    onEngagementTypeChange = (e) => {
+        this.props.setEngagementType(e.target.value);
     };
 
     render() {
         return (
             <div className="EngagementType">
-                <Typeahead
+                <Select
                     id="EngagementType__input"
                     label="Ansettelsesforhold"
-                    onSelect={this.onTypeAheadSuggestionSelected}
-                    onChange={this.onTypeAheadValueChange}
-                    suggestions={this.props.suggestions.map((s) => ({
-                        value: s,
-                        label: s
-                    }))}
-                    value={this.props.engagementType ? this.props.engagementType : ''}
-                />
+                    value={this.props.engagementType}
+                    onChange={this.onEngagementTypeChange}
+                    className="typo-normal"
+                >
+                    <option value={EngagementTypeEnum.FAST} key={EngagementTypeEnum.FAST}>{EngagementTypeEnum.FAST}</option>
+                    <option value={EngagementTypeEnum.VIKARIAT} key={EngagementTypeEnum.VIKARIAT}>{EngagementTypeEnum.VIKARIAT}</option>
+                    <option value={EngagementTypeEnum.ENGASJEMENT} key={EngagementTypeEnum.ENGASJEMENT}>{EngagementTypeEnum.ENGASJEMENT}</option>
+                    <option value={EngagementTypeEnum.PROSJEKT} key={EngagementTypeEnum.PROSJEKT}>{EngagementTypeEnum.PROSJEKT}</option>
+                    <option value={EngagementTypeEnum.SESONG} key={EngagementTypeEnum.SESONG}>{EngagementTypeEnum.SESONG}</option>
+                    <option value={EngagementTypeEnum.TRAINEE} key={EngagementTypeEnum.TRAINEE}>{EngagementTypeEnum.TRAINEE}</option>
+                    <option value={EngagementTypeEnum.SELVSTENDIG} key={EngagementTypeEnum.SELVSTENDIG}>{EngagementTypeEnum.SELVSTENDIG}</option>
+                    <option value={EngagementTypeEnum.ANNET} key={EngagementTypeEnum.ANNET}>{EngagementTypeEnum.ANNET}</option>
+                </Select>
             </div>
         );
     }
@@ -42,7 +41,6 @@ EngagementType.defaultProps = {
 
 EngagementType.propTypes = {
     suggestions: PropTypes.arrayOf(PropTypes.string).isRequired,
-    setEngagementTypeAheadValue: PropTypes.func.isRequired,
     setEngagementType: PropTypes.func.isRequired,
     engagementType: PropTypes.string
 };
@@ -53,8 +51,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    setEngagementTypeAheadValue: (value) => dispatch({ type: SET_ENGAGEMENTTYPE_TYPEAHEAD_VALUE, value }),
-    setEngagementType: (engagementType) => dispatch({ type: SET_EMPLOYMENT_ENGAGEMENTTYPE, engagementType })
+    setEngagementType: (engagementType) => dispatch({ type: SET_EMPLOYMENT_ENGAGEMENTTYPE, engagementType }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EngagementType);

@@ -4,6 +4,8 @@ import { Input } from 'nav-frontend-skjema';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Column, Row } from 'nav-frontend-grid';
+import { Radio } from 'nav-frontend-skjema';
+import { Normaltekst } from 'nav-frontend-typografi';
 import { connect } from 'react-redux';
 import RichTextEditor from 'react-rte';
 import { DISCARD_AD_CHANGES, SAVE_AD } from '../adReducer';
@@ -294,11 +296,22 @@ class Edit extends React.Component {
                                 <EngagementType />
                             </Column>
                             <Column md="6">
-                                <Input
-                                    label="Heltid/deltid"
-                                    value={ad.properties.extent || ''}
+                                <div className="Edit__bottom"><Normaltekst>Heltid/Deltid</Normaltekst></div>
+                                <Radio
+                                    className="Edit__inline"
+                                    label="Heltid"
+                                    value="Heltid"
+                                    name="heltidDeltid"
+                                    checked={ad.properties.extent === 'Heltid'}
                                     onChange={this.onExtentChange}
-                                    className="typo-normal"
+                                />
+                                <Radio
+                                    className="Edit__inline"
+                                    label="Deltid"
+                                    value="Deltid"
+                                    name="heltidDeltid"
+                                    checked={ad.properties.extent === 'Deltid'}
+                                    onChange={this.onExtentChange}
                                 />
                             </Column>
                         </Row>
@@ -330,11 +343,30 @@ class Edit extends React.Component {
                                 />
                             </Column>
                             <Column md="6">
-                                <Input
-                                    label="Sektor"
-                                    value={ad.properties.sector || ''}
+                                <div className="Edit__bottom"><Normaltekst>Sektor</Normaltekst></div>
+                                <Radio
+                                    className="Edit__inline"
+                                    label="Privat"
+                                    value="Privat"
+                                    name="sektor"
+                                    checked={ad.properties.sector === 'Privat'}
                                     onChange={this.onSectorChange}
-                                    className="typo-normal"
+                                />
+                                <Radio
+                                    className="Edit__inline"
+                                    label="Offentlig"
+                                    value="Offentlig"
+                                    name="sektor"
+                                    checked={ad.properties.sector === 'Offentlig'}
+                                    onChange={this.onSectorChange}
+                                />
+                                <Radio
+                                    className="Edit__inline"
+                                    label="Ikke oppgitt"
+                                    value="Ikke oppgitt"
+                                    name="sektor"
+                                    checked={ad.properties.sector === 'Ikke oppgitt'}
+                                    onChange={this.onSectorChange}
                                 />
                             </Column>
                         </Row>
