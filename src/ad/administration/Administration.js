@@ -14,7 +14,7 @@ import Location from './location/Location';
 import Employer from './employer/Employer';
 import LocationPreview from './location/LocationPreview';
 import StyrkPreview from './styrk/StyrkPreview';
-import EmployerPreview from "./employer/EmployerPreview";
+import EmployerPreview from './employer/EmployerPreview';
 import AdminStatusPreview from './adminStatus/AdminStatusPreview';
 import AdminStatusEdit from './adminStatus/AdminStatusEdit';
 import { DISCARD_AD_CHANGES, FETCH_NEXT_AD, SAVE_AD } from '../adReducer';
@@ -27,6 +27,7 @@ import {
     removeShortcuts
 } from '../../common/shortcuts/Shortcuts';
 import './Administration.less';
+import RemarksEdit from './adStatus/RemarksEdit';
 
 const validationError = (validation) => validation.styrk !== undefined ||
     validation.location !== undefined || validation.employer !== undefined;
@@ -97,7 +98,9 @@ class Administration extends React.Component {
     };
 
     render() {
-        const { adminStatus, isEditingAd, validation } = this.props;
+        const {
+            adStatus, adminStatus, isEditingAd, validation
+        } = this.props;
         return (
             <div className="Administration">
                 <div className="Administration__flex">
@@ -108,6 +111,9 @@ class Administration extends React.Component {
                                 <Employer />
                                 <Location />
                                 <AdStatusEdit />
+                                {adStatus === AdStatusEnum.REJECTED && (
+                                    <RemarksEdit />
+                                )}
                             </div>
                         ) : (
                             <div>
@@ -119,7 +125,11 @@ class Administration extends React.Component {
                         )}
                     </div>
 
-                    <div className="Administration__flex__bottom">
+                    <div
+                        className={adStatus === AdStatusEnum.REJECTED ?
+                            'Administration__flex__bottom Administration__flex__bottom--shadow' :
+                            'Administration__flex__bottom'}
+                    >
                         <AdminStatusPreview />
                         <div className="Administration__buttons">
                             <AdminStatusEdit />
