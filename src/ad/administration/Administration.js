@@ -108,7 +108,6 @@ class Administration extends React.Component {
                                 <Employer />
                                 <Location />
                                 <AdStatusEdit />
-                                <CommentsEdit />
                             </div>
                         ) : (
                             <div>
@@ -116,7 +115,6 @@ class Administration extends React.Component {
                                 <StyrkPreview />
                                 <EmployerPreview />
                                 <LocationPreview />
-                                <CommentsPreview />
                             </div>
                         )}
                     </div>

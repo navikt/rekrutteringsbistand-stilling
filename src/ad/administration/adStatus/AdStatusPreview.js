@@ -15,33 +15,31 @@ function AdStatusPreview({ adStatus, remarks }) {
 
     return (
         <div className="AdStatusPreview">
-            <div className="blokk">
-                {adStatus === AdStatusEnum.INACTIVE && (
-                    <Alertstripe type="info" solid>
+            {adStatus === AdStatusEnum.INACTIVE && (
+                <Alertstripe type="info" solid>
                         Annonsen er ikke publisert
-                    </Alertstripe>
-                )}
-                {adStatus === AdStatusEnum.ACTIVE && (
-                    <Alertstripe type="suksess" solid>
+                </Alertstripe>
+            )}
+            {adStatus === AdStatusEnum.ACTIVE && (
+                <Alertstripe type="suksess" solid>
                         Annonsen er publisert
-                    </Alertstripe>
-                )}
-                {adStatus === AdStatusEnum.REJECTED && (
-                    <Alertstripe type="advarsel" solid>
+                </Alertstripe>
+            )}
+            {adStatus === AdStatusEnum.REJECTED && (
+                <Alertstripe type="advarsel" solid>
                         Annonsen er avvist: {remarksLabels.join(', ')}
-                    </Alertstripe>
-                )}
-                {adStatus === AdStatusEnum.STOPPED && (
-                    <Alertstripe type="stopp">
+                </Alertstripe>
+            )}
+            {adStatus === AdStatusEnum.STOPPED && (
+                <Alertstripe type="stopp">
                         Annonsen er stoppet
-                    </Alertstripe>
-                )}
-                {adStatus === AdStatusEnum.DELETED && (
-                    <Alertstripe type="advarsel">
+                </Alertstripe>
+            )}
+            {adStatus === AdStatusEnum.DELETED && (
+                <Alertstripe type="advarsel">
                         Annonsen er slettet
-                    </Alertstripe>
-                )}
-            </div>
+                </Alertstripe>
+            )}
         </div>
     );
 }

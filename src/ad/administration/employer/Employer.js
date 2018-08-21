@@ -47,12 +47,12 @@ class Employer extends React.Component {
         const { employer, properties } = this.props;
         const location = employer ? employer.location : undefined;
         return (
-            <SkjemaGruppe title="Arbeidsgiver" className="Employer">
+            <div className="Employer">
                 <div className="blokk-xxs">
                     <Typeahead
                         id="Employer__typeahead"
                         className="Employer__typeahead"
-                        label=""
+                        label="Arbeidsgiver fra Enhetsregisteret"
                         placeholder="Arb.givernavn eller org.nr"
                         onSelect={this.onTypeAheadSuggestionSelected}
                         onChange={this.onTypeAheadValueChange}
@@ -74,7 +74,7 @@ class Employer extends React.Component {
                 {this.props.validation.employer && (
                     <div className="Employer__error">{this.props.validation.employer}</div>
                 )}
-            </SkjemaGruppe>
+            </div>
         );
     }
 }
