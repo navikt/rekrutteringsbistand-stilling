@@ -22,6 +22,7 @@ class CommentsEdit extends React.Component {
                 this.commentArea.focus();
             }
         });
+        this.commentArea.scrollIntoView(true);
     }
 
     onChange = (e) => {
