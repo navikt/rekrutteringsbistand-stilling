@@ -17,7 +17,7 @@ import StyrkPreview from './styrk/StyrkPreview';
 import EmployerPreview from './employer/EmployerPreview';
 import AdminStatusPreview from './adminStatus/AdminStatusPreview';
 import AdminStatusEdit from './adminStatus/AdminStatusEdit';
-import { DISCARD_AD_CHANGES, FETCH_NEXT_AD, SAVE_AD } from '../adReducer';
+import { FETCH_NEXT_AD, SAVE_AD } from '../adReducer';
 import { SET_ADMIN_STATUS_AND_GET_NEXT_AD } from '../adDataReducer';
 import AdminStatusNotSavedPopup from './AdminStatusNotSavedPopup';
 import AdNotSavedPopup from './AdNotSavedPopup';
@@ -72,14 +72,6 @@ class Administration extends React.Component {
         this.setState({
             isModalOpen: true
         });
-    };
-
-    onSaveAdClick = () => {
-        this.props.saveAd();
-    };
-
-    onDiscardClick = () => {
-        this.props.discardAdChanges();
     };
 
     onNextWithoutFinishClick = () => {
@@ -163,8 +155,6 @@ Administration.propTypes = {
     adStatus: PropTypes.string.isRequired,
     adminStatus: PropTypes.string,
     getNextAd: PropTypes.func.isRequired,
-    saveAd: PropTypes.func.isRequired,
-    discardAdChanges: PropTypes.func.isRequired,
     setAdminStatusAndGetNextAd: PropTypes.func.isRequired,
     validation: PropTypes.shape({
         employer: PropTypes.string
@@ -180,9 +170,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     getNextAd: () => dispatch({ type: FETCH_NEXT_AD }),
-    saveAd: () => dispatch({ type: SAVE_AD }),
-    setAdminStatusAndGetNextAd: (status) => dispatch({ type: SET_ADMIN_STATUS_AND_GET_NEXT_AD, status }),
-    discardAdChanges: () => dispatch({ type: DISCARD_AD_CHANGES })
+    setAdminStatusAndGetNextAd: (status) => dispatch({ type: SET_ADMIN_STATUS_AND_GET_NEXT_AD, status })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Administration);

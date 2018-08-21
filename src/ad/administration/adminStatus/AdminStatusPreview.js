@@ -3,14 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Normaltekst } from 'nav-frontend-typografi';
 import AdminStatusEnum from './AdminStatusEnum';
-import { DISCARD_AD_CHANGES } from '../../adReducer';
 
 class AdminStatusPreview extends React.Component {
-    onCancelClick = (e) => {
-        e.preventDefault();
-        this.props.discardAdChanges();
-    };
-
     render() {
         const { adminStatus, reportee } = this.props;
 
@@ -25,10 +19,7 @@ class AdminStatusPreview extends React.Component {
                 {adminStatus === AdminStatusEnum.PENDING && (
                     <Normaltekst>
                         <b>Saksbehandler:</b> {reportee || 'Ingen'}
-                        <br /><b>Saksbehandling:</b> Under behandling {' ('}
-                        <a href="#" className="lenke typo-normal" onClick={this.onCancelClick}>
-                            Avbryt
-                        </a>{')'}
+                        <br /><b>Saksbehandling:</b> Under behandling
                     </Normaltekst>
                 )}
                 {adminStatus === AdminStatusEnum.DONE && (
@@ -48,8 +39,7 @@ AdminStatusPreview.defaultProps = {
 
 AdminStatusPreview.propTypes = {
     adminStatus: PropTypes.string.isRequired,
-    reportee: PropTypes.string,
-    discardAdChanges: PropTypes.func.isRequired
+    reportee: PropTypes.string
 };
 
 const mapStateToProps = (state) => ({
@@ -57,8 +47,4 @@ const mapStateToProps = (state) => ({
     reportee: state.adData.administration.reportee
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    discardAdChanges: () => dispatch({ type: DISCARD_AD_CHANGES })
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(AdminStatusPreview);
+export default connect(mapStateToProps)(AdminStatusPreview);

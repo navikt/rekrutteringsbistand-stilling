@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Hovedknapp } from 'nav-frontend-knapper';
-import { DISCARD_AD_CHANGES, FETCH_NEXT_AD, SAVE_AD } from '../../adReducer';
+import { FETCH_NEXT_AD, SAVE_AD } from '../../adReducer';
 import { SET_ADMIN_STATUS } from '../../adDataReducer';
 import AdminStatusEnum from './AdminStatusEnum';
 import {
@@ -134,7 +134,6 @@ AdminStatusEdit.propTypes = {
     isEditingAd: PropTypes.bool.isRequired,
     getNextAd: PropTypes.func.isRequired,
     saveAd: PropTypes.func.isRequired,
-    discardAdChanges: PropTypes.func.isRequired,
     validation: PropTypes.shape({
         employer: PropTypes.string
     }).isRequired
@@ -150,8 +149,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     setAdminStatus: (status) => dispatch({ type: SET_ADMIN_STATUS, status }),
     getNextAd: () => dispatch({ type: FETCH_NEXT_AD }),
-    saveAd: () => dispatch({ type: SAVE_AD }),
-    discardAdChanges: () => dispatch({ type: DISCARD_AD_CHANGES })
+    saveAd: () => dispatch({ type: SAVE_AD })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminStatusEdit);

@@ -13,7 +13,7 @@ import {
     REMOVE_STYRK,
     SET_COMMENT,
     ADD_REMARK,
-    REMOVE_REMARK, SET_AD_STATUS, SET_AD_DATA
+    REMOVE_REMARK, SET_AD_STATUS
 } from './adDataReducer';
 import { getReportee } from '../reportee/reporteeReducer';
 
@@ -29,7 +29,6 @@ export const SAVE_AD_FAILURE = 'SAVE_AD_FAILURE';
 
 export const EDIT_AD = 'EDIT_AD';
 export const PREVIEW_EDIT_AD = 'PREVIEW_EDIT_AD';
-export const DISCARD_AD_CHANGES = 'DISCARD_AD_CHANGES';
 
 export const SET_WORK_PRIORITY = 'SET_WORK_PRIORITY';
 export const RESET_WORK_PRIORITY = 'RESET_WORK_PRIORITY';
@@ -49,8 +48,7 @@ const initialState = {
     workPriority: {
         sort: 'created,asc'
     },
-    hasChanges: false,
-    originalAdminStatus: undefined
+    hasChanges: false
 };
 
 export default function adReducer(state = initialState, action) {
@@ -71,8 +69,7 @@ export default function adReducer(state = initialState, action) {
                 ...state,
                 isFetchingStilling: false,
                 isEditingAd: false,
-                originalData: { ...action.response },
-                originalAdminStatus: action.previousAdminStatus
+                originalData: { ...action.response }
             };
         case FETCH_AD_FAILURE:
         case FETCH_NEXT_AD_FAILURE:
@@ -112,11 +109,6 @@ export default function adReducer(state = initialState, action) {
                 hasChanges: true
             };
         case PREVIEW_EDIT_AD:
-            return {
-                ...state,
-                isEditingAd: false
-            };
-        case DISCARD_AD_CHANGES:
             return {
                 ...state,
                 isEditingAd: false
@@ -235,13 +227,6 @@ function* saveAd() {
     }
 }
 
-function* discardChanges() {
-    const state = yield select();
-    yield put({ type: SET_AD_DATA, data: state.ad.originalData });
-    yield put({ type: SET_ADMIN_STATUS, status: state.ad.originalAdminStatus });
-    yield saveAd();
-}
-
 function* setAdminStatusAndGetNextAd(action) {
     yield put({ type: SET_ADMIN_STATUS, status: action.status });
     yield saveAd();
@@ -251,7 +236,6 @@ function* setAdminStatusAndGetNextAd(action) {
 export const adSaga = function* saga() {
     yield takeLatest(FETCH_AD, getAd);
     yield takeLatest(FETCH_NEXT_AD, getNextAd);
-    yield takeLatest(DISCARD_AD_CHANGES, discardChanges);
     yield takeLatest(SAVE_AD, saveAd);
     yield takeLatest(SET_ADMIN_STATUS_AND_GET_NEXT_AD, setAdminStatusAndGetNextAd);
 };
