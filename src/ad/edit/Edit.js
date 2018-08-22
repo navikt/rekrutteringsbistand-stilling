@@ -4,12 +4,14 @@ import { Input } from 'nav-frontend-skjema';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Column, Row } from 'nav-frontend-grid';
+import { Radio } from 'nav-frontend-skjema';
+import { Normaltekst } from 'nav-frontend-typografi';
 import { connect } from 'react-redux';
 import RichTextEditor from 'react-rte';
 import {
     SET_AD_TEXT,
     SET_AD_TITLE, SET_APPLICATIONDUE, SET_APPLICATIONEMAIL, SET_APPLICATIONURL,
-    SET_EMPLOYER, SET_EMPLOYERDESCRIPTION,
+    SET_EMPLOYER, SET_EMPLOYER_NAME, SET_EMPLOYER_ADDRESS, SET_EMPLOYER_HOMEPAGE, SET_EMPLOYERDESCRIPTION,
     SET_EMPLOYMENT_EXTENT,
     SET_EMPLOYMENT_JOBARRANGEMENT,
     SET_EMPLOYMENT_JOBTITLE,
@@ -105,6 +107,18 @@ class Edit extends React.Component {
         this.props.setEmployerDescription(newText);
     };
 
+    onEmployerNameChange = (e) => {
+        this.props.setEmployerName(e.target.value);
+    };
+
+    onEmployerAddressChange = (e) => {
+        this.props.setEmployerAddress(e.target.value);
+    };
+
+    onEmployerHomepageChange = (e) => {
+        this.props.setEmployerHomepage(e.target.value);
+    };
+
     onPublishedChange = (e) => {
         this.props.setPublished(e.target.value);
     };
@@ -185,6 +199,24 @@ class Edit extends React.Component {
                         tittelProps="undertittel"
                         apen
                     >
+                        <Input
+                            label="Arbeidsgiver"
+                            value={ad.properties.employer || ''}
+                            onChange={this.onEmployerNameChange}
+                            className="typo-normal"
+                        />
+                        <Input
+                            label="Adresse"
+                            value={ad.properties.address || ''}
+                            onChange={this.onEmployerAddressChange}
+                            className="typo-normal"
+                        />
+                        <Input
+                            label="Hjemmeside"
+                            value={ad.properties.employerhomepage || ''}
+                            onChange={this.onEmployerHomepageChange}
+                            className="typo-normal"
+                        />
                         <RichTextEditor
                             toolbarConfig={toolbarConfig}
                             className="Edit__rte"
@@ -242,11 +274,22 @@ class Edit extends React.Component {
                                 <EngagementType />
                             </Column>
                             <Column md="6">
-                                <Input
-                                    label="Heltid/deltid"
-                                    value={ad.properties.extent || ''}
+                                <div className="Edit__bottom"><Normaltekst>Heltid/Deltid</Normaltekst></div>
+                                <Radio
+                                    className="Edit__inline"
+                                    label="Heltid"
+                                    value="Heltid"
+                                    name="heltidDeltid"
+                                    checked={ad.properties.extent === 'Heltid'}
                                     onChange={this.onExtentChange}
-                                    className="typo-normal"
+                                />
+                                <Radio
+                                    className="Edit__inline"
+                                    label="Deltid"
+                                    value="Deltid"
+                                    name="heltidDeltid"
+                                    checked={ad.properties.extent === 'Deltid'}
+                                    onChange={this.onExtentChange}
                                 />
                             </Column>
                         </Row>
@@ -278,11 +321,30 @@ class Edit extends React.Component {
                                 />
                             </Column>
                             <Column md="6">
-                                <Input
-                                    label="Sektor"
-                                    value={ad.properties.sector || ''}
+                                <div className="Edit__bottom"><Normaltekst>Sektor</Normaltekst></div>
+                                <Radio
+                                    className="Edit__inline"
+                                    label="Privat"
+                                    value="Privat"
+                                    name="sektor"
+                                    checked={ad.properties.sector === 'Privat'}
                                     onChange={this.onSectorChange}
-                                    className="typo-normal"
+                                />
+                                <Radio
+                                    className="Edit__inline"
+                                    label="Offentlig"
+                                    value="Offentlig"
+                                    name="sektor"
+                                    checked={ad.properties.sector === 'Offentlig'}
+                                    onChange={this.onSectorChange}
+                                />
+                                <Radio
+                                    className="Edit__inline"
+                                    label="Ikke oppgitt"
+                                    value="Ikke oppgitt"
+                                    name="sektor"
+                                    checked={ad.properties.sector === 'Ikke oppgitt'}
+                                    onChange={this.onSectorChange}
                                 />
                             </Column>
                         </Row>
@@ -388,6 +450,9 @@ Edit.propTypes = {
     setApplicationUrl: PropTypes.func.isRequired,
     setSourceUrl: PropTypes.func.isRequired,
     setEmployer: PropTypes.func.isRequired,
+    setEmployerName: PropTypes.func.isRequired,
+    setEmployerAddress: PropTypes.func.isRequired,
+    setEmployerHomepage: PropTypes.func.isRequired,
     setEmployerDescription: PropTypes.func.isRequired,
     setLastUpdated: PropTypes.func.isRequired,
     setMedium: PropTypes.func.isRequired,
@@ -419,6 +484,9 @@ const mapDispatchToProps = (dispatch) => ({
     setApplicationUrl: (applicationurl) => dispatch({ type: SET_APPLICATIONURL, applicationurl }),
     setSourceUrl: (sourceurl) => dispatch({ type: SET_SOURCEURL, sourceurl }),
     setEmployer: (employer) => dispatch({ type: SET_EMPLOYER, employer }),
+    setEmployerName: (employername) => dispatch({ type: SET_EMPLOYER_NAME, employername }),
+    setEmployerAddress: (employeraddress) => dispatch({ type: SET_EMPLOYER_ADDRESS, employeraddress }),
+    setEmployerHomepage: (employerhomepage) => dispatch({ type: SET_EMPLOYER_HOMEPAGE, employerhomepage }),
     setEmployerDescription: (employerdescription) => dispatch({ type: SET_EMPLOYERDESCRIPTION, employerdescription }),
     setPublished: (published) => dispatch({ type: SET_PUBLISHED, published }),
     setLastUpdated: (updated) => dispatch({ type: SET_LAST_UPDATED, updated }),
