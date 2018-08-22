@@ -17,6 +17,8 @@ import {
 } from './adDataReducer';
 import { getReportee } from '../reportee/reporteeReducer';
 
+import deepEqual from 'deep-equal';
+
 export const FETCH_AD = 'FETCH_AD';
 export const FETCH_AD_BEGIN = 'FETCH_AD_BEGIN';
 export const FETCH_AD_SUCCESS = 'FETCH_AD_SUCCESS';
@@ -205,6 +207,10 @@ function* getNextAd() {
     }
 }
 
+function needClassify(originalAdData, adData) {
+    return !deepEqual(originalAdData.categoryList, adData.categoryList);
+}
+
 function* saveAd() {
     let state = yield select();
     yield put({ type: SAVE_AD_BEGIN });
@@ -216,7 +222,14 @@ function* saveAd() {
             yield put({ type: SET_REPORTEE, reportee: reportee.displayName });
         }
         state = yield select();
-        const response = yield fetchPut(`${AD_API}ads/${state.adData.uuid}`, state.adData);
+
+        // Modified category list requires store/PUT with (re)classification
+        let putUrl = `${AD_API}ads/${state.adData.uuid}`;
+        if (typeof state.ad.originalData == 'undefined' || needClassify(state.ad.originalData, state.adData)) {
+            putUrl += '?classify=true';
+        }
+
+        const response = yield fetchPut(putUrl, state.adData);
         yield put({ type: SAVE_AD_SUCCESS, response });
     } catch (e) {
         if (e instanceof ApiError) {
