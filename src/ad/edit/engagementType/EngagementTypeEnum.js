@@ -4,7 +4,9 @@ const EngagementTypeEnum = {
     ENGASJEMENT: 'Engasjement',
     PROSJEKT: 'Prosjekt',
     SESONG: 'Sesong',
-    TRAINEE: 'Trainee og lærling',
+    SOMMERJOBB: 'Sommerjobb',
+    TRAINEE: 'Trainee',
+    LAERLING: 'Lærling',
     SELVSTENDIG: 'Selvstendig næringsdrivende',
     ANNET: 'Annet'
 };
