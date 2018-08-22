@@ -9,7 +9,6 @@ import StyrkThree from './StyrkThree';
 import { FETCH_STYRK, SET_STYRK_TYPEAHEAD_VALUE, TOGGLE_STYRK_MODAL } from './styrkReducer';
 import { ADD_STYRK, REMOVE_STYRK } from '../../adDataReducer';
 import './Styrk.less';
-import { SkjemaGruppe } from "nav-frontend-skjema";
 import {
     registerShortcuts,
     removeShortcuts
