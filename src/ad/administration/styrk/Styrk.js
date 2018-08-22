@@ -35,8 +35,10 @@ class Styrk extends React.Component {
     };
 
     onTypeAheadSuggestionSelected = (suggestion) => {
-        this.props.setTypeAheadValue('');
-        this.props.addStyrk(suggestion.value);
+        if (suggestion) {
+            this.props.setTypeAheadValue('');
+            this.props.addStyrk(suggestion.value);
+        }
     };
 
     onTagRemove = (styrkCode) => {
