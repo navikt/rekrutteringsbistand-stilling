@@ -1,5 +1,5 @@
 import { put, takeLatest, select, call } from 'redux-saga/effects';
-import { ApiError, fetchEmployerSuggestions, fetchOrgnrSuggestions } from '../../../api/api';
+import { ApiError, fetchEmployerNameCompletionHits, fetchOrgnrSuggestions } from '../../../api/api';
 import { FETCH_AD_BEGIN } from '../../adReducer';
 
 export const FETCH_EMPLOYER_SUGGESTIONS = 'FETCH_EMPLOYER_SUGGESTIONS';
@@ -44,7 +44,7 @@ function* getEmployerSuggestions() {
                 // If only numbers, search for orgnr
                 response = yield call(fetchOrgnrSuggestions, value);
             } else {
-                response = yield call(fetchEmployerSuggestions, value);
+                response = yield call(fetchEmployerNameCompletionHits, value);
             }
 
             yield put({ type: FETCH_EMPLOYER_SUGGESTIONS_SUCCESS, suggestions: response.result });

@@ -61,36 +61,36 @@ export async function fetchPut(url, body) {
     });
 }
 
-const suggestionsTemplate = (match) => ({
-    suggest: {
-        navn_suggest: {
-            prefix: match,
-            completion: {
-                field: 'navn_suggest',
-                size: 10
-            }
-        }
-    }
+const employerNameCompletionQueryTemplate = (match) => ({
+   query: {
+       match_phrase: {
+           navn_ngram_completion: {
+               query: match,
+               slop: 5
+           }
+       }
+   }
 });
 
-export async function fetchEmployerSuggestions(match) {
-    const result = await fetchPost(`${SEARCH_API}underenhet/_search`, suggestionsTemplate(match));
+export async function fetchEmployerNameCompletionHits(match) {
+  const result = await fetchPost(`${SEARCH_API}underenhet/_search`, employerNameCompletionQueryTemplate(match));
 
-    return {
-        match,
-        result: [
-            ...result.suggest.navn_suggest[0].options.map((suggestion) => ({
-                name: suggestion._source.navn,
-                orgnr: suggestion._source.organisasjonsnummer,
-                location: (suggestion._source.adresse ? {
-                    address: suggestion._source.adresse.adresse,
-                    postalCode: suggestion._source.adresse.postnummer,
-                    city: suggestion._source.adresse.poststed
-                } : undefined)
-            })).sort()
-        ]
-    };
+  return {
+    match,
+    result: [
+      ...result.hits.hits.map((employer) => ({
+        name: employer._source.navn,
+        orgnr: employer._source.organisasjonsnummer,
+        location: (employer._source.adresse ? {
+            address: employer._source.adresse.adresse,
+            postalCode: employer._source.adresse.postnummer,
+            city: employer._source.adresse.poststed
+        } : undefined)
+      }))
+    ]
+  };
 }
+
 
 export async function fetchOrgnrSuggestions(match) {
     const result = await fetchGet(`${SEARCH_API}underenhet/_search?q=organisasjonsnummer:${match}*`);
@@ -110,3 +110,4 @@ export async function fetchOrgnrSuggestions(match) {
         ]
     };
 }
+
