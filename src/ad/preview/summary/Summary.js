@@ -17,8 +17,12 @@ export default function Summary({ ad }) {
                     <dd key="dd">{ad.medium}</dd>
                 ]}
                 {ad.reference && [
-                    <dt key="dt">ID nr.:</dt>,
+                    <dt key="dt">Referanse:</dt>,
                     <dd key="dd">{ad.reference}</dd>
+                ]}
+                {ad.id && [
+                    <dt key="dt">Stillingsnummer:</dt>,
+                    <dd key="dd">{ad.id}</dd>
                 ]}
             </dl>
         </div>

@@ -411,6 +411,7 @@ class Edit extends React.Component {
                                     value={ad.id || ''}
                                     onChange={this.onIdChange}
                                     className="typo-normal"
+                                    disabled
                                 />
                             </Column>
                             <Column md="6">
