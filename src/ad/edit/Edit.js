@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Input } from 'nav-frontend-skjema';
-import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
+import ReactQuill from 'react-quill';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Column, Row } from 'nav-frontend-grid';
 import { Radio } from 'nav-frontend-skjema';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { connect } from 'react-redux';
-import RichTextEditor from 'react-rte';
 import {
     SET_AD_TEXT,
     SET_AD_TITLE, SET_APPLICATIONDUE, SET_APPLICATIONEMAIL, SET_APPLICATIONURL,
@@ -22,6 +21,7 @@ import {
 } from '../adDataReducer';
 import './Edit.less';
 import EngagementType from './engagementType/EngagementType';
+import 'react-quill/dist/quill.snow.css';
 
 export const createEmptyOrHTMLStringFromRTEValue = (rteValue) => {
     const emptySpaceOrNotWordRegex = /^(\s|\W)+$/g;
@@ -38,8 +38,8 @@ class Edit extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            adText: this.props.ad.properties.adtext ? RichTextEditor.createValueFromString(this.props.ad.properties.adtext, 'html') : null,
-            employerDescription: this.props.ad.properties.employerdescription ? RichTextEditor.createValueFromString(this.props.ad.properties.employerdescription, 'html') : null
+            adText: this.props.ad.properties.adtext || '',
+            employerDescription: this.props.ad.properties.employerdescription || ''
         };
     }
 
@@ -153,27 +153,23 @@ class Edit extends React.Component {
 
     render() {
         const { ad, validation } = this.props;
-        const toolbarConfig = {
-            display: ['INLINE_STYLE_BUTTONS', 'BLOCK_TYPE_BUTTONS', 'LINK_BUTTONS', 'BLOCK_TYPE_DROPDOWN', 'HISTORY_BUTTONS'],
-            INLINE_STYLE_BUTTONS: [
-                { label: 'Fet', style: 'BOLD', className: 'custom-css-class' },
-                { label: 'Kursiv', style: 'ITALIC' },
-                { label: 'Gjennomstreking', style: 'STRIKETHROUGH' },
-                { label: 'Monospace', style: 'CODE' },
-                { label: 'Understreking', style: 'UNDERLINE' }
+        const reactQuillModules = {
+            toolbar: [
+                [{ header: '1' }, { header: '2' }, { font: [] }],
+                [{ size: [] }],
+                ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+                [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
+                ['link'],
+                ['clean']
             ],
-            BLOCK_TYPE_DROPDOWN: [
-                { label: 'Normal', style: 'unstyled' },
-                { label: 'Overskrift stor', style: 'header-one' },
-                { label: 'Overskrift medium', style: 'header-two' },
-                { label: 'Overskrift liten', style: 'header-three' }
-            ],
-            BLOCK_TYPE_BUTTONS: [
-                { label: 'Punkt', style: 'unordered-list-item' },
-                { label: 'Tall', style: 'ordered-list-item' },
-                { label: 'Sitat', style: 'blockquote' }
-            ]
+            clipboard: {
+                matchVisual: false
+            }
         };
+        const reactQuillFormats = [
+            'header', 'font', 'size', 'bold', 'italic', 'underline', 'strike', 'blockquote',
+            'list', 'bullet', 'indent', 'link'
+        ];
 
         return (
             <div className="Edit">
@@ -186,11 +182,13 @@ class Edit extends React.Component {
                             className="typo-normal Edit__title"
                             feil={validation.title ? { feilmelding: validation.title } : undefined}
                         />
-                        <RichTextEditor
-                            toolbarConfig={toolbarConfig}
+                        <ReactQuill
+                            theme="snow"
                             className="Edit__rte"
-                            value={this.state.adText || RichTextEditor.createEmptyValue()}
                             onChange={this.onAdTextChange}
+                            value={this.state.adText}
+                            modules={reactQuillModules}
+                            formats={reactQuillFormats}
                         />
                     </Ekspanderbartpanel>
                     <Ekspanderbartpanel
@@ -217,11 +215,13 @@ class Edit extends React.Component {
                             onChange={this.onEmployerHomepageChange}
                             className="typo-normal"
                         />
-                        <RichTextEditor
-                            toolbarConfig={toolbarConfig}
+                        <ReactQuill
+                            theme="snow"
                             className="Edit__rte"
-                            value={this.state.employerDescription || RichTextEditor.createEmptyValue()}
                             onChange={this.onEmployerDescriptionChange}
+                            value={this.state.employerDescription}
+                            modules={reactQuillModules}
+                            formats={reactQuillFormats}
                         />
                     </Ekspanderbartpanel>
                     <Ekspanderbartpanel className="Edit__panel" tittel="Søknad" tittelProps="undertittel" apen>
