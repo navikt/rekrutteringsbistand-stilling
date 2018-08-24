@@ -93,6 +93,7 @@ export async function fetchEmployerNameCompletionHits(match) {
 
 
 export async function fetchOrgnrSuggestions(match) {
+    match = match.replace(/\s/g, '');
     const result = await fetchGet(`${SEARCH_API}underenhet/_search?q=organisasjonsnummer:${match}*`);
 
     return {
