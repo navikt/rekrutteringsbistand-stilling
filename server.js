@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const helmet = require('helmet');
 const mustacheExpress = require('mustache-express');
 const Promise = require('promise');
 const fs = require('fs');
@@ -11,6 +12,18 @@ const port = process.env.PORT || 8080;
 server.set('port', port);
 
 server.disable('x-powered-by');
+server.use(helmet());
+
+server.use(helmet.contentSecurityPolicy({
+    directives: {
+        defaultSrc: ["'none'"],
+        scriptSrc: ["'self'"],
+        styleSrc: ["'self'"],
+        fontSrc: ["'self'", 'data:'],
+        imgSrc: ["'self'", 'data:'],
+        connectSrc: ["'self'"]
+    }
+}));
 
 
 server.set('views', `${currentDirectory}`);
@@ -20,9 +33,9 @@ server.engine('html', mustacheExpress());
 
 const writeEnvironmentVariablesToFile = () => {
     const fileContent =
-        `window.__PAM_AD_API__="${process.env.PAMADAPIBACKEND_URL}";\n`+
-        `window.__PAM_SEARCH_API__="${process.env.PAMADAPIBACKENDSEARCH_URL}";\n`+
-        `window.__PAM_CONTEXT_PATH__="";\n`+
+        `window.__PAM_AD_API__="${process.env.PAMADAPIBACKEND_URL}";\n` +
+        `window.__PAM_SEARCH_API__="${process.env.PAMADAPIBACKENDSEARCH_URL}";\n` +
+        `window.__PAM_CONTEXT_PATH__="";\n` +
         `window.__PAM_LOGIN_URL__="${process.env.LOGIN_URL}";\n`;
 
     fs.writeFile(path.resolve(__dirname, 'dist/js/env.js'), fileContent, (err) => {
