@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Input } from 'nav-frontend-skjema';
-import ReactQuill from 'react-quill';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Column, Row } from 'nav-frontend-grid';
 import { Radio } from 'nav-frontend-skjema';
@@ -21,28 +20,9 @@ import {
 } from '../adDataReducer';
 import './Edit.less';
 import EngagementType from './engagementType/EngagementType';
-import 'react-quill/dist/quill.snow.css';
-
-export const createEmptyOrHTMLStringFromRTEValue = (rteValue) => {
-    const emptySpaceOrNotWordRegex = /^(\s|\W)+$/g;
-    const textMarkdown = rteValue.toString('markdown');
-    let newText = '';
-    if (textMarkdown.search(emptySpaceOrNotWordRegex) < 0) {
-        newText = rteValue.toString('html');
-    }
-
-    return newText;
-};
+import RichTextEditor from './richTextEditor/RichTextEditor';
 
 class Edit extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            adText: this.props.ad.properties.adtext || '',
-            employerDescription: this.props.ad.properties.employerdescription || ''
-        };
-    }
-
     onTitleChange = (e) => {
         this.props.setAdTitle(e.target.value);
     };
@@ -100,11 +80,7 @@ class Edit extends React.Component {
     };
 
     onEmployerDescriptionChange = (employerDescription) => {
-        this.setState({
-            employerDescription
-        });
-        const newText = createEmptyOrHTMLStringFromRTEValue(employerDescription);
-        this.props.setEmployerDescription(newText);
+        this.props.setEmployerDescription(employerDescription);
     };
 
     onEmployerNameChange = (e) => {
@@ -144,32 +120,11 @@ class Edit extends React.Component {
     };
 
     onAdTextChange = (adText) => {
-        this.setState({
-            adText
-        });
-        const newText = createEmptyOrHTMLStringFromRTEValue(adText);
-        this.props.setAdText(newText);
+        this.props.setAdText(adText);
     };
 
     render() {
         const { ad, validation } = this.props;
-        const reactQuillModules = {
-            toolbar: [
-                [{ header: '1' }, { header: '2' }, { font: [] }],
-                [{ size: [] }],
-                ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-                [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
-                ['link'],
-                ['clean']
-            ],
-            clipboard: {
-                matchVisual: false
-            }
-        };
-        const reactQuillFormats = [
-            'header', 'font', 'size', 'bold', 'italic', 'underline', 'strike', 'blockquote',
-            'list', 'bullet', 'indent', 'link'
-        ];
 
         return (
             <div className="Edit">
@@ -182,13 +137,9 @@ class Edit extends React.Component {
                             className="typo-normal Edit__title"
                             feil={validation.title ? { feilmelding: validation.title } : undefined}
                         />
-                        <ReactQuill
-                            theme="snow"
-                            className="Edit__rte"
+                        <RichTextEditor
+                            text={ad.properties.adtext || ''}
                             onChange={this.onAdTextChange}
-                            value={this.state.adText}
-                            modules={reactQuillModules}
-                            formats={reactQuillFormats}
                         />
                     </Ekspanderbartpanel>
                     <Ekspanderbartpanel
@@ -215,13 +166,9 @@ class Edit extends React.Component {
                             onChange={this.onEmployerHomepageChange}
                             className="typo-normal"
                         />
-                        <ReactQuill
-                            theme="snow"
-                            className="Edit__rte"
+                        <RichTextEditor
+                            text={ad.properties.employerdescription || ''}
                             onChange={this.onEmployerDescriptionChange}
-                            value={this.state.employerDescription}
-                            modules={reactQuillModules}
-                            formats={reactQuillFormats}
                         />
                     </Ekspanderbartpanel>
                     <Ekspanderbartpanel className="Edit__panel" tittel="Søknad" tittelProps="undertittel" apen>
