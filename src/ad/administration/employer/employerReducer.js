@@ -40,8 +40,8 @@ function* getEmployerSuggestions() {
     if (value.length > 2) {
         try {
             let response;
-            if (value.match(/^[0-9]+$/) !== null) {
-                // If only numbers, search for orgnr
+            // If only numbers and whitespace (and not solely whitespace), search for orgnr
+            if (value.match(/^\s*[0-9][0-9\s]*$/) !== null) {
                 response = yield call(fetchOrgnrSuggestions, value);
             } else {
                 response = yield call(fetchEmployerNameCompletionHits, value);
