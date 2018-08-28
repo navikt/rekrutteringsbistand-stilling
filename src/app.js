@@ -9,6 +9,7 @@ import locationCodeReducer, { locationSaga } from './ad/administration/location/
 import styrkReducer, { styrkSaga } from './ad/administration/styrk/styrkReducer';
 import adReducer, { adSaga } from './ad/adReducer';
 import searchReducer, { searchSaga } from './searchPage/searchReducer';
+import statisticsReducer, { statisticsSaga } from './statistics/statisticsReducer';
 import Ad from './ad/Ad';
 import TopMenu from './topmenu/TopMenu';
 import { initShortcuts } from './common/shortcuts/Shortcuts';
@@ -16,6 +17,7 @@ import './styles.less';
 import './variables.less';
 import StartPage from './startPage/StartPage';
 import SearchPage from './searchPage/SearchPage';
+import Statistics from './statistics/Statistics';
 import reporteeReducer, { reporteeSaga } from './reportee/reporteeReducer';
 import engagementTypeReducer from './ad/edit/engagementType/engagementTypeReducer';
 import adDataReducer, { adDataSaga } from './ad/adDataReducer';
@@ -34,7 +36,8 @@ const store = createStore(combineReducers({
     styrk: styrkReducer,
     reportee: reporteeReducer,
     search: searchReducer,
-    modal: modalReducer
+    modal: modalReducer,
+    statistics: statisticsReducer
 }), applyMiddleware(sagaMiddleware));
 
 sagaMiddleware.run(reporteeSaga);
@@ -45,6 +48,7 @@ sagaMiddleware.run(locationSaga);
 sagaMiddleware.run(styrkSaga);
 sagaMiddleware.run(searchSaga);
 sagaMiddleware.run(adDataSaga);
+sagaMiddleware.run(statisticsSaga);
 
 initShortcuts();
 
@@ -52,6 +56,7 @@ const Main = () => (
     <main>
         <Switch>
             <Route exact path="/" component={StartPage} />
+            <Route exact path="/statistics" component={Statistics} />
             <Route exact path="/search" component={SearchPage} />
             <Route exact path="/ads" component={Ad} />
             <Route exact path="/ads/:uuid" component={Ad} />
