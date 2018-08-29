@@ -392,12 +392,10 @@ Edit.propTypes = {
     setWorkHours: PropTypes.func.isRequired,
     setJobArrangement: PropTypes.func.isRequired,
     setStartTime: PropTypes.func.isRequired,
-    setAddress: PropTypes.func.isRequired,
     setApplicationDue: PropTypes.func.isRequired,
     setApplicationEmail: PropTypes.func.isRequired,
     setApplicationUrl: PropTypes.func.isRequired,
     setSourceUrl: PropTypes.func.isRequired,
-    setEmployer: PropTypes.func.isRequired,
     setEmployerName: PropTypes.func.isRequired,
     setEmployerAddress: PropTypes.func.isRequired,
     setEmployerHomepage: PropTypes.func.isRequired,
@@ -407,7 +405,11 @@ Edit.propTypes = {
     setId: PropTypes.func.isRequired,
     setReference: PropTypes.func.isRequired,
     setExpirationDate: PropTypes.func.isRequired,
-    setAdText: PropTypes.func.isRequired
+    setAdText: PropTypes.func.isRequired,
+    setPublished: PropTypes.func.isRequired,
+    validation: PropTypes.shape({
+        title: PropTypes.string
+    }).isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -426,7 +428,6 @@ const mapDispatchToProps = (dispatch) => ({
     setWorkHours: (workhours) => dispatch({ type: SET_EMPLOYMENT_WORKHOURS, workhours }),
     setJobArrangement: (jobarrangement) => dispatch({ type: SET_EMPLOYMENT_JOBARRANGEMENT, jobarrangement }),
     setStartTime: (starttime) => dispatch({ type: SET_EMPLOYMENT_STARTTIME, starttime }),
-    setAddress: (address) => dispatch({ type: SET_LOCATION_ADDRESS, address }),
     setApplicationDue: (applicationdue) => dispatch({ type: SET_APPLICATIONDUE, applicationdue }),
     setApplicationEmail: (applicationemail) => dispatch({ type: SET_APPLICATIONEMAIL, applicationemail }),
     setApplicationUrl: (applicationurl) => dispatch({ type: SET_APPLICATIONURL, applicationurl }),

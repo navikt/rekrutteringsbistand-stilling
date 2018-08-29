@@ -7,15 +7,9 @@ import InlineStyleControls from './InlineStyleControls';
 import HeaderStylesDropdown from './HeaderStylesDropdown';
 import './RichTextEditor.less';
 
-export const createEmptyOrHTMLStringFromRTEValue = (rteValue) => {
+export const checkIfEmptyInput = (value) => {
     const emptySpaceOrNotWordRegex = /^(\s|\W)+$/g;
-    const textMarkdown = rteValue.toString('markdown');
-    let newText = '';
-    if (textMarkdown.search(emptySpaceOrNotWordRegex) < 0) {
-        newText = rteValue.toString('html');
-    }
-
-    return newText;
+    return (value.length === 0 || emptySpaceOrNotWordRegex.test(value));
 };
 
 export default class RichTextEditor extends React.Component {
@@ -38,9 +32,10 @@ export default class RichTextEditor extends React.Component {
         this.setState({
             editorState
         });
+        const emptyInput = checkIfEmptyInput(editorState.getCurrentContent().getPlainText());
         // Hvis editoren er tom lagres en tom streng i backend, og ikke <p></p> som er default
-        if (editorState.getCurrentContent().hasText()) {
-            const newState = createEmptyOrHTMLStringFromRTEValue(convertToHTML(editorState.getCurrentContent()));
+        if (!emptyInput) {
+            const newState = convertToHTML(editorState.getCurrentContent());
             this.props.onChange(newState);
         } else {
             this.props.onChange('');
@@ -61,7 +56,7 @@ export default class RichTextEditor extends React.Component {
             this.setState({
                 editorState: text
             });
-            const newState = createEmptyOrHTMLStringFromRTEValue(convertToHTML(text.getCurrentContent()));
+            const newState = convertToHTML(text.getCurrentContent());
             this.props.onChange(newState);
         }
     };
