@@ -14,9 +14,9 @@ export default class StyleButton extends React.Component {
             className += ' RichTextEditor__activeButton';
         }
         return (
-            <span className={className} onClick={this.onToggle}>
+            <button className={className} onClick={this.onToggle}>
                 <div className={this.props.label} />
-            </span>
+            </button>
         );
     }
 }

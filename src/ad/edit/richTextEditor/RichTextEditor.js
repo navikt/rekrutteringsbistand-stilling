@@ -5,6 +5,7 @@ import { convertToHTML } from 'draft-convert';
 import BlockStyleControls from './BlockStyleControls';
 import InlineStyleControls from './InlineStyleControls';
 import HeaderStylesDropdown from './HeaderStylesDropdown';
+import UndoRedoButtons from './UndoRedoButtons';
 import './RichTextEditor.less';
 
 export const checkIfEmptyInput = (value) => {
@@ -17,20 +18,28 @@ export default class RichTextEditor extends React.Component {
         super(props);
         if (this.props.text === '') {
             this.state = {
-                editorState: EditorState.createEmpty()
+                editorState: EditorState.createEmpty(),
+                redoDisabled: true,
+                undoDisabled: true
             };
         } else {
             const html = convertFromHTML(this.props.text);
             const contentState = ContentState.createFromBlockArray(html);
             this.state = {
-                editorState: EditorState.createWithContent(contentState)
+                editorState: EditorState.createWithContent(contentState),
+                redoDisabled: true,
+                undoDisabled: true
             };
         }
     }
 
     onChange = (editorState) => {
+        const redoDisabled = editorState.getRedoStack().count() === 0;
+        const undoDisabled = editorState.getUndoStack().count() === 0;
         this.setState({
-            editorState
+            editorState,
+            redoDisabled,
+            undoDisabled
         });
         const emptyInput = checkIfEmptyInput(editorState.getCurrentContent().getPlainText());
         // Hvis editoren er tom lagres en tom streng i backend, og ikke <p></p> som er default
@@ -48,6 +57,16 @@ export default class RichTextEditor extends React.Component {
 
     onToggleInlineStyle = (inlineStyle) => {
         this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, inlineStyle));
+    };
+
+    onRedoButtonClick = () => {
+        const editorState = EditorState.redo(this.state.editorState);
+        this.onChange(editorState);
+    };
+
+    onUndoButtonClick = () => {
+        const editorState = EditorState.undo(this.state.editorState);
+        this.onChange(editorState);
     };
 
     handleKeyCommand = (command, editorState) => {
@@ -76,6 +95,12 @@ export default class RichTextEditor extends React.Component {
                     <BlockStyleControls
                         editorState={this.state.editorState}
                         onToggle={this.onToggleBlockType}
+                    />
+                    <UndoRedoButtons
+                        onRedoClick={this.onRedoButtonClick}
+                        onUndoClick={this.onUndoButtonClick}
+                        redoDisabled={this.state.redoDisabled}
+                        undoDisabled={this.state.undoDisabled}
                     />
                 </div>
                 <div className="RichTextEditor__editor">
