@@ -1,21 +1,26 @@
 import { put, takeLatest, select, call } from 'redux-saga/effects';
 import { ApiError, fetchEmployerNameCompletionHits, fetchOrgnrSuggestions } from '../../../api/api';
-import { FETCH_AD_BEGIN } from '../../adReducer';
+import {FETCH_AD_BEGIN, FETCH_NEXT_AD_BEGIN, SAVE_AD_BEGIN} from '../../adReducer';
 
 export const FETCH_EMPLOYER_SUGGESTIONS = 'FETCH_EMPLOYER_SUGGESTIONS';
 export const FETCH_EMPLOYER_SUGGESTIONS_SUCCESS = 'FETCH_EMPLOYER_SUGGESTIONS_SUCCESS';
 export const FETCH_EMPLOYER_SUGGESTIONS_FAILURE = 'FETCH_EMPLOYER_SUGGESTIONS_FAILURE';
+export const SET_EMPLOYER_TYPEAHEAD_VALUE = 'SET_EMPLOYER_TYPEAHEAD_VALUE';
 
 const initialState = {
-    suggestions: []
+    suggestions: [],
+    typeAheadValue: ''
 };
 
 export default function employerReducer(state = initialState, action) {
     switch (action.type) {
         case FETCH_AD_BEGIN:
+        case FETCH_NEXT_AD_BEGIN:
+        case SAVE_AD_BEGIN:
             return {
                 ...state,
-                suggestions: []
+                suggestions: [],
+                typeAheadValue: ''
             };
         case FETCH_EMPLOYER_SUGGESTIONS_SUCCESS:
             return {
@@ -27,16 +32,20 @@ export default function employerReducer(state = initialState, action) {
                 ...state,
                 suggestions: []
             };
+        case SET_EMPLOYER_TYPEAHEAD_VALUE:
+            return {
+                ...state,
+                typeAheadValue: action.value
+            };
         default:
             return state;
     }
 }
 
-const getEmployer = (state) => state.adData.employer;
+const getTypeAheadValue = (state) => state.employer.typeAheadValue;
 
 function* getEmployerSuggestions() {
-    const employer = yield select(getEmployer);
-    const value = employer && employer.name ? employer.name : '';
+    const value = yield select(getTypeAheadValue);
     if (value.length > 2) {
         try {
             let response;
