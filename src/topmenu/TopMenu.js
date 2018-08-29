@@ -48,6 +48,9 @@ class TopMenu extends React.Component {
                     <Link to="/search" className="TopMenu__item">
                         <Normaltekst>Søk etter annonser</Normaltekst>
                     </Link>
+                    <Link to="/statistics" className="TopMenu__item">
+                        <Normaltekst>Statistikk</Normaltekst>
+                    </Link>
                 </div>
                 <div className="TopMenu__right">
                     <div className="TopMenu__item TopMenu__reportee">

@@ -8,7 +8,7 @@ import SearchResultHeaders from './searchResult/SearchResultHeaders';
 import SearchResultItem from './searchResult/SearchResultItem';
 import SearchResultCount from './searchResult/SearchResultCount';
 import NoResults from './noResults/NoResults';
-import Loading from './loading/Loading';
+import Loading from '../common/loading/Loading';
 import Filter from './filter/Filter';
 import Pagination from './pagination/Pagination';
 import { FETCH_ADS } from './searchReducer';
