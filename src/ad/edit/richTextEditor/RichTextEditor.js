@@ -42,7 +42,7 @@ export default class RichTextEditor extends React.Component {
             undoDisabled
         });
         const emptyInput = checkIfEmptyInput(editorState.getCurrentContent().getPlainText());
-        // Hvis editoren er tom lagres en tom streng i backend, og ikke <p></p> som er default
+        // If the editor is empty when the user saves, and empty string is saved og not <p></p> which is the default
         if (!emptyInput) {
             const newState = convertToHTML(editorState.getCurrentContent());
             this.props.onChange(newState);
