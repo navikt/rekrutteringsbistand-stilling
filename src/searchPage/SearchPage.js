@@ -103,7 +103,7 @@ const mapStateToProps = (state) => ({
     isSearching: state.search.isSearching,
     adSource: state.search.source,
     adStatus: state.search.status,
-    sortField: state.search.sortDir,
+    sortField: state.search.sortField,
     sortDir: state.search.sortDir,
     searchField: state.search.field,
     searchValue: state.search.value

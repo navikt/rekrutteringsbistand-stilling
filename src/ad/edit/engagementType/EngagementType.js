@@ -36,8 +36,8 @@ class EngagementType extends React.Component {
                     <option value={EngagementTypeEnum.SESONG} key={EngagementTypeEnum.SESONG}>
                         {EngagementTypeEnum.SESONG}
                     </option>
-                    <option value={EngagementTypeEnum.SOMMERJOBB} key={EngagementTypeEnum.SOMMERJOBB}>
-                        {EngagementTypeEnum.SOMMERJOBB}
+                    <option value={EngagementTypeEnum.FERIEJOBB} key={EngagementTypeEnum.FERIEJOBB}>
+                        {EngagementTypeEnum.FERIEJOBB}
                     </option>
                     <option value={EngagementTypeEnum.TRAINEE} key={EngagementTypeEnum.TRAINEE}>
                         {EngagementTypeEnum.TRAINEE}

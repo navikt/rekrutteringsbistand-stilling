@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Element } from 'nav-frontend-typografi';
 import { formatISOString, isValidISOString } from '../../../utils';
+import { isValidUrl } from '../../../common/utils';
 
 export function getApplicationUrl(source, properties) {
     if (source === 'FINN') {
@@ -35,7 +36,20 @@ export default function Application({ source, properties }) {
                     </dd>
                 ]}
 
-                {sokUrl && sokUrl.startsWith('http') && [
+                {sokUrl && isValidUrl(sokUrl) && [
+                    <dt key="dt">Søknadslenke:</dt>,
+                    <dd key="dd">
+                        <a
+                            href={sokUrl}
+                            className="lenke"
+                            target="_blank"
+                        >
+                            {sokUrl}
+                        </a>
+                    </dd>
+                ]}
+
+                {sokUrl && !isValidUrl(sokUrl) && [
                     <dt key="dt">Søknadslenke:</dt>,
                     <dd key="dd">
                         <span>
