@@ -38,14 +38,12 @@ export default class RichTextEditor extends React.Component {
         this.setState({
             editorState
         });
-        const newState = createEmptyOrHTMLStringFromRTEValue(convertToHTML(editorState.getCurrentContent()));
-        // EditorState blir satt til <p></p> hvis man trykker inn på den,
-        // dette gjør at om arbeidsgiver blir satt til en tom paragraf som ikke
-        // er ønskelig.
-        if (newState === '<p></p>') {
-            this.props.onChange('');
-        } else {
+        // Hvis editoren er tom lagres en tom streng i backend, og ikke <p></p> som er default
+        if (editorState.getCurrentContent().hasText()) {
+            const newState = createEmptyOrHTMLStringFromRTEValue(convertToHTML(editorState.getCurrentContent()));
             this.props.onChange(newState);
+        } else {
+            this.props.onChange('');
         }
     };
 
