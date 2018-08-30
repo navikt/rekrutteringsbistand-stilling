@@ -49,6 +49,13 @@ const Link = (props) => {
     );
 };
 
+const blockStyleFunction = (contentBlock) => {
+    const type = contentBlock.getType();
+    if (type === 'unstyled') {
+        return 'RichTextEditor__paragraph';
+    }
+};
+
 export default class RichTextEditor extends React.Component {
     constructor(props) {
         super(props);
@@ -160,6 +167,7 @@ export default class RichTextEditor extends React.Component {
                         editorState={this.state.editorState}
                         handleKeyCommand={this.handleKeyCommand}
                         onChange={this.onChange}
+                        blockStyleFn={blockStyleFunction}
                     />
                 </div>
             </div>
