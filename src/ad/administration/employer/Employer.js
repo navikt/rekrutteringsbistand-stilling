@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Undertekst } from 'nav-frontend-typografi';
 import Typeahead from '../../../common/typeahead/Typeahead';
-import { FETCH_EMPLOYER_SUGGESTIONS } from './employerReducer';
+import { FETCH_EMPLOYER_SUGGESTIONS, SET_EMPLOYER_TYPEAHEAD_VALUE } from './employerReducer';
 import { SET_EMPLOYER } from '../../adDataReducer';
 import './Employer.less';
-import { SkjemaGruppe } from "nav-frontend-skjema";
 import {
     registerShortcuts,
     removeShortcuts
@@ -30,21 +29,31 @@ class Employer extends React.Component {
 
     onTypeAheadValueChange = (value) => {
         const found = this.lookUpEmployer(value);
-        this.props.setEmployer(value, found);
+        if (found) {
+            this.props.setEmployerTypeaheadValue(found.name);
+            this.props.setEmployer(found);
+        } else {
+            this.props.setEmployerTypeaheadValue(value);
+            this.props.setEmployer();
+        }
         this.props.fetchEmployerSuggestions();
     };
 
     onTypeAheadSuggestionSelected = (employer) => {
         if (employer) {
             const found = this.lookUpEmployer(employer.value);
-            this.props.setEmployer(employer.value, found);
+            this.props.setEmployer(found);
+            this.props.setEmployerTypeaheadValue(found.name);
         }
     };
 
-    lookUpEmployer = (value) => this.props.suggestions.find((employer) => (employer.name === value || employer.orgnr === value));
+    lookUpEmployer = (value) => this.props.suggestions.find((employer) => (
+        employer.name.toLowerCase() === value.toLowerCase() ||
+        employer.orgnr === value.replace(/\s/g, ''))
+    );
 
     render() {
-        const { employer, properties } = this.props;
+        const { employer } = this.props;
         const location = employer ? employer.location : undefined;
         return (
             <div className="Employer">
@@ -56,12 +65,12 @@ class Employer extends React.Component {
                         placeholder="Skriv inn arb.givernavn eller org.nr"
                         onSelect={this.onTypeAheadSuggestionSelected}
                         onChange={this.onTypeAheadValueChange}
-                        suggestions={this.props.suggestions.map((employer) => ({
-                            value: employer.orgnr,
-                            label: `${employer.name} (${employer.orgnr})`
+                        suggestions={this.props.suggestions.map((suggestion) => ({
+                            value: suggestion.orgnr,
+                            label: `${suggestion.name} (${suggestion.orgnr})`
                         }))}
                         value={this.props.employer && this.props.employer.name ?
-                            this.props.employer.name : ''}
+                            this.props.employer.name : this.props.typeAheadValue}
                         ref={(instance) => {
                             this.inputRef = instance;
                         }}
@@ -80,10 +89,7 @@ class Employer extends React.Component {
 }
 
 Employer.defaultProps = {
-    employer: {},
-    properties: {
-        employer: ' - '
-    }
+    employer: {}
 };
 
 Employer.propTypes = {
@@ -93,27 +99,28 @@ Employer.propTypes = {
     })).isRequired,
     fetchEmployerSuggestions: PropTypes.func.isRequired,
     setEmployer: PropTypes.func.isRequired,
+    setEmployerTypeaheadValue: PropTypes.func.isRequired,
     validation: PropTypes.shape({
-        employer: PropTypes.string
-    }).isRequired,
-    properties: PropTypes.shape({
         employer: PropTypes.string
     }).isRequired,
     employer: PropTypes.shape({
         orgnr: PropTypes.string,
         name: PropTypes.string
-    })
+    }),
+    typeAheadValue: PropTypes.string.isRequired
 };
 
 const mapStateToProps = (state) => ({
     suggestions: state.employer.suggestions,
     employer: state.adData.employer,
+    typeAheadValue: state.employer.typeAheadValue,
     properties: state.adData.properties,
     validation: state.adValidation.errors
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    setEmployer: (value, foundEmployer) => dispatch({ type: SET_EMPLOYER, value, foundEmployer }),
+    setEmployer: (employer) => dispatch({ type: SET_EMPLOYER, employer }),
+    setEmployerTypeaheadValue: (value) => dispatch({ type: SET_EMPLOYER_TYPEAHEAD_VALUE, value }),
     fetchEmployerSuggestions: () => dispatch({ type: FETCH_EMPLOYER_SUGGESTIONS })
 });
 

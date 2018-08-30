@@ -222,25 +222,20 @@ export default function adDataReducer(state = initialState, action) {
                 }
             };
         case SET_EMPLOYER:
-            if (action.foundEmployer) {
+            if (action.employer) {
                 return {
                     ...state,
                     employer: {
                         ...state.employer,
-                        name: action.foundEmployer.name,
-                        orgnr: action.foundEmployer.orgnr,
-                        location: action.foundEmployer.location
+                        name: action.employer.name,
+                        orgnr: action.employer.orgnr,
+                        location: action.employer.location
                     }
                 };
             }
             return {
                 ...state,
-                employer: {
-                    ...state.employer,
-                    name: action.value,
-                    orgnr: undefined,
-                    location: undefined
-                }
+                employer: null
             };
         case SET_EMPLOYERDESCRIPTION:
             return {
