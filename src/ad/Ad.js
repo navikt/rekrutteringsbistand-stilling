@@ -9,6 +9,7 @@ import {
     EDIT_AD, PREVIEW_EDIT_AD, FETCH_AD, FETCH_NEXT_AD,
     RESET_WORK_PRIORITY
 } from './adReducer';
+import { REMOVE_AD_DATA } from './adDataReducer';
 import Error from './error/Error';
 import DelayedSpinner from '../common/DelayedSpinner';
 import './Ad.less';
@@ -48,6 +49,10 @@ class Ad extends React.Component {
             this.uuid = this.props.match.params.uuid;
             this.props.getStilling(this.uuid);
         }
+    }
+
+    componentWillUnmount() {
+        this.props.removeAdData();
     }
 
     onEditAdClick = () => {
@@ -191,7 +196,8 @@ Ad.propTypes = {
         title: PropTypes.string,
         id: PropTypes.string
     }).isRequired,
-    resetWorkPriority: PropTypes.func.isRequired
+    resetWorkPriority: PropTypes.func.isRequired,
+    removeAdData: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -207,7 +213,8 @@ const mapDispatchToProps = (dispatch) => ({
     getNextAd: () => dispatch({ type: FETCH_NEXT_AD }),
     editAd: () => dispatch({ type: EDIT_AD }),
     previewAd: () => dispatch({ type: PREVIEW_EDIT_AD }),
-    resetWorkPriority: () => dispatch({ type: RESET_WORK_PRIORITY })
+    resetWorkPriority: () => dispatch({ type: RESET_WORK_PRIORITY }),
+    removeAdData: () => dispatch({ type: REMOVE_AD_DATA })
 });
 
 

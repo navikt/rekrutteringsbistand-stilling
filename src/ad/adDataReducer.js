@@ -4,6 +4,7 @@ import { findLocationByPostalCode } from './administration/location/locationCode
 import { FETCH_AD_BEGIN, FETCH_AD_SUCCESS, FETCH_NEXT_AD_SUCCESS, SAVE_AD_SUCCESS } from "./adReducer";
 
 export const SET_AD_DATA = 'SET_AD_DATA';
+export const REMOVE_AD_DATA = 'REMOVE_AD_DATA';
 
 export const SET_COMMENT = 'SET_COMMENT';
 export const ADD_STYRK = 'ADD_STYRK';
@@ -344,6 +345,8 @@ export default function adDataReducer(state = initialState, action) {
                     reportee: action.reportee
                 }
             };
+        case REMOVE_AD_DATA:
+            return initialState;
         default:
             return state;
     }
