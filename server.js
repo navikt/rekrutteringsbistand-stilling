@@ -21,7 +21,7 @@ server.use(helmet.contentSecurityPolicy({
         styleSrc: ["'self'"],
         fontSrc: ["'self'", 'data:'],
         imgSrc: ["'self'", 'data:'],
-        connectSrc: ["'self'", "'https://pam-ad-api-q.adeo.no*'"]
+        connectSrc: ["'self'", 'https://pam-ad-api-q.adeo.no']
     }
 }));
 
