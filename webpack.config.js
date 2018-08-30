@@ -7,6 +7,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = () => {
     return (
         merge(common, {
+            devtool: 'source-map',
             module: {
                 loaders: [{
                     test: /index\.html$/,
@@ -28,7 +29,7 @@ module.exports = () => {
                 ),
                 /* Optimize bundle load time */
                 new webpack.optimize.ModuleConcatenationPlugin(),
-                new UglifyJSPlugin()
+                new UglifyJSPlugin({ sourceMap: true })
             ]
         })
     );

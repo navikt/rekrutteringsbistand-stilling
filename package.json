@@ -18,8 +18,11 @@
   "license": "ISC",
   "dependencies": {
     "classnames": "^2.2.6",
-    "lodash.throttle": "^4.1.1",
+    "draft-convert": "^2.1.4",
+    "draft-js": "^0.10.5",
     "express": "4.16.3",
+    "helmet": "^3.12.1",
+    "lodash.throttle": "^4.1.1",
     "mustache-express": "^1.2.6",
     "nav-datovelger": "^1.1.8",
     "nav-frontend-alertstriper": "^1.0.13",
@@ -60,7 +63,6 @@
     "react-motion": "^0.5.2",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
-    "react-rte": "^0.16.1",
     "redux": "^4.0.0",
     "redux-saga": "^0.16.0",
     "whatwg-fetch": "^2.0.4"

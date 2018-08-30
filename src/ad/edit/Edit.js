@@ -1,13 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Input } from 'nav-frontend-skjema';
-import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Column, Row } from 'nav-frontend-grid';
 import { Radio } from 'nav-frontend-skjema';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { connect } from 'react-redux';
-import RichTextEditor from 'react-rte';
 import {
     SET_AD_TEXT,
     SET_AD_TITLE, SET_APPLICATIONDUE, SET_APPLICATIONEMAIL, SET_APPLICATIONURL,
@@ -22,27 +20,9 @@ import {
 } from '../adDataReducer';
 import './Edit.less';
 import EngagementType from './engagementType/EngagementType';
-
-export const createEmptyOrHTMLStringFromRTEValue = (rteValue) => {
-    const emptySpaceOrNotWordRegex = /^(\s|\W)+$/g;
-    const textMarkdown = rteValue.toString('markdown');
-    let newText = '';
-    if (textMarkdown.search(emptySpaceOrNotWordRegex) < 0) {
-        newText = rteValue.toString('html');
-    }
-
-    return newText;
-};
+import RichTextEditor from './richTextEditor/RichTextEditor';
 
 class Edit extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            adText: this.props.ad.properties.adtext ? RichTextEditor.createValueFromString(this.props.ad.properties.adtext, 'html') : null,
-            employerDescription: this.props.ad.properties.employerdescription ? RichTextEditor.createValueFromString(this.props.ad.properties.employerdescription, 'html') : null
-        };
-    }
-
     onTitleChange = (e) => {
         this.props.setAdTitle(e.target.value);
     };
@@ -100,11 +80,7 @@ class Edit extends React.Component {
     };
 
     onEmployerDescriptionChange = (employerDescription) => {
-        this.setState({
-            employerDescription
-        });
-        const newText = createEmptyOrHTMLStringFromRTEValue(employerDescription);
-        this.props.setEmployerDescription(newText);
+        this.props.setEmployerDescription(employerDescription);
     };
 
     onEmployerNameChange = (e) => {
@@ -144,36 +120,11 @@ class Edit extends React.Component {
     };
 
     onAdTextChange = (adText) => {
-        this.setState({
-            adText
-        });
-        const newText = createEmptyOrHTMLStringFromRTEValue(adText);
-        this.props.setAdText(newText);
+        this.props.setAdText(adText);
     };
 
     render() {
         const { ad, validation } = this.props;
-        const toolbarConfig = {
-            display: ['INLINE_STYLE_BUTTONS', 'BLOCK_TYPE_BUTTONS', 'LINK_BUTTONS', 'BLOCK_TYPE_DROPDOWN', 'HISTORY_BUTTONS'],
-            INLINE_STYLE_BUTTONS: [
-                { label: 'Fet', style: 'BOLD', className: 'custom-css-class' },
-                { label: 'Kursiv', style: 'ITALIC' },
-                { label: 'Gjennomstreking', style: 'STRIKETHROUGH' },
-                { label: 'Monospace', style: 'CODE' },
-                { label: 'Understreking', style: 'UNDERLINE' }
-            ],
-            BLOCK_TYPE_DROPDOWN: [
-                { label: 'Normal', style: 'unstyled' },
-                { label: 'Overskrift stor', style: 'header-one' },
-                { label: 'Overskrift medium', style: 'header-two' },
-                { label: 'Overskrift liten', style: 'header-three' }
-            ],
-            BLOCK_TYPE_BUTTONS: [
-                { label: 'Punkt', style: 'unordered-list-item' },
-                { label: 'Tall', style: 'ordered-list-item' },
-                { label: 'Sitat', style: 'blockquote' }
-            ]
-        };
 
         return (
             <div className="Edit">
@@ -187,9 +138,7 @@ class Edit extends React.Component {
                             feil={validation.title ? { feilmelding: validation.title } : undefined}
                         />
                         <RichTextEditor
-                            toolbarConfig={toolbarConfig}
-                            className="Edit__rte"
-                            value={this.state.adText || RichTextEditor.createEmptyValue()}
+                            text={ad.properties.adtext || ''}
                             onChange={this.onAdTextChange}
                         />
                     </Ekspanderbartpanel>
@@ -218,9 +167,7 @@ class Edit extends React.Component {
                             className="typo-normal"
                         />
                         <RichTextEditor
-                            toolbarConfig={toolbarConfig}
-                            className="Edit__rte"
-                            value={this.state.employerDescription || RichTextEditor.createEmptyValue()}
+                            text={ad.properties.employerdescription || ''}
                             onChange={this.onEmployerDescriptionChange}
                         />
                     </Ekspanderbartpanel>
@@ -445,12 +392,10 @@ Edit.propTypes = {
     setWorkHours: PropTypes.func.isRequired,
     setJobArrangement: PropTypes.func.isRequired,
     setStartTime: PropTypes.func.isRequired,
-    setAddress: PropTypes.func.isRequired,
     setApplicationDue: PropTypes.func.isRequired,
     setApplicationEmail: PropTypes.func.isRequired,
     setApplicationUrl: PropTypes.func.isRequired,
     setSourceUrl: PropTypes.func.isRequired,
-    setEmployer: PropTypes.func.isRequired,
     setEmployerName: PropTypes.func.isRequired,
     setEmployerAddress: PropTypes.func.isRequired,
     setEmployerHomepage: PropTypes.func.isRequired,
@@ -460,7 +405,11 @@ Edit.propTypes = {
     setId: PropTypes.func.isRequired,
     setReference: PropTypes.func.isRequired,
     setExpirationDate: PropTypes.func.isRequired,
-    setAdText: PropTypes.func.isRequired
+    setAdText: PropTypes.func.isRequired,
+    setPublished: PropTypes.func.isRequired,
+    validation: PropTypes.shape({
+        title: PropTypes.string
+    }).isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -479,7 +428,6 @@ const mapDispatchToProps = (dispatch) => ({
     setWorkHours: (workhours) => dispatch({ type: SET_EMPLOYMENT_WORKHOURS, workhours }),
     setJobArrangement: (jobarrangement) => dispatch({ type: SET_EMPLOYMENT_JOBARRANGEMENT, jobarrangement }),
     setStartTime: (starttime) => dispatch({ type: SET_EMPLOYMENT_STARTTIME, starttime }),
-    setAddress: (address) => dispatch({ type: SET_LOCATION_ADDRESS, address }),
     setApplicationDue: (applicationdue) => dispatch({ type: SET_APPLICATIONDUE, applicationdue }),
     setApplicationEmail: (applicationemail) => dispatch({ type: SET_APPLICATIONEMAIL, applicationemail }),
     setApplicationUrl: (applicationurl) => dispatch({ type: SET_APPLICATIONURL, applicationurl }),
