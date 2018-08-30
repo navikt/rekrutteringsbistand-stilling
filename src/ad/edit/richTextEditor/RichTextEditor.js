@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Editor, EditorState, convertFromHTML, RichUtils, ContentState } from 'draft-js';
+import {
+    Editor, EditorState, convertFromHTML, RichUtils,
+    ContentState, CompositeDecorator
+} from 'draft-js';
 import { convertToHTML } from 'draft-convert';
 import BlockStyleControls from './BlockStyleControls';
 import InlineStyleControls from './InlineStyleControls';
@@ -13,12 +16,53 @@ export const checkIfEmptyInput = (value) => {
     return (value.length === 0 || emptySpaceOrNotWordRegex.test(value));
 };
 
+const findLinkEntities = (contentBlock, callback, contentState) => {
+    contentBlock.findEntityRanges(
+        (character) => {
+            const entityKey = character.getEntity();
+            return (
+                entityKey !== null &&
+                contentState.getEntity(entityKey).getType() === 'LINK'
+            );
+        },
+        callback
+    );
+};
+
+
+const styles = {
+    link: {
+        color: '#0067C5',
+        background: 'none',
+        textDecoration: 'none',
+        borderBottom: 'solid 1px #B7B1A9',
+        cursor: 'pointer'
+    }
+};
+
+const Link = (props) => {
+    const { url } = props.contentState.getEntity(props.entityKey).getData();
+    return (
+        <a href={url} style={styles.link}>
+            {props.children}
+        </a>
+    );
+};
+
 export default class RichTextEditor extends React.Component {
     constructor(props) {
         super(props);
+
+        const decorator = new CompositeDecorator([
+            {
+                strategy: findLinkEntities,
+                component: Link
+            }
+        ]);
+
         if (this.props.text === '') {
             this.state = {
-                editorState: EditorState.createEmpty(),
+                editorState: EditorState.createEmpty(decorator),
                 redoDisabled: true,
                 undoDisabled: true
             };
@@ -26,7 +70,7 @@ export default class RichTextEditor extends React.Component {
             const html = convertFromHTML(this.props.text);
             const contentState = ContentState.createFromBlockArray(html);
             this.state = {
-                editorState: EditorState.createWithContent(contentState),
+                editorState: EditorState.createWithContent(contentState, decorator),
                 redoDisabled: true,
                 undoDisabled: true
             };
@@ -44,7 +88,15 @@ export default class RichTextEditor extends React.Component {
         const emptyInput = checkIfEmptyInput(editorState.getCurrentContent().getPlainText());
         // If the editor is empty when the user saves, and empty string is saved og not <p></p> which is the default
         if (!emptyInput) {
-            const newState = convertToHTML(editorState.getCurrentContent());
+            const newState = convertToHTML({
+                // All elements styled as links will be returned as <a> tags
+                entityToHTML: (entity, originalText) => {
+                    if (entity.type === 'LINK') {
+                        return <a href={entity.data.url} rel="nofollow">{originalText}</a>;
+                    }
+                    return originalText;
+                }
+            })(editorState.getCurrentContent());
             this.props.onChange(newState);
         } else {
             this.props.onChange('');
