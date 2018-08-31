@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Undertekst } from 'nav-frontend-typografi';
+import { Normaltekst } from 'nav-frontend-typografi';
 import AdminStatusEnum from './AdminStatusEnum';
 import { SET_TO_RECEIVED, ASSIGN_TO_ME } from '../../adReducer';
 
@@ -23,34 +23,34 @@ class AdminStatusPreview extends React.Component {
             <div className="AdminStatusPreview">
                 {adminStatus === AdminStatusEnum.RECEIVED && (
                     <div>
-                        <Undertekst><b>Saksbehandler:</b> {reportee || 'Ingen'}</Undertekst>
-                        <Undertekst>
+                        <Normaltekst><b>Saksbehandler:</b> {reportee || 'Ingen'}</Normaltekst>
+                        <Normaltekst>
                             <b>Saksbehandlingsstatus:</b> Mottatt{' ('}
                             <button className="AdStatusEdit__links__lenke-button" onClick={this.onAssignToMeClick}>
                                 Marker som min
                             </button>
                             {')'}
-                        </Undertekst>
+                        </Normaltekst>
                     </div>
                 )}
                 {adminStatus === AdminStatusEnum.PENDING && (
                     <div>
-                        <Undertekst><b>Saksbehandler:</b> {reportee || 'Ingen'}</Undertekst>
-                        <Undertekst>
+                        <Normaltekst><b>Saksbehandler:</b> {reportee || 'Ingen'}</Normaltekst>
+                        <Normaltekst>
                             <b>Saksbehandlingsstatus:</b> Under arbeid{' ('}
                             <button className="AdStatusEdit__links__lenke-button" onClick={this.onSetToReceivedClick}>
-                               Avbryt
+                               Sett tilbake til mottatt
                             </button>
                             {')'}
-                        </Undertekst>
+                        </Normaltekst>
                     </div>
                 )}
                 {adminStatus === AdminStatusEnum.DONE && (
                     <div>
-                        <Undertekst><b>Saksbehandler:</b> {reportee || 'Ingen'}</Undertekst>
-                        <Undertekst>
+                        <Normaltekst><b>Saksbehandler:</b> {reportee || 'Ingen'}</Normaltekst>
+                        <Normaltekst>
                             <b>Saksbehandlingsstatus:</b> Ferdig
-                        </Undertekst>
+                        </Normaltekst>
                     </div>
                 )}
             </div>

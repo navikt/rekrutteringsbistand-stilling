@@ -1,4 +1,5 @@
 import React from 'react';
+import { Undertekst, Undertittel, Systemtittel } from 'nav-frontend-typografi';
 import AdStatusPreview from './adStatus/AdStatusPreview';
 import AdStatusEdit from './adStatus/AdStatusEdit';
 import Styrk from './styrk/Styrk';
@@ -13,15 +14,22 @@ export default function Administration() {
             <div className="Administration__flex">
                 <div className="Administration__flex__top">
                     <AdStatusPreview />
-                    <Styrk />
-                    <Employer />
-                    <Location />
+                    <div className="Administration__header">
+                        <Systemtittel className="blokk-xxs">Saksbehandling av annonsen</Systemtittel>
+                        <Undertekst>*betyr at feltene må fylles ut</Undertekst>
+                    </div>
+                    <div className="Administration__panel">
+                        <Undertittel className="Administration__panel__title">Kategorisering</Undertittel>
+                        <Styrk />
+                        <Employer />
+                        <Location />
+                    </div>
                 </div>
                 <div className="Administration__flex__bottom">
+                    <AdminStatusPreview />
                     <div className="Administration__buttons">
                         <AdStatusEdit />
                     </div>
-                    <AdminStatusPreview />
                 </div>
             </div>
         </div>

@@ -46,7 +46,7 @@ class Location extends React.Component {
                     <Typeahead
                         id="PostalCode__input"
                         className="PostalCode__code"
-                        label="Arbeidssted (postnummer)"
+                        label="Arbeidssted (postnummer)*"
                         placeholder="Skriv inn postnummer eller poststed"
                         onSelect={this.onTypeAheadSuggestionSelected}
                         onChange={this.onTypeAheadValueChange}
@@ -65,7 +65,7 @@ class Location extends React.Component {
                 {this.props.location &&
                     <div>
                         {this.props.location.city && this.props.location.municipal && this.props.location.county && (
-                            <Undertekst>Sted: {this.props.location.city} Kommune: {this.props.location.municipal} / Fylke: {this.props.location.county}</Undertekst>
+                            <Undertekst>Sted: {this.props.location.city} | Kommune: {this.props.location.municipal} | Fylke: {this.props.location.county}</Undertekst>
                         )}
                     </div>
                 }

@@ -72,7 +72,7 @@ function* validateEmployer() {
     if (employer === null || employer === undefined ||
         valueIsNotSet(employer.name) ||
         valueIsNotSet(employer.orgnr)) {
-        yield put({ type: ADD_VALIDATION_ERROR, field: 'employer', message: 'Arbeidsgiver mangler' });
+        yield put({ type: ADD_VALIDATION_ERROR, field: 'employer', message: 'Navn på arbeidsgiver mangler' });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'employer' });
     }
