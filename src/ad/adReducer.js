@@ -8,23 +8,23 @@ import {
     SET_ADMIN_STATUS,
     SET_ADMIN_STATUS_AND_GET_NEXT_AD,
     SET_EMPLOYER,
-    SET_LOCATION,
     ADD_STYRK,
     REMOVE_STYRK,
-    SET_COMMENT,
-    ADD_REMARK,
-    REMOVE_REMARK, SET_AD_STATUS
+    SET_AD_STATUS,
+    SET_LOCATION_POSTAL_CODE
 } from './adDataReducer';
 import { getReportee } from '../reportee/reporteeReducer';
 
 import deepEqual from 'deep-equal';
+import AdStatusEnum from './administration/adStatus/AdStatusEnum';
+import { hasRejectionErrors, hasValidationErrors, validateRejection } from './adValidationReducer';
 
 export const FETCH_AD = 'FETCH_AD';
 export const FETCH_AD_BEGIN = 'FETCH_AD_BEGIN';
 export const FETCH_AD_SUCCESS = 'FETCH_AD_SUCCESS';
 export const FETCH_AD_FAILURE = 'FETCH_AD_FAILURE';
 
-export const SAVE_AD = 'FETCH';
+export const SAVE_AD = 'SAVE_AD';
 export const SAVE_AD_BEGIN = 'SAVE_AD_BEGIN';
 export const SAVE_AD_SUCCESS = 'SAVE_AD_SUCCESS';
 export const SAVE_AD_FAILURE = 'SAVE_AD_FAILURE';
@@ -40,6 +40,18 @@ export const FETCH_NEXT_AD_SUCCESS = 'FETCH_NEXT_AD_SUCCESS';
 export const FETCH_NEXT_AD_FAILURE = 'FETCH_NEXT_AD_FAILURE';
 export const SET_END_OF_LIST = 'SET_END_OF_LIST';
 
+export const PUBLISH_AD = 'PUBLISH_AD';
+export const SHOW_PUBLISH_ERROR_MODAL = 'SHOW_PUBLISH_ERROR_MODAL';
+export const HIDE_PUBLISH_ERROR_MODAL = 'HIDE_PUBLISH_ERROR_MODAL';
+
+export const REJECT_AD = 'REJECT_AD';
+export const SHOW_REJECT_REASON_MODAL = 'SHOW_REJECT_REASON_MODAL';
+export const HIDE_REJECT_REASON_MODAL = 'HIDE_REJECT_REASON_MODAL';
+
+export const STOP_AD = 'STOP_AD';
+export const SET_TO_RECEIVED = 'SET_TO_RECEIVED';
+export const ASSIGN_TO_ME = 'ASSIGN_TO_ME';
+
 const initialState = {
     error: undefined,
     isSavingAd: false,
@@ -50,7 +62,9 @@ const initialState = {
     workPriority: {
         sort: 'created,asc'
     },
-    hasChanges: false
+    hasChanges: false,
+    showPublishErrorModal: false,
+    showRejectReasonModal: false
 };
 
 export default function adReducer(state = initialState, action) {
@@ -83,14 +97,14 @@ export default function adReducer(state = initialState, action) {
         case SAVE_AD_BEGIN:
             return {
                 ...state,
-                isSavingAd: true
+                isSavingAd: true,
+                hasChanges: false
             };
         case SAVE_AD_SUCCESS:
             return {
                 ...state,
                 isSavingAd: false,
                 isEditingAd: false,
-                hasChanges: false,
                 originalData: { ...action.response }
             };
         case SAVE_AD_FAILURE:
@@ -125,12 +139,29 @@ export default function adReducer(state = initialState, action) {
                 ...state,
                 workPriority: initialState.workPriority
             };
-        case SET_AD_STATUS:
+        case SHOW_PUBLISH_ERROR_MODAL:
+
+            return {
+                ...state,
+                showPublishErrorModal: true
+            };
+        case HIDE_PUBLISH_ERROR_MODAL:
+            return {
+                ...state,
+                showPublishErrorModal: false
+            };
+        case SHOW_REJECT_REASON_MODAL:
+            return {
+                ...state,
+                showRejectReasonModal: true
+            };
+        case HIDE_REJECT_REASON_MODAL:
+            return {
+                ...state,
+                showRejectReasonModal: false
+            };
         case SET_EMPLOYER:
-        case SET_COMMENT:
-        case ADD_REMARK:
-        case REMOVE_REMARK:
-        case SET_LOCATION:
+        case SET_LOCATION_POSTAL_CODE:
         case ADD_STYRK:
         case REMOVE_STYRK:
             return {
@@ -192,7 +223,11 @@ function* getNextAd() {
                     }
                 });
                 shouldRetry = false;
-                yield put({ type: FETCH_NEXT_AD_SUCCESS, response: responsePut, previousAdminStatus: ad.administration.status });
+                yield put({
+                    type: FETCH_NEXT_AD_SUCCESS,
+                    response: responsePut,
+                    previousAdminStatus: ad.administration.status
+                });
             } catch (e) {
                 if (e instanceof ApiError && e.statusCode === 412) {
                     shouldRetry = true;
@@ -211,13 +246,11 @@ function needClassify(originalAdData, adData) {
     return !deepEqual(originalAdData.categoryList, adData.categoryList);
 }
 
-function* saveAd() {
+function* save(autoAssign = true) {
     let state = yield select();
     yield put({ type: SAVE_AD_BEGIN });
     try {
-        if (state.adData.administration.status === AdminStatusEnum.RECEIVED) {
-            yield put({ type: SET_REPORTEE, reportee: null });
-        } else {
+        if (autoAssign) {
             const reportee = yield getReportee();
             yield put({ type: SET_REPORTEE, reportee: reportee.displayName });
         }
@@ -225,7 +258,7 @@ function* saveAd() {
 
         // Modified category list requires store/PUT with (re)classification
         let putUrl = `${AD_API}ads/${state.adData.uuid}`;
-        if (typeof state.ad.originalData == 'undefined' || needClassify(state.ad.originalData, state.adData)) {
+        if (typeof state.ad.originalData === 'undefined' || needClassify(state.ad.originalData, state.adData)) {
             putUrl += '?classify=true';
         }
 
@@ -242,13 +275,62 @@ function* saveAd() {
 
 function* setAdminStatusAndGetNextAd(action) {
     yield put({ type: SET_ADMIN_STATUS, status: action.status });
-    yield saveAd();
+    yield save();
     yield getNextAd();
 }
 
+
+function* publishAd() {
+    const state = yield select();
+    if (hasValidationErrors(state.adValidation.errors)) {
+        yield put({ type: SHOW_PUBLISH_ERROR_MODAL });
+    } else {
+        yield put({ type: SET_ADMIN_STATUS, status: AdminStatusEnum.DONE });
+        yield put({ type: SET_AD_STATUS, status: AdStatusEnum.ACTIVE });
+        yield save();
+    }
+}
+
+function* rejectAd() {
+    yield validateRejection();
+    const state = yield select();
+    if (!hasRejectionErrors(state.adValidation.errors)) {
+        yield put({ type: HIDE_REJECT_REASON_MODAL });
+        yield put({ type: SET_ADMIN_STATUS, status: AdminStatusEnum.DONE });
+        yield put({ type: SET_AD_STATUS, status: AdStatusEnum.REJECTED });
+        yield save();
+    }
+}
+
+function* stopAd() {
+    yield put({ type: SET_ADMIN_STATUS, status: AdminStatusEnum.DONE });
+    yield put({ type: SET_AD_STATUS, status: AdStatusEnum.STOPPED });
+    yield save();
+}
+
+function* setToReceived() {
+    yield put({ type: SET_REPORTEE, reportee: null });
+    yield put({ type: SET_ADMIN_STATUS, status: AdminStatusEnum.RECEIVED });
+    yield save(false);
+}
+
+function* assignToMe() {
+    yield put({ type: SET_ADMIN_STATUS, status: AdminStatusEnum.PENDING });
+    yield save();
+}
+
+function* saveAd() {
+    yield save();
+}
+
 export const adSaga = function* saga() {
+    yield takeLatest(PUBLISH_AD, publishAd);
+    yield takeLatest(REJECT_AD, rejectAd);
+    yield takeLatest(STOP_AD, stopAd);
     yield takeLatest(FETCH_AD, getAd);
     yield takeLatest(FETCH_NEXT_AD, getNextAd);
     yield takeLatest(SAVE_AD, saveAd);
+    yield takeLatest(SET_TO_RECEIVED, setToReceived);
+    yield takeLatest(ASSIGN_TO_ME, assignToMe);
     yield takeLatest(SET_ADMIN_STATUS_AND_GET_NEXT_AD, setAdminStatusAndGetNextAd);
 };
