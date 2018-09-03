@@ -4,6 +4,7 @@ import AdStatusPreview from './adStatus/AdStatusPreview';
 import AdStatusEdit from './adStatus/AdStatusEdit';
 import Styrk from './styrk/Styrk';
 import Location from './location/Location';
+import Publishing from './publishing/Publishing';
 import Employer from './employer/Employer';
 import AdminStatusPreview from './adminStatus/AdminStatusPreview';
 import './Administration.less';
@@ -24,6 +25,10 @@ export default function Administration() {
                         <Employer />
                         <Location />
                     </div>
+                    <div className="Administration__panel">
+                        <Undertittel className="Administration__panel__title">Publisering</Undertittel>
+                        <Publishing />
+                    </div>
                 </div>
                 <div className="Administration__flex__bottom">
                     <AdminStatusPreview />
@@ -35,4 +40,3 @@ export default function Administration() {
         </div>
     );
 }
-

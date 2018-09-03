@@ -71,7 +71,7 @@ class Styrk extends React.Component {
                 />
 
                 {this.props.validation.styrk && (
-                    <div className="PostalCode__error">{this.props.validation.styrk}</div>
+                    <div className="Administration__error">{this.props.validation.styrk}</div>
                 )}
 
                 {this.props.stilling.categoryList.length > 0 && (

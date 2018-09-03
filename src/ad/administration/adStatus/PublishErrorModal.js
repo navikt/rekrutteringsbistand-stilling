@@ -45,6 +45,11 @@ class PublishErrorModal extends React.Component {
                             {validation.employer}
                         </li>
                     )}
+                    {validation.expires && (
+                        <li className="skjemaelement__feilmelding">
+                            {validation.expires}
+                        </li>
+                    )}
                 </ul>
                 <Hovedknapp onClick={this.onClose}>
                     Lukk

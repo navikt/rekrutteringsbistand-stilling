@@ -81,7 +81,7 @@ class Employer extends React.Component {
                     <Undertekst>{employer.name}, {location.address}, {location.postalCode} {location.city}</Undertekst>
                 }
                 {this.props.validation.employer && (
-                    <div className="Employer__error">{this.props.validation.employer}</div>
+                    <div className="Administration__error">{this.props.validation.employer}</div>
                 )}
             </div>
         );
