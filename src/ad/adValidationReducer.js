@@ -2,6 +2,9 @@ import { put, select, takeLatest } from 'redux-saga/es/effects';
 import { findLocationByPostalCode } from './administration/location/locationCodeReducer';
 import RemarksEnum from './administration/adStatus/RemarksEnum';
 import { FETCH_AD_SUCCESS, FETCH_NEXT_AD_SUCCESS, SAVE_AD_SUCCESS } from './adReducer';
+import { toDate } from '../utils';
+import {erDatoEtterMinDato} from 'nav-datovelger/dist/datovelger/utils/datovalidering';
+
 import {
     ADD_STYRK,
     REMOVE_STYRK,
@@ -86,6 +89,8 @@ function* validateExpireDate() {
 
     if (valueIsNotSet(expires)) {
         yield put({ type: ADD_VALIDATION_ERROR, field: 'expires', message: 'Utløpsdato mangler' });
+    } else if (!erDatoEtterMinDato(toDate(expires), new Date(Date.now()))) {
+        yield put({ type: ADD_VALIDATION_ERROR, field: 'expires', message: 'Utløpsdato kan ikke være før dagens dato' });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'expires' });
     }
