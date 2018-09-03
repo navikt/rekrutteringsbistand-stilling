@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link, NavLink, withRouter } from 'react-router-dom';
-import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
+import { NavLink, withRouter } from 'react-router-dom';
+import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import './TopMenu.less';
 import ShortcutsInfo from '../common/shortcuts/ShortcutsInfo';
 import { registerShortcuts, removeShortcuts } from '../common/shortcuts/Shortcuts';
@@ -46,23 +46,30 @@ class TopMenu extends React.Component {
                         exact
                         to="/"
                         className="TopMenu__item TopMenu__title"
-                        activeClassName="TopMenu__item-active"
                     >
-                        <Systemtittel>NSS Admin</Systemtittel>
+                        <Undertittel>NSS ADMIN</Undertittel>
                     </NavLink>
+                    <div className="TopMenu__pipe" />
                     <NavLink
                         to="/search"
                         className="TopMenu__item"
                         activeClassName="TopMenu__item-active"
                     >
-                        <Normaltekst>Søk etter annonser</Normaltekst>
+                        <Normaltekst className="TopMenu__item__inner">Søk etter annonse</Normaltekst>
+                    </NavLink>
+                    <NavLink
+                        to="/ads"
+                        className="TopMenu__item"
+                        activeClassName="TopMenu__item-active"
+                    >
+                        <Normaltekst className="TopMenu__item__inner">Godkjenn annonser</Normaltekst>
                     </NavLink>
                     <NavLink
                         to="/statistics"
                         className="TopMenu__item"
                         activeClassName="TopMenu__item-active"
                     >
-                        <Normaltekst>Statistikk</Normaltekst>
+                        <Normaltekst className="TopMenu__item__inner">Statistikk</Normaltekst>
                     </NavLink>
                 </div>
                 <div className="TopMenu__right">
