@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Element } from 'nav-frontend-typografi';
+import { Undertittel } from 'nav-frontend-typografi';
 import { formatISOString, isValidISOString } from '../../../utils';
 
 export default function Employment({ properties }) {
 
     return (
         <div className="detail-section">
-            <Element className="detail-section__head">Om stillingen</Element>
+            <Undertittel className="detail-section__head">Om stillingen</Undertittel>
             <dl className="dl-flex typo-normal">
                 {properties.jobtitle && [
                     <dt key="dt">Stillingstittel:</dt>,

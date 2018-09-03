@@ -33,7 +33,7 @@
 }
 
 .TopMenu__item:hover {
-  background: #000;
+  .TopMenu__item-active;
 }
 
 .TopMenu__title {
@@ -43,4 +43,12 @@
 
 .TopMenu__reportee {
   margin-right: 2rem;
+}
+
+.TopMenu__item-active {
+  background: #000;
+
+  * {
+    border-bottom: 1px solid #fff;
+  }
 }
