@@ -88,8 +88,12 @@ export function* validateRejection() {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'remark' });
     }
 
-    if (remarks.includes(RemarksEnum.UNKNOWN.value) && valueIsNotSet(comments)) {
-        yield put({ type: ADD_VALIDATION_ERROR, field: 'comment', message: 'Beskrivelse av annen årsak mangler' });
+    if (remarks.includes(RemarksEnum.UNKNOWN.value) && (valueIsNotSet(comments) || comments.length > 255)) {
+        if (valueIsNotSet(comments)) {
+            yield put({ type: ADD_VALIDATION_ERROR, field: 'comment', message: 'Beskrivelse av annen årsak mangler' });
+        } else if (comments.length > 255) {
+            yield put({ type: ADD_VALIDATION_ERROR, field: 'comment', message: 'Beskrivelse inneholder for mange tegn' });
+        }
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'comment' });
     }

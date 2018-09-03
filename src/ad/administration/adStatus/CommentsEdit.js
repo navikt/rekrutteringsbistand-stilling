@@ -52,7 +52,7 @@ class CommentsEdit extends React.Component {
                     value={this.state.comments || ''}
                     textareaRef={(ref) => { this.commentArea = ref; }}
                     textareaClass="typo-normal"
-                    feil={this.props.error ? { feilmelding: this.props.error} : undefined}
+                    feil={this.props.error ? { feilmelding: this.props.error } : undefined}
                 />
             </div>
         );
