@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { Normaltekst } from 'nav-frontend-typografi';
 import AdminStatusEnum from './AdminStatusEnum';
 import { SET_TO_RECEIVED, ASSIGN_TO_ME } from '../../adReducer';
+import LinkButton from '../../../common/linkbutton/LinkButton';
+import './AdminStatusPreview.less';
 
 class AdminStatusPreview extends React.Component {
     onSetToReceivedClick = (e) => {
@@ -26,9 +28,9 @@ class AdminStatusPreview extends React.Component {
                         <Normaltekst><b>Saksbehandler:</b> {reportee || 'Ingen'}</Normaltekst>
                         <Normaltekst>
                             <b>Saksbehandlingsstatus:</b> Mottatt{' ('}
-                            <button className="AdStatusEdit__links__lenke-button" onClick={this.onAssignToMeClick}>
+                            <LinkButton onClick={this.onAssignToMeClick}>
                                 Marker som min
-                            </button>
+                            </LinkButton>
                             {')'}
                         </Normaltekst>
                     </div>
@@ -38,9 +40,9 @@ class AdminStatusPreview extends React.Component {
                         <Normaltekst><b>Saksbehandler:</b> {reportee || 'Ingen'}</Normaltekst>
                         <Normaltekst>
                             <b>Saksbehandlingsstatus:</b> Under arbeid{' ('}
-                            <button className="AdStatusEdit__links__lenke-button" onClick={this.onSetToReceivedClick}>
+                            <LinkButton onClick={this.onSetToReceivedClick}>
                                Sett tilbake til mottatt
-                            </button>
+                            </LinkButton>
                             {')'}
                         </Normaltekst>
                     </div>

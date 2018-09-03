@@ -15,6 +15,8 @@ import {
 } from '../../adReducer';
 import PublishErrorModal from './PublishErrorModal';
 import RejectReasonModal from './RejectReasonModal';
+import LinkButton from '../../../common/linkbutton/LinkButton';
+import './AdStatusEdit.less';
 
 class AdStatusEdit extends React.Component {
     componentDidMount() {
@@ -61,56 +63,56 @@ class AdStatusEdit extends React.Component {
                 <div>
                     {adStatus === AdStatusEnum.INACTIVE && (
                         <div className="AdStatusEdit__buttons">
-                            <Hovedknapp className="AdminStatusEdit__button" onClick={this.onPublishClick}>
+                            <Hovedknapp className="AdStatusEdit__buttons__button" onClick={this.onPublishClick}>
                                 Publisér
                             </Hovedknapp>
-                            <Knapp className="AdminStatusEdit__button" onClick={this.onRejectClick}>
+                            <Knapp className="AdStatusEdit__buttons__button" onClick={this.onRejectClick}>
                                 Avvis
                             </Knapp>
                         </div>
                     )}
                     {!hasChanges && adStatus === AdStatusEnum.ACTIVE && (
                         <div className="AdStatusEdit__buttons">
-                            <Hovedknapp className="AdminStatusEdit__button" onClick={this.onStopClick}>
+                            <Hovedknapp className="AdStatusEdit__buttons__button" onClick={this.onStopClick}>
                                 Stopp annonsen
                             </Hovedknapp>
                         </div>
                     )}
                     {hasChanges && adStatus === AdStatusEnum.ACTIVE && (
                         <div className="AdStatusEdit__buttons">
-                            <Hovedknapp className="AdminStatusEdit__button" onClick={this.onSaveAdClick}>
+                            <Hovedknapp className="AdStatusEdit__buttons__button" onClick={this.onSaveAdClick}>
                                 Publisér endringer
                             </Hovedknapp>
-                            <Knapp className="AdminStatusEdit__button" onClick={this.onStopClick}>
+                            <Knapp className="AdStatusEdit__buttons__button" onClick={this.onStopClick}>
                                 Stopp
                             </Knapp>
                         </div>
                     )}
                     {adStatus === AdStatusEnum.REJECTED && (
                         <div className="AdStatusEdit__buttons">
-                            <Hovedknapp className="AdminStatusEdit__button" onClick={this.onPublishClick}>
+                            <Hovedknapp className="AdStatusEdit__buttons__button" onClick={this.onPublishClick}>
                                 Publisér annonsen
                             </Hovedknapp>
                         </div>
                     )}
                     {adStatus === AdStatusEnum.STOPPED && (
                         <div className="AdStatusEdit__buttons">
-                            <Hovedknapp className="AdminStatusEdit__button" onClick={this.onPublishClick}>
+                            <Hovedknapp className="AdStatusEdit__buttons__button" onClick={this.onPublishClick}>
                                 Republisér
                             </Hovedknapp>
-                            <Knapp className="AdminStatusEdit__button" onClick={this.onRejectClick}>
+                            <Knapp className="AdStatusEdit__buttons__button" onClick={this.onRejectClick}>
                                 Avvis
                             </Knapp>
                         </div>
                     )}
                     <div className="AdStatusEdit__links">
                         {hasChanges && !isSavingAd && adStatus !== AdStatusEnum.ACTIVE && (
-                            <button
-                                className="AdStatusEdit__links__lenke-button"
-                                onClick={this.onSaveAdClick}
-                            >
+                            <LinkButton onClick={this.onSaveAdClick}>
                                 Lagre og forsett senere
-                            </button>
+                            </LinkButton>
+                        )}
+                        {!hasChanges && !isSavingAd && (
+                            <div />
                         )}
                         {isSavingAd && (
                             <Normaltekst tag="span">

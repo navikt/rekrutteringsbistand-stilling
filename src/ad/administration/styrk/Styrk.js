@@ -13,6 +13,7 @@ import {
     registerShortcuts,
     removeShortcuts
 } from '../../../common/shortcuts/Shortcuts';
+import LinkButton from '../../../common/linkbutton/LinkButton';
 
 class Styrk extends React.Component {
     componentDidMount() {
@@ -55,7 +56,7 @@ class Styrk extends React.Component {
                     <label htmlFor="Styrk__typeahead">STYRK*</label>
                     <span>
                         {'  '}
-                        <button className="AdStatusEdit__links__lenke-button" onClick={this.onShowListClick}>Velg fra liste</button>
+                        <LinkButton onClick={this.onShowListClick}>Velg fra liste</LinkButton>
                     </span>
                 </div>
                 <Typeahead

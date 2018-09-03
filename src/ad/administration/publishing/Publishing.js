@@ -51,7 +51,7 @@ class Publishing extends React.Component {
         const { published, expires } = this.props;
         return (
             <div className="Publishing typo-normal">
-                <div className="blokk-xs">
+                <div className="blokk-s">
                     <Normaltekst className="Publishing__label">Publiseringsdato</Normaltekst>
                     <Datovelger
                         id="published"
