@@ -225,9 +225,8 @@ function* getNextAd() {
             } catch (e) {
                 if (e instanceof ApiError) {
                     yield put({ type: FETCH_NEXT_AD_FAILURE, error: e });
-                } else {
-                    throw e;
                 }
+                throw e;
             }
             if (ad) {
                 const reportee = yield getReportee();
@@ -249,6 +248,9 @@ function* getNextAd() {
                 } catch (e) {
                     if (e instanceof ApiError && e.statusCode === 412) {
                         shouldRetry = true;
+                    } else if (e instanceof ApiError) {
+                        yield put({ type: FETCH_NEXT_AD_FAILURE, error: e });
+                        shouldRetry = false;
                     } else {
                         shouldRetry = false;
                         throw e;
@@ -286,9 +288,8 @@ function* save(autoAssign = true) {
     } catch (e) {
         if (e instanceof ApiError) {
             yield put({ type: SAVE_AD_FAILURE, error: e });
-        } else {
-            throw e;
         }
+        throw e;
     }
 }
 
