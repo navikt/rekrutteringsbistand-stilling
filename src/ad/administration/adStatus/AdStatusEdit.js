@@ -17,6 +17,7 @@ import PublishErrorModal from './PublishErrorModal';
 import RejectReasonModal from './RejectReasonModal';
 import LinkButton from '../../../common/linkbutton/LinkButton';
 import './AdStatusEdit.less';
+import HasChangesModal from './HasChangesModal';
 
 class AdStatusEdit extends React.Component {
     componentDidMount() {
@@ -60,6 +61,7 @@ class AdStatusEdit extends React.Component {
             <div className="AdStatusEdit">
                 <PublishErrorModal />
                 <RejectReasonModal />
+                <HasChangesModal />
                 <div>
                     {adStatus === AdStatusEnum.INACTIVE && (
                         <div className="AdStatusEdit__buttons">
@@ -110,9 +112,6 @@ class AdStatusEdit extends React.Component {
                             <LinkButton onClick={this.onSaveAdClick}>
                                 Lagre og forsett senere
                             </LinkButton>
-                        )}
-                        {!hasChanges && !isSavingAd && (
-                            <div />
                         )}
                         {isSavingAd && (
                             <Normaltekst tag="span">
