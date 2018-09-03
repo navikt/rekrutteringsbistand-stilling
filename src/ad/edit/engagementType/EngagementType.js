@@ -62,13 +62,11 @@ EngagementType.defaultProps = {
 };
 
 EngagementType.propTypes = {
-    suggestions: PropTypes.arrayOf(PropTypes.string).isRequired,
     setEngagementType: PropTypes.func.isRequired,
     engagementType: PropTypes.string
 };
 
 const mapStateToProps = (state) => ({
-    suggestions: state.engagementType.suggestions,
     engagementType: state.adData.properties.engagementtype
 });
 
