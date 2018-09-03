@@ -54,9 +54,8 @@ class Styrk extends React.Component {
                 <div className="skjemaelement__label">
                     <label htmlFor="Styrk__typeahead">STYRK*</label>
                     <span>
-                        {' ('}
-                        <a href="#" className="typo-normal lenke" onClick={this.onShowListClick}>velg fra liste</a>
-                        {')'}
+                        {'  '}
+                        <button className="AdStatusEdit__links__lenke-button" onClick={this.onShowListClick}>Velg fra liste</button>
                     </span>
                 </div>
                 <Typeahead
