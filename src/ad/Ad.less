@@ -1,5 +1,10 @@
 @import "../variables";
 
+.Ad {
+  background: @navLysGra;
+  height: 100vh;
+}
+
 .Ad__flex {
   display: flex;
   height: 100vh;
@@ -20,8 +25,7 @@
 
 .Ad__flex__center__inner {
   height: 100%;
-  overflow-y: scroll;
-  background: @navLysGra;
+  overflow-y: auto;
 }
 
 .Ad__flex__right__inner {
@@ -33,10 +37,6 @@
   padding: 2rem 1rem;
   margin: 0 auto;
   max-width: 75rem;
-}
-
-.Ad__edit {
-  background: @navLysGra;
 }
 
 .Ad__edit__inner {
