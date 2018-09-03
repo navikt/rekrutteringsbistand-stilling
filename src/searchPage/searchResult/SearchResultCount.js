@@ -14,7 +14,7 @@ function SearchResultCount({ count, isSearching }) {
     return (
         <div>
             <Normaltekst className="blokk-s">
-                Søket ga <b>{count}</b> annonser
+                {count} annonser
             </Normaltekst>
         </div>
     );
