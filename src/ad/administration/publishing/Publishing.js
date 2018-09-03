@@ -58,6 +58,7 @@ class Publishing extends React.Component {
                         dato={formatISOString(published, 'DD.MM.YY') || ''}
                         onChange={this.onPublishedChange}
                         ref={(instance) => { this.refPublished = instance; }}
+                        inputProps={{ placeholder: 'dd.mm.åååå' }}
                     />
                 </div>
                 <Normaltekst className="Publishing__label">Utløpsdato*</Normaltekst>
@@ -66,7 +67,8 @@ class Publishing extends React.Component {
                     dato={formatISOString(expires, 'DD.MM.YY') || ''}
                     onChange={this.onExpiresChange}
                     ref={(instance) => { this.refExpires = instance; }}
-
+                    avgrensninger={{ minDato: new Date(Date.now()) }}
+                    inputProps={{ placeholder: 'dd.mm.åååå' }}
                 />
                 {this.props.validation.expires && (
                     <div className="Administration__error">{this.props.validation.expires}</div>
