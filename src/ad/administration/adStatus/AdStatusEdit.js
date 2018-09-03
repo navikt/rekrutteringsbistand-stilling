@@ -69,11 +69,21 @@ class AdStatusEdit extends React.Component {
                             </Knapp>
                         </div>
                     )}
-                    {adStatus === AdStatusEnum.ACTIVE && (
+                    {!hasChanges && adStatus === AdStatusEnum.ACTIVE && (
                         <div className="AdStatusEdit__buttons">
                             <Hovedknapp className="AdminStatusEdit__button" onClick={this.onStopClick}>
                                 Stopp annonsen
                             </Hovedknapp>
+                        </div>
+                    )}
+                    {hasChanges && adStatus === AdStatusEnum.ACTIVE && (
+                        <div className="AdStatusEdit__buttons">
+                            <Hovedknapp className="AdminStatusEdit__button" onClick={this.onSaveAdClick}>
+                                Publisér endringer
+                            </Hovedknapp>
+                            <Knapp className="AdminStatusEdit__button" onClick={this.onStopClick}>
+                                Stopp
+                            </Knapp>
                         </div>
                     )}
                     {adStatus === AdStatusEnum.REJECTED && (
@@ -94,12 +104,12 @@ class AdStatusEdit extends React.Component {
                         </div>
                     )}
                     <div className="AdStatusEdit__links">
-                        {hasChanges && !isSavingAd && (
+                        {hasChanges && !isSavingAd && adStatus !== AdStatusEnum.ACTIVE && (
                             <button
                                 className="AdStatusEdit__links__lenke-button"
                                 onClick={this.onSaveAdClick}
                             >
-                                Lagre endringer
+                                Lagre og forsett senere
                             </button>
                         )}
                         {isSavingAd && (
