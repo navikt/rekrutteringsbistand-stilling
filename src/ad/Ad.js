@@ -124,8 +124,9 @@ class Ad extends React.Component {
                                                         <Knapp
                                                             className="Ad__preview__edit-button"
                                                             onClick={this.onPreviewAdClick}
+                                                            mini
                                                         >
-                                                            Forhåndsvis
+                                                            Forhåndsvis annonsen
                                                         </Knapp>
                                                         <Edit />
                                                     </div>
@@ -135,6 +136,7 @@ class Ad extends React.Component {
                                                     <Knapp
                                                         className="Ad__preview__edit-button"
                                                         onClick={this.onEditAdClick}
+                                                        mini
                                                     >
                                                         Rediger annonsen
                                                     </Knapp>

@@ -19,7 +19,6 @@ import StartPage from './startPage/StartPage';
 import SearchPage from './searchPage/SearchPage';
 import Statistics from './statistics/Statistics';
 import reporteeReducer, { reporteeSaga } from './reportee/reporteeReducer';
-import engagementTypeReducer from './ad/edit/engagementType/engagementTypeReducer';
 import adDataReducer, { adDataSaga } from './ad/adDataReducer';
 import adValidationReducer, { validationSaga } from './ad/adValidationReducer';
 import modalReducer from './ad/administration/modals/modalReducer';
@@ -32,7 +31,6 @@ const store = createStore(combineReducers({
     adValidation: adValidationReducer,
     employer: employerReducer,
     location: locationCodeReducer,
-    engagementType: engagementTypeReducer,
     styrk: styrkReducer,
     reportee: reporteeReducer,
     search: searchReducer,
