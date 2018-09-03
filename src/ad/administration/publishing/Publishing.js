@@ -33,7 +33,7 @@ class Publishing extends React.Component {
 
     onPublishedChange = (date) => {
         let published;
-        if (date) {
+        if (date && !Number.isNaN(Date.parse(date))) {
             date.setHours(12);
             published = date.toISOString();
         }
@@ -42,7 +42,7 @@ class Publishing extends React.Component {
 
     onExpiresChange = (date) => {
         let expires;
-        if (date) {
+        if (date && !Number.isNaN(Date.parse(date))) {
             date.setHours(12);
             expires = date.toISOString();
         }
