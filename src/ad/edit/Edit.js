@@ -138,7 +138,6 @@ class Edit extends React.Component {
                                     label="Tittel"
                                     value={ad.title}
                                     onChange={this.onTitleChange}
-                                    className="typo-normal Edit__title"
                                     feil={validation.title ? { feilmelding: validation.title } : undefined}
                                 />
                                 <div className="Edit__bottom"><Normaltekst>Annonsetekst*</Normaltekst></div>
@@ -157,19 +156,16 @@ class Edit extends React.Component {
                                     label="Arbeidsgiver"
                                     value={ad.properties.employer || ''}
                                     onChange={this.onEmployerNameChange}
-                                    className="typo-normal"
                                 />
                                 <Input
                                     label="Adresse"
                                     value={ad.properties.address || ''}
                                     onChange={this.onEmployerAddressChange}
-                                    className="typo-normal"
                                 />
                                 <Input
                                     label="Nettside"
                                     value={ad.properties.employerhomepage || ''}
                                     onChange={this.onEmployerHomepageChange}
-                                    className="typo-normal"
                                 />
                                 <RichTextEditor
                                     text={ad.properties.employerdescription || ''}
@@ -190,25 +186,21 @@ class Edit extends React.Component {
                                 label="Søknadsfrist"
                                 value={ad.properties.applicationdue || ''}
                                 onChange={this.onApplicationDueChange}
-                                className="typo-normal"
                             />
                             <Input
                                 label="Send søknad til"
                                 value={ad.properties.applicationemail || ''}
                                 onChange={this.onApplicationEmailChange}
-                                className="typo-normal"
                             />
                             <Input
                                 label="Søknadslenke"
                                 value={ad.properties.applicationurl || ''}
                                 onChange={this.onApplicationUrlChange}
-                                className="typo-normal"
                             />
                             <Input
                                 label="Kildelenke"
                                 value={ad.properties.sourceurl || ''}
                                 onChange={this.onSourceUrlChange}
-                                className="typo-normal"
                             />
                         </Ekspanderbartpanel>
                         <Ekspanderbartpanel
@@ -222,13 +214,11 @@ class Edit extends React.Component {
                                 label="Stillingstittel"
                                 value={ad.properties.jobtitle || ''}
                                 onChange={this.onJobtitleChange}
-                                className="typo-normal"
                             />
                             <Input
                                 label="Arbeidssted"
                                 value={ad.properties.location || ''}
                                 onChange={this.onLocationChange}
-                                className="typo-normal"
                             />
                             <div className="Edit__border" />
                             <EngagementType />
@@ -259,13 +249,11 @@ class Edit extends React.Component {
                                 label="Arbeidsdager"
                                 value={ad.properties.workday || ''}
                                 onChange={this.onWorkdayChange}
-                                className="typo-normal"
                             />
                             <Input
                                 label="Arbeidstid"
                                 value={ad.properties.workhours || ''}
                                 onChange={this.onWorkhoursChange}
-                                className="typo-normal"
                             />
                             <SkjemaGruppe
                                 className="Edit__SkjemaGruppe-title"
@@ -301,13 +289,11 @@ class Edit extends React.Component {
                                 label="Antall stillinger"
                                 value={ad.properties.positioncount || ''}
                                 onChange={this.onPositioncountChange}
-                                className="typo-normal"
                             />
                             <Input
                                 label="Oppstart"
                                 value={ad.properties.starttime || ''}
                                 onChange={this.onStarttimeChange}
-                                className="typo-normal"
                             />
                         </Ekspanderbartpanel>
                         <Ekspanderbartpanel
@@ -318,29 +304,26 @@ class Edit extends React.Component {
                             apen
                         >
                             <Input
-                                label="Sist endret"
-                                value={ad.updated || ''}
-                                onChange={this.onLastUpdatedChange}
-                                className="typo-normal"
-                            />
-                            <Input
                                 label="Hentet fra"
                                 value={ad.medium || ''}
                                 onChange={this.onMediumChange}
-                                className="typo-normal"
+                            />
+                            <Input
+                                label="Sist endret"
+                                value={ad.updated || ''}
+                                onChange={this.onLastUpdatedChange}
+                                disabled
                             />
                             <Input
                                 label="Stillingsnummer"
                                 value={ad.id || ''}
                                 onChange={this.onIdChange}
-                                className="typo-normal"
                                 disabled
                             />
                             <Input
                                 label="Referanse"
                                 value={ad.reference || ''}
                                 onChange={this.onReferenceChange}
-                                className="typo-normal"
                             />
                         </Ekspanderbartpanel>
                     </Column>

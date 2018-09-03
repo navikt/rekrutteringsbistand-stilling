@@ -19,7 +19,6 @@ class EngagementType extends React.Component {
                     label="Ansettelsesform"
                     value={this.props.engagementType}
                     onChange={this.onEngagementTypeChange}
-                    className="typo-normal"
                 >
                     <option value={EngagementTypeEnum.FAST} key={EngagementTypeEnum.FAST}>
                         {EngagementTypeEnum.FAST}

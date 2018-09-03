@@ -19,7 +19,6 @@ class JobArrangement extends React.Component {
                     label="Arbeidstidsordning"
                     value={this.props.jobArrangement}
                     onChange={this.onJobArrangementChange}
-                    className="typo-normal"
                 >
                     <option value={JobArrangementEnum.NONE} key={JobArrangementEnum.NONE}>
                         {JobArrangementEnum.NONE}
