@@ -52,6 +52,9 @@ export const STOP_AD = 'STOP_AD';
 export const SET_TO_RECEIVED = 'SET_TO_RECEIVED';
 export const ASSIGN_TO_ME = 'ASSIGN_TO_ME';
 
+export const SHOW_HAS_CHANGES_MODAL = 'SHOW_HAS_CHANGES_MODAL';
+export const HIDE_HAS_CHANGES_MODAL = 'HIDE_HAS_CHANGES_MODAL';
+
 const initialState = {
     error: undefined,
     isSavingAd: false,
@@ -64,7 +67,9 @@ const initialState = {
     },
     hasChanges: false,
     showPublishErrorModal: false,
-    showRejectReasonModal: false
+    showHasChangesModal: false,
+    showRejectReasonModal: false,
+    showIsInactiveModal: false
 };
 
 export default function adReducer(state = initialState, action) {
@@ -160,6 +165,16 @@ export default function adReducer(state = initialState, action) {
                 ...state,
                 showRejectReasonModal: false
             };
+        case SHOW_HAS_CHANGES_MODAL:
+            return {
+                ...state,
+                showHasChangesModal: true
+            };
+        case HIDE_HAS_CHANGES_MODAL:
+            return {
+                ...state,
+                showHasChangesModal: false
+            };
         case SET_EMPLOYER:
         case SET_LOCATION_POSTAL_CODE:
         case ADD_STYRK:
@@ -188,56 +203,60 @@ function* getAd(action) {
 }
 
 function* getNextAd() {
-    yield put({ type: FETCH_NEXT_AD_BEGIN });
     const state = yield select();
-    const queryString = toUrl({
-        ...state.ad.workPriority, size: 1, sort: 'created,asc', administrationStatus: AdminStatusEnum.RECEIVED
-    });
-    let shouldRetry = true;
-    while (shouldRetry) {
-        let ad;
-        try {
-            const responseList = yield fetchGet(`${AD_API}ads/${queryString}`);
-            if (responseList.content && responseList.content.length === 0) {
-                shouldRetry = false;
-                yield put({ type: SET_END_OF_LIST, endOfList: true });
-            } else {
-                ad = responseList.content[0];
-            }
-        } catch (e) {
-            if (e instanceof ApiError) {
-                yield put({ type: FETCH_NEXT_AD_FAILURE, error: e });
-            } else {
-                throw e;
-            }
-        }
-        if (ad) {
-            const reportee = yield getReportee();
+    if (state.ad.hasChanges) {
+        yield put({ type: SHOW_HAS_CHANGES_MODAL });
+    } else {
+        yield put({ type: FETCH_NEXT_AD_BEGIN });
+        const queryString = toUrl({
+            ...state.ad.workPriority, size: 1, sort: 'created,asc', administrationStatus: AdminStatusEnum.RECEIVED
+        });
+        let shouldRetry = true;
+        while (shouldRetry) {
+            let ad;
             try {
-                const responsePut = yield fetchPut(`${AD_API}ads/${ad.uuid}`, {
-                    ...ad,
-                    administration: {
-                        ...ad.administration,
-                        status: AdminStatusEnum.PENDING,
-                        reportee: reportee.displayName
-                    }
-                });
-                shouldRetry = false;
-                yield put({
-                    type: FETCH_NEXT_AD_SUCCESS,
-                    response: responsePut,
-                    previousAdminStatus: ad.administration.status
-                });
-            } catch (e) {
-                if (e instanceof ApiError && e.statusCode === 412) {
-                    shouldRetry = true;
-                } else {
+                const responseList = yield fetchGet(`${AD_API}ads/${queryString}`);
+                if (responseList.content && responseList.content.length === 0) {
                     shouldRetry = false;
+                    yield put({ type: SET_END_OF_LIST, endOfList: true });
+                } else {
+                    ad = responseList.content[0];
+                }
+            } catch (e) {
+                if (e instanceof ApiError) {
+                    yield put({ type: FETCH_NEXT_AD_FAILURE, error: e });
+                } else {
                     throw e;
                 }
             }
-        } else {
-            shouldRetry = false;
+            if (ad) {
+                const reportee = yield getReportee();
+                try {
+                    const responsePut = yield fetchPut(`${AD_API}ads/${ad.uuid}`, {
+                        ...ad,
+                        administration: {
+                            ...ad.administration,
+                            status: AdminStatusEnum.PENDING,
+                            reportee: reportee.displayName
+                        }
+                    });
+                    shouldRetry = false;
+                    yield put({
+                        type: FETCH_NEXT_AD_SUCCESS,
+                        response: responsePut,
+                        previousAdminStatus: ad.administration.status
+                    });
+                } catch (e) {
+                    if (e instanceof ApiError && e.statusCode === 412) {
+                        shouldRetry = true;
+                    } else {
+                        shouldRetry = false;
+                        throw e;
+                    }
+                }
+            } else {
+                shouldRetry = false;
+            }
         }
     }
 }
@@ -280,7 +299,7 @@ function* setAdminStatusAndGetNextAd(action) {
 }
 
 
-function* publishAd() {
+function* publishAd(action) {
     const state = yield select();
     if (hasValidationErrors(state.adValidation.errors)) {
         yield put({ type: SHOW_PUBLISH_ERROR_MODAL });
@@ -288,6 +307,9 @@ function* publishAd() {
         yield put({ type: SET_ADMIN_STATUS, status: AdminStatusEnum.DONE });
         yield put({ type: SET_AD_STATUS, status: AdStatusEnum.ACTIVE });
         yield save();
+        if (action.loadNext) {
+            yield getNextAd();
+        }
     }
 }
 
@@ -319,8 +341,11 @@ function* assignToMe() {
     yield save();
 }
 
-function* saveAd() {
+function* saveAd(action) {
     yield save();
+    if (action.loadNext) {
+        yield getNextAd();
+    }
 }
 
 export const adSaga = function* saga() {
