@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Element } from 'nav-frontend-typografi';
+import { Undertittel } from 'nav-frontend-typografi';
 import { formatISOString, isValidISOString } from '../../../utils';
 import { isValidUrl } from '../../../common/utils';
 
@@ -19,7 +19,7 @@ export default function Application({ source, properties }) {
 
     return (
         <div className="detail-section">
-            <Element className="detail-section__head">Søknad</Element>
+            <Undertittel className="detail-section__head">Søknad</Undertittel>
             <dl className="dl-flex typo-normal">
                 {properties.applicationdue && [
                     <dt key="dt">Søknadsfrist:</dt>,

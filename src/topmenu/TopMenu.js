@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, NavLink, withRouter } from 'react-router-dom';
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import './TopMenu.less';
 import ShortcutsInfo from '../common/shortcuts/ShortcutsInfo';
@@ -42,15 +42,28 @@ class TopMenu extends React.Component {
         return (
             <div className="TopMenu">
                 <div className="TopMenu__left">
-                    <Link to="/" className="TopMenu__item TopMenu__title">
+                    <NavLink
+                        exact
+                        to="/"
+                        className="TopMenu__item TopMenu__title"
+                        activeClassName="TopMenu__item-active"
+                    >
                         <Systemtittel>NSS Admin</Systemtittel>
-                    </Link>
-                    <Link to="/search" className="TopMenu__item">
+                    </NavLink>
+                    <NavLink
+                        to="/search"
+                        className="TopMenu__item"
+                        activeClassName="TopMenu__item-active"
+                    >
                         <Normaltekst>Søk etter annonser</Normaltekst>
-                    </Link>
-                    <Link to="/statistics" className="TopMenu__item">
+                    </NavLink>
+                    <NavLink
+                        to="/statistics"
+                        className="TopMenu__item"
+                        activeClassName="TopMenu__item-active"
+                    >
                         <Normaltekst>Statistikk</Normaltekst>
-                    </Link>
+                    </NavLink>
                 </div>
                 <div className="TopMenu__right">
                     <div className="TopMenu__item TopMenu__reportee">

@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactHtmlParser from 'react-html-parser';
-import { Element } from 'nav-frontend-typografi';
+import { Undertittel } from 'nav-frontend-typografi';
 import './Employer.less';
 
 export default function Employer({ properties }) {
     return (
         <div className="detail-section">
-            <Element className="detail-section__head">Om arbeidsgiveren</Element>
+            <Undertittel className="detail-section__head">Om arbeidsgiveren</Undertittel>
             <dl className="dl-flex typo-normal">
                 {properties.employer && [
                     <dt key="dt">Arbeidsgiver:</dt>,
