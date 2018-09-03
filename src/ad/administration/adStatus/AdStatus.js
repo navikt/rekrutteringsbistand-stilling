@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 import Alertstripe from 'nav-frontend-alertstriper';
 import AdStatusEnum from './AdStatusEnum';
 import RemarksEnum from './RemarksEnum';
+import './AdStatus.less';
 
-function AdStatusPreview({ adStatus, remarks, comments }) {
+function AdStatus({ adStatus, remarks, comments }) {
     const remarksLabels = remarks.map((remark) => {
         if (remark === RemarksEnum.UNKNOWN.value) {
             return comments;
@@ -18,40 +19,40 @@ function AdStatusPreview({ adStatus, remarks, comments }) {
     return (
         <div className="AdStatusPreview">
             {adStatus === AdStatusEnum.INACTIVE && (
-                <Alertstripe type="info" solid>
-                        Annonsen er ikke publisert
+                <Alertstripe className="AdStatusPreview__Alertstripe" type="info" solid>
+                    Annonsen er ikke publisert
                 </Alertstripe>
             )}
             {adStatus === AdStatusEnum.ACTIVE && (
-                <Alertstripe type="suksess" solid>
-                        Annonsen er publisert
+                <Alertstripe className="AdStatusPreview__Alertstripe" type="suksess" solid>
+                    Annonsen er publisert
                 </Alertstripe>
             )}
             {adStatus === AdStatusEnum.REJECTED && (
-                <Alertstripe type="advarsel" solid>
-                        Annonsen er avvist: {remarksLabels.join(', ')}
+                <Alertstripe className="AdStatusPreview__Alertstripe" type="advarsel" solid>
+                    Annonsen er avvist: {remarksLabels.join(', ')}
                 </Alertstripe>
             )}
             {adStatus === AdStatusEnum.STOPPED && (
-                <Alertstripe type="advarsel" solid>
-                        Annonsen er stoppet
+                <Alertstripe className="AdStatusPreview__Alertstripe" type="advarsel" solid>
+                    Annonsen er stoppet
                 </Alertstripe>
             )}
             {adStatus === AdStatusEnum.DELETED && (
-                <Alertstripe type="advarsel" solid>
-                        Annonsen er slettet
+                <Alertstripe className="AdStatusPreview__Alertstripe" type="advarsel" solid>
+                    Annonsen er slettet
                 </Alertstripe>
             )}
         </div>
     );
 }
 
-AdStatusPreview.defaultProps = {
+AdStatus.defaultProps = {
     remarks: [],
     comments: null
 };
 
-AdStatusPreview.propTypes = {
+AdStatus.propTypes = {
     adStatus: PropTypes.string.isRequired,
     remarks: PropTypes.arrayOf(PropTypes.string),
     comments: PropTypes.string
@@ -63,4 +64,4 @@ const mapStateToProps = (state) => ({
     comments: state.adData.administration.comments
 });
 
-export default connect(mapStateToProps)(AdStatusPreview);
+export default connect(mapStateToProps)(AdStatus);

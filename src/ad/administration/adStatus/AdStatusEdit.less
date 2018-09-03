@@ -1,0 +1,45 @@
+@import "../../../variables";
+@import "../../../../node_modules/nav-frontend-typografi-style/src/index";
+@import "../../../../node_modules/nav-frontend-lenker-style/src/lenker-mixins";
+
+.AdStatusEdit {
+  margin-bottom: 1.5rem;
+}
+
+.AdStatusEdit__buttons {
+  display: flex;
+  margin-bottom: 1.5rem;
+}
+
+.AdStatusEdit__buttons__button {
+  flex: 1;
+  height: 3.25rem;
+}
+
+.AdStatusEdit__buttons__button:not(:last-child) {
+  margin-right: 1rem;
+}
+
+.AdStatusEdit__links {
+  display: flex;
+  align-items: right;
+  justify-content: space-between;
+}
+
+.AdStatusEdit__links__next-button {
+  .typo-normal();
+  .lenke-mixin();
+  border: 0;
+  padding: 0;
+}
+
+.AdStatusEdit__links__next-button__text {
+  letter-spacing: 1px;
+  line-height: 1rem;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.AdStatusEdit__links__next-button__chevron {
+  margin-top: -0.25rem;
+}

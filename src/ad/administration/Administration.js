@@ -1,6 +1,6 @@
 import React from 'react';
 import { Undertekst, Undertittel, Systemtittel } from 'nav-frontend-typografi';
-import AdStatusPreview from './adStatus/AdStatusPreview';
+import AdStatus from './adStatus/AdStatus';
 import AdStatusEdit from './adStatus/AdStatusEdit';
 import Styrk from './styrk/Styrk';
 import Location from './location/Location';
@@ -13,7 +13,7 @@ export default function Administration() {
         <div className="Administration">
             <div className="Administration__flex">
                 <div className="Administration__flex__top">
-                    <AdStatusPreview />
+                    <AdStatus />
                     <div className="Administration__header">
                         <Systemtittel className="blokk-xxs">Saksbehandling av annonsen</Systemtittel>
                         <Undertekst>*betyr at feltene må fylles ut</Undertekst>
@@ -35,4 +35,3 @@ export default function Administration() {
         </div>
     );
 }
-
