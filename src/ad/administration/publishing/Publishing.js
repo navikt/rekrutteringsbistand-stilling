@@ -33,6 +33,7 @@ class Publishing extends React.Component {
 
     onPublishedChange = (date) => {
         let published;
+        date.setHours(12);
         if (date) {
             published = date.toISOString();
         }
@@ -41,6 +42,7 @@ class Publishing extends React.Component {
 
     onExpiresChange = (date) => {
         let expires;
+        date.setHours(12);
         if (date) {
             expires = date.toISOString();
         }
