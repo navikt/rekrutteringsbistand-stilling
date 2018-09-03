@@ -1,13 +1,16 @@
 import { put, select, takeLatest } from 'redux-saga/es/effects';
 import { findLocationByPostalCode } from './administration/location/locationCodeReducer';
-import AdStatusEnum from './administration/adStatus/AdStatusEnum';
 import RemarksEnum from './administration/adStatus/RemarksEnum';
+import { FETCH_AD_SUCCESS, FETCH_NEXT_AD_SUCCESS, SAVE_AD_SUCCESS } from './adReducer';
 import {
-    FETCH_AD_SUCCESS, FETCH_NEXT_AD_SUCCESS,
-    SAVE_AD_SUCCESS
-} from './adReducer';
-import { ADD_STYRK, REMOVE_STYRK, SET_EMPLOYER, SET_LOCATION_POSTAL_CODE,
-    SET_AD_STATUS, ADD_REMARK, REMOVE_REMARK, SET_COMMENT} from './adDataReducer';
+    ADD_STYRK,
+    REMOVE_STYRK,
+    SET_EMPLOYER,
+    SET_LOCATION_POSTAL_CODE,
+    ADD_REMARK,
+    REMOVE_REMARK,
+    SET_COMMENT
+} from './adDataReducer';
 
 const ADD_VALIDATION_ERROR = 'ADD_VALIDATION_ERROR';
 const REMOVE_VALIDATION_ERROR = 'REMOVE_VALIDATION_ERROR';
@@ -69,18 +72,17 @@ function* validateEmployer() {
     if (employer === null || employer === undefined ||
         valueIsNotSet(employer.name) ||
         valueIsNotSet(employer.orgnr)) {
-        yield put({ type: ADD_VALIDATION_ERROR, field: 'employer', message: 'Arbeidsgiver mangler' });
+        yield put({ type: ADD_VALIDATION_ERROR, field: 'employer', message: 'Navn på arbeidsgiver mangler' });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'employer' });
     }
 }
 
-function* validateAdministration() {
+export function* validateRejection() {
     const state = yield select();
-    const { status } = state.adData;
     const { remarks, comments } = state.adData.administration;
 
-    if (status === AdStatusEnum.REJECTED && (remarks.length === 0)) {
+    if (remarks.length === 0) {
         yield put({ type: ADD_VALIDATION_ERROR, field: 'remark', message: 'Årsak til avvising mangler' });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'remark' });
@@ -99,8 +101,18 @@ function* validateAll() {
         yield validateStyrk();
         yield validateLocation();
         yield validateEmployer();
-        yield validateAdministration();
     }
+}
+
+export function hasValidationErrors(validation) {
+    return validation.styrk !== undefined ||
+            validation.location !== undefined ||
+            validation.employer !== undefined;
+}
+
+export function hasRejectionErrors(validation) {
+    return validation.comment !== undefined ||
+        validation.remark !== undefined;
 }
 
 const initialState = {
@@ -134,6 +146,6 @@ export const validationSaga = function* saga() {
     yield takeLatest([ADD_STYRK, REMOVE_STYRK], validateStyrk);
     yield takeLatest(SET_EMPLOYER, validateEmployer);
     yield takeLatest(SET_LOCATION_POSTAL_CODE, validateLocation);
-    yield takeLatest([ADD_REMARK, REMOVE_REMARK, SET_AD_STATUS, SET_COMMENT], validateAdministration);
+    yield takeLatest([ADD_REMARK, REMOVE_REMARK, SET_COMMENT], validateRejection);
 };
 

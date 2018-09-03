@@ -15,7 +15,6 @@ import DelayedSpinner from '../common/DelayedSpinner';
 import './Ad.less';
 import Faded from '../common/faded/Faded';
 import Edit from './edit/Edit';
-import AdminStatusEnum from './administration/adminStatus/AdminStatusEnum';
 
 const isDefaultWorkPriority = (workPriority) =>
     workPriority.source === undefined && workPriority.status === undefined &&
@@ -115,40 +114,33 @@ class Ad extends React.Component {
                         <div className="Ad__flex">
                             <div className="Ad__flex__center">
                                 <div className="Ad__flex__center__inner">
-
-                                    {stilling.administration.status === AdminStatusEnum.PENDING ? (
-                                        <div>
-                                            {isEditingAd ? (
-                                                <div className="Ad__edit">
-                                                    <div className="Ad__edit__inner">
-                                                        <Knapp
-                                                            className="Ad__preview__edit-button"
-                                                            onClick={this.onPreviewAdClick}
-                                                            mini
-                                                        >
-                                                            Forhåndsvis annonsen
-                                                        </Knapp>
-                                                        <Edit />
-                                                    </div>
-                                                </div>
-                                            ) : (
-                                                <div className="Ad__preview">
+                                    <div>
+                                        {isEditingAd ? (
+                                            <div className="Ad__edit">
+                                                <div className="Ad__edit__inner">
                                                     <Knapp
                                                         className="Ad__preview__edit-button"
-                                                        onClick={this.onEditAdClick}
+                                                        onClick={this.onPreviewAdClick}
                                                         mini
                                                     >
-                                                        Rediger annonsen
+                                                        Forhåndsvis annonsen
                                                     </Knapp>
-                                                    <Preview ad={stilling} />
+                                                    <Edit />
                                                 </div>
-                                            )}
-                                        </div>
-                                    ) : (
-                                        <div className="Ad__preview">
-                                            <Preview ad={stilling} />
-                                        </div>
-                                    )}
+                                            </div>
+                                        ) : (
+                                            <div className="Ad__preview">
+                                                <Knapp
+                                                    className="Ad__preview__edit-button"
+                                                    onClick={this.onEditAdClick}
+                                                    mini
+                                                >
+                                                    Rediger annonsen
+                                                </Knapp>
+                                                <Preview ad={stilling} />
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
                             <div className="Ad__flex__right">

@@ -21,7 +21,6 @@ import Statistics from './statistics/Statistics';
 import reporteeReducer, { reporteeSaga } from './reportee/reporteeReducer';
 import adDataReducer, { adDataSaga } from './ad/adDataReducer';
 import adValidationReducer, { validationSaga } from './ad/adValidationReducer';
-import modalReducer from './ad/administration/modals/modalReducer';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -34,7 +33,6 @@ const store = createStore(combineReducers({
     styrk: styrkReducer,
     reportee: reporteeReducer,
     search: searchReducer,
-    modal: modalReducer,
     statistics: statisticsReducer
 }), applyMiddleware(sagaMiddleware));
 

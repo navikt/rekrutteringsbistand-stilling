@@ -61,7 +61,7 @@ class Employer extends React.Component {
                     <Typeahead
                         id="Employer__typeahead"
                         className="Employer__typeahead"
-                        label="Arbeidsgiver fra Enhetsregisteret"
+                        label="Arbeidsgiver fra Enhetsregisteret*"
                         placeholder="Skriv inn arb.givernavn eller org.nr"
                         onSelect={this.onTypeAheadSuggestionSelected}
                         onChange={this.onTypeAheadValueChange}

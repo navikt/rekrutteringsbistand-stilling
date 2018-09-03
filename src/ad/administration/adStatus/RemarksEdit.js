@@ -8,7 +8,6 @@ import {
     ADD_REMARK,
     REMOVE_REMARK
 } from '../../adDataReducer';
-import './RemarksEdit.less';
 
 class RemarksEdit extends React.Component {
 
