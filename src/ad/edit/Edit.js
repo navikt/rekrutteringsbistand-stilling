@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Input, SkjemaGruppe } from 'nav-frontend-skjema';
+import { Input, SkjemaGruppe, Radio } from 'nav-frontend-skjema';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Column, Row } from 'nav-frontend-grid';
-import { Radio } from 'nav-frontend-skjema';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { connect } from 'react-redux';
 import {

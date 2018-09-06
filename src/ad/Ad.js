@@ -116,7 +116,7 @@ class Ad extends React.Component {
                                 <div className="Ad__flex__center__inner">
                                     <div>
                                         {isEditingAd ? (
-                                            <div className="Ad__edit">
+                                            <div>
                                                 <div className="Ad__edit__inner">
                                                     <Knapp
                                                         className="Ad__preview__edit-button"
