@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Column, Container, Row } from 'nav-frontend-grid';
-import { Hovedknapp } from 'nav-frontend-knapper';
+import { Column, Row } from 'nav-frontend-grid';
+import { LenkepanelBase } from 'nav-frontend-lenkepanel';
+import { Systemtittel } from 'nav-frontend-typografi';
 import './StartPage.less';
 import SearchBox from '../searchPage/searchBox/SearchBox';
 import { RESET_WORK_PRIORITY } from '../ad/adReducer';
@@ -15,20 +16,35 @@ class StartPage extends React.Component {
 
     onStartWorkClick = () => {
         this.props.resetWorkPriority();
-        this.props.history.push('/ads');
     };
 
     render() {
         return (
             <div className="StartPage">
-                <SearchBox onSearch={this.onSearch} />
-                <br/><br/><br/><br/>
-                <Hovedknapp
-                    className="StartPage__button"
-                    onClick={this.onStartWorkClick}
-                >
-                    Start med neste ledige annonse
-                </Hovedknapp>
+                <div className="StartPage__SearchBox__wrapper">
+                    <SearchBox onSearch={this.onSearch} />
+                </div>
+                <Row className="StartPage__panels">
+                    <Column xs="12" md="6">
+                        <LenkepanelBase
+                            onClick={this.onStartWorkClick}
+                            href="/ads"
+                            border
+                        >
+                            <span className="StartPage__icon-godkjenn" />
+                            <Systemtittel className="StartPage__systemtittel">Godkjenn annonser</Systemtittel>
+                        </LenkepanelBase>
+                    </Column>
+                    <Column xs="12" md="6">
+                        <LenkepanelBase
+                            href="#"
+                            border
+                        >
+                            <span className="StartPage__icon-pen" />
+                            <Systemtittel className="StartPage__systemtittel">Registrer ny stilling</Systemtittel>
+                        </LenkepanelBase>
+                    </Column>
+                </Row>
             </div>
         );
     }
