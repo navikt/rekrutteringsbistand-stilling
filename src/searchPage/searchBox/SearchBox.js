@@ -20,17 +20,19 @@ class SearchBox extends React.Component {
     render() {
         return (
             <div className="SearchBox">
-                <Typeahead
-                    onChange={this.onTypeAheadChange}
-                    onSelect={this.onTypeAheadSelect}
-                    suggestions={this.props.suggestions}
-                    value={this.props.value}
-                    placeholder="Søk på arbeidsgiver, overskrift eller stillingsnummer"
-                    id="SearchPageSearchbox"
-                />
-                <span className="SearchBox__button">
-                    <i className="SearchBox__button__icon" />
-                </span>
+                <div className="SearchBox__input">
+                    <Typeahead
+                        onChange={this.onTypeAheadChange}
+                        onSelect={this.onTypeAheadSelect}
+                        suggestions={this.props.suggestions}
+                        value={this.props.value}
+                        placeholder="Søk på arbeidsgiver, overskrift eller stillingsnummer"
+                        id="SearchPageSearchbox"
+                    />
+                    <span className="SearchBox__button">
+                        <i className="SearchBox__button__icon" />
+                    </span>
+                </div>
             </div>
         );
     }
