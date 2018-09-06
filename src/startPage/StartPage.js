@@ -21,7 +21,9 @@ class StartPage extends React.Component {
     render() {
         return (
             <div className="StartPage">
-                <SearchBox onSearch={this.onSearch} />
+                <div className="StartPage__SearchBox__wrapper">
+                    <SearchBox onSearch={this.onSearch} />
+                </div>
                 <Row className="StartPage__panels">
                     <Column xs="12" md="6">
                         <LenkepanelBase
