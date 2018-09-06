@@ -52,6 +52,37 @@ class Employer extends React.Component {
         employer.orgnr === value.replace(/\s/g, ''))
     );
 
+    capitalize = (text) => {
+        const separators = [' ', '-', '(', '/'];
+
+        const ignore = [
+            'i', 'og', 'for', 'på', 'avd', 'av'
+        ];
+
+        const keep = [
+            'as', 'ab', 'asa', 'ba', 'sa'
+        ];
+
+        if (text) {
+            let capitalized = text.toLowerCase();
+
+            for (let i = 0, len = separators.length; i < len; i += 1) {
+                const fragments = capitalized.split(separators[i]);
+                for (let j = 0, x = fragments.length; j < x; j += 1) {
+                    if (keep.includes(fragments[j])) {
+                        fragments[j] = fragments[j].toUpperCase();
+                    } else if (!ignore.includes(fragments[j])) {
+                        fragments[j] = fragments[j][0].toUpperCase() + fragments[j].substr(1);
+                    }
+                }
+                capitalized = fragments.join(separators[i]);
+            }
+
+            return capitalized;
+        }
+        return text;
+    };
+
     render() {
         const { employer } = this.props;
         const location = employer ? employer.location : undefined;
@@ -67,10 +98,10 @@ class Employer extends React.Component {
                         onChange={this.onTypeAheadValueChange}
                         suggestions={this.props.suggestions.map((suggestion) => ({
                             value: suggestion.orgnr,
-                            label: `${suggestion.name} (${suggestion.orgnr})`
+                            label: `${this.capitalize(suggestion.name)} (${suggestion.orgnr})`
                         }))}
                         value={this.props.employer && this.props.employer.name ?
-                            this.props.employer.name : this.props.typeAheadValue}
+                            this.capitalize(this.props.employer.name) : this.props.typeAheadValue}
                         ref={(instance) => {
                             this.inputRef = instance;
                         }}
@@ -78,10 +109,10 @@ class Employer extends React.Component {
                     />
                 </div>
                 {employer && location &&
-                    <Undertekst>{employer.name}, {location.address}, {location.postalCode} {location.city}</Undertekst>
+                    <Undertekst>{this.capitalize(employer.name)}, {location.address}, {location.postalCode} {this.capitalize(location.city)}</Undertekst>
                 }
                 {this.props.validation.employer && (
-                    <div className="Employer__error">{this.props.validation.employer}</div>
+                    <div className="Administration__error">{this.props.validation.employer}</div>
                 )}
             </div>
         );

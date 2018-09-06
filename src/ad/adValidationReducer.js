@@ -2,6 +2,9 @@ import { put, select, takeLatest } from 'redux-saga/es/effects';
 import { findLocationByPostalCode } from './administration/location/locationCodeReducer';
 import RemarksEnum from './administration/adStatus/RemarksEnum';
 import { FETCH_AD_SUCCESS, FETCH_NEXT_AD_SUCCESS, SAVE_AD_SUCCESS } from './adReducer';
+import { toDate } from '../utils';
+import {erDatoEtterMinDato} from 'nav-datovelger/dist/datovelger/utils/datovalidering';
+
 import {
     ADD_STYRK,
     REMOVE_STYRK,
@@ -9,7 +12,8 @@ import {
     SET_LOCATION_POSTAL_CODE,
     ADD_REMARK,
     REMOVE_REMARK,
-    SET_COMMENT
+    SET_COMMENT,
+    SET_EXPIRATION_DATE
 } from './adDataReducer';
 
 const ADD_VALIDATION_ERROR = 'ADD_VALIDATION_ERROR';
@@ -78,6 +82,20 @@ function* validateEmployer() {
     }
 }
 
+
+function* validateExpireDate() {
+    const state = yield select();
+    const { expires } = state.adData;
+
+    if (valueIsNotSet(expires)) {
+        yield put({ type: ADD_VALIDATION_ERROR, field: 'expires', message: 'Utløpsdato mangler' });
+    } else if (!erDatoEtterMinDato(toDate(expires), new Date(Date.now()))) {
+        yield put({ type: ADD_VALIDATION_ERROR, field: 'expires', message: 'Utløpsdato kan ikke være før dagens dato' });
+    } else {
+        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'expires' });
+    }
+}
+
 export function* validateRejection() {
     const state = yield select();
     const { remarks, comments } = state.adData.administration;
@@ -105,13 +123,15 @@ function* validateAll() {
         yield validateStyrk();
         yield validateLocation();
         yield validateEmployer();
+        yield validateExpireDate();
     }
 }
 
 export function hasValidationErrors(validation) {
     return validation.styrk !== undefined ||
-            validation.location !== undefined ||
-            validation.employer !== undefined;
+           validation.location !== undefined ||
+           validation.employer !== undefined ||
+           validation.expires !== undefined;
 }
 
 export function hasRejectionErrors(validation) {
@@ -149,6 +169,7 @@ export const validationSaga = function* saga() {
     yield takeLatest([FETCH_AD_SUCCESS, SAVE_AD_SUCCESS, FETCH_NEXT_AD_SUCCESS], validateAll);
     yield takeLatest([ADD_STYRK, REMOVE_STYRK], validateStyrk);
     yield takeLatest(SET_EMPLOYER, validateEmployer);
+    yield takeLatest(SET_EXPIRATION_DATE, validateExpireDate);
     yield takeLatest(SET_LOCATION_POSTAL_CODE, validateLocation);
     yield takeLatest([ADD_REMARK, REMOVE_REMARK, SET_COMMENT], validateRejection);
 };
