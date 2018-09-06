@@ -53,14 +53,14 @@ class Employer extends React.Component {
     );
 
     capitalize = (text) => {
-        const separators = [' ', '-', '('];
+        const separators = [' ', '-', '(', '/'];
 
         const ignore = [
             'i', 'og', 'for', 'på', 'avd', 'av'
         ];
 
         const keep = [
-            'as', 'ab', 'asa'
+            'as', 'ab', 'asa', 'ba', 'sa'
         ];
 
         if (text) {
