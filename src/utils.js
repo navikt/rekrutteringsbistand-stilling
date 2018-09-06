@@ -35,6 +35,8 @@ export function formatISOString(isoString, format = 'D. MMMM YYYY') {
                 return `${dayWithoutZero}. ${monthName} ${year} ${hours}:${mins}`;
             } else if (format === 'DD.MM.YY HH:MM') {
                 return `${day}.${month}.${year} ${hours}:${mins}`;
+            } else if (format === 'DD.MM.YY') {
+                return `${day}.${month}.${year}`;
             }
             return isoString;
         } catch (e) {

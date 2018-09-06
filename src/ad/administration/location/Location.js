@@ -103,7 +103,7 @@ class Location extends React.Component {
                     </div>
                 }
                 {this.props.validation.location && (
-                    <div className="PostalCode__error">{this.props.validation.location}</div>
+                    <div className="Administration__error">{this.props.validation.location}</div>
                 )}
             </div>
         );

@@ -112,7 +112,7 @@ class Employer extends React.Component {
                     <Undertekst>{this.capitalize(employer.name)}, {location.address}, {location.postalCode} {this.capitalize(location.city)}</Undertekst>
                 }
                 {this.props.validation.employer && (
-                    <div className="Employer__error">{this.props.validation.employer}</div>
+                    <div className="Administration__error">{this.props.validation.employer}</div>
                 )}
             </div>
         );
