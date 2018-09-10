@@ -30,7 +30,7 @@ export default class SearchResultItem extends React.Component {
                 </Column>
                 <Column md="3">
                     <Normaltekst className="SearchResultItem__column">
-                        {ad.employer && ad.employer.name ? ad.employer.name : ''}
+                        {ad.properties && ad.properties.employer ? ad.properties.employer : ''}
                     </Normaltekst>
                 </Column>
                 <Column md="1">

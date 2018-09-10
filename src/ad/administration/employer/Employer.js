@@ -10,6 +10,8 @@ import {
     registerShortcuts,
     removeShortcuts
 } from '../../../common/shortcuts/Shortcuts';
+import capitalizeEmployerName from './capitalizeEmployerName';
+import capitalizeLocation from '../location/capitalizeLocation';
 
 
 class Employer extends React.Component {
@@ -49,39 +51,7 @@ class Employer extends React.Component {
 
     lookUpEmployer = (value) => this.props.suggestions.find((employer) => (
         employer.name.toLowerCase() === value.toLowerCase() ||
-        employer.orgnr === value.replace(/\s/g, ''))
-    );
-
-    capitalize = (text) => {
-        const separators = [' ', '-', '(', '/'];
-
-        const ignore = [
-            'i', 'og', 'for', 'på', 'avd', 'av'
-        ];
-
-        const keep = [
-            'as', 'ab', 'asa', 'ba', 'sa'
-        ];
-
-        if (text) {
-            let capitalized = text.toLowerCase();
-
-            for (let i = 0, len = separators.length; i < len; i += 1) {
-                const fragments = capitalized.split(separators[i]);
-                for (let j = 0, x = fragments.length; j < x; j += 1) {
-                    if (keep.includes(fragments[j])) {
-                        fragments[j] = fragments[j].toUpperCase();
-                    } else if (!ignore.includes(fragments[j])) {
-                        fragments[j] = fragments[j][0].toUpperCase() + fragments[j].substr(1);
-                    }
-                }
-                capitalized = fragments.join(separators[i]);
-            }
-
-            return capitalized;
-        }
-        return text;
-    };
+        employer.orgnr === value.replace(/\s/g, '')));
 
     render() {
         const { employer } = this.props;
@@ -98,10 +68,10 @@ class Employer extends React.Component {
                         onChange={this.onTypeAheadValueChange}
                         suggestions={this.props.suggestions.map((suggestion) => ({
                             value: suggestion.orgnr,
-                            label: `${this.capitalize(suggestion.name)} (${suggestion.orgnr})`
+                            label: `${capitalizeEmployerName(suggestion.name)} (${suggestion.orgnr})`
                         }))}
                         value={this.props.employer && this.props.employer.name ?
-                            this.capitalize(this.props.employer.name) : this.props.typeAheadValue}
+                            capitalizeEmployerName(this.props.employer.name) : this.props.typeAheadValue}
                         ref={(instance) => {
                             this.inputRef = instance;
                         }}
@@ -109,7 +79,7 @@ class Employer extends React.Component {
                     />
                 </div>
                 {employer && location &&
-                    <Undertekst>{this.capitalize(employer.name)}, {location.address}, {location.postalCode} {this.capitalize(location.city)}</Undertekst>
+                    <Undertekst>{capitalizeEmployerName(employer.name)}, {location.address}, {location.postalCode} {capitalizeLocation(location.city)}</Undertekst>
                 }
                 {this.props.validation.employer && (
                     <div className="Administration__error">{this.props.validation.employer}</div>

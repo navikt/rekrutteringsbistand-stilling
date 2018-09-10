@@ -11,6 +11,7 @@ import {
     removeShortcuts
 } from '../../../common/shortcuts/Shortcuts';
 import './Location.less';
+import capitalizeLocation from './capitalizeLocation';
 
 class Location extends React.Component {
     componentDidMount() {
@@ -39,35 +40,6 @@ class Location extends React.Component {
         }
     };
 
-    capitalize = (text) => {
-        const separators = [
-            ' ', // NORDRE LAND skal bli Nordre Land
-            '-', // AUST-AGDER skal bli Aust-Agder
-            '(' // BØ (TELEMARK) skal bli Bø (Telemark)
-        ];
-
-        const ignore = [
-            'i', 'og' // MØRE OG ROMSDAL skal bli Møre og Romsdal
-        ];
-
-        if (text) {
-            let capitalized = text.toLowerCase();
-
-            for (let i = 0, len = separators.length; i < len; i += 1) {
-                const fragments = capitalized.split(separators[i]);
-                for (let j = 0, x = fragments.length; j < x; j += 1) {
-                    if (!ignore.includes(fragments[j])) {
-                        fragments[j] = fragments[j][0].toUpperCase() + fragments[j].substr(1);
-                    }
-                }
-                capitalized = fragments.join(separators[i]);
-            }
-
-            return capitalized;
-        }
-        return text;
-    };
-
     render() {
         return (
             <div className="Location">
@@ -81,7 +53,7 @@ class Location extends React.Component {
                         onChange={this.onTypeAheadValueChange}
                         suggestions={this.props.suggestions.map((location) => ({
                             value: location.postalCode,
-                            label: `${location.postalCode} ${this.capitalize(location.city)}`
+                            label: `${location.postalCode} ${capitalizeLocation(location.city)}`
                         }))}
                         value={this.props.location && this.props.location.postalCode ?
                             this.props.location.postalCode : ''}
@@ -95,9 +67,9 @@ class Location extends React.Component {
                     <div>
                         {this.props.location.city && this.props.location.municipal && this.props.location.county && (
                             <Undertekst>
-                                Sted: {this.capitalize(this.props.location.city)}{' | '}
-                                Kommune: {this.capitalize(this.props.location.municipal)}{' | '}
-                                Fylke: {this.capitalize(this.props.location.county)}
+                                Sted: {capitalizeLocation(this.props.location.city)}{' | '}
+                                Kommune: {capitalizeLocation(this.props.location.municipal)}{' | '}
+                                Fylke: {capitalizeLocation(this.props.location.county)}
                             </Undertekst>
                         )}
                     </div>
