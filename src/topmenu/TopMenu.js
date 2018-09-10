@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import './TopMenu.less';
 import ShortcutsInfo from '../common/shortcuts/ShortcutsInfo';
 import { registerShortcuts, removeShortcuts } from '../common/shortcuts/Shortcuts';
 import Reportee from '../reportee/Reportee';
+import { SET_SEARCH_VALUE } from '../searchPage/searchReducer';
 
 class TopMenu extends React.Component {
     constructor(props) {
@@ -38,6 +40,11 @@ class TopMenu extends React.Component {
         this.setState({ modalIsOpen: false });
     };
 
+    resetSearchValue = () => {
+        this.props.resetSearchValue();
+    };
+
+
     render() {
         return (
             <div className="TopMenu">
@@ -46,6 +53,7 @@ class TopMenu extends React.Component {
                         exact
                         to="/"
                         className="TopMenu__item TopMenu__title"
+                        onClick={this.resetSearchValue}
                     >
                         <Undertittel>NSS ADMIN</Undertittel>
                     </NavLink>
@@ -84,7 +92,14 @@ class TopMenu extends React.Component {
 }
 
 TopMenu.propTypes = {
-    history: PropTypes.shape().isRequired
+    history: PropTypes.shape().isRequired,
+    resetSearchValue: PropTypes.func.isRequired
 };
 
-export default withRouter(TopMenu);
+const mapStateToProps = () => ({});
+
+const mapDispatchToProps = (dispatch) => ({
+    resetSearchValue: () => dispatch({ type: SET_SEARCH_VALUE, value: '' })
+});
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TopMenu));
