@@ -15,6 +15,8 @@ export default function Administration() {
             <div className="Administration__flex">
                 <div className="Administration__flex__top">
                     <AdStatus />
+                </div>
+                <div className="Administration__flex__center">
                     <div className="Administration__header">
                         <Systemtittel className="blokk-xxs">Saksbehandling av annonsen</Systemtittel>
                         <Undertekst>*betyr at feltene må fylles ut</Undertekst>
