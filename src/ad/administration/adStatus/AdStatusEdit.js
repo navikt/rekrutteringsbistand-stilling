@@ -18,6 +18,7 @@ import RejectReasonModal from './RejectReasonModal';
 import LinkButton from '../../../common/linkbutton/LinkButton';
 import './AdStatusEdit.less';
 import HasChangesModal from './HasChangesModal';
+import AdminStatusEnum from '../adminStatus/AdminStatusEnum';
 
 class AdStatusEdit extends React.Component {
     componentDidMount() {
@@ -56,7 +57,9 @@ class AdStatusEdit extends React.Component {
     };
 
     render() {
-        const { adStatus, hasChanges, isSavingAd } = this.props;
+        const {
+            adStatus, hasChanges, isSavingAd, hasSavedChanges, adminStatus
+        } = this.props;
         return (
             <div className="AdStatusEdit">
                 <PublishErrorModal />
@@ -108,14 +111,19 @@ class AdStatusEdit extends React.Component {
                         </div>
                     )}
                     <div className="AdStatusEdit__links">
-                        {hasChanges && !isSavingAd && adStatus !== AdStatusEnum.ACTIVE && (
+                        {hasChanges && !isSavingAd && adStatus !== AdStatusEnum.ACTIVE && adminStatus === AdminStatusEnum.PENDING && (
                             <LinkButton onClick={this.onSaveAdClick}>
                                 Lagre og forsett senere
                             </LinkButton>
                         )}
-                        {isSavingAd && (
+                        {hasChanges && !isSavingAd && adStatus !== AdStatusEnum.ACTIVE && adminStatus !== AdminStatusEnum.PENDING && (
+                            <LinkButton onClick={this.onSaveAdClick}>
+                                Lagre endringer
+                            </LinkButton>
+                        )}
+                        {hasSavedChanges && adminStatus === AdminStatusEnum.PENDING && (
                             <Normaltekst tag="span">
-                                Lagrer...
+                                Annonsen er lagret i &quot;Under arbeid&quot;
                             </Normaltekst>
                         )}
                         <button className="AdStatusEdit__links__next-button" onClick={this.onNextClick}>
@@ -132,6 +140,8 @@ class AdStatusEdit extends React.Component {
 AdStatusEdit.propTypes = {
     isSavingAd: PropTypes.bool.isRequired,
     hasChanges: PropTypes.bool.isRequired,
+    hasSavedChanges: PropTypes.bool.isRequired,
+    adminStatus: PropTypes.string.isRequired,
     adStatus: PropTypes.string.isRequired,
     publish: PropTypes.func.isRequired,
     reject: PropTypes.func.isRequired,
@@ -141,9 +151,11 @@ AdStatusEdit.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
+    adminStatus: state.adData.administration.status,
     adStatus: state.adData.status,
     isSavingAd: state.ad.isSavingAd,
-    hasChanges: state.ad.hasChanges
+    hasChanges: state.ad.hasChanges,
+    hasSavedChanges: state.ad.hasSavedChanges
 });
 
 const mapDispatchToProps = (dispatch) => ({
