@@ -66,6 +66,7 @@ const initialState = {
         sort: 'created,asc'
     },
     hasChanges: false,
+    hasSavedChanges: false,
     showPublishErrorModal: false,
     showHasChangesModal: false,
     showRejectReasonModal: false,
@@ -79,6 +80,7 @@ export default function adReducer(state = initialState, action) {
             return {
                 ...state,
                 hasChanges: false,
+                hasSavedChanges: false,
                 isFetchingStilling: true,
                 error: undefined,
                 endOfList: false,
@@ -103,12 +105,14 @@ export default function adReducer(state = initialState, action) {
             return {
                 ...state,
                 isSavingAd: true,
+                hasSavedChanges: false,
                 hasChanges: false
             };
         case SAVE_AD_SUCCESS:
             return {
                 ...state,
                 isSavingAd: false,
+                hasSavedChanges: true,
                 isEditingAd: false,
                 originalData: { ...action.response }
             };
