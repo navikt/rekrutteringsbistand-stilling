@@ -349,6 +349,10 @@ function* assignToMe() {
 }
 
 function* saveAd(action) {
+    const state = yield select();
+    if (state.adData.administration.status === AdminStatusEnum.RECEIVED) {
+        yield put({ type: SET_ADMIN_STATUS, status: AdminStatusEnum.PENDING });
+    }
     yield save();
     if (action.loadNext) {
         yield getNextAd();
