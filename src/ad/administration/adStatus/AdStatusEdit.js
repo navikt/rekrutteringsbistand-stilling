@@ -121,7 +121,7 @@ class AdStatusEdit extends React.Component {
                                 Lagre endringer
                             </LinkButton>
                         )}
-                        {hasSavedChanges && adminStatus === AdminStatusEnum.PENDING && (
+                        {!hasChanges && hasSavedChanges && adminStatus === AdminStatusEnum.PENDING && (
                             <Normaltekst tag="span">
                                 Annonsen er lagret i &quot;Under arbeid&quot;
                             </Normaltekst>
