@@ -7,6 +7,7 @@ import { formatISOString } from '../../utils';
 import AdStatusEnum from '../enums/AdStatusEnum';
 import AdminStatusEnum from '../enums/AdminStatusEnum';
 import './SearchResult.less';
+import capitalizeEmployerName from '../../ad/administration/employer/capitalizeEmployerName';
 
 export default class SearchResultItem extends React.Component {
     render() {
@@ -30,7 +31,7 @@ export default class SearchResultItem extends React.Component {
                 </Column>
                 <Column md="3">
                     <Normaltekst className="SearchResultItem__column">
-                        {ad.properties && ad.properties.employer ? ad.properties.employer : ''}
+                        {ad.employer && ad.employer.name ? capitalizeEmployerName(ad.employer.name) : ''}
                     </Normaltekst>
                 </Column>
                 <Column md="1">
