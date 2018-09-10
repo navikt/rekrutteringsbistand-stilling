@@ -111,16 +111,24 @@ class AdStatusEdit extends React.Component {
                         </div>
                     )}
                     <div className="AdStatusEdit__links">
-                        {hasChanges && !isSavingAd && adStatus !== AdStatusEnum.ACTIVE && adminStatus === AdminStatusEnum.PENDING && (
-                            <LinkButton onClick={this.onSaveAdClick}>
-                                Lagre og forsett senere
-                            </LinkButton>
-                        )}
-                        {hasChanges && !isSavingAd && adStatus !== AdStatusEnum.ACTIVE && adminStatus !== AdminStatusEnum.PENDING && (
-                            <LinkButton onClick={this.onSaveAdClick}>
-                                Lagre endringer
-                            </LinkButton>
-                        )}
+                        {hasChanges &&
+                            !isSavingAd &&
+                            adStatus !== AdStatusEnum.ACTIVE &&
+                            adminStatus !== AdminStatusEnum.DONE && (
+                                <LinkButton onClick={this.onSaveAdClick}>
+                                    Lagre og forsett senere
+                                </LinkButton>
+                            )
+                        }
+                        {hasChanges &&
+                            !isSavingAd &&
+                            adStatus !== AdStatusEnum.ACTIVE &&
+                            adminStatus === AdminStatusEnum.DONE && (
+                                <LinkButton onClick={this.onSaveAdClick}>
+                                    Lagre endringer
+                                </LinkButton>
+                            )
+                        }
                         {!hasChanges && hasSavedChanges && adminStatus === AdminStatusEnum.PENDING && (
                             <Normaltekst tag="span">
                                 Annonsen er lagret i &quot;Under arbeid&quot;
