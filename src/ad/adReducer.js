@@ -41,6 +41,7 @@ export const FETCH_NEXT_AD_FAILURE = 'FETCH_NEXT_AD_FAILURE';
 export const SET_END_OF_LIST = 'SET_END_OF_LIST';
 
 export const PUBLISH_AD = 'PUBLISH_AD';
+export const PUBLISH_AD_CHANGES = 'PUBLISH_AD_CHANGES';
 export const SHOW_PUBLISH_ERROR_MODAL = 'SHOW_PUBLISH_ERROR_MODAL';
 export const HIDE_PUBLISH_ERROR_MODAL = 'HIDE_PUBLISH_ERROR_MODAL';
 
@@ -359,6 +360,20 @@ function* saveAd(action) {
     }
 }
 
+function* publishAdChanges(action) {
+    const state = yield select();
+    if (hasValidationErrors(state.adValidation.errors)) {
+        yield put({ type: SHOW_PUBLISH_ERROR_MODAL });
+    } else {
+        yield put({ type: SET_ADMIN_STATUS, status: AdminStatusEnum.DONE });
+        yield put({ type: SET_AD_STATUS, status: AdStatusEnum.ACTIVE });
+        yield save();
+        if (action.loadNext) {
+            yield getNextAd();
+        }
+    }
+}
+
 export const adSaga = function* saga() {
     yield takeLatest(PUBLISH_AD, publishAd);
     yield takeLatest(REJECT_AD, rejectAd);
@@ -369,4 +384,5 @@ export const adSaga = function* saga() {
     yield takeLatest(SET_TO_RECEIVED, setToReceived);
     yield takeLatest(ASSIGN_TO_ME, assignToMe);
     yield takeLatest(SET_ADMIN_STATUS_AND_GET_NEXT_AD, setAdminStatusAndGetNextAd);
+    yield takeLatest(PUBLISH_AD_CHANGES, publishAdChanges);
 };

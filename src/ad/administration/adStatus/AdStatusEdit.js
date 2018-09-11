@@ -11,7 +11,7 @@ import {
     STOP_AD,
     SAVE_AD,
     SHOW_REJECT_REASON_MODAL,
-    FETCH_NEXT_AD
+    FETCH_NEXT_AD, PUBLISH_AD_CHANGES
 } from '../../adReducer';
 import PublishErrorModal from './PublishErrorModal';
 import RejectReasonModal from './RejectReasonModal';
@@ -38,6 +38,10 @@ class AdStatusEdit extends React.Component {
 
     onPublishClick = () => {
         this.props.publish();
+    };
+
+    onPublishAdChangesClick = () => {
+        this.props.publishAdChanges();
     };
 
     onRejectClick = () => {
@@ -85,7 +89,7 @@ class AdStatusEdit extends React.Component {
                     )}
                     {hasChanges && adStatus === AdStatusEnum.ACTIVE && (
                         <div className="AdStatusEdit__buttons">
-                            <Hovedknapp className="AdStatusEdit__buttons__button" onClick={this.onSaveAdClick}>
+                            <Hovedknapp className="AdStatusEdit__buttons__button" onClick={this.onPublishAdChangesClick}>
                                 Publisér endringer
                             </Hovedknapp>
                             <Knapp className="AdStatusEdit__buttons__button" onClick={this.onStopClick}>
@@ -115,19 +119,19 @@ class AdStatusEdit extends React.Component {
                             !isSavingAd &&
                             adStatus !== AdStatusEnum.ACTIVE &&
                             adminStatus !== AdminStatusEnum.DONE && (
-                                <LinkButton onClick={this.onSaveAdClick}>
+                            <LinkButton onClick={this.onSaveAdClick}>
                                     Lagre og forsett senere
-                                </LinkButton>
-                            )
+                            </LinkButton>
+                        )
                         }
                         {hasChanges &&
                             !isSavingAd &&
                             adStatus !== AdStatusEnum.ACTIVE &&
                             adminStatus === AdminStatusEnum.DONE && (
-                                <LinkButton onClick={this.onSaveAdClick}>
+                            <LinkButton onClick={this.onSaveAdClick}>
                                     Lagre endringer
-                                </LinkButton>
-                            )
+                            </LinkButton>
+                        )
                         }
                         {!hasChanges && hasSavedChanges && adminStatus === AdminStatusEnum.PENDING && (
                             <Normaltekst tag="span">
@@ -155,7 +159,8 @@ AdStatusEdit.propTypes = {
     reject: PropTypes.func.isRequired,
     stop: PropTypes.func.isRequired,
     saveAd: PropTypes.func.isRequired,
-    getNextAd: PropTypes.func.isRequired
+    getNextAd: PropTypes.func.isRequired,
+    publishAdChanges: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -171,7 +176,8 @@ const mapDispatchToProps = (dispatch) => ({
     reject: () => dispatch({ type: SHOW_REJECT_REASON_MODAL }),
     stop: () => dispatch({ type: STOP_AD }),
     saveAd: () => dispatch({ type: SAVE_AD }),
-    getNextAd: () => dispatch({ type: FETCH_NEXT_AD })
+    getNextAd: () => dispatch({ type: FETCH_NEXT_AD }),
+    publishAdChanges: () => dispatch({ type: PUBLISH_AD_CHANGES })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdStatusEdit);
