@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import StyrkThreeItem from './StyrkThreeItem';
 import { COLLAPSE_STYRK_BRANCH, EXPAND_STYRK_BRANCH, TOGGLE_STYRK_MODAL } from './styrkReducer';
-import { ADD_STYRK } from '../../adDataReducer';
+import { SET_STYRK } from '../../adDataReducer';
 import './StyrkThree.less';
 
 class StyrkThree extends React.Component {
@@ -15,7 +15,7 @@ class StyrkThree extends React.Component {
                 this.props.expandBranch(item.code);
             }
         } else {
-            this.props.addStyrk(item.code);
+            this.props.setStyrk(item.code);
             this.props.toggleList();
         }
     };
@@ -39,7 +39,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     expandBranch: (code) => dispatch({ type: EXPAND_STYRK_BRANCH, code }),
     collapseBranch: (code) => dispatch({ type: COLLAPSE_STYRK_BRANCH, code }),
-    addStyrk: (code) => dispatch({ type: ADD_STYRK, code }),
+    setStyrk: (code) => dispatch({ type: SET_STYRK, code }),
     toggleList: () => dispatch({ type: TOGGLE_STYRK_MODAL })
 });
 

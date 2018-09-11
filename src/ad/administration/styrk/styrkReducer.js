@@ -1,6 +1,7 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import { ApiError, fetchGet } from '../../../api/api';
 import { AD_API } from '../../../fasitProperties';
+import { SET_STYRK } from '../../adDataReducer';
 
 export const SET_STYRK_TYPEAHEAD_VALUE = 'SET_STYRK_TYPEAHEAD_VALUE';
 export const FETCH_STYRK = 'FETCH_STYRK';
@@ -66,7 +67,7 @@ export function lookUpStyrk(code, categories = cachedFlatStyrk) {
 
 const initialState = {
     typeAheadSuggestions: [],
-    typeAheadValue: '',
+    typeAheadValue: undefined,
     addedStyrkItems: [],
     styrkThree: [],
     showStyrkModal: false
@@ -74,6 +75,12 @@ const initialState = {
 
 export default function styrkReducer(state = initialState, action) {
     switch (action.type) {
+        case SET_STYRK:
+            return {
+                ...state,
+                typeAheadSuggestions: [],
+                typeAheadValue: undefined
+            };
         case SET_STYRK_TYPEAHEAD_VALUE:
             return {
                 ...state,

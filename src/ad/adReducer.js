@@ -8,8 +8,7 @@ import {
     SET_ADMIN_STATUS,
     SET_ADMIN_STATUS_AND_GET_NEXT_AD,
     SET_EMPLOYER,
-    ADD_STYRK,
-    REMOVE_STYRK,
+    SET_STYRK,
     SET_AD_STATUS,
     SET_LOCATION_POSTAL_CODE, SET_PUBLISHED, SET_EXPIRATION_DATE
 } from './adDataReducer';
@@ -182,8 +181,7 @@ export default function adReducer(state = initialState, action) {
             };
         case SET_EMPLOYER:
         case SET_LOCATION_POSTAL_CODE:
-        case ADD_STYRK:
-        case REMOVE_STYRK:
+        case SET_STYRK:
         case SET_PUBLISHED:
         case SET_EXPIRATION_DATE:
             return {

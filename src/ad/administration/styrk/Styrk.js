@@ -4,10 +4,9 @@ import { connect } from 'react-redux';
 import Modal from 'nav-frontend-modal';
 import { Undertittel } from 'nav-frontend-typografi';
 import Typeahead from '../../../common/typeahead/Typeahead';
-import Tag from '../../../common/tag/Tag';
 import StyrkThree from './StyrkThree';
 import { FETCH_STYRK, SET_STYRK_TYPEAHEAD_VALUE, TOGGLE_STYRK_MODAL } from './styrkReducer';
-import { ADD_STYRK, REMOVE_STYRK } from '../../adDataReducer';
+import { SET_STYRK } from '../../adDataReducer';
 import './Styrk.less';
 import {
     registerShortcuts,
@@ -36,13 +35,8 @@ class Styrk extends React.Component {
 
     onTypeAheadSuggestionSelected = (suggestion) => {
         if (suggestion) {
-            this.props.setTypeAheadValue('');
-            this.props.addStyrk(suggestion.value);
+            this.props.setStyrk(suggestion.value);
         }
-    };
-
-    onTagRemove = (styrkCode) => {
-        this.props.removeStyrk(styrkCode);
     };
 
     onShowListClick = () => {
@@ -50,6 +44,15 @@ class Styrk extends React.Component {
     };
 
     render() {
+        let value;
+        if (this.props.typeAheadValue !== undefined) {
+            value = this.props.typeAheadValue;
+        } else if (this.props.stilling && this.props.stilling.categoryList && this.props.stilling.categoryList[0]) {
+            value = `${this.props.stilling.categoryList[0].code} ${this.props.stilling.categoryList[0].name}`;
+        } else {
+            value = '';
+        }
+
         return (
             <div className="Styrk">
                 <div className="skjemaelement__label">
@@ -66,27 +69,13 @@ class Styrk extends React.Component {
                     onSelect={this.onTypeAheadSuggestionSelected}
                     onChange={this.onTypeAheadValueChange}
                     suggestions={this.props.typeAheadSuggestions.slice(0, 10)}
-                    value={this.props.typeAheadValue}
+                    value={value}
                     ref={(instance) => { this.inputRef = instance; }}
                     error={this.props.validation.styrk !== undefined}
                 />
 
                 {this.props.validation.styrk && (
                     <div className="Administration__error">{this.props.validation.styrk}</div>
-                )}
-
-                {this.props.stilling.categoryList.length > 0 && (
-                    <div className="Styrk__tags">
-                        {this.props.stilling.categoryList.map((styrk) => (
-                            <Tag
-                                key={styrk.code}
-                                value={styrk.code}
-                                label={`${styrk.code}: ${styrk.name}`}
-                                canRemove
-                                onRemove={this.onTagRemove}
-                            />
-                        ))}
-                    </div>
                 )}
 
                 <Modal
@@ -108,20 +97,21 @@ class Styrk extends React.Component {
     }
 }
 
+Styrk.defaultProps = {
+    typeAheadValue: undefined
+};
+
 Styrk.propTypes = {
     fetchStyrk: PropTypes.func.isRequired,
-    status: PropTypes.string.isRequired,
     setTypeAheadValue: PropTypes.func.isRequired,
-    typeAheadValue: PropTypes.string.isRequired,
+    typeAheadValue: PropTypes.string,
     typeAheadSuggestions: PropTypes.arrayOf(PropTypes.shape({
         code: PropTypes.string,
         name: PropTypes.string
     })).isRequired,
-    addStyrk: PropTypes.func.isRequired,
-    removeStyrk: PropTypes.func.isRequired,
+    setStyrk: PropTypes.func.isRequired,
     showStyrkModal: PropTypes.bool.isRequired,
-    toggleList: PropTypes.func.isRequired,
-    isSavingAd: PropTypes.bool.isRequired
+    toggleList: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -131,16 +121,13 @@ const mapStateToProps = (state) => ({
     styrkThree: state.styrk.styrkThree,
     showStyrkModal: state.styrk.showStyrkModal,
     stilling: state.adData,
-    status: state.adData.administration.status,
-    isSavingAd: state.ad.isSavingAd,
     validation: state.adValidation.errors
 });
 
 const mapDispatchToProps = (dispatch) => ({
     fetchStyrk: () => dispatch({ type: FETCH_STYRK }),
     setTypeAheadValue: (value) => dispatch({ type: SET_STYRK_TYPEAHEAD_VALUE, value }),
-    addStyrk: (code) => dispatch({ type: ADD_STYRK, code }),
-    removeStyrk: (code) => dispatch({ type: REMOVE_STYRK, code }),
+    setStyrk: (code) => dispatch({ type: SET_STYRK, code }),
     toggleList: () => dispatch({ type: TOGGLE_STYRK_MODAL })
 });
 

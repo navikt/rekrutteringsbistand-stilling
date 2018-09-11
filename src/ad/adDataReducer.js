@@ -7,8 +7,7 @@ export const SET_AD_DATA = 'SET_AD_DATA';
 export const REMOVE_AD_DATA = 'REMOVE_AD_DATA';
 
 export const SET_COMMENT = 'SET_COMMENT';
-export const ADD_STYRK = 'ADD_STYRK';
-export const REMOVE_STYRK = 'REMOVE_STYRK';
+export const SET_STYRK = 'SET_STYRK';
 export const SET_LOCATION_POSTAL_CODE = 'SET_LOCATION_POSTAL_CODE';
 export const SET_LOCATION = 'SET_LOCATION';
 export const SET_LOCATION_ADDRESS = 'SET_LOCATION_ADDRESS';
@@ -67,18 +66,10 @@ export default function adDataReducer(state = initialState, action) {
                 }
             };
         }
-        case ADD_STYRK:
-            if (state.categoryList.find((s) => (s.code === action.code))) {
-                return state;
-            }
+        case SET_STYRK:
             return {
                 ...state,
-                categoryList: [...state.categoryList, lookUpStyrk(action.code)]
-            };
-        case REMOVE_STYRK:
-            return {
-                ...state,
-                categoryList: state.categoryList.filter((c) => (c.code !== action.code))
+                categoryList: [lookUpStyrk(action.code)]
             };
         case SET_AD_TITLE: {
             return {
