@@ -53,28 +53,31 @@ class Publishing extends React.Component {
         const { published, expires } = this.props;
         return (
             <div className="Publishing typo-normal">
-                <div className="blokk-s">
+                <div className="Publishing__datepicker">
                     <Normaltekst className="Publishing__label">Publiseringsdato</Normaltekst>
                     <Datovelger
                         id="published"
                         dato={formatISOString(published, 'DD.MM.YY') || ''}
                         onChange={this.onPublishedChange}
                         ref={(instance) => { this.refPublished = instance; }}
+                        avgrensninger={{ minDato: new Date(Date.now()) }}
                         inputProps={{ placeholder: 'dd.mm.åååå' }}
                     />
                 </div>
-                <Normaltekst className="Publishing__label">Utløpsdato*</Normaltekst>
-                <Datovelger
-                    id="expires"
-                    dato={formatISOString(expires, 'DD.MM.YY') || ''}
-                    onChange={this.onExpiresChange}
-                    ref={(instance) => { this.refExpires = instance; }}
-                    avgrensninger={{ minDato: new Date(Date.now()) }}
-                    inputProps={{ placeholder: 'dd.mm.åååå' }}
-                />
-                {this.props.validation.expires && (
-                    <div className="Administration__error">{this.props.validation.expires}</div>
-                )}
+                <div className="Publishing__datepicker Publishing__datepicker-expires">
+                    <Normaltekst className="Publishing__label">Utløpsdato*</Normaltekst>
+                    <Datovelger
+                        id="expires"
+                        dato={formatISOString(expires, 'DD.MM.YY') || ''}
+                        onChange={this.onExpiresChange}
+                        ref={(instance) => { this.refExpires = instance; }}
+                        avgrensninger={{ minDato: new Date(Date.now()) }}
+                        inputProps={{ placeholder: 'dd.mm.åååå' }}
+                    />
+                    {this.props.validation.expires && (
+                        <div className="Administration__error">{this.props.validation.expires}</div>
+                    )}
+                </div>
             </div>
         );
     }
