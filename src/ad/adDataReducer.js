@@ -350,9 +350,9 @@ function* lookUpLocation(action) {
             type: SET_LOCATION,
             location: {
                 city: location.city,
-                county: location.county,
-                municipal: location.municipality,
-                municipalCode: location.municipalityCode,
+                county: location.county.name,
+                municipal: location.municipality.name,
+                municipalCode: location.municipality.code,
                 postalCode: location.postalCode
             }
         });
