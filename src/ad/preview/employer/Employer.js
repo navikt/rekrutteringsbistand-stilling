@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactHtmlParser from 'react-html-parser';
 import { Undertittel } from 'nav-frontend-typografi';
-import markWords from '../markWords';
 import './Employer.less';
 
 export default function Employer({ properties }) {
@@ -38,7 +37,7 @@ export default function Employer({ properties }) {
             <div>
                 {properties.employerdescription && (
                     <div className="EmployerDetails__description">
-                        { ReactHtmlParser(markWords(properties.employerdescription)) }
+                        { ReactHtmlParser(properties.employerdescription) }
                     </div>
                 )}
             </div>
