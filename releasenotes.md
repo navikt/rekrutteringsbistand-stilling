@@ -1,3 +1,6 @@
+## RELEASE - 0.2.194-bf802d1
+#### New in this release: 
++ 2018-09-11 [PAM-1386] Det skal kun være mulig å legge inn en styrkkode per annonse
 ## RELEASE - 0.1.191-f3265be
 #### New in this release: 
 + 2018-09-10 [PAM-1374] Fjerner linjen med saksbehandlingsstatus
