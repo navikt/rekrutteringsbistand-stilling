@@ -10,7 +10,7 @@ import {
     SET_EMPLOYER,
     SET_STYRK,
     SET_AD_STATUS,
-    SET_LOCATION_POSTAL_CODE, SET_PUBLISHED, SET_EXPIRATION_DATE
+    SET_LOCATION_POSTAL_CODE, SET_PUBLISHED, SET_EXPIRATION_DATE, SET_UPDATED_BY
 } from './adDataReducer';
 import { getReportee } from '../reportee/reporteeReducer';
 
@@ -276,6 +276,8 @@ function* save(autoAssign = true) {
     let state = yield select();
     yield put({ type: SAVE_AD_BEGIN });
     try {
+        yield put({ type: SET_UPDATED_BY });
+
         if (autoAssign) {
             const reportee = yield getReportee();
             yield put({ type: SET_REPORTEE, reportee: reportee.displayName });
