@@ -242,7 +242,8 @@ function* getNextAd() {
                             ...ad.administration,
                             status: AdminStatusEnum.PENDING,
                             reportee: reportee.displayName
-                        }
+                        },
+                        updatedBy: 'nss-admin'
                     });
                     shouldRetry = false;
                     yield put({
