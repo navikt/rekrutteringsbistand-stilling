@@ -68,50 +68,52 @@ class Duplicates extends React.Component {
                                 </div>
                             )}
                         </div>
-                        <div className={this.props.showComparePanel ? 'Duplicates__compare-header Duplicates__compare-header--expanded' : 'Duplicates__compare-header'}>
-                            <EtikettLiten className="Duplicates__compare-header__column">
+                        <div className={this.props.showComparePanel ? 'Duplicates__compare-wrapper Duplicates__compare-wrapper--expanded' : 'Duplicates__compare-wrapper'}>
+                            <div className="Duplicates__compare-header">
+                                <EtikettLiten className="Duplicates__compare-header__column">
                                 Stillingsannonse under arbeid
-                            </EtikettLiten>
-                            <EtikettLiten className="Duplicates__compare-header__column">Mulig duplikat</EtikettLiten>
-                            <button className="Duplicates__compare-header__collapse-button" aria-label="Lukk panel" onClick={this.onCollapseClick}>
-                                <Chevron type="ned" onClick={this.onCollapseClick} /> Skjul
-                            </button>
-                        </div>
-                        <div className={this.props.showComparePanel ? 'Duplicates__compare Duplicates__compare--expanded' : 'Duplicates__compare'}>
-                            <div className="Duplicates__compare__flex">
-                                <div className="Duplicates__compare__current">
-                                    {this.props.current && (
-                                        <div>
-                                            <DuplicateAdStatus
-                                                adStatus={this.props.current.status}
-                                                remarks={this.props.current.administration.remarks}
-                                                comments={this.props.current.administration.comments}
-                                            />
-                                            <Undertekst>
+                                </EtikettLiten>
+                                <EtikettLiten className="Duplicates__compare-header__column">Mulig duplikat</EtikettLiten>
+                                <button className="Duplicates__compare-header__collapse-button" aria-label="Lukk panel" onClick={this.onCollapseClick}>
+                                    <Chevron type="ned" onClick={this.onCollapseClick} /> Skjul
+                                </button>
+                            </div>
+                            <div className="Duplicates__compare">
+                                <div className="Duplicates__compare__flex">
+                                    <div className="Duplicates__compare__current">
+                                        {this.props.current && (
+                                            <div>
+                                                <DuplicateAdStatus
+                                                    adStatus={this.props.current.status}
+                                                    remarks={this.props.current.administration.remarks}
+                                                    comments={this.props.current.administration.comments}
+                                                />
+                                                <Undertekst>
                                                 Mottatt: {formatISOString(this.props.current.created, 'DD.MM.YY HH:MM')}
-                                            </Undertekst>
-                                            <Preview ad={this.props.current} />
-                                        </div>
-                                    )}
-                                </div>
-                                <div className="Duplicates__compare__other">
-                                    {!this.props.isLoadingOther && this.props.other ? (
-                                        <div>
-                                            <DuplicateAdStatus
-                                                adStatus={this.props.other.status}
-                                                remarks={this.props.other.administration.remarks}
-                                                comments={this.props.other.administration.comments}
-                                            />
-                                            <Undertekst>
+                                                </Undertekst>
+                                                <Preview ad={this.props.current} />
+                                            </div>
+                                        )}
+                                    </div>
+                                    <div className="Duplicates__compare__other">
+                                        {!this.props.isLoadingOther && this.props.other ? (
+                                            <div>
+                                                <DuplicateAdStatus
+                                                    adStatus={this.props.other.status}
+                                                    remarks={this.props.other.administration.remarks}
+                                                    comments={this.props.other.administration.comments}
+                                                />
+                                                <Undertekst>
                                                 Mottatt: {formatISOString(this.props.other.created, 'DD.MM.YY HH:MM')}
-                                            </Undertekst>
-                                            <Preview ad={this.props.other} />
-                                        </div>
-                                    ) : (
-                                        <div className="Duplicates__compare__other__spinner">
-                                            <DelayedSpinner />
-                                        </div>
-                                    )}
+                                                </Undertekst>
+                                                <Preview ad={this.props.other} />
+                                            </div>
+                                        ) : (
+                                            <div className="Duplicates__compare__other__spinner">
+                                                <DelayedSpinner />
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
                         </div>

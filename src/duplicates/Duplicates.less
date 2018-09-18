@@ -43,11 +43,7 @@
   background: #EBF3FB;
   justify-content: space-around;
   padding: 1.25rem 2rem;
-  display: none;
   position: relative;
-}
-
-.Duplicates__compare-header--expanded {
   display: flex;
 }
 
@@ -79,21 +75,28 @@
   }
 }
 
-.Duplicates__compare {
-  flex: 0;
-  overflow-y: scroll;
-  overflow-x: hidden;
+.Duplicates__compare-wrapper {
+  flex: 3;
+  display: none;
+  flex-direction: column;
+  padding-bottom: 2rem;
   background: #EBF3FB;
 }
 
-.Duplicates__compare--expanded {
-  flex: 3;
+.Duplicates__compare-wrapper--expanded {
+  display: flex;
+}
+
+.Duplicates__compare {
+  flex: 1;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .Duplicates__compare__flex {
   display: flex;
   justify-content: space-evenly;
-  padding: 0 2rem 2rem;
+  padding: 0 2rem;
 }
 
 .Duplicates__compare__current,
