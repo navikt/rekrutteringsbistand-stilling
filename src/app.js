@@ -8,8 +8,10 @@ import employerReducer, { employerSaga } from './ad/administration/employer/empl
 import locationCodeReducer, { locationSaga } from './ad/administration/location/locationCodeReducer';
 import styrkReducer, { styrkSaga } from './ad/administration/styrk/styrkReducer';
 import adReducer, { adSaga } from './ad/adReducer';
+import Duplicates from './duplicates/Duplicates';
 import searchReducer, { searchSaga } from './searchPage/searchReducer';
 import statisticsReducer, { statisticsSaga } from './statistics/statisticsReducer';
+import duplicatesReducer, { duplicatesSaga } from './duplicates/duplicatesReducer';
 import Ad from './ad/Ad';
 import TopMenu from './topmenu/TopMenu';
 import { initShortcuts } from './common/shortcuts/Shortcuts';
@@ -33,7 +35,8 @@ const store = createStore(combineReducers({
     styrk: styrkReducer,
     reportee: reporteeReducer,
     search: searchReducer,
-    statistics: statisticsReducer
+    statistics: statisticsReducer,
+    duplicates: duplicatesReducer
 }), applyMiddleware(sagaMiddleware));
 
 sagaMiddleware.run(reporteeSaga);
@@ -45,6 +48,7 @@ sagaMiddleware.run(styrkSaga);
 sagaMiddleware.run(searchSaga);
 sagaMiddleware.run(adDataSaga);
 sagaMiddleware.run(statisticsSaga);
+sagaMiddleware.run(duplicatesSaga);
 
 initShortcuts();
 

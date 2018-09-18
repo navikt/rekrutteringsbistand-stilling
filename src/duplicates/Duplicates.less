@@ -1,0 +1,163 @@
+@import "../variables";
+@import "../../node_modules/nav-frontend-typografi-style/src/index";
+
+.DuplicatesModal {
+  height: 95vh;
+  z-index: 9999;
+  padding: 0;
+  width: 100%;
+}
+
+.DuplicatesModal .lukknapp  {
+  z-index: 9000;
+}
+
+.DuplicatesModalContent,
+.Duplicates {
+  height: 100%;
+}
+
+.Duplicates__flex {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.Duplicates__search-results {
+  flex: 1;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  background: @navLysGra;
+}
+
+.Duplicates__search-results__not-found {
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 2rem;
+}
+
+.Duplicates__compare-header {
+  border-top: #d9e8f7 0.25rem solid;
+  background: #EBF3FB;
+  justify-content: space-around;
+  padding: 1.25rem 2rem;
+  display: none;
+  position: relative;
+}
+
+.Duplicates__compare-header--expanded {
+  display: flex;
+}
+
+.Duplicates__compare-header__column {
+  flex: 1;
+}
+
+.Duplicates__compare-header__collapse-button {
+  margin: 0;
+  border: 0;
+  background: none;
+  padding: 0.5rem;
+  position: absolute;
+  right: 2.75rem;
+  top: 0.75rem;
+  .typo-normal();
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px @orangeFocus;
+  }
+
+  &:hover {
+    color: @navDypBla;
+  }
+
+  &:active {
+    color: @navDypBlaDarken40;
+  }
+}
+
+.Duplicates__compare {
+  flex: 0;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  background: #EBF3FB;
+}
+
+.Duplicates__compare--expanded {
+  flex: 3;
+}
+
+.Duplicates__compare__flex {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 0 2rem 2rem;
+}
+
+.Duplicates__compare__current,
+.Duplicates__compare__other {
+  flex: 1;
+  background: #E9E7E7;
+  padding: 2rem 1.25rem;
+  border: @navGra20 1px solid;
+  height: 100%;
+}
+
+.Duplicates__compare__current {
+  margin-right: 1.25rem;
+}
+
+.Duplicates__compare__other__spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5rem 0;
+}
+
+.DuplicateAdStatus {
+  float: right;
+}
+
+.Duplicates__compare__current .AdText,
+.Duplicates__compare__other .AdText {
+}
+
+.Duplicates__compare__current .AdText__body,
+.Duplicates__compare__other .AdText__body {
+  margin: 0;
+}
+
+.DuplicateRowHeaders {
+  border-bottom: @navGra80 1px solid;
+  padding: 0.5rem 2rem;
+  background: #fff;
+}
+
+.DuplicateRow {
+  display: block;
+  border-bottom: #d1d1d1 1px solid;
+  padding: 0.5rem 2rem;
+  background: #fff;
+  color: @navMorkGra!important;
+
+  &:hover {
+    background: @navBlaLighten80;
+  }
+
+  &:focus {
+    box-shadow: inset 0 0 0 3px @orangeFocus;
+    outline: none;
+  }
+
+  &:active {
+    background: @navBlaLighten60;
+  }
+}
+
+.DuplicateRow__ellipsis {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
