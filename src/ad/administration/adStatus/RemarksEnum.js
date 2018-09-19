@@ -6,7 +6,7 @@ const RemarksEnum = {
     REJECT_BECAUSE_CAPACITY: { value: 'REJECT_BECAUSE_CAPACITY', label: 'Avvist pga kapasitet' },
     FOREIGN_JOB: { value: 'FOREIGN_JOB', label: 'Utenlandsk stilling' },
     COLLECTION_JOB: { value: 'COLLECTION_JOB', label: 'Samleannonse' },
-    UNKNOWN: { value: 'UNKNOWN', label: 'Annet' }
+    UNKNOWN: { value: 'UNKNOWN', label: 'Annet (skriv kommentar)' }
 };
 
 export default RemarksEnum;
