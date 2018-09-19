@@ -69,7 +69,8 @@ const employerNameCompletionQueryTemplate = (match) => ({
                slop: 5
            }
        }
-   }
+   },
+    size: 50
 });
 
 export async function fetchEmployerNameCompletionHits(match) {
