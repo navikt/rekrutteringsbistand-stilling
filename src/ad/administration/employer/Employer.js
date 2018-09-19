@@ -49,6 +49,24 @@ class Employer extends React.Component {
         }
     };
 
+    getEmployerSuggestionLabel = (suggestion) => {
+        let label = `${capitalizeEmployerName(suggestion.name)}`;
+        if (suggestion.location) {
+            if (suggestion.location.address) {
+                label += `, ${suggestion.location.address}`;
+            }
+            if (suggestion.location.postalCode) {
+                label += `, ${suggestion.location.postalCode}`;
+            }
+            if (suggestion.location.city) {
+                label += ` ${capitalizeLocation(suggestion.location.city)}`;
+            }
+        }
+        label += ` (${suggestion.orgnr})`;
+
+        return label;
+    };
+
     lookUpEmployer = (value) => this.props.suggestions.find((employer) => (
         employer.name.toLowerCase() === value.toLowerCase() ||
         employer.orgnr === value.replace(/\s/g, '')));
@@ -68,7 +86,7 @@ class Employer extends React.Component {
                         onChange={this.onTypeAheadValueChange}
                         suggestions={this.props.suggestions.map((suggestion) => ({
                             value: suggestion.orgnr,
-                            label: `${capitalizeEmployerName(suggestion.name)} (${suggestion.orgnr})`
+                            label: `${this.getEmployerSuggestionLabel(suggestion)}`
                         }))}
                         value={this.props.employer && this.props.employer.name ?
                             capitalizeEmployerName(this.props.employer.name) : this.props.typeAheadValue}
