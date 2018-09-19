@@ -1,3 +1,6 @@
+## RELEASE - 0.4.200-f2910a2
+#### New in this release: 
++ 2018-09-19 [PAM-1432]: fikset typo
 ## RELEASE - 0.2.194-bf802d1
 #### New in this release: 
 + 2018-09-11 [PAM-1386] Det skal kun være mulig å legge inn en styrkkode per annonse
