@@ -65,10 +65,11 @@ class Styrk extends React.Component {
                 <Typeahead
                     id="Styrk__typeahead"
                     label=""
+                    className="Styrk__typeahead"
                     placeholder="Styrkkategori / kode"
                     onSelect={this.onTypeAheadSuggestionSelected}
                     onChange={this.onTypeAheadValueChange}
-                    suggestions={this.props.typeAheadSuggestions.slice(0, 10)}
+                    suggestions={this.props.typeAheadSuggestions}
                     value={value}
                     ref={(instance) => { this.inputRef = instance; }}
                     error={this.props.validation.styrk !== undefined}
