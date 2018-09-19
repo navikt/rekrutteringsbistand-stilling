@@ -49,7 +49,7 @@ class Employer extends React.Component {
         }
     };
 
-    getEmployerSuggestoionLabel = (suggestion) => {
+    getEmployerSuggestionLabel = (suggestion) => {
         let label = `${capitalizeEmployerName(suggestion.name)}`;
         if (suggestion.location) {
             if (suggestion.location.address) {
@@ -86,7 +86,7 @@ class Employer extends React.Component {
                         onChange={this.onTypeAheadValueChange}
                         suggestions={this.props.suggestions.map((suggestion) => ({
                             value: suggestion.orgnr,
-                            label: `${this.getEmployerSuggestoionLabel(suggestion)}`
+                            label: `${this.getEmployerSuggestionLabel(suggestion)}`
                         }))}
                         value={this.props.employer && this.props.employer.name ?
                             capitalizeEmployerName(this.props.employer.name) : this.props.typeAheadValue}
