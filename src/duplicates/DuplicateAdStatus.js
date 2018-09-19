@@ -28,7 +28,7 @@ export default function DuplicateAdStatus({ adStatus, remarks, comments }) {
             )}
             {adStatus === AdStatusEnum.REJECTED && (
                 <Etikett type="advarsel">
-                    Aavvist: {remarksLabels.join(', ')}
+                    Avvist{remarks.length > 0 ? `: ${remarksLabels.join(', ')}` : ''}
                 </Etikett>
             )}
             {adStatus === AdStatusEnum.STOPPED && (

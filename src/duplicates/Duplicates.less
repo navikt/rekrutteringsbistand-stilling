@@ -23,32 +23,36 @@
   flex-direction: column;
 }
 
-.Duplicates__search-results {
-  flex: 1;
-  overflow-y: scroll;
-  overflow-x: hidden;
+.Duplicates__compare-wrapper {
+  height: 3.5rem;
+  display: flex;
+  flex-direction: column;
   background: @navLysGra;
 }
 
-.Duplicates__search-results__not-found {
-  height: 100%;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding-top: 2rem;
+.Duplicates__compare-wrapper--expanded {
+  flex: 3;
 }
 
 .Duplicates__compare-header {
-  border-top: #d9e8f7 0.25rem solid;
-  background: #EBF3FB;
-  justify-content: space-around;
-  padding: 1.25rem 2rem;
+  border-top: @navGra40 1px solid;
+  justify-content: space-between;
+  padding: 0rem 2rem;
   position: relative;
   display: flex;
 }
 
 .Duplicates__compare-header__column {
   flex: 1;
+}
+
+.Duplicates__compare-header__column:first-child {
+  margin-right: 1rem;
+  border-right: 1px solid @navGra40;
+}
+
+.Duplicates__compare-header__column__inner {
+  padding: 1rem 0;
 }
 
 .Duplicates__compare-header__collapse-button {
@@ -58,7 +62,7 @@
   padding: 0.5rem;
   position: absolute;
   right: 2.75rem;
-  top: 0.75rem;
+  top: 0.5rem;
   .typo-normal();
 
   &:focus {
@@ -75,17 +79,6 @@
   }
 }
 
-.Duplicates__compare-wrapper {
-  flex: 3;
-  display: none;
-  flex-direction: column;
-  padding-bottom: 2rem;
-  background: #EBF3FB;
-}
-
-.Duplicates__compare-wrapper--expanded {
-  display: flex;
-}
 
 .Duplicates__compare {
   flex: 1;
@@ -95,21 +88,20 @@
 
 .Duplicates__compare__flex {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   padding: 0 2rem;
 }
 
 .Duplicates__compare__current,
 .Duplicates__compare__other {
   flex: 1;
-  background: #E9E7E7;
-  padding: 2rem 1.25rem;
-  border: @navGra20 1px solid;
   height: 100%;
 }
 
 .Duplicates__compare__current {
   margin-right: 1.25rem;
+  padding-right: 1.25rem;
+  border-right: 1px solid @navGra40;
 }
 
 .Duplicates__compare__other__spinner {
@@ -123,44 +115,25 @@
   float: right;
 }
 
-.Duplicates__compare__current .AdText,
-.Duplicates__compare__other .AdText {
-}
-
 .Duplicates__compare__current .AdText__body,
 .Duplicates__compare__other .AdText__body {
   margin: 0;
+  padding: 1.25rem;
 }
 
-.DuplicateRowHeaders {
-  border-bottom: @navGra80 1px solid;
-  padding: 0.5rem 2rem;
-  background: #fff;
+.Duplicates__compare__current .dl-flex dt,
+.Duplicates__compare__other .dl-flex dt {
+  flex: none;
+  width: 100%;
+  margin-bottom: 0;
+  max-width: none;
+  font-weight: bold;
+  color: @navMorkGra;
 }
 
-.DuplicateRow {
-  display: block;
-  border-bottom: #d1d1d1 1px solid;
-  padding: 0.5rem 2rem;
-  background: #fff;
-  color: @navMorkGra!important;
-
-  &:hover {
-    background: @navBlaLighten80;
-  }
-
-  &:focus {
-    box-shadow: inset 0 0 0 3px @orangeFocus;
-    outline: none;
-  }
-
-  &:active {
-    background: @navBlaLighten60;
-  }
-}
-
-.DuplicateRow__ellipsis {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
+.Duplicates__compare__current .dl-flex dd {
+  flex: none;
+  width: 100%;
+  margin-bottom: 0.5rem;
+  max-width: none;
 }

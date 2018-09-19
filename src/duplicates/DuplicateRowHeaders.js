@@ -14,17 +14,22 @@ class DuplicateRowHeaders extends React.Component {
                             Mottatt
                         </Element>
                     </Column>
-                    <Column md="4">
+                    <Column md="3">
                         <Element className="DuplicateRow__ellipsis">
                             Annonseoverskrift
                         </Element>
                     </Column>
                     <Column md="3">
                         <Element className="DuplicateRow__ellipsis">
-                            Arbeidsgiver
+                            Stillingstittel
                         </Element>
                     </Column>
                     <Column md="2">
+                        <Element className="DuplicateRow__ellipsis">
+                            Arbeidsgiver
+                        </Element>
+                    </Column>
+                    <Column md="1">
                         <Element className="DuplicateRow__ellipsis">
                             Arbeidssted
                         </Element>

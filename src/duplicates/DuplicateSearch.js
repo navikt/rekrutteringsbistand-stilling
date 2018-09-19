@@ -5,10 +5,22 @@ import { Systemtittel } from 'nav-frontend-typografi';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import { SEARCH_FOR_DUPLICATES, SET_QUERY_EMPLOYER, SET_QUERY_LOCATION, SET_QUERY_TITLE } from './duplicatesReducer';
+import capitalizeLocation from '../ad/administration/location/capitalizeLocation';
+import Typeahead from '../common/typeahead/Typeahead';
 import './DuplicateSearch.less';
+import {
+    FETCH_MUNICIPALS_SUGGESTIONS,
+    SEARCH_FOR_DUPLICATES,
+    SET_QUERY_EMPLOYER, SET_QUERY_JOB_TITLE,
+    SET_QUERY_MUNICIPAL,
+    SET_QUERY_TITLE
+} from './duplicatesReducer';
 
 class DuplicateSearch extends React.Component {
+    componentDidMount() {
+        this.props.fetchMunicipalSuggestions();
+    }
+
     onSearchClick = () => {
         this.props.searchForDuplicates();
     };
@@ -18,16 +30,26 @@ class DuplicateSearch extends React.Component {
         this.props.searchForDuplicates();
     };
 
+    onTypeAheadValueChange = (value) => {
+        this.props.setMunicipal(value);
+    };
+
+    onTypeAheadSuggestionSelected = (location) => {
+        if (location) {
+            this.props.setMunicipal(location.value);
+        }
+    };
+
     setTitle = (e) => {
         this.props.setTitle(e.target.value);
     };
 
-    setEmployer = (e) => {
-        this.props.setEmployer(e.target.value);
+    setJobTitle = (e) => {
+        this.props.setJobTitle(e.target.value);
     };
 
-    setLocation = (e) => {
-        this.props.setLocation(e.target.value);
+    setEmployer = (e) => {
+        this.props.setEmployer(e.target.value);
     };
 
     render() {
@@ -36,11 +58,19 @@ class DuplicateSearch extends React.Component {
                 <Systemtittel className="DuplicateSearch__title">Duplikatsjekk</Systemtittel>
                 <form onSubmit={this.onSubmit} className="DuplicateSearch__form">
                     <Row>
-                        <Column xs="12" md="6">
+                        <Column xs="12" md="3">
                             <Input
                                 onChange={this.setTitle}
                                 value={this.props.query.title}
                                 label="Stillingsoverskrift"
+                                className="DuplicateSearch__input"
+                            />
+                        </Column>
+                        <Column xs="12" md="3">
+                            <Input
+                                onChange={this.setJobTitle}
+                                value={this.props.query.jobtitle}
+                                label="Stillingstittel"
                                 className="DuplicateSearch__input"
                             />
                         </Column>
@@ -53,11 +83,18 @@ class DuplicateSearch extends React.Component {
                             />
                         </Column>
                         <Column xs="12" md="2">
-                            <Input
-                                onChange={this.setLocation}
-                                value={this.props.query.location}
-                                label="Arbeidssted"
+                            <Typeahead
+                                id="DuplicateSearch__municipal"
                                 className="DuplicateSearch__input"
+                                label="Arbeidssted/kommune"
+                                onSelect={this.onTypeAheadSuggestionSelected}
+                                onChange={this.onTypeAheadValueChange}
+                                suggestions={this.props.municipalSuggestions.map((location) => ({
+                                    key: location.postalCode,
+                                    value: capitalizeLocation(location.municipality.name),
+                                    label: `${location.postalCode} ${capitalizeLocation(location.city)}, ${capitalizeLocation(location.municipality.name)} kommune`
+                                }))}
+                                value={this.props.query.municipal}
                             />
                         </Column>
                         <Column xs="12" md="1">
@@ -76,27 +113,40 @@ class DuplicateSearch extends React.Component {
 }
 
 DuplicateSearch.propTypes = {
+    fetchMunicipalSuggestions: PropTypes.func.isRequired,
     searchForDuplicates: PropTypes.func.isRequired,
     setTitle: PropTypes.func.isRequired,
+    setJobTitle: PropTypes.func.isRequired,
     setEmployer: PropTypes.func.isRequired,
-    setLocation: PropTypes.func.isRequired,
+    setMunicipal: PropTypes.func.isRequired,
     query: PropTypes.shape({
         title: PropTypes.string,
+        jobtitle: PropTypes.string,
         employerName: PropTypes.string,
-        location: PropTypes.string
-    }).isRequired
+        municipal: PropTypes.string
+    }).isRequired,
+    municipalSuggestions: PropTypes.arrayOf(PropTypes.shape({
+        postalCode: PropTypes.string,
+        city: PropTypes.string,
+        municipality: PropTypes.shape({
+            name: PropTypes.string
+        })
+    })).isRequired
 };
 
 
 const mapStateToProps = (state) => ({
-    query: state.duplicates.query
+    query: state.duplicates.query,
+    municipalSuggestions: state.duplicates.municipalSuggestions
 });
 
 const mapDispatchToProps = (dispatch) => ({
+    fetchMunicipalSuggestions: () => dispatch({ type: FETCH_MUNICIPALS_SUGGESTIONS }),
     searchForDuplicates: () => dispatch({ type: SEARCH_FOR_DUPLICATES }),
     setTitle: (title) => dispatch({ type: SET_QUERY_TITLE, title }),
+    setJobTitle: (jobtitle) => dispatch({ type: SET_QUERY_JOB_TITLE, jobtitle }),
     setEmployer: (employerName) => dispatch({ type: SET_QUERY_EMPLOYER, employerName }),
-    setLocation: (location) => dispatch({ type: SET_QUERY_LOCATION, location })
+    setMunicipal: (value) => dispatch({ type: SET_QUERY_MUNICIPAL, value })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DuplicateSearch);

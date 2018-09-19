@@ -1,33 +1,29 @@
-import { Flatknapp } from 'nav-frontend-knapper';
 import Modal from 'nav-frontend-modal';
-import { EtikettLiten, Ingress, Undertekst } from 'nav-frontend-typografi';
-import Chevron from 'nav-frontend-chevron';
+import { Element, Undertekst } from 'nav-frontend-typografi';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import Preview from '../ad/preview/Preview';
 import DelayedSpinner from '../common/DelayedSpinner';
-import Loading from '../common/loading/Loading';
 import { formatISOString } from '../utils';
-import DuplicateRow from './DuplicateRow';
-import DuplicateRowHeaders from './DuplicateRowHeaders';
+import DuplicateAdStatus from './DuplicateAdStatus';
 import './Duplicates.less';
 import DuplicateSearch from './DuplicateSearch';
-import DuplicateAdStatus from './DuplicateAdStatus';
+import DuplicateSearchResult from './DuplicateSearchResult';
 import {
     COLLAPSE_COMPARE_PANEL,
-    FETCH_CURRENT,
+    EXPAND_COMPARE_PANEL,
     HIDE_DUPLICATES_MODAL,
     SEARCH_FOR_DUPLICATES
 } from './duplicatesReducer';
 
 class Duplicates extends React.Component {
-    componentDidMount() {
-        this.props.fetchCurrent('643c7150-54f8-44e8-99a0-ebb2ce36c78b');
-    }
-
     onCollapseClick = () => {
-        this.props.collapseComparePanel();
+        if (this.props.showComparePanel) {
+            this.props.collapseComparePanel();
+        } else {
+            this.props.expandComparePanel();
+        }
     };
 
     closeModal = () => {
@@ -35,8 +31,7 @@ class Duplicates extends React.Component {
     };
 
     render() {
-        const { possibleDuplicates, isSearching } = this.props;
-        const found = !isSearching && possibleDuplicates && possibleDuplicates.length > 0;
+        const { showComparePanel, current, other, isLoadingOther } = this.props;
         return (
             <Modal
                 className="DuplicatesModal"
@@ -50,65 +45,64 @@ class Duplicates extends React.Component {
                     <div className="Duplicates__flex">
 
                         <DuplicateSearch />
-                        <div className="Duplicates__search-results">
-                            {isSearching && (
-                                <Loading />
-                            )}
-                            {!isSearching && !found && (
-                                <div className="Duplicates__search-results__not-found">
-                                    <Ingress>Ingen treff</Ingress>
-                                </div>
-                            )}
-                            {found && (
-                                <div>
-                                    <DuplicateRowHeaders />
-                                    {possibleDuplicates.map((duplicate) => (
-                                        <DuplicateRow key={duplicate.uuid} duplicate={duplicate} />
-                                    ))}
-                                </div>
-                            )}
-                        </div>
-                        <div className={this.props.showComparePanel ? 'Duplicates__compare-wrapper Duplicates__compare-wrapper--expanded' : 'Duplicates__compare-wrapper'}>
+                        <DuplicateSearchResult />
+                        <div className={showComparePanel ?
+                            'Duplicates__compare-wrapper Duplicates__compare-wrapper--expanded' :
+                            'Duplicates__compare-wrapper'}
+                        >
                             <div className="Duplicates__compare-header">
-                                <EtikettLiten className="Duplicates__compare-header__column">
-                                Stillingsannonse under arbeid
-                                </EtikettLiten>
-                                <EtikettLiten className="Duplicates__compare-header__column">Mulig duplikat</EtikettLiten>
-                                <button className="Duplicates__compare-header__collapse-button" aria-label="Lukk panel" onClick={this.onCollapseClick}>
-                                    <Chevron type="ned" onClick={this.onCollapseClick} /> Skjul
+                                <div className="Duplicates__compare-header__column">
+                                    <Element className="Duplicates__compare-header__column__inner">
+                                        Stillingsannonse under arbeid
+                                    </Element>
+                                </div>
+                                <div className="Duplicates__compare-header__column">
+                                    <Element className="Duplicates__compare-header__column__inner">
+                                        Mulig duplikat
+                                    </Element>
+                                </div>
+                                <button
+                                    className="Duplicates__compare-header__collapse-button"
+                                    aria-label="Lukk panel"
+                                    onClick={this.onCollapseClick}
+                                >
+                                    <span className="lenke">
+                                        {showComparePanel ? 'Skjul sammenligning' : 'Vis sammenligning'}
+                                    </span>
                                 </button>
                             </div>
                             <div className="Duplicates__compare">
                                 <div className="Duplicates__compare__flex">
                                     <div className="Duplicates__compare__current">
-                                        {this.props.current && (
+                                        {current && (
                                             <div>
                                                 <DuplicateAdStatus
-                                                    adStatus={this.props.current.status}
-                                                    remarks={this.props.current.administration.remarks}
-                                                    comments={this.props.current.administration.comments}
+                                                    adStatus={current.status}
+                                                    remarks={current.administration.remarks}
+                                                    comments={current.administration.comments}
                                                 />
                                                 <Undertekst>
-                                                Mottatt: {formatISOString(this.props.current.created, 'DD.MM.YY HH:MM')}
+                                                Mottatt: {formatISOString(current.created, 'DD.MM.YY HH:MM')}
                                                 </Undertekst>
-                                                <Preview ad={this.props.current} />
+                                                <Preview ad={current} />
                                             </div>
                                         )}
                                     </div>
                                     <div className="Duplicates__compare__other">
-                                        {!this.props.isLoadingOther && this.props.other ? (
+                                        {!isLoadingOther && other && (
                                             <div>
                                                 <DuplicateAdStatus
-                                                    adStatus={this.props.other.status}
-                                                    remarks={this.props.other.administration.remarks}
-                                                    comments={this.props.other.administration.comments}
+                                                    adStatus={other.status}
+                                                    remarks={other.administration.remarks}
+                                                    comments={other.administration.comments}
                                                 />
                                                 <Undertekst>
-                                                Mottatt: {formatISOString(this.props.other.created, 'DD.MM.YY HH:MM')}
+                                                Mottatt: {formatISOString(other.created, 'DD.MM.YY HH:MM')}
                                                 </Undertekst>
-                                                <Preview ad={this.props.other} />
+                                                <Preview ad={other} />
                                             </div>
-                                        ) : (
+                                        )}
+                                        {isLoadingOther && (
                                             <div className="Duplicates__compare__other__spinner">
                                                 <DelayedSpinner />
                                             </div>
@@ -130,8 +124,8 @@ Duplicates.defaultProps = {
 };
 
 Duplicates.propTypes = {
-    possibleDuplicates: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
     other: PropTypes.shape({
+        created: PropTypes.string,
         status: PropTypes.string,
         administration: PropTypes.shape({
             remarks: PropTypes.arrayOf(PropTypes.string),
@@ -139,25 +133,23 @@ Duplicates.propTypes = {
         })
     }),
     current: PropTypes.shape({
+        created: PropTypes.string,
         status: PropTypes.string,
         administration: PropTypes.shape({
             remarks: PropTypes.arrayOf(PropTypes.string),
             comments: PropTypes.string
         })
     }),
-    isSearching: PropTypes.bool.isRequired,
-    fetchCurrent: PropTypes.func.isRequired,
     showDuplicatesModal: PropTypes.bool.isRequired,
     isLoadingOther: PropTypes.bool.isRequired,
     showComparePanel: PropTypes.bool.isRequired,
     hideDuplicatesModal: PropTypes.func.isRequired,
-    collapseComparePanel: PropTypes.func.isRequired
+    collapseComparePanel: PropTypes.func.isRequired,
+    expandComparePanel: PropTypes.func.isRequired,
 };
 
 
 const mapStateToProps = (state) => ({
-    possibleDuplicates: state.duplicates.possibleDuplicates,
-    isSearching: state.duplicates.isSearching,
     current: state.adData,
     other: state.duplicates.other,
     showDuplicatesModal: state.duplicates.showDuplicatesModal,
@@ -167,9 +159,9 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     searchForDuplicates: () => dispatch({ type: SEARCH_FOR_DUPLICATES }),
-    fetchCurrent: (uuid) => dispatch({ type: FETCH_CURRENT, uuid }),
     hideDuplicatesModal: () => dispatch({ type: HIDE_DUPLICATES_MODAL }),
-    collapseComparePanel: () => dispatch({ type: COLLAPSE_COMPARE_PANEL })
+    collapseComparePanel: () => dispatch({ type: COLLAPSE_COMPARE_PANEL }),
+    expandComparePanel: () => dispatch({ type: EXPAND_COMPARE_PANEL })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Duplicates);

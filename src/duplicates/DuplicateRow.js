@@ -19,24 +19,35 @@ class DuplicateRow extends React.Component {
     render() {
         const { duplicate } = this.props;
         return (
-            <div role="button" tabIndex="0" onFocus={this.onClick} className="DuplicateRow" onClick={this.onClick}>
+            <div
+                role="button"
+                tabIndex="0"
+                onFocus={this.onClick}
+                className={this.props.isActive ? 'DuplicateRow DuplicateRow--active' : 'DuplicateRow'}
+                onClick={this.onClick}
+            >
                 <Row>
                     <Column md="1">
                         <Normaltekst className="DuplicateRow__ellipsis">
                             {duplicate.created ? formatISOString(duplicate.created, 'DD.MM.YY HH:MM') : ''}
                         </Normaltekst>
                     </Column>
-                    <Column md="4">
+                    <Column md="3">
                         <Normaltekst className="DuplicateRow__ellipsis">
                             {duplicate.title ? duplicate.title : ''}
                         </Normaltekst>
                     </Column>
                     <Column md="3">
                         <Normaltekst className="DuplicateRow__ellipsis">
-                            {duplicate.employer && duplicate.employer.name ? capitalizeEmployerName(duplicate.employer.name) : ''}
+                            {duplicate.properties.jobtitle ? duplicate.properties.jobtitle : ''}
                         </Normaltekst>
                     </Column>
                     <Column md="2">
+                        <Normaltekst className="DuplicateRow__ellipsis">
+                            {duplicate.employer && duplicate.employer.name ? capitalizeEmployerName(duplicate.employer.name) : ''}
+                        </Normaltekst>
+                    </Column>
+                    <Column md="1">
                         <Normaltekst className="DuplicateRow__ellipsis">
                             {duplicate.location && duplicate.location.city ? capitalizeLocation(duplicate.location.city) : ''}
                         </Normaltekst>
@@ -58,7 +69,8 @@ class DuplicateRow extends React.Component {
 }
 
 DuplicateRow.propTypes = {
-    fetchOther: PropTypes.func.isRequired
+    fetchOther: PropTypes.func.isRequired,
+    isActive: PropTypes.bool.isRequired
 };
 
 

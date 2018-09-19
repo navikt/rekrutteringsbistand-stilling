@@ -1,6 +1,7 @@
 import { put, takeLatest, select, call } from 'redux-saga/effects';
 import capitalizeEmployerName from '../ad/administration/employer/capitalizeEmployerName';
 import capitalizeLocation from '../ad/administration/location/capitalizeLocation';
+import { fetchLocations } from '../ad/administration/location/locationCodeReducer';
 import { fetchGet, ApiError } from '../api/api';
 import { AD_API } from '../fasitProperties';
 import toUrl from '../common/toUrl';
@@ -20,15 +21,20 @@ export const SEARCH_FOR_DUPLICATES_BEGIN = 'SEARCH_FOR_DUPLICATES_BEGIN';
 export const SEARCH_FOR_DUPLICATES_SUCCESS = 'SEARCH_FOR_DUPLICATES_SUCCESS';
 export const SEARCH_FOR_DUPLICATES_FAILURE = 'SEARCH_FOR_DUPLICATES_FAILURE';
 
+export const SET_INITIAL_QUERY = 'SET_INITIAL_QUERY';
 export const SET_QUERY_TITLE = 'SET_QUERY_TITLE';
+export const SET_QUERY_JOB_TITLE = 'SET_QUERY_JOB_TITLE';
 export const SET_QUERY_EMPLOYER = 'SET_QUERY_EMPLOYER';
-export const SET_QUERY_LOCATION = 'SET_QUERY_LOCATION';
+export const SET_QUERY_MUNICIPAL = 'SET_QUERY_MUNICIPAL';
 
 export const SHOW_DUPLICATES_MODAL = 'SHOW_DUPLICATES_MODAL';
 export const HIDE_DUPLICATES_MODAL = 'HIDE_DUPLICATES_MODAL';
 
 export const COLLAPSE_COMPARE_PANEL = 'COLLAPSE_COMPARE_PANEL';
 export const EXPAND_COMPARE_PANEL = 'EXPAND_COMPARE_PANEL';
+
+export const FETCH_MUNICIPALS_SUGGESTIONS = 'FETCH_MUNICIPALS_SUGGESTIONS';
+export const SET_MUNICIPALS_SUGGESTIONS = 'SET_MUNICIPALS_SUGGESTIONS';
 
 const initialState = {
     possibleDuplicates: [],
@@ -38,14 +44,17 @@ const initialState = {
     other: undefined,
     query: {
         title: '',
+        jobtitle: '',
         employerName: '',
-        location: '',
+        municipal: '',
         sort: 'created,asc',
-        size: 50
+        size: 100
     },
     showDuplicatesModal: false,
-    showComparePanel: false,
-    isLoadingOther: false
+    showComparePanel: true,
+    isLoadingOther: false,
+    municipalSuggestions: [],
+    totalElements: 0
 };
 
 export default function searchReducer(state = initialState, action) {
@@ -61,6 +70,7 @@ export default function searchReducer(state = initialState, action) {
             return {
                 ...state,
                 possibleDuplicates: action.response,
+                totalElements: action.totalElements,
                 isSearching: false
             };
         case SEARCH_FOR_DUPLICATES_FAILURE:
@@ -74,6 +84,11 @@ export default function searchReducer(state = initialState, action) {
                 ...state,
                 current: action.response
             };
+        case FETCH_OTHER_BEGIN:
+            return {
+                ...state,
+                showComparePanel: true
+            };
         case FETCH_OTHER:
             return {
                 ...state,
@@ -85,12 +100,32 @@ export default function searchReducer(state = initialState, action) {
                 isLoadingOther: false,
                 other: action.response
             };
+        case SET_INITIAL_QUERY: {
+            return {
+                ...state,
+                query: {
+                    ...state.query,
+                    title: action.title,
+                    jobtitle: action.jobtitle,
+                    employerName: action.employerName,
+                    municipal: action.municipal
+                }
+            };
+        }
         case SET_QUERY_TITLE:
             return {
                 ...state,
                 query: {
                     ...state.query,
                     title: action.title
+                }
+            };
+        case SET_QUERY_JOB_TITLE:
+            return {
+                ...state,
+                query: {
+                    ...state.query,
+                    jobtitle: action.jobtitle
                 }
             };
         case SET_QUERY_EMPLOYER:
@@ -101,12 +136,12 @@ export default function searchReducer(state = initialState, action) {
                     employerName: action.employerName
                 }
             };
-        case SET_QUERY_LOCATION:
+        case SET_QUERY_MUNICIPAL:
             return {
                 ...state,
                 query: {
                     ...state.query,
-                    location: action.location
+                    municipal: action.value
                 }
             };
         case SHOW_DUPLICATES_MODAL:
@@ -131,13 +166,17 @@ export default function searchReducer(state = initialState, action) {
                 showComparePanel: true
             };
         }
+        case SET_MUNICIPALS_SUGGESTIONS:
+            return {
+                ...state,
+                municipalSuggestions: action.municipalSuggestions
+            };
         default:
             return state;
     }
 }
 
 function* searchForDuplicates() {
-    yield put({ type: COLLAPSE_COMPARE_PANEL });
     try {
         yield put({ type: SEARCH_FOR_DUPLICATES_BEGIN });
         const state = yield select();
@@ -147,7 +186,19 @@ function* searchForDuplicates() {
 
         const withoutCurrent = response.content.filter((ad) => (ad.uuid !== state.adData.uuid));
 
-        yield put({ type: SEARCH_FOR_DUPLICATES_SUCCESS, response: withoutCurrent });
+        if (withoutCurrent.length > 0) {
+            yield put({ type: FETCH_OTHER_BEGIN });
+            try {
+                const response2 = yield fetchGet(`${AD_API}ads/${withoutCurrent[0].uuid}`);
+                yield put({ type: FETCH_OTHER_SUCCESS, response: response2 });
+            } catch (e) {
+                if (e instanceof ApiError) {
+                    yield put({ type: FETCH_OTHER_FAILURE, error: e });
+                }
+            }
+        }
+
+        yield put({ type: SEARCH_FOR_DUPLICATES_SUCCESS, response: withoutCurrent, totalElements: response.totalElements - 1 });
     } catch (e) {
         if (e instanceof ApiError) {
             yield put({ type: SEARCH_FOR_DUPLICATES_FAILURE, error: e });
@@ -160,18 +211,13 @@ function* searchForDuplicates() {
 function* initialSearchForDuplicates() {
     const state = yield select();
     yield put({
-        type: SET_QUERY_TITLE,
-        title: state.adData.title
-    });
-    yield put({
-        type: SET_QUERY_EMPLOYER,
+        type: SET_INITIAL_QUERY,
+        title: state.adData.title,
+        jobtitle: state.adData.properties.jobtitle ? state.adData.properties.jobtitle : '',
         employerName: state.adData.employer && state.adData.employer.name ?
-            capitalizeEmployerName(state.adData.employer.name) : ''
-    });
-    yield put({
-        type: SET_QUERY_LOCATION,
-        location: state.adData.location && state.adData.location.city ?
-            capitalizeLocation(state.adData.location.city) : ''
+            capitalizeEmployerName(state.adData.employer.name) : '',
+        municipal: state.adData.location && state.adData.location.municipal ?
+            capitalizeLocation(state.adData.location.municipal) : ''
     });
     yield searchForDuplicates();
 }
@@ -191,7 +237,6 @@ function* fetchCurrent(action) {
 }
 
 function* fetchOther(action) {
-    yield put({ type: EXPAND_COMPARE_PANEL });
     yield put({ type: FETCH_OTHER_BEGIN });
     try {
         const response = yield fetchGet(`${AD_API}ads/${action.uuid}`);
@@ -205,9 +250,30 @@ function* fetchOther(action) {
     }
 }
 
+function* fetchMunicipalSuggestions() {
+    yield fetchLocations();
+}
+
+function* filterMunicipalSuggestions(action) {
+    const state = yield select();
+    if (action.value.trim().length === 0) {
+        yield put({ type: SET_MUNICIPALS_SUGGESTIONS, municipalSuggestions: [] });
+    } else {
+        const filtered = state.location.locations.filter(((location) =>
+            location.city.toLowerCase().startsWith(action.value.toLowerCase()) ||
+                location.municipality.name.toLowerCase().startsWith(action.value.toLowerCase()) ||
+                location.postalCode.startsWith(action.value)
+        )).slice(0, 10);
+        yield put({ type: SET_MUNICIPALS_SUGGESTIONS, municipalSuggestions: filtered });
+    }
+}
+
+
 export const duplicatesSaga = function* saga() {
     yield takeLatest(SHOW_DUPLICATES_MODAL, initialSearchForDuplicates);
     yield takeLatest(SEARCH_FOR_DUPLICATES, searchForDuplicates);
     yield takeLatest(FETCH_CURRENT, fetchCurrent);
     yield takeLatest(FETCH_OTHER, fetchOther);
+    yield takeLatest(FETCH_MUNICIPALS_SUGGESTIONS, fetchMunicipalSuggestions);
+    yield takeLatest(SET_QUERY_MUNICIPAL, filterMunicipalSuggestions);
 };
