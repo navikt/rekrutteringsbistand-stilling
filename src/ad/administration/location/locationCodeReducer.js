@@ -32,7 +32,7 @@ export default function locationlCodeReducer(state = initialState, action) {
                     state.locations.filter(((location) =>
                         location.city.toLowerCase().startsWith(action.value.toLowerCase()) ||
                         location.postalCode.startsWith(action.value)
-                    )).slice(0, 10)
+                    ))
             };
         default:
             return state;

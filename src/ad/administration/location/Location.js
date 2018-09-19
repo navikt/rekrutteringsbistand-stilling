@@ -46,7 +46,7 @@ class Location extends React.Component {
                 <div className="blokk-xxs">
                     <Typeahead
                         id="PostalCode__input"
-                        className="PostalCode__code"
+                        className="PostalCode__typeahead"
                         label="Arbeidssted (postnummer)*"
                         placeholder="Skriv inn postnummer eller poststed"
                         onSelect={this.onTypeAheadSuggestionSelected}
