@@ -1,3 +1,8 @@
+## RELEASE - 0.5.204-f4ece9c
+#### New in this release: 
++ 2018-09-20 [Bugfix] Utfører søk etter duplikat når man trykker Enter i søkefeltet for arbeidssted, slik  det er gjort i de andre søkefeltene.
++ 2018-09-20 [Bugfix] Sørger for at listen over postnummere er lastet, før validering av postnummer utføres.
++ 2018-09-18 [PAM-1443] Duplikatsjekk av annonser i frontend.
 ## RELEASE - 0.4.200-f2910a2
 #### New in this release: 
 + 2018-09-19 [PAM-1432]: fikset typo
