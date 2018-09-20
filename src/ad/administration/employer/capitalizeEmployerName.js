@@ -18,7 +18,9 @@ export default function capitalizeEmployerName(text) {
                 if (keep.includes(fragments[j])) {
                     fragments[j] = fragments[j].toUpperCase();
                 } else if (!ignore.includes(fragments[j])) {
-                    fragments[j] = fragments[j][0].toUpperCase() + fragments[j].substr(1);
+                    if (fragments[j][0] !== undefined) {
+                        fragments[j] = fragments[j][0].toUpperCase() + fragments[j].substr(1);
+                    }
                 }
             }
             capitalized = fragments.join(separators[i]);

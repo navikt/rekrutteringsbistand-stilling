@@ -28,6 +28,7 @@ export default class ShortcutsInfo extends React.Component {
                             <Systemtittel>Annonsedetaljer</Systemtittel>
                             <dl className="Shortcuts__list">
                                 <dt><span>/</span></dt><dd>Skriv en kommentar</dd>
+                                <dt><span>d d</span></dt><dd>Duplikatsjekk</dd>
                                 <dt><span>y y</span></dt><dd>Rediger yrke</dd>
                                 <dt><span>a a</span></dt><dd>Rediger arbeidsgiver</dd>
                                 <dt><span>s s</span></dt><dd>Rediger sted</dd>
