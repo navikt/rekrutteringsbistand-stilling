@@ -23,7 +23,7 @@ export default class DelayedSpinner extends React.Component {
 
     render() {
         if (this.state.showSpinner) {
-            return <Spinner type="XL"/>
+            return <Spinner type="L" />
         }
         return null;
     }

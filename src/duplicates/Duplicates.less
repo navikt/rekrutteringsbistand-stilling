@@ -1,0 +1,139 @@
+@import "../variables";
+@import "../../node_modules/nav-frontend-typografi-style/src/index";
+
+.DuplicatesModal {
+  height: 95vh;
+  z-index: 9999;
+  padding: 0;
+  width: 100%;
+}
+
+.DuplicatesModal .lukknapp  {
+  z-index: 9000;
+}
+
+.DuplicatesModalContent,
+.Duplicates {
+  height: 100%;
+}
+
+.Duplicates__flex {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.Duplicates__compare-wrapper {
+  height: 3.5rem;
+  display: flex;
+  flex-direction: column;
+  background: @navLysGra;
+}
+
+.Duplicates__compare-wrapper--expanded {
+  flex: 3;
+}
+
+.Duplicates__compare-header {
+  border-top: @navGra40 1px solid;
+  justify-content: space-between;
+  padding: 0rem 2rem;
+  position: relative;
+  display: flex;
+}
+
+.Duplicates__compare-header__column {
+  flex: 1;
+}
+
+.Duplicates__compare-header__column:first-child {
+  margin-right: 1rem;
+  border-right: 1px solid @navGra40;
+}
+
+.Duplicates__compare-header__column__inner {
+  padding: 1rem 0;
+}
+
+.Duplicates__compare-header__collapse-button {
+  margin: 0;
+  border: 0;
+  background: none;
+  padding: 0.5rem;
+  position: absolute;
+  right: 2.75rem;
+  top: 0.5rem;
+  .typo-normal();
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px @orangeFocus;
+  }
+
+  &:hover {
+    color: @navDypBla;
+  }
+
+  &:active {
+    color: @navDypBlaDarken40;
+  }
+}
+
+
+.Duplicates__compare {
+  flex: 1;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.Duplicates__compare__flex {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 2rem;
+}
+
+.Duplicates__compare__current,
+.Duplicates__compare__other {
+  flex: 1;
+  height: 100%;
+}
+
+.Duplicates__compare__current {
+  margin-right: 1.25rem;
+  padding-right: 1.25rem;
+  border-right: 1px solid @navGra40;
+}
+
+.Duplicates__compare__other__spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5rem 0;
+}
+
+.DuplicateAdStatus {
+  float: right;
+}
+
+.Duplicates__compare__current .AdText__body,
+.Duplicates__compare__other .AdText__body {
+  margin: 0;
+  padding: 1.25rem;
+}
+
+.Duplicates__compare__current .dl-flex dt,
+.Duplicates__compare__other .dl-flex dt {
+  flex: none;
+  width: 100%;
+  margin-bottom: 0;
+  max-width: none;
+  font-weight: bold;
+  color: @navMorkGra;
+}
+
+.Duplicates__compare__current .dl-flex dd {
+  flex: none;
+  width: 100%;
+  margin-bottom: 0.5rem;
+  max-width: none;
+}

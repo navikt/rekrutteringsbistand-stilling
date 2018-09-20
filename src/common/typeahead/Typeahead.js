@@ -226,7 +226,7 @@ export default class Typeahead extends React.Component {
                     {showSuggestions && this.props.suggestions.map((suggestion, i) => (
                         <TypeaheadSuggestion
                             id={`${this.props.id}-item-${i}`}
-                            key={suggestion.value}
+                            key={suggestion.key || suggestion.value}
                             index={i}
                             item={suggestion}
                             value={suggestion.value}

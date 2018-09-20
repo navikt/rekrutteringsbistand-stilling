@@ -1,20 +1,20 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
-import Preview from './preview/Preview';
-import Administration from './administration/Administration';
-import {
-    EDIT_AD, PREVIEW_EDIT_AD, FETCH_AD, FETCH_NEXT_AD,
-    RESET_WORK_PRIORITY
-} from './adReducer';
-import { REMOVE_AD_DATA } from './adDataReducer';
-import Error from './error/Error';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { connect } from 'react-redux';
 import DelayedSpinner from '../common/DelayedSpinner';
-import './Ad.less';
 import Faded from '../common/faded/Faded';
+import { registerShortcuts, removeShortcuts } from '../common/shortcuts/Shortcuts';
+import Duplicates from '../duplicates/Duplicates';
+import './Ad.less';
+import { SHOW_DUPLICATES_MODAL } from '../duplicates/duplicatesReducer';
+import { REMOVE_AD_DATA } from './adDataReducer';
+import Administration from './administration/Administration';
+import { EDIT_AD, FETCH_AD, FETCH_NEXT_AD, PREVIEW_EDIT_AD, RESET_WORK_PRIORITY } from './adReducer';
 import Edit from './edit/Edit';
+import Error from './error/Error';
+import Preview from './preview/Preview';
 
 const isDefaultWorkPriority = (workPriority) =>
     workPriority.source === undefined && workPriority.status === undefined &&
@@ -32,6 +32,12 @@ class Ad extends React.Component {
         } else {
             this.props.getNextAd();
         }
+
+        registerShortcuts('Ad', {
+            'd d': () => {
+                this.onFindDuplicatesClick();
+            }
+        });
     }
 
     componentDidUpdate() {
@@ -52,6 +58,7 @@ class Ad extends React.Component {
 
     componentWillUnmount() {
         this.props.removeAdData();
+        removeShortcuts('Ad');
     }
 
     onEditAdClick = () => {
@@ -65,6 +72,10 @@ class Ad extends React.Component {
     onNextAdClick = () => {
         this.props.resetWorkPriority();
         this.props.getNextAd();
+    };
+
+    onFindDuplicatesClick = () => {
+        this.props.showDuplicatesModal();
     };
 
     render() {
@@ -120,6 +131,13 @@ class Ad extends React.Component {
                                                 <div className="Ad__edit__inner">
                                                     <Knapp
                                                         className="Ad__preview__edit-button"
+                                                        onClick={this.onFindDuplicatesClick}
+                                                        mini
+                                                    >
+                                                        Duplikatsjekk
+                                                    </Knapp>
+                                                    <Knapp
+                                                        className="Ad__preview__edit-button"
                                                         onClick={this.onPreviewAdClick}
                                                         mini
                                                     >
@@ -130,6 +148,13 @@ class Ad extends React.Component {
                                             </div>
                                         ) : (
                                             <div className="Ad__preview">
+                                                <Knapp
+                                                    className="Ad__preview__edit-button"
+                                                    onClick={this.onFindDuplicatesClick}
+                                                    mini
+                                                >
+                                                    Duplikatsjekk
+                                                </Knapp>
                                                 <Knapp
                                                     className="Ad__preview__edit-button"
                                                     onClick={this.onEditAdClick}
@@ -156,6 +181,7 @@ class Ad extends React.Component {
                     </div>
                 )}
                 <Error />
+                <Duplicates />
             </div>
         );
     }
@@ -191,7 +217,8 @@ Ad.propTypes = {
         id: PropTypes.string
     }).isRequired,
     resetWorkPriority: PropTypes.func.isRequired,
-    removeAdData: PropTypes.func.isRequired
+    removeAdData: PropTypes.func.isRequired,
+    showDuplicatesModal: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -208,7 +235,8 @@ const mapDispatchToProps = (dispatch) => ({
     editAd: () => dispatch({ type: EDIT_AD }),
     previewAd: () => dispatch({ type: PREVIEW_EDIT_AD }),
     resetWorkPriority: () => dispatch({ type: RESET_WORK_PRIORITY }),
-    removeAdData: () => dispatch({ type: REMOVE_AD_DATA })
+    removeAdData: () => dispatch({ type: REMOVE_AD_DATA }),
+    showDuplicatesModal: () => dispatch({ type: SHOW_DUPLICATES_MODAL })
 });
 
 

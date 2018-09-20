@@ -8,10 +8,10 @@ import AdStatusEnum from './AdStatusEnum';
 import { registerShortcuts, removeShortcuts } from '../../../common/shortcuts/Shortcuts';
 import {
     PUBLISH_AD,
-    STOP_AD,
     SAVE_AD,
     SHOW_REJECT_REASON_MODAL,
-    FETCH_NEXT_AD, PUBLISH_AD_CHANGES
+    FETCH_NEXT_AD, PUBLISH_AD_CHANGES,
+    SHOW_STOP_AD_MODAL
 } from '../../adReducer';
 import PublishErrorModal from './PublishErrorModal';
 import RejectReasonModal from './RejectReasonModal';
@@ -19,6 +19,7 @@ import LinkButton from '../../../common/linkbutton/LinkButton';
 import './AdStatusEdit.less';
 import HasChangesModal from './HasChangesModal';
 import AdminStatusEnum from '../adminStatus/AdminStatusEnum';
+import StopReasonModal from './StopReasonModal';
 
 class AdStatusEdit extends React.Component {
     componentDidMount() {
@@ -69,6 +70,7 @@ class AdStatusEdit extends React.Component {
                 <PublishErrorModal />
                 <RejectReasonModal />
                 <HasChangesModal />
+                <StopReasonModal />
                 <div>
                     {adStatus === AdStatusEnum.INACTIVE && (
                         <div className="AdStatusEdit__buttons">
@@ -174,7 +176,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     publish: () => dispatch({ type: PUBLISH_AD }),
     reject: () => dispatch({ type: SHOW_REJECT_REASON_MODAL }),
-    stop: () => dispatch({ type: STOP_AD }),
+    stop: () => dispatch({ type: SHOW_STOP_AD_MODAL }),
     saveAd: () => dispatch({ type: SAVE_AD }),
     getNextAd: () => dispatch({ type: FETCH_NEXT_AD }),
     publishAdChanges: () => dispatch({ type: PUBLISH_AD_CHANGES })
