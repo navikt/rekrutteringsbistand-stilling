@@ -1,4 +1,4 @@
-import { put, takeEvery, select } from 'redux-saga/effects';
+import { take, call, put, takeEvery, takeLatest,  select } from 'redux-saga/effects';
 import { ApiError, fetchGet } from '../../../api/api';
 import { AD_API } from '../../../fasitProperties';
 import { FETCH_AD_BEGIN, FETCH_NEXT_AD_BEGIN } from '../../adReducer';
@@ -80,9 +80,9 @@ export function* findLocationByPostalCode(value) {
     let state = yield select();
     if (!state.location.locations) {
         yield put({ type: FETCH_LOCATIONS });
-        yield fetchLocations();
+        yield take(FETCH_LOCATIONS_SUCCESS);
+        state = yield select();
     }
-    state = yield select();
     if (state.location.locations) {
         return state.location.locations.find((location) => (location.postalCode === value));
     }
