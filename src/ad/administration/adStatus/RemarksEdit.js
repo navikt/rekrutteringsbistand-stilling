@@ -80,9 +80,11 @@ class RemarksEdit extends React.Component {
                         />
                     </div>
                 </SkjemaGruppe>
-                {remarks.includes(RemarksEnum.UNKNOWN.value) && (
-                    <CommentsEdit error={this.props.validation.comment} />
-                )}
+                <CommentsEdit
+                    label="Kommentar"
+                    placeholder="Skriv inn årsak til avvisning"
+                    error={this.props.validation.comment}
+                />
                 {this.props.validation.remark && (
                     <div className="skjemaelement__feilmelding">{this.props.validation.remark}</div>
                 )}

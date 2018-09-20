@@ -49,6 +49,9 @@ export const SHOW_REJECT_REASON_MODAL = 'SHOW_REJECT_REASON_MODAL';
 export const HIDE_REJECT_REASON_MODAL = 'HIDE_REJECT_REASON_MODAL';
 
 export const STOP_AD = 'STOP_AD';
+export const SHOW_STOP_AD_MODAL = 'SHOW_STOP_AD_MODAL';
+export const HIDE_STOP_AD_MODAL = 'HIDE_STOP_AD_MODAL';
+
 export const SET_TO_RECEIVED = 'SET_TO_RECEIVED';
 export const ASSIGN_TO_ME = 'ASSIGN_TO_ME';
 
@@ -70,7 +73,8 @@ const initialState = {
     showPublishErrorModal: false,
     showHasChangesModal: false,
     showRejectReasonModal: false,
-    showIsInactiveModal: false
+    showIsInactiveModal: false,
+    showStopAdModal: false
 };
 
 export default function adReducer(state = initialState, action) {
@@ -178,6 +182,16 @@ export default function adReducer(state = initialState, action) {
             return {
                 ...state,
                 showHasChangesModal: false
+            };
+        case SHOW_STOP_AD_MODAL:
+            return {
+                ...state,
+                showStopAdModal: true
+            };
+        case HIDE_STOP_AD_MODAL:
+            return {
+                ...state,
+                showStopAdModal: false
             };
         case SET_EMPLOYER:
         case SET_LOCATION_POSTAL_CODE:

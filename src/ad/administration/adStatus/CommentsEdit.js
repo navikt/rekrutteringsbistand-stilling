@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Textarea } from 'nav-frontend-skjema';
-import { Element } from 'nav-frontend-typografi';
+import { Normaltekst } from 'nav-frontend-typografi';
 import { connect } from 'react-redux';
 import { SET_COMMENT } from '../../adDataReducer';
 import { registerShortcuts } from '../../../common/shortcuts/Shortcuts';
@@ -43,7 +43,7 @@ class CommentsEdit extends React.Component {
     render() {
         return (
             <div className="CommentsEdit">
-                <Element>Annen årsak:</Element>
+                <Normaltekst>{this.props.label}</Normaltekst>
                 <Textarea
                     label=""
                     maxLength={255}
@@ -53,6 +53,7 @@ class CommentsEdit extends React.Component {
                     textareaRef={(ref) => { this.commentArea = ref; }}
                     textareaClass="typo-normal"
                     feil={this.props.error ? { feilmelding: this.props.error } : undefined}
+                    placeholder={this.props.placeholder}
                 />
             </div>
         );
@@ -61,13 +62,16 @@ class CommentsEdit extends React.Component {
 
 CommentsEdit.defaultProps = {
     comments: '',
-    error: undefined
+    error: undefined,
+    placeholder: ''
 };
 
 CommentsEdit.propTypes = {
     setComment: PropTypes.func.isRequired,
     comments: PropTypes.string,
-    error: PropTypes.string
+    error: PropTypes.string,
+    label: PropTypes.string.isRequired,
+    placeholder: PropTypes.string
 };
 
 const mapStateToProps = (state) => ({
