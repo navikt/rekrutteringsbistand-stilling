@@ -43,9 +43,9 @@ export default function locationlCodeReducer(state = initialState, action) {
                 ...state,
                 suggestions: (state.locations === undefined || action.value.length === 0) ? [] :
                     state.locations.filter(((location) =>
-                            location.city.toLowerCase().startsWith(action.value.toLowerCase()) ||
-                            location.postalCode.startsWith(action.value)
-                    )).slice(0, 10)
+                        location.city.toLowerCase().startsWith(action.value.toLowerCase()) ||
+                        location.postalCode.startsWith(action.value)
+                    ))
             };
         default:
             return state;

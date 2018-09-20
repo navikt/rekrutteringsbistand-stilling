@@ -86,6 +86,10 @@ export default class Typeahead extends React.Component {
                     // Hvis man er på toppen av listen og trykker pil opp, så skal ingen forslag markeres.
                     activeSuggestionIndex = activeSuggestionIndex - 1 === -2 ? -1 : activeSuggestionIndex - 1;
                     this.setState({ activeSuggestionIndex });
+                    if (activeSuggestionIndex > -1) {
+                        const activeElement = document.getElementById(`${this.props.id}-item-${activeSuggestionIndex}`);
+                        activeElement.scrollIntoViewIfNeeded();
+                    }
                 }
                 break;
             case 40: // Pil ned
@@ -97,6 +101,8 @@ export default class Typeahead extends React.Component {
                         this.props.suggestions.length - 1 :
                         activeSuggestionIndex + 1;
                     this.setState({ activeSuggestionIndex });
+                    const activeElement = document.getElementById(`${this.props.id}-item-${activeSuggestionIndex}`);
+                    activeElement.scrollIntoViewIfNeeded();
                 }
                 break;
             default:

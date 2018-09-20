@@ -44,6 +44,7 @@ export const ADD_REMARK = 'ADD_REMARK';
 export const REMOVE_REMARK = 'REMOVE_REMARK';
 export const SET_AD_TITLE = 'SET_AD_TITLE';
 export const SET_REPORTEE = 'SET_REPORTEE';
+export const SET_UPDATED_BY = 'SET_UPDATED_BY';
 
 const initialState = null;
 
@@ -335,6 +336,11 @@ export default function adDataReducer(state = initialState, action) {
                     ...state.administration,
                     reportee: action.reportee
                 }
+            };
+        case SET_UPDATED_BY:
+            return {
+                ...state,
+                updatedBy: 'nss-admin'
             };
         case REMOVE_AD_DATA:
             return initialState;

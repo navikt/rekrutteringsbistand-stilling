@@ -30,12 +30,16 @@ function AdStatus({ adStatus, remarks, comments }) {
             )}
             {adStatus === AdStatusEnum.REJECTED && (
                 <Alertstripe className="AdStatusPreview__Alertstripe" type="advarsel" solid>
-                    Annonsen er avvist: {remarksLabels.join(', ')}
+                    Annonsen er avvist: {remarksLabels.includes(comments)
+                        ? remarksLabels.join(', ')
+                        : `${remarksLabels.join(', ')}${comments && `, ${comments}`}`}
                 </Alertstripe>
             )}
             {adStatus === AdStatusEnum.STOPPED && (
                 <Alertstripe className="AdStatusPreview__Alertstripe" type="advarsel" solid>
-                    Annonsen er stoppet
+                    {comments ?
+                        `Annonsen er stoppet: ${comments}` :
+                        'Annonsen er stoppet'}
                 </Alertstripe>
             )}
             {adStatus === AdStatusEnum.DELETED && (

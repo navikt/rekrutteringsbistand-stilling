@@ -10,7 +10,7 @@ import {
     SET_EMPLOYER,
     SET_STYRK,
     SET_AD_STATUS,
-    SET_LOCATION_POSTAL_CODE, SET_PUBLISHED, SET_EXPIRATION_DATE
+    SET_LOCATION_POSTAL_CODE, SET_PUBLISHED, SET_EXPIRATION_DATE, SET_UPDATED_BY
 } from './adDataReducer';
 import { getReportee } from '../reportee/reporteeReducer';
 
@@ -49,6 +49,9 @@ export const SHOW_REJECT_REASON_MODAL = 'SHOW_REJECT_REASON_MODAL';
 export const HIDE_REJECT_REASON_MODAL = 'HIDE_REJECT_REASON_MODAL';
 
 export const STOP_AD = 'STOP_AD';
+export const SHOW_STOP_AD_MODAL = 'SHOW_STOP_AD_MODAL';
+export const HIDE_STOP_AD_MODAL = 'HIDE_STOP_AD_MODAL';
+
 export const SET_TO_RECEIVED = 'SET_TO_RECEIVED';
 export const ASSIGN_TO_ME = 'ASSIGN_TO_ME';
 
@@ -70,7 +73,8 @@ const initialState = {
     showPublishErrorModal: false,
     showHasChangesModal: false,
     showRejectReasonModal: false,
-    showIsInactiveModal: false
+    showIsInactiveModal: false,
+    showStopAdModal: false
 };
 
 export default function adReducer(state = initialState, action) {
@@ -179,6 +183,16 @@ export default function adReducer(state = initialState, action) {
                 ...state,
                 showHasChangesModal: false
             };
+        case SHOW_STOP_AD_MODAL:
+            return {
+                ...state,
+                showStopAdModal: true
+            };
+        case HIDE_STOP_AD_MODAL:
+            return {
+                ...state,
+                showStopAdModal: false
+            };
         case SET_EMPLOYER:
         case SET_LOCATION_POSTAL_CODE:
         case SET_STYRK:
@@ -242,7 +256,8 @@ function* getNextAd() {
                             ...ad.administration,
                             status: AdminStatusEnum.PENDING,
                             reportee: reportee.displayName
-                        }
+                        },
+                        updatedBy: 'nss-admin'
                     });
                     shouldRetry = false;
                     yield put({
@@ -276,6 +291,8 @@ function* save(autoAssign = true) {
     let state = yield select();
     yield put({ type: SAVE_AD_BEGIN });
     try {
+        yield put({ type: SET_UPDATED_BY });
+
         if (autoAssign) {
             const reportee = yield getReportee();
             yield put({ type: SET_REPORTEE, reportee: reportee.displayName });
