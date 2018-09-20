@@ -37,6 +37,7 @@ class DuplicateSearch extends React.Component {
     onTypeAheadSuggestionSelected = (location) => {
         if (location) {
             this.props.setMunicipal(location.value);
+            this.props.searchForDuplicates();
         }
     };
 
