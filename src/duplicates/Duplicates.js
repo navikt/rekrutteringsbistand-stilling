@@ -50,26 +50,28 @@ class Duplicates extends React.Component {
                             'Duplicates__compare-wrapper Duplicates__compare-wrapper--expanded' :
                             'Duplicates__compare-wrapper'}
                         >
-                            <div className="Duplicates__compare-header">
-                                <div className="Duplicates__compare-header__column">
-                                    <Element className="Duplicates__compare-header__column__inner">
-                                        Stillingsannonse under arbeid
-                                    </Element>
+                            <div className="Duplicates__compare__header">
+                                <div className="Duplicates__compare__header__flex">
+                                    <div className="Duplicates__compare__header__column">
+                                        <Element className="Duplicates__compare__header__column__inner">
+                                            Stillingsannonse under arbeid
+                                        </Element>
+                                    </div>
+                                    <div className="Duplicates__compare__header__column">
+                                        <Element className="Duplicates__compare__header__column__inner">
+                                            Mulig duplikat
+                                        </Element>
+                                    </div>
+                                    <button
+                                        className="Duplicates__compare__header__collapse-button"
+                                        aria-label="Lukk panel"
+                                        onClick={this.onCollapseClick}
+                                    >
+                                        <span className="lenke">
+                                            {showComparePanel ? 'Skjul sammenligning' : 'Vis sammenligning'}
+                                        </span>
+                                    </button>
                                 </div>
-                                <div className="Duplicates__compare-header__column">
-                                    <Element className="Duplicates__compare-header__column__inner">
-                                        Mulig duplikat
-                                    </Element>
-                                </div>
-                                <button
-                                    className="Duplicates__compare-header__collapse-button"
-                                    aria-label="Lukk panel"
-                                    onClick={this.onCollapseClick}
-                                >
-                                    <span className="lenke">
-                                        {showComparePanel ? 'Skjul sammenligning' : 'Vis sammenligning'}
-                                    </span>
-                                </button>
                             </div>
                             <div className="Duplicates__compare">
                                 <div className="Duplicates__compare__flex">
@@ -145,7 +147,7 @@ Duplicates.propTypes = {
     showComparePanel: PropTypes.bool.isRequired,
     hideDuplicatesModal: PropTypes.func.isRequired,
     collapseComparePanel: PropTypes.func.isRequired,
-    expandComparePanel: PropTypes.func.isRequired,
+    expandComparePanel: PropTypes.func.isRequired
 };
 
 
