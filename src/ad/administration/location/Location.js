@@ -48,7 +48,21 @@ class Location extends React.Component {
         }
     };
 
+    locationIsCountry = (location) => {
+        // Returnerer true for annonser fra Adreg som ikke har postnummer, men land istedet
+        return this.props.medium === 'Stillingsregistrering' && location && location.country && !location.postalCode
+            && !location.municipal;
+    };
+
+    locationIsMunicipal = (location) => {
+        // Returnerer true for annonser fra Adreg som ikke har postnummer, men kommune istedet
+        return this.props.medium === 'Stillingsregistrering' && location && location.municipal && !location.postalCode;
+    };
+
+
     render() {
+        const locationIsCountry = this.locationIsCountry(this.props.location);
+        const locationIsMunicipal = this.locationIsMunicipal(this.props.location);
         return (
             <div className="Location">
                 <div className="blokk-xxs">
@@ -69,14 +83,27 @@ class Location extends React.Component {
                             this.inputRef = instance;
                         }}
                         error={this.props.validation.location !== undefined}
+                        disabled={locationIsCountry || locationIsMunicipal}
                     />
                 </div>
-                {this.props.location &&
+                {this.props.location && !locationIsMunicipal &&
                     <div>
                         <Undertekst>
                             {getLocationAsString(this.props.location, ' | ')}
                         </Undertekst>
                     </div>
+                }
+                {locationIsCountry &&
+                    <Undertekst>
+                        Angitt som utland: {capitalizeLocation(this.props.location.country)}{'. Stillingen må ' +
+                    'registreres i Arena.'}
+                    </Undertekst>
+                }
+                {locationIsMunicipal &&
+                    <Undertekst>
+                        Angitt som kommune: {capitalizeLocation(this.props.location.municipal)}{'. Stillingen må ' +
+                    'registreres i Arena.'}
+                    </Undertekst>
                 }
                 {this.props.validation.location && (
                     <div className="Administration__error">{this.props.validation.location}</div>
@@ -93,13 +120,15 @@ Location.propTypes = {
     })).isRequired,
     setLocationTypeAheadValue: PropTypes.func.isRequired,
     fetchLocations: PropTypes.func.isRequired,
-    setLocationPostalCode: PropTypes.func.isRequired
+    setLocationPostalCode: PropTypes.func.isRequired,
+    medium: PropTypes.string.isRequired
 };
 
 const mapStateToProps = (state) => ({
     suggestions: state.location.suggestions,
     location: state.adData.location,
-    validation: state.adValidation.errors
+    validation: state.adValidation.errors,
+    medium: state.adData.medium
 });
 
 const mapDispatchToProps = (dispatch) => ({

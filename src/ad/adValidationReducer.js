@@ -21,9 +21,16 @@ const REMOVE_VALIDATION_ERROR = 'REMOVE_VALIDATION_ERROR';
 
 const valueIsNotSet = (value) => (value === undefined || value === null || value.length === 0);
 
+const locationIsCountryOrMunicipal = (location, medium) => {
+    // Returnerer true for annonser fra Adreg som ikke har postnummer, men land eller kommune istedet.
+    // Disse skal ikke gi validation-error
+    return medium === 'Stillingsregistrering' && location && (location.country || location.municipal) &&
+        !location.postalCode;
+}
+
 function* validateLocation() {
     const state = yield select();
-    const { location } = state.adData;
+    const { location, medium } = state.adData;
     if (location &&
         location.postalCode &&
         location.postalCode.match('^[0-9]{4}$')) {
@@ -45,7 +52,7 @@ function* validateLocation() {
             field: 'location',
             message: 'Ugyldig postnummer'
         });
-    } else if (!location || !location.postalCode) {
+    } else if (!location || (!location.postalCode && !locationIsCountryOrMunicipal(location, medium))) {
         yield put({
             type: ADD_VALIDATION_ERROR,
             field: 'location',
