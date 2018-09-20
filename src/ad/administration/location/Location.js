@@ -13,6 +13,14 @@ import {
 import './Location.less';
 import capitalizeLocation from './capitalizeLocation';
 
+const getLocationAsString = (location, separator) => (
+    [
+        location.city && `Sted: ${capitalizeLocation(location.city)}`,
+        location.municipal && `Kommune: ${capitalizeLocation(location.municipal)}`,
+        location.county && `Fylke: ${capitalizeLocation(location.county)}`
+    ].filter((l) => l).join(separator)
+);
+
 class Location extends React.Component {
     componentDidMount() {
         this.props.fetchLocations();
@@ -65,13 +73,9 @@ class Location extends React.Component {
                 </div>
                 {this.props.location &&
                     <div>
-                        {this.props.location.city && this.props.location.municipal && this.props.location.county && (
-                            <Undertekst>
-                                Sted: {capitalizeLocation(this.props.location.city)}{' | '}
-                                Kommune: {capitalizeLocation(this.props.location.municipal)}{' | '}
-                                Fylke: {capitalizeLocation(this.props.location.county)}
-                            </Undertekst>
-                        )}
+                        <Undertekst>
+                            {getLocationAsString(this.props.location, ' | ')}
+                        </Undertekst>
                     </div>
                 }
                 {this.props.validation.location && (
