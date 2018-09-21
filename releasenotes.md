@@ -1,3 +1,6 @@
+## RELEASE - 0.7.207-e18d794
+#### New in this release: 
++ 2018-09-20 [PAM-1342] - Disabler postnummer-felt for stillinger fra pam-adreg som har kommune eller land registrert - det skal fortsatt være lov å publisere disse stillingene, men NSS må vite at de skal registreres i Arena i tillegg.
 ## RELEASE - 0.6.206-d1ce1b1
 #### New in this release: 
 + 2018-09-20 [PAM-1450] Returnere string i getLocationAsString
