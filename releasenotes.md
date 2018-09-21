@@ -1,3 +1,8 @@
+## RELEASE - 0.6.206-d1ce1b1
+#### New in this release: 
++ 2018-09-20 [PAM-1450] Returnere string i getLocationAsString
++ 2018-09-20 [Bugfix] Småjusteringer av css i duplikatsjekk
++ 2018-09-19 [PAM-1450] Vise arbeidssted selv om en eller flere av feltene mangler
 ## RELEASE - 0.5.204-f4ece9c
 #### New in this release: 
 + 2018-09-20 [Bugfix] Utfører søk etter duplikat når man trykker Enter i søkefeltet for arbeidssted, slik  det er gjort i de andre søkefeltene.
