@@ -32,7 +32,7 @@ function AdStatus({ adStatus, remarks, comments }) {
                 <Alertstripe className="AdStatusPreview__Alertstripe" type="advarsel" solid>
                     Annonsen er avvist: {remarksLabels.includes(comments)
                         ? remarksLabels.join(', ')
-                        : `${remarksLabels.join(', ')}${comments && `, ${comments}`}`}
+                        : `${remarksLabels.join(', ')}${comments ? `, ${comments}` : ''}`}
                 </Alertstripe>
             )}
             {adStatus === AdStatusEnum.STOPPED && (
