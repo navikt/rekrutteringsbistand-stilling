@@ -1,9 +1,8 @@
-import { select, put, takeLatest } from 'redux-saga/effects';
-import { ApiError, fetchGet } from '../api/api';
-import { AD_API } from '../fasitProperties';
-import toUrl from '../common/toUrl';
+import { put, select, takeLatest } from 'redux-saga/effects';
 import AdminStatusEnum from '../ad/administration/adminStatus/AdminStatusEnum';
 import { FETCH_NEXT_AD_SUCCESS, SAVE_AD_SUCCESS } from '../ad/adReducer';
+import { ApiError, fetchAds, fetchGet } from '../api/api';
+import { AD_API } from '../fasitProperties';
 
 export const FETCH_REPORTEE = 'FETCH_REPORTEE';
 export const FETCH_REPORTEE_BEGIN = 'FETCH_REPORTEE_BEGIN';
@@ -76,12 +75,11 @@ export function* getNumberOfPendingAds() {
         state = yield select();
     }
     try {
-        const searchUrl = toUrl({
+        const searchUrl = {
             reportee: state.reportee.data.displayName,
             administrationStatus: AdminStatusEnum.PENDING
-        });
-        const url = `${AD_API}ads/${searchUrl}`;
-        const response = yield fetchGet(url);
+        };
+        const response = yield fetchAds(searchUrl);
         yield put({ type: FETCH_NUMBER_OF_PENDING_ADS_SUCCESS, numberOfPendingAds: response.totalElements });
     } catch (e) {
         if (e instanceof ApiError) {

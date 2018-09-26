@@ -1,8 +1,6 @@
-import { put, takeLatest, select, call } from 'redux-saga/effects';
-import { fetchGet, ApiError } from '../api/api';
-import { AD_API } from '../fasitProperties';
+import { call, put, select, takeLatest } from 'redux-saga/effects';
+import { ApiError, fetchAds } from '../api/api';
 import { getReportee } from '../reportee/reporteeReducer';
-import toUrl from '../common/toUrl';
 
 export const FETCH_ADS = 'FETCH_ADS';
 export const FETCH_ADS_BEGIN = 'FETCH_ADS_BEGIN';
@@ -163,10 +161,7 @@ function* getAds(action) {
         }
 
         const query = toQuery(state.search);
-        const searchUrl = toUrl(query);
-        const url = `${AD_API}ads/${searchUrl}`;
-
-        const response = yield fetchGet(url);
+        const response = yield fetchAds(query);
         yield put({ type: FETCH_ADS_SUCCESS, response });
     } catch (e) {
         if (e instanceof ApiError) {

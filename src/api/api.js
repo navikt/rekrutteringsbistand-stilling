@@ -1,5 +1,7 @@
+import AdminStatusEnum from '../ad/administration/adminStatus/AdminStatusEnum';
+import toUrl from '../common/toUrl';
+import { AD_API, SEARCH_API } from '../fasitProperties';
 import { redirectToLogin } from '../login';
-import { SEARCH_API } from '../fasitProperties';
 
 export class ApiError {
     constructor(message, statusCode) {
@@ -61,35 +63,72 @@ export async function fetchPut(url, body) {
     });
 }
 
+/**
+ * TODO: Dette er en workaround, fordi det finnes annonser med ad.administration=null i databasen.
+ * Når databasen er migrert og ikke inneholder administration=null kan denne workarounden fjernes.
+ */
+function fixMissingAdministration(ad) {
+    return {
+        ...ad,
+        administration: {
+            remarks: [],
+            comments: '',
+            status: AdminStatusEnum.RECEIVED,
+            reportee: ''
+        }
+    };
+}
+
+export async function fetchAd(uuid) {
+    const ad = await fetchGet(`${AD_API}ads/${uuid}`);
+    if (ad.administration === null) {
+        return fixMissingAdministration(ad);
+    }
+    return ad;
+}
+
+export async function fetchAds(query) {
+    const result = await fetchGet(`${AD_API}ads${toUrl(query)}`);
+    return {
+        ...result,
+        content: result.content.map((ad) => {
+            if (ad.administration === null) {
+                return fixMissingAdministration(ad);
+            }
+            return ad;
+        })
+    };
+}
+
 const employerNameCompletionQueryTemplate = (match) => ({
-   query: {
-       match_phrase: {
-           navn_ngram_completion: {
-               query: match,
-               slop: 5
-           }
-       }
-   },
+    query: {
+        match_phrase: {
+            navn_ngram_completion: {
+                query: match,
+                slop: 5
+            }
+        }
+    },
     size: 50
 });
 
 export async function fetchEmployerNameCompletionHits(match) {
-  const result = await fetchPost(`${SEARCH_API}underenhet/_search`, employerNameCompletionQueryTemplate(match));
+    const result = await fetchPost(`${SEARCH_API}underenhet/_search`, employerNameCompletionQueryTemplate(match));
 
-  return {
-    match,
-    result: [
-      ...result.hits.hits.map((employer) => ({
-        name: employer._source.navn,
-        orgnr: employer._source.organisasjonsnummer,
-        location: (employer._source.adresse ? {
-            address: employer._source.adresse.adresse,
-            postalCode: employer._source.adresse.postnummer,
-            city: employer._source.adresse.poststed
-        } : undefined)
-      }))
-    ]
-  };
+    return {
+        match,
+        result: [
+            ...result.hits.hits.map((employer) => ({
+                name: employer._source.navn,
+                orgnr: employer._source.organisasjonsnummer,
+                location: (employer._source.adresse ? {
+                    address: employer._source.adresse.adresse,
+                    postalCode: employer._source.adresse.postnummer,
+                    city: employer._source.adresse.poststed
+                } : undefined)
+            }))
+        ]
+    };
 }
 
 

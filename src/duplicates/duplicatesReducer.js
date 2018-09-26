@@ -1,10 +1,10 @@
-import { put, takeLatest, select, call } from 'redux-saga/effects';
+import { put, select, takeLatest } from 'redux-saga/effects';
 import capitalizeEmployerName from '../ad/administration/employer/capitalizeEmployerName';
 import capitalizeLocation from '../ad/administration/location/capitalizeLocation';
 import { fetchLocations } from '../ad/administration/location/locationCodeReducer';
-import { fetchGet, ApiError } from '../api/api';
-import { AD_API } from '../fasitProperties';
+import { ApiError, fetchAd, fetchGet } from '../api/api';
 import toUrl from '../common/toUrl';
+import { AD_API } from '../fasitProperties';
 
 export const FETCH_CURRENT = 'FETCH_CURRENT';
 export const FETCH_CURRENT_BEGIN = 'FETCH_CURRENT_BEGIN';
@@ -198,7 +198,7 @@ function* searchForDuplicates() {
         if (withoutCurrent.length > 0) {
             yield put({ type: FETCH_OTHER_BEGIN });
             try {
-                const response2 = yield fetchGet(`${AD_API}ads/${withoutCurrent[0].uuid}`);
+                const response2 = yield fetchAd(withoutCurrent[0].uuid);
                 yield put({ type: FETCH_OTHER_SUCCESS, response: response2 });
             } catch (e) {
                 if (e instanceof ApiError) {
@@ -234,7 +234,7 @@ function* initialSearchForDuplicates() {
 function* fetchCurrent(action) {
     yield put({ type: FETCH_CURRENT_BEGIN });
     try {
-        const response = yield fetchGet(`${AD_API}ads/${action.uuid}`);
+        const response = yield fetchAd(action.uuid);
         yield put({ type: FETCH_CURRENT_SUCCESS, response });
     } catch (e) {
         if (e instanceof ApiError) {
@@ -248,7 +248,7 @@ function* fetchCurrent(action) {
 function* fetchOther(action) {
     yield put({ type: FETCH_OTHER_BEGIN });
     try {
-        const response = yield fetchGet(`${AD_API}ads/${action.uuid}`);
+        const response = yield fetchAd(action.uuid);
         yield put({ type: FETCH_OTHER_SUCCESS, response });
     } catch (e) {
         if (e instanceof ApiError) {

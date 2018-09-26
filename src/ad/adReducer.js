@@ -1,20 +1,21 @@
-import { put, takeLatest, select } from 'redux-saga/effects';
-import { ApiError, fetchGet, fetchPut } from '../api/api';
+import deepEqual from 'deep-equal';
+import { put, select, takeLatest } from 'redux-saga/effects';
+import { ApiError, fetchAd, fetchAds, fetchPut } from '../api/api';
 import { AD_API } from '../fasitProperties';
-import AdminStatusEnum from './administration/adminStatus/AdminStatusEnum';
-import toUrl from '../common/toUrl';
+import { getReportee } from '../reportee/reporteeReducer';
 import {
-    SET_REPORTEE,
+    SET_AD_STATUS,
     SET_ADMIN_STATUS,
     SET_ADMIN_STATUS_AND_GET_NEXT_AD,
     SET_EMPLOYER,
+    SET_EXPIRATION_DATE,
+    SET_LOCATION_POSTAL_CODE,
+    SET_PUBLISHED,
+    SET_REPORTEE,
     SET_STYRK,
-    SET_AD_STATUS,
-    SET_LOCATION_POSTAL_CODE, SET_PUBLISHED, SET_EXPIRATION_DATE, SET_UPDATED_BY
+    SET_UPDATED_BY
 } from './adDataReducer';
-import { getReportee } from '../reportee/reporteeReducer';
-
-import deepEqual from 'deep-equal';
+import AdminStatusEnum from './administration/adminStatus/AdminStatusEnum';
 import AdStatusEnum from './administration/adStatus/AdStatusEnum';
 import { hasRejectionErrors, hasValidationErrors, validateRejection } from './adValidationReducer';
 
@@ -210,7 +211,7 @@ export default function adReducer(state = initialState, action) {
 function* getAd(action) {
     yield put({ type: FETCH_AD_BEGIN });
     try {
-        const response = yield fetchGet(`${AD_API}ads/${action.uuid}`);
+        const response = yield fetchAd(action.uuid);
         yield put({ type: FETCH_AD_SUCCESS, response, previousAdminStatus: response.administration.status });
     } catch (e) {
         if (e instanceof ApiError) {
@@ -227,14 +228,14 @@ function* getNextAd() {
         yield put({ type: SHOW_HAS_CHANGES_MODAL });
     } else {
         yield put({ type: FETCH_NEXT_AD_BEGIN });
-        const queryString = toUrl({
+        const queryString = {
             ...state.ad.workPriority, size: 1, sort: 'created,asc', administrationStatus: AdminStatusEnum.RECEIVED
-        });
+        };
         let shouldRetry = true;
         while (shouldRetry) {
             let ad;
             try {
-                const responseList = yield fetchGet(`${AD_API}ads/${queryString}`);
+                const responseList = yield fetchAds(queryString);
                 if (responseList.content && responseList.content.length === 0) {
                     shouldRetry = false;
                     yield put({ type: SET_END_OF_LIST, endOfList: true });
