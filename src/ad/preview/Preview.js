@@ -7,6 +7,7 @@ import Application from './application/Application';
 import Employer from './employer/Employer';
 import Employment from './employment/Employment';
 import Summary from './summary/Summary';
+import { htmlParserOptions } from './markWords';
 import './Preview.less';
 
 export default function Preview({ ad }) {
@@ -22,7 +23,7 @@ export default function Preview({ ad }) {
             <Row>
                 <Column xs="12" md="8">
                     <div className="AdText__body">
-                        {ReactHtmlParser(ad.properties.adtext)}
+                        {ad.properties.adtext && ReactHtmlParser(ad.properties.adtext, htmlParserOptions)}
                     </div>
                 </Column>
                 <Column xs="12" md="4">
