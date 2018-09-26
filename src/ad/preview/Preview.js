@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Innholdstittel, Undertittel} from 'nav-frontend-typografi';
+import { Element, Innholdstittel } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
 import ReactHtmlParser from 'react-html-parser';
 import Application from './application/Application';
@@ -33,7 +33,7 @@ export default function Preview({ ad }) {
                     {hardrequirements && (
                         <div className="HardRequirements">
                             <div className="HardRequirements__label">
-                                <Undertittel>Krav (Kvalifikasjoner)</Undertittel>
+                                <Element>Krav (Kvalifikasjoner)</Element>
                             </div>
                             <div className="HardRequirements__points">
                                 <ul>
@@ -47,7 +47,7 @@ export default function Preview({ ad }) {
                     {softrequirements && (
                         <div className="SoftRequirements">
                             <div className="SoftRequirements__label">
-                                <Undertittel>Ønsket kompetanse</Undertittel>
+                                <Element>Ønsket kompetanse</Element>
                             </div>
                             <div className="SoftRequirements__points">
                                 <ul>
@@ -61,7 +61,7 @@ export default function Preview({ ad }) {
                     {personalattributes && (
                         <div className="PersonalAttributes">
                             <div className="PersonalAttributes__label">
-                                <Undertittel>Personlige egenskaper</Undertittel>
+                                <Element>Personlige egenskaper</Element>
                             </div>
                             <div className="PersonalAttributes__points">
                                 <ul>
