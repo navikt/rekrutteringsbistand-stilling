@@ -1,4 +1,5 @@
 import Modal from 'nav-frontend-modal';
+import AlertStripe from 'nav-frontend-alertstriper';
 import { Element, Undertekst } from 'nav-frontend-typografi';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -31,7 +32,9 @@ class Duplicates extends React.Component {
     };
 
     render() {
-        const { showComparePanel, current, other, isLoadingOther } = this.props;
+        const {
+            showComparePanel, current, other, isLoadingOther, error
+        } = this.props;
         return (
             <Modal
                 className="DuplicatesModal"
@@ -43,7 +46,11 @@ class Duplicates extends React.Component {
             >
                 <div className="Duplicates">
                     <div className="Duplicates__flex">
-
+                        {error && (
+                            <AlertStripe solid type="advarsel">
+                                Det oppsto en feil, lukk duplikatsjekken og forsøk igjen.
+                            </AlertStripe>
+                        )}
                         <DuplicateSearch />
                         <DuplicateSearchResult />
                         <div className={showComparePanel ?
@@ -80,8 +87,8 @@ class Duplicates extends React.Component {
                                             <div>
                                                 <DuplicateAdStatus
                                                     adStatus={current.status}
-                                                    remarks={current.administration.remarks}
-                                                    comments={current.administration.comments}
+                                                    remarks={current.administration ? current.administration.remarks : []}
+                                                    comments={current.administration ? current.administration.comments : ''}
                                                 />
                                                 <Undertekst>
                                                 Mottatt: {formatISOString(current.created, 'DD.MM.YY HH:MM')}
@@ -95,8 +102,8 @@ class Duplicates extends React.Component {
                                             <div>
                                                 <DuplicateAdStatus
                                                     adStatus={other.status}
-                                                    remarks={other.administration.remarks}
-                                                    comments={other.administration.comments}
+                                                    remarks={other.administration ? other.administration.remarks : []}
+                                                    comments={other.administration ? other.administration.comments : ''}
                                                 />
                                                 <Undertekst>
                                                 Mottatt: {formatISOString(other.created, 'DD.MM.YY HH:MM')}
@@ -122,7 +129,8 @@ class Duplicates extends React.Component {
 
 Duplicates.defaultProps = {
     current: undefined,
-    other: undefined
+    other: undefined,
+    error: undefined
 };
 
 Duplicates.propTypes = {
@@ -147,12 +155,14 @@ Duplicates.propTypes = {
     showComparePanel: PropTypes.bool.isRequired,
     hideDuplicatesModal: PropTypes.func.isRequired,
     collapseComparePanel: PropTypes.func.isRequired,
-    expandComparePanel: PropTypes.func.isRequired
+    expandComparePanel: PropTypes.func.isRequired,
+    error: PropTypes.shape({})
 };
 
 
 const mapStateToProps = (state) => ({
     current: state.adData,
+    error: state.duplicates.error,
     other: state.duplicates.other,
     showDuplicatesModal: state.duplicates.showDuplicatesModal,
     showComparePanel: state.duplicates.showComparePanel,
