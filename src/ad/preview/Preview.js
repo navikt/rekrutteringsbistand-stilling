@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Innholdstittel } from 'nav-frontend-typografi';
+import {Innholdstittel, Undertittel} from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
 import ReactHtmlParser from 'react-html-parser';
 import Application from './application/Application';
@@ -10,6 +10,12 @@ import Summary from './summary/Summary';
 import './Preview.less';
 
 export default function Preview({ ad }) {
+    const hardrequirements = ad.properties.hardrequirements
+        ? JSON.parse(ad.properties.hardrequirements) : undefined;
+    const softrequirements = ad.properties.softrequirements
+        ? JSON.parse(ad.properties.softrequirements) : undefined;
+    const personalattributes = ad.properties.personalattributes
+        ? JSON.parse(ad.properties.personalattributes) : undefined;
     return (
         <div className="AdText">
             <Row>
@@ -24,6 +30,48 @@ export default function Preview({ ad }) {
                     <div className="AdText__body">
                         {ReactHtmlParser(ad.properties.adtext)}
                     </div>
+                    {hardrequirements && (
+                        <div className="HardRequirements">
+                            <div className="HardRequirements__label">
+                                <Undertittel>Krav (Kvalifikasjoner)</Undertittel>
+                            </div>
+                            <div className="HardRequirements__points">
+                                <ul>
+                                    {hardrequirements.map((r) => (
+                                        <li className="typo-normal" key={r.punkt}>{r.punkt}</li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
+                    )}
+                    {softrequirements && (
+                        <div className="SoftRequirements">
+                            <div className="SoftRequirements__label">
+                                <Undertittel>Ønsket kompetanse</Undertittel>
+                            </div>
+                            <div className="SoftRequirements__points">
+                                <ul>
+                                    {softrequirements.map((r) => (
+                                        <li className="typo-normal" key={r.punkt}>{r.punkt}</li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
+                    )}
+                    {personalattributes && (
+                        <div className="PersonalAttributes">
+                            <div className="PersonalAttributes__label">
+                                <Undertittel>Personlige egenskaper</Undertittel>
+                            </div>
+                            <div className="PersonalAttributes__points">
+                                <ul>
+                                    {personalattributes.map((r) => (
+                                        <li className="typo-normal" key={r.punkt}>{r.punkt}</li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
+                    )}
                 </Column>
                 <Column xs="12" md="4">
                     <div className="AdText__details">
