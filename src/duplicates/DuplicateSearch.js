@@ -63,7 +63,7 @@ class DuplicateSearch extends React.Component {
                             <Input
                                 onChange={this.setTitle}
                                 value={this.props.query.title}
-                                label="Stillingsoverskrift"
+                                label="Annonseoverskrift"
                                 className="DuplicateSearch__input"
                             />
                         </Column>
