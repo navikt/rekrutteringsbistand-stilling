@@ -63,6 +63,7 @@ export default function searchReducer(state = initialState, action) {
             return {
                 ...state,
                 other: undefined,
+                possibleDuplicates: [],
                 isSearching: true,
                 error: undefined
             };
@@ -73,11 +74,18 @@ export default function searchReducer(state = initialState, action) {
                 totalElements: action.totalElements,
                 isSearching: false
             };
+        case FETCH_OTHER_FAILURE:
+        case FETCH_CURRENT_FAILURE:
         case SEARCH_FOR_DUPLICATES_FAILURE:
             return {
                 ...state,
                 error: action.error,
                 isSearching: false
+            };
+        case FETCH_CURRENT_BEGIN:
+            return {
+                ...state,
+                error: undefined
             };
         case FETCH_CURRENT_SUCCESS:
             return {
@@ -87,6 +95,7 @@ export default function searchReducer(state = initialState, action) {
         case FETCH_OTHER_BEGIN:
             return {
                 ...state,
+                error: undefined,
                 showComparePanel: true
             };
         case FETCH_OTHER:
