@@ -87,8 +87,8 @@ class Duplicates extends React.Component {
                                             <div>
                                                 <DuplicateAdStatus
                                                     adStatus={current.status}
-                                                    remarks={current.administration.remarks}
-                                                    comments={current.administration.comments}
+                                                    remarks={current.administration ? current.administration.remarks : []}
+                                                    comments={current.administration ? current.administration.comments : ''}
                                                 />
                                                 <Undertekst>
                                                 Mottatt: {formatISOString(current.created, 'DD.MM.YY HH:MM')}
@@ -102,8 +102,8 @@ class Duplicates extends React.Component {
                                             <div>
                                                 <DuplicateAdStatus
                                                     adStatus={other.status}
-                                                    remarks={other.administration.remarks}
-                                                    comments={other.administration.comments}
+                                                    remarks={other.administration ? other.administration.remarks : []}
+                                                    comments={other.administration ? other.administration.comments : ''}
                                                 />
                                                 <Undertekst>
                                                 Mottatt: {formatISOString(other.created, 'DD.MM.YY HH:MM')}
