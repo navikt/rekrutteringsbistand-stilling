@@ -104,3 +104,33 @@
     margin: 0;
   }
 }
+
+.AdText__panel {
+  margin-right: 1rem;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  background: @white;
+  border: 1px solid #cccccc;
+}
+
+
+.HardRequirements, .SoftRequirements, .PersonalAttributes {
+  .AdText__panel;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: row;
+}
+
+.HardRequirements__points, .SoftRequirements__points, .PersonalAttributes__points {
+  padding: 20px 32px;
+
+  ul {
+    margin: 0;
+  }
+}
+
+.SoftRequirements__label, .HardRequirements__label, .PersonalAttributes__label {
+  background: #e5f3eb;
+  width: 30%;
+  padding: 20px 32px;
+}
