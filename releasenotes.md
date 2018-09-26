@@ -1,3 +1,6 @@
+## RELEASE - 0.9.214-3ae720f
+#### New in this release: 
++ 2018-09-26 [PAM-1500] Sette bredde på krav for å alltid få de rett under hverandre
 ## RELEASE - 0.8.212-256db36
 #### New in this release: 
 + 2018-09-26 [PAM-1499] Workaround for å unngå problemer ved ad.administration=null
