@@ -57,7 +57,7 @@ class Publishing extends React.Component {
                     <Normaltekst className="Publishing__label">Publiseringsdato</Normaltekst>
                     <Datovelger
                         id="published"
-                        dato={formatISOString(published, 'DD.MM.YY') || ''}
+                        dato={formatISOString(published, 'DD.MM.YYYY') || ''}
                         onChange={this.onPublishedChange}
                         ref={(instance) => { this.refPublished = instance; }}
                         avgrensninger={{ minDato: new Date(Date.now()) }}
@@ -68,7 +68,7 @@ class Publishing extends React.Component {
                     <Normaltekst className="Publishing__label">Utløpsdato*</Normaltekst>
                     <Datovelger
                         id="expires"
-                        dato={formatISOString(expires, 'DD.MM.YY') || ''}
+                        dato={formatISOString(expires, 'DD.MM.YYYY') || ''}
                         onChange={this.onExpiresChange}
                         ref={(instance) => { this.refExpires = instance; }}
                         avgrensninger={{ minDato: new Date(Date.now()) }}
