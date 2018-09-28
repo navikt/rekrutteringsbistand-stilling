@@ -29,7 +29,7 @@ class DuplicateRow extends React.Component {
                 <Row>
                     <Column md="1">
                         <Normaltekst className="DuplicateRow__ellipsis">
-                            {duplicate.created ? formatISOString(duplicate.created, 'DD.MM.YY HH:MM') : ''}
+                            {duplicate.created ? formatISOString(duplicate.created, 'DD.MM.YYYY') : ''}
                         </Normaltekst>
                     </Column>
                     <Column md="3">

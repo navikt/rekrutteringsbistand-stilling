@@ -16,7 +16,7 @@ export default class SearchResultItem extends React.Component {
             <Row className="SearchResultItem">
                 <Column md="2">
                     <Normaltekst className="SearchResultItem__column">
-                        {ad.created ? formatISOString(ad.created, 'D. MMMM YYYY HH:MM') : ''}
+                        {ad.created ? formatISOString(ad.created, 'DD.MM.YYYY') : ''}
                     </Normaltekst>
                 </Column>
                 <Column md="4">

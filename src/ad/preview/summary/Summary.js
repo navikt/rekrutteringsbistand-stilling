@@ -10,7 +10,7 @@ export default function Summary({ ad }) {
             <dl className="dl-flex typo-normal">
                 {ad.updated && [
                     <dt key="dt">Sist endret:</dt>,
-                    <dd key="dd">{formatISOString(ad.updated, 'D. MMMM YYYY')}</dd>
+                    <dd key="dd">{formatISOString(ad.updated, 'DD.MM.YYYY')}</dd>
                 ]}
                 {ad.medium && [
                     <dt key="dt">Hentet fra:</dt>,

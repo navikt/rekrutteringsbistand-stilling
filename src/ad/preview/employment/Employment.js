@@ -49,7 +49,7 @@ export default function Employment({ properties }) {
                     <dt key="dt">Oppstart:</dt>,
                     <dd key="dd">
                         {isValidISOString(properties.starttime) ?
-                            formatISOString(properties.starttime, 'D. MMMM YYYY') :
+                            formatISOString(properties.starttime, 'DD.MM.YYYY') :
                             properties.starttime}
                     </dd>
                 ]}

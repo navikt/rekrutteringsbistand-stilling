@@ -91,7 +91,7 @@ class Duplicates extends React.Component {
                                                     comments={current.administration ? current.administration.comments : ''}
                                                 />
                                                 <Undertekst>
-                                                Mottatt: {formatISOString(current.created, 'DD.MM.YY HH:MM')}
+                                                Mottatt: {formatISOString(current.created, 'DD.MM.YYYY')}
                                                 </Undertekst>
                                                 <Preview ad={current} />
                                             </div>
@@ -106,7 +106,7 @@ class Duplicates extends React.Component {
                                                     comments={other.administration ? other.administration.comments : ''}
                                                 />
                                                 <Undertekst>
-                                                Mottatt: {formatISOString(other.created, 'DD.MM.YY HH:MM')}
+                                                Mottatt: {formatISOString(other.created, 'DD.MM.YYYY')}
                                                 </Undertekst>
                                                 <Preview ad={other} />
                                             </div>
