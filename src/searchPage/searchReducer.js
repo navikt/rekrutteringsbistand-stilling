@@ -1,4 +1,6 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
+import AdminStatusEnum from '../ad/administration/adminStatus/AdminStatusEnum';
+import AdStatusEnum from '../ad/administration/adStatus/AdStatusEnum';
 import { ApiError, fetchAds } from '../api/api';
 import { getReportee } from '../reportee/reporteeReducer';
 
@@ -35,8 +37,8 @@ const initialState = {
     field: undefined,
     suggestions: [],
     source: undefined,
-    status: undefined,
-    administrationStatus: undefined,
+    status: AdStatusEnum.INACTIVE,
+    administrationStatus: AdminStatusEnum.RECEIVED,
     reportee: undefined
 };
 
