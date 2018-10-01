@@ -1,3 +1,6 @@
+## RELEASE - 0.10.217-b1f36b5
+#### New in this release: 
++ 2018-09-27 [Fix] Bruker samme datoformat alle steder, DD.MM.YYYY, feks 27.09.2018
 ## RELEASE - 0.9.214-3ae720f
 #### New in this release: 
 + 2018-09-26 [PAM-1500] Sette bredde på krav for å alltid få de rett under hverandre

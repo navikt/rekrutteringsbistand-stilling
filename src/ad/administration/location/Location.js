@@ -101,8 +101,7 @@ class Location extends React.Component {
                 }
                 {locationIsMunicipal &&
                     <Undertekst>
-                        Angitt som kommune: {capitalizeLocation(this.props.location.municipal)}{'. Stillingen må ' +
-                    'registreres i Arena.'}
+                        Angitt som kommune: {capitalizeLocation(this.props.location.municipal)}
                     </Undertekst>
                 }
                 {this.props.validation.location && (
