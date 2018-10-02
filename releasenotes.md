@@ -1,3 +1,7 @@
+## RELEASE - 0.11.219-46a47c3
+#### New in this release: 
++ 2018-10-02 [Feature] Flytter Alle nederst i radiobuttonliste
++ 2018-10-01 [Feature] Viser annonser som er MOTTATT og IKKE PUBLISERT når søkebildet åpnes første gang.
 ## RELEASE - 0.10.217-b1f36b5
 #### New in this release: 
 + 2018-09-27 [Fix] Bruker samme datoformat alle steder, DD.MM.YYYY, feks 27.09.2018
