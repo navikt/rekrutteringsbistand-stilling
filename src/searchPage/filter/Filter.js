@@ -48,13 +48,6 @@ class Filter extends React.Component {
         return (
             <div>
                 <SkjemaGruppe title="Status" className="blokk">
-                    <Radio
-                        label="Alle"
-                        value="Alle"
-                        name="adStatus"
-                        checked={this.props.adStatus === undefined}
-                        onChange={this.onStatusFilterChange}
-                    />
                     {Object.keys(StatusEnum).map((key) => (
                         <Radio
                             key={key}
@@ -65,6 +58,13 @@ class Filter extends React.Component {
                             onChange={this.onStatusFilterChange}
                         />
                     ))}
+                    <Radio
+                        label="Alle"
+                        value="Alle"
+                        name="adStatus"
+                        checked={this.props.adStatus === undefined}
+                        onChange={this.onStatusFilterChange}
+                    />
                 </SkjemaGruppe>
                 <SkjemaGruppe title="Kilde" className="blokk">
                     <Radio
@@ -86,13 +86,6 @@ class Filter extends React.Component {
                     ))}
                 </SkjemaGruppe>
                 <SkjemaGruppe title="Saksbehandlingsstatus" className="blokk">
-                    <Radio
-                        label="Alle"
-                        value="Alle"
-                        checked={this.props.adminStatus === undefined}
-                        name="adminStatus"
-                        onChange={this.onAdministrationStatusFilterChange}
-                    />
                     {Object.keys(AdminStatusEnum).map((key) => (
                         <Radio
                             key={key}
@@ -103,6 +96,13 @@ class Filter extends React.Component {
                             onChange={this.onAdministrationStatusFilterChange}
                         />
                     ))}
+                    <Radio
+                        label="Alle"
+                        value="Alle"
+                        checked={this.props.adminStatus === undefined}
+                        name="adminStatus"
+                        onChange={this.onAdministrationStatusFilterChange}
+                    />
                 </SkjemaGruppe>
                 <SkjemaGruppe title="Saksbehandler" className="blokk">
                     <Radio
