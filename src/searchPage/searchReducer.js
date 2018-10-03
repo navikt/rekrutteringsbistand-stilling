@@ -1,7 +1,8 @@
-import { call, put, select, takeLatest } from 'redux-saga/effects';
+import { call, put, select, takeLatest, takeEvery } from 'redux-saga/effects';
 import AdminStatusEnum from '../ad/administration/adminStatus/AdminStatusEnum';
 import AdStatusEnum from '../ad/administration/adStatus/AdStatusEnum';
-import { ApiError, fetchAds } from '../api/api';
+import { ApiError, fetchAds, fetchPut } from '../api/api';
+import { AD_API } from '../fasitProperties';
 import { getReportee } from '../reportee/reporteeReducer';
 
 export const FETCH_ADS = 'FETCH_ADS';
@@ -17,6 +18,15 @@ export const CHANGE_SOURCE_FILTER = 'CHANGE_SOURCE_FILTER';
 export const CHANGE_STATUS_FILTER = 'CHANGE_STATUS_FILTER';
 export const CHANGE_ADMINISTRATION_STATUS_FILTER = 'CHANGE_ADMINISTRATION_STATUS_FILTER';
 export const CHANGE_REPORTEE_FILTER = 'CHANGE_REPORTEE_FILTER';
+
+export const ASSIGN_TO_ME_SEARCH_RESULT_ITEM = 'ASSIGN_TO_ME_SEARCH_RESULT_ITEM';
+export const ASSIGN_TO_ME_SEARCH_RESULT_ITEM_BEGIN = 'ASSIGN_TO_ME_SEARCH_RESULT_ITEM_BEGIN';
+export const ASSIGN_TO_ME_SEARCH_RESULT_ITEM_SUCCESS = 'ASSIGN_TO_ME_SEARCH_RESULT_ITEM_SUCCESS';
+export const ASSIGN_TO_ME_SEARCH_RESULT_ITEM_FAILURE = 'ASSIGN_TO_ME_SEARCH_RESULT_ITEM_FAILURE';
+export const UN_ASSIGN_SEARCH_RESULT_ITEM = 'UN_ASSIGN_SEARCH_RESULT_ITEM';
+export const UN_ASSIGN_SEARCH_RESULT_ITEM_BEGIN = 'UN_ASSIGN_SEARCH_RESULT_ITEM_BEGIN';
+export const UN_ASSIGN_SEARCH_RESULT_ITEM_SUCCESS = 'UN_ASSIGN_SEARCH_RESULT_ITEM_SUCCESS';
+export const UN_ASSIGN_SEARCH_RESULT_ITEM_FAILURE = 'UN_ASSIGN_SEARCH_RESULT_ITEM_FAILURE';
 
 export const Fields = {
     EMPLOYER_NAME: 'employerName',
@@ -39,7 +49,8 @@ const initialState = {
     source: undefined,
     status: AdStatusEnum.INACTIVE,
     administrationStatus: AdminStatusEnum.RECEIVED,
-    reportee: undefined
+    reportee: undefined,
+    adsBeingSaved: []
 };
 
 export default function searchReducer(state = initialState, action) {
@@ -122,6 +133,31 @@ export default function searchReducer(state = initialState, action) {
                 ...state,
                 page: 0
             };
+        case ASSIGN_TO_ME_SEARCH_RESULT_ITEM_BEGIN:
+        case UN_ASSIGN_SEARCH_RESULT_ITEM_BEGIN:
+            return {
+                ...state,
+                adsBeingSaved: [...state.adsBeingSaved, action.uuid]
+            };
+        case ASSIGN_TO_ME_SEARCH_RESULT_ITEM_SUCCESS:
+        case UN_ASSIGN_SEARCH_RESULT_ITEM_SUCCESS:
+            return {
+                ...state,
+                adsBeingSaved: state.adsBeingSaved.filter((uuid) => (uuid !== action.ad.uuid)),
+                items: state.items.map((item) => {
+                    if (item.uuid === action.ad.uuid) {
+                        return action.ad;
+                    }
+                    return item;
+                })
+            };
+        case ASSIGN_TO_ME_SEARCH_RESULT_ITEM_FAILURE:
+        case UN_ASSIGN_SEARCH_RESULT_ITEM_FAILURE:
+            return {
+                ...state,
+                adsBeingSaved: state.adsBeingSaved.filter((uuid) => (uuid !== action.uuid)),
+                error: action.error
+            };
         default:
             return state;
     }
@@ -174,6 +210,51 @@ function* getAds(action) {
     }
 }
 
+function* assignToMe(action) {
+    try {
+        yield put({ type: ASSIGN_TO_ME_SEARCH_RESULT_ITEM_BEGIN, uuid: action.ad.uuid });
+        const reportee = yield getReportee();
+        const ad = {
+            ...action.ad,
+            administration: {
+                ...action.ad.administration,
+                reportee: reportee.displayName,
+                status: AdminStatusEnum.PENDING
+            }
+        };
+        const response = yield fetchPut(`${AD_API}ads/${action.ad.uuid}`, ad);
+        yield put({ type: ASSIGN_TO_ME_SEARCH_RESULT_ITEM_SUCCESS, ad: response });
+    } catch (e) {
+        if (e instanceof ApiError) {
+            yield put({ type: ASSIGN_TO_ME_SEARCH_RESULT_ITEM_FAILURE, uuid: action.ad.uuid, error: e });
+        } else {
+            throw e;
+        }
+    }
+}
+
+function* unAssign(action) {
+    try {
+        yield put({ type: UN_ASSIGN_SEARCH_RESULT_ITEM_BEGIN, uuid: action.ad.uuid });
+        const ad = {
+            ...action.ad,
+            administration: {
+                ...action.ad.administration,
+                reportee: '',
+                status: AdminStatusEnum.RECEIVED
+            }
+        };
+        const response = yield fetchPut(`${AD_API}ads/${action.ad.uuid}`, ad);
+        yield put({ type: UN_ASSIGN_SEARCH_RESULT_ITEM_SUCCESS, ad: response });
+    } catch (e) {
+        if (e instanceof ApiError) {
+            yield put({ type: UN_ASSIGN_SEARCH_RESULT_ITEM_FAILURE, uuid: action.ad.uuid, error: e });
+        } else {
+            throw e;
+        }
+    }
+}
+
 
 export const searchSaga = function* saga() {
     yield takeLatest([
@@ -186,4 +267,6 @@ export const searchSaga = function* saga() {
         CHANGE_PAGE,
         FETCH_ADS
     ], getAds);
+    yield takeEvery(ASSIGN_TO_ME_SEARCH_RESULT_ITEM, assignToMe);
+    yield takeEvery(UN_ASSIGN_SEARCH_RESULT_ITEM, unAssign);
 };

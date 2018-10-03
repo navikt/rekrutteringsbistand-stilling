@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import AlertStripe from 'nav-frontend-alertstriper';
 import { Container } from 'nav-frontend-grid';
 import { Knapp } from 'nav-frontend-knapper';
 import SearchBox from './searchBox/SearchBox';
@@ -32,10 +33,20 @@ class SearchPage extends React.Component {
     };
 
     render() {
-        const { ads, isSearching } = this.props;
+        const { ads, isSearching, error } = this.props;
         const adsFound = !isSearching && ads && ads.length > 0;
         return (
             <Container className="SearchPage">
+                {(error && error.statusCode === 412) && (
+                    <AlertStripe className="SearchPage__alertStripe" type="advarsel" solid>
+                        Noen andre har gjort endringer annonsen i mellomtiden. Forsøk å laste søket på nytt
+                    </AlertStripe>
+                )}
+                {(error && error.statusCode !== 412) && (
+                    <AlertStripe className="SearchPage__alertStripe" type="advarsel" solid>
+                        Det oppsto en feil. Forsøk å laste siden på nytt
+                    </AlertStripe>
+                )}
                 <div className="SearchPage__flex">
                     <div className="SearchPage__flex__left">
                         <div className="SearchPage__flex__left__inner">
@@ -75,6 +86,10 @@ class SearchPage extends React.Component {
     }
 }
 
+SearchPage.defaultProps = {
+    error: undefined
+};
+
 SearchPage.propTypes = {
     ads: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
     isSearching: PropTypes.bool.isRequired,
@@ -86,8 +101,10 @@ SearchPage.propTypes = {
     sortField: PropTypes.string.isRequired,
     sortDir: PropTypes.string.isRequired,
     searchField: PropTypes.string,
-    searchValue: PropTypes.string
-
+    searchValue: PropTypes.string,
+    error: PropTypes.shape({
+        statusCode: PropTypes.number
+    })
 };
 
 SearchPage.defaultProps = {
@@ -95,7 +112,6 @@ SearchPage.defaultProps = {
     adStatus: undefined,
     searchField: undefined,
     searchValue: ''
-
 };
 
 const mapStateToProps = (state) => ({
@@ -106,8 +122,8 @@ const mapStateToProps = (state) => ({
     sortField: state.search.sortField,
     sortDir: state.search.sortDir,
     searchField: state.search.field,
-    searchValue: state.search.value
-
+    searchValue: state.search.value,
+    error: state.search.error
 });
 
 const mapDispatchToProps = (dispatch) => ({
