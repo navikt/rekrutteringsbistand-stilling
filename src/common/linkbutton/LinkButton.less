@@ -4,11 +4,21 @@
 
 .LinkButton {
   background: transparent;
-  padding: 0;
-  color: @navMorkGra;
+  color: @navBla;
   font-family: @font-family;
-  line-height: @line-height-base;
-  .lenke-mixin();
-  border: 0;
-  font-weight: bold;
+  min-height: 1.45rem;
+  border: 1px solid transparent;
+  padding: 1px 2px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.LinkButton:hover {
+  outline: none;
+  border-color: @navBla;
+}
+
+.LinkButton:focus {
+  outline: none;
+  border-color: @orangeFocus;
 }

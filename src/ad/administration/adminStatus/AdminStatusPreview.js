@@ -1,16 +1,43 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { Normaltekst } from 'nav-frontend-typografi';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { connect } from 'react-redux';
+import LinkButton from '../../../common/linkbutton/LinkButton';
+import { ASSIGN_CURRENT_AD_TO_ME, UN_ASSIGN_CURRENT_AD } from '../../adReducer';
+import AdminStatusEnum from './AdminStatusEnum';
 import './AdminStatusPreview.less';
 
 class AdminStatusPreview extends React.Component {
+    onAssignToMeClick = () => {
+        this.props.assignCurrentAdToMe();
+    };
+
+    onUnAssignClick = () => {
+        this.props.unAssignCurrentAd();
+    };
+
     render() {
-        const { reportee } = this.props;
+        const { reportee, adminStatus } = this.props;
 
         return (
             <div className="AdminStatusPreview">
-                <Normaltekst><b>Saksbehandler:</b> {reportee || 'Ingen'}</Normaltekst>
+                <Normaltekst><b>Saksbehandler:</b> {reportee || ''}</Normaltekst>
+                {reportee && adminStatus === AdminStatusEnum.PENDING && (
+                    <LinkButton
+                        className="AdminStatusPreview__LinkButton"
+                        onClick={this.onUnAssignClick}
+                    >
+                        Fjern
+                    </LinkButton>
+                )}
+                {!reportee && adminStatus === AdminStatusEnum.RECEIVED && (
+                    <LinkButton
+                        className="AdminStatusPreview__LinkButton"
+                        onClick={this.onAssignToMeClick}
+                    >
+                        Marker som min
+                    </LinkButton>
+                )}
             </div>
         );
     }
@@ -21,7 +48,10 @@ AdminStatusPreview.defaultProps = {
 };
 
 AdminStatusPreview.propTypes = {
-    reportee: PropTypes.string
+    reportee: PropTypes.string,
+    adminStatus: PropTypes.string.isRequired,
+    assignCurrentAdToMe: PropTypes.func.isRequired,
+    unAssignCurrentAd: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -29,4 +59,9 @@ const mapStateToProps = (state) => ({
     reportee: state.adData.administration.reportee
 });
 
-export default connect(mapStateToProps)(AdminStatusPreview);
+const mapDispatchToProps = (dispatch) => ({
+    assignCurrentAdToMe: () => dispatch({ type: ASSIGN_CURRENT_AD_TO_ME }),
+    unAssignCurrentAd: () => dispatch({ type: UN_ASSIGN_CURRENT_AD })
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AdminStatusPreview);

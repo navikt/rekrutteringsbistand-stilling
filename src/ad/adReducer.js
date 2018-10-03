@@ -54,10 +54,12 @@ export const SHOW_STOP_AD_MODAL = 'SHOW_STOP_AD_MODAL';
 export const HIDE_STOP_AD_MODAL = 'HIDE_STOP_AD_MODAL';
 
 export const SET_TO_RECEIVED = 'SET_TO_RECEIVED';
-export const ASSIGN_TO_ME = 'ASSIGN_TO_ME';
 
 export const SHOW_HAS_CHANGES_MODAL = 'SHOW_HAS_CHANGES_MODAL';
 export const HIDE_HAS_CHANGES_MODAL = 'HIDE_HAS_CHANGES_MODAL';
+
+export const ASSIGN_CURRENT_AD_TO_ME = 'ASSIGN_CURRENT_AD_TO_ME';
+export const UN_ASSIGN_CURRENT_AD = 'UN_ASSIGN_CURRENT_AD';
 
 const initialState = {
     error: undefined,
@@ -365,6 +367,12 @@ function* assignToMe() {
     yield save();
 }
 
+function* unAssign() {
+    yield put({ type: SET_REPORTEE, reportee: null });
+    yield put({ type: SET_ADMIN_STATUS, status: AdminStatusEnum.RECEIVED });
+    yield save(false);
+}
+
 function* saveAd(action) {
     const state = yield select();
     if (state.adData.administration.status === AdminStatusEnum.RECEIVED) {
@@ -398,7 +406,8 @@ export const adSaga = function* saga() {
     yield takeLatest(FETCH_NEXT_AD, getNextAd);
     yield takeLatest(SAVE_AD, saveAd);
     yield takeLatest(SET_TO_RECEIVED, setToReceived);
-    yield takeLatest(ASSIGN_TO_ME, assignToMe);
     yield takeLatest(SET_ADMIN_STATUS_AND_GET_NEXT_AD, setAdminStatusAndGetNextAd);
     yield takeLatest(PUBLISH_AD_CHANGES, publishAdChanges);
+    yield takeLatest(ASSIGN_CURRENT_AD_TO_ME, assignToMe);
+    yield takeLatest(UN_ASSIGN_CURRENT_AD, unAssign);
 };

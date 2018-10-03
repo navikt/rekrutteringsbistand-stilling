@@ -6,6 +6,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Preview from '../ad/preview/Preview';
 import DelayedSpinner from '../common/DelayedSpinner';
+import LinkButton from '../common/linkbutton/LinkButton';
 import { formatISOString } from '../utils';
 import DuplicateAdStatus from './DuplicateAdStatus';
 import './Duplicates.less';
@@ -69,15 +70,12 @@ class Duplicates extends React.Component {
                                             Mulig duplikat
                                         </Element>
                                     </div>
-                                    <button
+                                    <LinkButton
                                         className="Duplicates__compare__header__collapse-button"
-                                        aria-label="Lukk panel"
                                         onClick={this.onCollapseClick}
                                     >
-                                        <span className="lenke">
-                                            {showComparePanel ? 'Skjul sammenligning' : 'Vis sammenligning'}
-                                        </span>
-                                    </button>
+                                        {showComparePanel ? 'Skjul sammenligning' : 'Vis sammenligning'}
+                                    </LinkButton>
                                 </div>
                             </div>
                             <div className="Duplicates__compare">
