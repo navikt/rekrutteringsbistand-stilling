@@ -60,7 +60,7 @@ class SearchPage extends React.Component {
                             </div>
                             <div className="SearchPage__button__right">
                                 <Knapp onClick={this.onStartWorkClick}>
-                                    Start behandling
+                                    Behandle nye annonser
                                 </Knapp>
                             </div>
 
