@@ -19,6 +19,7 @@ export const CHANGE_STATUS_FILTER = 'CHANGE_STATUS_FILTER';
 export const CHANGE_ADMINISTRATION_STATUS_FILTER = 'CHANGE_ADMINISTRATION_STATUS_FILTER';
 export const CHANGE_REPORTEE_FILTER = 'CHANGE_REPORTEE_FILTER';
 export const SET_REPORTEE_VALUE = 'SET_REPORTEE_VALUE';
+export const RESET_SEARCH = 'RESET_SEARCH';
 
 export const ASSIGN_TO_ME_SEARCH_RESULT_ITEM = 'ASSIGN_TO_ME_SEARCH_RESULT_ITEM';
 export const ASSIGN_TO_ME_SEARCH_RESULT_ITEM_BEGIN = 'ASSIGN_TO_ME_SEARCH_RESULT_ITEM_BEGIN';
@@ -74,6 +75,8 @@ export default function searchReducer(state = initialState, action) {
                 suggestions
             };
         }
+        case RESET_SEARCH:
+            return initialState;
         case SET_SEARCH_FIELD:
             return {
                 ...state,
@@ -290,6 +293,7 @@ function* changeReporteeFilter(action) {
 
 export const searchSaga = function* saga() {
     yield takeLatest([
+        RESET_SEARCH,
         CHANGE_SOURCE_FILTER,
         CHANGE_STATUS_FILTER,
         CHANGE_ADMINISTRATION_STATUS_FILTER,

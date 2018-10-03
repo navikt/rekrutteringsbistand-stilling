@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import AlertStripe from 'nav-frontend-alertstriper';
 import { Container } from 'nav-frontend-grid';
-import { Knapp } from 'nav-frontend-knapper';
+import { Flatknapp, Knapp } from 'nav-frontend-knapper';
 import SearchBox from './searchBox/SearchBox';
 import SearchResultHeaders from './searchResult/SearchResultHeaders';
 import SearchResultItem from './searchResult/SearchResultItem';
@@ -12,7 +12,7 @@ import NoResults from './noResults/NoResults';
 import Loading from '../common/loading/Loading';
 import Filter from './filter/Filter';
 import Pagination from './pagination/Pagination';
-import { FETCH_ADS } from './searchReducer';
+import { FETCH_ADS, RESET_SEARCH } from './searchReducer';
 import { SET_WORK_PRIORITY } from '../ad/adReducer';
 import './SearchPage.less';
 
@@ -57,6 +57,13 @@ class SearchPage extends React.Component {
                         <div className="SearchPage__flex__right__inner">
                             <div className="SearchBox__wrapper">
                                 <SearchBox />
+                                <Flatknapp
+                                    className="SearchBox__wrapper__reset-search"
+                                    mini
+                                    onClick={this.props.resetSearch}
+                                >
+                                    Nullstill søket
+                                </Flatknapp>
                             </div>
                             <div className="SearchPage__button__right">
                                 <Knapp onClick={this.onStartWorkClick}>
@@ -94,6 +101,7 @@ SearchPage.propTypes = {
     ads: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
     isSearching: PropTypes.bool.isRequired,
     getAds: PropTypes.func.isRequired,
+    resetSearch: PropTypes.func.isRequired,
     setWorkPriority: PropTypes.func.isRequired,
     history: PropTypes.shape().isRequired,
     adSource: PropTypes.string,
@@ -128,7 +136,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     getAds: () => dispatch({ type: FETCH_ADS }),
-    setWorkPriority: (workPriority) => dispatch({ type: SET_WORK_PRIORITY, workPriority })
+    setWorkPriority: (workPriority) => dispatch({ type: SET_WORK_PRIORITY, workPriority }),
+    resetSearch: () => dispatch({ type: RESET_SEARCH })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchPage);
