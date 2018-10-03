@@ -56,7 +56,7 @@ class Filter extends React.Component {
     render() {
         return (
             <form onSubmit={this.onSubmit}>
-                <SkjemaGruppe title="Status" className="blokk">
+                <SkjemaGruppe title="Status" className="blokk-s">
                     {Object.keys(StatusEnum).map((key) => (
                         <Radio
                             key={key}
@@ -75,7 +75,7 @@ class Filter extends React.Component {
                         onChange={this.onStatusFilterChange}
                     />
                 </SkjemaGruppe>
-                <SkjemaGruppe title="Kilde" className="blokk">
+                <SkjemaGruppe title="Kilde" className="blokk-s">
                     <Radio
                         label="Alle"
                         value="Alle"
@@ -94,7 +94,7 @@ class Filter extends React.Component {
                         />
                     ))}
                 </SkjemaGruppe>
-                <SkjemaGruppe title="Saksbehandlingsstatus" className="blokk">
+                <SkjemaGruppe title="Saksbehandlingsstatus" className="blokk-s">
                     {Object.keys(AdminStatusEnum).map((key) => (
                         <Radio
                             key={key}
@@ -113,7 +113,7 @@ class Filter extends React.Component {
                         onChange={this.onAdministrationStatusFilterChange}
                     />
                 </SkjemaGruppe>
-                <SkjemaGruppe title="Saksbehandler" className="blokk">
+                <SkjemaGruppe title="Saksbehandler" className="blokk-s">
                     <Radio
                         label="Alle"
                         value="all"
