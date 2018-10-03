@@ -28,7 +28,7 @@ class SearchResultHeaders extends React.Component {
 
         return (
             <Row className="SearchResultHeaders">
-                <Column md="2" onClick={() => this.onSortClick('created')}>
+                <Column md="1" onClick={() => this.onSortClick('created')}>
                     <Element>
                         Mottatt
                         <i className={sortField === 'created' ? className : 'SearchResultHeader--unsorted'} />
@@ -40,7 +40,7 @@ class SearchResultHeaders extends React.Component {
                         <i className={sortField === 'title' ? className : 'SearchResultHeader--unsorted'} />
                     </Element>
                 </Column>
-                <Column md="3" onClick={() => this.onSortClick('employerName')}>
+                <Column md="2" onClick={() => this.onSortClick('employerName')}>
                     <Element>
                         Arbeidsgiver
                         <i className={sortField === 'employerName' ? className : 'SearchResultHeader--unsorted'} />
@@ -60,8 +60,13 @@ class SearchResultHeaders extends React.Component {
                 </Column>
                 <Column md="1" onClick={() => this.onSortClick('administrationStatus')}>
                     <Element>
-                        Saksbehandlings-status
-                        <i className={sortField === 'administrationStatus' ? className : 'SearchResultHeader--unsorted'}/>
+                        Sak.status
+                        <i className={sortField === 'administrationStatus' ? className : 'SearchResultHeader--unsorted'} />
+                    </Element>
+                </Column>
+                <Column md="2">
+                    <Element>
+                        Saksbehandler
                     </Element>
                 </Column>
             </Row>

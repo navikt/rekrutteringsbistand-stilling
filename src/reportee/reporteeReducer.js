@@ -1,8 +1,12 @@
-import { put, select, takeLatest } from 'redux-saga/effects';
+import { put, select, takeLatest, throttle } from 'redux-saga/effects';
 import AdminStatusEnum from '../ad/administration/adminStatus/AdminStatusEnum';
 import { FETCH_NEXT_AD_SUCCESS, SAVE_AD_SUCCESS } from '../ad/adReducer';
 import { ApiError, fetchAds, fetchGet } from '../api/api';
 import { AD_API } from '../fasitProperties';
+import {
+    ASSIGN_TO_ME_SEARCH_RESULT_ITEM_SUCCESS,
+    UN_ASSIGN_SEARCH_RESULT_ITEM_SUCCESS
+} from '../searchPage/searchReducer';
 
 export const FETCH_REPORTEE = 'FETCH_REPORTEE';
 export const FETCH_REPORTEE_BEGIN = 'FETCH_REPORTEE_BEGIN';
@@ -91,7 +95,11 @@ export function* getNumberOfPendingAds() {
 }
 
 export const reporteeSaga = function* saga() {
-    // yield takeLatest(FETCH_REPORTEE, getReportee);
     yield takeLatest(FETCH_NUMBER_OF_PENDING_ADS, getNumberOfPendingAds);
-    yield takeLatest([SAVE_AD_SUCCESS, FETCH_NEXT_AD_SUCCESS], getNumberOfPendingAds);
+    yield throttle(3000, [
+        SAVE_AD_SUCCESS,
+        FETCH_NEXT_AD_SUCCESS,
+        UN_ASSIGN_SEARCH_RESULT_ITEM_SUCCESS,
+        ASSIGN_TO_ME_SEARCH_RESULT_ITEM_SUCCESS
+    ], getNumberOfPendingAds);
 };
