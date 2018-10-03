@@ -1,5 +1,5 @@
 const AdminStatusEnum = {
-    RECEIVED: 'Mottatt',
+    RECEIVED: 'Ny',
     PENDING: 'Under arbeid',
     DONE: 'Ferdig'
 };
