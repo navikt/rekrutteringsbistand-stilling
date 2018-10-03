@@ -1,4 +1,4 @@
-import { call, put, select, takeLatest, takeEvery } from 'redux-saga/effects';
+import { call, put, select, takeLatest, takeEvery, throttle } from 'redux-saga/effects';
 import AdminStatusEnum from '../ad/administration/adminStatus/AdminStatusEnum';
 import AdStatusEnum from '../ad/administration/adStatus/AdStatusEnum';
 import { ApiError, fetchAds, fetchPut } from '../api/api';
@@ -18,6 +18,7 @@ export const CHANGE_SOURCE_FILTER = 'CHANGE_SOURCE_FILTER';
 export const CHANGE_STATUS_FILTER = 'CHANGE_STATUS_FILTER';
 export const CHANGE_ADMINISTRATION_STATUS_FILTER = 'CHANGE_ADMINISTRATION_STATUS_FILTER';
 export const CHANGE_REPORTEE_FILTER = 'CHANGE_REPORTEE_FILTER';
+export const SET_REPORTEE_VALUE = 'SET_REPORTEE_VALUE';
 
 export const ASSIGN_TO_ME_SEARCH_RESULT_ITEM = 'ASSIGN_TO_ME_SEARCH_RESULT_ITEM';
 export const ASSIGN_TO_ME_SEARCH_RESULT_ITEM_BEGIN = 'ASSIGN_TO_ME_SEARCH_RESULT_ITEM_BEGIN';
@@ -49,7 +50,8 @@ const initialState = {
     source: undefined,
     status: AdStatusEnum.INACTIVE,
     administrationStatus: AdminStatusEnum.RECEIVED,
-    reportee: undefined,
+    reportee: 'all',
+    reporteeValue: '',
     adsBeingSaved: []
 };
 
@@ -96,6 +98,11 @@ export default function searchReducer(state = initialState, action) {
             return {
                 ...state,
                 reportee: action.value
+            };
+        case SET_REPORTEE_VALUE:
+            return {
+                ...state,
+                reporteeValue: action.value
             };
         case FETCH_ADS_BEGIN:
             return {
@@ -196,7 +203,24 @@ function* getAds(action) {
                     reportee: reportee.displayName
                 }
             };
+        } else if (state.search.reportee === 'all') {
+            state = {
+                ...state,
+                search: {
+                    ...state.search,
+                    reportee: undefined
+                }
+            };
+        } else if (state.search.reportee === 'define') {
+            state = {
+                ...state,
+                search: {
+                    ...state.search,
+                    reportee: state.search.reporteeValue
+                }
+            };
         }
+
 
         const query = toQuery(state.search);
         const response = yield fetchAds(query);
@@ -255,18 +279,28 @@ function* unAssign(action) {
     }
 }
 
+function* changeReporteeFilter(action) {
+    if (action.value === 'define') {
+        yield put({ type: SET_REPORTEE_VALUE, value: '' });
+    } else {
+        yield getAds(action);
+    }
+}
+
 
 export const searchSaga = function* saga() {
     yield takeLatest([
         CHANGE_SOURCE_FILTER,
         CHANGE_STATUS_FILTER,
         CHANGE_ADMINISTRATION_STATUS_FILTER,
-        CHANGE_REPORTEE_FILTER,
         SET_SEARCH_FIELD,
         CHANGE_SORTING,
         CHANGE_PAGE,
         FETCH_ADS
     ], getAds);
+    yield takeLatest([
+        CHANGE_REPORTEE_FILTER
+    ], changeReporteeFilter);
     yield takeEvery(ASSIGN_TO_ME_SEARCH_RESULT_ITEM, assignToMe);
     yield takeEvery(UN_ASSIGN_SEARCH_RESULT_ITEM, unAssign);
 };

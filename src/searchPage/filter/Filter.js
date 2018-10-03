@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Radio, SkjemaGruppe } from 'nav-frontend-skjema';
+import { Input, Radio, SkjemaGruppe } from 'nav-frontend-skjema';
 import {
     CHANGE_ADMINISTRATION_STATUS_FILTER, CHANGE_REPORTEE_FILTER,
     CHANGE_SOURCE_FILTER,
-    CHANGE_STATUS_FILTER
+    CHANGE_STATUS_FILTER, FETCH_ADS, SET_REPORTEE_VALUE
 } from '../searchReducer';
 import SourceEnum from '../enums/SourceEnum';
 import StatusEnum from '../enums/AdStatusEnum';
@@ -44,9 +44,18 @@ class Filter extends React.Component {
         }
     };
 
+    onReporteeInputChange = (e) => {
+        this.props.setReporteeValue(e.target.value);
+    };
+
+    onSubmit = (e) => {
+        e.preventDefault();
+        this.props.search();
+    };
+
     render() {
         return (
-            <div>
+            <form onSubmit={this.onSubmit}>
                 <SkjemaGruppe title="Status" className="blokk">
                     {Object.keys(StatusEnum).map((key) => (
                         <Radio
@@ -107,8 +116,8 @@ class Filter extends React.Component {
                 <SkjemaGruppe title="Saksbehandler" className="blokk">
                     <Radio
                         label="Alle"
-                        value="Alle"
-                        checked={this.props.reportee === undefined}
+                        value="all"
+                        checked={this.props.reportee === 'all'}
                         name="reportee"
                         onChange={this.onReporteeFilterChange}
                     />
@@ -119,8 +128,24 @@ class Filter extends React.Component {
                         name="reportee"
                         onChange={this.onReporteeFilterChange}
                     />
+                    <Radio
+                        label="Søk på navn"
+                        value="define"
+                        checked={this.props.reportee === 'define'}
+                        name="reportee"
+                        onChange={this.onReporteeFilterChange}
+                    />
+                    {this.props.reportee === 'define' && (
+                        <Input
+                            bredde="S"
+                            label=""
+                            placeholder="Søk..."
+                            value={this.props.reporteeValue}
+                            onChange={this.onReporteeInputChange}
+                        />
+                    )}
                 </SkjemaGruppe>
-            </div>
+            </form>
         );
     }
 }
@@ -129,10 +154,12 @@ Filter.defaultProps = {
     adStatus: undefined,
     adminStatus: undefined,
     source: undefined,
-    reportee: undefined
+    reportee: undefined,
+    reporteeValue: ''
 };
 
 Filter.propTypes = {
+    search: PropTypes.func.isRequired,
     changeStatusFilter: PropTypes.func.isRequired,
     changeSourceFilter: PropTypes.func.isRequired,
     changeAdministrationStatusFilter: PropTypes.func.isRequired,
@@ -140,21 +167,25 @@ Filter.propTypes = {
     adStatus: PropTypes.string,
     adminStatus: PropTypes.string,
     source: PropTypes.string,
-    reportee: PropTypes.string
+    reportee: PropTypes.string,
+    reporteeValue: PropTypes.string
 };
 
 const mapStateToProps = (state) => ({
     adStatus: state.search.status,
     adminStatus: state.search.administrationStatus,
     source: state.search.source,
-    reportee: state.search.reportee
+    reportee: state.search.reportee,
+    reporteeValue: state.search.reporteeValue
 });
 
 const mapDispatchToProps = (dispatch) => ({
+    search: () => dispatch({ type: FETCH_ADS }),
     changeSourceFilter: (value) => dispatch({ type: CHANGE_SOURCE_FILTER, value }),
     changeStatusFilter: (value) => dispatch({ type: CHANGE_STATUS_FILTER, value }),
     changeAdministrationStatusFilter: (value) => dispatch({ type: CHANGE_ADMINISTRATION_STATUS_FILTER, value }),
-    changeReporteeFilter: (value) => dispatch({ type: CHANGE_REPORTEE_FILTER, value })
+    changeReporteeFilter: (value) => dispatch({ type: CHANGE_REPORTEE_FILTER, value }),
+    setReporteeValue: (value) => dispatch({ type: SET_REPORTEE_VALUE, value })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Filter);
