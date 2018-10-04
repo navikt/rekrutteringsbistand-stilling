@@ -65,6 +65,9 @@ class SearchResultItem extends React.Component {
                 <Column md="2">
                     <div className="SearchResultItem__column">
                         <div className="SearchResultItem__column__flex">
+                            <Normaltekst className="SearchResultItem__column__flex__ellipsis">
+                                {ad.administration && ad.administration.reportee ? ad.administration.reportee : ''}
+                            </Normaltekst>
                             {ad.administration &&
                                 ad.administration.status === AdminStatusEnum2.PENDING &&
                                 ad.administration.reportee &&
@@ -80,9 +83,6 @@ class SearchResultItem extends React.Component {
                                     </LinkButton>
                                 )
                             }
-                            <Normaltekst>
-                                {ad.administration && ad.administration.reportee ? ad.administration.reportee : ''}
-                            </Normaltekst>
                             {ad.administration &&
                                 ad.administration.status === AdminStatusEnum2.RECEIVED &&
                                 !ad.administration.reportee && (
