@@ -88,7 +88,9 @@ export default class Typeahead extends React.Component {
                     this.setState({ activeSuggestionIndex });
                     if (activeSuggestionIndex > -1) {
                         const activeElement = document.getElementById(`${this.props.id}-item-${activeSuggestionIndex}`);
-                        activeElement.scrollIntoViewIfNeeded();
+                        if (activeElement !== null) {
+                            activeElement.scrollIntoViewIfNeeded();
+                        }
                     }
                 }
                 break;
@@ -102,7 +104,9 @@ export default class Typeahead extends React.Component {
                         activeSuggestionIndex + 1;
                     this.setState({ activeSuggestionIndex });
                     const activeElement = document.getElementById(`${this.props.id}-item-${activeSuggestionIndex}`);
-                    activeElement.scrollIntoViewIfNeeded();
+                    if (activeElement !== null) {
+                        activeElement.scrollIntoViewIfNeeded();
+                    }
                 }
                 break;
             default:
@@ -130,7 +134,7 @@ export default class Typeahead extends React.Component {
                 this.setState({
                     hasFocus: false
                 });
-                if(this.props.onBlur) {
+                if (this.props.onBlur) {
                     this.props.onBlur(value);
                 }
             }
@@ -247,10 +251,12 @@ export default class Typeahead extends React.Component {
 Typeahead.defaultProps = {
     disabled: false,
     placeholder: undefined,
-    error: false
+    error: false,
+    onBlur: undefined
 };
 
 Typeahead.propTypes = {
+    onBlur: PropTypes.func,
     onSelect: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,
     placeholder: PropTypes.string,

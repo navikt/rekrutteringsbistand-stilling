@@ -1,3 +1,5 @@
+@import "../../../variables";
+
 .Employer__typeahead {
   ul li {
     white-space: normal;
@@ -11,4 +13,16 @@
   .TypeaheadSuggestion__inner {
     white-space: normal;
   }
+}
+
+.Employer__typeahead__item {
+  padding: 0.25rem 0;
+
+  .typo-undertekst {
+    color: @navGra60;
+  }
+}
+
+.Employer__typeahead .TypeaheadSuggestion--active .typo-undertekst {
+  color: #fff;
 }
