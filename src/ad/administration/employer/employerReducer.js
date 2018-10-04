@@ -90,5 +90,5 @@ function* getEmployerSuggestions() {
 }
 
 export const employerSaga = function* saga() {
-    yield throttle(1000, FETCH_EMPLOYER_SUGGESTIONS, getEmployerSuggestions);
+    yield throttle(500, FETCH_EMPLOYER_SUGGESTIONS, getEmployerSuggestions);
 };
