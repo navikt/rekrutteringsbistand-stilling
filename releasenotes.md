@@ -1,3 +1,11 @@
+## RELEASE - 0.12.225-4fdddcf
+#### New in this release: 
++ 2018-10-03 [PAM-1294] Nullstill søket
++ 2018-10-03 [PAM-1596] Filter på saksbehandlers navn
++ 2018-10-03 [PAM-1601] Gir nytt navn på knapp, "Behandle nye annonser"
++ 2018-10-03 [PAM-1435] Gir nytt navn på annonsestatus, fra "Mottatt" til "Ny"
++ 2018-10-03 [PAM-1595] Markere som min inne på stillingsannonsen
++ 2018-10-03 [PAM-1436] Vise sakesbehandler i opplistingen
 ## RELEASE - 0.11.219-46a47c3
 #### New in this release: 
 + 2018-10-02 [Feature] Flytter Alle nederst i radiobuttonliste
