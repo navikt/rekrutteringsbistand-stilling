@@ -1,6 +1,14 @@
-import { put, takeLatest, select, call } from 'redux-saga/effects';
+import { put, throttle, select, call } from 'redux-saga/effects';
 import { ApiError, fetchEmployerNameCompletionHits, fetchOrgnrSuggestions } from '../../../api/api';
-import {FETCH_AD_BEGIN, FETCH_NEXT_AD_BEGIN, SAVE_AD_BEGIN} from '../../adReducer';
+import {
+    FETCH_AD_BEGIN,
+    FETCH_AD_SUCCESS,
+    FETCH_NEXT_AD_BEGIN,
+    FETCH_NEXT_AD_SUCCESS,
+    SAVE_AD_BEGIN,
+    SAVE_AD_SUCCESS
+} from '../../adReducer';
+import capitalizeEmployerName from './capitalizeEmployerName';
 
 export const FETCH_EMPLOYER_SUGGESTIONS = 'FETCH_EMPLOYER_SUGGESTIONS';
 export const FETCH_EMPLOYER_SUGGESTIONS_SUCCESS = 'FETCH_EMPLOYER_SUGGESTIONS_SUCCESS';
@@ -15,12 +23,24 @@ const initialState = {
 export default function employerReducer(state = initialState, action) {
     switch (action.type) {
         case FETCH_AD_BEGIN:
-        case FETCH_NEXT_AD_BEGIN:
         case SAVE_AD_BEGIN:
+            return {
+                ...state,
+                suggestions: []
+            };
+        case FETCH_NEXT_AD_BEGIN:
             return {
                 ...state,
                 suggestions: [],
                 typeAheadValue: ''
+            };
+        case SAVE_AD_SUCCESS:
+        case FETCH_AD_SUCCESS:
+        case FETCH_NEXT_AD_SUCCESS:
+            return {
+                ...state,
+                typeAheadValue: action.response.employer && action.response.employer.name ?
+                    capitalizeEmployerName(action.response.employer.name) : ''
             };
         case FETCH_EMPLOYER_SUGGESTIONS_SUCCESS:
             return {
@@ -70,5 +90,5 @@ function* getEmployerSuggestions() {
 }
 
 export const employerSaga = function* saga() {
-    yield takeLatest(FETCH_EMPLOYER_SUGGESTIONS, getEmployerSuggestions);
+    yield throttle(500, FETCH_EMPLOYER_SUGGESTIONS, getEmployerSuggestions);
 };

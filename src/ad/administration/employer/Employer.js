@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Undertekst } from 'nav-frontend-typografi';
+import { Normaltekst, Undertekst } from 'nav-frontend-typografi';
 import Typeahead from '../../../common/typeahead/Typeahead';
 import { FETCH_EMPLOYER_SUGGESTIONS, SET_EMPLOYER_TYPEAHEAD_VALUE } from './employerReducer';
 import { SET_EMPLOYER } from '../../adDataReducer';
@@ -30,41 +30,50 @@ class Employer extends React.Component {
     }
 
     onTypeAheadValueChange = (value) => {
-        const found = this.lookUpEmployer(value);
-        if (found) {
-            this.props.setEmployerTypeaheadValue(found.name);
-            this.props.setEmployer(found);
-        } else {
-            this.props.setEmployerTypeaheadValue(value);
+        this.props.setEmployerTypeaheadValue(value);
+        this.props.fetchEmployerSuggestions();
+    };
+
+    onTypeAheadValueBlur = (value) => {
+        if (value.length === 0) {
             this.props.setEmployer();
         }
-        this.props.fetchEmployerSuggestions();
     };
 
     onTypeAheadSuggestionSelected = (employer) => {
         if (employer) {
             const found = this.lookUpEmployer(employer.value);
             this.props.setEmployer(found);
-            this.props.setEmployerTypeaheadValue(found.name);
+            this.props.setEmployerTypeaheadValue(capitalizeEmployerName(found.name));
+        } else {
+            this.props.setEmployer();
         }
     };
 
     getEmployerSuggestionLabel = (suggestion) => {
-        let label = `${capitalizeEmployerName(suggestion.name)}`;
+        let commaSeparate = [];
         if (suggestion.location) {
             if (suggestion.location.address) {
-                label += `, ${suggestion.location.address}`;
+                commaSeparate = [...commaSeparate, suggestion.location.address];
             }
             if (suggestion.location.postalCode) {
-                label += `, ${suggestion.location.postalCode}`;
+                commaSeparate = [...commaSeparate, suggestion.location.postalCode];
             }
             if (suggestion.location.city) {
-                label += ` ${capitalizeLocation(suggestion.location.city)}`;
+                commaSeparate = [...commaSeparate, capitalizeLocation(suggestion.location.city)];
             }
         }
-        label += ` (${suggestion.orgnr})`;
-
-        return label;
+        if (suggestion.orgnr) {
+            commaSeparate = [...commaSeparate, `Orgnr. ${suggestion.orgnr}`];
+        }
+        return (
+            <div className="Employer__typeahead__item">
+                <Normaltekst>{capitalizeEmployerName(suggestion.name)}</Normaltekst>
+                <Undertekst>
+                    {commaSeparate.join(', ')}
+                </Undertekst>
+            </div>
+        );
     };
 
     lookUpEmployer = (value) => this.props.suggestions.find((employer) => (
@@ -82,14 +91,14 @@ class Employer extends React.Component {
                         className="Employer__typeahead"
                         label="Arbeidsgiver fra Enhetsregisteret*"
                         placeholder="Skriv inn arb.givernavn eller org.nr"
+                        onBlur={this.onTypeAheadValueBlur}
                         onSelect={this.onTypeAheadSuggestionSelected}
                         onChange={this.onTypeAheadValueChange}
                         suggestions={this.props.suggestions.map((suggestion) => ({
                             value: suggestion.orgnr,
-                            label: `${this.getEmployerSuggestionLabel(suggestion)}`
+                            label: this.getEmployerSuggestionLabel(suggestion)
                         }))}
-                        value={this.props.employer && this.props.employer.name ?
-                            capitalizeEmployerName(this.props.employer.name) : this.props.typeAheadValue}
+                        value={this.props.typeAheadValue}
                         ref={(instance) => {
                             this.inputRef = instance;
                         }}

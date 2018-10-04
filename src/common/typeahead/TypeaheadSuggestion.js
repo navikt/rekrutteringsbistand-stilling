@@ -3,10 +3,6 @@ import PropTypes from 'prop-types';
 import './TypeaheadSuggestion.less';
 
 export default class TypeaheadSuggestion extends React.Component {
-    constructor(props) {
-        super();
-    }
-
     onClick = () => {
         this.props.onClick(this.props.item);
     };
@@ -16,8 +12,6 @@ export default class TypeaheadSuggestion extends React.Component {
     };
 
     render() {
-        const matchFound = this.props.value.toLowerCase().startsWith(this.props.match.toLowerCase());
-
         return (
             <li
                 id={this.props.id}
@@ -30,36 +24,29 @@ export default class TypeaheadSuggestion extends React.Component {
                 onKeyDown={this.props.avoidBlur}
                 className="TypeaheadSuggestion typo-normal"
             >
-                {matchFound ? (
-                    <span
-                        className={`TypeaheadSuggestion__inner ${this.props.active && 'TypeaheadSuggestion--active'}`}
-                    >
-                        {this.props.label.substring(0, this.props.match.length)}
-                        <span
-                            className="TypeaheadSuggestion__substring"
-                        >
-                            {this.props.label.substring(this.props.match.length)}
-                        </span>
-                    </span>
-                ) : (
-                    <span
-                        className={`TypeaheadSuggestion__inner ${this.props.active && 'TypeaheadSuggestion--active'}`}
-                    >
-                        {this.props.label}
-                    </span>
-                )}
+                <span
+                    className={this.props.active ?
+                        'TypeaheadSuggestion__inner TypeaheadSuggestion--active' :
+                        'TypeaheadSuggestion__inner'}
+                >
+                    {this.props.label}
+                </span>
             </li>
         );
     }
 }
 
 TypeaheadSuggestion.propTypes = {
+    item: PropTypes.shape({}).isRequired,
     id: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,
-    value: PropTypes.string.isRequired,
-    match: PropTypes.string.isRequired,
     active: PropTypes.bool.isRequired,
     index: PropTypes.number.isRequired,
     setSuggestionIndex: PropTypes.func.isRequired,
-    avoidBlur: PropTypes.func.isRequired
+    avoidBlur: PropTypes.func.isRequired,
+    label: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.node),
+        PropTypes.node,
+        PropTypes.string
+    ]).isRequired
 };
