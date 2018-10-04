@@ -82,7 +82,11 @@ export default function Preview({ ad }) {
                             properties={ad.properties}
                         />
                         <Employment properties={ad.properties} />
-                        <ContactPerson source={ad.source} contactList={ad.contactList} />
+                        {ad.source === 'Stillingsregistrering' &&
+                            // Only render contactinfo from stillingsregistrering,
+                            // until we have permission to render data for other mediums
+                            <ContactPerson contactList={ad.contactList} />
+                        }
                         <Employer
                             employer={ad.employer}
                             properties={ad.properties}

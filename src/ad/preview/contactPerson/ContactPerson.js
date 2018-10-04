@@ -2,10 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Undertittel } from 'nav-frontend-typografi';
 
-export default function ContactPerson({ source, contactList }) {
-    // Only render contactinfo from stillingsregistrering,
-    // until we have permission to render data for other mediums
-    if (contactList && contactList.length > 0 && source === 'Stillingsregistrering') {
+export default function ContactPerson({ contactList }) {
+    if (contactList && contactList.length > 0) {
         return (
             <div className="detail-section">
                 <Undertittel className="detail-section__head">Kontaktperson for stillingen</Undertittel>
@@ -39,6 +37,5 @@ ContactPerson.propTypes = {
         title: PropTypes.string,
         phone: PropTypes.string,
         email: PropTypes.string
-    })).isRequired,
-    source: PropTypes.string.isRequired
+    })).isRequired
 };
