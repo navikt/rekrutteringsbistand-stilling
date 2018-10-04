@@ -16,8 +16,6 @@ export default class TypeaheadSuggestion extends React.Component {
     };
 
     render() {
-        const matchFound = this.props.value.toLowerCase().startsWith(this.props.match.toLowerCase());
-
         return (
             <li
                 id={this.props.id}
@@ -30,24 +28,11 @@ export default class TypeaheadSuggestion extends React.Component {
                 onKeyDown={this.props.avoidBlur}
                 className="TypeaheadSuggestion typo-normal"
             >
-                {matchFound ? (
-                    <span
-                        className={`TypeaheadSuggestion__inner ${this.props.active && 'TypeaheadSuggestion--active'}`}
-                    >
-                        {this.props.label.substring(0, this.props.match.length)}
-                        <span
-                            className="TypeaheadSuggestion__substring"
-                        >
-                            {this.props.label.substring(this.props.match.length)}
-                        </span>
-                    </span>
-                ) : (
-                    <span
-                        className={`TypeaheadSuggestion__inner ${this.props.active && 'TypeaheadSuggestion--active'}`}
-                    >
-                        {this.props.label}
-                    </span>
-                )}
+                <span
+                    className={`TypeaheadSuggestion__inner ${this.props.active && 'TypeaheadSuggestion--active'}`}
+                >
+                    {this.props.label}
+                </span>
             </li>
         );
     }
@@ -56,8 +41,6 @@ export default class TypeaheadSuggestion extends React.Component {
 TypeaheadSuggestion.propTypes = {
     id: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,
-    value: PropTypes.string.isRequired,
-    match: PropTypes.string.isRequired,
     active: PropTypes.bool.isRequired,
     index: PropTypes.number.isRequired,
     setSuggestionIndex: PropTypes.func.isRequired,
