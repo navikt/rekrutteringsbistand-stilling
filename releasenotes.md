@@ -1,3 +1,8 @@
+## RELEASE - 0.13.229-d12fef3
+#### New in this release: 
++ 2018-10-04 [Fix] Flytter "Fjern"-knapp slik at den kommer etter saksbehandlernavn
++ 2018-10-04 [PAM-1616]: Flytter sjekk på kilde ut av komponenten
++ 2018-10-04 [Fix] Gjør listen over arbeidsgivere i typeahead mere lettlest, ved å sturkturere navn og addresse på ulike linjer. Optimaliserer også typeheadenen og gjør den mer responsiv når man skriver inn.
 ## RELEASE - 0.12.225-4fdddcf
 #### New in this release: 
 + 2018-10-03 [PAM-1294] Nullstill søket
