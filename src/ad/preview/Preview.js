@@ -82,10 +82,7 @@ export default function Preview({ ad }) {
                             properties={ad.properties}
                         />
                         <Employment properties={ad.properties} />
-                        {// Wait for permission to render contact info from FINN
-                            ad.source !== 'FINN' &&
-                            <ContactPerson contactList={ad.contactList} />
-                        }
+                        <ContactPerson contactList={ad.contactList} />
                         <Employer
                             employer={ad.employer}
                             properties={ad.properties}
