@@ -82,9 +82,8 @@ export default function Preview({ ad }) {
                             properties={ad.properties}
                         />
                         <Employment properties={ad.properties} />
-                        {ad.source === 'Stillingsregistrering' &&
-                            // Only render contactinfo from stillingsregistrering,
-                            // until we have permission to render data for other mediums
+                        {// Wait for permission to render contact info from FINN
+                            ad.source !== 'FINN' &&
                             <ContactPerson contactList={ad.contactList} />
                         }
                         <Employer
