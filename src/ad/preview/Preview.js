@@ -4,6 +4,7 @@ import { Element, Innholdstittel } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
 import ReactHtmlParser from 'react-html-parser';
 import Application from './application/Application';
+import ContactPerson from './contactPerson/ContactPerson';
 import Employer from './employer/Employer';
 import Employment from './employment/Employment';
 import Summary from './summary/Summary';
@@ -81,6 +82,11 @@ export default function Preview({ ad }) {
                             properties={ad.properties}
                         />
                         <Employment properties={ad.properties} />
+                        {ad.source === 'Stillingsregistrering' &&
+                            // Only render contactinfo from stillingsregistrering,
+                            // until we have permission to render data for other mediums
+                            <ContactPerson contactList={ad.contactList} />
+                        }
                         <Employer
                             employer={ad.employer}
                             properties={ad.properties}
