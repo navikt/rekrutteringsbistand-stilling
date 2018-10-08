@@ -4,7 +4,6 @@ import classNames from 'classnames';
 import Chevron from 'nav-frontend-chevron';
 
 export default class StyrkThreeItem extends React.Component {
-
     onClick = (e) => {
         e.stopPropagation();
         this.props.onClick(this.props.item);
@@ -12,16 +11,31 @@ export default class StyrkThreeItem extends React.Component {
 
     render() {
         const { item } = this.props;
+        if (!item.visible) {
+            return null;
+        }
         return (
-            <div className="StyrkThreeItem" onClick={this.onClick}>
+            <div className="StyrkThreeItem">
                 {item.children ? (
-                    <button className={classNames('StyrkThreeItem__branch', {'StyrkThreeItem__branch--expanded': item.expanded})}>
+                    <button
+                        onClick={this.onClick}
+                        className={classNames(
+                            'StyrkThreeItem__branch',
+                            `StyrkThreeItem__branch--level${item.level}`,
+                            {
+                                'StyrkThreeItem__branch--expanded': item.expanded
+                            }
+                        )}
+                    >
                         <Chevron className="StyrkThreeItem__branch__chevron" type={item.expanded ? 'ned' : 'høyre'} />
-                        {item.code}: {item.name}
+                        {item.code}: {item.name} {item.match ? 'match' : ''}
                     </button>
                 ) : (
-                    <button className="StyrkThreeItem__sibling">
-                        {item.code}: {item.name}
+                    <button
+                        onClick={this.onClick}
+                        className="StyrkThreeItem__sibling"
+                    >
+                        {item.code}: {item.name} {item.match ? 'match' : ''}
                     </button>
                 )}
                 {item.expanded && item.children && item.children.map((child) => (
@@ -36,7 +50,7 @@ StyrkThreeItem.propTypes = {
     item: PropTypes.shape({
         name: PropTypes.string,
         code: PropTypes.string
-    }),
+    }).isRequired,
     onClick: PropTypes.func.isRequired
 };
 

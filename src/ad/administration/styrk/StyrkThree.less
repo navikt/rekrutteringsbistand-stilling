@@ -2,13 +2,17 @@
 @import "../../../../node_modules/nav-frontend-typografi-style/src/index";
 @import "../../../variables";
 
+
+.StyrkThree {
+  padding-bottom: 1.25rem;
+}
+
 .StyrkThreeItem > .StyrkThreeItem {
-  margin-left: 2rem;
+  margin-left: 3rem;
 }
 
 .StyrkThreeItem__branch,
 .StyrkThreeItem__sibling {
-  width: 100%;
   background: none;
   border: 0;
   text-align: left;
@@ -16,35 +20,38 @@
 
 .StyrkThreeItem__branch {
   .typo-normal-mixin();
-  padding: 0.25rem 0 0.25rem 0.25rem;
+  padding: 0.25rem 0 0.25rem 1.25rem;
   cursor: pointer;
   border: 3px solid transparent;
+}
+
+.StyrkThreeItem__branch--level1 {
+  width: 100%;
+  background: #fafafa;
+  position: sticky;
+  z-index: 1;
+  top: 0;
+  padding: 0.75rem 1.25rem;
 }
 
 .StyrkThreeItem__sibling {
   .lenke;
   .typo-normal-mixin();
-  width: auto;
   margin: 0.25rem 0;
   cursor: pointer;
   display: inline-block;
 }
 
-.StyrkThreeItem__branch--expanded {
-  background: #f4f4f4;
-}
-
 .StyrkThreeItem__branch__chevron {
-  color: @navGra60;
+  color: @navMorkGra;
   margin-right: 0.125rem;
 }
 
 .StyrkThreeItem__branch:hover {
-  background: @navBlaLighten20;
-  color: #fff;
+  color: #000;
 
   .StyrkThreeItem__branch__chevron {
-    color: #fff;
+    color: #000;
   }
 }
 

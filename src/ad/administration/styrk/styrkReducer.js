@@ -1,4 +1,4 @@
-import { put, takeLatest } from 'redux-saga/effects';
+import { put, takeLatest, throttle, select } from 'redux-saga/effects';
 import { ApiError, fetchGet } from '../../../api/api';
 import { AD_API } from '../../../fasitProperties';
 import { SET_STYRK } from '../../adDataReducer';
@@ -10,48 +10,81 @@ export const FETCH_STYRK_FAILURE = 'FETCH_STYRK_FAILURE';
 export const EXPAND_STYRK_BRANCH = 'EXPAND_STYRK_BRANCH';
 export const COLLAPSE_STYRK_BRANCH = 'COLLAPSE_STYRK_BRANCH';
 export const TOGGLE_STYRK_MODAL = 'TOGGLE_STYRK_MODAL';
+export const SET_STRYK_SEARCH_STRING = 'SET_STRYK_SEARCH_STRING';
+export const SET_STRYK_SEARCH_STRING_DONE = 'SET_STRYK_SEARCH_STRING_DONE';
+export const RESET_STYRK_THREE = 'RESET_STYRK_THREE';
 
-let cachedStyrk;
-let cachedFlatStyrk = [];
+let originalStyrkThree;
+let originalData = [];
 
+function createDefaultStyrkThree(categories, parentId = null) {
+    return categories.filter((category) => (category.parentId === parentId)).map((c) => {
+        const children = createDefaultStyrkThree(categories, c.id);
+        if (children.length > 0) {
+            return {
+                ...c,
+                level: c.code.split('.').join().length,
+                expanded: false,
+                visible: true,
+                children
+            };
+        }
+        return {
+            ...c,
+            level: c.code.split('.').join().length,
+            visible: true,
+            expanded: false
+        };
+    });
+}
 
-function collapse(categories, code) {
+function filterStyrkThree(categories, value) {
+    return categories.map((category) => {
+        if (category.children) {
+            const ch = filterStyrkThree(category.children, value);
+            const match = category.name.toLowerCase().indexOf(value.toLowerCase()) !== -1 || ch.filter((c) => c.visible).length;
+            return {
+                ...category,
+                expanded: match,
+                visible: match,
+                children: ch
+            };
+        }
+        const match = category.name.toLowerCase().indexOf(value.toLowerCase()) !== -1;
+        return {
+            ...category,
+            visible: match
+        };
+    });
+}
+
+function collapseStrykThreeBranch(categories, code) {
     return categories.map((category) => {
         if (code.startsWith(category.code)) {
             return {
                 ...category,
                 expanded: !category.code.startsWith(code),
-                children: category.children ? collapse(category.children, code) : undefined
+                children: category.children ? collapseStrykThreeBranch(category.children, code) : undefined
             };
         }
         return category;
     });
 }
 
-function collapseAll(categories) {
-    return categories.map((category) => {
-        return {
-            ...category,
-            expanded: false,
-            children: category.children ? collapseAll(category.children) : undefined
-        };
-    });
-}
-
-function expand(categories, code) {
+function expandStyrkThreeBranch(categories, code) {
     return categories.map((category) => {
         if (code.startsWith(category.code)) {
             return {
                 ...category,
                 expanded: category.children && code.startsWith(category.code),
-                children: category.children ? expand(category.children, code) : undefined
+                children: category.children ? expandStyrkThreeBranch(category.children, code) : undefined
             };
         }
         return category;
     });
 }
 
-function filterSiblings(categories, value) {
+function filterTypeAheadSuggestions(categories, value) {
     return categories.filter(((s) =>
         s.code.length >= 6 && (
             s.name.toLowerCase().indexOf(value.toLowerCase()) !== -1 ||
@@ -61,7 +94,7 @@ function filterSiblings(categories, value) {
     ));
 }
 
-export function lookUpStyrk(code, categories = cachedFlatStyrk) {
+export function lookUpStyrk(code, categories = originalData) {
     return categories.find((s) => (s.code === code));
 }
 
@@ -70,7 +103,8 @@ const initialState = {
     typeAheadValue: undefined,
     addedStyrkItems: [],
     styrkThree: [],
-    showStyrkModal: false
+    showStyrkModal: false,
+    styrkSearchString: undefined
 };
 
 export default function styrkReducer(state = initialState, action) {
@@ -86,7 +120,7 @@ export default function styrkReducer(state = initialState, action) {
                 ...state,
                 typeAheadValue: action.value,
                 typeAheadSuggestions: action.value.length > 1 ?
-                    filterSiblings(cachedFlatStyrk, action.value).map((styrk) => ({
+                    filterTypeAheadSuggestions(originalData, action.value).map((styrk) => ({
                         value: styrk.code,
                         label: `${styrk.code}: ${styrk.name}`
                     })) : []
@@ -101,46 +135,46 @@ export default function styrkReducer(state = initialState, action) {
                 ...state,
                 typeAheadSuggestions: []
             };
+        case RESET_STYRK_THREE:
+            return {
+                ...state,
+                styrkThree: originalStyrkThree,
+                styrkSearchString: undefined
+            };
         case EXPAND_STYRK_BRANCH:
             return {
                 ...state,
-                styrkThree: expand(state.styrkThree, action.code)
+                styrkThree: expandStyrkThreeBranch(state.styrkThree, action.code)
             };
         case COLLAPSE_STYRK_BRANCH:
             return {
                 ...state,
-                styrkThree: collapse(state.styrkThree, action.code)
+                styrkThree: collapseStrykThreeBranch(state.styrkThree, action.code)
             };
         case TOGGLE_STYRK_MODAL:
             return {
                 ...state,
                 showStyrkModal: !state.showStyrkModal,
-                styrkThree: collapseAll(state.styrkThree)
+                styrkThree: createDefaultStyrkThree(originalData),
+                styrkSearchString: ''
+            };
+        case SET_STRYK_SEARCH_STRING:
+            return {
+                ...state,
+                styrkSearchString: action.value
+            };
+        case SET_STRYK_SEARCH_STRING_DONE:
+            return {
+                ...state,
+                styrkThree: action.styrkThree
             };
         default:
             return state;
     }
 }
 
-function mapStyrkThree(categories, parentId = null) {
-    return categories.filter((category) => (category.parentId === parentId)).map((c) => {
-        const children = mapStyrkThree(categories, c.id);
-        if (children.length > 0) {
-            return {
-                ...c,
-                expanded: false,
-                children
-            };
-        }
-        return {
-            ...c,
-            expanded: false
-        };
-    });
-}
-
 function* getStyrk() {
-    if (!cachedStyrk) {
+    if (!originalStyrkThree) {
         try {
             const response = yield fetchGet(`${AD_API}categories/`);
             const sorted = response.sort((a, b) => {
@@ -148,9 +182,9 @@ function* getStyrk() {
                 if (a.code > b.code) return 1;
                 return 0;
             });
-            cachedFlatStyrk = sorted;
-            cachedStyrk = mapStyrkThree(sorted);
-            yield put({ type: FETCH_STYRK_SUCCESS, response: cachedStyrk });
+            originalData = sorted;
+            originalStyrkThree = createDefaultStyrkThree(originalData);
+            yield put({ type: FETCH_STYRK_SUCCESS, response: originalStyrkThree });
         } catch (e) {
             if (e instanceof ApiError) {
                 yield put({ type: FETCH_STYRK_FAILURE, error: e });
@@ -161,6 +195,17 @@ function* getStyrk() {
     }
 }
 
+function* search(action) {
+    let styrkThree;
+    if (action.value.length > 2) {
+        styrkThree = filterStyrkThree(originalStyrkThree, action.value);
+    } else {
+        styrkThree = originalStyrkThree;
+    }
+    yield put({ type: SET_STRYK_SEARCH_STRING_DONE, styrkThree });
+}
+
 export const styrkSaga = function* saga() {
     yield takeLatest(FETCH_STYRK, getStyrk);
+    yield throttle(250, SET_STRYK_SEARCH_STRING, search);
 };
