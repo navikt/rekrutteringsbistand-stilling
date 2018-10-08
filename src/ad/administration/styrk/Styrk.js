@@ -1,18 +1,15 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 import { connect } from 'react-redux';
-import Modal from 'nav-frontend-modal';
-import { Undertittel } from 'nav-frontend-typografi';
+import LinkButton from '../../../common/linkbutton/LinkButton';
+import { registerShortcuts, removeShortcuts } from '../../../common/shortcuts/Shortcuts';
+
 import Typeahead from '../../../common/typeahead/Typeahead';
-import StyrkThree from './StyrkThree';
-import { FETCH_STYRK, SET_STYRK_TYPEAHEAD_VALUE, TOGGLE_STYRK_MODAL } from './styrkReducer';
 import { SET_STYRK } from '../../adDataReducer';
 import './Styrk.less';
-import {
-    registerShortcuts,
-    removeShortcuts
-} from '../../../common/shortcuts/Shortcuts';
-import LinkButton from '../../../common/linkbutton/LinkButton';
+import StyrkModal from './StyrkModal';
+
+import { FETCH_STYRK, SET_STYRK_TYPEAHEAD_VALUE, TOGGLE_STYRK_MODAL } from './styrkReducer';
 
 class Styrk extends React.Component {
     componentDidMount() {
@@ -78,21 +75,9 @@ class Styrk extends React.Component {
                 {this.props.validation.styrk && (
                     <div className="Administration__error">{this.props.validation.styrk}</div>
                 )}
-
-                <Modal
-                    className="StyrkModal"
-                    contentClass="StyrkModal__content"
-                    isOpen={this.props.showStyrkModal}
-                    onRequestClose={this.props.toggleList}
-                    contentLabel="Heisann."
-                    appElement={document.getElementById('app')}
-                >
-                    <Undertittel className="StyrkModal__header">Velg STYRK</Undertittel>
-                    <div className="StyrkModal__body">
-                        <StyrkThree />
-                    </div>
-                </Modal>
-
+                {this.props.showStyrkModal && (
+                    <StyrkModal />
+                )}
             </div>
         );
     }
