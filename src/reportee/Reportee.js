@@ -21,7 +21,10 @@ class Reportee extends React.Component {
                 {!isFetchingReportee && reportee ? (
                     <Normaltekst>
                         {reportee.displayName}{' '}
+                        {/*
+                        Etter ønske fra NSS, skjuler vi denne intill videre
                         <span className="Reportee__numberOfPendingAds">{numberOfPendingAds} under arbeid</span>
+                        */}
                     </Normaltekst>
                 ) : (
                     <Normaltekst>Ikke innlogget</Normaltekst>
