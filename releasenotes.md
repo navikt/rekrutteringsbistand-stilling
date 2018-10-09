@@ -1,3 +1,6 @@
+## RELEASE - 0.16.239-7291a67
+#### New in this release: 
++ 2018-10-09 [PAM-1431] Legger til alternative styrknavn
 ## RELEASE - 0.13.229-d12fef3
 #### New in this release: 
 + 2018-10-04 [Fix] Flytter "Fjern"-knapp slik at den kommer etter saksbehandlernavn
