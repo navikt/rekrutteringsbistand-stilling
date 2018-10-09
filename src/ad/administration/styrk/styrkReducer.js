@@ -17,6 +17,16 @@ export const RESET_STYRK_THREE = 'RESET_STYRK_THREE';
 let originalStyrkThree;
 let originalData = [];
 
+function categoryMatchesQuery(category, query) {
+    const queryLc = query.toLowerCase();
+    return (
+        category.name.toLowerCase().indexOf(queryLc) !== -1 ||
+        category.alternativeNames.some((altName) => altName.toLowerCase().indexOf(queryLc) !== -1) ||
+        category.code.startsWith(query) ||
+        category.code.split('.').join('').startsWith(query)
+    );
+}
+
 function createDefaultStyrkThree(categories, parentId = null) {
     return categories.filter((category) => (category.parentId === parentId)).map((c) => {
         const children = createDefaultStyrkThree(categories, c.id);
@@ -38,11 +48,11 @@ function createDefaultStyrkThree(categories, parentId = null) {
     });
 }
 
-function filterStyrkThree(categories, value) {
+function filterStyrkThree(categories, query) {
     return categories.map((category) => {
         if (category.children) {
-            const ch = filterStyrkThree(category.children, value);
-            const match = category.name.toLowerCase().indexOf(value.toLowerCase()) !== -1 || ch.filter((c) => c.visible).length;
+            const ch = filterStyrkThree(category.children, query);
+            const match = categoryMatchesQuery(category, query) || ch.filter((c) => c.visible).length;
             return {
                 ...category,
                 expanded: match,
@@ -50,10 +60,12 @@ function filterStyrkThree(categories, value) {
                 children: ch
             };
         }
-        const match = category.name.toLowerCase().indexOf(value.toLowerCase()) !== -1;
+        const match = categoryMatchesQuery(category, query);
         return {
             ...category,
-            visible: match
+            visible: match,
+            alternativeNames: category.alternativeNames.filter((altName) => (
+                altName.toLowerCase().indexOf(query.toLowerCase()) !== -1))
         };
     });
 }
@@ -84,14 +96,14 @@ function expandStyrkThreeBranch(categories, code) {
     });
 }
 
-function filterTypeAheadSuggestions(categories, value) {
+function filterTypeAheadSuggestions(categories, query) {
     return categories.filter(((s) =>
-        s.code.length >= 6 && (
-            s.name.toLowerCase().indexOf(value.toLowerCase()) !== -1 ||
-                s.code.startsWith(value) ||
-                s.code.split('.').join('').startsWith(value)
-        )
-    ));
+        s.code.length >= 6 && categoryMatchesQuery(s, query)
+    )).map((category) => ({
+        ...category,
+        alternativeNames: category.alternativeNames.filter((altName) => (
+            altName.toLowerCase().indexOf(query.toLowerCase()) !== -1))
+    }));
 }
 
 export function lookUpStyrk(code, categories = originalData) {
@@ -120,10 +132,7 @@ export default function styrkReducer(state = initialState, action) {
                 ...state,
                 typeAheadValue: action.value,
                 typeAheadSuggestions: action.value.length > 1 ?
-                    filterTypeAheadSuggestions(originalData, action.value).map((styrk) => ({
-                        value: styrk.code,
-                        label: `${styrk.code}: ${styrk.name}`
-                    })) : []
+                    filterTypeAheadSuggestions(originalData, action.value) : []
             };
         case FETCH_STYRK_SUCCESS:
             return {
@@ -176,7 +185,7 @@ export default function styrkReducer(state = initialState, action) {
 function* getStyrk() {
     if (!originalStyrkThree) {
         try {
-            const response = yield fetchGet(`${AD_API}categories/`);
+            const response = yield fetchGet(`${AD_API}categories-with-altnames/`);
             const sorted = response.sort((a, b) => {
                 if (a.code < b.code) return -1;
                 if (a.code > b.code) return 1;
@@ -197,7 +206,7 @@ function* getStyrk() {
 
 function* search(action) {
     let styrkThree;
-    if (action.value.length > 2) {
+    if (action.value.length >= 2) {
         styrkThree = filterStyrkThree(originalStyrkThree, action.value);
     } else {
         styrkThree = originalStyrkThree;

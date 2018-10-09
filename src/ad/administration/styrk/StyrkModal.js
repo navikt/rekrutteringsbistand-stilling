@@ -33,7 +33,7 @@ class StyrkModal extends React.Component {
                     <div className="StyrkModal__header__flex">
                         <Input
                             className="StyrkModal__header__search"
-                            placeholder="Søk (tre eller flere tegn)"
+                            placeholder="Søk (to eller flere tegn)"
                             label=""
                             value={this.props.styrkSearchString}
                             onChange={this.onInputChange}

@@ -15,7 +15,7 @@ export default class StyrkThreeItem extends React.Component {
             return null;
         }
         return (
-            <div className="StyrkThreeItem">
+            <div className="StyrkThreeItem typo-normal">
                 {item.children ? (
                     <button
                         onClick={this.onClick}
@@ -28,14 +28,19 @@ export default class StyrkThreeItem extends React.Component {
                         )}
                     >
                         <Chevron className="StyrkThreeItem__branch__chevron" type={item.expanded ? 'ned' : 'høyre'} />
-                        {item.code}: {item.name} {item.match ? 'match' : ''}
+                        {item.code}: {item.name}
                     </button>
                 ) : (
                     <button
                         onClick={this.onClick}
                         className="StyrkThreeItem__sibling"
                     >
-                        {item.code}: {item.name} {item.match ? 'match' : ''}
+                        {item.code}: {item.name}
+                        {item.alternativeNames && item.alternativeNames.length > 0 && (
+                            <div className="StyrkThreeItem__sibling__alternativeNames typo-undertekst">
+                                {item.alternativeNames.join(', ')}
+                            </div>
+                        )}
                     </button>
                 )}
                 {item.expanded && item.children && item.children.map((child) => (
