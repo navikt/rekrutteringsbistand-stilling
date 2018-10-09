@@ -1,7 +1,7 @@
 import { Column, Row } from 'nav-frontend-grid';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { Input } from 'nav-frontend-skjema';
-import { Systemtittel } from 'nav-frontend-typografi';
+import { Normaltekst, Systemtittel, Undertekst } from 'nav-frontend-typografi';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
@@ -53,6 +53,15 @@ class DuplicateSearch extends React.Component {
         this.props.setEmployer(e.target.value);
     };
 
+    renderLabel = (location) => (
+        <div className="DuplicateSearch__typeahead__item">
+            <Normaltekst>{location.postalCode} {capitalizeLocation(location.city)}</Normaltekst>
+            <Undertekst>
+                {capitalizeLocation(location.municipality.name)} kommune
+            </Undertekst>
+        </div>
+    );
+
     render() {
         return (
             <div className="DuplicateSearch">
@@ -86,14 +95,14 @@ class DuplicateSearch extends React.Component {
                         <Column xs="12" md="2">
                             <Typeahead
                                 id="DuplicateSearch__municipal"
-                                className="DuplicateSearch__input"
+                                className="DuplicateSearch__input DuplicateSearch__typeahead"
                                 label="Arbeidssted/kommune"
                                 onSelect={this.onTypeAheadSuggestionSelected}
                                 onChange={this.onTypeAheadValueChange}
                                 suggestions={this.props.municipalSuggestions.map((location) => ({
                                     key: location.postalCode,
                                     value: capitalizeLocation(location.municipality.name),
-                                    label: `${location.postalCode} ${capitalizeLocation(location.city)}, ${capitalizeLocation(location.municipality.name)} kommune`
+                                    label: this.renderLabel(location)
                                 }))}
                                 value={this.props.query.municipal}
                             />
