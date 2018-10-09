@@ -1,3 +1,4 @@
+import { Normaltekst, Undertekst } from 'nav-frontend-typografi';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
@@ -40,6 +41,17 @@ class Styrk extends React.Component {
         this.props.toggleList();
     };
 
+    renderLabel = (styrk) => (
+        <div className="Styrk__typeahead__item">
+            <Normaltekst>{styrk.code}: {styrk.name}</Normaltekst>
+            {styrk.alternativeNames && styrk.alternativeNames.length > 0 && (
+                <Undertekst className="Styrk__typeahead__item__alternativeNames">
+                    {styrk.alternativeNames.join(', ')}
+                </Undertekst>
+            )}
+        </div>
+    );
+
     render() {
         let value;
         if (this.props.typeAheadValue !== undefined) {
@@ -66,7 +78,10 @@ class Styrk extends React.Component {
                     placeholder="Styrkkategori / kode"
                     onSelect={this.onTypeAheadSuggestionSelected}
                     onChange={this.onTypeAheadValueChange}
-                    suggestions={this.props.typeAheadSuggestions}
+                    suggestions={this.props.typeAheadSuggestions.map((styrk) => ({
+                        value: styrk.code,
+                        label: this.renderLabel(styrk)
+                    }))}
                     value={value}
                     ref={(instance) => { this.inputRef = instance; }}
                     error={this.props.validation.styrk !== undefined}

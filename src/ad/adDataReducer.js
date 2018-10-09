@@ -1,7 +1,7 @@
 import { put, takeLatest } from 'redux-saga/es/effects';
 import { lookUpStyrk } from './administration/styrk/styrkReducer';
 import { findLocationByPostalCode } from './administration/location/locationCodeReducer';
-import { FETCH_AD_BEGIN, FETCH_AD_SUCCESS, FETCH_NEXT_AD_SUCCESS, SAVE_AD_SUCCESS } from "./adReducer";
+import { FETCH_AD_BEGIN, FETCH_AD_SUCCESS, FETCH_NEXT_AD_SUCCESS, SAVE_AD_SUCCESS } from './adReducer';
 
 export const SET_AD_DATA = 'SET_AD_DATA';
 export const REMOVE_AD_DATA = 'REMOVE_AD_DATA';
@@ -48,6 +48,16 @@ export const SET_UPDATED_BY = 'SET_UPDATED_BY';
 
 const initialState = null;
 
+function findStyrkAndSkipAlternativeNames(code) {
+    const found = lookUpStyrk(code);
+    if (found) {
+        // eslint-disable-next-line no-unused-vars
+        const { alternativeNames, ...rest } = found;
+        return rest;
+    }
+    return found;
+}
+
 export default function adDataReducer(state = initialState, action) {
     switch (action.type) {
         case FETCH_AD_BEGIN:
@@ -70,7 +80,7 @@ export default function adDataReducer(state = initialState, action) {
         case SET_STYRK:
             return {
                 ...state,
-                categoryList: [lookUpStyrk(action.code)]
+                categoryList: [findStyrkAndSkipAlternativeNames(action.code)]
             };
         case SET_AD_TITLE: {
             return {
