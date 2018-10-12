@@ -1,5 +1,5 @@
-name: pam-nss-admin
-image: repo.adeo.no:5443/pam-nss-admin
+name: pam-rekrutteringsbistand
+image: repo.adeo.no:5443/pam-rekrutteringsbistand
 team: pam
 replicas:
   min: 2
