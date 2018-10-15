@@ -55,7 +55,7 @@ class TopMenu extends React.Component {
                         className="TopMenu__item TopMenu__title"
                         onClick={this.resetSearchValue}
                     >
-                        <Undertittel>NSS ADMIN</Undertittel>
+                        <Undertittel>VEILEDER ADMIN</Undertittel>
                     </NavLink>
                     <div className="TopMenu__pipe" />
                     <NavLink
