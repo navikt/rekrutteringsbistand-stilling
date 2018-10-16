@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import Faded from '../common/faded/Faded';
 import './Ad.less';
 import { REMOVE_AD_DATA } from './adDataReducer';
-import { EDIT_AD, PREVIEW_EDIT_AD } from './adReducer';
+import { CREATE_AD, EDIT_AD, FETCH_AD, PREVIEW_EDIT_AD } from './adReducer';
 import Edit from './edit/Edit';
 import Error from './error/Error';
 import Preview from './preview/Preview';
@@ -14,6 +14,20 @@ import Administration from './administration/Administration';
 class Ad extends React.Component {
     componentDidMount() {
         window.scrollTo(0, 0);
+        if (this.props.match.params.uuid) {
+            this.uuid = this.props.match.params.uuid;
+            this.props.getStilling(this.uuid);
+        } else {
+            this.props.createAd();
+        }
+    }
+
+    componentDidUpdate() {
+        if (!this.uuid && this.props.stilling && this.props.stilling.uuid) {
+            // Skjer når man kommer rett til /ads uten uuid
+            this.uuid = this.props.stilling.uuid;
+            this.props.history.replace(`/ads/${this.uuid}`);
+        }
     }
 
     componentWillUnmount() {
@@ -86,8 +100,11 @@ Ad.defaultProps = {
 
 Ad.propTypes = {
     stilling: PropTypes.shape({
-        title: PropTypes.string
+        title: PropTypes.string,
+        uuid: PropTypes.string
     }),
+    getStilling: PropTypes.func.isRequired,
+    createAd: PropTypes.func.isRequired,
     editAd: PropTypes.func.isRequired,
     previewAd: PropTypes.func.isRequired,
     isEditingAd: PropTypes.bool.isRequired,
@@ -100,6 +117,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+    getStilling: (uuid) => dispatch({ type: FETCH_AD, uuid }),
+    createAd: () => dispatch({ type: CREATE_AD }),
     editAd: () => dispatch({ type: EDIT_AD }),
     previewAd: () => dispatch({ type: PREVIEW_EDIT_AD }),
     removeAdData: () => dispatch({ type: REMOVE_AD_DATA })

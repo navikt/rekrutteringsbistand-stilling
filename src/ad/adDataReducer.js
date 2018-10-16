@@ -40,20 +40,21 @@ export const SET_EXPIRATION_DATE = 'SET_EXPIRATION_DATE';
 export const SET_AD_TEXT = 'SET_AD_TEXT';
 export const SET_AD_STATUS = 'SET_AD_STATUS';
 export const SET_ADMIN_STATUS = 'SET_ADMIN_STATUS';
-export const ADD_REMARK = 'ADD_REMARK';
-export const REMOVE_REMARK = 'REMOVE_REMARK';
 export const SET_AD_TITLE = 'SET_AD_TITLE';
 export const SET_REPORTEE = 'SET_REPORTEE';
 export const SET_UPDATED_BY = 'SET_UPDATED_BY';
 
 const initialState = {
+    title: 'Ny stilling',
+    createdBy: 'pam-rekrutteringsbistand',
+    updatedBy: 'pam-rekrutteringsbistand',
+    source: 'DIR',
+    medium: 'DIR',
+    privacy: 'INTERNAL_NOT_SHOWN',
+    reference: `FIXME: ${Date.now()}`,
     properties: {},
-    administration: {
-        remarks: [],
-        comments: '',
-        status: ''
-    },
-    status: AdStatusEnum.INACTIVE
+    status: AdStatusEnum.INACTIVE,
+    administration: {}
 };
 
 function findStyrkAndSkipAlternativeNames(code) {
@@ -330,22 +331,6 @@ export default function adDataReducer(state = initialState, action) {
                     status: action.status
                 }
             };
-        case ADD_REMARK:
-            return {
-                ...state,
-                administration: {
-                    ...state.administration,
-                    remarks: [...state.administration.remarks, action.remark]
-                }
-            };
-        case REMOVE_REMARK:
-            return {
-                ...state,
-                administration: {
-                    ...state.administration,
-                    remarks: state.administration.remarks.filter((remark) => (remark !== action.remark))
-                }
-            };
         case SET_REPORTEE:
             return {
                 ...state,
@@ -357,7 +342,7 @@ export default function adDataReducer(state = initialState, action) {
         case SET_UPDATED_BY:
             return {
                 ...state,
-                updatedBy: 'nss-admin'
+                updatedBy: 'pam-rekrutteringsbistand'
             };
         case REMOVE_AD_DATA:
             return initialState;

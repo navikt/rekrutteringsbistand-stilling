@@ -1,7 +1,6 @@
 import { put, select, takeLatest } from 'redux-saga/es/effects';
 import { findLocationByPostalCode } from './administration/location/locationCodeReducer';
-import RemarksEnum from './administration/adStatus/RemarksEnum';
-import { FETCH_AD_SUCCESS, FETCH_NEXT_AD_SUCCESS, SAVE_AD_SUCCESS } from './adReducer';
+import { FETCH_AD_SUCCESS, SAVE_AD_SUCCESS } from './adReducer';
 import { toDate } from '../utils';
 import {erDatoEtterMinDato} from 'nav-datovelger/dist/datovelger/utils/datovalidering';
 
@@ -9,9 +8,6 @@ import {
     SET_STYRK,
     SET_EMPLOYER,
     SET_LOCATION_POSTAL_CODE,
-    ADD_REMARK,
-    REMOVE_REMARK,
-    SET_COMMENT,
     SET_EXPIRATION_DATE
 } from './adDataReducer';
 
@@ -26,7 +22,7 @@ const locationIsCountryOrMunicipal = (location, medium) => {
     // Disse skal ikke gi validation-error
     return medium === 'Stillingsregistrering' && location && (location.country || location.municipal) &&
         !location.postalCode;
-}
+};
 
 function* validateLocation() {
     const state = yield select();
@@ -102,27 +98,6 @@ function* validateExpireDate() {
     }
 }
 
-export function* validateRejection() {
-    const state = yield select();
-    const { remarks, comments } = state.adData.administration;
-
-    if (remarks.length === 0) {
-        yield put({ type: ADD_VALIDATION_ERROR, field: 'remark', message: 'Årsak til avvising mangler' });
-    } else {
-        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'remark' });
-    }
-
-    if (remarks.includes(RemarksEnum.UNKNOWN.value) && (valueIsNotSet(comments) || comments.length > 255)) {
-        if (valueIsNotSet(comments)) {
-            yield put({ type: ADD_VALIDATION_ERROR, field: 'comment', message: 'Beskrivelse av annen årsak mangler' });
-        } else if (comments.length > 255) {
-            yield put({ type: ADD_VALIDATION_ERROR, field: 'comment', message: 'Beskrivelse inneholder for mange tegn' });
-        }
-    } else {
-        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'comment' });
-    }
-}
-
 function* validateAll() {
     const state = yield select();
     if (state.adData !== null) {
@@ -138,11 +113,6 @@ export function hasValidationErrors(validation) {
            validation.location !== undefined ||
            validation.employer !== undefined ||
            validation.expires !== undefined;
-}
-
-export function hasRejectionErrors(validation) {
-    return validation.comment !== undefined ||
-        validation.remark !== undefined;
 }
 
 const initialState = {
@@ -172,11 +142,10 @@ export default function adValidationReducer(state = initialState, action) {
 }
 
 export const validationSaga = function* saga() {
-    yield takeLatest([FETCH_AD_SUCCESS, SAVE_AD_SUCCESS, FETCH_NEXT_AD_SUCCESS], validateAll);
+    yield takeLatest([FETCH_AD_SUCCESS, SAVE_AD_SUCCESS], validateAll);
     yield takeLatest(SET_STYRK, validateStyrk);
     yield takeLatest(SET_EMPLOYER, validateEmployer);
     yield takeLatest(SET_EXPIRATION_DATE, validateExpireDate);
     yield takeLatest(SET_LOCATION_POSTAL_CODE, validateLocation);
-    yield takeLatest([ADD_REMARK, REMOVE_REMARK, SET_COMMENT], validateRejection);
 };
 

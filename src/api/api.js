@@ -39,6 +39,7 @@ export async function fetchGet(url) {
 }
 
 export async function fetchPost(url, body) {
+    console.log(body);
     return request(url, {
         body: JSON.stringify(body),
         method: 'POST',
@@ -71,7 +72,6 @@ function fixMissingAdministration(ad) {
     return {
         ...ad,
         administration: {
-            remarks: [],
             comments: '',
             status: AdminStatusEnum.RECEIVED,
             reportee: ''

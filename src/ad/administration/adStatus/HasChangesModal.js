@@ -15,6 +15,7 @@ class HasChangesModal extends React.Component {
 
     onLeaveClick = () => {
         this.props.closeModal();
+        window.location.href = '/';
     };
 
     render() {
@@ -48,11 +49,8 @@ class HasChangesModal extends React.Component {
 }
 
 HasChangesModal.propTypes = {
-    adStatus: PropTypes.string.isRequired,
     showHasChangesModal: PropTypes.bool.isRequired,
-    closeModal: PropTypes.func.isRequired,
-    saveAd: PropTypes.func.isRequired,
-    publishAd: PropTypes.func.isRequired
+    closeModal: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -62,8 +60,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     closeModal: () => dispatch({ type: HIDE_HAS_CHANGES_MODAL }),
-    saveAd: () => dispatch({ type: SAVE_AD, loadNext: true }),
-    publishAd: () => dispatch({ type: PUBLISH_AD, loadNext: true })
+    saveAd: () => dispatch({ type: SAVE_AD, loadNext: true })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HasChangesModal);

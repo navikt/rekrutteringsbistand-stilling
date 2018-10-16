@@ -16,7 +16,7 @@ import {
 } from './adDataReducer';
 import AdminStatusEnum from './administration/adminStatus/AdminStatusEnum';
 import AdStatusEnum from './administration/adStatus/AdStatusEnum';
-import { hasRejectionErrors, hasValidationErrors, validateRejection } from './adValidationReducer';
+import { hasValidationErrors } from './adValidationReducer';
 
 export const FETCH_AD = 'FETCH_AD';
 export const FETCH_AD_BEGIN = 'FETCH_AD_BEGIN';
@@ -41,19 +41,12 @@ export const PUBLISH_AD_CHANGES = 'PUBLISH_AD_CHANGES';
 export const SHOW_PUBLISH_ERROR_MODAL = 'SHOW_PUBLISH_ERROR_MODAL';
 export const HIDE_PUBLISH_ERROR_MODAL = 'HIDE_PUBLISH_ERROR_MODAL';
 
-export const REJECT_AD = 'REJECT_AD';
-export const SHOW_REJECT_REASON_MODAL = 'SHOW_REJECT_REASON_MODAL';
-export const HIDE_REJECT_REASON_MODAL = 'HIDE_REJECT_REASON_MODAL';
-
 export const STOP_AD = 'STOP_AD';
 export const SHOW_STOP_AD_MODAL = 'SHOW_STOP_AD_MODAL';
 export const HIDE_STOP_AD_MODAL = 'HIDE_STOP_AD_MODAL';
 
 export const SHOW_HAS_CHANGES_MODAL = 'SHOW_HAS_CHANGES_MODAL';
 export const HIDE_HAS_CHANGES_MODAL = 'HIDE_HAS_CHANGES_MODAL';
-
-export const ASSIGN_CURRENT_AD_TO_ME = 'ASSIGN_CURRENT_AD_TO_ME';
-export const UN_ASSIGN_CURRENT_AD = 'UN_ASSIGN_CURRENT_AD';
 
 const initialState = {
     error: undefined,
@@ -65,8 +58,6 @@ const initialState = {
     hasSavedChanges: false,
     showPublishErrorModal: false,
     showHasChangesModal: false,
-    showRejectReasonModal: false,
-    showIsInactiveModal: false,
     showStopAdModal: false
 };
 
@@ -79,7 +70,6 @@ export default function adReducer(state = initialState, action) {
                 hasSavedChanges: false,
                 isFetchingStilling: true,
                 error: undefined,
-                endOfList: false,
                 originalData: undefined
             };
         case FETCH_AD_SUCCESS:
@@ -131,7 +121,6 @@ export default function adReducer(state = initialState, action) {
                 isEditingAd: false
             };
         case SHOW_PUBLISH_ERROR_MODAL:
-
             return {
                 ...state,
                 showPublishErrorModal: true
@@ -140,16 +129,6 @@ export default function adReducer(state = initialState, action) {
             return {
                 ...state,
                 showPublishErrorModal: false
-            };
-        case SHOW_REJECT_REASON_MODAL:
-            return {
-                ...state,
-                showRejectReasonModal: true
-            };
-        case HIDE_REJECT_REASON_MODAL:
-            return {
-                ...state,
-                showRejectReasonModal: false
             };
         case SHOW_HAS_CHANGES_MODAL:
             return {
@@ -227,33 +206,29 @@ function* createAd() {
 
 function* save(autoAssign = true) {
     let state = yield select();
-    if (!state.adData.uuid) {
-        yield createAd();
-    } else {
-        yield put({ type: SAVE_AD_BEGIN });
-        try {
-            yield put({ type: SET_UPDATED_BY });
+    yield put({ type: SAVE_AD_BEGIN });
+    try {
+        yield put({ type: SET_UPDATED_BY });
 
-            if (autoAssign) {
-                const reportee = yield getReportee();
-                yield put({ type: SET_REPORTEE, reportee: reportee.displayName });
-            }
-            state = yield select();
-
-            // Modified category list requires store/PUT with (re)classification
-            let putUrl = `${AD_API}ads/${state.adData.uuid}`;
-            if (typeof state.ad.originalData === 'undefined' || needClassify(state.ad.originalData, state.adData)) {
-                putUrl += '?classify=true';
-            }
-
-            const response = yield fetchPut(putUrl, state.adData);
-            yield put({ type: SAVE_AD_SUCCESS, response });
-        } catch (e) {
-            if (e instanceof ApiError) {
-                yield put({ type: SAVE_AD_FAILURE, error: e });
-            }
-            throw e;
+        if (autoAssign) {
+            const reportee = yield getReportee();
+            yield put({ type: SET_REPORTEE, reportee: reportee.displayName });
         }
+        state = yield select();
+
+        // Modified category list requires store/PUT with (re)classification
+        let putUrl = `${AD_API}ads/${state.adData.uuid}`;
+        if (typeof state.ad.originalData === 'undefined' || needClassify(state.ad.originalData, state.adData)) {
+            putUrl += '?classify=true';
+        }
+
+        const response = yield fetchPut(putUrl, state.adData);
+        yield put({ type: SAVE_AD_SUCCESS, response });
+    } catch (e) {
+        if (e instanceof ApiError) {
+            yield put({ type: SAVE_AD_FAILURE, error: e });
+        }
+        throw e;
     }
 }
 
@@ -268,32 +243,10 @@ function* publishAd() {
     }
 }
 
-function* rejectAd() {
-    yield validateRejection();
-    const state = yield select();
-    if (!hasRejectionErrors(state.adValidation.errors)) {
-        yield put({ type: HIDE_REJECT_REASON_MODAL });
-        yield put({ type: SET_ADMIN_STATUS, status: AdminStatusEnum.DONE });
-        yield put({ type: SET_AD_STATUS, status: AdStatusEnum.REJECTED });
-        yield save();
-    }
-}
-
 function* stopAd() {
     yield put({ type: SET_ADMIN_STATUS, status: AdminStatusEnum.DONE });
     yield put({ type: SET_AD_STATUS, status: AdStatusEnum.STOPPED });
     yield save();
-}
-
-function* assignToMe() {
-    yield put({ type: SET_ADMIN_STATUS, status: AdminStatusEnum.PENDING });
-    yield save();
-}
-
-function* unAssign() {
-    yield put({ type: SET_REPORTEE, reportee: null });
-    yield put({ type: SET_ADMIN_STATUS, status: AdminStatusEnum.RECEIVED });
-    yield save(false);
 }
 
 function* saveAd() {
@@ -317,12 +270,9 @@ function* publishAdChanges() {
 
 export const adSaga = function* saga() {
     yield takeLatest(PUBLISH_AD, publishAd);
-    yield takeLatest(REJECT_AD, rejectAd);
     yield takeLatest(STOP_AD, stopAd);
     yield takeLatest(FETCH_AD, getAd);
     yield takeLatest(SAVE_AD, saveAd);
     yield takeLatest(CREATE_AD, createAd);
     yield takeLatest(PUBLISH_AD_CHANGES, publishAdChanges);
-    yield takeLatest(ASSIGN_CURRENT_AD_TO_ME, assignToMe);
-    yield takeLatest(UN_ASSIGN_CURRENT_AD, unAssign);
 };
