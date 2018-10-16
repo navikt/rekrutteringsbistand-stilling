@@ -21,7 +21,7 @@ class AdminStatusPreview extends React.Component {
 
         return (
             <div className="AdminStatusPreview">
-                <Normaltekst><b>Saksbehandler:</b> {reportee || ''}</Normaltekst>
+                <Normaltekst><b>Registrert av:</b> {reportee || ''}</Normaltekst>
                 {reportee && adminStatus === AdminStatusEnum.PENDING && (
                     <LinkButton
                         className="AdminStatusPreview__LinkButton"

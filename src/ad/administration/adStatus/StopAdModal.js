@@ -3,13 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import NavFrontendModal from 'nav-frontend-modal';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
-import { Undertittel } from 'nav-frontend-typografi';
+import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import { HIDE_STOP_AD_MODAL, STOP_AD } from '../../adReducer';
-import CommentsEdit from './CommentsEdit';
-import './StopReasonModal.less';
+import './StopAdModal.less';
 
 
-class StopReasonModal extends React.Component {
+class StopAdModal extends React.Component {
     onClose = () => {
         this.props.closeModal();
     };
@@ -31,14 +30,14 @@ class StopReasonModal extends React.Component {
                 className="StopReasonModal"
             >
                 <Undertittel className="blokk-s">
-                    Stopp annonsen
+                    Stopp stillingen
                 </Undertittel>
-                <CommentsEdit
-                    label="Hvorfor skal annonsen stoppes?"
-                    placeholder="Skriv inn årsak"
-                />
+                <Normaltekst>
+                    Er du sikker på at du ønsker å stoppe stillingen? Stopper du stillingen
+                    vil den ikke lenger være tilgjengelig for søk.
+                </Normaltekst>
                 <div className="StopReasonModal__buttons">
-                    <Hovedknapp onClick={this.onStopAdClick}>Stopp annonsen</Hovedknapp>
+                    <Hovedknapp onClick={this.onStopAdClick}>Stopp stillingen</Hovedknapp>
                     <Knapp onClick={this.onClose}>Avbryt</Knapp>
                 </div>
             </NavFrontendModal>
@@ -46,7 +45,7 @@ class StopReasonModal extends React.Component {
     }
 }
 
-StopReasonModal.propTypes = {
+StopAdModal.propTypes = {
     showStopAdModal: PropTypes.bool.isRequired,
     closeModal: PropTypes.func.isRequired,
     stop: PropTypes.func.isRequired
@@ -61,4 +60,4 @@ const mapDispatchToProps = (dispatch) => ({
     stop: () => dispatch({ type: STOP_AD })
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(StopReasonModal);
+export default connect(mapStateToProps, mapDispatchToProps)(StopAdModal);

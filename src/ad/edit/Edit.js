@@ -135,7 +135,7 @@ class Edit extends React.Component {
                             >
                                 <Input
                                     label="Tittel"
-                                    value={ad.title}
+                                    value={ad.title || ''}
                                     onChange={this.onTitleChange}
                                     feil={validation.title ? { feilmelding: validation.title } : undefined}
                                 />
@@ -332,11 +332,10 @@ class Edit extends React.Component {
     }
 }
 
-
 Edit.propTypes = {
     ad: PropTypes.shape({
         title: PropTypes.string
-    }).isRequired,
+    }),
     setAdTitle: PropTypes.func.isRequired,
     setJobTitle: PropTypes.func.isRequired,
     setEmploymentLocation: PropTypes.func.isRequired,

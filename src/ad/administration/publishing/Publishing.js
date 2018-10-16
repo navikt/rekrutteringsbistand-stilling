@@ -54,7 +54,7 @@ class Publishing extends React.Component {
         return (
             <div className="Publishing typo-normal">
                 <div className="Publishing__datepicker">
-                    <Normaltekst className="Publishing__label">Publiseringsdato</Normaltekst>
+                    <Normaltekst className="Publishing__label">Publiseringsdato*</Normaltekst>
                     <Datovelger
                         id="published"
                         dato={formatISOString(published, 'DD.MM.YYYY') || ''}
@@ -65,7 +65,7 @@ class Publishing extends React.Component {
                     />
                 </div>
                 <div className="Publishing__datepicker Publishing__datepicker-expires">
-                    <Normaltekst className="Publishing__label">Utløpsdato*</Normaltekst>
+                    <Normaltekst className="Publishing__label">Siste visningsdato*</Normaltekst>
                     <Datovelger
                         id="expires"
                         dato={formatISOString(expires, 'DD.MM.YYYY') || ''}

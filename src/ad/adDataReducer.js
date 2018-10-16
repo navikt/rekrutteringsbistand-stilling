@@ -1,7 +1,8 @@
 import { put, takeLatest } from 'redux-saga/es/effects';
 import { lookUpStyrk } from './administration/styrk/styrkReducer';
 import { findLocationByPostalCode } from './administration/location/locationCodeReducer';
-import { FETCH_AD_BEGIN, FETCH_AD_SUCCESS, FETCH_NEXT_AD_SUCCESS, SAVE_AD_SUCCESS } from './adReducer';
+import { FETCH_AD_BEGIN, FETCH_AD_SUCCESS, SAVE_AD_SUCCESS } from './adReducer';
+import AdStatusEnum from './administration/adStatus/AdStatusEnum';
 
 export const SET_AD_DATA = 'SET_AD_DATA';
 export const REMOVE_AD_DATA = 'REMOVE_AD_DATA';
@@ -39,14 +40,21 @@ export const SET_EXPIRATION_DATE = 'SET_EXPIRATION_DATE';
 export const SET_AD_TEXT = 'SET_AD_TEXT';
 export const SET_AD_STATUS = 'SET_AD_STATUS';
 export const SET_ADMIN_STATUS = 'SET_ADMIN_STATUS';
-export const SET_ADMIN_STATUS_AND_GET_NEXT_AD = 'SET_ADMIN_STATUS_AND_GET_NEXT_AD';
 export const ADD_REMARK = 'ADD_REMARK';
 export const REMOVE_REMARK = 'REMOVE_REMARK';
 export const SET_AD_TITLE = 'SET_AD_TITLE';
 export const SET_REPORTEE = 'SET_REPORTEE';
 export const SET_UPDATED_BY = 'SET_UPDATED_BY';
 
-const initialState = null;
+const initialState = {
+    properties: {},
+    administration: {
+        remarks: [],
+        comments: '',
+        status: ''
+    },
+    status: AdStatusEnum.INACTIVE
+};
 
 function findStyrkAndSkipAlternativeNames(code) {
     const found = lookUpStyrk(code);
@@ -63,7 +71,6 @@ export default function adDataReducer(state = initialState, action) {
         case FETCH_AD_BEGIN:
             return initialState;
         case FETCH_AD_SUCCESS:
-        case FETCH_NEXT_AD_SUCCESS:
         case SAVE_AD_SUCCESS:
             return action.response;
         case SET_AD_DATA:

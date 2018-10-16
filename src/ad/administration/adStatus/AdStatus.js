@@ -20,17 +20,17 @@ function AdStatus({ adStatus, remarks, comments }) {
         <div className="AdStatusPreview">
             {adStatus === AdStatusEnum.INACTIVE && (
                 <Alertstripe className="AdStatusPreview__Alertstripe" type="info" solid>
-                    Annonsen er ikke publisert
+                    Stillingen er ikke publisert
                 </Alertstripe>
             )}
             {adStatus === AdStatusEnum.ACTIVE && (
                 <Alertstripe className="AdStatusPreview__Alertstripe" type="suksess" solid>
-                    Annonsen er publisert
+                    Stillingen er publisert
                 </Alertstripe>
             )}
             {adStatus === AdStatusEnum.REJECTED && (
                 <Alertstripe className="AdStatusPreview__Alertstripe" type="advarsel" solid>
-                    Annonsen er avvist: {remarksLabels.includes(comments)
+                    Stillingen er avvist: {remarksLabels.includes(comments)
                         ? remarksLabels.join(', ')
                         : `${remarksLabels.join(', ')}${comments ? `, ${comments}` : ''}`}
                 </Alertstripe>
@@ -38,13 +38,13 @@ function AdStatus({ adStatus, remarks, comments }) {
             {adStatus === AdStatusEnum.STOPPED && (
                 <Alertstripe className="AdStatusPreview__Alertstripe" type="advarsel" solid>
                     {comments ?
-                        `Annonsen er stoppet: ${comments}` :
-                        'Annonsen er stoppet'}
+                        `Stillingen er stoppet: ${comments}` :
+                        'Stillingen er stoppet'}
                 </Alertstripe>
             )}
             {adStatus === AdStatusEnum.DELETED && (
                 <Alertstripe className="AdStatusPreview__Alertstripe" type="advarsel" solid>
-                    Annonsen er slettet
+                    Stillingen er slettet
                 </Alertstripe>
             )}
         </div>
