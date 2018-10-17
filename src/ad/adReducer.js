@@ -197,7 +197,11 @@ function* createAd() {
             title: 'Ny stilling',
             createdBy: 'pam-rekrutteringsbistand',
             source: 'DIR',
-            privacy: 'INTERNAL_NOT_SHOWN'
+            privacy: 'INTERNAL_NOT_SHOWN',
+            administration: {
+                status: AdminStatusEnum.PENDING,
+                reportee: `${reportee.displayName}[${reportee.userName}]`
+            }
         });
 
         yield put({ type: SET_AD_DATA, data: response });
