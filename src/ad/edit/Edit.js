@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Input, SkjemaGruppe, Radio } from 'nav-frontend-skjema';
+import { Input, SkjemaGruppe, Radio, Checkbox } from 'nav-frontend-skjema';
 import { Flatknapp } from 'nav-frontend-knapper';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Column, Row } from 'nav-frontend-grid';
 import { Normaltekst } from 'nav-frontend-typografi';
-import { HjelpetekstAuto } from 'nav-frontend-hjelpetekst';
 import { connect } from 'react-redux';
 import {
     SET_AD_TEXT,
@@ -22,6 +21,7 @@ import './Edit.less';
 import EngagementType from './engagementType/EngagementType';
 import RichTextEditor from './richTextEditor/RichTextEditor';
 import JobArrangement from './jobArrangement/JobArrangement';
+import Requirements from './requirements/Requirements'
 
 class Edit extends React.Component {
     onTitleChange = (e) => {
@@ -123,12 +123,7 @@ class Edit extends React.Component {
     render() {
         const { ad, validation } = this.props;
 
-        const hardrequirements = ad.properties.hardrequirements
-            ? JSON.parse(ad.properties.hardrequirements) : undefined;
-        const softrequirements = ad.properties.softrequirements
-            ? JSON.parse(ad.properties.softrequirements) : undefined;
-        const personalattributes = ad.properties.personalattributes
-            ? JSON.parse(ad.properties.personalattributes) : undefined;
+
 
         return (
             <div className="Edit">
@@ -194,8 +189,8 @@ class Edit extends React.Component {
                                 />
                                 <Input
                                     label="Stilling/yrke*"
-                                    value={ad.title || ''}
-                                    onChange={this.onTitleChange}
+                                    value={ad.properties.jobtitle || ''}
+                                    onChange={this.onJobtitleChange}
                                     feil={validation.title ? { feilmelding: validation.title } : undefined}
                                 />
                                 <div className="blokk-xxs"><Normaltekst>Annonsetekst*</Normaltekst></div>
@@ -210,253 +205,24 @@ class Edit extends React.Component {
                                 border
                                 apen
                             >
-                                <Input
-                                    label={
-                                        <div>
-                                            <Normaltekst className="Requirements__label">
-                                                Krav til kompetanse (maks 5)
-                                            </Normaltekst>
-                                            <HjelpetekstAuto>
-                                                Absolutte krav til den som søker på
-                                                stillingen. Det kan for eksempel
-                                                være utdanningsnivå, spesiell
-                                                erfaring eller språkkunnskaper.
-                                            </HjelpetekstAuto>
-                                        </div>
-                                    }
-                                    value={''}
-                                    onChange={this.onHardrequirementsChange}
-                                    placeholder="For eksempel: pedagogikk"
-                                />
-                                <Input
-                                    label=""
-                                    value={''}
-                                    onChange={this.onHardrequirementsChange}
-                                />
-                                <Input
-                                    label=""
-                                    value={''}
-                                    onChange={this.onHardrequirementsChange}
-                                />
-                                {(hardrequirements && hardrequirements.length > 3) && (
-                                    <Input
-                                        label=""
-                                        value={''}
-                                        onChange={this.onHardrequirementsChange}
-                                        inputRef={(i) => {
-                                            this.focusField = i;
-                                        }}
-                                    />
-                                )}
-                                {(hardrequirements && hardrequirements.length > 4) && (
-                                    <Input
-                                        label=""
-                                        value={''}
-                                        onChange={this.onHardrequirementsChange}
-                                        inputRef={(i) => {
-                                            this.focusField = i;
-                                        }}
-                                    />
-                                )}
-                                {(hardrequirements === undefined
-                                    || hardrequirements.length < 5)
-                                    ? (
-                                        <Flatknapp
-                                            onClick={this.onNewHardrequirement}
-                                            mini
-                                        >
-                                            + Legg til et krav
-                                        </Flatknapp>
-                                    ) : null}
-                                <div className="Requirements__separator"/>
-
-                                <Input
-                                    label={
-                                        <div>
-                                            <Normaltekst className="Requirements__label">
-                                                Ønsket kompetanse (maks 5)
-                                            </Normaltekst>
-                                            <HjelpetekstAuto>
-                                                Kompetanse som kan være relevant for stillingen,
-                                                men som ikke er et absolutt krav for å kunne søke.
-                                            </HjelpetekstAuto>
-                                        </div>
-                                    }
-                                    value={''}
-                                    onChange={this.onSoftrequirementsChange}
-                                    placeholder="For eksempel: Førerkort klasse B"
-                                />
-                                <Input
-                                    label=""
-                                    value={''}
-                                    onChange={this.onSoftrequirementsChange}
-                                />
-                                <Input
-                                    id="boerkrav3"
-                                    label=""
-                                    value={ad.properties.boerkrav3
-                                        ? (ad.properties.boerkrav3)
-                                        : ('')}
-                                    onChange={this.endreBoerKrav3}
-                                />
-                                {(ad.properties.boerkrav4 !== undefined) && (
-                                    <Input
-                                        label=""
-                                        value={''}
-                                        onChange={this.onSoftrequirementsChange}
-                                        inputRef={(i) => {
-                                            this.focusField = i;
-                                        }}
-                                    />
-                                )}
-                                {(ad.properties.boerkrav5 !== undefined) && (
-                                    <Input
-                                        label=""
-                                        value={''}
-                                        onChange={this.onSoftrequirementsChange}
-                                        inputRef={(i) => {
-                                            this.focusField = i;
-                                        }}
-                                    />
-                                )}
-                                {ad.properties
-                                && (ad.properties.boerkrav4 === undefined
-                                    || ad.properties.boerkrav5 === undefined)
-                                    ? (
-                                        <Flatknapp
-                                            onClick={this.visNyInputBoerkrav}
-                                            mini
-                                        >
-                                            + Legg til ønsket kompetanse
-                                        </Flatknapp>
-                                    ) : null}
-                                <div className="Requirements__separator"/>
-                                <Input
-                                    label={
-                                        <div>
-                                            <Normaltekst className="Requirements__label">
-                                                Personlige egenskaper (maks 5)
-                                            </Normaltekst>
-                                            <HjelpetekstAuto>
-                                                Er det noen personlige egenskaper som vektlegges
-                                                spesielt for denne stillingen?
-                                            </HjelpetekstAuto>
-                                        </div>
-                                    }
-                                    value={''}
-                                    onChange={this.onPersonalAttributesChange}
-                                    placeholder="For eksempel: ansvarsbevisst"
-                                />
-                                <Input
-                                    id="personligeEgenskaper2"
-                                    label=""
-                                    value={ad.properties.personligeEgenskaper2
-                                        ? (ad.properties.personligeEgenskaper2)
-                                        : ('')}
-                                    onChange={this.endrePersonligeEgenskaper2}
-                                />
-                                <Input
-                                    id="personligeEgenskaper3"
-                                    label=""
-                                    value={ad.properties.personligeEgenskaper3
-                                        ? (ad.properties.personligeEgenskaper3)
-                                        : ('')}
-                                    onChange={this.endrePersonligeEgenskaper3}
-                                />
-                                {(ad.properties.personligeEgenskaper4 !== undefined) && (
-                                    <Input
-                                        id="personligeEgenskaper4"
-                                        label=""
-                                        value={ad.properties.personligeEgenskaper4
-                                            ? (ad.properties.personligeEgenskaper4)
-                                            : ('')}
-                                        onChange={this.endrePersonligeEgenskaper4}
-                                        inputRef={(i) => {
-                                            this.focusField = i;
-                                        }}
-                                    />
-                                )}
-                                {(ad.properties.personligeEgenskaper5 !== undefined) && (
-                                    <Input
-                                        id="personligeEgenskaper5"
-                                        label=""
-                                        value={ad.properties.personligeEgenskaper5
-                                            ? (ad.properties.personligeEgenskaper5)
-                                            : ('')}
-                                        onChange={this.endrePersonligeEgenskaper5}
-                                        inputRef={(i) => {
-                                            this.focusField = i;
-                                        }}
-                                    />
-                                )}
-                                {(ad.properties.personligeEgenskaper4 === undefined
-                                    || ad.properties.personligeEgenskaper5 === undefined)
-                                    ? (
-                                        <Flatknapp
-                                            id="ny-egenskap"
-                                            onClick={this.visNyInputEgenskaper}
-                                            mini
-                                        >
-                                            + Legg til en personlig egenskap
-                                        </Flatknapp>
-                                    ) : null}
-
+                                <Requirements />
                             </Ekspanderbartpanel>
                         </div>
                     </Column>
                     <Column xs="12" md="4">
                         <Ekspanderbartpanel
-                            className="Edit__panel-details"
-                            tittel="Søknad"
-                            tittelProps="undertittel"
-                            border
-                            apen
-                        >
-                            <Input
-                                label="Søknadsfrist"
-                                value={ad.properties.applicationdue || ''}
-                                onChange={this.onApplicationDueChange}
-                            />
-                            <Input
-                                label="Send søknad til"
-                                value={ad.properties.applicationemail || ''}
-                                onChange={this.onApplicationEmailChange}
-                            />
-                            <Input
-                                label="Søknadslenke"
-                                value={ad.properties.applicationurl || ''}
-                                onChange={this.onApplicationUrlChange}
-                            />
-                            <Input
-                                label="Kildelenke"
-                                value={ad.properties.sourceurl || ''}
-                                onChange={this.onSourceUrlChange}
-                            />
-                        </Ekspanderbartpanel>
-                        <Ekspanderbartpanel
                             className="Edit__panel"
-                            tittel="Om stillingen"
+                            tittel="Praktiske opplysninger"
                             tittelProps="undertittel"
                             border
                             apen
                         >
-                            <Input
-                                label="Stillingstittel"
-                                value={ad.properties.jobtitle || ''}
-                                onChange={this.onJobtitleChange}
-                            />
-                            <Input
-                                label="Arbeidssted"
-                                value={ad.properties.location || ''}
-                                onChange={this.onLocationChange}
-                            />
-                            <div className="Edit__border" />
                             <EngagementType />
                             <JobArrangement />
                             <div className="Edit__border" />
                             <SkjemaGruppe
                                 className="Edit__SkjemaGruppe-title blokk-xs"
-                                title="Heltid/Deltid"
+                                title="Omfang*"
                             >
                                 <Radio
                                     className="Edit__inline"
@@ -475,16 +241,52 @@ class Edit extends React.Component {
                                     onChange={this.onExtentChange}
                                 />
                             </SkjemaGruppe>
-                            <Input
-                                label="Arbeidsdager"
-                                value={ad.properties.workday || ''}
-                                onChange={this.onWorkdayChange}
-                            />
-                            <Input
-                                label="Arbeidstid"
-                                value={ad.properties.workhours || ''}
-                                onChange={this.onWorkhoursChange}
-                            />
+                            <SkjemaGruppe
+                                className="Edit__SkjemaGruppe-title blokk-xs"
+                                title="Arbeidsdager*"
+                            >
+                                <Checkbox
+                                    className="Edit__inline"
+                                    label="Ukedager"
+                                    value={ad.properties.workday || ''}
+                                    onChange={this.onWorkdayChange}
+                                />
+                                <Checkbox
+                                    className="Edit__inline"
+                                    label="Lørdag"
+                                    value={ad.properties.workday || ''}
+                                    onChange={this.onWorkdayChange}
+                                />
+                                <Checkbox
+                                    className="Edit__inline"
+                                    label="Søndag"
+                                    value={ad.properties.workday || ''}
+                                    onChange={this.onWorkdayChange}
+                                />
+                            </SkjemaGruppe>
+                            <SkjemaGruppe
+                                className="Edit__SkjemaGruppe-title blokk-xs"
+                                title="Arbeidstid*"
+                            >
+                                <Checkbox
+                                    className="Edit__inline"
+                                    label="Dagtid"
+                                    value={ad.properties.workhours || ''}
+                                    onChange={this.onWorkhoursChange}
+                                />
+                                <Checkbox
+                                    className="Edit__inline"
+                                    label="Kveld"
+                                    value={ad.properties.workhours || ''}
+                                    onChange={this.onWorkhoursChange}
+                                />
+                                <Checkbox
+                                    className="Edit__inline"
+                                    label="Natt"
+                                    value={ad.properties.workhours || ''}
+                                    onChange={this.onWorkhoursChange}
+                                />
+                            </SkjemaGruppe>
                             <SkjemaGruppe
                                 className="Edit__SkjemaGruppe-title"
                                 title="Sektor"
@@ -514,11 +316,18 @@ class Edit extends React.Component {
                                     onChange={this.onSectorChange}
                                 />
                             </SkjemaGruppe>
+
                             <div className="Edit__border" />
                             <Input
+                                type="number"
                                 label="Antall stillinger"
                                 value={ad.properties.positioncount || ''}
                                 onChange={this.onPositioncountChange}
+                            />
+                            <Input
+                                label="Søknadsfrist"
+                                value={ad.properties.applicationdue || ''}
+                                onChange={this.onApplicationDueChange}
                             />
                             <Input
                                 label="Oppstart"
@@ -528,16 +337,63 @@ class Edit extends React.Component {
                         </Ekspanderbartpanel>
                         <Ekspanderbartpanel
                             className="Edit__panel"
-                            tittel="Om annonsen"
+                            tittel="Søknad"
                             tittelProps="undertittel"
                             border
                             apen
                         >
                             <Input
-                                label="Hentet fra"
-                                value={ad.medium || ''}
-                                onChange={this.onMediumChange}
+                                label="Søknadsfrist"
+                                value={ad.properties.applicationdue || ''}
+                                onChange={this.onApplicationDueChange}
                             />
+                            <Input
+                                label="Send søknad til"
+                                value={ad.properties.applicationemail || ''}
+                                onChange={this.onApplicationEmailChange}
+                            />
+                            <Input
+                                label="Søknadslenke"
+                                value={ad.properties.applicationurl || ''}
+                                onChange={this.onApplicationUrlChange}
+                            />
+                            <Input
+                                label="Kildelenke"
+                                value={ad.properties.sourceurl || ''}
+                                onChange={this.onSourceUrlChange}
+                            />
+                        </Ekspanderbartpanel>
+                        <Ekspanderbartpanel
+                            className="Edit__panel"
+                            tittel="Kontaktinformasjon"
+                            tittelProps="undertittel"
+                            border
+                            apen
+                        >
+                        </Ekspanderbartpanel>
+                        <Ekspanderbartpanel
+                            className="Edit__panel"
+                            tittel="Arbeidsstedets adresse*"
+                            tittelProps="undertittel"
+                            border
+                            apen
+                        >
+                        </Ekspanderbartpanel>
+                        <Ekspanderbartpanel
+                            className="Edit__panel"
+                            tittel="Hvordan ønsker arbeidsgiver å motta søknader?"
+                            tittelProps="undertittel"
+                            border
+                            apen
+                        >
+                        </Ekspanderbartpanel>
+                        <Ekspanderbartpanel
+                            className="Edit__panel"
+                            tittel="Om annonsen"
+                            tittelProps="undertittel"
+                            border
+                            apen
+                        >
                             <Input
                                 label="Sist endret"
                                 value={ad.updated || ''}
@@ -545,15 +401,15 @@ class Edit extends React.Component {
                                 disabled
                             />
                             <Input
+                                label="Hentet fra"
+                                value={ad.medium || ''}
+                                onChange={this.onMediumChange}
+                            />
+                            <Input
                                 label="Stillingsnummer"
                                 value={ad.id || ''}
                                 onChange={this.onIdChange}
                                 disabled
-                            />
-                            <Input
-                                label="Referanse"
-                                value={ad.reference || ''}
-                                onChange={this.onReferenceChange}
                             />
                         </Ekspanderbartpanel>
                     </Column>
