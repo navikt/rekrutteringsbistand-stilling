@@ -1,6 +1,8 @@
 import deepEqual from 'deep-equal';
 import { put, select, takeLatest } from 'redux-saga/effects';
-import { ApiError, fetchAd, fetchPost, fetchPut } from '../api/api';
+import {
+    ApiError, fetchAd, fetchPost, fetchPut
+} from '../api/api';
 import { AD_API } from '../fasitProperties';
 import { getReportee } from '../reportee/reporteeReducer';
 import {
@@ -188,7 +190,6 @@ function* createAd() {
         yield put({ type: SET_UPDATED_BY });
 
         const reportee = yield getReportee();
-        yield put({ type: SET_REPORTEE, reportee: reportee.displayName });
 
         const postUrl = `${AD_API}ads?classify=true`;
 
@@ -198,7 +199,9 @@ function* createAd() {
             source: 'DIR',
             privacy: 'INTERNAL_NOT_SHOWN'
         });
+
         yield put({ type: SET_AD_DATA, data: response });
+        yield put({ type: SET_REPORTEE, reportee: reportee.displayName });
         yield put({ type: CREATE_AD_SUCCESS, response });
     } catch (e) {
         if (e instanceof ApiError) {
