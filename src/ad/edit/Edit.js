@@ -22,6 +22,7 @@ import EngagementType from './engagementType/EngagementType';
 import RichTextEditor from './richTextEditor/RichTextEditor';
 import JobArrangement from './jobArrangement/JobArrangement';
 import Requirements from './requirements/Requirements'
+import ContactPerson from './contactPerson/ContactPerson'
 
 class Edit extends React.Component {
     onTitleChange = (e) => {
@@ -370,6 +371,7 @@ class Edit extends React.Component {
                             border
                             apen
                         >
+                            <ContactPerson />
                         </Ekspanderbartpanel>
                         <Ekspanderbartpanel
                             className="Edit__panel"
