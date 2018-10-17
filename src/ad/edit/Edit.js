@@ -23,6 +23,7 @@ import JobArrangement from './jobArrangement/JobArrangement';
 import Requirements from './requirements/Requirements'
 import Employer from './employer/Employer';
 import Loading from '../../common/loading/Loading';
+import ContactPerson from './contactPerson/ContactPerson';
 
 class Edit extends React.Component {
     onTitleChange = (e) => {
@@ -320,6 +321,7 @@ class Edit extends React.Component {
                             border
                             apen
                         >
+                            <ContactPerson />
                         </Ekspanderbartpanel>
                         <Ekspanderbartpanel
                             className="Edit__panel"
