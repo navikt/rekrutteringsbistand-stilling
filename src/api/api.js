@@ -18,7 +18,7 @@ async function request(url, options) {
         throw new ApiError('Network Error', 0);
     }
 
-    if (response.status !== 200) {
+    if (response.status !== 200 && response.status !== 201) {
         if (response.status === 401) {
             redirectToLogin();
         } else {
@@ -39,7 +39,6 @@ export async function fetchGet(url) {
 }
 
 export async function fetchPost(url, body) {
-    console.log(body);
     return request(url, {
         body: JSON.stringify(body),
         method: 'POST',

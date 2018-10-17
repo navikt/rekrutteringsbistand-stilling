@@ -83,16 +83,16 @@ class AdStatusEdit extends React.Component {
                         </div>
                     )}
                     <div className="AdStatusEdit__links">
-                        {!isSavingAd &&
-                            adStatus !== AdStatusEnum.ACTIVE && (
+                        {adStatus !== AdStatusEnum.ACTIVE && (
                             <LinkButton onClick={this.onSaveAdClick}>
                                     Lagre og forsett senere
                             </LinkButton>
                         )
                         }
-                        {!hasChanges && hasSavedChanges && (
+                        {adStatus !== AdStatusEnum.ACTIVE
+                            && !hasChanges && hasSavedChanges && (
                             <Normaltekst tag="span">
-                                Annonsen er lagret i &quot;Under arbeid&quot;
+                                Annonsen er lagret
                             </Normaltekst>
                         )}
                     </div>

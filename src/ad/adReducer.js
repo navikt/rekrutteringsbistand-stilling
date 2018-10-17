@@ -4,6 +4,7 @@ import { ApiError, fetchAd, fetchPost, fetchPut } from '../api/api';
 import { AD_API } from '../fasitProperties';
 import { getReportee } from '../reportee/reporteeReducer';
 import {
+    SET_AD_DATA,
     SET_AD_STATUS,
     SET_ADMIN_STATUS,
     SET_EMPLOYER,
@@ -76,7 +77,7 @@ export default function adReducer(state = initialState, action) {
             return {
                 ...state,
                 isFetchingStilling: false,
-                isEditingAd: false,
+                isEditingAd: true,
                 originalData: { ...action.response }
             };
         case FETCH_AD_FAILURE:
@@ -99,7 +100,6 @@ export default function adReducer(state = initialState, action) {
                 ...state,
                 isSavingAd: false,
                 hasSavedChanges: true,
-                isEditingAd: false,
                 originalData: { ...action.response }
             };
         case CREATE_AD_FAILURE:
@@ -168,7 +168,7 @@ function* getAd(action) {
     yield put({ type: FETCH_AD_BEGIN });
     try {
         const response = yield fetchAd(action.uuid);
-        yield put({ type: FETCH_AD_SUCCESS, response, previousAdminStatus: response.administration.status });
+        yield put({ type: FETCH_AD_SUCCESS, response });
     } catch (e) {
         if (e instanceof ApiError) {
             yield put({ type: FETCH_AD_FAILURE, error: e });
@@ -183,18 +183,22 @@ function needClassify(originalAdData, adData) {
 }
 
 function* createAd() {
-    let state = yield select();
     yield put({ type: CREATE_AD_BEGIN });
     try {
         yield put({ type: SET_UPDATED_BY });
 
         const reportee = yield getReportee();
         yield put({ type: SET_REPORTEE, reportee: reportee.displayName });
-        state = yield select();
 
         const postUrl = `${AD_API}ads?classify=true`;
 
-        const response = yield fetchPost(postUrl, state.adData);
+        const response = yield fetchPost(postUrl, {
+            title: 'Ny stilling',
+            createdBy: 'pam-rekrutteringsbistand',
+            source: 'DIR',
+            privacy: 'INTERNAL_NOT_SHOWN'
+        });
+        yield put({ type: SET_AD_DATA, data: response });
         yield put({ type: CREATE_AD_SUCCESS, response });
     } catch (e) {
         if (e instanceof ApiError) {
@@ -250,10 +254,6 @@ function* stopAd() {
 }
 
 function* saveAd() {
-    const state = yield select();
-    if (state.adData.administration.status === AdminStatusEnum.RECEIVED) {
-        yield put({ type: SET_ADMIN_STATUS, status: AdminStatusEnum.PENDING });
-    }
     yield save();
 }
 

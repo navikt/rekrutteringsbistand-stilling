@@ -130,7 +130,6 @@ class Edit extends React.Component {
         const personalattributes = ad.properties.personalattributes
             ? JSON.parse(ad.properties.personalattributes) : undefined;
 
-        console.log(ad);
         return (
             <div className="Edit">
                 <Row className="Edit__inner">

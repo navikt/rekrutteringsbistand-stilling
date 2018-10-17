@@ -1,7 +1,7 @@
-import { take, call, put, takeEvery, takeLatest,  select } from 'redux-saga/effects';
+import { take, put, takeEvery,  select } from 'redux-saga/effects';
 import { ApiError, fetchGet } from '../../../api/api';
 import { AD_API } from '../../../fasitProperties';
-import { FETCH_AD_BEGIN, FETCH_NEXT_AD_BEGIN } from '../../adReducer';
+import { FETCH_AD_BEGIN } from '../../adReducer';
 
 export const FETCH_LOCATIONS = 'FETCH_LOCATIONS';
 export const FETCH_LOCATIONS_BEGIN = 'FETCH_LOCATIONS_BEGIN';
@@ -33,7 +33,6 @@ export default function locationlCodeReducer(state = initialState, action) {
                 hasFetchedLocations: false
             };
         case FETCH_AD_BEGIN:
-        case FETCH_NEXT_AD_BEGIN:
             return {
                 ...state,
                 suggestions: []

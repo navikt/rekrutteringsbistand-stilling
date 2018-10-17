@@ -45,13 +45,6 @@ export const SET_REPORTEE = 'SET_REPORTEE';
 export const SET_UPDATED_BY = 'SET_UPDATED_BY';
 
 const initialState = {
-    title: 'Ny stilling',
-    createdBy: 'pam-rekrutteringsbistand',
-    updatedBy: 'pam-rekrutteringsbistand',
-    source: 'DIR',
-    medium: 'DIR',
-    privacy: 'INTERNAL_NOT_SHOWN',
-    reference: `FIXME: ${Date.now()}`,
     properties: {},
     status: AdStatusEnum.INACTIVE,
     administration: {}
