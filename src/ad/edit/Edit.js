@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Input, SkjemaGruppe, Radio } from 'nav-frontend-skjema';
+import { Flatknapp } from 'nav-frontend-knapper';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Column, Row } from 'nav-frontend-grid';
 import { Normaltekst } from 'nav-frontend-typografi';
+import { HjelpetekstAuto } from 'nav-frontend-hjelpetekst';
 import { connect } from 'react-redux';
 import {
     SET_AD_TEXT,
@@ -121,55 +123,285 @@ class Edit extends React.Component {
     render() {
         const { ad, validation } = this.props;
 
+        const hardrequirements = ad.properties.hardrequirements
+            ? JSON.parse(ad.properties.hardrequirements) : undefined;
+        const softrequirements = ad.properties.softrequirements
+            ? JSON.parse(ad.properties.softrequirements) : undefined;
+        const personalattributes = ad.properties.personalattributes
+            ? JSON.parse(ad.properties.personalattributes) : undefined;
+
+        console.log(ad);
         return (
             <div className="Edit">
                 <Row className="Edit__inner">
                     <Column xs="12" md="8">
-                        <div className="Edit__adtext">
+                        <div className="Edit__left">
                             <Ekspanderbartpanel
-                                className="Edit__panel-adtext"
-                                tittel="Om Stillingen"
+                                className="blokk-s"
+                                tittel="Om bedriften"
                                 tittelProps="undertittel"
                                 border
                                 apen
                             >
                                 <Input
-                                    label="Tittel"
+                                    label="Bedriftens navn hentet fra Enhetsregisteret*"
+                                    value={ad.properties.employer || ''}
+                                    onChange={this.onEmployerNameChange}
+                                />
+                                <Input
+                                    label="Navn på bedriften"
+                                    value={ad.properties.employer || ''}
+                                    onChange={this.onEmployerNameChange}
+                                />
+                                <Normaltekst className="blokk-xxs">Kort om bedriften</Normaltekst>
+                                <RichTextEditor
+                                    text={ad.properties.employerdescription || ''}
+                                    onChange={this.onEmployerDescriptionChange}
+                                />
+                                <Input
+                                    label="Bedriftens nettsted"
+                                    value={ad.properties.employerhomepage || ''}
+                                    onChange={this.onEmployerHomepageChange}
+                                />
+                                {ad.properties.facebookpage === undefined
+                                && (ad.properties.linkedinpage === undefined)
+                                && (ad.properties.twitteraddress === undefined)
+                                && (
+                                    <Row className="blokk-l">
+                                        <Column xs="12">
+                                            <Flatknapp
+                                                id="legg-til-addresser"
+                                                onClick={this.onLeggTilAddresser}
+                                                mini
+                                            >
+                                                + Legg til adresser for Facebook, LinkedIn og Twitter
+                                            </Flatknapp >
+                                        </Column>
+                                    </Row>
+                                )}
+                            </Ekspanderbartpanel>
+                            <Ekspanderbartpanel
+                                tittel="Om Stillingen"
+                                tittelProps="undertittel"
+                                className="blokk-s"
+                                border
+                                apen
+                            >
+                                <Input
+                                    label="Overskift på annonsen*"
                                     value={ad.title || ''}
                                     onChange={this.onTitleChange}
                                     feil={validation.title ? { feilmelding: validation.title } : undefined}
                                 />
-                                <div className="Edit__bottom"><Normaltekst>Annonsetekst*</Normaltekst></div>
+                                <Input
+                                    label="Stilling/yrke*"
+                                    value={ad.title || ''}
+                                    onChange={this.onTitleChange}
+                                    feil={validation.title ? { feilmelding: validation.title } : undefined}
+                                />
+                                <div className="blokk-xxs"><Normaltekst>Annonsetekst*</Normaltekst></div>
                                 <RichTextEditor
                                     text={ad.properties.adtext || ''}
                                     onChange={this.onAdTextChange}
                                 />
                             </Ekspanderbartpanel>
                             <Ekspanderbartpanel
-                                className="Edit__panel"
-                                tittel="Om arbeidsgiver"
+                                tittel="Hvem bør søke på stilingen"
                                 tittelProps="undertittel"
+                                border
                                 apen
                             >
                                 <Input
-                                    label="Arbeidsgiver"
-                                    value={ad.properties.employer || ''}
-                                    onChange={this.onEmployerNameChange}
+                                    label={
+                                        <div>
+                                            <Normaltekst className="Requirements__label">
+                                                Krav til kompetanse (maks 5)
+                                            </Normaltekst>
+                                            <HjelpetekstAuto>
+                                                Absolutte krav til den som søker på
+                                                stillingen. Det kan for eksempel
+                                                være utdanningsnivå, spesiell
+                                                erfaring eller språkkunnskaper.
+                                            </HjelpetekstAuto>
+                                        </div>
+                                    }
+                                    value={''}
+                                    onChange={this.onHardrequirementsChange}
+                                    placeholder="For eksempel: pedagogikk"
                                 />
                                 <Input
-                                    label="Adresse"
-                                    value={ad.properties.address || ''}
-                                    onChange={this.onEmployerAddressChange}
+                                    label=""
+                                    value={''}
+                                    onChange={this.onHardrequirementsChange}
                                 />
                                 <Input
-                                    label="Nettside"
-                                    value={ad.properties.employerhomepage || ''}
-                                    onChange={this.onEmployerHomepageChange}
+                                    label=""
+                                    value={''}
+                                    onChange={this.onHardrequirementsChange}
                                 />
-                                <RichTextEditor
-                                    text={ad.properties.employerdescription || ''}
-                                    onChange={this.onEmployerDescriptionChange}
+                                {(hardrequirements && hardrequirements.length > 3) && (
+                                    <Input
+                                        label=""
+                                        value={''}
+                                        onChange={this.onHardrequirementsChange}
+                                        inputRef={(i) => {
+                                            this.focusField = i;
+                                        }}
+                                    />
+                                )}
+                                {(hardrequirements && hardrequirements.length > 4) && (
+                                    <Input
+                                        label=""
+                                        value={''}
+                                        onChange={this.onHardrequirementsChange}
+                                        inputRef={(i) => {
+                                            this.focusField = i;
+                                        }}
+                                    />
+                                )}
+                                {(hardrequirements === undefined
+                                    || hardrequirements.length < 5)
+                                    ? (
+                                        <Flatknapp
+                                            onClick={this.onNewHardrequirement}
+                                            mini
+                                        >
+                                            + Legg til et krav
+                                        </Flatknapp>
+                                    ) : null}
+                                <div className="Requirements__separator"/>
+
+                                <Input
+                                    label={
+                                        <div>
+                                            <Normaltekst className="Requirements__label">
+                                                Ønsket kompetanse (maks 5)
+                                            </Normaltekst>
+                                            <HjelpetekstAuto>
+                                                Kompetanse som kan være relevant for stillingen,
+                                                men som ikke er et absolutt krav for å kunne søke.
+                                            </HjelpetekstAuto>
+                                        </div>
+                                    }
+                                    value={''}
+                                    onChange={this.onSoftrequirementsChange}
+                                    placeholder="For eksempel: Førerkort klasse B"
                                 />
+                                <Input
+                                    label=""
+                                    value={''}
+                                    onChange={this.onSoftrequirementsChange}
+                                />
+                                <Input
+                                    id="boerkrav3"
+                                    label=""
+                                    value={ad.properties.boerkrav3
+                                        ? (ad.properties.boerkrav3)
+                                        : ('')}
+                                    onChange={this.endreBoerKrav3}
+                                />
+                                {(ad.properties.boerkrav4 !== undefined) && (
+                                    <Input
+                                        label=""
+                                        value={''}
+                                        onChange={this.onSoftrequirementsChange}
+                                        inputRef={(i) => {
+                                            this.focusField = i;
+                                        }}
+                                    />
+                                )}
+                                {(ad.properties.boerkrav5 !== undefined) && (
+                                    <Input
+                                        label=""
+                                        value={''}
+                                        onChange={this.onSoftrequirementsChange}
+                                        inputRef={(i) => {
+                                            this.focusField = i;
+                                        }}
+                                    />
+                                )}
+                                {ad.properties
+                                && (ad.properties.boerkrav4 === undefined
+                                    || ad.properties.boerkrav5 === undefined)
+                                    ? (
+                                        <Flatknapp
+                                            onClick={this.visNyInputBoerkrav}
+                                            mini
+                                        >
+                                            + Legg til ønsket kompetanse
+                                        </Flatknapp>
+                                    ) : null}
+                                <div className="Requirements__separator"/>
+                                <Input
+                                    label={
+                                        <div>
+                                            <Normaltekst className="Requirements__label">
+                                                Personlige egenskaper (maks 5)
+                                            </Normaltekst>
+                                            <HjelpetekstAuto>
+                                                Er det noen personlige egenskaper som vektlegges
+                                                spesielt for denne stillingen?
+                                            </HjelpetekstAuto>
+                                        </div>
+                                    }
+                                    value={''}
+                                    onChange={this.onPersonalAttributesChange}
+                                    placeholder="For eksempel: ansvarsbevisst"
+                                />
+                                <Input
+                                    id="personligeEgenskaper2"
+                                    label=""
+                                    value={ad.properties.personligeEgenskaper2
+                                        ? (ad.properties.personligeEgenskaper2)
+                                        : ('')}
+                                    onChange={this.endrePersonligeEgenskaper2}
+                                />
+                                <Input
+                                    id="personligeEgenskaper3"
+                                    label=""
+                                    value={ad.properties.personligeEgenskaper3
+                                        ? (ad.properties.personligeEgenskaper3)
+                                        : ('')}
+                                    onChange={this.endrePersonligeEgenskaper3}
+                                />
+                                {(ad.properties.personligeEgenskaper4 !== undefined) && (
+                                    <Input
+                                        id="personligeEgenskaper4"
+                                        label=""
+                                        value={ad.properties.personligeEgenskaper4
+                                            ? (ad.properties.personligeEgenskaper4)
+                                            : ('')}
+                                        onChange={this.endrePersonligeEgenskaper4}
+                                        inputRef={(i) => {
+                                            this.focusField = i;
+                                        }}
+                                    />
+                                )}
+                                {(ad.properties.personligeEgenskaper5 !== undefined) && (
+                                    <Input
+                                        id="personligeEgenskaper5"
+                                        label=""
+                                        value={ad.properties.personligeEgenskaper5
+                                            ? (ad.properties.personligeEgenskaper5)
+                                            : ('')}
+                                        onChange={this.endrePersonligeEgenskaper5}
+                                        inputRef={(i) => {
+                                            this.focusField = i;
+                                        }}
+                                    />
+                                )}
+                                {(ad.properties.personligeEgenskaper4 === undefined
+                                    || ad.properties.personligeEgenskaper5 === undefined)
+                                    ? (
+                                        <Flatknapp
+                                            id="ny-egenskap"
+                                            onClick={this.visNyInputEgenskaper}
+                                            mini
+                                        >
+                                            + Legg til en personlig egenskap
+                                        </Flatknapp>
+                                    ) : null}
+
                             </Ekspanderbartpanel>
                         </div>
                     </Column>
@@ -224,7 +456,7 @@ class Edit extends React.Component {
                             <JobArrangement />
                             <div className="Edit__border" />
                             <SkjemaGruppe
-                                className="Edit__SkjemaGruppe-title Edit__bottom"
+                                className="Edit__SkjemaGruppe-title blokk-xs"
                                 title="Heltid/Deltid"
                             >
                                 <Radio
