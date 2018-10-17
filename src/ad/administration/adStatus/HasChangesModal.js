@@ -13,18 +13,13 @@ class HasChangesModal extends React.Component {
         this.props.closeModal();
     };
 
-    onSaveClick = () => {
+    onLeaveClick = () => {
         this.props.closeModal();
-        this.props.saveAd();
-    };
-
-    onPublishClick = () => {
-        this.props.closeModal();
-        this.props.publishAd();
+        window.location.href = '/';
     };
 
     render() {
-        const { showHasChangesModal, adStatus } = this.props;
+        const { showHasChangesModal } = this.props;
         return (
             <NavFrontendModal
                 isOpen={showHasChangesModal}
@@ -35,59 +30,27 @@ class HasChangesModal extends React.Component {
                 className="HasChangesModal"
             >
                 <Undertittel className="blokk-s">
-                    Lagre endringene
+                    Du har startet registrering av en ny stilling
                 </Undertittel>
-                {adStatus === AdStatusEnum.INACTIVE && (
-                    <div>
-                        <Normaltekst className="blokk-s">
-                            Vil du publisere annonsen med endringer før du går videre til neste annonse?
-                        </Normaltekst>
-                        <Hovedknapp onClick={this.onPublishClick}>
-                            Publisér og gå til neste annonse
-                        </Hovedknapp>
-                        <Knapp onClick={this.onClose}>
-                            Avbryt
-                        </Knapp>
-                    </div>
-                )}
-                {adStatus === AdStatusEnum.ACTIVE && (
-                    <div>
-                        <Normaltekst className="blokk-s">
-                            Du har gjort endringer på en allerede publisert annonse. Vil du publisere endringene før du
-                            går videre til neste annonse?
-                        </Normaltekst>
-                        <Hovedknapp onClick={this.onPublishClick}>
-                            Publisér endringer og gå til neste annonse
-                        </Hovedknapp>
-                        <Knapp onClick={this.onClose}>
-                            Avbryt
-                        </Knapp>
-                    </div>
-                )}
-                {(adStatus === AdStatusEnum.REJECTED || adStatus === AdStatusEnum.STOPPED) && (
-                    <div>
-                        <Normaltekst className="blokk-s">
-                            Du har gjort endringer på annonsen. Vil du lagre før du går videre til neste annonse?
-                        </Normaltekst>
-                        <Hovedknapp onClick={this.onSaveClick}>
-                            Lagre og gå til neste annonse
-                        </Hovedknapp>
-                        <Knapp onClick={this.onClose}>
-                            Avbryt
-                        </Knapp>
-                    </div>
-                )}
+                <div>
+                    <Normaltekst className="blokk-s">
+                        Hvis du navigerer bort fra denne siden uten å lagre så mister du informasjonen.
+                    </Normaltekst>
+                    <Hovedknapp onClick={this.onLeaveClick}>
+                        Forlat siden
+                    </Hovedknapp>
+                    <Knapp onClick={this.onClose}>
+                        Bli på siden
+                    </Knapp>
+                </div>
             </NavFrontendModal>
         );
     }
 }
 
 HasChangesModal.propTypes = {
-    adStatus: PropTypes.string.isRequired,
     showHasChangesModal: PropTypes.bool.isRequired,
-    closeModal: PropTypes.func.isRequired,
-    saveAd: PropTypes.func.isRequired,
-    publishAd: PropTypes.func.isRequired
+    closeModal: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -97,8 +60,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     closeModal: () => dispatch({ type: HIDE_HAS_CHANGES_MODAL }),
-    saveAd: () => dispatch({ type: SAVE_AD, loadNext: true }),
-    publishAd: () => dispatch({ type: PUBLISH_AD, loadNext: true })
+    saveAd: () => dispatch({ type: SAVE_AD, loadNext: true })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HasChangesModal);

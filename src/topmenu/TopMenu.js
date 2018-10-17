@@ -59,27 +59,25 @@ class TopMenu extends React.Component {
                     </NavLink>
                     <div className="TopMenu__pipe" />
                     <NavLink
-                        to="/search"
+                        to="/ads"
                         className="TopMenu__item"
                         activeClassName="TopMenu__item-active"
                     >
-                        <Normaltekst className="TopMenu__item__inner">Søk etter annonse</Normaltekst>
+                        <Normaltekst className="TopMenu__item__inner">Stillingsannonser</Normaltekst>
                     </NavLink>
-                    {/* Etter ønske fra NSS, skjuler vi denne intill videre
-                        <NavLink
-                            to="/ads"
-                            className="TopMenu__item"
-                            activeClassName="TopMenu__item-active"
-                        >
-                            <Normaltekst className="TopMenu__item__inner">Godkjenn annonser</Normaltekst>
-                        </NavLink>
-                    */}
                     <NavLink
-                        to="/statistics"
+                        to="/kandidatsok"
                         className="TopMenu__item"
                         activeClassName="TopMenu__item-active"
                     >
-                        <Normaltekst className="TopMenu__item__inner">Statistikk</Normaltekst>
+                        <Normaltekst className="TopMenu__item__inner">Kandidatsøk</Normaltekst>
+                    </NavLink>
+                    <NavLink
+                        to="/kandidatlister"
+                        className="TopMenu__item"
+                        activeClassName="TopMenu__item-active"
+                    >
+                        <Normaltekst className="TopMenu__item__inner">Kandidatlister</Normaltekst>
                     </NavLink>
                 </div>
                 <div className="TopMenu__right">

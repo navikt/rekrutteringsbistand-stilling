@@ -18,7 +18,7 @@ async function request(url, options) {
         throw new ApiError('Network Error', 0);
     }
 
-    if (response.status !== 200) {
+    if (response.status !== 200 && response.status !== 201) {
         if (response.status === 401) {
             redirectToLogin();
         } else {
@@ -71,7 +71,6 @@ function fixMissingAdministration(ad) {
     return {
         ...ad,
         administration: {
-            remarks: [],
             comments: '',
             status: AdminStatusEnum.RECEIVED,
             reportee: ''

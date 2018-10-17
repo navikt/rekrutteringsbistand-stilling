@@ -3,8 +3,6 @@ import { ApiError, fetchEmployerNameCompletionHits, fetchOrgnrSuggestions } from
 import {
     FETCH_AD_BEGIN,
     FETCH_AD_SUCCESS,
-    FETCH_NEXT_AD_BEGIN,
-    FETCH_NEXT_AD_SUCCESS,
     SAVE_AD_BEGIN,
     SAVE_AD_SUCCESS
 } from '../../adReducer';
@@ -28,15 +26,8 @@ export default function employerReducer(state = initialState, action) {
                 ...state,
                 suggestions: []
             };
-        case FETCH_NEXT_AD_BEGIN:
-            return {
-                ...state,
-                suggestions: [],
-                typeAheadValue: ''
-            };
         case SAVE_AD_SUCCESS:
         case FETCH_AD_SUCCESS:
-        case FETCH_NEXT_AD_SUCCESS:
             return {
                 ...state,
                 typeAheadValue: action.response.employer && action.response.employer.name ?

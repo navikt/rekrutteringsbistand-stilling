@@ -5,28 +5,14 @@ import { Normaltekst, Undertekst } from 'nav-frontend-typografi';
 import Typeahead from '../../../common/typeahead/Typeahead';
 import { FETCH_EMPLOYER_SUGGESTIONS, SET_EMPLOYER_TYPEAHEAD_VALUE } from './employerReducer';
 import { SET_EMPLOYER } from '../../adDataReducer';
-import './Employer.less';
-import {
-    registerShortcuts,
-    removeShortcuts
-} from '../../../common/shortcuts/Shortcuts';
+import './EmployerName.less';
 import capitalizeEmployerName from './capitalizeEmployerName';
-import capitalizeLocation from '../location/capitalizeLocation';
+import capitalizeLocation from '../../administration/location/capitalizeLocation';
 
 
-class Employer extends React.Component {
+class EmployerName extends React.Component {
     componentDidMount() {
         this.props.fetchEmployerSuggestions();
-        registerShortcuts('employerEdit', {
-            'a a': (e) => {
-                e.preventDefault();
-                this.inputRef.input.focus();
-            }
-        });
-    }
-
-    componentWillUnmount() {
-        removeShortcuts('employerEdit');
     }
 
     onTypeAheadValueChange = (value) => {
@@ -84,12 +70,12 @@ class Employer extends React.Component {
         const { employer } = this.props;
         const location = employer ? employer.location : undefined;
         return (
-            <div className="Employer">
+            <div className="EmployerName">
                 <div className="blokk-xxs">
                     <Typeahead
-                        id="Employer__typeahead"
-                        className="Employer__typeahead"
-                        label="Arbeidsgiver fra Enhetsregisteret*"
+                        id="EmployerName__typeahead"
+                        className="EmployerName__typeahead"
+                        label="Bedriftens navn hentet fra Enhetsregisteret*"
                         placeholder="Skriv inn arb.givernavn eller org.nr"
                         onBlur={this.onTypeAheadValueBlur}
                         onSelect={this.onTypeAheadSuggestionSelected}
@@ -106,7 +92,7 @@ class Employer extends React.Component {
                     />
                 </div>
                 {employer && location &&
-                    <Undertekst>{capitalizeEmployerName(employer.name)}, {location.address}, {location.postalCode} {capitalizeLocation(location.city)}</Undertekst>
+                <Undertekst>{capitalizeEmployerName(employer.name)}, {location.address}, {location.postalCode} {capitalizeLocation(location.city)}</Undertekst>
                 }
                 {this.props.validation.employer && (
                     <div className="Administration__error">{this.props.validation.employer}</div>
@@ -116,11 +102,11 @@ class Employer extends React.Component {
     }
 }
 
-Employer.defaultProps = {
+EmployerName.defaultProps = {
     employer: {}
 };
 
-Employer.propTypes = {
+EmployerName.propTypes = {
     suggestions: PropTypes.arrayOf(PropTypes.shape({
         orgnr: PropTypes.string,
         navn: PropTypes.string
@@ -152,4 +138,4 @@ const mapDispatchToProps = (dispatch) => ({
     fetchEmployerSuggestions: () => dispatch({ type: FETCH_EMPLOYER_SUGGESTIONS })
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Employer);
+export default connect(mapStateToProps, mapDispatchToProps)(EmployerName);

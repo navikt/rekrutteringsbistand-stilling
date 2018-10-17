@@ -14,10 +14,6 @@ class StartPage extends React.Component {
         this.props.history.push('/search');
     };
 
-    onStartWorkClick = () => {
-        this.props.resetWorkPriority();
-    };
-
     render() {
         return (
             <div className="StartPage">
@@ -27,17 +23,7 @@ class StartPage extends React.Component {
                 <Row className="StartPage__panels">
                     <Column xs="12" md="6">
                         <LenkepanelBase
-                            onClick={this.onStartWorkClick}
                             href="/ads"
-                            border
-                        >
-                            <span className="StartPage__icon-godkjenn" />
-                            <Systemtittel className="StartPage__systemtittel">Godkjenn annonser</Systemtittel>
-                        </LenkepanelBase>
-                    </Column>
-                    <Column xs="12" md="6">
-                        <LenkepanelBase
-                            href="#"
                             border
                         >
                             <span className="StartPage__icon-pen" />
