@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Input, SkjemaGruppe, Radio, Checkbox } from 'nav-frontend-skjema';
-import { Flatknapp } from 'nav-frontend-knapper';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Column, Row } from 'nav-frontend-grid';
 import { Normaltekst } from 'nav-frontend-typografi';
@@ -9,7 +8,7 @@ import { connect } from 'react-redux';
 import {
     SET_AD_TEXT,
     SET_AD_TITLE, SET_APPLICATIONDUE, SET_APPLICATIONEMAIL, SET_APPLICATIONURL,
-    SET_EMPLOYER, SET_EMPLOYER_NAME, SET_EMPLOYER_ADDRESS, SET_EMPLOYER_HOMEPAGE, SET_EMPLOYERDESCRIPTION,
+    SET_EMPLOYER, SET_EMPLOYER_ADDRESS,
     SET_EMPLOYMENT_EXTENT,
     SET_EMPLOYMENT_JOBTITLE,
     SET_EMPLOYMENT_LOCATION, SET_EMPLOYMENT_POSITIONCOUNT,
@@ -22,6 +21,8 @@ import EngagementType from './engagementType/EngagementType';
 import RichTextEditor from './richTextEditor/RichTextEditor';
 import JobArrangement from './jobArrangement/JobArrangement';
 import Requirements from './requirements/Requirements'
+import Employer from './employer/Employer';
+import Loading from '../../common/loading/Loading';
 
 class Edit extends React.Component {
     onTitleChange = (e) => {
@@ -76,20 +77,8 @@ class Edit extends React.Component {
         this.props.setSourceUrl(e.target.value);
     };
 
-    onEmployerDescriptionChange = (employerDescription) => {
-        this.props.setEmployerDescription(employerDescription);
-    };
-
-    onEmployerNameChange = (e) => {
-        this.props.setEmployerName(e.target.value);
-    };
-
     onEmployerAddressChange = (e) => {
         this.props.setEmployerAddress(e.target.value);
-    };
-
-    onEmployerHomepageChange = (e) => {
-        this.props.setEmployerHomepage(e.target.value);
     };
 
     onPublishedChange = (e) => {
@@ -121,59 +110,20 @@ class Edit extends React.Component {
     };
 
     render() {
-        const { ad, validation } = this.props;
+        const { ad, isFetchingStilling, validation } = this.props;
 
-
+        if (isFetchingStilling) {
+            return (
+                <Loading />
+            );
+        }
 
         return (
             <div className="Edit">
                 <Row className="Edit__inner">
                     <Column xs="12" md="8">
                         <div className="Edit__left">
-                            <Ekspanderbartpanel
-                                className="blokk-s"
-                                tittel="Om bedriften"
-                                tittelProps="undertittel"
-                                border
-                                apen
-                            >
-                                <Input
-                                    label="Bedriftens navn hentet fra Enhetsregisteret*"
-                                    value={ad.properties.employer || ''}
-                                    onChange={this.onEmployerNameChange}
-                                />
-                                <Input
-                                    label="Navn på bedriften"
-                                    value={ad.properties.employer || ''}
-                                    onChange={this.onEmployerNameChange}
-                                />
-                                <Normaltekst className="blokk-xxs">Kort om bedriften</Normaltekst>
-                                <RichTextEditor
-                                    text={ad.properties.employerdescription || ''}
-                                    onChange={this.onEmployerDescriptionChange}
-                                />
-                                <Input
-                                    label="Bedriftens nettsted"
-                                    value={ad.properties.employerhomepage || ''}
-                                    onChange={this.onEmployerHomepageChange}
-                                />
-                                {ad.properties.facebookpage === undefined
-                                && (ad.properties.linkedinpage === undefined)
-                                && (ad.properties.twitteraddress === undefined)
-                                && (
-                                    <Row className="blokk-l">
-                                        <Column xs="12">
-                                            <Flatknapp
-                                                id="legg-til-addresser"
-                                                onClick={this.onLeggTilAddresser}
-                                                mini
-                                            >
-                                                + Legg til adresser for Facebook, LinkedIn og Twitter
-                                            </Flatknapp >
-                                        </Column>
-                                    </Row>
-                                )}
-                            </Ekspanderbartpanel>
+                            <Employer />
                             <Ekspanderbartpanel
                                 tittel="Om Stillingen"
                                 tittelProps="undertittel"
@@ -436,10 +386,7 @@ Edit.propTypes = {
     setApplicationEmail: PropTypes.func.isRequired,
     setApplicationUrl: PropTypes.func.isRequired,
     setSourceUrl: PropTypes.func.isRequired,
-    setEmployerName: PropTypes.func.isRequired,
     setEmployerAddress: PropTypes.func.isRequired,
-    setEmployerHomepage: PropTypes.func.isRequired,
-    setEmployerDescription: PropTypes.func.isRequired,
     setLastUpdated: PropTypes.func.isRequired,
     setMedium: PropTypes.func.isRequired,
     setId: PropTypes.func.isRequired,
@@ -449,12 +396,14 @@ Edit.propTypes = {
     setPublished: PropTypes.func.isRequired,
     validation: PropTypes.shape({
         title: PropTypes.string
-    }).isRequired
+    }).isRequired,
+    isFetchingStilling: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state) => ({
     ad: state.adData,
-    validation: state.adValidation.errors
+    validation: state.adValidation.errors,
+    isFetchingStilling: state.ad.isFetchingStilling
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -472,10 +421,7 @@ const mapDispatchToProps = (dispatch) => ({
     setApplicationUrl: (applicationurl) => dispatch({ type: SET_APPLICATIONURL, applicationurl }),
     setSourceUrl: (sourceurl) => dispatch({ type: SET_SOURCEURL, sourceurl }),
     setEmployer: (employer) => dispatch({ type: SET_EMPLOYER, employer }),
-    setEmployerName: (employername) => dispatch({ type: SET_EMPLOYER_NAME, employername }),
     setEmployerAddress: (employeraddress) => dispatch({ type: SET_EMPLOYER_ADDRESS, employeraddress }),
-    setEmployerHomepage: (employerhomepage) => dispatch({ type: SET_EMPLOYER_HOMEPAGE, employerhomepage }),
-    setEmployerDescription: (employerdescription) => dispatch({ type: SET_EMPLOYERDESCRIPTION, employerdescription }),
     setPublished: (published) => dispatch({ type: SET_PUBLISHED, published }),
     setLastUpdated: (updated) => dispatch({ type: SET_LAST_UPDATED, updated }),
     setMedium: (medium) => dispatch({ type: SET_MEDIUM, medium }),

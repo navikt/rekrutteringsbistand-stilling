@@ -10,9 +10,6 @@ class Reportee extends React.Component {
         this.props.getReportee();
     }
 
-    componentWillUnmount() {
-    }
-
     render() {
         const { reportee, isFetchingReportee } = this.props;
         return (

@@ -5,7 +5,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import AdminStatusEnum2 from '../../ad/administration/adminStatus/AdminStatusEnum';
-import capitalizeEmployerName from '../../ad/administration/employer/capitalizeEmployerName';
+import capitalizeEmployerName from '../../ad/edit/employer/capitalizeEmployerName';
 import LinkButton from '../../common/linkbutton/LinkButton';
 import { formatISOString } from '../../utils';
 import AdminStatusEnum from '../enums/AdminStatusEnum';

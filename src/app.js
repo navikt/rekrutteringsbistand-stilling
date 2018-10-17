@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { applyMiddleware, createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
-import employerReducer, { employerSaga } from './ad/administration/employer/employerReducer';
+import employerReducer, { employerSaga } from './ad/edit/employer/employerReducer';
 import locationCodeReducer, { locationSaga } from './ad/administration/location/locationCodeReducer';
 import styrkReducer, { styrkSaga } from './ad/administration/styrk/styrkReducer';
 import adReducer, { adSaga } from './ad/adReducer';

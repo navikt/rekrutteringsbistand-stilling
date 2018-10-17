@@ -8,10 +8,10 @@ import { htmlParserOptions } from '../markWords';
 export default function Employer({ properties }) {
     return (
         <div className="detail-section">
-            <Undertittel className="detail-section__head">Om arbeidsgiveren</Undertittel>
+            <Undertittel className="detail-section__head">Om bedriften</Undertittel>
             <dl className="dl-flex typo-normal">
                 {properties.employer && [
-                    <dt key="dt">Arbeidsgiver:</dt>,
+                    <dt key="dt">Bedriftens navn:</dt>,
                     <dd key="dd">{properties.employer}</dd>
                 ]}
                 {properties.address && [
@@ -19,7 +19,7 @@ export default function Employer({ properties }) {
                     <dd key="dd">{properties.address}</dd>
                 ]}
                 {properties.employerhomepage && [
-                    <dt key="dt">Hjemmeside:</dt>,
+                    <dt key="dt">Nettsted:</dt>,
                     <dd key="dd">{properties.employerhomepage}</dd>
                 ]}
                 {properties.linkedinpage && [
