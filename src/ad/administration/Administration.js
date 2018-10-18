@@ -1,5 +1,5 @@
 import React from 'react';
-import { Undertekst, Undertittel, Systemtittel } from 'nav-frontend-typografi';
+import { Undertittel, Systemtittel } from 'nav-frontend-typografi';
 import AdStatus from './adStatus/AdStatus';
 import AdStatusEdit from './adStatus/AdStatusEdit';
 import Publishing from './publishing/Publishing';
@@ -15,11 +15,10 @@ export default function Administration() {
                 </div>
                 <div className="Administration__flex__center">
                     <div className="Administration__header">
-                        <Systemtittel className="blokk-xxs">Publisering av stillingsannonse</Systemtittel>
-                        <Undertekst>*betyr at feltene må fylles ut</Undertekst>
+                        <Systemtittel className="blokk-xxs">Publisering av stilling</Systemtittel>
                     </div>
                     <div className="Administration__panel">
-                        <Undertittel className="Administration__panel__title">Når skal annonsen vises?</Undertittel>
+                        <Undertittel className="Administration__panel__title">Når skal stillingen vises?</Undertittel>
                         <Publishing />
                     </div>
                 </div>

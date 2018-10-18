@@ -8,7 +8,7 @@ import {
     SET_STYRK,
     SET_EMPLOYER,
     SET_LOCATION_POSTAL_CODE,
-    SET_EXPIRATION_DATE
+    SET_EXPIRATION_DATE, SET_PUBLISHED
 } from './adDataReducer';
 
 const ADD_VALIDATION_ERROR = 'ADD_VALIDATION_ERROR';
@@ -90,11 +90,22 @@ function* validateExpireDate() {
     const { expires } = state.adData;
 
     if (valueIsNotSet(expires)) {
-        yield put({ type: ADD_VALIDATION_ERROR, field: 'expires', message: 'Utløpsdato mangler' });
+        yield put({ type: ADD_VALIDATION_ERROR, field: 'expires', message: 'Siste visningsdag mangler' });
     } else if (!erDatoEtterMinDato(toDate(expires), new Date(Date.now()))) {
-        yield put({ type: ADD_VALIDATION_ERROR, field: 'expires', message: 'Utløpsdato kan ikke være før dagens dato' });
+        yield put({ type: ADD_VALIDATION_ERROR, field: 'expires', message: 'Siste visningsdag kan ikke være før dagens dato' });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'expires' });
+    }
+}
+
+function* validatePublishDate() {
+    const state = yield select();
+    const { published } = state.adData;
+
+    if (valueIsNotSet(published)) {
+        yield put({ type: ADD_VALIDATION_ERROR, field: 'published', message: 'Publiseringsdato mangler' });
+    } else {
+        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'published' });
     }
 }
 
@@ -105,6 +116,7 @@ function* validateAll() {
         yield validateLocation();
         yield validateEmployer();
         yield validateExpireDate();
+        yield validatePublishDate();
     }
 }
 
@@ -146,6 +158,7 @@ export const validationSaga = function* saga() {
     yield takeLatest(SET_STYRK, validateStyrk);
     yield takeLatest(SET_EMPLOYER, validateEmployer);
     yield takeLatest(SET_EXPIRATION_DATE, validateExpireDate);
+    yield takeLatest(SET_PUBLISHED, validatePublishDate);
     yield takeLatest(SET_LOCATION_POSTAL_CODE, validateLocation);
 };
 

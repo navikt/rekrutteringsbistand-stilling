@@ -45,6 +45,11 @@ class PublishErrorModal extends React.Component {
                             {validation.employer}
                         </li>
                     )}
+                    {validation.published && (
+                        <li className="skjemaelement__feilmelding">
+                            {validation.published}
+                        </li>
+                    )}
                     {validation.expires && (
                         <li className="skjemaelement__feilmelding">
                             {validation.expires}

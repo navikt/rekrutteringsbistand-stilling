@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Input } from 'nav-frontend-skjema';
-import { Flatknapp } from 'nav-frontend-knapper';
 
 
 class ContactPerson extends React.Component {
@@ -35,12 +34,6 @@ class ContactPerson extends React.Component {
                     onChange={this.endreKontaktPersonTelefon}
 
                 />
-                <Flatknapp
-                    onClick={this.onLeggTilAddresser}
-                    mini
-                >
-                    + Legg til kontaktperson
-                </Flatknapp >
             </div>
         );
     }
