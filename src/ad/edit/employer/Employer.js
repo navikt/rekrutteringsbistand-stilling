@@ -60,6 +60,13 @@ class Employer extends React.Component {
         this.props.setFacebookpage('');
     };
 
+    completeHomepageLink = () => {
+        const { employerhomepage } = this.props.ad.properties;
+        if (employerhomepage !== '') {
+            this.props.setEmployerHomepage(adjustUrl(employerhomepage));
+        }
+    };
+
     completeFacebookLink = () => {
         const { facebookpage } = this.props.ad.properties;
         if (facebookpage !== '') {
@@ -100,16 +107,20 @@ class Employer extends React.Component {
                     label="Navn på bedrift"
                     value={ad.properties.employer || ''}
                     onChange={this.onEmployerNameChange}
+                    placeholder="Navnet bedriften bruker"
                 />
                 <Normaltekst className="blokk-xxs">Kort om bedriften</Normaltekst>
                 <RichTextEditor
                     text={ad.properties.employerdescription || ''}
                     onChange={this.onEmployerDescriptionChange}
+                    placeholderText="Fortell om bedriften til den som skal søke på stillingen"
                 />
                 <Input
                     label="Bedriftens nettsted"
                     value={ad.properties.employerhomepage || ''}
                     onChange={this.onEmployerHomepageChange}
+                    onBlur={this.completeHomepageLink}
+                    placeholder="www.firmanavn.no"
                 />
                 {hideOnlineAddresses
                     ? (
@@ -126,49 +137,37 @@ class Employer extends React.Component {
                         </Row>
                     ) : (
                         <div>
-                            <Row>
-                                <Column xs="12" md="8">
-                                    <Input
-                                        id="facebookside"
-                                        label="Bedriftens side på Facebook"
-                                        value={ad.properties.facebookpage
-                                            ? (ad.properties.facebookpage)
-                                            : ''}
-                                        onChange={this.onFacebookpageChange}
-                                        onBlur={this.completeFacebookLink}
-                                        placeholder="For eksempel: facebook.com/firmanavn"
-                                        inputRef={(i) => { this.focusField = i; }}
-                                    />
-                                </Column>
-                            </Row>
-                            <Row>
-                                <Column xs="12" md="8">
-                                    <Input
-                                        id="linkedinside"
-                                        label="Bedriftens side på LinkedIn"
-                                        value={ad.properties.linkedinpage
-                                            ? (ad.properties.linkedinpage)
-                                            : ('')}
-                                        onChange={this.onLinkedinpageChange}
-                                        onBlur={this.completeLinkedinLink}
-                                        placeholder="For eksempel: linkedin.com/company/firmanavn"
-                                    />
-                                </Column>
-                            </Row>
-                            <Row>
-                                <Column xs="12" md="8">
-                                    <Input
-                                        id="twitteradresse"
-                                        label="Bedriftens Twitteradresse"
-                                        value={ad.properties.twitteraddress
-                                            ? (ad.properties.twitteraddress)
-                                            : ('')}
-                                        onChange={this.onTwitteraddressChange}
-                                        onBlur={this.completeTwitterLink}
-                                        placeholder="For eksempel: @firmanavn"
-                                    />
-                                </Column>
-                            </Row>
+                            <Input
+                                id="facebookside"
+                                label="Bedriftens side på Facebook"
+                                value={ad.properties.facebookpage
+                                    ? (ad.properties.facebookpage)
+                                    : ''}
+                                onChange={this.onFacebookpageChange}
+                                onBlur={this.completeFacebookLink}
+                                placeholder="For eksempel: facebook.com/firmanavn"
+                                inputRef={(i) => { this.focusField = i; }}
+                            />
+                            <Input
+                                id="linkedinside"
+                                label="Bedriftens side på LinkedIn"
+                                value={ad.properties.linkedinpage
+                                    ? (ad.properties.linkedinpage)
+                                    : ('')}
+                                onChange={this.onLinkedinpageChange}
+                                onBlur={this.completeLinkedinLink}
+                                placeholder="For eksempel: linkedin.com/company/firmanavn"
+                            />
+                            <Input
+                                id="twitteradresse"
+                                label="Bedriftens Twitteradresse"
+                                value={ad.properties.twitteraddress
+                                    ? (ad.properties.twitteraddress)
+                                    : ('')}
+                                onChange={this.onTwitteraddressChange}
+                                onBlur={this.completeTwitterLink}
+                                placeholder="For eksempel: @firmanavn"
+                            />
                         </div>
                     )}
             </Ekspanderbartpanel>
@@ -181,7 +180,13 @@ Employer.defaultProps = {
 
 Employer.propTypes = {
     ad: PropTypes.shape({
-        title: PropTypes.string
+        title: PropTypes.string,
+        properties: PropTypes.shape({
+            employerhomepage: PropTypes.string,
+            facebookpage: PropTypes.string,
+            linkedinpage: PropTypes.string,
+            twitteraddress: PropTypes.string
+        })
     }),
     setEmployerName: PropTypes.func.isRequired,
     setEmployerHomepage: PropTypes.func.isRequired,
