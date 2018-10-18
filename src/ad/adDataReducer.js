@@ -46,11 +46,13 @@ export const SET_ADMIN_STATUS = 'SET_ADMIN_STATUS';
 export const SET_AD_TITLE = 'SET_AD_TITLE';
 export const SET_REPORTEE = 'SET_REPORTEE';
 export const SET_UPDATED_BY = 'SET_UPDATED_BY';
+export const SET_PRIVACY = 'SET_PRIVACY';
 
 const initialState = {
     properties: {},
     status: AdStatusEnum.INACTIVE,
-    administration: {}
+    administration: {},
+    privacy:  'INTERNAL_NOT_SHOWN'
 };
 
 function findStyrkAndSkipAlternativeNames(code) {
@@ -363,6 +365,11 @@ export default function adDataReducer(state = initialState, action) {
             return {
                 ...state,
                 updatedBy: 'pam-rekrutteringsbistand'
+            };
+        case SET_PRIVACY:
+            return {
+                ...state,
+                privacy: action.privacy
             };
         case REMOVE_AD_DATA:
             return initialState;

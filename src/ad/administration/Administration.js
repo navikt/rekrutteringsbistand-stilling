@@ -3,6 +3,7 @@ import { Undertittel, Systemtittel } from 'nav-frontend-typografi';
 import AdStatus from './adStatus/AdStatus';
 import AdStatusEdit from './adStatus/AdStatusEdit';
 import Publishing from './publishing/Publishing';
+import Privacy from './publishing/Privacy';
 import AdminStatusPreview from './adminStatus/AdminStatusPreview';
 import './Administration.less';
 
@@ -20,6 +21,9 @@ export default function Administration() {
                     <div className="Administration__panel">
                         <Undertittel className="Administration__panel__title">Når skal stillingen vises?</Undertittel>
                         <Publishing />
+                    </div>
+                    <div className="Administration__panel">
+                        <Privacy />
                     </div>
                 </div>
                 <div className="Administration__flex__bottom">
