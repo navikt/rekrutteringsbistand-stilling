@@ -13,8 +13,8 @@ import {
     SET_EMPLOYMENT_JOBTITLE,
     SET_EMPLOYMENT_LOCATION, SET_EMPLOYMENT_POSITIONCOUNT,
     SET_EMPLOYMENT_SECTOR, SET_EMPLOYMENT_STARTTIME, SET_EMPLOYMENT_WORKDAY,
-    SET_EMPLOYMENT_WORKHOURS, SET_EXPIRATION_DATE, SET_ID, SET_LAST_UPDATED,
-    SET_MEDIUM, SET_PUBLISHED, SET_REFERENCE, SET_SOURCEURL
+    SET_EMPLOYMENT_WORKHOURS, SET_ID, SET_LAST_UPDATED,
+    SET_MEDIUM, SET_REFERENCE, SET_SOURCEURL
 } from '../adDataReducer';
 import './Edit.less';
 import EngagementType from './engagementType/EngagementType';
@@ -82,10 +82,6 @@ class Edit extends React.Component {
         this.props.setEmployerAddress(e.target.value);
     };
 
-    onPublishedChange = (e) => {
-        this.props.setPublished(e.target.value);
-    };
-
     onLastUpdatedChange = (e) => {
         this.props.setLastUpdated(e.target.value);
     };
@@ -100,10 +96,6 @@ class Edit extends React.Component {
 
     onReferenceChange = (e) => {
         this.props.setReference(e.target.value);
-    };
-
-    onExpiresChange = (e) => {
-        this.props.setExpirationDate(e.target.value);
     };
 
     onAdTextChange = (adText) => {
@@ -393,9 +385,7 @@ Edit.propTypes = {
     setMedium: PropTypes.func.isRequired,
     setId: PropTypes.func.isRequired,
     setReference: PropTypes.func.isRequired,
-    setExpirationDate: PropTypes.func.isRequired,
     setAdText: PropTypes.func.isRequired,
-    setPublished: PropTypes.func.isRequired,
     validation: PropTypes.shape({
         title: PropTypes.string
     }).isRequired,
@@ -424,12 +414,10 @@ const mapDispatchToProps = (dispatch) => ({
     setSourceUrl: (sourceurl) => dispatch({ type: SET_SOURCEURL, sourceurl }),
     setEmployer: (employer) => dispatch({ type: SET_EMPLOYER, employer }),
     setEmployerAddress: (employeraddress) => dispatch({ type: SET_EMPLOYER_ADDRESS, employeraddress }),
-    setPublished: (published) => dispatch({ type: SET_PUBLISHED, published }),
     setLastUpdated: (updated) => dispatch({ type: SET_LAST_UPDATED, updated }),
     setMedium: (medium) => dispatch({ type: SET_MEDIUM, medium }),
     setId: (id) => dispatch({ type: SET_ID, id }),
     setReference: (reference) => dispatch({ type: SET_REFERENCE, reference }),
-    setExpirationDate: (expires) => dispatch({ type: SET_EXPIRATION_DATE, expires }),
     setAdText: (adtext) => dispatch({ type: SET_AD_TEXT, adtext })
 });
 

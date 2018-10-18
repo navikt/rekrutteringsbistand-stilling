@@ -63,9 +63,12 @@ class Publishing extends React.Component {
                         avgrensninger={{ minDato: new Date(Date.now()) }}
                         inputProps={{ placeholder: 'dd.mm.åååå' }}
                     />
+                    {this.props.validation.published && (
+                        <div className="Administration__error">{this.props.validation.published}</div>
+                    )}
                 </div>
                 <div className="Publishing__datepicker Publishing__datepicker-expires">
-                    <Normaltekst className="Publishing__label">Siste visningsdato*</Normaltekst>
+                    <Normaltekst className="Publishing__label">Siste visningsdag*</Normaltekst>
                     <Datovelger
                         id="expires"
                         dato={formatISOString(expires, 'DD.MM.YYYY') || ''}
@@ -94,7 +97,8 @@ Publishing.propTypes = {
     setExpirationDate: PropTypes.func.isRequired,
     setPublished: PropTypes.func.isRequired,
     validation: PropTypes.shape({
-        expires: PropTypes.string
+        expires: PropTypes.string,
+        published: PropTypes.string
     }).isRequired
 };
 
