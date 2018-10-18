@@ -42,6 +42,7 @@ export default function Application({ source, properties }) {
                         <a
                             href={sokUrl}
                             className="lenke"
+                            rel="noopener noreferrer"
                             target="_blank"
                         >
                             {sokUrl}
