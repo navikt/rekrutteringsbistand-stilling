@@ -98,7 +98,7 @@ function* validateExpireDate() {
     }
 }
 
-function* validatePublished() {
+function* validatePublishDate() {
     const state = yield select();
     const { published } = state.adData;
 
@@ -116,7 +116,7 @@ function* validateAll() {
         yield validateLocation();
         yield validateEmployer();
         yield validateExpireDate();
-        yield validatePublished();
+        yield validatePublishDate();
     }
 }
 
@@ -158,7 +158,7 @@ export const validationSaga = function* saga() {
     yield takeLatest(SET_STYRK, validateStyrk);
     yield takeLatest(SET_EMPLOYER, validateEmployer);
     yield takeLatest(SET_EXPIRATION_DATE, validateExpireDate);
-    yield takeLatest(SET_PUBLISHED, validatePublished);
+    yield takeLatest(SET_PUBLISHED, validatePublishDate);
     yield takeLatest(SET_LOCATION_POSTAL_CODE, validateLocation);
 };
 
