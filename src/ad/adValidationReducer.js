@@ -31,28 +31,7 @@ const locationIsCountryOrMunicipal = (location, medium) => {
 function* validateLocation() {
     const state = yield select();
     const { location, medium } = state.adData;
-    if (location &&
-        location.postalCode &&
-        location.postalCode.match('^[0-9]{4}$')) {
-        const locationByPostalCode = yield findLocationByPostalCode(location.postalCode);
-        if (locationByPostalCode === undefined) {
-            yield put({
-                type: ADD_VALIDATION_ERROR,
-                field: 'location',
-                message: 'Ukjent postnummer'
-            });
-        } else {
-            yield put({ type: REMOVE_VALIDATION_ERROR, field: 'location' });
-        }
-    } else if (location &&
-        location.postalCode &&
-        !location.postalCode.match('^[0-9]{4}$')) {
-        yield put({
-            type: ADD_VALIDATION_ERROR,
-            field: 'location',
-            message: 'Ugyldig postnummer'
-        });
-    } else if (!location || (!location.postalCode && !locationIsCountryOrMunicipal(location, medium))) {
+    if (!location || (!location.postalCode && !locationIsCountryOrMunicipal(location, medium))) {
         yield put({
             type: ADD_VALIDATION_ERROR,
             field: 'location',
@@ -60,6 +39,31 @@ function* validateLocation() {
         });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'location' });
+    }
+}
+
+function* validatePostalCode() {
+    const state = yield select();
+    const { postalCode } = state.adData.location;
+    if (postalCode && postalCode.match('^[0-9]{4}$')) {
+        const locationByPostalCode = yield findLocationByPostalCode(postalCode);
+        if (locationByPostalCode === undefined) {
+            yield put({
+                type: ADD_VALIDATION_ERROR,
+                field: 'postalCode',
+                message: 'Ukjent postnummer'
+            });
+        } else {
+            yield put({ type: REMOVE_VALIDATION_ERROR, field: 'postalCode' });
+        }
+    } else if (postalCode && !postalCode.match('^[0-9]{4}$')) {
+        yield put({
+            type: ADD_VALIDATION_ERROR,
+            field: 'postalCode',
+            message: 'Ugyldig postnummer'
+        });
+    } else {
+        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'postalCode' });
     }
 }
 
@@ -154,6 +158,7 @@ export function* validateAll() {
         yield validateStyrk();
         yield validateAdtext();
         yield validateEmail();
+        yield validatePostalCode();
     }
 }
 
@@ -164,9 +169,9 @@ export function hasValidationErrors(validation) {
            validation.expires !== undefined ||
            validation.title !== undefined ||
            validation.adText !== undefined ||
-           validation.publish !== undefined
-           validation.email !== undefined
-        ;
+           validation.email !== undefined ||
+           validation.publish !== undefined ||
+           validation.postalCode !== undefined;
 }
 
 const initialState = {
@@ -201,6 +206,7 @@ export const validationSaga = function* saga() {
     yield takeLatest(SET_EMPLOYER, validateEmployer);
     yield takeLatest(SET_EXPIRATION_DATE, validateExpireDate);
     yield takeLatest(SET_PUBLISHED, validatePublishDate);
+    yield takeLatest(SET_LOCATION_POSTAL_CODE, validatePostalCode);
     yield takeLatest(SET_LOCATION_POSTAL_CODE, validateLocation);
     yield takeLatest(SET_AD_TEXT, validateAdtext);
     yield takeLatest(SET_AD_TITLE, validateTitle);

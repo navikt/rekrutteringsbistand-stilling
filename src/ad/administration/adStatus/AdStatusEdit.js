@@ -40,7 +40,7 @@ class AdStatusEdit extends React.Component {
 
     render() {
         const {
-            adStatus, hasChanges, isSavingAd, hasSavedChanges
+            adStatus, hasChanges, hasSavedChanges
         } = this.props;
         return (
             <div className="AdStatusEdit">
