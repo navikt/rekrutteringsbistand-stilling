@@ -98,6 +98,7 @@ export default function adDataReducer(state = initialState, action) {
             return {
                 ...state,
                 location: {
+                    ...state.location,
                     city: null,
                     county: null,
                     municipal: null,
@@ -108,7 +109,10 @@ export default function adDataReducer(state = initialState, action) {
         case SET_LOCATION:
             return {
                 ...state,
-                location: action.location
+                location: {
+                    ...state.location,
+                    ...action.location
+                }
             };
         case SET_LOCATION_ADDRESS:
             return {

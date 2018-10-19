@@ -9,6 +9,7 @@ import locationCodeReducer, { locationSaga } from './ad/administration/location/
 import styrkReducer, { styrkSaga } from './ad/edit/jobDetails/styrk/styrkReducer';
 import adReducer, { adSaga } from './ad/adReducer';
 import searchReducer, { searchSaga } from './searchPage/searchReducer';
+import municipalOrCountryReducer, { municipalOrCountrySaga } from './ad/edit/workAddress/municipalOrCountryReducer';
 import Ad from './ad/Ad';
 import TopMenu from './topmenu/TopMenu';
 import { initShortcuts } from './common/shortcuts/Shortcuts';
@@ -30,7 +31,8 @@ const store = createStore(combineReducers({
     location: locationCodeReducer,
     styrk: styrkReducer,
     reportee: reporteeReducer,
-    search: searchReducer
+    search: searchReducer,
+    municipalOrCountry: municipalOrCountryReducer
 }), applyMiddleware(sagaMiddleware));
 
 sagaMiddleware.run(adSaga);
@@ -40,6 +42,7 @@ sagaMiddleware.run(locationSaga);
 sagaMiddleware.run(styrkSaga);
 sagaMiddleware.run(searchSaga);
 sagaMiddleware.run(adDataSaga);
+sagaMiddleware.run(municipalOrCountrySaga);
 
 initShortcuts();
 

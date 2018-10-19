@@ -55,7 +55,8 @@ PublishErrorModal.propTypes = {
         title: PropTypes.string,
         adText: PropTypes.string,
         published: PropTypes.string,
-        expires: PropTypes.string
+        expires: PropTypes.string,
+        postalCode: PropTypes.string
     }).isRequired,
     closeModal: PropTypes.func.isRequired
 };

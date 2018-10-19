@@ -25,6 +25,7 @@ import Employer from './employer/Employer';
 import JobDetails from './jobDetails/JobDetails';
 import Loading from '../../common/loading/Loading';
 import ContactPerson from './contactPerson/ContactPerson';
+import WorkAddress from './workAddress/WorkAddress';
 
 class Edit extends React.Component {
 
@@ -284,14 +285,7 @@ class Edit extends React.Component {
                         >
                             <ContactPerson />
                         </Ekspanderbartpanel>
-                        <Ekspanderbartpanel
-                            className="Edit__panel"
-                            tittel="Arbeidsstedets adresse*"
-                            tittelProps="undertittel"
-                            border
-                            apen
-                        >
-                        </Ekspanderbartpanel>
+                        <WorkAddress />
                         <Ekspanderbartpanel
                             className="Edit__panel"
                             tittel="Hvordan ønsker arbeidsgiver å motta søknader?"
