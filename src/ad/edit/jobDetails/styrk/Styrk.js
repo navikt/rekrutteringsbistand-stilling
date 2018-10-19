@@ -2,30 +2,19 @@ import { Normaltekst, Undertekst } from 'nav-frontend-typografi';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import LinkButton from '../../../common/linkbutton/LinkButton';
-import { registerShortcuts, removeShortcuts } from '../../../common/shortcuts/Shortcuts';
-
-import Typeahead from '../../../common/typeahead/Typeahead';
-import { SET_STYRK } from '../../adDataReducer';
+import LinkButton from '../../../../common/linkbutton/LinkButton';
+import Typeahead from '../../../../common/typeahead/Typeahead';
+import { SET_STYRK } from '../../../adDataReducer';
 import './Styrk.less';
 import StyrkModal from './StyrkModal';
-
 import { FETCH_STYRK, SET_STYRK_TYPEAHEAD_VALUE, TOGGLE_STYRK_MODAL } from './styrkReducer';
+import { SET_EMPLOYMENT_JOBTITLE } from '../../../adDataReducer';
 
 class Styrk extends React.Component {
     componentDidMount() {
         this.props.fetchStyrk();
-        registerShortcuts('styrkEdit', {
-            'y y': (e) => {
-                e.preventDefault();
-                this.inputRef.input.focus();
-            }
-        });
     }
 
-    componentWillUnmount() {
-        removeShortcuts('styrkEdit');
-    }
 
     onTypeAheadValueChange = (value) => {
         this.props.setTypeAheadValue(value);
@@ -34,6 +23,9 @@ class Styrk extends React.Component {
     onTypeAheadSuggestionSelected = (suggestion) => {
         if (suggestion) {
             this.props.setStyrk(suggestion.value);
+            if (this.props.stilling.properties.jobtitle === undefined ) {
+                this.props.setJobTitle(suggestion.name);
+            }
         }
     };
 
@@ -64,8 +56,8 @@ class Styrk extends React.Component {
 
         return (
             <div className="Styrk">
-                <div className="skjemaelement__label">
-                    <label htmlFor="Styrk__typeahead">STYRK*</label>
+                <div className="skjemaelement__label typo-normal">
+                    <label htmlFor="Styrk__typeahead">Stilling/yrke*</label>
                     <span>
                         {'  '}
                         <LinkButton onClick={this.onShowListClick}>Velg fra liste</LinkButton>
@@ -75,12 +67,13 @@ class Styrk extends React.Component {
                     id="Styrk__typeahead"
                     label=""
                     className="Styrk__typeahead"
-                    placeholder="Styrkkategori / kode"
+                    placeholder="(STYRK)"
                     onSelect={this.onTypeAheadSuggestionSelected}
                     onChange={this.onTypeAheadValueChange}
                     suggestions={this.props.typeAheadSuggestions.map((styrk) => ({
                         value: styrk.code,
-                        label: this.renderLabel(styrk)
+                        label: this.renderLabel(styrk),
+                        name: styrk.name
                     }))}
                     value={value}
                     ref={(instance) => { this.inputRef = instance; }}
@@ -112,7 +105,8 @@ Styrk.propTypes = {
     })).isRequired,
     setStyrk: PropTypes.func.isRequired,
     showStyrkModal: PropTypes.bool.isRequired,
-    toggleList: PropTypes.func.isRequired
+    toggleList: PropTypes.func.isRequired,
+    setJobTitle: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -129,6 +123,7 @@ const mapDispatchToProps = (dispatch) => ({
     fetchStyrk: () => dispatch({ type: FETCH_STYRK }),
     setTypeAheadValue: (value) => dispatch({ type: SET_STYRK_TYPEAHEAD_VALUE, value }),
     setStyrk: (code) => dispatch({ type: SET_STYRK, code }),
+    setJobTitle: (jobtitle) => dispatch({ type: SET_EMPLOYMENT_JOBTITLE, jobtitle }),
     toggleList: () => dispatch({ type: TOGGLE_STYRK_MODAL })
 });
 

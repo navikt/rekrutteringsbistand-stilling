@@ -1,7 +1,7 @@
 import { put, takeLatest, throttle, select } from 'redux-saga/effects';
-import { ApiError, fetchGet } from '../../../api/api';
-import { AD_API } from '../../../fasitProperties';
-import { SET_STYRK } from '../../adDataReducer';
+import { ApiError, fetchGet } from '../../../../api/api';
+import { AD_API } from '../../../../fasitProperties';
+import { SET_STYRK } from '../../../adDataReducer';
 
 export const SET_STYRK_TYPEAHEAD_VALUE = 'SET_STYRK_TYPEAHEAD_VALUE';
 export const FETCH_STYRK = 'FETCH_STYRK';

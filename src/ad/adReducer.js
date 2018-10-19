@@ -19,7 +19,7 @@ import {
 } from './adDataReducer';
 import AdminStatusEnum from './administration/adminStatus/AdminStatusEnum';
 import AdStatusEnum from './administration/adStatus/AdStatusEnum';
-import { hasValidationErrors } from './adValidationReducer';
+import { hasValidationErrors, validateAll } from './adValidationReducer';
 
 export const FETCH_AD = 'FETCH_AD';
 export const FETCH_AD_BEGIN = 'FETCH_AD_BEGIN';
@@ -244,6 +244,7 @@ function* save(autoAssign = true) {
 }
 
 function* publishAd() {
+    yield validateAll();
     const state = yield select();
     if (hasValidationErrors(state.adValidation.errors)) {
         yield put({ type: SHOW_PUBLISH_ERROR_MODAL });
@@ -265,6 +266,7 @@ function* saveAd() {
 }
 
 function* publishAdChanges() {
+    yield validateAll();
     const state = yield select();
     if (hasValidationErrors(state.adValidation.errors)) {
         yield put({ type: SHOW_PUBLISH_ERROR_MODAL });
