@@ -1,6 +1,6 @@
 import { put, select, takeLatest } from 'redux-saga/es/effects';
 import { findLocationByPostalCode } from './administration/location/locationCodeReducer';
-import { FETCH_AD_SUCCESS, SAVE_AD_SUCCESS } from './adReducer';
+import {FETCH_AD_SUCCESS, PUBLISH_AD_CHANGES, SAVE_AD_SUCCESS, PUBLISH_AD} from './adReducer';
 import { toDate } from '../utils';
 import {erDatoEtterMinDato} from 'nav-datovelger/dist/datovelger/utils/datovalidering';
 
@@ -8,12 +8,15 @@ import {
     SET_STYRK,
     SET_EMPLOYER,
     SET_LOCATION_POSTAL_CODE,
-    SET_EXPIRATION_DATE, SET_PUBLISHED
+    SET_EXPIRATION_DATE,
+    SET_PUBLISHED,
+    SET_AD_TEXT,
+    SET_AD_TITLE
 } from './adDataReducer';
 
 const ADD_VALIDATION_ERROR = 'ADD_VALIDATION_ERROR';
 const REMOVE_VALIDATION_ERROR = 'REMOVE_VALIDATION_ERROR';
-
+export const VALIDATE_ALL = 'VALIDATE_ALL';
 
 const valueIsNotSet = (value) => (value === undefined || value === null || value.length === 0);
 
@@ -70,6 +73,23 @@ function* validateStyrk() {
     }
 }
 
+function* validateTitle() {
+    const adTitle = yield select((state) => state.adData.title );
+    if (valueIsNotSet(adTitle)) {
+        yield put({ type: ADD_VALIDATION_ERROR, field: 'title', message: 'Overskrift på annonsen mangler' });
+    } else {
+        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'title' });
+    }
+}
+
+function* validateAdtext() {
+    const adText = yield select((state) => state.adData.properties.adtext );
+    if (valueIsNotSet(adText)) {
+        yield put({ type: ADD_VALIDATION_ERROR, field: 'adText', message: 'Annonsetekst mangler' });
+    } else {
+        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'adText' });
+    }
+}
 
 function* validateEmployer() {
     const state = yield select();
@@ -109,14 +129,16 @@ function* validatePublishDate() {
     }
 }
 
-function* validateAll() {
+export function* validateAll() {
     const state = yield select();
     if (state.adData !== null) {
-        yield validateStyrk();
         yield validateLocation();
         yield validateEmployer();
         yield validateExpireDate();
         yield validatePublishDate();
+        yield validateTitle();
+        yield validateStyrk();
+        yield validateAdtext();
     }
 }
 
@@ -124,7 +146,11 @@ export function hasValidationErrors(validation) {
     return validation.styrk !== undefined ||
            validation.location !== undefined ||
            validation.employer !== undefined ||
-           validation.expires !== undefined;
+           validation.expires !== undefined ||
+           validation.title !== undefined ||
+           validation.adText !== undefined ||
+           validation.publish !== undefined
+        ;
 }
 
 const initialState = {
@@ -154,11 +180,13 @@ export default function adValidationReducer(state = initialState, action) {
 }
 
 export const validationSaga = function* saga() {
-    yield takeLatest([FETCH_AD_SUCCESS, SAVE_AD_SUCCESS], validateAll);
+    yield takeLatest(VALIDATE_ALL, validateAll);
     yield takeLatest(SET_STYRK, validateStyrk);
     yield takeLatest(SET_EMPLOYER, validateEmployer);
     yield takeLatest(SET_EXPIRATION_DATE, validateExpireDate);
     yield takeLatest(SET_PUBLISHED, validatePublishDate);
     yield takeLatest(SET_LOCATION_POSTAL_CODE, validateLocation);
+    yield takeLatest(SET_AD_TEXT, validateAdtext);
+    yield takeLatest(SET_AD_TITLE, validateTitle);
 };
 

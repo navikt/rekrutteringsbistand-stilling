@@ -14,7 +14,7 @@ class PublishErrorModal extends React.Component {
 
     render() {
         const { showPublishErrorModal, validation } = this.props;
-        return (
+        return showPublishErrorModal && (
             <NavFrontendModal
                 isOpen={showPublishErrorModal}
                 contentLabel="Fortsett"
@@ -30,31 +30,13 @@ class PublishErrorModal extends React.Component {
                     Annonsen kan ikke publiseres før følgende feil er rettet:
                 </Normaltekst>
                 <ul className="blokk-s">
-                    {validation.styrk && (
-                        <li className="skjemaelement__feilmelding">
-                            {validation.styrk}
-                        </li>
-                    )}
-                    {validation.location && (
-                        <li className="skjemaelement__feilmelding">
-                            {validation.location}
-                        </li>
-                    )}
-                    {validation.employer && (
-                        <li className="skjemaelement__feilmelding">
-                            {validation.employer}
-                        </li>
-                    )}
-                    {validation.published && (
-                        <li className="skjemaelement__feilmelding">
-                            {validation.published}
-                        </li>
-                    )}
-                    {validation.expires && (
-                        <li className="skjemaelement__feilmelding">
-                            {validation.expires}
-                        </li>
-                    )}
+                    {Object.keys(validation).map((key) => (
+                        validation[key] && (
+                            <li className="skjemaelement__feilmelding" key={key}>
+                                {validation[key]}
+                            </li>
+                        )
+                    ))}
                 </ul>
                 <Hovedknapp onClick={this.onClose}>
                     Lukk
@@ -69,7 +51,11 @@ PublishErrorModal.propTypes = {
     validation: PropTypes.shape({
         employer: PropTypes.string,
         styrk: PropTypes.string,
-        location: PropTypes.string
+        location: PropTypes.string,
+        title: PropTypes.string,
+        adText: PropTypes.string,
+        published: PropTypes.string,
+        expires: PropTypes.string
     }).isRequired,
     closeModal: PropTypes.func.isRequired
 };

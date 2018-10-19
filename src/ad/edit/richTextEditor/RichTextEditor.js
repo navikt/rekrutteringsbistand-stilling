@@ -162,7 +162,7 @@ export default class RichTextEditor extends React.Component {
                         undoDisabled={this.state.undoDisabled}
                     />
                 </div>
-                <div className="RichTextEditor__editor">
+                <div className={`RichTextEditor__editor ${this.props.errorMessage ? 'skjemaelement__input--harFeil' : ''}`}>
                     <Editor
                         editorState={this.state.editorState}
                         handleKeyCommand={this.handleKeyCommand}
@@ -170,6 +170,11 @@ export default class RichTextEditor extends React.Component {
                         blockStyleFn={blockStyleFunction}
                     />
                 </div>
+                {this.props.errorMessage && (
+                    <div className="skjemaelement__feilmelding">
+                        {this.props.errorMessage}
+                    </div>
+                )}
             </div>
         );
     }

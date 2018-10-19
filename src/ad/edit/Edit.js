@@ -22,17 +22,12 @@ import RichTextEditor from './richTextEditor/RichTextEditor';
 import JobArrangement from './jobArrangement/JobArrangement';
 import Requirements from './requirements/Requirements'
 import Employer from './employer/Employer';
+import JobDetails from './jobDetails/JobDetails';
 import Loading from '../../common/loading/Loading';
 import ContactPerson from './contactPerson/ContactPerson';
 
 class Edit extends React.Component {
-    onTitleChange = (e) => {
-        this.props.setAdTitle(e.target.value);
-    };
 
-    onJobtitleChange = (e) => {
-        this.props.setJobTitle(e.target.value);
-    };
 
     onLocationChange = (e) => {
         this.props.setEmploymentLocation(e.target.value);
@@ -98,9 +93,7 @@ class Edit extends React.Component {
         this.props.setReference(e.target.value);
     };
 
-    onAdTextChange = (adText) => {
-        this.props.setAdText(adText);
-    };
+
 
     render() {
         const { ad, isFetchingStilling, validation } = this.props;
@@ -117,31 +110,7 @@ class Edit extends React.Component {
                     <Column xs="12" md="8">
                         <div className="Edit__left">
                             <Employer />
-                            <Ekspanderbartpanel
-                                tittel="Om Stillingen"
-                                tittelProps="undertittel"
-                                className="blokk-s"
-                                border
-                                apen
-                            >
-                                <Input
-                                    label="Overskift på annonsen*"
-                                    value={ad.title || ''}
-                                    onChange={this.onTitleChange}
-                                    feil={validation.title ? { feilmelding: validation.title } : undefined}
-                                />
-                                <Input
-                                    label="Stilling/yrke*"
-                                    value={ad.properties.jobtitle || ''}
-                                    onChange={this.onJobtitleChange}
-                                    feil={validation.title ? { feilmelding: validation.title } : undefined}
-                                />
-                                <div className="blokk-xxs"><Normaltekst>Annonsetekst*</Normaltekst></div>
-                                <RichTextEditor
-                                    text={ad.properties.adtext || ''}
-                                    onChange={this.onAdTextChange}
-                                />
-                            </Ekspanderbartpanel>
+                            <JobDetails />
                             <Ekspanderbartpanel
                                 tittel="Hvem bør søke på stilingen"
                                 tittelProps="undertittel"
@@ -367,8 +336,6 @@ Edit.propTypes = {
     ad: PropTypes.shape({
         title: PropTypes.string
     }),
-    setAdTitle: PropTypes.func.isRequired,
-    setJobTitle: PropTypes.func.isRequired,
     setEmploymentLocation: PropTypes.func.isRequired,
     setExtent: PropTypes.func.isRequired,
     setPositionCount: PropTypes.func.isRequired,
@@ -385,7 +352,6 @@ Edit.propTypes = {
     setMedium: PropTypes.func.isRequired,
     setId: PropTypes.func.isRequired,
     setReference: PropTypes.func.isRequired,
-    setAdText: PropTypes.func.isRequired,
     validation: PropTypes.shape({
         title: PropTypes.string
     }).isRequired,
@@ -399,8 +365,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    setAdTitle: (title) => dispatch({ type: SET_AD_TITLE, title }),
-    setJobTitle: (jobtitle) => dispatch({ type: SET_EMPLOYMENT_JOBTITLE, jobtitle }),
+
     setEmploymentLocation: (location) => dispatch({ type: SET_EMPLOYMENT_LOCATION, location }),
     setExtent: (extent) => dispatch({ type: SET_EMPLOYMENT_EXTENT, extent }),
     setPositionCount: (positioncount) => dispatch({ type: SET_EMPLOYMENT_POSITIONCOUNT, positioncount }),
@@ -418,7 +383,6 @@ const mapDispatchToProps = (dispatch) => ({
     setMedium: (medium) => dispatch({ type: SET_MEDIUM, medium }),
     setId: (id) => dispatch({ type: SET_ID, id }),
     setReference: (reference) => dispatch({ type: SET_REFERENCE, reference }),
-    setAdText: (adtext) => dispatch({ type: SET_AD_TEXT, adtext })
 });
 
 
