@@ -32,7 +32,7 @@ export default function Employer({ properties }) {
                 ]}
                 {properties.employerhomepage && !isValidUrl(properties.employerhomepage) && [
                     <dt key="dt">Nettsted:</dt>,
-                    <dd key="dd">{properties.linkedinpage}</dd>
+                    <dd key="dd">{properties.employerhomepage}</dd>
                 ]}
                 {properties.linkedinpage && isValidUrl(properties.linkedinpage) && [
                     <dt key="dt">LinkedIn:</dt>,
