@@ -4,6 +4,7 @@ import {
     Editor, EditorState, convertFromHTML, RichUtils,
     ContentState, CompositeDecorator
 } from 'draft-js';
+import 'draft-js/dist/Draft.css';
 import { convertToHTML } from 'draft-convert';
 import BlockStyleControls from './BlockStyleControls';
 import InlineStyleControls from './InlineStyleControls';
@@ -168,6 +169,7 @@ export default class RichTextEditor extends React.Component {
                         handleKeyCommand={this.handleKeyCommand}
                         onChange={this.onChange}
                         blockStyleFn={blockStyleFunction}
+                        placeholder={this.props.placeholderText || ''}
                     />
                 </div>
             </div>
@@ -175,8 +177,13 @@ export default class RichTextEditor extends React.Component {
     }
 }
 
+RichTextEditor.defaultProps = {
+    placeholderText: ''
+};
+
 RichTextEditor.propTypes = {
     onChange: PropTypes.func.isRequired,
-    text: PropTypes.string.isRequired
+    text: PropTypes.string.isRequired,
+    placeholderText: PropTypes.string
 };
 

@@ -4,6 +4,7 @@ import ReactHtmlParser from 'react-html-parser';
 import { Undertittel } from 'nav-frontend-typografi';
 import './Employer.less';
 import { htmlParserOptions } from '../markWords';
+import { isValidUrl } from '../../../common/utils';
 
 export default function Employer({ properties }) {
     return (
@@ -18,19 +19,63 @@ export default function Employer({ properties }) {
                     <dt key="dt">Adresse:</dt>,
                     <dd key="dd">{properties.address}</dd>
                 ]}
-                {properties.employerhomepage && [
+                {properties.employerhomepage && isValidUrl(properties.employerhomepage) && [
+                    <dt key="dt">Nettsted:</dt>,
+                    <a
+                        className="lenke"
+                        href={properties.employerhomepage}
+                        rel="noopener noreferrer"
+                        target="_blank"
+                    >
+                        {properties.employerhomepage}
+                    </a>
+                ]}
+                {properties.employerhomepage && !isValidUrl(properties.employerhomepage) && [
                     <dt key="dt">Nettsted:</dt>,
                     <dd key="dd">{properties.employerhomepage}</dd>
                 ]}
-                {properties.linkedinpage && [
+                {properties.linkedinpage && isValidUrl(properties.linkedinpage) && [
+                    <dt key="dt">LinkedIn:</dt>,
+                    <a
+                        className="lenke"
+                        href={properties.linkedinpage}
+                        rel="noopener noreferrer"
+                        target="_blank"
+                    >
+                        {properties.linkedinpage}
+                    </a>
+                ]}
+                {properties.linkedinpage && !isValidUrl(properties.linkedinpage) && [
                     <dt key="dt">LinkedIn:</dt>,
                     <dd key="dd">{properties.linkedinpage}</dd>
                 ]}
-                {properties.twitteraddress && [
+                {properties.twitteraddress && isValidUrl(properties.twitteraddress) && [
+                    <dt key="dt">Twitter:</dt>,
+                    <a
+                        className="lenke"
+                        href={properties.twitteraddress}
+                        rel="noopener noreferrer"
+                        target="_blank"
+                    >
+                        {properties.twitteraddress}
+                    </a>
+                ]}
+                {properties.twitteraddress && !isValidUrl(properties.twitteraddress) && [
                     <dt key="dt">Twitter:</dt>,
                     <dd key="dd">{properties.twitteraddress}</dd>
                 ]}
-                {properties.facebookpage && [
+                {properties.facebookpage && isValidUrl(properties.facebookpage) && [
+                    <dt key="dt">Facebook:</dt>,
+                    <a
+                        className="lenke"
+                        href={properties.facebookpage}
+                        rel="noopener noreferrer"
+                        target="_blank"
+                    >
+                        {properties.facebookpage}
+                    </a>
+                ]}
+                {properties.facebookpage && !isValidUrl(properties.facebookpage) && [
                     <dt key="dt">Facebook:</dt>,
                     <dd key="dd">{properties.facebookpage}</dd>
                 ]}
