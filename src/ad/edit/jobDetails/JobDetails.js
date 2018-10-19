@@ -43,7 +43,7 @@ class JobDetails extends React.Component {
 
         return (
             <Ekspanderbartpanel
-                tittel="Om Stillingen"
+                tittel="Om stillingen"
                 tittelProps="undertittel"
                 className="blokk-s"
                 border
