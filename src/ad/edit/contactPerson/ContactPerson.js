@@ -11,26 +11,22 @@ class ContactPerson extends React.Component {
             <div>
                 <Input
                     label="Navn på kontaktperson"
-                    value={''}
                     onChange={this.endreKontaktPerson}
                 />
                 <Input
                     label="Tittel på kontaktperson"
                     placeholder="For eksempel: leder"
-                    value={''}
                     onChange={this.endreKontaktPersonTittel}
                 />
                 <Input
                     type="email"
                     label="E-post"
-                    value={''}
                     onChange={this.endreKontaktPersonEpost}
 
                 />
                 <Input
                     type="tel"
                     label="Telefonnummer"
-                    value={''}
                     onChange={this.endreKontaktPersonTelefon}
 
                 />

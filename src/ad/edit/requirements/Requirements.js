@@ -35,24 +35,20 @@ class Requirements extends React.Component {
                             </HjelpetekstAuto>
                         </div>
                     }
-                    value={''}
                     onChange={this.onHardrequirementsChange}
                     placeholder="For eksempel: pedagogikk"
                 />
                 <Input
                     label=""
-                    value={''}
                     onChange={this.onHardrequirementsChange}
                 />
                 <Input
                     label=""
-                    value={''}
                     onChange={this.onHardrequirementsChange}
                 />
                 {(hardrequirements && hardrequirements.length > 3) && (
                     <Input
                         label=""
-                        value={''}
                         onChange={this.onHardrequirementsChange}
                         inputRef={(i) => {
                             this.focusField = i;
@@ -62,7 +58,6 @@ class Requirements extends React.Component {
                 {(hardrequirements && hardrequirements.length > 4) && (
                     <Input
                         label=""
-                        value={''}
                         onChange={this.onHardrequirementsChange}
                         inputRef={(i) => {
                             this.focusField = i;
@@ -91,25 +86,21 @@ class Requirements extends React.Component {
                             </HjelpetekstAuto>
                         </div>
                     }
-                    value={''}
                     onChange={this.onSoftrequirementsChange}
                     placeholder="For eksempel: Førerkort klasse B"
                 />
                 <Input
                     label=""
-                    value={''}
                     onChange={this.onSoftrequirementsChange}
                 />
                 <Input
                     id="boerkrav3"
                     label=""
-                    value={''}
                     onChange={this.endreBoerKrav3}
                 />
                 {(softrequirements && softrequirements.length > 3) && (
                     <Input
                         label=""
-                        value={''}
                         onChange={this.onSoftrequirementsChange}
                         inputRef={(i) => {
                             this.focusField = i;
@@ -119,7 +110,6 @@ class Requirements extends React.Component {
                 {(softrequirements && softrequirements.length > 4) && (
                     <Input
                         label=""
-                        value={''}
                         onChange={this.onSoftrequirementsChange}
                         inputRef={(i) => {
                             this.focusField = i;
@@ -147,25 +137,21 @@ class Requirements extends React.Component {
                             </HjelpetekstAuto>
                         </div>
                     }
-                    value={''}
                     onChange={this.onPersonalAttributesChange}
                     placeholder="For eksempel: ansvarsbevisst"
                 />
                 <Input
                     label=""
-                    value={''}
                     onChange={this.endrePersonligeEgenskaper2}
                 />
                 <Input
                     label=""
-                    value={''}
                     onChange={this.endrePersonligeEgenskaper3}
                 />
                 {(personalattributes && personalattributes.length > 3) && (
                     <Input
                         id="personligeEgenskaper4"
                         label=""
-                        value={''}
                         onChange={this.endrePersonligeEgenskaper4}
                         inputRef={(i) => {
                             this.focusField = i;
@@ -175,7 +161,6 @@ class Requirements extends React.Component {
                 {(personalattributes && personalattributes.length > 4) && (
                     <Input
                         label=""
-                        value={''}
                         onChange={this.endrePersonligeEgenskaper5}
                         inputRef={(i) => {
                             this.focusField = i;
