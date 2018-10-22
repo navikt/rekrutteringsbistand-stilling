@@ -2,7 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Typeahead from '../../../common/typeahead/Typeahead';
-import { FETCH_MUNICIPAL_OR_COUNTRY_BEGIN, SET_TYPE_AHEAD_VALUE } from './municipalOrCountryReducer';
+import {
+    FETCH_MUNICIPAL_OR_COUNTRY_BEGIN,
+    SET_MUNICIPAL_OR_COUNTRY_TYPE_AHEAD
+} from './municipalOrCountryReducer';
 import { SET_LOCATION } from '../../adDataReducer';
 import './Location.less';
 
@@ -142,7 +145,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     fetchMunicipalsOrCountries: () => dispatch({ type: FETCH_MUNICIPAL_OR_COUNTRY_BEGIN }),
-    setTypeAheadValue: (value) => dispatch({ type: SET_TYPE_AHEAD_VALUE, value }),
+    setTypeAheadValue: (value) => dispatch({ type: SET_MUNICIPAL_OR_COUNTRY_TYPE_AHEAD, value }),
     setLocation: (location) => dispatch({ type: SET_LOCATION, location })
 });
 
