@@ -3,14 +3,11 @@ import PropTypes from 'prop-types';
 import { Input, SkjemaGruppe, Radio, Checkbox } from 'nav-frontend-skjema';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Column, Row } from 'nav-frontend-grid';
-import { Normaltekst } from 'nav-frontend-typografi';
 import { connect } from 'react-redux';
 import {
-    SET_AD_TEXT,
-    SET_AD_TITLE, SET_APPLICATIONDUE, SET_APPLICATIONEMAIL, SET_APPLICATIONURL,
+    SET_APPLICATIONDUE,
     SET_EMPLOYER, SET_EMPLOYER_ADDRESS,
     SET_EMPLOYMENT_EXTENT,
-    SET_EMPLOYMENT_JOBTITLE,
     SET_EMPLOYMENT_LOCATION, SET_EMPLOYMENT_POSITIONCOUNT,
     SET_EMPLOYMENT_SECTOR, SET_EMPLOYMENT_STARTTIME, SET_EMPLOYMENT_WORKDAY,
     SET_EMPLOYMENT_WORKHOURS, SET_ID, SET_LAST_UPDATED,
@@ -18,7 +15,6 @@ import {
 } from '../adDataReducer';
 import './Edit.less';
 import EngagementType from './engagementType/EngagementType';
-import RichTextEditor from './richTextEditor/RichTextEditor';
 import JobArrangement from './jobArrangement/JobArrangement';
 import Requirements from './requirements/Requirements'
 import Employer from './employer/Employer';
@@ -26,6 +22,7 @@ import JobDetails from './jobDetails/JobDetails';
 import Loading from '../../common/loading/Loading';
 import ContactPerson from './contactPerson/ContactPerson';
 import Application from './application/Application';
+import Location from './location/Location';
 
 class Edit extends React.Component {
 
@@ -250,15 +247,8 @@ class Edit extends React.Component {
                         >
                             <ContactPerson />
                         </Ekspanderbartpanel>
-                        <Ekspanderbartpanel
-                            className="Edit__panel"
-                            tittel="Arbeidsstedets adresse*"
-                            tittelProps="undertittel"
-                            border
-                            apen
-                        >
-                        </Ekspanderbartpanel>
                         <Application />
+                        <Location />
                         <Ekspanderbartpanel
                             className="Edit__panel"
                             tittel="Om annonsen"

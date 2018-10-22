@@ -1,7 +1,7 @@
 import { put, select, takeLatest } from 'redux-saga/es/effects';
-import { findLocationByPostalCode } from './administration/location/locationCodeReducer';
+import { erDatoEtterMinDato } from 'nav-datovelger/dist/datovelger/utils/datovalidering';
+import { findLocationByPostalCode } from './edit/location/locationCodeReducer';
 import { toDate } from '../utils';
-import {erDatoEtterMinDato} from 'nav-datovelger/dist/datovelger/utils/datovalidering';
 
 import {
     SET_STYRK,
@@ -11,7 +11,8 @@ import {
     SET_PUBLISHED,
     SET_AD_TEXT,
     SET_AD_TITLE,
-    SET_APPLICATIONEMAIL
+    SET_APPLICATIONEMAIL,
+    SET_LOCATION
 } from './adDataReducer';
 
 const ADD_VALIDATION_ERROR = 'ADD_VALIDATION_ERROR';
@@ -21,38 +22,13 @@ export const VALIDATE_EMAIL = 'VALIDATE_EMAIL';
 
 const valueIsNotSet = (value) => (value === undefined || value === null || value.length === 0);
 
-const locationIsCountryOrMunicipal = (location, medium) => {
-    // Returnerer true for annonser fra Adreg som ikke har postnummer, men land eller kommune istedet.
-    // Disse skal ikke gi validation-error
-    return medium === 'Stillingsregistrering' && location && (location.country || location.municipal) &&
-        !location.postalCode;
-};
+const locationIsCountryOrMunicipal = (location) => location && (location.country || location.municipal)
+        && !location.postalCode;
 
 function* validateLocation() {
     const state = yield select();
-    const { location, medium } = state.adData;
-    if (location &&
-        location.postalCode &&
-        location.postalCode.match('^[0-9]{4}$')) {
-        const locationByPostalCode = yield findLocationByPostalCode(location.postalCode);
-        if (locationByPostalCode === undefined) {
-            yield put({
-                type: ADD_VALIDATION_ERROR,
-                field: 'location',
-                message: 'Ukjent postnummer'
-            });
-        } else {
-            yield put({ type: REMOVE_VALIDATION_ERROR, field: 'location' });
-        }
-    } else if (location &&
-        location.postalCode &&
-        !location.postalCode.match('^[0-9]{4}$')) {
-        yield put({
-            type: ADD_VALIDATION_ERROR,
-            field: 'location',
-            message: 'Ugyldig postnummer'
-        });
-    } else if (!location || (!location.postalCode && !locationIsCountryOrMunicipal(location, medium))) {
+    const { location } = state.adData;
+    if (!location || (!location.postalCode && !locationIsCountryOrMunicipal(location))) {
         yield put({
             type: ADD_VALIDATION_ERROR,
             field: 'location',
@@ -60,6 +36,31 @@ function* validateLocation() {
         });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'location' });
+    }
+}
+
+function* validatePostalCode() {
+    const state = yield select();
+    const { location } = state.adData;
+    if (location && location.postalCode && location.postalCode.match('^[0-9]{4}$')) {
+        const locationByPostalCode = yield findLocationByPostalCode(location.postalCode);
+        if (locationByPostalCode === undefined) {
+            yield put({
+                type: ADD_VALIDATION_ERROR,
+                field: 'postalCode',
+                message: 'Ukjent postnummer'
+            });
+        } else {
+            yield put({ type: REMOVE_VALIDATION_ERROR, field: 'postalCode' });
+        }
+    } else if (location && location.postalCode && !location.postalCode.match('^[0-9]{4}$')) {
+        yield put({
+            type: ADD_VALIDATION_ERROR,
+            field: 'postalCode',
+            message: 'Ugyldig postnummer'
+        });
+    } else {
+        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'postalCode' });
     }
 }
 
@@ -75,7 +76,7 @@ function* validateStyrk() {
 }
 
 function* validateTitle() {
-    const adTitle = yield select((state) => state.adData.title );
+    const adTitle = yield select((state) => state.adData.title);
     if (valueIsNotSet(adTitle)) {
         yield put({ type: ADD_VALIDATION_ERROR, field: 'title', message: 'Overskrift på annonsen mangler' });
     } else {
@@ -84,7 +85,7 @@ function* validateTitle() {
 }
 
 function* validateAdtext() {
-    const adText = yield select((state) => state.adData.properties.adtext );
+    const adText = yield select((state) => state.adData.properties.adtext);
     if (valueIsNotSet(adText)) {
         yield put({ type: ADD_VALIDATION_ERROR, field: 'adText', message: 'Annonsetekst mangler' });
     } else {
@@ -96,9 +97,9 @@ function* validateEmployer() {
     const state = yield select();
     const { employer } = state.adData;
 
-    if (employer === null || employer === undefined ||
-        valueIsNotSet(employer.name) ||
-        valueIsNotSet(employer.orgnr)) {
+    if (employer === null || employer === undefined
+        || valueIsNotSet(employer.name)
+        || valueIsNotSet(employer.orgnr)) {
         yield put({ type: ADD_VALIDATION_ERROR, field: 'employer', message: 'Navn på arbeidsgiver mangler' });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'employer' });
@@ -154,19 +155,20 @@ export function* validateAll() {
         yield validateStyrk();
         yield validateAdtext();
         yield validateEmail();
+        yield validatePostalCode();
     }
 }
 
 export function hasValidationErrors(validation) {
-    return validation.styrk !== undefined ||
-           validation.location !== undefined ||
-           validation.employer !== undefined ||
-           validation.expires !== undefined ||
-           validation.title !== undefined ||
-           validation.adText !== undefined ||
-           validation.publish !== undefined
-           validation.email !== undefined
-        ;
+    return validation.styrk !== undefined
+           || validation.location !== undefined
+           || validation.employer !== undefined
+           || validation.expires !== undefined
+           || validation.title !== undefined
+           || validation.adText !== undefined
+           || validation.email !== undefined
+           || validation.publish !== undefined
+           || validation.postalCode !== undefined;
 }
 
 const initialState = {
@@ -201,9 +203,9 @@ export const validationSaga = function* saga() {
     yield takeLatest(SET_EMPLOYER, validateEmployer);
     yield takeLatest(SET_EXPIRATION_DATE, validateExpireDate);
     yield takeLatest(SET_PUBLISHED, validatePublishDate);
-    yield takeLatest(SET_LOCATION_POSTAL_CODE, validateLocation);
+    yield takeLatest(SET_LOCATION_POSTAL_CODE, validatePostalCode);
+    yield takeLatest([SET_LOCATION_POSTAL_CODE, SET_LOCATION], validateLocation);
     yield takeLatest(SET_AD_TEXT, validateAdtext);
     yield takeLatest(SET_AD_TITLE, validateTitle);
     yield takeLatest(VALIDATE_EMAIL, validateEmail);
 };
-

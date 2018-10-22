@@ -5,10 +5,11 @@ import { applyMiddleware, createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 import employerReducer, { employerSaga } from './ad/edit/employer/employerReducer';
-import locationCodeReducer, { locationSaga } from './ad/administration/location/locationCodeReducer';
+import locationCodeReducer, { locationSaga } from './ad/edit/location/locationCodeReducer';
 import styrkReducer, { styrkSaga } from './ad/edit/jobDetails/styrk/styrkReducer';
 import adReducer, { adSaga } from './ad/adReducer';
 import searchReducer, { searchSaga } from './searchPage/searchReducer';
+import municipalOrCountryReducer, { municipalOrCountrySaga } from './ad/edit/location/municipalOrCountryReducer';
 import Ad from './ad/Ad';
 import TopMenu from './topmenu/TopMenu';
 import { initShortcuts } from './common/shortcuts/Shortcuts';
@@ -30,7 +31,8 @@ const store = createStore(combineReducers({
     location: locationCodeReducer,
     styrk: styrkReducer,
     reportee: reporteeReducer,
-    search: searchReducer
+    search: searchReducer,
+    municipalOrCountry: municipalOrCountryReducer
 }), applyMiddleware(sagaMiddleware));
 
 sagaMiddleware.run(adSaga);
@@ -40,6 +42,7 @@ sagaMiddleware.run(locationSaga);
 sagaMiddleware.run(styrkSaga);
 sagaMiddleware.run(searchSaga);
 sagaMiddleware.run(adDataSaga);
+sagaMiddleware.run(municipalOrCountrySaga);
 
 initShortcuts();
 

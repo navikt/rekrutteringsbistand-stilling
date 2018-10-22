@@ -1,6 +1,6 @@
 import { put, takeLatest } from 'redux-saga/es/effects';
 import { lookUpStyrk } from './edit/jobDetails/styrk/styrkReducer';
-import { findLocationByPostalCode } from './administration/location/locationCodeReducer';
+import { findLocationByPostalCode } from './edit/location/locationCodeReducer';
 import { FETCH_AD_BEGIN, FETCH_AD_SUCCESS, SAVE_AD_SUCCESS } from './adReducer';
 import AdStatusEnum from './administration/adStatus/AdStatusEnum';
 
@@ -52,7 +52,7 @@ const initialState = {
     properties: {},
     status: AdStatusEnum.INACTIVE,
     administration: {},
-    privacy:  'INTERNAL_NOT_SHOWN'
+    privacy: 'INTERNAL_NOT_SHOWN'
 };
 
 function findStyrkAndSkipAlternativeNames(code) {
@@ -98,6 +98,7 @@ export default function adDataReducer(state = initialState, action) {
             return {
                 ...state,
                 location: {
+                    ...state.location,
                     city: null,
                     county: null,
                     municipal: null,
@@ -108,7 +109,10 @@ export default function adDataReducer(state = initialState, action) {
         case SET_LOCATION:
             return {
                 ...state,
-                location: action.location
+                location: {
+                    ...state.location,
+                    ...action.location
+                }
             };
         case SET_LOCATION_ADDRESS:
             return {
