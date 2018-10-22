@@ -6,7 +6,7 @@ import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { SET_LOCATION_ADDRESS, SET_LOCATION_POSTAL_CODE } from '../../adDataReducer';
 import MunicipalOrCountry from './MunicipalOrCountry';
 
-class WorkAddress extends React.Component {
+class Location extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -52,7 +52,7 @@ class WorkAddress extends React.Component {
                         onChange={this.onRadioButtonChange}
                     />
                     <Radio
-                        label="Eller: En kommune eller land utenfor Norge"
+                        label="Eller: En kommune, Svalbard eller et land"
                         name="municipalOrCountry"
                         value="municipalOrCountry"
                         checked={this.state.radioChecked === 'municipalOrCountry'}
@@ -70,16 +70,16 @@ class WorkAddress extends React.Component {
                         />
                         <Input
                             id="arbeidssted-postnummer"
-                            label="Postnummer *"
+                            label="Postnummer*"
                             value={location && location.postalCode
                                 ? location.postalCode : ''}
                             onChange={this.onPostalCodeChange}
-                            feil={this.props.validation.postalCode
-                                ? { feilmelding: this.props.validation.postalCode } : undefined}
+                            feil={this.props.validation.postalCode || this.props.validation.location
+                                ? { feilmelding: this.props.validation.postalCode || '' } : undefined}
                         />
                         <Input
                             id="arbeidssted-sted"
-                            label="Sted *"
+                            label="Sted*"
                             value={location && location.city
                                 ? location.city : ''}
                             disabled
@@ -91,12 +91,15 @@ class WorkAddress extends React.Component {
                         <MunicipalOrCountry />
                     </div>
                 )}
+                {this.props.validation.location && (
+                    <div className="Administration__error">{this.props.validation.location}</div>
+                )}
             </Ekspanderbartpanel>
         );
     }
 }
 
-WorkAddress.propTypes = {
+Location.propTypes = {
     location: PropTypes.shape({
         address: PropTypes.string,
         postalCode: PropTypes.string
@@ -115,4 +118,4 @@ const mapDispatchToProps = (dispatch) => ({
     setPostalCode: (postalCode) => dispatch({ type: SET_LOCATION_POSTAL_CODE, postalCode })
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(WorkAddress);
+export default connect(mapStateToProps, mapDispatchToProps)(Location);

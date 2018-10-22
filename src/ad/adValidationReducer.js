@@ -1,8 +1,7 @@
 import { put, select, takeLatest } from 'redux-saga/es/effects';
-import { findLocationByPostalCode } from './administration/location/locationCodeReducer';
-import {FETCH_AD_SUCCESS, PUBLISH_AD_CHANGES, SAVE_AD_SUCCESS, PUBLISH_AD} from './adReducer';
+import { findLocationByPostalCode } from './edit/location/locationCodeReducer';
 import { toDate } from '../utils';
-import {erDatoEtterMinDato} from 'nav-datovelger/dist/datovelger/utils/datovalidering';
+import { erDatoEtterMinDato } from 'nav-datovelger/dist/datovelger/utils/datovalidering';
 
 import {
     SET_STYRK,
@@ -11,7 +10,8 @@ import {
     SET_EXPIRATION_DATE,
     SET_PUBLISHED,
     SET_AD_TEXT,
-    SET_AD_TITLE
+    SET_AD_TITLE,
+    SET_LOCATION
 } from './adDataReducer';
 
 const ADD_VALIDATION_ERROR = 'ADD_VALIDATION_ERROR';
@@ -20,17 +20,15 @@ export const VALIDATE_ALL = 'VALIDATE_ALL';
 
 const valueIsNotSet = (value) => (value === undefined || value === null || value.length === 0);
 
-const locationIsCountryOrMunicipal = (location, medium) => {
-    // Returnerer true for annonser fra Adreg som ikke har postnummer, men land eller kommune istedet.
-    // Disse skal ikke gi validation-error
-    return medium === 'Stillingsregistrering' && location && (location.country || location.municipal) &&
+const locationIsCountryOrMunicipal = (location) => {
+    return location && (location.country || location.municipal) &&
         !location.postalCode;
 };
 
 function* validateLocation() {
     const state = yield select();
-    const { location, medium } = state.adData;
-    if (!location || (!location.postalCode && !locationIsCountryOrMunicipal(location, medium))) {
+    const { location } = state.adData;
+    if (!location || (!location.postalCode && !locationIsCountryOrMunicipal(location))) {
         yield put({
             type: ADD_VALIDATION_ERROR,
             field: 'location',
@@ -43,9 +41,9 @@ function* validateLocation() {
 
 function* validatePostalCode() {
     const state = yield select();
-    const { postalCode } = state.adData.location;
-    if (postalCode && postalCode.match('^[0-9]{4}$')) {
-        const locationByPostalCode = yield findLocationByPostalCode(postalCode);
+    const { location } = state.adData;
+    if (location && location.postalCode && location.postalCode.match('^[0-9]{4}$')) {
+        const locationByPostalCode = yield findLocationByPostalCode(location.postalCode);
         if (locationByPostalCode === undefined) {
             yield put({
                 type: ADD_VALIDATION_ERROR,
@@ -55,7 +53,7 @@ function* validatePostalCode() {
         } else {
             yield put({ type: REMOVE_VALIDATION_ERROR, field: 'postalCode' });
         }
-    } else if (postalCode && !postalCode.match('^[0-9]{4}$')) {
+    } else if (location && location.postalCode && !location.postalCode.match('^[0-9]{4}$')) {
         yield put({
             type: ADD_VALIDATION_ERROR,
             field: 'postalCode',
@@ -191,7 +189,7 @@ export const validationSaga = function* saga() {
     yield takeLatest(SET_EXPIRATION_DATE, validateExpireDate);
     yield takeLatest(SET_PUBLISHED, validatePublishDate);
     yield takeLatest(SET_LOCATION_POSTAL_CODE, validatePostalCode);
-    yield takeLatest(SET_LOCATION_POSTAL_CODE, validateLocation);
+    yield takeLatest([SET_LOCATION_POSTAL_CODE, SET_LOCATION], validateLocation);
     yield takeLatest(SET_AD_TEXT, validateAdtext);
     yield takeLatest(SET_AD_TITLE, validateTitle);
 };

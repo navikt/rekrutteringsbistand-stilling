@@ -1,5 +1,4 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
-import { EndpointEnum } from '../../common/EndpointEnum';
+import { put, takeLatest } from 'redux-saga/effects';
 import { fetchGet } from '../../../api/api';
 import { AD_API } from '../../../fasitProperties';
 
@@ -31,11 +30,9 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 municipalOrCountry: action.value,
                 municipals: (state.municipalsCache === undefined || action.value.length === 0)
-                    ? [] : state.municipalsCache.filter((municipal) =>
-                        municipal.name.toLowerCase().startsWith(action.value.toLowerCase())).slice(0, 5),
-                land: (state.countriesCache === undefined || action.value.length === 0)
-                    ? [] : state.countriesCache.filter((country) =>
-                        country.name.toLowerCase().startsWith(action.value.toLowerCase())).slice(0, 5)
+                    ? [] : state.municipalsCache.filter((municipal) => municipal.name.toLowerCase().startsWith(action.value.toLowerCase())).slice(0, 5),
+                countries: (state.countriesCache === undefined || action.value.length === 0)
+                    ? [] : state.countriesCache.filter((country) => country.name.toLowerCase().startsWith(action.value.toLowerCase())).slice(0, 5)
             };
         case FETCH_MUNICIPAL_OR_COUNTRY:
             // Skal ikke være mulig å velge Norge, så Norge fra listen
@@ -43,7 +40,7 @@ export default function reducer(state = initialState, action) {
             return {
                 ...state,
                 municipalsCache: action.response.municipals,
-                contriesCache: countries
+                countriesCache: countries
             };
         case FETCH_MUNICIPAL_OR_COUNTRY_FAILURE:
             return {

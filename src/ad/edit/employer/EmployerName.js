@@ -7,7 +7,7 @@ import { FETCH_EMPLOYER_SUGGESTIONS, SET_EMPLOYER_TYPEAHEAD_VALUE } from './empl
 import { SET_EMPLOYER } from '../../adDataReducer';
 import './EmployerName.less';
 import capitalizeEmployerName from './capitalizeEmployerName';
-import capitalizeLocation from '../../administration/location/capitalizeLocation';
+import capitalizeLocation from '../location/capitalizeLocation';
 
 
 class EmployerName extends React.Component {

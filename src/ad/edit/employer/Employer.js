@@ -62,28 +62,28 @@ class Employer extends React.Component {
 
     completeHomepageLink = () => {
         const { employerhomepage } = this.props.ad.properties;
-        if (employerhomepage !== '') {
+        if (employerhomepage && employerhomepage !== '') {
             this.props.setEmployerHomepage(adjustUrl(employerhomepage));
         }
     };
 
     completeFacebookLink = () => {
         const { facebookpage } = this.props.ad.properties;
-        if (facebookpage !== '') {
+        if (facebookpage && facebookpage !== '') {
             this.props.setFacebookpage(adjustUrl(facebookpage));
         }
     };
 
     completeLinkedinLink = () => {
         const { linkedinpage } = this.props.ad.properties;
-        if (linkedinpage !== '') {
+        if (linkedinpage && linkedinpage !== '') {
             this.props.setLinkedinpage(adjustUrl(linkedinpage));
         }
     };
 
     completeTwitterLink = () => {
         const { twitteraddress } = this.props.ad.properties;
-        if (twitteraddress !== '') {
+        if (twitteraddress && twitteraddress !== '') {
             this.props.setTwitteraddress(adjustTwitterLink(twitteraddress));
         }
     };
