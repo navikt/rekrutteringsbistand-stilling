@@ -8,21 +8,14 @@ import { SET_LOCATION } from '../../adDataReducer';
 class MunicipalOrCountry extends React.Component {
     componentDidMount() {
         this.props.fetchMunicipalsOrCountries();
-        const { location } = this.props.location;
+        const { location } = this.props;
         let municipalOrCountry = '';
-        if (location && location.country) {
+        if (this.locationIsCountry(location)) {
             municipalOrCountry = this.capitalizeWord(location.country);
-        } else if (location && location.municipal) {
+        } else if (this.locationIsMunicipal(location)) {
             municipalOrCountry = this.capitalizeWord(location.municipal);
         }
         this.props.setTypeAheadValue(municipalOrCountry);
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if ((nextProps.location.address !== this.props.location.address)
-            && nextProps.location.address !== undefined) {
-            this.props.setTypeAheadValue('');
-        }
     }
 
     onMunicipalOrCountrySelect = (value) => {
@@ -60,11 +53,11 @@ class MunicipalOrCountry extends React.Component {
         word[0].toUpperCase() + word.substr(1).toLowerCase()
     );
 
+    locationIsCountry = (location) => location && location.country && !location.postalCode && !location.municipal
+
+    locationIsMunicipal = (location) => location && location.municipal && !location.postalCode;
+
     render() {
-        /* const shouldShowError = (this.props.land.length === 0 && this.props.kommuner.length === 0)
-            && this.props.kommuneLand.length > 1
-            && this.props.stilling.property.arbeidsstedKommune === undefined
-            && this.props.stilling.property.arbeidsstedLand === undefined; */
         return (
             <div>
                 <Typeahead
@@ -85,13 +78,18 @@ class MunicipalOrCountry extends React.Component {
                     inputRef={(input) => {
                         this.refInputError = input;
                     }}
-                    // feil={shouldShowError ? { feilmelding: 'Må være en kommune eller land utenfor Norge' } : undefined}
-                    placeholder="For eksempel: Oslo, Sandefjord, Danmark"
+                    error={this.props.validation.location !== undefined}
+                    placeholder="For eksempel: Drammen"
                 />
             </div>
         );
     }
 }
+
+MunicipalOrCountry.defaultProps = {
+    validation: undefined,
+    location: undefined
+};
 
 MunicipalOrCountry.propTypes = {
     municipalOrCountry: PropTypes.string.isRequired,
@@ -106,12 +104,21 @@ MunicipalOrCountry.propTypes = {
     fetchMunicipalsOrCountries: PropTypes.func.isRequired,
     setLocation: PropTypes.func.isRequired,
     setTypeAheadValue: PropTypes.func.isRequired,
+    validation: PropTypes.shape({
+        municipalOrCountry: PropTypes.string
+    }),
+    location: PropTypes.shape({
+        address: PropTypes.string,
+        municipal: PropTypes.string,
+        country: PropTypes.string
+    })
 };
 
 const mapStateToProps = (state) => ({
     municipals: state.municipalOrCountry.municipals,
     countries: state.municipalOrCountry.countries,
     municipalOrCountry: state.municipalOrCountry.municipalOrCountry,
+    validation: state.adValidation.errors,
     location: state.adData.location
 });
 

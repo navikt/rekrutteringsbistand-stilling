@@ -23,8 +23,8 @@ export default class Typeahead extends React.Component {
         }
     }
 
-    componentWillReceiveProps(props){
-        if(props.suggestions.length === 1) {
+    componentWillReceiveProps(props) {
+        if (props.suggestions.length === 1) {
             this.setState({
                 activeSuggestionIndex: 0
             });
@@ -60,7 +60,14 @@ export default class Typeahead extends React.Component {
             case 13: // Enter
                 if (hasSelectedSuggestion && this.state.shouldShowSuggestions) {
                     e.preventDefault(); // Unngå form submit når bruker velger et av forslagene
-                    this.setValue(this.props.suggestions[activeSuggestionIndex]);
+                    if (this.props.optionalSuggestions !== undefined && (activeSuggestionIndex > 4)) {
+                        this.setValue(this.props.optionalSuggestions[activeSuggestionIndex - 5]);
+                    } else if (this.props.optionalSuggestions !== undefined
+                        && activeSuggestionIndex >= this.props.suggestions.length) {
+                        this.setValue(this.props.optionalSuggestions[activeSuggestionIndex - this.props.suggestions.length]);
+                    } else {
+                        this.setValue(this.props.suggestions[activeSuggestionIndex]);
+                    }
                 } else {
                     this.setState({
                         shouldShowSuggestions: false
@@ -99,9 +106,16 @@ export default class Typeahead extends React.Component {
                     e.preventDefault();
 
                     // Marker neste suggestion i listen, så fremst man ikke er på slutten av listen
-                    activeSuggestionIndex = activeSuggestionIndex + 1 === this.props.suggestions.length ?
-                        this.props.suggestions.length - 1 :
-                        activeSuggestionIndex + 1;
+                    if (this.props.optionalSuggestions !== undefined) {
+                        activeSuggestionIndex = activeSuggestionIndex + 1 === (this.props.suggestions.length
+                            + this.props.optionalSuggestions.length)
+                            ? (this.props.suggestions.length + this.props.optionalSuggestions.length) - 1
+                            : activeSuggestionIndex + 1;
+                    } else {
+                        activeSuggestionIndex = activeSuggestionIndex + 1 === this.props.suggestions.length
+                            ? this.props.suggestions.length - 1
+                            : activeSuggestionIndex + 1;
+                    }
                     this.setState({ activeSuggestionIndex });
                     const activeElement = document.getElementById(`${this.props.id}-item-${activeSuggestionIndex}`);
                     if (activeElement !== null) {
@@ -185,17 +199,17 @@ export default class Typeahead extends React.Component {
     };
 
     render() {
-        const showSuggestions = this.state.hasFocus &&
-            this.state.shouldShowSuggestions &&
-            this.props.suggestions.length > 0;
+        const showSuggestions = this.state.hasFocus
+            && this.state.shouldShowSuggestions
+            && this.props.suggestions.length > 0;
 
-        const activeDescendant = this.state.activeSuggestionIndex > -1 ?
-            `${this.props.id}-item-${this.state.activeSuggestionIndex}` : undefined;
+        const activeDescendant = this.state.activeSuggestionIndex > -1
+            ? `${this.props.id}-item-${this.state.activeSuggestionIndex}` : undefined;
 
         if (this.props.optionalSuggestions !== undefined) {
-            const showOptionalSuggestions = this.state.hasFocus &&
-                this.state.shouldShowSuggestions &&
-                this.props.optionalSuggestions.length > 0;
+            const showOptionalSuggestions = this.state.hasFocus
+                && this.state.shouldShowSuggestions
+                && this.props.optionalSuggestions.length > 0;
 
             const offsetIndex = this.props.suggestions.length > 4 ? 5 : this.props.suggestions.length;
             return (
@@ -226,11 +240,7 @@ export default class Typeahead extends React.Component {
                         ref={(input) => {
                             this.input = input;
                         }}
-                        className={classNames(
-                            'Typeahead__input typo-normal',
-                            { 'skjemaelement__input--harFeil': this.props.feil },
-                            { 'blokk-xxs': this.props.feil }
-                        )}
+                        className={classNames('Typeahead__input typo-normal', { 'skjemaelement__input--harFeil': this.props.error })}
                     />
                     {this.props.feil && this.props.feil.feilmelding && (
                         <div className="skjemaelement__feilmelding typo-normal">
@@ -293,7 +303,7 @@ export default class Typeahead extends React.Component {
 
 
         return (
-            <div className={classNames("Typeahead", this.props.className)}>
+            <div className={classNames('Typeahead', this.props.className)}>
                 {this.props.label && (
                     <label className="typo-normal skjemaelement__label blokk-xxs" htmlFor={this.props.id}>
                         {this.props.label}
@@ -320,7 +330,7 @@ export default class Typeahead extends React.Component {
                     ref={(input) => {
                         this.input = input;
                     }}
-                    className={classNames('Typeahead__input typo-normal', {'skjemaelement__input--harFeil': this.props.error})}
+                    className={classNames('Typeahead__input typo-normal', { 'skjemaelement__input--harFeil': this.props.error })}
                 />
                 <ul
                     id={`${this.props.id}-suggestions`}
