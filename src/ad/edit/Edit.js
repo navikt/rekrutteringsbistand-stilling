@@ -25,6 +25,7 @@ import Employer from './employer/Employer';
 import JobDetails from './jobDetails/JobDetails';
 import Loading from '../../common/loading/Loading';
 import ContactPerson from './contactPerson/ContactPerson';
+import Application from './application/Application';
 
 class Edit extends React.Component {
 
@@ -61,13 +62,6 @@ class Edit extends React.Component {
         this.props.setApplicationDue(e.target.value);
     };
 
-    onApplicationEmailChange = (e) => {
-        this.props.setApplicationEmail(e.target.value);
-    };
-
-    onApplicationUrlChange = (e) => {
-        this.props.setApplicationUrl(e.target.value);
-    };
 
     onSourceUrlChange = (e) => {
         this.props.setSourceUrl(e.target.value);
@@ -249,34 +243,6 @@ class Edit extends React.Component {
                         </Ekspanderbartpanel>
                         <Ekspanderbartpanel
                             className="Edit__panel"
-                            tittel="Søknad"
-                            tittelProps="undertittel"
-                            border
-                            apen
-                        >
-                            <Input
-                                label="Søknadsfrist"
-                                value={ad.properties.applicationdue || ''}
-                                onChange={this.onApplicationDueChange}
-                            />
-                            <Input
-                                label="Send søknad til"
-                                value={ad.properties.applicationemail || ''}
-                                onChange={this.onApplicationEmailChange}
-                            />
-                            <Input
-                                label="Søknadslenke"
-                                value={ad.properties.applicationurl || ''}
-                                onChange={this.onApplicationUrlChange}
-                            />
-                            <Input
-                                label="Kildelenke"
-                                value={ad.properties.sourceurl || ''}
-                                onChange={this.onSourceUrlChange}
-                            />
-                        </Ekspanderbartpanel>
-                        <Ekspanderbartpanel
-                            className="Edit__panel"
                             tittel="Kontaktinformasjon"
                             tittelProps="undertittel"
                             border
@@ -292,14 +258,7 @@ class Edit extends React.Component {
                             apen
                         >
                         </Ekspanderbartpanel>
-                        <Ekspanderbartpanel
-                            className="Edit__panel"
-                            tittel="Hvordan ønsker arbeidsgiver å motta søknader?"
-                            tittelProps="undertittel"
-                            border
-                            apen
-                        >
-                        </Ekspanderbartpanel>
+                        <Application />
                         <Ekspanderbartpanel
                             className="Edit__panel"
                             tittel="Om annonsen"
@@ -344,8 +303,6 @@ Edit.propTypes = {
     setWorkHours: PropTypes.func.isRequired,
     setStartTime: PropTypes.func.isRequired,
     setApplicationDue: PropTypes.func.isRequired,
-    setApplicationEmail: PropTypes.func.isRequired,
-    setApplicationUrl: PropTypes.func.isRequired,
     setSourceUrl: PropTypes.func.isRequired,
     setEmployerAddress: PropTypes.func.isRequired,
     setLastUpdated: PropTypes.func.isRequired,
@@ -374,8 +331,6 @@ const mapDispatchToProps = (dispatch) => ({
     setWorkHours: (workhours) => dispatch({ type: SET_EMPLOYMENT_WORKHOURS, workhours }),
     setStartTime: (starttime) => dispatch({ type: SET_EMPLOYMENT_STARTTIME, starttime }),
     setApplicationDue: (applicationdue) => dispatch({ type: SET_APPLICATIONDUE, applicationdue }),
-    setApplicationEmail: (applicationemail) => dispatch({ type: SET_APPLICATIONEMAIL, applicationemail }),
-    setApplicationUrl: (applicationurl) => dispatch({ type: SET_APPLICATIONURL, applicationurl }),
     setSourceUrl: (sourceurl) => dispatch({ type: SET_SOURCEURL, sourceurl }),
     setEmployer: (employer) => dispatch({ type: SET_EMPLOYER, employer }),
     setEmployerAddress: (employeraddress) => dispatch({ type: SET_EMPLOYER_ADDRESS, employeraddress }),

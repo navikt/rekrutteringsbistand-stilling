@@ -9,3 +9,10 @@ export function isValidUrl(input) {
     }
     return false;
 }
+
+export function adjustUrl(url) {
+    if (!url.startsWith('http')) {
+        return `https://${url}`;
+    }
+    return url;
+}
