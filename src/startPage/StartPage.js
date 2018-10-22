@@ -26,8 +26,10 @@ class StartPage extends React.Component {
                             href="/ads"
                             border
                         >
-                            <span className="StartPage__icon-pen" />
-                            <Systemtittel className="StartPage__systemtittel">Registrer ny stilling</Systemtittel>
+                            <div className="StartPage__panel-flex">
+                                <div className="StartPage__icon-pen" />
+                                <Systemtittel className="StartPage__systemtittel">Registrer ny stilling</Systemtittel>
+                            </div>
                         </LenkepanelBase>
                     </Column>
                 </Row>
