@@ -10,7 +10,7 @@ export const FETCH_MUNICIPAL_OR_COUNTRY_BEGIN = 'FETCH_MUNUCIPAL_OR_COUNTRY_BEGI
 export const FETCH_MUNICIPAL_OR_COUNTRY = 'FETCH_MUNUCIPAL_OR_COUNTRY';
 export const FETCH_MUNICIPAL_OR_COUNTRY_FAILURE = 'FETCH_MUNUCIPAL_OR_COUNTRY_FAILURE';
 
-export const SET_TYPE_AHEAD_VALUE = 'SET_TYPE_AHEAD_VALUE';
+export const SET_MUNICIPAL_OR_COUNTRY_TYPE_AHEAD = 'SET_MUNICIPAL_OR_COUNTRY_TYPE_AHEAD';
 
 /** *********************************************************
  * REDUCER
@@ -25,7 +25,7 @@ const initialState = {
 
 export default function reducer(state = initialState, action) {
     switch (action.type) {
-        case SET_TYPE_AHEAD_VALUE:
+        case SET_MUNICIPAL_OR_COUNTRY_TYPE_AHEAD:
             return {
                 ...state,
                 municipalOrCountry: action.value,
