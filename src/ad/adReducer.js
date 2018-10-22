@@ -51,6 +51,8 @@ export const HIDE_STOP_AD_MODAL = 'HIDE_STOP_AD_MODAL';
 export const SHOW_HAS_CHANGES_MODAL = 'SHOW_HAS_CHANGES_MODAL';
 export const HIDE_HAS_CHANGES_MODAL = 'HIDE_HAS_CHANGES_MODAL';
 
+export const DEFAULT_TITLE = 'Overskrift på annonsen';
+
 const initialState = {
     error: undefined,
     isSavingAd: false,
@@ -194,7 +196,7 @@ function* createAd() {
         const postUrl = `${AD_API}ads?classify=true`;
 
         const response = yield fetchPost(postUrl, {
-            title: 'Ny stilling',
+            title: DEFAULT_TITLE,
             createdBy: 'pam-rekrutteringsbistand',
             source: 'DIR',
             privacy: 'INTERNAL_NOT_SHOWN',

@@ -23,7 +23,8 @@ class Styrk extends React.Component {
     onTypeAheadSuggestionSelected = (suggestion) => {
         if (suggestion) {
             this.props.setStyrk(suggestion.value);
-            if (this.props.stilling.properties.jobtitle === undefined ) {
+            if (this.props.stilling.properties.jobtitle === undefined ||
+                this.props.stilling.properties.jobtitle === '') {
                 this.props.setJobTitle(suggestion.name);
             }
         }
@@ -57,7 +58,7 @@ class Styrk extends React.Component {
         return (
             <div className="Styrk">
                 <div className="skjemaelement__label typo-normal">
-                    <label htmlFor="Styrk__typeahead">Stilling/yrke*</label>
+                    <label htmlFor="Styrk__typeahead">STYRK*</label>
                     <span>
                         {'  '}
                         <LinkButton onClick={this.onShowListClick}>Velg fra liste</LinkButton>
@@ -67,7 +68,6 @@ class Styrk extends React.Component {
                     id="Styrk__typeahead"
                     label=""
                     className="Styrk__typeahead"
-                    placeholder="(STYRK)"
                     onSelect={this.onTypeAheadSuggestionSelected}
                     onChange={this.onTypeAheadValueChange}
                     suggestions={this.props.typeAheadSuggestions.map((styrk) => ({
