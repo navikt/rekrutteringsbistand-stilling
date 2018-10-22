@@ -56,8 +56,8 @@ export default function reducer(state = initialState, action) {
  ********************************************************* */
 function* fetchMunicipalOrCountry() {
     try {
-        const municipals = yield fetchGet(`${AD_API}/geography/municipals`);
-        const countries = yield fetchGet(`${AD_API}/geography/countries`);
+        const municipals = yield fetchGet(`${AD_API}geography/municipals`);
+        const countries = yield fetchGet(`${AD_API}geography/countries`);
         yield put({ type: FETCH_MUNICIPAL_OR_COUNTRY, response: { countries, municipals } });
     } catch (e) {
         yield put({ type: FETCH_MUNICIPAL_OR_COUNTRY_FAILURE });
