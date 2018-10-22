@@ -23,7 +23,7 @@ import JobDetails from './jobDetails/JobDetails';
 import Loading from '../../common/loading/Loading';
 import ContactPerson from './contactPerson/ContactPerson';
 import Application from './application/Application';
-import WorkAddress from './location/Location';
+import Location from './location/Location';
 
 class Edit extends React.Component {
 
@@ -248,8 +248,20 @@ class Edit extends React.Component {
                         >
                             <ContactPerson />
                         </Ekspanderbartpanel>
+<<<<<<< HEAD
                         <WorkAddress />
                         <Application />
+=======
+                        <Location />
+                        <Ekspanderbartpanel
+                            className="Edit__panel"
+                            tittel="Hvordan ønsker arbeidsgiver å motta søknader?"
+                            tittelProps="undertittel"
+                            border
+                            apen
+                        >
+                        </Ekspanderbartpanel>
+>>>>>>> Rename to Location
                         <Ekspanderbartpanel
                             className="Edit__panel"
                             tittel="Om annonsen"
