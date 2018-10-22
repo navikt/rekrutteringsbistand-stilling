@@ -1,7 +1,7 @@
 import { put, select, takeLatest } from 'redux-saga/es/effects';
+import { erDatoEtterMinDato } from 'nav-datovelger/dist/datovelger/utils/datovalidering';
 import { findLocationByPostalCode } from './edit/location/locationCodeReducer';
 import { toDate } from '../utils';
-import { erDatoEtterMinDato } from 'nav-datovelger/dist/datovelger/utils/datovalidering';
 
 import {
     SET_STYRK,
@@ -20,10 +20,8 @@ export const VALIDATE_ALL = 'VALIDATE_ALL';
 
 const valueIsNotSet = (value) => (value === undefined || value === null || value.length === 0);
 
-const locationIsCountryOrMunicipal = (location) => {
-    return location && (location.country || location.municipal) &&
-        !location.postalCode;
-};
+const locationIsCountryOrMunicipal = (location) => location && (location.country || location.municipal)
+        && !location.postalCode;
 
 function* validateLocation() {
     const state = yield select();
@@ -76,7 +74,7 @@ function* validateStyrk() {
 }
 
 function* validateTitle() {
-    const adTitle = yield select((state) => state.adData.title );
+    const adTitle = yield select((state) => state.adData.title);
     if (valueIsNotSet(adTitle)) {
         yield put({ type: ADD_VALIDATION_ERROR, field: 'title', message: 'Overskrift på annonsen mangler' });
     } else {
@@ -85,7 +83,7 @@ function* validateTitle() {
 }
 
 function* validateAdtext() {
-    const adText = yield select((state) => state.adData.properties.adtext );
+    const adText = yield select((state) => state.adData.properties.adtext);
     if (valueIsNotSet(adText)) {
         yield put({ type: ADD_VALIDATION_ERROR, field: 'adText', message: 'Annonsetekst mangler' });
     } else {
@@ -97,9 +95,9 @@ function* validateEmployer() {
     const state = yield select();
     const { employer } = state.adData;
 
-    if (employer === null || employer === undefined ||
-        valueIsNotSet(employer.name) ||
-        valueIsNotSet(employer.orgnr)) {
+    if (employer === null || employer === undefined
+        || valueIsNotSet(employer.name)
+        || valueIsNotSet(employer.orgnr)) {
         yield put({ type: ADD_VALIDATION_ERROR, field: 'employer', message: 'Navn på arbeidsgiver mangler' });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'employer' });
@@ -146,14 +144,14 @@ export function* validateAll() {
 }
 
 export function hasValidationErrors(validation) {
-    return validation.styrk !== undefined ||
-           validation.location !== undefined ||
-           validation.employer !== undefined ||
-           validation.expires !== undefined ||
-           validation.title !== undefined ||
-           validation.adText !== undefined ||
-           validation.publish !== undefined ||
-           validation.postalCode !== undefined;
+    return validation.styrk !== undefined
+           || validation.location !== undefined
+           || validation.employer !== undefined
+           || validation.expires !== undefined
+           || validation.title !== undefined
+           || validation.adText !== undefined
+           || validation.publish !== undefined
+           || validation.postalCode !== undefined;
 }
 
 const initialState = {
@@ -193,4 +191,3 @@ export const validationSaga = function* saga() {
     yield takeLatest(SET_AD_TEXT, validateAdtext);
     yield takeLatest(SET_AD_TITLE, validateTitle);
 };
-

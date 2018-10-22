@@ -105,7 +105,11 @@ Location.propTypes = {
         postalCode: PropTypes.string
     }),
     setAddress: PropTypes.func.isRequired,
-    setPostalCode: PropTypes.func.isRequired
+    setPostalCode: PropTypes.func.isRequired,
+    validation: PropTypes.shape({
+        location: PropTypes.string,
+        postalCode: PropTypes.string
+    })
 };
 
 const mapStateToProps = (state) => ({
