@@ -50,6 +50,10 @@ class MunicipalOrCountry extends React.Component {
         }
     };
 
+    onBlur = (e) => {
+        this.onMunicipalOrCountrySelect({ label: e });
+    };
+
     capitalizeWord = (word) => (
         word[0].toUpperCase() + word.substr(1).toLowerCase()
     );
@@ -59,12 +63,19 @@ class MunicipalOrCountry extends React.Component {
     locationIsMunicipal = (location) => location && location.municipal && !location.postalCode;
 
     render() {
+        const shouldShowInputError = (this.props.countries.length === 0 && this.props.municipals.length === 0)
+            && this.props.municipalOrCountry.length > 0
+            && !this.props.location.country
+            && !this.props.location.postalCode
+            && !this.props.location.municipal;
+
         return (
             <div className="MunicipalOrCountry__Typeahead">
                 <Typeahead
                     id="typeahead-municipal-country"
                     onChange={this.onMunicipalOrCountryChange}
                     onSelect={this.onMunicipalOrCountrySelect}
+                    onBlur={this.onBlur}
                     label="Skriv inn og velg"
                     suggestions={this.props.municipals.map((m) => ({
                         value: m.code,
@@ -79,9 +90,15 @@ class MunicipalOrCountry extends React.Component {
                     inputRef={(input) => {
                         this.refInputError = input;
                     }}
-                    error={this.props.validation.location !== undefined}
+                    error={this.props.validation.location !== undefined || shouldShowInputError}
                     placeholder="For eksempel: Drammen"
                 />
+                {this.props.validation.location && !shouldShowInputError && (
+                    <div className="Administration__error">{this.props.validation.location}</div>
+                )}
+                {shouldShowInputError && (
+                    <div className="Administration__error">Må være en kommune eller land utenfor Norge</div>
+                )}
             </div>
         );
     }

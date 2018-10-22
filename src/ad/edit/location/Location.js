@@ -84,15 +84,15 @@ class Location extends React.Component {
                                 ? location.city : ''}
                             disabled
                         />
+                        {this.props.validation.location && (
+                            <div className="Administration__error">{this.props.validation.location}</div>
+                        )}
                     </div>
                 )}
                 {this.state.radioChecked === 'municipalOrCountry' && (
                     <div className="Arbeidsstedsadresse">
                         <MunicipalOrCountry />
                     </div>
-                )}
-                {this.props.validation.location && (
-                    <div className="Administration__error">{this.props.validation.location}</div>
                 )}
             </Ekspanderbartpanel>
         );
