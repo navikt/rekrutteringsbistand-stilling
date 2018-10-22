@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Typeahead from '../../../common/typeahead/Typeahead';
 import { FETCH_MUNICIPAL_OR_COUNTRY_BEGIN, SET_TYPE_AHEAD_VALUE } from './municipalOrCountryReducer';
 import { SET_LOCATION } from '../../adDataReducer';
+import './Location.less';
 
 class MunicipalOrCountry extends React.Component {
     componentDidMount() {
@@ -59,7 +60,7 @@ class MunicipalOrCountry extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="MunicipalOrCountry__Typeahead">
                 <Typeahead
                     id="typeahead-municipal-country"
                     onChange={this.onMunicipalOrCountryChange}

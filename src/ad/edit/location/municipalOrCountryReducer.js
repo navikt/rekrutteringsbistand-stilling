@@ -35,7 +35,7 @@ export default function reducer(state = initialState, action) {
                     ? [] : state.countriesCache.filter((country) => country.name.toLowerCase().startsWith(action.value.toLowerCase())).slice(0, 5)
             };
         case FETCH_MUNICIPAL_OR_COUNTRY:
-            // Skal ikke være mulig å velge Norge, så Norge fra listen
+            // Skal ikke være mulig å velge Norge, så fjerner Norge fra listen
             const countries = action.response.countries.filter((l) => l.code !== 'NO');
             return {
                 ...state,
