@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 import { Input, SkjemaGruppe, Radio, Checkbox } from 'nav-frontend-skjema';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Column, Row } from 'nav-frontend-grid';
-import { Normaltekst } from 'nav-frontend-typografi';
 import { connect } from 'react-redux';
 import {
-    SET_APPLICATIONDUE, SET_APPLICATIONEMAIL, SET_APPLICATIONURL,
+    SET_APPLICATIONDUE,
     SET_EMPLOYER, SET_EMPLOYER_ADDRESS,
     SET_EMPLOYMENT_EXTENT,
     SET_EMPLOYMENT_LOCATION, SET_EMPLOYMENT_POSITIONCOUNT,
