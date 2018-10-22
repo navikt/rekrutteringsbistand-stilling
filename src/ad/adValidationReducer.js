@@ -1,6 +1,5 @@
 import { put, select, takeLatest } from 'redux-saga/es/effects';
 import { findLocationByPostalCode } from './administration/location/locationCodeReducer';
-import {FETCH_AD_SUCCESS, PUBLISH_AD_CHANGES, SAVE_AD_SUCCESS, PUBLISH_AD} from './adReducer';
 import { toDate } from '../utils';
 import {erDatoEtterMinDato} from 'nav-datovelger/dist/datovelger/utils/datovalidering';
 
@@ -11,12 +10,14 @@ import {
     SET_EXPIRATION_DATE,
     SET_PUBLISHED,
     SET_AD_TEXT,
-    SET_AD_TITLE
+    SET_AD_TITLE,
+    SET_APPLICATIONEMAIL
 } from './adDataReducer';
 
 const ADD_VALIDATION_ERROR = 'ADD_VALIDATION_ERROR';
 const REMOVE_VALIDATION_ERROR = 'REMOVE_VALIDATION_ERROR';
 export const VALIDATE_ALL = 'VALIDATE_ALL';
+export const VALIDATE_EMAIL = 'VALIDATE_EMAIL';
 
 const valueIsNotSet = (value) => (value === undefined || value === null || value.length === 0);
 
@@ -129,6 +130,19 @@ function* validatePublishDate() {
     }
 }
 
+function* validateEmail() {
+    const email = yield select((state) => state.adData.properties.applicationemail );
+
+    // E-postadressen må inneholde en '@' for å være gyldig
+    const error = (email.length > 0) && (email.indexOf('@') === -1);
+
+    if (error) {
+        yield put({ type: ADD_VALIDATION_ERROR, field: 'email', message: 'E-postadressen er ugyldig. Den må minimum inneholde en «@»' });
+    } else {
+        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'email' });
+    }
+}
+
 export function* validateAll() {
     const state = yield select();
     if (state.adData !== null) {
@@ -139,6 +153,7 @@ export function* validateAll() {
         yield validateTitle();
         yield validateStyrk();
         yield validateAdtext();
+        yield validateEmail();
     }
 }
 
@@ -150,6 +165,7 @@ export function hasValidationErrors(validation) {
            validation.title !== undefined ||
            validation.adText !== undefined ||
            validation.publish !== undefined
+           validation.email !== undefined
         ;
 }
 
@@ -188,5 +204,6 @@ export const validationSaga = function* saga() {
     yield takeLatest(SET_LOCATION_POSTAL_CODE, validateLocation);
     yield takeLatest(SET_AD_TEXT, validateAdtext);
     yield takeLatest(SET_AD_TITLE, validateTitle);
+    yield takeLatest(VALIDATE_EMAIL, validateEmail);
 };
 

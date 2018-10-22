@@ -14,13 +14,8 @@ import {
     SET_FACEBOOK_PAGE, SET_LINKEDIN_PAGE, SET_TWITTER_ADDRESS
 } from '../../adDataReducer';
 import EmployerName from './EmployerName';
+import { adjustUrl } from '../../../common/utils';
 
-function adjustUrl(url) {
-    if (!url.startsWith('http')) {
-        return `https://${url}`;
-    }
-    return url;
-}
 
 function adjustTwitterLink(url) {
     if (url.startsWith('@')) {
@@ -127,7 +122,6 @@ class Employer extends React.Component {
                         <Row className="blokk-l">
                             <Column xs="12">
                                 <Flatknapp
-                                    id="legg-til-addresser"
                                     onClick={this.onAddOnlineAddress}
                                     mini
                                 >
@@ -138,7 +132,6 @@ class Employer extends React.Component {
                     ) : (
                         <div>
                             <Input
-                                id="facebookside"
                                 label="Bedriftens side på Facebook"
                                 value={ad.properties.facebookpage
                                     ? (ad.properties.facebookpage)
@@ -149,7 +142,6 @@ class Employer extends React.Component {
                                 inputRef={(i) => { this.focusField = i; }}
                             />
                             <Input
-                                id="linkedinside"
                                 label="Bedriftens side på LinkedIn"
                                 value={ad.properties.linkedinpage
                                     ? (ad.properties.linkedinpage)
@@ -159,7 +151,6 @@ class Employer extends React.Component {
                                 placeholder="For eksempel: linkedin.com/company/firmanavn"
                             />
                             <Input
-                                id="twitteradresse"
                                 label="Bedriftens Twitteradresse"
                                 value={ad.properties.twitteraddress
                                     ? (ad.properties.twitteraddress)
