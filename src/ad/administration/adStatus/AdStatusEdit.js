@@ -8,17 +8,18 @@ import {
     PUBLISH_AD,
     SAVE_AD,
     PUBLISH_AD_CHANGES,
-    SHOW_STOP_AD_MODAL, SHOW_HAS_CHANGES_MODAL
+    SHOW_STOP_AD_MODAL,
+    SHOW_HAS_CHANGES_MODAL
 } from '../../adReducer';
 import PublishErrorModal from './PublishErrorModal';
 import LinkButton from '../../../common/linkbutton/LinkButton';
 import './AdStatusEdit.less';
 import HasChangesModal from './HasChangesModal';
 import StopAdModal from './StopAdModal';
+import AdPublishedModal from './AdPublishedModal';
 
 class AdStatusEdit extends React.Component {
     onPublishClick = () => {
-        // TODO: Ad modal for publishing
         this.props.publish();
     };
 
@@ -47,6 +48,7 @@ class AdStatusEdit extends React.Component {
                 <PublishErrorModal />
                 <HasChangesModal />
                 <StopAdModal />
+                <AdPublishedModal />
                 <div>
                     {adStatus === AdStatusEnum.INACTIVE && (
                         <div className="AdStatusEdit__buttons">

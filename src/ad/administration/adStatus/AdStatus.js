@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 import Alertstripe from 'nav-frontend-alertstriper';
 import AdStatusEnum from './AdStatusEnum';
 import './AdStatus.less';
+import PrivacyStatusEnum from '../publishing/PrivacyStatusEnum';
 
-function AdStatus({ adStatus }) {
+function AdStatus({ adStatus, originalData }) {
     return (
         <div className="AdStatusPreview">
             {adStatus === AdStatusEnum.INACTIVE && (
@@ -13,9 +14,14 @@ function AdStatus({ adStatus }) {
                     Stillingen er ikke publisert
                 </Alertstripe>
             )}
-            {adStatus === AdStatusEnum.ACTIVE && (
+            {adStatus === AdStatusEnum.ACTIVE && originalData.privacy === PrivacyStatusEnum.INTERNAL_NOT_SHOWN && (
                 <Alertstripe className="AdStatusPreview__Alertstripe" type="suksess" solid>
-                    Stillingen er publisert
+                    Stillingen er publisert internt i NAV
+                </Alertstripe>
+            )}
+            {adStatus === AdStatusEnum.ACTIVE && originalData.privacy === PrivacyStatusEnum.SHOW_ALL && (
+                <Alertstripe className="AdStatusPreview__Alertstripe" type="suksess" solid>
+                    Stillingen er publisert på arbeidsplassen.no
                 </Alertstripe>
             )}
             {adStatus === AdStatusEnum.STOPPED && (
@@ -27,12 +33,20 @@ function AdStatus({ adStatus }) {
     );
 }
 
+AdStatus.defaultProps = {
+    originalData: undefined
+};
+
 AdStatus.propTypes = {
-    adStatus: PropTypes.string.isRequired
+    adStatus: PropTypes.string.isRequired,
+    originalData: PropTypes.shape({
+        privacy: PropTypes.string
+    })
 };
 
 const mapStateToProps = (state) => ({
-    adStatus: state.adData.status
+    adStatus: state.adData.status,
+    originalData: state.ad.originalData
 });
 
 export default connect(mapStateToProps)(AdStatus);
