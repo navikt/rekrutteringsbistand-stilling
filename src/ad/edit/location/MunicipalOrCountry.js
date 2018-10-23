@@ -29,6 +29,7 @@ class MunicipalOrCountry extends React.Component {
             this.props.setLocation({
                 country: country.name,
                 municipal: undefined,
+                municipalCode: undefined,
                 address: undefined,
                 postalCode: undefined,
                 city: undefined
@@ -37,7 +38,9 @@ class MunicipalOrCountry extends React.Component {
         } else if (municipal) {
             this.props.setLocation({
                 municipal: municipal.name,
+                municipalCode: municipal.code,
                 country: undefined,
+                county: undefined,
                 address: undefined,
                 postalCode: undefined,
                 city: undefined
