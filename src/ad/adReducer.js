@@ -270,6 +270,7 @@ function* publishAd() {
     } else {
         yield put({ type: SET_ADMIN_STATUS, status: AdminStatusEnum.DONE });
         yield put({ type: SET_AD_STATUS, status: AdStatusEnum.ACTIVE });
+        yield put({ type: SHOW_AD_PUBLISHED_MODAL });
         yield save();
     }
 }

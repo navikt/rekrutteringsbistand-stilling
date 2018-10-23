@@ -9,8 +9,7 @@ import {
     SAVE_AD,
     PUBLISH_AD_CHANGES,
     SHOW_STOP_AD_MODAL,
-    SHOW_HAS_CHANGES_MODAL,
-    SHOW_AD_PUBLISHED_MODAL
+    SHOW_HAS_CHANGES_MODAL
 } from '../../adReducer';
 import PublishErrorModal from './PublishErrorModal';
 import LinkButton from '../../../common/linkbutton/LinkButton';
@@ -21,7 +20,6 @@ import AdPublishedModal from './AdPublishedModal';
 
 class AdStatusEdit extends React.Component {
     onPublishClick = () => {
-        this.props.showAdPublishedModal();
         this.props.publish();
     };
 
@@ -115,8 +113,7 @@ AdStatusEdit.propTypes = {
     stop: PropTypes.func.isRequired,
     saveAd: PropTypes.func.isRequired,
     showHasChangesModal: PropTypes.func.isRequired,
-    publishAdChanges: PropTypes.func.isRequired,
-    showAdPublishedModal: PropTypes.func.isRequired
+    publishAdChanges: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -131,8 +128,7 @@ const mapDispatchToProps = (dispatch) => ({
     stop: () => dispatch({ type: SHOW_STOP_AD_MODAL }),
     saveAd: () => dispatch({ type: SAVE_AD }),
     showHasChangesModal: () => dispatch({ type: SHOW_HAS_CHANGES_MODAL }),
-    publishAdChanges: () => dispatch({ type: PUBLISH_AD_CHANGES }),
-    showAdPublishedModal: () => dispatch({ type: SHOW_AD_PUBLISHED_MODAL })
+    publishAdChanges: () => dispatch({ type: PUBLISH_AD_CHANGES })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdStatusEdit);
