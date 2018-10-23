@@ -15,7 +15,7 @@ class Comment extends React.Component {
             <div className="Comment">
                 <Textarea
                     label="Notatfelt"
-                    maxLength={512}
+                    maxLength={400}
                     onChange={this.onChange}
                     value={this.props.comments || ''}
                     textareaClass="typo-normal Comment__textarea"
