@@ -5,6 +5,7 @@ import AdStatusEdit from './adStatus/AdStatusEdit';
 import Publishing from './publishing/Publishing';
 import Privacy from './publishing/Privacy';
 import AdminStatusPreview from './adminStatus/AdminStatusPreview';
+import Comment from './comment/Comment';
 import './Administration.less';
 
 export default function Administration() {
@@ -24,6 +25,9 @@ export default function Administration() {
                     </div>
                     <div className="Administration__panel">
                         <Privacy />
+                    </div>
+                    <div className="Administration__panel blokk-l">
+                        <Comment />
                     </div>
                 </div>
                 <div className="Administration__flex__bottom">
