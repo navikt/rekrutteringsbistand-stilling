@@ -8,17 +8,20 @@ import {
     PUBLISH_AD,
     SAVE_AD,
     PUBLISH_AD_CHANGES,
-    SHOW_STOP_AD_MODAL, SHOW_HAS_CHANGES_MODAL
+    SHOW_STOP_AD_MODAL,
+    SHOW_HAS_CHANGES_MODAL,
+    SHOW_AD_PUBLISHED_MODAL
 } from '../../adReducer';
 import PublishErrorModal from './PublishErrorModal';
 import LinkButton from '../../../common/linkbutton/LinkButton';
 import './AdStatusEdit.less';
 import HasChangesModal from './HasChangesModal';
 import StopAdModal from './StopAdModal';
+import AdPublishedModal from './AdPublishedModal';
 
 class AdStatusEdit extends React.Component {
     onPublishClick = () => {
-        // TODO: Ad modal for publishing
+        this.props.showAdPublishedModal();
         this.props.publish();
     };
 
@@ -47,6 +50,7 @@ class AdStatusEdit extends React.Component {
                 <PublishErrorModal />
                 <HasChangesModal />
                 <StopAdModal />
+                <AdPublishedModal />
                 <div>
                     {adStatus === AdStatusEnum.INACTIVE && (
                         <div className="AdStatusEdit__buttons">
@@ -111,7 +115,8 @@ AdStatusEdit.propTypes = {
     stop: PropTypes.func.isRequired,
     saveAd: PropTypes.func.isRequired,
     showHasChangesModal: PropTypes.func.isRequired,
-    publishAdChanges: PropTypes.func.isRequired
+    publishAdChanges: PropTypes.func.isRequired,
+    showAdPublishedModal: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -126,7 +131,8 @@ const mapDispatchToProps = (dispatch) => ({
     stop: () => dispatch({ type: SHOW_STOP_AD_MODAL }),
     saveAd: () => dispatch({ type: SAVE_AD }),
     showHasChangesModal: () => dispatch({ type: SHOW_HAS_CHANGES_MODAL }),
-    publishAdChanges: () => dispatch({ type: PUBLISH_AD_CHANGES })
+    publishAdChanges: () => dispatch({ type: PUBLISH_AD_CHANGES }),
+    showAdPublishedModal: () => dispatch({ type: SHOW_AD_PUBLISHED_MODAL })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdStatusEdit);

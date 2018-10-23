@@ -35,3 +35,5 @@ fasitResources:
       url: LOGIN_URL
   - alias: pamAdApiBackendSearch
     resourceType: baseurl
+  - alias: pamkandidatsok
+    resourceType: restservice

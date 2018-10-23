@@ -7,7 +7,7 @@ import './AdminStatusPreview.less';
 const AdminStatusPreview = ({ reportee }) => (
     <div className="AdminStatusPreview">
         <Normaltekst>
-            <b>Registrert av: </b>
+            <b>Saksbehandler: </b>
             {reportee || ''}
         </Normaltekst>
     </div>
