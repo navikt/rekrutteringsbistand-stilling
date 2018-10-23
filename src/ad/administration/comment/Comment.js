@@ -20,7 +20,6 @@ class Comment extends React.Component {
                     value={this.props.comments || ''}
                     textareaClass="typo-normal Comment__textarea"
                     placeholder="Legg inn notat"
-                    tellerTekst={() => {}}
                 />
             </div>
         );
