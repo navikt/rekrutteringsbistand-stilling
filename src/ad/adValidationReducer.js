@@ -132,10 +132,10 @@ function* validatePublishDate() {
 }
 
 function* validateEmail() {
-    const email = yield select((state) => state.adData.properties.applicationemail );
+    const email = yield select((state) => state.adData.properties.applicationemail);
 
     // E-postadressen må inneholde en '@' for å være gyldig
-    const error = (email.length > 0) && (email.indexOf('@') === -1);
+    const error = email && (email.length > 0) && (email.indexOf('@') === -1);
 
     if (error) {
         yield put({ type: ADD_VALIDATION_ERROR, field: 'email', message: 'E-postadressen er ugyldig. Den må minimum inneholde en «@»' });

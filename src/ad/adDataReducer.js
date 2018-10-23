@@ -3,6 +3,7 @@ import { lookUpStyrk } from './edit/jobDetails/styrk/styrkReducer';
 import { findLocationByPostalCode } from './edit/location/locationCodeReducer';
 import { FETCH_AD_BEGIN, FETCH_AD_SUCCESS, SAVE_AD_SUCCESS } from './adReducer';
 import AdStatusEnum from './administration/adStatus/AdStatusEnum';
+import PrivacyStatusEnum from './administration/publishing/PrivacyStatusEnum';
 
 export const SET_AD_DATA = 'SET_AD_DATA';
 export const REMOVE_AD_DATA = 'REMOVE_AD_DATA';
@@ -52,7 +53,7 @@ const initialState = {
     properties: {},
     status: AdStatusEnum.INACTIVE,
     administration: {},
-    privacy: 'INTERNAL_NOT_SHOWN'
+    privacy: PrivacyStatusEnum.INTERNAL_NOT_SHOWN
 };
 
 function findStyrkAndSkipAlternativeNames(code) {
