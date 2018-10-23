@@ -5,7 +5,6 @@ import NavFrontendModal from 'nav-frontend-modal';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import { HIDE_AD_PUBLISHED_MODAL } from '../../adReducer';
 import './AdPublishedModal.less';
-import { KANDIDATSOK_URL } from '../../../fasitProperties';
 
 class AdPublishedModal extends React.Component {
     onClose = () => {
@@ -30,7 +29,7 @@ class AdPublishedModal extends React.Component {
                     <Normaltekst className="blokk-l">
                         Ønsker du å finne kandidater til stillingen du publiserte?
                     </Normaltekst>
-                    <a href={KANDIDATSOK_URL} className="lenke">Finn kandidater</a>
+                    <a href="/kandidatsok" className="lenke">Finn kandidater</a>
                 </div>
             </NavFrontendModal>
         );
