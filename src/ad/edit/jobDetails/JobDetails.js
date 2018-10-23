@@ -10,11 +10,21 @@ import {
     SET_AD_TEXT,
     SET_EMPLOYMENT_JOBTITLE,
 } from '../../adDataReducer';
+import { DEFAULT_TITLE } from '../../adReducer';
 import Styrk from './styrk/Styrk';
 
 
 class JobDetails extends React.Component {
 
+
+    getAdTitle = () => {
+        // Hack for hiding the default title coming from backend
+        if(this.props.ad.title === DEFAULT_TITLE){
+            return '';
+        } else {
+            return this.props.ad.title || '';
+        }
+    };
 
     onTitleChange = (e) => {
         this.props.setAdTitle(e.target.value);
@@ -51,16 +61,17 @@ class JobDetails extends React.Component {
             >
                 <Input
                     label="Overskift på annonsen*"
-                    value={ad.title || ''}
+                    value={this.getAdTitle()}
                     placeholder="For eksempel: Engasjert barnehagelærer til Oslo-skole"
                     onChange={this.onTitleChange}
                     feil={this.createErrorObject(this.props.validation.title)}
                 />
                 <Styrk />
                 <Input
-                    label="Stillingstittel"
+                    label="Stilling/yrke"
                     value={ad.properties.jobtitle || ''}
                     onChange={this.onJobtitleChange}
+                    placeholder="Yrket som vises på stillingen"
                 />
                 <div className="blokk-xxs"><Normaltekst>Annonsetekst*</Normaltekst></div>
                 <RichTextEditor
@@ -68,10 +79,6 @@ class JobDetails extends React.Component {
                     onChange={this.onAdTextChange}
                     errorMessage={this.props.validation.adText}
                 />
-
-
-
-
             </Ekspanderbartpanel>
         );
     }
