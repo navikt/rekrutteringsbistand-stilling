@@ -14,7 +14,7 @@ function SearchResultCount({ count, isSearching }) {
     return (
         <div>
             <Systemtittel>
-                {count} stillinger
+                {count.toLocaleString('nb')} stillinger
             </Systemtittel>
         </div>
     );

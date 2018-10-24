@@ -36,7 +36,7 @@ class SearchPage extends React.Component {
                             mini
                             onClick={resetSearch}
                         >
-                            Nullstill søket
+                            Nullstill søk
                         </Flatknapp>
                     </div>
                 </div>

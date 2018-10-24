@@ -6,8 +6,11 @@ import {
 } from 'nav-frontend-skjema';
 import {
     ADD_PRIVACY_FILTER,
-    ADD_STATUS_FILTER, CHANGE_SOURCE_FILTER,
-    FETCH_ADS, REMOVE_PRIVACY_FILTER, REMOVE_STATUS_FILTER
+    ADD_STATUS_FILTER,
+    CHANGE_SOURCE_FILTER,
+    FETCH_ADS,
+    REMOVE_PRIVACY_FILTER,
+    REMOVE_STATUS_FILTER
 } from '../searchReducer';
 import StatusEnum from '../enums/AdStatusEnum';
 import PrivacyStatusEnum from '../enums/PrivacyStatusEnum';
@@ -108,7 +111,7 @@ Filter.propTypes = {
     removePrivacyFilter: PropTypes.func.isRequired,
     changeSourceFilter: PropTypes.func.isRequired,
     adStatus: PropTypes.arrayOf(PropTypes.string),
-    source: PropTypes.arrayOf(PropTypes.string),
+    source: PropTypes.string,
     privacy: PropTypes.arrayOf(PropTypes.string)
 };
 
