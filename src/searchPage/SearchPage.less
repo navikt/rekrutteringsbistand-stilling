@@ -14,13 +14,13 @@
 }
 
 .SearchPage__flex {
-  padding-top: 2rem;
   display: flex;
 }
 
 .SearchPage__flex__left {
   min-width: 17rem;
-  padding: 0 6rem 0 2rem;
+  margin-top: 5.5rem;
+  padding: 0 3rem 0 2rem;
 }
 
 .SearchPage__flex__right {
@@ -28,20 +28,22 @@
   margin-right: 2rem;
 }
 
-.SearchBox__wrapper {
-  margin-bottom: 2rem;
-  max-width: 40rem;
+.SearchPage__SearchBox__wrapper {
+  background: #e3edf8;
   display: flex;
+  border-bottom: 1px solid #d8d8d8;
+  width: 100%;
   align-items: center;
+  justify-content: center;
 }
 
-.SearchBox__wrapper__reset-search {
-  margin-left: 1rem;
+.SearchPage__SearchBox {
+  flex: auto;
+  max-width: 40rem;
+  margin: 2rem 1rem 2rem 0;
 }
 
-.SearchPage__button__right {
-  float: right;
-  position: relative;
-  top: -3.5rem;
+.SearchPage__ResultCount {
+  margin-top: 2.5rem;
 }
 
