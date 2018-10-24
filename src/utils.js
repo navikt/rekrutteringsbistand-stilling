@@ -1,3 +1,6 @@
+export const months = ['Januar', 'Februar', 'Mars', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September',
+    'Oktober', 'November', 'Desember'];
+
 const ISO_8601_DATE = /^\d{4}(-\d\d(-\d\d(T\d\d:\d\d(:\d\d)?(\.\d+)?(([+-]\d\d:\d\d)|Z)?)?)?)?$/i;
 
 export function isValidISOString(isoString) {
@@ -18,6 +21,10 @@ export function formatISOString(isoString, format = 'DD.MM.YYYY') {
             if (format === 'DD.MM.YYYY') {
                 const day = dt[2].split('T')[0];
                 return `${day}.${dt[1]}.${dt[0]}`;
+            } else if (format === 'D. MMMM YYYY TTTT') {
+                const day = dt[2].split('T')[0];
+                const time = dt[2].split('T')[1];
+                return `${day}. ${months[dt[1] - 1]} ${dt[0]} ${time.substr(0, 5)}`;
             }
             return isoString;
         }

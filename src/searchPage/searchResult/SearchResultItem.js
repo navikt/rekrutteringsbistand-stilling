@@ -13,7 +13,7 @@ const SearchResultItem = ({ ad }) => (
     <Row className="SearchResultItem">
         <Column md="1">
             <Normaltekst className="SearchResultItem__column">
-                {ad.created ? formatISOString(ad.created, 'DD.MM.YYYY') : ''}
+                {ad.created ? formatISOString(ad.created, 'D. MMMM YYYY TTTT') : ''}
             </Normaltekst>
         </Column>
         <Column md="4">

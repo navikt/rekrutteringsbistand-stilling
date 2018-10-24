@@ -2,31 +2,32 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
-    Checkbox, SkjemaGruppe
+    Checkbox, Radio, SkjemaGruppe
 } from 'nav-frontend-skjema';
 import {
-    CHANGE_PRIVACY_FILTER, CHANGE_SOURCE_FILTER,
-    CHANGE_STATUS_FILTER, FETCH_ADS
+    ADD_PRIVACY_FILTER,
+    ADD_STATUS_FILTER, CHANGE_SOURCE_FILTER,
+    FETCH_ADS, REMOVE_PRIVACY_FILTER, REMOVE_STATUS_FILTER
 } from '../searchReducer';
 import StatusEnum from '../enums/AdStatusEnum';
 import PrivacyStatusEnum from '../enums/PrivacyStatusEnum';
 
 class Filter extends React.Component {
     onPrivacyFilterChange = (e) => {
-        const { changePrivacyFilter } = this.props;
-        if (e.target.value !== 'Alle') {
-            changePrivacyFilter(e.target.value);
+        const { addPrivacyFilter, removePrivacyFilter } = this.props;
+        if (e.target.checked) {
+            addPrivacyFilter(e.target.value);
         } else {
-            changePrivacyFilter(undefined);
+            removePrivacyFilter(e.target.value);
         }
     };
 
     onStatusFilterChange = (e) => {
-        const { changeStatusFilter } = this.props;
-        if (e.target.value !== 'Alle') {
-            changeStatusFilter(e.target.value);
+        const { addStatusFilter, removeStatusFilter } = this.props;
+        if (e.target.checked) {
+            addStatusFilter(e.target.value);
         } else {
-            changeStatusFilter(undefined);
+            removeStatusFilter(e.target.value);
         }
     };
 
@@ -54,7 +55,7 @@ class Filter extends React.Component {
                             key={key}
                             label={StatusEnum[key]}
                             value={key}
-                            checked={adStatus === key}
+                            checked={adStatus.includes(key)}
                             name="adStatus"
                             onChange={this.onStatusFilterChange}
                         />
@@ -67,20 +68,20 @@ class Filter extends React.Component {
                             label={PrivacyStatusEnum[key]}
                             value={key}
                             name="privacyStatus"
-                            checked={privacy === key}
+                            checked={privacy.includes(key)}
                             onChange={this.onPrivacyFilterChange}
                         />
                     ))}
                 </SkjemaGruppe>
                 <SkjemaGruppe title="Kilde" className="blokk-s">
-                    <Checkbox
+                    <Radio
                         label="Alle"
                         value="Alle"
                         checked={source === undefined}
                         name="adminStatus"
                         onChange={this.onSourceFilterChange}
                     />
-                    <Checkbox
+                    <Radio
                         label="Direktemeldt stilling"
                         value="DIR"
                         checked={source === 'DIR'}
@@ -94,31 +95,35 @@ class Filter extends React.Component {
 }
 
 Filter.defaultProps = {
-    adStatus: undefined,
+    adStatus: [],
     source: undefined,
-    privacy: undefined
+    privacy: []
 };
 
 Filter.propTypes = {
     search: PropTypes.func.isRequired,
-    changeStatusFilter: PropTypes.func.isRequired,
-    changePrivacyFilter: PropTypes.func.isRequired,
+    addStatusFilter: PropTypes.func.isRequired,
+    removeStatusFilter: PropTypes.func.isRequired,
+    addPrivacyFilter: PropTypes.func.isRequired,
+    removePrivacyFilter: PropTypes.func.isRequired,
     changeSourceFilter: PropTypes.func.isRequired,
-    adStatus: PropTypes.string,
-    source: PropTypes.string,
-    privacy: PropTypes.string
+    adStatus: PropTypes.arrayOf(PropTypes.string),
+    source: PropTypes.arrayOf(PropTypes.string),
+    privacy: PropTypes.arrayOf(PropTypes.string)
 };
 
 const mapStateToProps = (state) => ({
     adStatus: state.search.status,
     source: state.search.source,
-    privacy: state.search.source
+    privacy: state.search.privacy
 });
 
 const mapDispatchToProps = (dispatch) => ({
     search: () => dispatch({ type: FETCH_ADS }),
-    changePrivacyFilter: (value) => dispatch({ type: CHANGE_PRIVACY_FILTER, value }),
-    changeStatusFilter: (value) => dispatch({ type: CHANGE_STATUS_FILTER, value }),
+    addPrivacyFilter: (value) => dispatch({ type: ADD_PRIVACY_FILTER, value }),
+    removePrivacyFilter: (value) => dispatch({ type: REMOVE_PRIVACY_FILTER, value }),
+    addStatusFilter: (value) => dispatch({ type: ADD_STATUS_FILTER, value }),
+    removeStatusFilter: (value) => dispatch({ type: REMOVE_STATUS_FILTER, value }),
     changeSourceFilter: (value) => dispatch({ type: CHANGE_SOURCE_FILTER, value })
 });
 

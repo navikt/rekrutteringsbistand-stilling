@@ -14,8 +14,7 @@ function SearchResultCount({ count, isSearching }) {
     return (
         <div>
             <Systemtittel>
-                {count}
-                stillinger
+                {count} stillinger
             </Systemtittel>
         </div>
     );

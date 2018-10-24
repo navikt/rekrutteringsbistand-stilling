@@ -51,7 +51,7 @@ class MunicipalOrCountry extends React.Component {
 
     onMunicipalOrCountryChange = (value) => {
         if (value !== undefined) {
-            this.props.setLocation({ municipal: undefined });
+            this.props.setLocation({ municipal: undefined, country: undefined });
             this.props.setTypeAheadValue(value);
         }
     };
@@ -71,6 +71,7 @@ class MunicipalOrCountry extends React.Component {
     render() {
         const shouldShowInputError = (this.props.countries.length === 0 && this.props.municipals.length === 0)
             && this.props.municipalOrCountry.length > 0
+            && !this.props.location.country
             && !this.props.location.municipal;
 
         return (

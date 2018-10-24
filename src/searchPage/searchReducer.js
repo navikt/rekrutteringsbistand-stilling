@@ -1,5 +1,4 @@
 import { put, select, takeLatest } from 'redux-saga/effects';
-import AdStatusEnum from '../ad/administration/adStatus/AdStatusEnum';
 import { ApiError, fetchAds } from '../api/api';
 
 export const FETCH_ADS = 'FETCH_ADS';
@@ -11,8 +10,10 @@ export const CHANGE_PAGE = 'CHANGE_PAGE';
 export const RESET_PAGE = 'RESET_PAGE';
 export const SET_SEARCH_VALUE = 'SET_SEARCH_VALUE';
 export const SET_SEARCH_FIELD = 'SET_SEARCH_FIELD';
-export const CHANGE_PRIVACY_FILTER = 'CHANGE_PRIVACY_FILTER';
-export const CHANGE_STATUS_FILTER = 'CHANGE_STATUS_FILTER';
+export const ADD_PRIVACY_FILTER = 'ADD_PRIVACY_FILTER';
+export const REMOVE_PRIVACY_FILTER = 'REMOVE_PRIVACY_FILTER';
+export const ADD_STATUS_FILTER = 'ADD_STATUS_FILTER';
+export const REMOVE_STATUS_FILTER = 'REMOVE_STATUS_FILTER';
 export const CHANGE_SOURCE_FILTER = 'CHANGE_SOURCE_FILTER';
 export const RESET_SEARCH = 'RESET_SEARCH';
 
@@ -34,10 +35,9 @@ const initialState = {
     value: '',
     field: undefined,
     suggestions: [],
-    privacy: undefined,
-    status: AdStatusEnum.INACTIVE,
-    source: undefined,
-    adsBeingSaved: []
+    privacy: [],
+    status: [],
+    source: undefined
 };
 
 export default function searchReducer(state = initialState, action) {
@@ -66,15 +66,31 @@ export default function searchReducer(state = initialState, action) {
                 ...state,
                 field: action.field
             };
-        case CHANGE_PRIVACY_FILTER:
+        case ADD_PRIVACY_FILTER:
             return {
                 ...state,
-                privacy: action.value
+                privacy: [
+                    ...state.privacy,
+                    action.value
+                ]
             };
-        case CHANGE_STATUS_FILTER:
+        case REMOVE_PRIVACY_FILTER:
             return {
                 ...state,
-                status: action.value
+                privacy: state.privacy.filter((p) => p !== action.value)
+            };
+        case ADD_STATUS_FILTER:
+            return {
+                ...state,
+                status: [
+                    ...state.status,
+                    action.value
+                ]
+            };
+        case REMOVE_STATUS_FILTER:
+            return {
+                ...state,
+                status: state.status.filter((s) => s !== action.value)
             };
         case CHANGE_SOURCE_FILTER:
             return {
@@ -126,13 +142,21 @@ export function toQuery(search) {
     const {
         sortField, sortDir, page, privacy, status, source
     } = search;
-    const query = {
-        privacy,
-        status,
+
+    let query = {
         sort: `${sortField},${sortDir}`,
         page,
         source
     };
+
+    if (status.length !== 0) {
+        query = { ...query, status };
+    }
+
+    if (privacy.length !== 0) {
+        query = { ...query, privacy };
+    }
+
     query[search.field] = search.value;
     return query;
 }
@@ -161,9 +185,11 @@ function* getAds(action) {
 export const searchSaga = function* saga() {
     yield takeLatest([
         RESET_SEARCH,
-        CHANGE_PRIVACY_FILTER,
-        CHANGE_STATUS_FILTER,
+        ADD_STATUS_FILTER,
+        REMOVE_STATUS_FILTER,
         CHANGE_SOURCE_FILTER,
+        ADD_PRIVACY_FILTER,
+        REMOVE_PRIVACY_FILTER,
         SET_SEARCH_FIELD,
         CHANGE_SORTING,
         CHANGE_PAGE,
