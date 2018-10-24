@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Fieldset, Radio } from 'nav-frontend-skjema';
 import { SET_PRIVACY } from '../../adDataReducer';
 import './Publishing.less';
+import PrivacyStatusEnum from './PrivacyStatusEnum';
 
 class Privacy extends React.Component {
 
@@ -18,16 +19,16 @@ class Privacy extends React.Component {
                 <Fieldset legend="Hvor skal stillingen publiseres?*">
                     <Radio
                         label="Publiser kun internt i NAV"
-                        value="INTERNAL_NOT_SHOWN"
+                        value={PrivacyStatusEnum.INTERNAL_NOT_SHOWN}
                         name="privacy"
-                        checked={privacy === 'INTERNAL_NOT_SHOWN'}
+                        checked={privacy === PrivacyStatusEnum.INTERNAL_NOT_SHOWN}
                         onChange={this.onPrivacyChange}
                     />
                     <Radio
                         label="Publiser på nav.no og internt i NAV"
-                        value="SHOW_ALL"
+                        value={PrivacyStatusEnum.SHOW_ALL}
                         name="privacy"
-                        checked={privacy === 'SHOW_ALL'}
+                        checked={privacy === PrivacyStatusEnum.SHOW_ALL}
                         onChange={this.onPrivacyChange}
                     />
                 </Fieldset>

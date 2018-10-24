@@ -2,7 +2,7 @@ import { put, select, takeLatest } from 'redux-saga/es/effects';
 import { erDatoEtterMinDato } from 'nav-datovelger/dist/datovelger/utils/datovalidering';
 import { findLocationByPostalCode } from './edit/location/locationCodeReducer';
 import { toDate } from '../utils';
-
+import { DEFAULT_TITLE } from './adReducer';
 import {
     SET_STYRK,
     SET_EMPLOYER,
@@ -77,7 +77,7 @@ function* validateStyrk() {
 
 function* validateTitle() {
     const adTitle = yield select((state) => state.adData.title);
-    if (valueIsNotSet(adTitle)) {
+    if (valueIsNotSet(adTitle) || (adTitle === DEFAULT_TITLE)) {
         yield put({ type: ADD_VALIDATION_ERROR, field: 'title', message: 'Overskrift på annonsen mangler' });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'title' });
@@ -132,10 +132,10 @@ function* validatePublishDate() {
 }
 
 function* validateEmail() {
-    const email = yield select((state) => state.adData.properties.applicationemail );
+    const email = yield select((state) => state.adData.properties.applicationemail);
 
     // E-postadressen må inneholde en '@' for å være gyldig
-    const error = (email.length > 0) && (email.indexOf('@') === -1);
+    const error = email && (email.length > 0) && (email.indexOf('@') === -1);
 
     if (error) {
         yield put({ type: ADD_VALIDATION_ERROR, field: 'email', message: 'E-postadressen er ugyldig. Den må minimum inneholde en «@»' });
