@@ -6,12 +6,13 @@ import { Column, Row } from 'nav-frontend-grid';
 import { connect } from 'react-redux';
 import {
     SET_APPLICATIONDUE,
-    SET_EMPLOYER, SET_EMPLOYER_ADDRESS,
+    SET_EMPLOYER,
     SET_EMPLOYMENT_EXTENT,
-    SET_EMPLOYMENT_LOCATION, SET_EMPLOYMENT_POSITIONCOUNT,
-    SET_EMPLOYMENT_SECTOR, SET_EMPLOYMENT_STARTTIME, SET_EMPLOYMENT_WORKDAY,
-    SET_EMPLOYMENT_WORKHOURS, SET_ID, SET_LAST_UPDATED,
-    SET_MEDIUM, SET_REFERENCE, SET_SOURCEURL
+    SET_EMPLOYMENT_POSITIONCOUNT,
+    SET_EMPLOYMENT_SECTOR,
+    SET_EMPLOYMENT_STARTTIME,
+    SET_EMPLOYMENT_WORKDAY,
+    SET_EMPLOYMENT_WORKHOURS
 } from '../adDataReducer';
 import './Edit.less';
 import EngagementType from './engagementType/EngagementType';
@@ -23,13 +24,9 @@ import Loading from '../../common/loading/Loading';
 import ContactPerson from './contactPerson/ContactPerson';
 import Application from './application/Application';
 import Location from './location/Location';
+import { formatISOString } from '../../utils';
 
 class Edit extends React.Component {
-
-
-    onLocationChange = (e) => {
-        this.props.setEmploymentLocation(e.target.value);
-    };
 
     onExtentChange = (e) => {
         this.props.setExtent(e.target.value);
@@ -59,35 +56,8 @@ class Edit extends React.Component {
         this.props.setApplicationDue(e.target.value);
     };
 
-
-    onSourceUrlChange = (e) => {
-        this.props.setSourceUrl(e.target.value);
-    };
-
-    onEmployerAddressChange = (e) => {
-        this.props.setEmployerAddress(e.target.value);
-    };
-
-    onLastUpdatedChange = (e) => {
-        this.props.setLastUpdated(e.target.value);
-    };
-
-    onMediumChange = (e) => {
-        this.props.setMedium(e.target.value);
-    };
-
-    onIdChange = (e) => {
-        this.props.setId(e.target.value);
-    };
-
-    onReferenceChange = (e) => {
-        this.props.setReference(e.target.value);
-    };
-
-
-
     render() {
-        const { ad, isFetchingStilling, validation } = this.props;
+        const { ad, isFetchingStilling } = this.props;
 
         if (isFetchingStilling) {
             return (
@@ -258,19 +228,17 @@ class Edit extends React.Component {
                         >
                             <Input
                                 label="Sist endret"
-                                value={ad.updated || ''}
-                                onChange={this.onLastUpdatedChange}
+                                value={ad.updated !== ad.created ? formatISOString(ad.updated, 'DD.MM.YYYY') : ''}
                                 disabled
                             />
                             <Input
-                                label="Hentet fra"
+                                label="Hentet fra/kilde"
                                 value={ad.medium || ''}
-                                onChange={this.onMediumChange}
+                                disabled
                             />
                             <Input
                                 label="Stillingsnummer"
                                 value={ad.id || ''}
-                                onChange={this.onIdChange}
                                 disabled
                             />
                         </Ekspanderbartpanel>
@@ -283,9 +251,12 @@ class Edit extends React.Component {
 
 Edit.propTypes = {
     ad: PropTypes.shape({
-        title: PropTypes.string
+        title: PropTypes.string,
+        updated: PropTypes.string,
+        created: PropTypes.string,
+        medium: PropTypes.string,
+        id: PropTypes.number
     }),
-    setEmploymentLocation: PropTypes.func.isRequired,
     setExtent: PropTypes.func.isRequired,
     setPositionCount: PropTypes.func.isRequired,
     setSector: PropTypes.func.isRequired,
@@ -293,12 +264,6 @@ Edit.propTypes = {
     setWorkHours: PropTypes.func.isRequired,
     setStartTime: PropTypes.func.isRequired,
     setApplicationDue: PropTypes.func.isRequired,
-    setSourceUrl: PropTypes.func.isRequired,
-    setEmployerAddress: PropTypes.func.isRequired,
-    setLastUpdated: PropTypes.func.isRequired,
-    setMedium: PropTypes.func.isRequired,
-    setId: PropTypes.func.isRequired,
-    setReference: PropTypes.func.isRequired,
     validation: PropTypes.shape({
         title: PropTypes.string
     }).isRequired,
@@ -312,8 +277,6 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-
-    setEmploymentLocation: (location) => dispatch({ type: SET_EMPLOYMENT_LOCATION, location }),
     setExtent: (extent) => dispatch({ type: SET_EMPLOYMENT_EXTENT, extent }),
     setPositionCount: (positioncount) => dispatch({ type: SET_EMPLOYMENT_POSITIONCOUNT, positioncount }),
     setSector: (sector) => dispatch({ type: SET_EMPLOYMENT_SECTOR, sector }),
@@ -321,13 +284,7 @@ const mapDispatchToProps = (dispatch) => ({
     setWorkHours: (workhours) => dispatch({ type: SET_EMPLOYMENT_WORKHOURS, workhours }),
     setStartTime: (starttime) => dispatch({ type: SET_EMPLOYMENT_STARTTIME, starttime }),
     setApplicationDue: (applicationdue) => dispatch({ type: SET_APPLICATIONDUE, applicationdue }),
-    setSourceUrl: (sourceurl) => dispatch({ type: SET_SOURCEURL, sourceurl }),
-    setEmployer: (employer) => dispatch({ type: SET_EMPLOYER, employer }),
-    setEmployerAddress: (employeraddress) => dispatch({ type: SET_EMPLOYER_ADDRESS, employeraddress }),
-    setLastUpdated: (updated) => dispatch({ type: SET_LAST_UPDATED, updated }),
-    setMedium: (medium) => dispatch({ type: SET_MEDIUM, medium }),
-    setId: (id) => dispatch({ type: SET_ID, id }),
-    setReference: (reference) => dispatch({ type: SET_REFERENCE, reference }),
+    setEmployer: (employer) => dispatch({ type: SET_EMPLOYER, employer })
 });
 
 
