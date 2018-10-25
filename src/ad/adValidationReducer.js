@@ -11,7 +11,6 @@ import {
     SET_PUBLISHED,
     SET_AD_TEXT,
     SET_AD_TITLE,
-    SET_APPLICATIONEMAIL,
     SET_LOCATION,
     SET_COMMENT
 } from './adDataReducer';
@@ -67,11 +66,12 @@ function* validatePostalCode() {
     }
 }
 
-function* validateStyrk() {
+export function* validateStyrk() {
     const state = yield select();
     const { categoryList } = state.adData;
+    const { originalData } = state.ad;
 
-    if (valueIsNotSet(categoryList)) {
+    if (valueIsNotSet(categoryList) && !valueIsNotSet(originalData.categoryList)) {
         yield put({ type: ADD_VALIDATION_ERROR, field: 'styrk', message: 'STYRK mangler' });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'styrk' });

@@ -40,6 +40,11 @@ class SaveAdErrorModal extends React.Component {
                             {validation.comment}
                         </li>
                     )}
+                    {validation.styrk && (
+                        <li className="skjemaelement__feilmelding">
+                            {validation.styrk}
+                        </li>
+                    )}
                 </ul>
                 <Hovedknapp onClick={this.onClose}>
                     Lukk
@@ -53,7 +58,8 @@ SaveAdErrorModal.propTypes = {
     showAdSavedErrorModal: PropTypes.bool.isRequired,
     validation: PropTypes.shape({
         title: PropTypes.string,
-        comments: PropTypes.string
+        comments: PropTypes.string,
+        styrk: PropTypes.string
     }).isRequired,
     closeModal: PropTypes.func.isRequired
 };

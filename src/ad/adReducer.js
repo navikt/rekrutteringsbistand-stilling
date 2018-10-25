@@ -9,19 +9,20 @@ import {
     SET_AD_DATA,
     SET_AD_STATUS,
     SET_ADMIN_STATUS,
-    SET_EMPLOYER,
+    SET_COMMENT,
     SET_EXPIRATION_DATE,
-    SET_LOCATION_POSTAL_CODE,
     SET_PRIVACY,
     SET_PUBLISHED,
     SET_REPORTEE,
-    SET_STYRK,
     SET_UPDATED_BY
 } from './adDataReducer';
 import AdminStatusEnum from './administration/adminStatus/AdminStatusEnum';
 import AdStatusEnum from './administration/adStatus/AdStatusEnum';
-import { hasValidationErrors, validateAll, validateComment, validateTitle } from './adValidationReducer';
+import {
+    hasValidationErrors, validateAll, validateComment, validateStyrk, validateTitle
+} from './adValidationReducer';
 import PrivacyStatusEnum from './administration/publishing/PrivacyStatusEnum';
+import { showAlertStripe } from './alertstripe/SavedAdAlertStripeReducer';
 
 export const FETCH_AD = 'FETCH_AD';
 export const FETCH_AD_BEGIN = 'FETCH_AD_BEGIN';
@@ -88,6 +89,14 @@ export default function adReducer(state = initialState, action) {
                 originalData: undefined
             };
         case FETCH_AD_SUCCESS:
+            if (action.response.status === AdStatusEnum.ACTIVE) {
+                return {
+                    ...state,
+                    isFetchingStilling: false,
+                    isEditingAd: false,
+                    originalData: { ...action.response }
+                };
+            }
             return {
                 ...state,
                 isFetchingStilling: false,
@@ -110,6 +119,15 @@ export default function adReducer(state = initialState, action) {
             };
         case CREATE_AD_SUCCESS:
         case SAVE_AD_SUCCESS:
+            if (action.response.status === AdStatusEnum.ACTIVE) {
+                return {
+                    ...state,
+                    isSavingAd: false,
+                    hasSavedChanges: true,
+                    isEditingAd: false,
+                    originalData: { ...action.response }
+                };
+            }
             return {
                 ...state,
                 isSavingAd: false,
@@ -184,12 +202,10 @@ export default function adReducer(state = initialState, action) {
                 ...state,
                 showAdSavedErrorModal: false
             };
-        case SET_EMPLOYER:
-        case SET_LOCATION_POSTAL_CODE:
-        case SET_STYRK:
         case SET_PUBLISHED:
         case SET_EXPIRATION_DATE:
         case SET_PRIVACY:
+        case SET_COMMENT:
             return {
                 ...state,
                 hasChanges: true
@@ -298,12 +314,15 @@ function* stopAd() {
 function* saveAd() {
     yield validateTitle();
     yield validateComment();
+    yield validateStyrk();
     const state = yield select();
     if (state.adValidation.errors.title !== undefined
-        || state.adValidation.errors.comment !== undefined) {
+        || state.adValidation.errors.comment !== undefined
+        || state.adValidation.errors.styrk !== undefined) {
         yield put({ type: SHOW_AD_SAVED_ERROR_MODAL });
     } else {
         yield save();
+        yield showAlertStripe();
     }
 }
 

@@ -20,7 +20,7 @@ import SearchPage from './searchPage/SearchPage';
 import reporteeReducer from './reportee/reporteeReducer';
 import adDataReducer, { adDataSaga } from './ad/adDataReducer';
 import adValidationReducer, { validationSaga } from './ad/adValidationReducer';
-import savedSearchAlertStripeReducer, { savedSearchAlertStripeSaga } from './ad/alertstripe/SavedAdAlertStripeReducer';
+import savedSearchAlertStripeReducer from './ad/alertstripe/SavedAdAlertStripeReducer';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -45,7 +45,6 @@ sagaMiddleware.run(styrkSaga);
 sagaMiddleware.run(searchSaga);
 sagaMiddleware.run(adDataSaga);
 sagaMiddleware.run(municipalOrCountrySaga);
-sagaMiddleware.run(savedSearchAlertStripeSaga);
 
 initShortcuts();
 

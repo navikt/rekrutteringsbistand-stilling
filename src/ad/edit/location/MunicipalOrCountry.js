@@ -8,6 +8,7 @@ import {
 } from './municipalOrCountryReducer';
 import { SET_LOCATION } from '../../adDataReducer';
 import './Location.less';
+import capitalizeLocation from './capitalizeLocation';
 
 class MunicipalOrCountry extends React.Component {
     componentDidMount() {
@@ -15,9 +16,9 @@ class MunicipalOrCountry extends React.Component {
         const { location } = this.props;
         let municipalOrCountry = '';
         if (this.locationIsCountry(location)) {
-            municipalOrCountry = this.capitalizeWord(location.country);
+            municipalOrCountry = capitalizeLocation(location.country);
         } else if (this.locationIsMunicipal(location)) {
-            municipalOrCountry = this.capitalizeWord(location.municipal);
+            municipalOrCountry = capitalizeLocation(location.municipal);
         }
         this.props.setTypeAheadValue(municipalOrCountry);
     }
@@ -34,7 +35,7 @@ class MunicipalOrCountry extends React.Component {
                 postalCode: undefined,
                 city: undefined
             });
-            this.props.setTypeAheadValue(this.capitalizeWord(country.name));
+            this.props.setTypeAheadValue(capitalizeLocation(country.name));
         } else if (municipal) {
             this.props.setLocation({
                 municipal: municipal.name,
@@ -45,7 +46,7 @@ class MunicipalOrCountry extends React.Component {
                 postalCode: undefined,
                 city: undefined
             });
-            this.props.setTypeAheadValue(this.capitalizeWord(municipal.name));
+            this.props.setTypeAheadValue(capitalizeLocation(municipal.name));
         }
     };
 
@@ -59,10 +60,6 @@ class MunicipalOrCountry extends React.Component {
     onBlur = (e) => {
         this.onMunicipalOrCountrySelect({ label: e });
     };
-
-    capitalizeWord = (word) => (
-        word[0].toUpperCase() + word.substr(1).toLowerCase()
-    );
 
     locationIsCountry = (location) => location && location.country && !location.postalCode && !location.municipal
 
@@ -84,11 +81,11 @@ class MunicipalOrCountry extends React.Component {
                     label="Skriv inn og velg"
                     suggestions={this.props.municipals.map((m) => ({
                         value: m.code,
-                        label: this.capitalizeWord(m.name)
+                        label: capitalizeLocation(m.name)
                     }))}
                     optionalSuggestions={this.props.countries.map((c) => ({
                         value: c.code,
-                        label: this.capitalizeWord(c.name)
+                        label: capitalizeLocation(c.name)
                     }))}
                     value={this.props.municipalOrCountry}
                     minLength={1}
