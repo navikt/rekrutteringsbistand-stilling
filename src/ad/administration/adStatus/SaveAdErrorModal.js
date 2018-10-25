@@ -30,9 +30,16 @@ class SaveAdErrorModal extends React.Component {
                     Stillingen kan ikke lagres før følgende feil er rettet:
                 </Normaltekst>
                 <ul className="blokk-l">
-                    <li className="skjemaelement__feilmelding">
-                        {validation.title}
-                    </li>
+                    {validation.title && (
+                        <li className="skjemaelement__feilmelding">
+                            {validation.title}
+                        </li>
+                    )}
+                    {validation.comment && (
+                        <li className="skjemaelement__feilmelding">
+                            {validation.comment}
+                        </li>
+                    )}
                 </ul>
                 <Hovedknapp onClick={this.onClose}>
                     Lukk
@@ -45,7 +52,8 @@ class SaveAdErrorModal extends React.Component {
 SaveAdErrorModal.propTypes = {
     showAdSavedErrorModal: PropTypes.bool.isRequired,
     validation: PropTypes.shape({
-        title: PropTypes.string
+        title: PropTypes.string,
+        comments: PropTypes.string
     }).isRequired,
     closeModal: PropTypes.func.isRequired
 };

@@ -20,7 +20,7 @@ import {
 } from './adDataReducer';
 import AdminStatusEnum from './administration/adminStatus/AdminStatusEnum';
 import AdStatusEnum from './administration/adStatus/AdStatusEnum';
-import { hasValidationErrors, validateAll, validateTitle } from './adValidationReducer';
+import { hasValidationErrors, validateAll, validateComment, validateTitle } from './adValidationReducer';
 import PrivacyStatusEnum from './administration/publishing/PrivacyStatusEnum';
 
 export const FETCH_AD = 'FETCH_AD';
@@ -297,8 +297,10 @@ function* stopAd() {
 
 function* saveAd() {
     yield validateTitle();
+    yield validateComment();
     const state = yield select();
-    if (state.adValidation.errors.title !== undefined) {
+    if (state.adValidation.errors.title !== undefined
+        || state.adValidation.errors.comment !== undefined) {
         yield put({ type: SHOW_AD_SAVED_ERROR_MODAL });
     } else {
         yield save();
