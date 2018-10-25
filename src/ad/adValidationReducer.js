@@ -78,7 +78,7 @@ function* validateStyrk() {
     }
 }
 
-function* validateTitle() {
+export function* validateTitle() {
     const adTitle = yield select((state) => state.adData.title);
     if (valueIsNotSet(adTitle) || (adTitle === DEFAULT_TITLE)) {
         yield put({ type: ADD_VALIDATION_ERROR, field: 'title', message: 'Overskrift på annonsen mangler' });

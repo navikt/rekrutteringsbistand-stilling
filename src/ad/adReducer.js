@@ -20,7 +20,7 @@ import {
 } from './adDataReducer';
 import AdminStatusEnum from './administration/adminStatus/AdminStatusEnum';
 import AdStatusEnum from './administration/adStatus/AdStatusEnum';
-import { hasValidationErrors, validateAll } from './adValidationReducer';
+import { hasValidationErrors, validateAll, validateTitle } from './adValidationReducer';
 import PrivacyStatusEnum from './administration/publishing/PrivacyStatusEnum';
 
 export const FETCH_AD = 'FETCH_AD';
@@ -56,6 +56,9 @@ export const HIDE_HAS_CHANGES_MODAL = 'HIDE_HAS_CHANGES_MODAL';
 export const SHOW_AD_PUBLISHED_MODAL = 'SHOW_AD_PUBLISHED_MODAL';
 export const HIDE_AD_PUBLISHED_MODAL = 'HIDE_AD_PUBLISHED_MODAL';
 
+export const SHOW_AD_SAVED_ERROR_MODAL = 'SHOW_AD_SAVED_ERROR_MODAL';
+export const HIDE_AD_SAVED_ERROR_MODAL = 'HIDE_AD_SAVED_ERROR_MODAL';
+
 export const DEFAULT_TITLE = 'Overskrift på annonsen';
 
 const initialState = {
@@ -69,7 +72,8 @@ const initialState = {
     showPublishErrorModal: false,
     showHasChangesModal: false,
     showStopAdModal: false,
-    showAdPublishedModal: false
+    showAdPublishedModal: false,
+    showAdSavedErrorModal: false
 };
 
 export default function adReducer(state = initialState, action) {
@@ -169,6 +173,16 @@ export default function adReducer(state = initialState, action) {
             return {
                 ...state,
                 showAdPublishedModal: false
+            };
+        case SHOW_AD_SAVED_ERROR_MODAL:
+            return {
+                ...state,
+                showAdSavedErrorModal: true
+            };
+        case HIDE_AD_SAVED_ERROR_MODAL:
+            return {
+                ...state,
+                showAdSavedErrorModal: false
             };
         case SET_EMPLOYER:
         case SET_LOCATION_POSTAL_CODE:
@@ -282,7 +296,13 @@ function* stopAd() {
 }
 
 function* saveAd() {
-    yield save();
+    yield validateTitle();
+    const state = yield select();
+    if (state.adValidation.errors.title !== undefined) {
+        yield put({ type: SHOW_AD_SAVED_ERROR_MODAL });
+    } else {
+        yield save();
+    }
 }
 
 function* publishAdChanges() {

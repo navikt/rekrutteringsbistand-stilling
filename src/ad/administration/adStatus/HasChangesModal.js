@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 import NavFrontendModal from 'nav-frontend-modal';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import { HIDE_HAS_CHANGES_MODAL, PUBLISH_AD, SAVE_AD } from '../../adReducer';
-import AdStatusEnum from './AdStatusEnum';
+import { HIDE_HAS_CHANGES_MODAL, SAVE_AD } from '../../adReducer';
 import './HasChangesModal.less';
 
 class HasChangesModal extends React.Component {
@@ -33,7 +32,7 @@ class HasChangesModal extends React.Component {
                     Du har startet registrering av en ny stilling
                 </Undertittel>
                 <div>
-                    <Normaltekst className="blokk-s">
+                    <Normaltekst className="blokk-l">
                         Hvis du navigerer bort fra denne siden uten å lagre så mister du informasjonen.
                     </Normaltekst>
                     <Hovedknapp onClick={this.onLeaveClick}>

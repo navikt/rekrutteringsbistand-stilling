@@ -20,6 +20,7 @@ import SearchPage from './searchPage/SearchPage';
 import reporteeReducer from './reportee/reporteeReducer';
 import adDataReducer, { adDataSaga } from './ad/adDataReducer';
 import adValidationReducer, { validationSaga } from './ad/adValidationReducer';
+import savedSearchAlertStripeReducer, { savedSearchAlertStripeSaga } from './ad/alertstripe/SavedAdAlertStripeReducer';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -32,7 +33,8 @@ const store = createStore(combineReducers({
     styrk: styrkReducer,
     reportee: reporteeReducer,
     search: searchReducer,
-    municipalOrCountry: municipalOrCountryReducer
+    municipalOrCountry: municipalOrCountryReducer,
+    savedAdAlertStripe: savedSearchAlertStripeReducer
 }), applyMiddleware(sagaMiddleware));
 
 sagaMiddleware.run(adSaga);
@@ -43,6 +45,7 @@ sagaMiddleware.run(styrkSaga);
 sagaMiddleware.run(searchSaga);
 sagaMiddleware.run(adDataSaga);
 sagaMiddleware.run(municipalOrCountrySaga);
+sagaMiddleware.run(savedSearchAlertStripeSaga);
 
 initShortcuts();
 

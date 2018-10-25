@@ -48,7 +48,7 @@ export default function searchReducer(state = initialState, action) {
             const suggestions = [];
             if (action.value.length > 0) {
                 suggestions.push({ label: `Søk på "${action.value}" i arbeidsgiver`, value: Fields.EMPLOYER_NAME });
-                suggestions.push({ label: `Søk på "${action.value}" i annonseoverskrift`, value: Fields.TITLE });
+                suggestions.push({ label: `Søk på "${action.value}" i stillingsoverskrift`, value: Fields.TITLE });
                 if (isNumbersOnly) {
                     suggestions.push({ label: `Søk på "${action.value}" i stillingsnummer`, value: Fields.ID });
                 }

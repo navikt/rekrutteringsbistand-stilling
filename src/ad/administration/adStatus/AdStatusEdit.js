@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { Flatknapp, Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import AdStatusEnum from './AdStatusEnum';
 import {
     PUBLISH_AD,
@@ -12,11 +11,11 @@ import {
     SHOW_HAS_CHANGES_MODAL
 } from '../../adReducer';
 import PublishErrorModal from './PublishErrorModal';
-import LinkButton from '../../../common/linkbutton/LinkButton';
 import './AdStatusEdit.less';
 import HasChangesModal from './HasChangesModal';
 import StopAdModal from './StopAdModal';
 import AdPublishedModal from './AdPublishedModal';
+import SaveAdErrorModal from './SaveAdErrorModal';
 
 class AdStatusEdit extends React.Component {
     onPublishClick = () => {
@@ -40,15 +39,14 @@ class AdStatusEdit extends React.Component {
     };
 
     render() {
-        const {
-            adStatus, hasChanges, hasSavedChanges
-        } = this.props;
+        const { adStatus, hasChanges } = this.props;
         return (
             <div className="AdStatusEdit">
                 <PublishErrorModal />
                 <HasChangesModal />
                 <StopAdModal />
                 <AdPublishedModal />
+                <SaveAdErrorModal />
                 <div>
                     {adStatus === AdStatusEnum.INACTIVE && (
                         <div className="AdStatusEdit__buttons">
@@ -63,7 +61,7 @@ class AdStatusEdit extends React.Component {
                     {!hasChanges && adStatus === AdStatusEnum.ACTIVE && (
                         <div className="AdStatusEdit__buttons">
                             <Hovedknapp className="AdStatusEdit__buttons__button" onClick={this.onStopClick}>
-                                Stopp annonsen
+                                Stopp stillingen
                             </Hovedknapp>
                         </div>
                     )}
@@ -86,16 +84,9 @@ class AdStatusEdit extends React.Component {
                     )}
                     <div className="AdStatusEdit__links">
                         {adStatus !== AdStatusEnum.ACTIVE && (
-                            <LinkButton onClick={this.onSaveAdClick}>
-                                    Lagre og forsett senere
-                            </LinkButton>
-                        )
-                        }
-                        {adStatus !== AdStatusEnum.ACTIVE
-                            && !hasChanges && hasSavedChanges && (
-                            <Normaltekst tag="span">
-                                Annonsen er lagret
-                            </Normaltekst>
+                            <Flatknapp mini onClick={this.onSaveAdClick}>
+                                Lagre stilling
+                            </Flatknapp>
                         )}
                     </div>
                 </div>
@@ -105,9 +96,7 @@ class AdStatusEdit extends React.Component {
 }
 
 AdStatusEdit.propTypes = {
-    isSavingAd: PropTypes.bool.isRequired,
     hasChanges: PropTypes.bool.isRequired,
-    hasSavedChanges: PropTypes.bool.isRequired,
     adStatus: PropTypes.string.isRequired,
     publish: PropTypes.func.isRequired,
     stop: PropTypes.func.isRequired,
@@ -118,9 +107,7 @@ AdStatusEdit.propTypes = {
 
 const mapStateToProps = (state) => ({
     adStatus: state.adData.status,
-    isSavingAd: state.ad.isSavingAd,
-    hasChanges: state.ad.hasChanges,
-    hasSavedChanges: state.ad.hasSavedChanges
+    hasChanges: state.ad.hasChanges
 });
 
 const mapDispatchToProps = (dispatch) => ({
