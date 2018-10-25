@@ -150,7 +150,7 @@ function* validateEmail() {
 export function* validateComment() {
     const comments = yield select((state) => state.adData.administration.comments);
 
-    if (comments.length > MAX_LENGTH_COMMENT) {
+    if (comments && comments.length > MAX_LENGTH_COMMENT) {
         yield put({ type: ADD_VALIDATION_ERROR, field: 'comment', message: 'Kommentaren inneholder for mange tegn' });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'comment' });
