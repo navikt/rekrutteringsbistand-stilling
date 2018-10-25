@@ -1,21 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { Systemtittel } from 'nav-frontend-typografi';
 
 function SearchResultCount({ count, isSearching }) {
     if (isSearching) {
         return (
-            <Normaltekst className="blokk-s">
+            <Systemtittel>
                 &nbsp;
-            </Normaltekst>
+            </Systemtittel>
         );
     }
     return (
         <div>
-            <Normaltekst className="blokk-s">
-                {count} annonser
-            </Normaltekst>
+            <Systemtittel>
+                {count.toLocaleString('nb')} stillinger
+            </Systemtittel>
         </div>
     );
 }

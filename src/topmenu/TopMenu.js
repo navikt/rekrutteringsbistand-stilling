@@ -59,6 +59,13 @@ class TopMenu extends React.Component {
                     </NavLink>
                     <div className="TopMenu__pipe" />
                     <NavLink
+                        to="/search"
+                        className="TopMenu__item"
+                        activeClassName="TopMenu__item-active"
+                    >
+                        <Normaltekst className="TopMenu__item__inner">Søk etter stilling</Normaltekst>
+                    </NavLink>
+                    <NavLink
                         to="/ads"
                         className="TopMenu__item"
                         activeClassName="TopMenu__item-active"
