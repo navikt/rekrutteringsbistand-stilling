@@ -87,7 +87,7 @@ export default function adDataReducer(state = initialState, action) {
         case SET_STYRK:
             return {
                 ...state,
-                categoryList: [findStyrkAndSkipAlternativeNames(action.code)]
+                categoryList: action.code ? [findStyrkAndSkipAlternativeNames(action.code)] : undefined
             };
         case SET_AD_TITLE: {
             return {

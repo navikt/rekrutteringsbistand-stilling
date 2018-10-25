@@ -20,6 +20,12 @@ class Styrk extends React.Component {
         this.props.setTypeAheadValue(value);
     };
 
+    onTypeAheadBlur = (value) => {
+        if(value === '') {
+            this.props.setStyrk(value);
+        }
+    };
+
     onTypeAheadSuggestionSelected = (suggestion) => {
         if (suggestion) {
             this.props.setStyrk(suggestion.value);
@@ -70,6 +76,7 @@ class Styrk extends React.Component {
                     className="Styrk__typeahead"
                     onSelect={this.onTypeAheadSuggestionSelected}
                     onChange={this.onTypeAheadValueChange}
+                    onBlur={this.onTypeAheadBlur}
                     suggestions={this.props.typeAheadSuggestions.map((styrk) => ({
                         value: styrk.code,
                         label: this.renderLabel(styrk),

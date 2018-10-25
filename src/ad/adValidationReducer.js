@@ -72,7 +72,7 @@ function* validateStyrk() {
     const { categoryList } = state.adData;
 
     if (valueIsNotSet(categoryList)) {
-        yield put({ type: ADD_VALIDATION_ERROR, field: 'styrk', message: 'Yrke mangler' });
+        yield put({ type: ADD_VALIDATION_ERROR, field: 'styrk', message: 'STYRK mangler' });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'styrk' });
     }
