@@ -1,25 +1,60 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { Textarea } from 'nav-frontend-skjema';
+import { connect } from 'react-redux';
 import { SET_COMMENT } from '../../adDataReducer';
+import { MAX_LENGTH_COMMENT } from '../../adValidationReducer';
 import './Comment.less';
 
 class Comment extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            hasChanged: false,
+            comments: props.comments
+        };
+    }
+
     onChange = (e) => {
-        this.props.setComment(e.target.value);
+        this.setState({
+            hasChanged: true,
+            comments: e.target.value
+        });
     };
 
+    onBlur = () => {
+        if (this.state.hasChanged) {
+            this.setState({
+                hasChanged: false
+            });
+            this.props.setComment(this.state.comments);
+        }
+    };
+
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if (prevState.comments !== nextProps.comments && prevState.hasChanged === false) {
+            return {
+                comments: nextProps.comments
+            };
+        }
+        return null;
+    }
+
+
     render() {
+        const error = this.props.validation.comment;
+
         return (
             <div className="Comment">
                 <Textarea
-                    label="Notatfelt"
-                    maxLength={400}
+                    label="Kommentar"
+                    maxLength={MAX_LENGTH_COMMENT}
                     onChange={this.onChange}
-                    value={this.props.comments || ''}
+                    onBlur={this.onBlur}
+                    value={this.state.comments || ''}
                     textareaClass="typo-normal Comment__textarea"
-                    placeholder="Legg inn notat"
+                    feil={error ? { feilmelding: error } : undefined}
+                    placeholder={this.props.placeholder}
                 />
             </div>
         );
@@ -27,16 +62,22 @@ class Comment extends React.Component {
 }
 
 Comment.defaultProps = {
-    comments: ''
+    comments: '',
+    placeholder: ''
 };
 
 Comment.propTypes = {
     setComment: PropTypes.func.isRequired,
-    comments: PropTypes.string
+    comments: PropTypes.string,
+    placeholder: PropTypes.string,
+    validation: PropTypes.shape({
+        comment: PropTypes.string
+    }).isRequired
 };
 
 const mapStateToProps = (state) => ({
-    comments: state.adData.administration.comments
+    comments: state.adData.administration.comments,
+    validation: state.adValidation.errors
 });
 
 const mapDispatchToProps = (dispatch) => ({

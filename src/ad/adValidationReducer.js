@@ -12,13 +12,16 @@ import {
     SET_AD_TEXT,
     SET_AD_TITLE,
     SET_APPLICATIONEMAIL,
-    SET_LOCATION
+    SET_LOCATION,
+    SET_COMMENT
 } from './adDataReducer';
 
 const ADD_VALIDATION_ERROR = 'ADD_VALIDATION_ERROR';
 const REMOVE_VALIDATION_ERROR = 'REMOVE_VALIDATION_ERROR';
 export const VALIDATE_ALL = 'VALIDATE_ALL';
 export const VALIDATE_EMAIL = 'VALIDATE_EMAIL';
+
+export const MAX_LENGTH_COMMENT = 400;
 
 const valueIsNotSet = (value) => (value === undefined || value === null || value.length === 0);
 
@@ -144,6 +147,16 @@ function* validateEmail() {
     }
 }
 
+export function* validateComment() {
+    const comments = yield select((state) => state.adData.administration.comments);
+
+    if (comments.length > MAX_LENGTH_COMMENT) {
+        yield put({ type: ADD_VALIDATION_ERROR, field: 'comment', message: 'Kommentaren inneholder for mange tegn' });
+    } else {
+        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'comment' });
+    }
+}
+
 export function* validateAll() {
     const state = yield select();
     if (state.adData !== null) {
@@ -156,6 +169,7 @@ export function* validateAll() {
         yield validateAdtext();
         yield validateEmail();
         yield validatePostalCode();
+        yield validateComment();
     }
 }
 
@@ -168,7 +182,8 @@ export function hasValidationErrors(validation) {
            || validation.adText !== undefined
            || validation.email !== undefined
            || validation.publish !== undefined
-           || validation.postalCode !== undefined;
+           || validation.postalCode !== undefined
+           || validation.comment !== undefined;
 }
 
 const initialState = {
@@ -208,4 +223,5 @@ export const validationSaga = function* saga() {
     yield takeLatest(SET_AD_TEXT, validateAdtext);
     yield takeLatest(SET_AD_TITLE, validateTitle);
     yield takeLatest(VALIDATE_EMAIL, validateEmail);
+    yield takeLatest(SET_COMMENT, validateComment);
 };
