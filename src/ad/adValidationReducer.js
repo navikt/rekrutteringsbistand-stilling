@@ -204,6 +204,25 @@ export function hasValidationErrors(validation) {
            || validation.comment !== undefined;
 }
 
+export function* validateBeforeSave() {
+    const state = yield select();
+    if (state.adData !== null) {
+        yield validateTitle();
+        yield validateStyrk();
+        yield validateApplicationEmail();
+        yield validateContactpersonEmail();
+        yield validateComment();
+    }
+}
+
+export function hasValidationErrorsOnSave(validation) {
+    return validation.styrk !== undefined
+        || validation.title !== undefined
+        || validation.applicationEmail !== undefined
+        || validation.contactpersonEmail !== undefined
+        || validation.comment !== undefined;
+}
+
 const initialState = {
     errors: {}
 };

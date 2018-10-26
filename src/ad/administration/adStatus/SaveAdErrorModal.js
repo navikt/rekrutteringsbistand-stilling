@@ -45,6 +45,16 @@ class SaveAdErrorModal extends React.Component {
                             {validation.styrk}
                         </li>
                     )}
+                    {validation.applicationEmail && (
+                        <li className="skjemaelement__feilmelding">
+                            {validation.applicationEmail}
+                        </li>
+                    )}
+                    {validation.contactpersonEmail && (
+                        <li className="skjemaelement__feilmelding">
+                            {validation.contactpersonEmail}
+                        </li>
+                    )}
                 </ul>
                 <Hovedknapp onClick={this.onClose}>
                     Lukk
@@ -59,7 +69,9 @@ SaveAdErrorModal.propTypes = {
     validation: PropTypes.shape({
         title: PropTypes.string,
         comments: PropTypes.string,
-        styrk: PropTypes.string
+        styrk: PropTypes.string,
+        applicationEmail: PropTypes.string,
+        contactpersonEmail: PropTypes.string
     }).isRequired,
     closeModal: PropTypes.func.isRequired
 };
@@ -74,4 +86,3 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SaveAdErrorModal);
-
