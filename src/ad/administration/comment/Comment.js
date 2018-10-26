@@ -45,30 +45,30 @@ class Comment extends React.Component {
         const error = this.props.validation.comment;
 
         return (
-            <div className="Comment">
-                <Textarea
-                    label="Kommentar"
-                    maxLength={MAX_LENGTH_COMMENT}
-                    onChange={this.onChange}
-                    onBlur={this.onBlur}
-                    value={this.state.comments || ''}
-                    textareaClass="typo-normal Comment__textarea"
-                    feil={error ? { feilmelding: error } : undefined}
-                    placeholder={this.props.placeholder}
-                />
-            </div>
+            <Textarea
+                label={this.props.label}
+                maxLength={MAX_LENGTH_COMMENT}
+                onChange={this.onChange}
+                onBlur={this.onBlur}
+                value={this.state.comments || ''}
+                textareaClass="typo-normal Comment__textarea"
+                feil={error ? { feilmelding: error } : undefined}
+                placeholder={this.props.placeholder}
+            />
         );
     }
 }
 
 Comment.defaultProps = {
     comments: '',
-    placeholder: ''
+    placeholder: '',
+    label: ''
 };
 
 Comment.propTypes = {
     setComment: PropTypes.func.isRequired,
     comments: PropTypes.string,
+    label: PropTypes.string,
     placeholder: PropTypes.string,
     validation: PropTypes.shape({
         comment: PropTypes.string
@@ -81,7 +81,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    setComment: (comment) => dispatch({ type: SET_COMMENT, comment }),
+    setComment: (comment) => dispatch({ type: SET_COMMENT, comment })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Comment);
