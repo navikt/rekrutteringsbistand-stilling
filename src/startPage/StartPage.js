@@ -7,7 +7,6 @@ import { LenkepanelBase } from 'nav-frontend-lenkepanel';
 import { Systemtittel } from 'nav-frontend-typografi';
 import './StartPage.less';
 import SearchBox from '../searchPage/searchBox/SearchBox';
-import { RESET_WORK_PRIORITY } from '../ad/adReducer';
 
 class StartPage extends React.Component {
     onSearch = () => {
@@ -39,14 +38,12 @@ class StartPage extends React.Component {
 }
 
 StartPage.propTypes = {
-    resetWorkPriority: PropTypes.func.isRequired,
     history: PropTypes.shape().isRequired
 };
 
 const mapStateToProps = () => ({});
 
 const mapDispatchToProps = (dispatch) => ({
-    resetWorkPriority: () => dispatch({ type: RESET_WORK_PRIORITY })
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(StartPage));

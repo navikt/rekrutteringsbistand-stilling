@@ -4,46 +4,13 @@ import { NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import './TopMenu.less';
-import ShortcutsInfo from '../common/shortcuts/ShortcutsInfo';
-import { registerShortcuts, removeShortcuts } from '../common/shortcuts/Shortcuts';
 import Reportee from '../reportee/Reportee';
 import { SET_SEARCH_VALUE } from '../searchPage/searchReducer';
 
 class TopMenu extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            modalIsOpen: false
-        };
-    }
-
-    componentDidMount() {
-        registerShortcuts('global', {
-            '?': () => {
-                this.openModal();
-            },
-            'g i': () => {
-                this.props.history.push('/');
-            }
-        });
-    }
-
-    componentWillUnmount() {
-        removeShortcuts('global');
-    }
-
-    openModal = () => {
-        this.setState({ modalIsOpen: true });
-    };
-
-    closeModal = () => {
-        this.setState({ modalIsOpen: false });
-    };
-
     resetSearchValue = () => {
         this.props.resetSearchValue();
     };
-
 
     render() {
         return (
@@ -92,14 +59,12 @@ class TopMenu extends React.Component {
                         <Reportee />
                     </div>
                 </div>
-                <ShortcutsInfo closeModal={this.closeModal} isOpen={this.state.modalIsOpen} />
             </div>
         );
     }
 }
 
 TopMenu.propTypes = {
-    history: PropTypes.shape().isRequired,
     resetSearchValue: PropTypes.func.isRequired
 };
 

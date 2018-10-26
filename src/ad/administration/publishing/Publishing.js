@@ -6,31 +6,10 @@ import Datovelger from 'nav-datovelger';
 import { formatISOString } from '../../../utils';
 
 import { SET_PUBLISHED, SET_EXPIRATION_DATE } from '../../adDataReducer';
-import {
-    registerShortcuts,
-    removeShortcuts
-} from '../../../common/shortcuts/Shortcuts';
 import 'nav-datovelger/dist/datovelger/styles/datovelger.css';
 import './Publishing.less';
 
 class Publishing extends React.Component {
-    componentDidMount() {
-        registerShortcuts('publishingEdit', {
-            'p d': (e) => {
-                e.preventDefault();
-                this.refPublished.input.focus();
-            },
-            'u d': (e) => {
-                e.preventDefault();
-                this.refExpires.input.focus();
-            }
-        });
-    }
-
-    componentWillUnmount() {
-        removeShortcuts('publishingEdit');
-    }
-
     onPublishedChange = (date) => {
         let published;
         if (date && !Number.isNaN(Date.parse(date))) {

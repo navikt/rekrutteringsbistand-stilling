@@ -264,16 +264,14 @@ function* createAd() {
     }
 }
 
-function* save(autoAssign = true) {
+function* save() {
     let state = yield select();
     yield put({ type: SAVE_AD_BEGIN });
     try {
         yield put({ type: SET_UPDATED_BY });
 
-        if (autoAssign) {
-            const reportee = yield getReportee();
-            yield put({ type: SET_REPORTEE, reportee: reportee.displayName });
-        }
+        const reportee = yield getReportee();
+        yield put({ type: SET_REPORTEE, reportee: reportee.displayName });
         state = yield select();
 
         // Modified category list requires store/PUT with (re)classification

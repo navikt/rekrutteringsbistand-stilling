@@ -12,12 +12,11 @@ import searchReducer, { searchSaga } from './searchPage/searchReducer';
 import municipalOrCountryReducer, { municipalOrCountrySaga } from './ad/edit/location/municipalOrCountryReducer';
 import Ad from './ad/Ad';
 import TopMenu from './topmenu/TopMenu';
-import { initShortcuts } from './common/shortcuts/Shortcuts';
 import './styles.less';
 import './variables.less';
 import StartPage from './startPage/StartPage';
 import SearchPage from './searchPage/SearchPage';
-import reporteeReducer from './reportee/reporteeReducer';
+import reporteeReducer, { reporteeSaga } from './reportee/reporteeReducer';
 import adDataReducer, { adDataSaga } from './ad/adDataReducer';
 import adValidationReducer, { validationSaga } from './ad/adValidationReducer';
 import savedSearchAlertStripeReducer from './ad/alertstripe/SavedAdAlertStripeReducer';
@@ -42,11 +41,10 @@ sagaMiddleware.run(validationSaga);
 sagaMiddleware.run(employerSaga);
 sagaMiddleware.run(locationSaga);
 sagaMiddleware.run(styrkSaga);
+sagaMiddleware.run(reporteeSaga);
 sagaMiddleware.run(searchSaga);
 sagaMiddleware.run(adDataSaga);
 sagaMiddleware.run(municipalOrCountrySaga);
-
-initShortcuts();
 
 const Main = () => (
     <main>

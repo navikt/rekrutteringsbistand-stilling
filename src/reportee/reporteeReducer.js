@@ -1,4 +1,4 @@
-import { put, select } from 'redux-saga/effects';
+import { put, select, takeLatest } from 'redux-saga/effects';
 import { ApiError, fetchGet } from '../api/api';
 import { AD_API } from '../fasitProperties';
 
@@ -58,3 +58,7 @@ export function* getReportee() {
     }
     return state.reportee.data;
 }
+
+export const reporteeSaga = function* saga() {
+    yield takeLatest(FETCH_REPORTEE, getReportee);
+};
