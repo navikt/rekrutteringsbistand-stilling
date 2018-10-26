@@ -10,6 +10,7 @@ import Edit from './edit/Edit';
 import Error from './error/Error';
 import Preview from './preview/Preview';
 import Administration from './administration/Administration';
+import SavedAdAlertStripe from './alertstripe/SavedAdAlertStripe';
 
 class Ad extends React.Component {
     componentDidMount() {
@@ -47,6 +48,7 @@ class Ad extends React.Component {
 
         return (
             <div className="Ad">
+                <SavedAdAlertStripe />
                 <Faded>
                     <div className="Ad__flex">
                         <div className="Ad__flex__center">
@@ -60,7 +62,7 @@ class Ad extends React.Component {
                                                     onClick={this.onPreviewAdClick}
                                                     mini
                                                 >
-                                                    Forhåndsvis annonsen
+                                                    Forhåndsvis stilling
                                                 </Knapp>
                                                 <Edit />
                                             </div>
@@ -72,7 +74,7 @@ class Ad extends React.Component {
                                                 onClick={this.onEditAdClick}
                                                 mini
                                             >
-                                                Rediger annonsen
+                                                Rediger stilling
                                             </Knapp>
                                             <Preview ad={stilling} />
                                         </div>

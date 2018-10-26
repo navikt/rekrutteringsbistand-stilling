@@ -11,7 +11,6 @@ import {
     SET_PUBLISHED,
     SET_AD_TEXT,
     SET_AD_TITLE,
-    SET_APPLICATIONEMAIL,
     SET_LOCATION,
     SET_COMMENT
 } from './adDataReducer';
@@ -67,21 +66,22 @@ function* validatePostalCode() {
     }
 }
 
-function* validateStyrk() {
+export function* validateStyrk() {
     const state = yield select();
     const { categoryList } = state.adData;
+    const { originalData } = state.ad;
 
-    if (valueIsNotSet(categoryList)) {
+    if (valueIsNotSet(categoryList) && !valueIsNotSet(originalData.categoryList)) {
         yield put({ type: ADD_VALIDATION_ERROR, field: 'styrk', message: 'STYRK mangler' });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'styrk' });
     }
 }
 
-function* validateTitle() {
+export function* validateTitle() {
     const adTitle = yield select((state) => state.adData.title);
     if (valueIsNotSet(adTitle) || (adTitle === DEFAULT_TITLE)) {
-        yield put({ type: ADD_VALIDATION_ERROR, field: 'title', message: 'Overskrift på annonsen mangler' });
+        yield put({ type: ADD_VALIDATION_ERROR, field: 'title', message: 'Overskrift på stillingen mangler' });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'title' });
     }
@@ -90,7 +90,7 @@ function* validateTitle() {
 function* validateAdtext() {
     const adText = yield select((state) => state.adData.properties.adtext);
     if (valueIsNotSet(adText)) {
-        yield put({ type: ADD_VALIDATION_ERROR, field: 'adText', message: 'Annonsetekst mangler' });
+        yield put({ type: ADD_VALIDATION_ERROR, field: 'adText', message: 'Stillingstekst mangler' });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'adText' });
     }

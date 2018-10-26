@@ -24,10 +24,10 @@ class PublishErrorModal extends React.Component {
                 className="PublishErrorModal"
             >
                 <Undertittel className="blokk-s">
-                    Kan ikke publisere annonsen
+                    Kan ikke publisere stillingen
                 </Undertittel>
                 <Normaltekst className="blokk-s">
-                    Annonsen kan ikke publiseres før følgende feil er rettet:
+                    Stillingen kan ikke publiseres før følgende feil er rettet:
                 </Normaltekst>
                 <ul className="blokk-s">
                     {Object.keys(validation).map((key) => (

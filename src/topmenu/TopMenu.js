@@ -70,7 +70,7 @@ class TopMenu extends React.Component {
                         className="TopMenu__item"
                         activeClassName="TopMenu__item-active"
                     >
-                        <Normaltekst className="TopMenu__item__inner">Stillingsannonser</Normaltekst>
+                        <Normaltekst className="TopMenu__item__inner">Stillinger</Normaltekst>
                     </NavLink>
                     <NavLink
                         to="/kandidatsok"
