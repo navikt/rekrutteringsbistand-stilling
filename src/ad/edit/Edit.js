@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Input, SkjemaGruppe, Radio, Checkbox } from 'nav-frontend-skjema';
+import {
+    Input, SkjemaGruppe, Radio, Checkbox
+} from 'nav-frontend-skjema';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Column, Row } from 'nav-frontend-grid';
 import { connect } from 'react-redux';
@@ -17,7 +19,7 @@ import {
 import './Edit.less';
 import EngagementType from './engagementType/EngagementType';
 import JobArrangement from './jobArrangement/JobArrangement';
-import Requirements from './requirements/Requirements'
+import Requirements from './requirements/Requirements';
 import Employer from './employer/Employer';
 import JobDetails from './jobDetails/JobDetails';
 import Loading from '../../common/loading/Loading';
@@ -27,7 +29,6 @@ import Location from './location/Location';
 import { formatISOString } from '../../utils';
 
 class Edit extends React.Component {
-
     onExtentChange = (e) => {
         this.props.setExtent(e.target.value);
     };
@@ -208,15 +209,7 @@ class Edit extends React.Component {
                                 onChange={this.onStarttimeChange}
                             />
                         </Ekspanderbartpanel>
-                        <Ekspanderbartpanel
-                            className="Edit__panel"
-                            tittel="Kontaktinformasjon"
-                            tittelProps="undertittel"
-                            border
-                            apen
-                        >
-                            <ContactPerson />
-                        </Ekspanderbartpanel>
+                        <ContactPerson />
                         <Application />
                         <Location />
                         <Ekspanderbartpanel

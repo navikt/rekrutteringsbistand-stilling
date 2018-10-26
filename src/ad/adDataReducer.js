@@ -48,6 +48,7 @@ export const SET_AD_TITLE = 'SET_AD_TITLE';
 export const SET_REPORTEE = 'SET_REPORTEE';
 export const SET_UPDATED_BY = 'SET_UPDATED_BY';
 export const SET_PRIVACY = 'SET_PRIVACY';
+export const SET_CONTACT_PERSON = 'SET_CONTACT_PERSON';
 
 const initialState = {
     properties: {},
@@ -375,6 +376,14 @@ export default function adDataReducer(state = initialState, action) {
             return {
                 ...state,
                 privacy: action.privacy
+            };
+        case SET_CONTACT_PERSON:
+            return {
+                ...state,
+                contactList: [{
+                    ...state.contactList[0],
+                    ...action.contactPerson
+                }]
             };
         case REMOVE_AD_DATA:
             return initialState;
