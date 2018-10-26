@@ -27,8 +27,8 @@ ingress:
   enabled: true
 fasitResources:
   used:
-  - alias: pamAdApiBackend
-    resourceType: baseurl
+  - alias: pam-ad-api-backend-rekrutteringsbistand
+    resourceType: restservice
   - alias: loginservice_login
     resourceType: baseurl
     propertyMap:
