@@ -1,0 +1,79 @@
+@import "../../variables";
+
+@find-candidate: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='17' contentScriptType='text/ecmascript' version='1' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke='%230067c5' stroke-linejoin='round' stroke-miterlimit='10'%3E%3Cpath d='M12.5 14.5v-2.844m-5 .047V14.5l-5.01 1.789A3 3 0 0 0 .5 19.114V21.5h12'/%3E%3Cellipse cx='9.988' cy='6.5' rx='5' ry='6'/%3E%3Cpath d='M14.969 5.963l-.48.037c-1.703.329-2.797-.289-3.734-1.93C10.191 5.149 8.434 6 6.988 6a4.04 4.04 0 0 1-1.946-.475'/%3E%3Ccircle cx='18' cy='18' r='3.5'/%3E%3Cpath stroke-linecap='round' d='M23.5 23.5l-3-3'/%3E%3C/g%3E%3C/svg%3E";
+
+@add-candidate: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='17' contentScriptType='text/ecmascript' version='1' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke='%230067c5' stroke-linecap='round' stroke-linejoin='round' stroke-miterlimit='10'%3E%3Ccircle cx='11.5' cy='11.5' r='11'/%3E%3Cpath d='M11.5 5.5v12m6-6h-12'/%3E%3C/g%3E%3C/svg%3E";
+
+@candidate-list: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='17' contentScriptType='text/ecmascript' version='1' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke='%230067c5' stroke-linejoin='round' stroke-miterlimit='10'%3E%3Cpath d='M9.497 23.5H18.5s0-3.352-.474-4.78c-.413-1.244-3.396-2.076-6.526-3.256v-2.5s1-.619 1-3c1 0 1-2 0-2 0-.234 1.078-1.678.75-3-.474-1.904-6.151-1.904-6.625 0-2.369-.476-1.125 2.681-1.125 3v2c0 2.381 2 3 2 3v2.5C4.722 16.52 1.386 17.476.974 18.72.5 20.148.5 23.5.5 23.5h8.997z'/%3E%3Cpath stroke-linecap='round' d='M21 23.5h2.5s0-3.352-.474-4.78c-.413-1.244-3.396-2.576-6.526-3.756v-1.5s1-.619 1-3c1 0 1-2 0-2 0-.234 1.078-1.861.75-3.184-.222-.891-2.125-2.298-3.625-1.298'/%3E%3C/g%3E%3C/svg%3E";
+
+
+.background (@opacity, @data) {
+  background: @opacity url(@data) center left no-repeat;
+}
+
+.FindCandidate{
+  .background(transparent, @find-candidate);
+
+  &:focus {
+    .background(@orangeFocus, replace(@find-candidate, '%230067c5', '%23005b82'));
+  }
+
+  &:active {
+    .background(inherit, replace(@find-candidate, '%230067c5', '%23005b82'));
+  }
+}
+
+.AddCandidate{
+  .background(transparent, @add-candidate);
+
+  &:focus {
+    .background(@orangeFocus, replace(@add-candidate, '%230067c5', '%23005b82'));
+  }
+
+  &:active {
+    .background(inherit, replace(@add-candidate, '%230067c5', '%23005b82'));
+  }
+}
+
+
+.CandidateList{
+  .background(transparent, @candidate-list);
+
+  &:focus {
+    .background(@orangeFocus, replace(@candidate-list, '%230067c5', '%23005b82'));
+  }
+
+  &:active {
+    .background(inherit, replace(@candidate-list, '%230067c5', '%23005b82'));
+  }
+}
+
+
+.LinkWithIcon {
+  padding-left: 21px;
+  text-decoration: none;
+
+  &:focus {
+    outline: none;
+
+    .LinkWithIcon__text {
+      outline: none;
+      color: @navDypBla;
+      background-color: @orangeFocus;
+    }
+  }
+
+  &:hover {
+    .LinkWithIcon__text {
+      border-bottom-color: @navBla;
+    }
+  }
+
+  &:active {
+    .LinkWithIconk__text {
+      color: @navDypBla;
+      border-bottom-color: @navDypBla;
+
+    }
+  }
+}
