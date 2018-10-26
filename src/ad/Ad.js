@@ -1,4 +1,3 @@
-import { Knapp } from 'nav-frontend-knapper';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
@@ -11,6 +10,9 @@ import Error from './error/Error';
 import Preview from './preview/Preview';
 import Administration from './administration/Administration';
 import SavedAdAlertStripe from './alertstripe/SavedAdAlertStripe';
+import AdTitle from './preview/header/AdTitle';
+import PreviewMenu from './preview/header/PreviewMenu';
+import EditHeader from './edit/header/EditHeader';
 
 class Ad extends React.Component {
     componentDidMount() {
@@ -57,25 +59,18 @@ class Ad extends React.Component {
                                     {isEditingAd ? (
                                         <div>
                                             <div className="Ad__edit__inner">
-                                                <Knapp
-                                                    className="Ad__preview__edit-button"
-                                                    onClick={this.onPreviewAdClick}
-                                                    mini
-                                                >
-                                                    Forhåndsvis stilling
-                                                </Knapp>
+                                                <EditHeader onPreviewAdClick={this.onPreviewAdClick}/>
                                                 <Edit />
                                             </div>
                                         </div>
                                     ) : (
                                         <div className="Ad__preview">
-                                            <Knapp
-                                                className="Ad__preview__edit-button"
-                                                onClick={this.onEditAdClick}
-                                                mini
-                                            >
-                                                Rediger stilling
-                                            </Knapp>
+                                            <AdTitle
+                                                title={stilling.title}
+                                                employer={stilling.properties.employer}
+                                                location={stilling.location}
+                                            />
+                                            <PreviewMenu onEditAdClick={this.onEditAdClick}/>
                                             <Preview ad={stilling} />
                                         </div>
                                     )}

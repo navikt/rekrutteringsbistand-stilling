@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Element, Innholdstittel } from 'nav-frontend-typografi';
+import { Element } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
 import ReactHtmlParser from 'react-html-parser';
 import Application from './application/Application';
@@ -20,13 +20,6 @@ export default function Preview({ ad }) {
         ? JSON.parse(ad.properties.personalattributes) : undefined;
     return (
         <div className="AdText">
-            <Row>
-                <Column xs="12" md="8">
-                    <Innholdstittel className="AdText__title">
-                        {ad.title}
-                    </Innholdstittel>
-                </Column>
-            </Row>
             <Row>
                 <Column xs="12" md="8">
                     <div className="AdText__body">
