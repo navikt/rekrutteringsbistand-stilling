@@ -270,8 +270,6 @@ function* save() {
     try {
         yield put({ type: SET_UPDATED_BY });
 
-        const reportee = yield getReportee();
-        yield put({ type: SET_REPORTEE, reportee: reportee.displayName });
         state = yield select();
 
         // Modified category list requires store/PUT with (re)classification
