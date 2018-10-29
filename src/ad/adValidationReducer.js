@@ -18,7 +18,9 @@ import {
 const ADD_VALIDATION_ERROR = 'ADD_VALIDATION_ERROR';
 const REMOVE_VALIDATION_ERROR = 'REMOVE_VALIDATION_ERROR';
 export const VALIDATE_ALL = 'VALIDATE_ALL';
-export const VALIDATE_EMAIL = 'VALIDATE_EMAIL';
+export const VALIDATE_APPLICATION_EMAIL = 'VALIDATE_APPLICATION_EMAIL';
+export const VALIDATE_CONTACTPERSON_EMAIL = 'VALIDATE_CONTACTPERSON_EMAIL';
+export const VALIDATE_CONTACTPERSON_PHONE = 'VALIDATE_CONTACTPERSON_PHONE';
 
 export const MAX_LENGTH_COMMENT = 400;
 
@@ -134,16 +136,45 @@ function* validatePublishDate() {
     }
 }
 
-function* validateEmail() {
+function* validateApplicationEmail() {
     const email = yield select((state) => state.adData.properties.applicationemail);
 
     // E-postadressen må inneholde en '@' for å være gyldig
     const error = email && (email.length > 0) && (email.indexOf('@') === -1);
 
     if (error) {
-        yield put({ type: ADD_VALIDATION_ERROR, field: 'email', message: 'E-postadressen er ugyldig. Den må minimum inneholde en «@»' });
+        yield put({ type: ADD_VALIDATION_ERROR, field: 'applicationEmail', message: 'E-postadressen er ugyldig. Den må minimum inneholde en «@»' });
     } else {
-        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'email' });
+        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'applicationEmail' });
+    }
+}
+
+function* validateContactpersonEmail() {
+    const contactperson = yield select((state) => state.adData.contactList[0]);
+
+    // E-postadressen må inneholde en '@' for å være gyldig
+    const error = contactperson && contactperson.email
+        && (contactperson.email.length > 0)
+        && (contactperson.email.indexOf('@') === -1);
+
+    if (error) {
+        yield put({ type: ADD_VALIDATION_ERROR, field: 'contactpersonEmail', message: 'E-postadressen er ugyldig. Den må minimum inneholde en «@»' });
+    } else {
+        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'contactpersonEmail' });
+    }
+}
+
+function* validateContactpersonPhone() {
+    const contactperson = yield select((state) => state.adData.contactList[0]);
+
+    const error = contactperson && contactperson.phone
+        && (contactperson.phone.length > 0)
+        && (!contactperson.phone.match(/^\d*$/g));
+
+    if (error) {
+        yield put({ type: ADD_VALIDATION_ERROR, field: 'contactpersonPhone', message: 'Ugyldig telefonnummer' });
+    } else {
+        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'contactpersonPhone' });
     }
 }
 
@@ -167,7 +198,8 @@ export function* validateAll() {
         yield validateTitle();
         yield validateStyrk();
         yield validateAdtext();
-        yield validateEmail();
+        yield validateApplicationEmail();
+        yield validateContactpersonEmail();
         yield validatePostalCode();
         yield validateComment();
     }
@@ -180,10 +212,32 @@ export function hasValidationErrors(validation) {
            || validation.expires !== undefined
            || validation.title !== undefined
            || validation.adText !== undefined
-           || validation.email !== undefined
+           || validation.applicationEmail !== undefined
+           || validation.contactpersonEmail !== undefined
            || validation.publish !== undefined
            || validation.postalCode !== undefined
            || validation.comment !== undefined;
+}
+
+export function* validateBeforeSave() {
+    const state = yield select();
+    if (state.adData !== null) {
+        yield validateTitle();
+        yield validateStyrk();
+        yield validateApplicationEmail();
+        yield validateContactpersonEmail();
+        yield validateComment();
+        yield validateContactpersonPhone();
+    }
+}
+
+export function hasValidationErrorsOnSave(validation) {
+    return validation.styrk !== undefined
+        || validation.title !== undefined
+        || validation.applicationEmail !== undefined
+        || validation.contactpersonEmail !== undefined
+        || validation.contactpersonPhone !== undefined
+        || validation.comment !== undefined;
 }
 
 const initialState = {
@@ -222,6 +276,8 @@ export const validationSaga = function* saga() {
     yield takeLatest([SET_LOCATION_POSTAL_CODE, SET_LOCATION], validateLocation);
     yield takeLatest(SET_AD_TEXT, validateAdtext);
     yield takeLatest(SET_AD_TITLE, validateTitle);
-    yield takeLatest(VALIDATE_EMAIL, validateEmail);
+    yield takeLatest(VALIDATE_APPLICATION_EMAIL, validateApplicationEmail);
+    yield takeLatest(VALIDATE_CONTACTPERSON_EMAIL, validateContactpersonEmail);
+    yield takeLatest(VALIDATE_CONTACTPERSON_PHONE, validateContactpersonPhone);
     yield takeLatest(SET_COMMENT, validateComment);
 };

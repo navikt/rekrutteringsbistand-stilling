@@ -19,7 +19,10 @@ import {
 import AdminStatusEnum from './administration/adminStatus/AdminStatusEnum';
 import AdStatusEnum from './administration/adStatus/AdStatusEnum';
 import {
-    hasValidationErrors, validateAll, validateComment, validateStyrk, validateTitle
+    hasValidationErrors,
+    hasValidationErrorsOnSave,
+    validateAll,
+    validateBeforeSave
 } from './adValidationReducer';
 import PrivacyStatusEnum from './administration/publishing/PrivacyStatusEnum';
 import { showAlertStripe } from './alertstripe/SavedAdAlertStripeReducer';
@@ -308,13 +311,9 @@ function* stopAd() {
 }
 
 function* saveAd() {
-    yield validateTitle();
-    yield validateComment();
-    yield validateStyrk();
+    yield validateBeforeSave();
     const state = yield select();
-    if (state.adValidation.errors.title !== undefined
-        || state.adValidation.errors.comment !== undefined
-        || state.adValidation.errors.styrk !== undefined) {
+    if (hasValidationErrorsOnSave(state.adValidation.errors)) {
         yield put({ type: SHOW_AD_SAVED_ERROR_MODAL });
     } else {
         yield save();

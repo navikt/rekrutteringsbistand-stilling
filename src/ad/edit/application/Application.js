@@ -7,7 +7,7 @@ import {
     SET_APPLICATIONURL,
     SET_APPLICATIONEMAIL
 } from '../../adDataReducer';
-import { VALIDATE_EMAIL } from '../../adValidationReducer'
+import { VALIDATE_APPLICATION_EMAIL } from '../../adValidationReducer';
 import { adjustUrl } from '../../../common/utils';
 
 
@@ -29,7 +29,7 @@ class Application extends React.Component {
     };
 
     onEmailChecked = (e) => {
-        if(!e.target.checked){
+        if (!e.target.checked) {
             this.props.setApplicationEmail('');
         }
         this.setState({
@@ -38,7 +38,7 @@ class Application extends React.Component {
     };
 
     onLinkChecked = (e) => {
-        if(!e.target.checked){
+        if (!e.target.checked) {
             this.props.setApplicationUrl('');
         }
         this.setState({
@@ -52,10 +52,9 @@ class Application extends React.Component {
 
     completeLink = () => {
         const { applicationUrl } = this.props;
-        if (applicationUrl !== '') {
+        if (applicationUrl && applicationUrl !== '') {
             this.props.setApplicationUrl(adjustUrl(applicationUrl));
         }
-
     };
 
     render() {
@@ -83,7 +82,8 @@ class Application extends React.Component {
                         value={applicationEmail || ''}
                         onChange={this.onApplicationEmailChange}
                         onBlur={this.validateEmail}
-                        feil={this.props.validation.email && {feilmelding: this.props.validation.email}}
+                        feil={this.props.validation.applicationEmail
+                            && { feilmelding: this.props.validation.applicationEmail }}
                         placeholder="For eksempel: ola.normann@firma.no"
                     />
                 )}
@@ -118,7 +118,7 @@ Application.propTypes = {
     setApplicationUrl: PropTypes.func.isRequired,
     validateEmail: PropTypes.func.isRequired,
     validation: PropTypes.shape({
-        email: PropTypes.string
+        applicationEmail: PropTypes.string
     }).isRequired
 };
 const mapStateToProps = (state) => ({
@@ -130,7 +130,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     setApplicationEmail: (applicationemail) => dispatch({ type: SET_APPLICATIONEMAIL, applicationemail }),
     setApplicationUrl: (applicationurl) => dispatch({ type: SET_APPLICATIONURL, applicationurl }),
-    validateEmail: () => dispatch({ type: VALIDATE_EMAIL })
+    validateEmail: () => dispatch({ type: VALIDATE_APPLICATION_EMAIL })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Application);
