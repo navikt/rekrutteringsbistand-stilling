@@ -227,6 +227,7 @@ export function* validateBeforeSave() {
         yield validateApplicationEmail();
         yield validateContactpersonEmail();
         yield validateComment();
+        yield validatePostalCode;
         yield validateContactpersonPhone();
     }
 }
@@ -237,6 +238,7 @@ export function hasValidationErrorsOnSave(validation) {
         || validation.applicationEmail !== undefined
         || validation.contactpersonEmail !== undefined
         || validation.contactpersonPhone !== undefined
+        || validation.postalCode !== undefined
         || validation.comment !== undefined;
 }
 
