@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import NavFrontendModal from 'nav-frontend-modal';
-import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
+import { Flatknapp, Hovedknapp } from 'nav-frontend-knapper';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import { HIDE_STOP_AD_MODAL, STOP_AD } from '../../adReducer';
 import './StopAdModal.less';
+import Comment from '../comment/Comment';
 
 
 class StopAdModal extends React.Component {
@@ -14,8 +15,10 @@ class StopAdModal extends React.Component {
     };
 
     onStopAdClick = () => {
-        this.props.closeModal();
-        this.props.stop();
+        if (this.props.validation.comment === undefined) {
+            this.props.closeModal();
+            this.props.stop();
+        }
     };
 
     render() {
@@ -27,18 +30,21 @@ class StopAdModal extends React.Component {
                 onRequestClose={this.onClose}
                 closeButton
                 appElement={document.getElementById('app')}
-                className="StopReasonModal"
+                className="StopAdModal"
             >
                 <Undertittel className="blokk-s">
                     Stopp stillingen
                 </Undertittel>
-                <Normaltekst>
+                <Normaltekst className="blokk-l">
                     Er du sikker på at du ønsker å stoppe stillingen? Stopper du stillingen
                     vil den ikke lenger være tilgjengelig for søk.
                 </Normaltekst>
-                <div className="StopReasonModal__buttons">
+                <div className="StopAdModal__Comment">
+                    <Comment />
+                </div>
+                <div className="StopAdModal__buttons">
                     <Hovedknapp onClick={this.onStopAdClick}>Stopp stillingen</Hovedknapp>
-                    <Knapp onClick={this.onClose}>Avbryt</Knapp>
+                    <Flatknapp onClick={this.onClose}>Avbryt</Flatknapp>
                 </div>
             </NavFrontendModal>
         );
@@ -48,11 +54,15 @@ class StopAdModal extends React.Component {
 StopAdModal.propTypes = {
     showStopAdModal: PropTypes.bool.isRequired,
     closeModal: PropTypes.func.isRequired,
-    stop: PropTypes.func.isRequired
+    stop: PropTypes.func.isRequired,
+    validation: PropTypes.shape({
+        comment: PropTypes.string
+    }).isRequired
 };
 
 const mapStateToProps = (state) => ({
-    showStopAdModal: state.ad.showStopAdModal
+    showStopAdModal: state.ad.showStopAdModal,
+    validation: state.adValidation.errors
 });
 
 const mapDispatchToProps = (dispatch) => ({
