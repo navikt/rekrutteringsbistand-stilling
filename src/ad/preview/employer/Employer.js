@@ -15,10 +15,6 @@ export default function Employer({ properties }) {
                     <dt key="dt">Bedriftens navn:</dt>,
                     <dd key="dd">{properties.employer}</dd>
                 ]}
-                {properties.address && [
-                    <dt key="dt">Adresse:</dt>,
-                    <dd key="dd">{properties.address}</dd>
-                ]}
                 {properties.employerhomepage && isValidUrl(properties.employerhomepage) && [
                     <dt key="dt">Nettsted:</dt>,
                     <a

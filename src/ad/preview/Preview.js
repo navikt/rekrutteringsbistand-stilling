@@ -74,7 +74,10 @@ export default function Preview({ ad }) {
                             source={ad.source}
                             properties={ad.properties}
                         />
-                        <Employment properties={ad.properties} />
+                        <Employment
+                            properties={ad.properties}
+                            location={ad.location}
+                        />
                         <ContactPerson contactList={ad.contactList} />
                         <Employer
                             employer={ad.employer}

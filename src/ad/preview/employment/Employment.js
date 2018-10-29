@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Undertittel } from 'nav-frontend-typografi';
 import { formatISOString, isValidISOString } from '../../../utils';
+import capitalizeLocation from '../../edit/location/capitalizeLocation';
 
-export default function Employment({ properties }) {
-
+export default function Employment({ properties, location }) {
     return (
         <div className="detail-section">
             <Undertittel className="detail-section__head">Om stillingen</Undertittel>
@@ -13,9 +13,23 @@ export default function Employment({ properties }) {
                     <dt key="dt">Stillingstittel:</dt>,
                     <dd key="dd">{properties.jobtitle}</dd>]
                 }
-                {properties.location && [
-                    <dt key="dt">Sted:</dt>,
-                    <dd key="dd">{properties.location}</dd>
+                {location && (location.address || location.postalCode) && [
+                    <dt key="dt">Arbeidssted:</dt>,
+                    <dd key="dd">
+                        {location.address ? `${location.address}, ` : ''}{location.postalCode} {capitalizeLocation(location.city)}
+                    </dd>
+                ]}
+                {location && location.municipal && !location.postalCode && [
+                    <dt key="dt">Arbeidssted:</dt>,
+                    <dd key="dd">
+                        {capitalizeLocation(location.municipal)}
+                    </dd>
+                ]}
+                {location && location.country && !location.postalCode && [
+                    <dt key="dt">Arbeidssted:</dt>,
+                    <dd key="dd">
+                        {capitalizeLocation(location.country)}
+                    </dd>
                 ]}
                 {properties.engagementtype && [
                     <dt key="dt">Ansettelsesform:</dt>,
@@ -70,6 +84,13 @@ Employment.propTypes = {
         workhours: PropTypes.string,
         jobarrangement: PropTypes.string,
         starttime: PropTypes.string
+    }).isRequired,
+    location: PropTypes.shape({
+        address: PropTypes.string,
+        postalCode: PropTypes.string,
+        city: PropTypes.string,
+        municipal: PropTypes.string,
+        country: PropTypes.string
     }).isRequired
 };
 
