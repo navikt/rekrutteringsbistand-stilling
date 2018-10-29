@@ -67,7 +67,7 @@ class Location extends React.Component {
                         onChange={this.onRadioButtonChange}
                     />
                     <Radio
-                        label="Eller: En kommune, Svalbard eller et land"
+                        label="Eller: En kommune eller et land"
                         name="municipalOrCountry"
                         value="municipalOrCountry"
                         checked={this.state.radioChecked === 'municipalOrCountry'}

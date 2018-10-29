@@ -227,7 +227,7 @@ export function* validateBeforeSave() {
         yield validateApplicationEmail();
         yield validateContactpersonEmail();
         yield validateComment();
-        yield validatePostalCode;
+        yield validatePostalCode();
         yield validateContactpersonPhone();
     }
 }
