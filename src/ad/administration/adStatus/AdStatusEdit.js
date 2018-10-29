@@ -85,7 +85,7 @@ class AdStatusEdit extends React.Component {
                     <div className="AdStatusEdit__links">
                         {adStatus !== AdStatusEnum.ACTIVE && (
                             <Flatknapp mini onClick={this.onSaveAdClick}>
-                                Lagre stilling
+                                Lagre
                             </Flatknapp>
                         )}
                     </div>
