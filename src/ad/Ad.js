@@ -4,14 +4,13 @@ import { connect } from 'react-redux';
 import Faded from '../common/faded/Faded';
 import './Ad.less';
 import { REMOVE_AD_DATA } from './adDataReducer';
-import { CREATE_AD, EDIT_AD, FETCH_AD, PREVIEW_EDIT_AD } from './adReducer';
+import { CREATE_AD, FETCH_AD, PREVIEW_EDIT_AD } from './adReducer';
 import Edit from './edit/Edit';
 import Error from './error/Error';
 import Preview from './preview/Preview';
 import Administration from './administration/Administration';
 import SavedAdAlertStripe from './alertstripe/SavedAdAlertStripe';
-import AdTitle from './preview/header/AdTitle';
-import PreviewMenu from './preview/header/PreviewMenu';
+import PreviewHeader from './preview/header/PreviewHeader';
 import EditHeader from './edit/header/EditHeader';
 
 class Ad extends React.Component {
@@ -37,9 +36,6 @@ class Ad extends React.Component {
         this.props.removeAdData();
     }
 
-    onEditAdClick = () => {
-        this.props.editAd();
-    };
 
     onPreviewAdClick = () => {
         this.props.previewAd();
@@ -57,20 +53,13 @@ class Ad extends React.Component {
                             <div className="Ad__flex__center__inner">
                                 <div>
                                     {isEditingAd ? (
-                                        <div>
-                                            <div className="Ad__edit__inner">
-                                                <EditHeader onPreviewAdClick={this.onPreviewAdClick}/>
-                                                <Edit />
-                                            </div>
+                                        <div className="Ad__edit__inner">
+                                            <EditHeader status={this.props.status} onPreviewAdClick={this.onPreviewAdClick} uuid={stilling.uuid}/>
+                                            <Edit />
                                         </div>
                                     ) : (
                                         <div className="Ad__preview">
-                                            <AdTitle
-                                                title={stilling.title}
-                                                employer={stilling.properties.employer}
-                                                location={stilling.location}
-                                            />
-                                            <PreviewMenu onEditAdClick={this.onEditAdClick}/>
+                                            <PreviewHeader />
                                             <Preview ad={stilling} />
                                         </div>
                                     )}
@@ -102,7 +91,6 @@ Ad.propTypes = {
     }),
     getStilling: PropTypes.func.isRequired,
     createAd: PropTypes.func.isRequired,
-    editAd: PropTypes.func.isRequired,
     previewAd: PropTypes.func.isRequired,
     isEditingAd: PropTypes.bool.isRequired,
     removeAdData: PropTypes.func.isRequired
@@ -110,13 +98,13 @@ Ad.propTypes = {
 
 const mapStateToProps = (state) => ({
     stilling: state.adData,
-    isEditingAd: state.ad.isEditingAd
+    isEditingAd: state.ad.isEditingAd,
+    status: state.adData.administration.status
 });
 
 const mapDispatchToProps = (dispatch) => ({
     getStilling: (uuid) => dispatch({ type: FETCH_AD, uuid }),
     createAd: () => dispatch({ type: CREATE_AD }),
-    editAd: () => dispatch({ type: EDIT_AD }),
     previewAd: () => dispatch({ type: PREVIEW_EDIT_AD }),
     removeAdData: () => dispatch({ type: REMOVE_AD_DATA })
 });
