@@ -169,7 +169,7 @@ function* validateContactpersonPhone() {
 
     const error = contactperson && contactperson.phone
         && (contactperson.phone.length > 0)
-        && (!contactperson.phone.match(/^\d*$/g));
+        && (!contactperson.phone.match(/^[0-9 ()+-]+$/g));
 
     if (error) {
         yield put({ type: ADD_VALIDATION_ERROR, field: 'contactpersonPhone', message: 'Ugyldig telefonnummer' });
