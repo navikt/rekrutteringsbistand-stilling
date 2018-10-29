@@ -8,7 +8,6 @@ import ContactPerson from './contactPerson/ContactPerson';
 import Employer from './employer/Employer';
 import Employment from './employment/Employment';
 import Summary from './summary/Summary';
-import { htmlParserOptions } from './markWords';
 import './Preview.less';
 
 export default function Preview({ ad }) {
@@ -23,7 +22,7 @@ export default function Preview({ ad }) {
             <Row>
                 <Column xs="12" md="8">
                     <div className="AdText__body">
-                        {ad.properties.adtext && ReactHtmlParser(ad.properties.adtext, htmlParserOptions)}
+                        {ad.properties.adtext && ReactHtmlParser(ad.properties.adtext)}
                     </div>
                     {hardrequirements && (
                         <div className="HardRequirements">
