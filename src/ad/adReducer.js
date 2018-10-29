@@ -69,7 +69,7 @@ const initialState = {
     error: undefined,
     isSavingAd: false,
     isFetchingStilling: false,
-    isEditingAd: true,
+    isEditingAd: false,
     originalData: undefined,
     hasChanges: false,
     hasSavedChanges: false,
@@ -92,18 +92,10 @@ export default function adReducer(state = initialState, action) {
                 originalData: undefined
             };
         case FETCH_AD_SUCCESS:
-            if (action.response.status === AdStatusEnum.ACTIVE) {
-                return {
-                    ...state,
-                    isFetchingStilling: false,
-                    isEditingAd: false,
-                    originalData: { ...action.response }
-                };
-            }
             return {
                 ...state,
                 isFetchingStilling: false,
-                isEditingAd: true,
+                isEditingAd: false,
                 originalData: { ...action.response }
             };
         case FETCH_AD_FAILURE:
@@ -121,6 +113,13 @@ export default function adReducer(state = initialState, action) {
                 hasChanges: false
             };
         case CREATE_AD_SUCCESS:
+            return {
+                ...state,
+                isSavingAd: false,
+                hasSavedChanges: true,
+                isEditingAd: true,
+                originalData: { ...action.response }
+            };
         case SAVE_AD_SUCCESS:
             if (action.response.status === AdStatusEnum.ACTIVE) {
                 return {
