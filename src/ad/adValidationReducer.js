@@ -20,6 +20,7 @@ const REMOVE_VALIDATION_ERROR = 'REMOVE_VALIDATION_ERROR';
 export const VALIDATE_ALL = 'VALIDATE_ALL';
 export const VALIDATE_APPLICATION_EMAIL = 'VALIDATE_APPLICATION_EMAIL';
 export const VALIDATE_CONTACTPERSON_EMAIL = 'VALIDATE_CONTACTPERSON_EMAIL';
+export const VALIDATE_CONTACTPERSON_PHONE = 'VALIDATE_CONTACTPERSON_PHONE';
 
 export const MAX_LENGTH_COMMENT = 400;
 
@@ -163,6 +164,20 @@ function* validateContactpersonEmail() {
     }
 }
 
+function* validateContactpersonPhone() {
+    const contactperson = yield select((state) => state.adData.contactList[0]);
+
+    const error = contactperson && contactperson.phone
+        && (contactperson.phone.length > 0)
+        && (!contactperson.phone.match(/^\d*$/g));
+
+    if (error) {
+        yield put({ type: ADD_VALIDATION_ERROR, field: 'contactpersonPhone', message: 'Ugyldig telefonnummer' });
+    } else {
+        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'contactpersonPhone' });
+    }
+}
+
 export function* validateComment() {
     const comments = yield select((state) => state.adData.administration.comments);
 
@@ -212,6 +227,7 @@ export function* validateBeforeSave() {
         yield validateApplicationEmail();
         yield validateContactpersonEmail();
         yield validateComment();
+        yield validateContactpersonPhone();
     }
 }
 
@@ -220,6 +236,7 @@ export function hasValidationErrorsOnSave(validation) {
         || validation.title !== undefined
         || validation.applicationEmail !== undefined
         || validation.contactpersonEmail !== undefined
+        || validation.contactpersonPhone !== undefined
         || validation.comment !== undefined;
 }
 
@@ -261,5 +278,6 @@ export const validationSaga = function* saga() {
     yield takeLatest(SET_AD_TITLE, validateTitle);
     yield takeLatest(VALIDATE_APPLICATION_EMAIL, validateApplicationEmail);
     yield takeLatest(VALIDATE_CONTACTPERSON_EMAIL, validateContactpersonEmail);
+    yield takeLatest(VALIDATE_CONTACTPERSON_PHONE, validateContactpersonPhone);
     yield takeLatest(SET_COMMENT, validateComment);
 };

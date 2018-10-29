@@ -55,6 +55,11 @@ class SaveAdErrorModal extends React.Component {
                             {validation.contactpersonEmail}
                         </li>
                     )}
+                    {validation.contactpersonPhone && (
+                        <li className="skjemaelement__feilmelding">
+                            {validation.contactpersonPhone}
+                        </li>
+                    )}
                 </ul>
                 <Hovedknapp onClick={this.onClose}>
                     Lukk
@@ -71,7 +76,8 @@ SaveAdErrorModal.propTypes = {
         comments: PropTypes.string,
         styrk: PropTypes.string,
         applicationEmail: PropTypes.string,
-        contactpersonEmail: PropTypes.string
+        contactpersonEmail: PropTypes.string,
+        contactpersonPhone: PropTypes.string
     }).isRequired,
     closeModal: PropTypes.func.isRequired
 };

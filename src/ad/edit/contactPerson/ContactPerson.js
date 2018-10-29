@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Input } from 'nav-frontend-skjema';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { SET_CONTACT_PERSON } from '../../adDataReducer';
-import { VALIDATE_CONTACTPERSON_EMAIL } from '../../adValidationReducer';
+import { VALIDATE_CONTACTPERSON_EMAIL, VALIDATE_CONTACTPERSON_PHONE } from '../../adValidationReducer';
 
 
 class ContactPerson extends React.Component {
@@ -38,6 +38,10 @@ class ContactPerson extends React.Component {
 
     onEmailBlur = () => {
         this.props.validateEmail();
+    };
+
+    onPhoneBlur = () => {
+        this.props.validatePhone();
     };
 
     render() {
@@ -75,6 +79,9 @@ class ContactPerson extends React.Component {
                     type="tel"
                     label="Telefonnummer"
                     value={contactList[0] && contactList[0].phone ? contactList[0].phone : ''}
+                    onBlur={this.onPhoneBlur}
+                    feil={this.props.validation.contactpersonPhone
+                        && { feilmelding: this.props.validation.contactpersonPhone }}
                     onChange={this.onPhoneChange}
 
                 />
@@ -96,8 +103,10 @@ ContactPerson.propTypes = {
     })),
     setContactPerson: PropTypes.func.isRequired,
     validateEmail: PropTypes.func.isRequired,
+    validatePhone: PropTypes.func.isRequired,
     validation: PropTypes.shape({
-        contactpersonEmail: PropTypes.string
+        contactpersonEmail: PropTypes.string,
+        contactpersonPhone: PropTypes.string
     }).isRequired
 };
 const mapStateToProps = (state) => ({
@@ -107,7 +116,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     setContactPerson: (contactPerson) => dispatch({ type: SET_CONTACT_PERSON, contactPerson }),
-    validateEmail: () => dispatch({ type: VALIDATE_CONTACTPERSON_EMAIL })
+    validateEmail: () => dispatch({ type: VALIDATE_CONTACTPERSON_EMAIL }),
+    validatePhone: () => dispatch({ type: VALIDATE_CONTACTPERSON_PHONE })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContactPerson);
