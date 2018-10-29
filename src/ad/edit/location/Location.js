@@ -5,6 +5,9 @@ import { Input, Radio, SkjemaGruppe } from 'nav-frontend-skjema';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { SET_LOCATION_ADDRESS, SET_LOCATION_POSTAL_CODE } from '../../adDataReducer';
 import MunicipalOrCountry from './MunicipalOrCountry';
+import Typeahead from '../../../common/typeahead/Typeahead';
+import { FETCH_LOCATIONS, SET_LOCATION_TYPE_AHEAD_VALUE } from './locationCodeReducer';
+import capitalizeLocation from './capitalizeLocation';
 
 class Location extends React.Component {
     constructor(props) {
@@ -12,6 +15,10 @@ class Location extends React.Component {
         this.state = {
             radioChecked: this.locationIsMunicipalOrCountry(props.location) ? 'municipalOrCountry' : 'address'
         };
+    }
+
+    componentDidMount() {
+        this.props.fetchLocations();
     }
 
     onRadioButtonChange = (e) => {
@@ -24,8 +31,16 @@ class Location extends React.Component {
         this.props.setAddress(e.target.value);
     };
 
-    onPostalCodeChange = (e) => {
-        this.props.setPostalCode(e.target.value);
+    onTypeAheadValueChange = (value) => {
+        this.props.setLocationTypeAheadValue(value);
+        this.props.setLocationPostalCode(value);
+    };
+
+    onTypeAheadSuggestionSelected = (location) => {
+        if (location) {
+            this.props.setLocationTypeAheadValue(location.value);
+            this.props.setLocationPostalCode(location.value);
+        }
     };
 
     locationIsMunicipalOrCountry = (location) => location
@@ -52,7 +67,7 @@ class Location extends React.Component {
                         onChange={this.onRadioButtonChange}
                     />
                     <Radio
-                        label="Eller: En kommune, Svalbard eller et land"
+                        label="Eller: En kommune eller et land"
                         name="municipalOrCountry"
                         value="municipalOrCountry"
                         checked={this.state.radioChecked === 'municipalOrCountry'}
@@ -68,15 +83,26 @@ class Location extends React.Component {
                                 ? location.address : ''}
                             onChange={this.onAddressChange}
                         />
-                        <Input
-                            id="arbeidssted-postnummer"
-                            label="Postnummer*"
-                            value={location && location.postalCode
-                                ? location.postalCode : ''}
-                            onChange={this.onPostalCodeChange}
-                            feil={this.props.validation.postalCode || this.props.validation.location
-                                ? { feilmelding: this.props.validation.postalCode || '' } : undefined}
-                        />
+                        <div className="blokk-xs">
+                            <Typeahead
+                                id="arbeidssted-postnummer"
+                                className="PostalCode__typeahead"
+                                onSelect={this.onTypeAheadSuggestionSelected}
+                                onChange={this.onTypeAheadValueChange}
+                                label="Sted/postnummer*"
+                                suggestions={this.props.suggestions.map((loc) => ({
+                                    value: loc.postalCode,
+                                    label: `${loc.postalCode} ${capitalizeLocation(loc.city)}`
+                                }))}
+                                value={this.props.location && this.props.location.postalCode ?
+                                    this.props.location.postalCode : ''}
+                                error={(this.props.validation.postalCode !== undefined
+                                    || this.props.validation.location !== undefined)}
+                            />
+                            {this.props.validation.postalCode && (
+                                <div className="Administration__error">{this.props.validation.postalCode}</div>
+                            )}
+                        </div>
                         <Input
                             id="arbeidssted-sted"
                             label="Sted*"
@@ -100,12 +126,18 @@ class Location extends React.Component {
 }
 
 Location.propTypes = {
+    suggestions: PropTypes.arrayOf(PropTypes.shape({
+        kode: PropTypes.string,
+        navn: PropTypes.string
+    })).isRequired,
     location: PropTypes.shape({
         address: PropTypes.string,
         postalCode: PropTypes.string
     }),
     setAddress: PropTypes.func.isRequired,
-    setPostalCode: PropTypes.func.isRequired,
+    setLocationTypeAheadValue: PropTypes.func.isRequired,
+    fetchLocations: PropTypes.func.isRequired,
+    setLocationPostalCode: PropTypes.func.isRequired,
     validation: PropTypes.shape({
         location: PropTypes.string,
         postalCode: PropTypes.string
@@ -114,12 +146,15 @@ Location.propTypes = {
 
 const mapStateToProps = (state) => ({
     location: state.adData.location,
+    suggestions: state.location.suggestions,
     validation: state.adValidation.errors
 });
 
 const mapDispatchToProps = (dispatch) => ({
     setAddress: (address) => dispatch({ type: SET_LOCATION_ADDRESS, address }),
-    setPostalCode: (postalCode) => dispatch({ type: SET_LOCATION_POSTAL_CODE, postalCode })
+    setLocationTypeAheadValue: (value) => dispatch({ type: SET_LOCATION_TYPE_AHEAD_VALUE, value }),
+    setLocationPostalCode: (postalCode) => dispatch({ type: SET_LOCATION_POSTAL_CODE, postalCode }),
+    fetchLocations: () => dispatch({ type: FETCH_LOCATIONS })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Location);
