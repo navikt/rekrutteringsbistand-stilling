@@ -44,5 +44,9 @@ AdTitle.defaultProps = {
 AdTitle.propTypes = {
     title: PropTypes.string,
     employer: PropTypes.string,
-    location: PropTypes.string
+    location: PropTypes.shape({
+        city: PropTypes.string,
+        municipal: PropTypes.string,
+        country: PropTypes.string
+    })
 };
