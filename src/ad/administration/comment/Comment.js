@@ -46,7 +46,7 @@ class Comment extends React.Component {
 
         return (
             <Textarea
-                label={this.props.label}
+                label="Kommentar"
                 maxLength={MAX_LENGTH_COMMENT}
                 onChange={this.onChange}
                 onBlur={this.onBlur}
@@ -61,14 +61,12 @@ class Comment extends React.Component {
 
 Comment.defaultProps = {
     comments: '',
-    placeholder: '',
-    label: ''
+    placeholder: ''
 };
 
 Comment.propTypes = {
     setComment: PropTypes.func.isRequired,
     comments: PropTypes.string,
-    label: PropTypes.string,
     placeholder: PropTypes.string,
     validation: PropTypes.shape({
         comment: PropTypes.string

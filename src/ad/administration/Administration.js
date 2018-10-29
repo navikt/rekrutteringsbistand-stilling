@@ -27,7 +27,7 @@ export default function Administration() {
                         <Privacy />
                     </div>
                     <div className="Administration__panel Comment blokk-l">
-                        <Comment label="Kommentar" placeholder="Legg inn en kommentar" />
+                        <Comment placeholder="Legg inn en kommentar" />
                     </div>
                 </div>
                 <div className="Administration__flex__bottom">

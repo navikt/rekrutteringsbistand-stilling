@@ -40,7 +40,7 @@ class StopAdModal extends React.Component {
                     vil den ikke lenger være tilgjengelig for søk.
                 </Normaltekst>
                 <div className="StopAdModal__Comment">
-                    <Comment label="Hvorfor skal stillingen stoppes?" />
+                    <Comment />
                 </div>
                 <div className="StopAdModal__buttons">
                     <Hovedknapp onClick={this.onStopAdClick}>Stopp stillingen</Hovedknapp>
