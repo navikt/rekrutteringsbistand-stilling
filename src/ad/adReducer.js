@@ -11,6 +11,7 @@ import {
     SET_ADMIN_STATUS,
     SET_COMMENT,
     SET_EXPIRATION_DATE,
+    SET_NAV_IDENT,
     SET_PRIVACY,
     SET_PUBLISHED,
     SET_REPORTEE,
@@ -252,12 +253,14 @@ function* createAd() {
             privacy: PrivacyStatusEnum.INTERNAL_NOT_SHOWN,
             administration: {
                 status: AdminStatusEnum.PENDING,
-                reportee: `${reportee.displayName}[${reportee.userName}]`
+                reportee: reportee.displayName,
+                navIdent: reportee.navIdent
             }
         });
 
         yield put({ type: SET_AD_DATA, data: response });
         yield put({ type: SET_REPORTEE, reportee: reportee.displayName });
+        yield put({ type: SET_NAV_IDENT, navIdent: reportee.navIdent });
         yield put({ type: CREATE_AD_SUCCESS, response });
     } catch (e) {
         if (e instanceof ApiError) {

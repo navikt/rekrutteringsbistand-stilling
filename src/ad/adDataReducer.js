@@ -46,6 +46,7 @@ export const SET_AD_STATUS = 'SET_AD_STATUS';
 export const SET_ADMIN_STATUS = 'SET_ADMIN_STATUS';
 export const SET_AD_TITLE = 'SET_AD_TITLE';
 export const SET_REPORTEE = 'SET_REPORTEE';
+export const SET_NAV_IDENT = 'SET_NAV_IDENT';
 export const SET_UPDATED_BY = 'SET_UPDATED_BY';
 export const SET_PRIVACY = 'SET_PRIVACY';
 export const SET_CONTACT_PERSON = 'SET_CONTACT_PERSON';
@@ -365,6 +366,14 @@ export default function adDataReducer(state = initialState, action) {
                 administration: {
                     ...state.administration,
                     reportee: action.reportee
+                }
+            };
+        case SET_NAV_IDENT:
+            return {
+                ...state,
+                administration: {
+                    ...state.administration,
+                    navIdent: action.navIdent
                 }
             };
         case SET_UPDATED_BY:
