@@ -24,6 +24,10 @@ export default function Summary({ ad }) {
                     <dt key="dt">Stillingsnummer:</dt>,
                     <dd key="dd">{ad.id}</dd>
                 ]}
+                {ad.administration && ad.administration.reportee && ad.source === 'DIR' && [
+                    <dt key="dt">Registrert av:</dt>,
+                    <dd key="dd">{ad.administration.reportee}</dd>
+                ]}
             </dl>
         </div>
     );
