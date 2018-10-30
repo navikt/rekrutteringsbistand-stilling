@@ -40,7 +40,7 @@ class SearchPage extends React.Component {
                         </Flatknapp>
                     </div>
                 </div>
-                <Container className="SearchPage2">
+                <Container className="SearchPage__container">
                     {(error && error.statusCode === 412) && (
                         <AlertStripe className="SearchPage__alertStripe" type="advarsel" solid>
                         Noen andre har gjort endringer annonsen i mellomtiden. Forsøk å laste søket på nytt

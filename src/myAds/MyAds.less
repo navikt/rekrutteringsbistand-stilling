@@ -1,0 +1,58 @@
+@import "../variables";
+
+.MyAds {
+  height: 100vh;
+  padding-top: @topMenuHeight;
+}
+
+.MyAds__header {
+  background-color: #e3edf8;
+
+  .MyAds__header-container {
+    display: flex;
+    flex-wrap: wrap;
+    height: 7.5rem;
+    align-items: center;
+    padding: 0 1.5rem;
+  }
+
+  .MyAds__header__item {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .MyAds__header-button{
+    justify-content: flex-end;
+  }
+
+  @media(max-width: 991px) {
+
+    height: 8.75rem;
+
+    .no-content {
+      flex-grow: 0;
+    }
+    .MyAds__header__item {
+      flex-basis: 100%;
+    }
+    .MyAds__header-button {
+      justify-content: center;
+    }
+  }
+}
+
+
+.StatusFilter {
+  margin-left: auto;
+
+  label {
+    margin-bottom: 0;
+  }
+}
+
+.MyAds__status-row {
+  display: flex;
+  align-items: center;
+  margin-top: 2.5rem;
+}
