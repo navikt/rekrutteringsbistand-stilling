@@ -12,6 +12,7 @@ import Administration from './administration/Administration';
 import SavedAdAlertStripe from './alertstripe/SavedAdAlertStripe';
 import PreviewHeader from './preview/header/PreviewHeader';
 import EditHeader from './edit/header/EditHeader';
+import AdStatusEnum from "./administration/adStatus/AdStatusEnum";
 
 class Ad extends React.Component {
     componentDidMount() {
@@ -43,6 +44,14 @@ class Ad extends React.Component {
 
     render() {
         const { stilling, isEditingAd } = this.props;
+
+        if (stilling.status === AdStatusEnum.DELETED) {
+            return (
+                <div className="Ad Ad__deleted">
+                    <p>Annonsen er slettet</p>
+                </div>
+            );
+        }
 
         return (
             <div className="Ad">
