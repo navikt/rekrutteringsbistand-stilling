@@ -29,6 +29,10 @@ export default function Summary({ ad }) {
                     <dt key="dt">Registrert av:</dt>,
                     <dd key="dd">{ad.administration.reportee}</dd>
                 ]}
+                {ad.administration && ad.administration.navIdent && ad.source === 'DIR' && ad.privacy === PrivacyStatusEnum.INTERNAL_NOT_SHOWN && [
+                    <dt key="dt">Kontaktperson i NAV:</dt>,
+                    <dd key="dd">{ad.administration.navIdent}</dd>
+                ]}
             </dl>
         </div>
     );
