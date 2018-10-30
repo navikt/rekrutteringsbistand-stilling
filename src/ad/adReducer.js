@@ -11,6 +11,7 @@ import {
     SET_ADMIN_STATUS,
     SET_COMMENT,
     SET_EXPIRATION_DATE,
+    SET_NAV_IDENT,
     SET_PRIVACY,
     SET_PUBLISHED,
     SET_REPORTEE,
@@ -69,7 +70,7 @@ const initialState = {
     error: undefined,
     isSavingAd: false,
     isFetchingStilling: false,
-    isEditingAd: true,
+    isEditingAd: false,
     originalData: undefined,
     hasChanges: false,
     hasSavedChanges: false,
@@ -92,18 +93,10 @@ export default function adReducer(state = initialState, action) {
                 originalData: undefined
             };
         case FETCH_AD_SUCCESS:
-            if (action.response.status === AdStatusEnum.ACTIVE) {
-                return {
-                    ...state,
-                    isFetchingStilling: false,
-                    isEditingAd: false,
-                    originalData: { ...action.response }
-                };
-            }
             return {
                 ...state,
                 isFetchingStilling: false,
-                isEditingAd: true,
+                isEditingAd: false,
                 originalData: { ...action.response }
             };
         case FETCH_AD_FAILURE:
@@ -121,6 +114,13 @@ export default function adReducer(state = initialState, action) {
                 hasChanges: false
             };
         case CREATE_AD_SUCCESS:
+            return {
+                ...state,
+                isSavingAd: false,
+                hasSavedChanges: true,
+                isEditingAd: true,
+                originalData: { ...action.response }
+            };
         case SAVE_AD_SUCCESS:
             if (action.response.status === AdStatusEnum.ACTIVE) {
                 return {
@@ -252,12 +252,14 @@ function* createAd() {
             privacy: PrivacyStatusEnum.INTERNAL_NOT_SHOWN,
             administration: {
                 status: AdminStatusEnum.PENDING,
-                reportee: `${reportee.displayName}[${reportee.userName}]`
+                reportee: reportee.displayName,
+                navIdent: reportee.navIdent
             }
         });
 
         yield put({ type: SET_AD_DATA, data: response });
         yield put({ type: SET_REPORTEE, reportee: reportee.displayName });
+        yield put({ type: SET_NAV_IDENT, navIdent: reportee.navIdent });
         yield put({ type: CREATE_AD_SUCCESS, response });
     } catch (e) {
         if (e instanceof ApiError) {

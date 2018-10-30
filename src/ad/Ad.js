@@ -66,11 +66,15 @@ class Ad extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="Ad__flex__right">
-                            <div className="Ad__flex__right__inner">
-                                <Administration />
+                        {isEditingAd ? (
+                            <div className="Ad__flex__right">
+                                <div className="Ad__flex__right__inner">
+                                    <Administration />
+                                </div>
                             </div>
-                        </div>
+                        ) : (
+                            <div />
+                        )}
                     </div>
                 </Faded>
                 <Error />
