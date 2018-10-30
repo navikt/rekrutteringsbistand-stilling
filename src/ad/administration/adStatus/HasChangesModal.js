@@ -22,7 +22,7 @@ class HasChangesModal extends React.Component {
     };
 
     render() {
-        const { showHasChangesModal } = this.props;
+        const { showHasChangesModal, updated, created } = this.props;
         return (
             <NavFrontendModal
                 isOpen={showHasChangesModal}
@@ -32,9 +32,15 @@ class HasChangesModal extends React.Component {
                 appElement={document.getElementById('app')}
                 className="HasChangesModal"
             >
-                <Undertittel className="blokk-s">
-                    Du har startet registrering av en ny stilling
-                </Undertittel>
+                {updated === created ? (
+                    <Undertittel className="blokk-s">
+                        Du har startet registrering av en ny stilling
+                    </Undertittel>
+                ) : (
+                    <Undertittel className="blokk-s">
+                        Du har gjort endringer på stillingen
+                    </Undertittel>
+                )}
                 <div>
                     <Normaltekst className="blokk-l">
                         Hvis du navigerer bort fra denne siden uten å lagre så mister du informasjonen.
