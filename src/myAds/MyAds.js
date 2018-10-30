@@ -10,7 +10,8 @@ import Loading from '../common/loading/Loading';
 import ListHeader from './list/ListHeader';
 import ListItem from './list/ListItem';
 import NoResults from '../searchPage/noResults/NoResults';
-import SearchResultCount from '../searchPage/searchResult/SearchResultCount';
+import Pagination from './pagination/Pagination';
+import Count from './list/Count';
 import { FETCH_MY_ADS } from './myAdsReducer';
 import { CREATE_AD } from '../ad/adReducer';
 import './MyAds.less'
@@ -58,7 +59,7 @@ class MyAds extends React.Component {
                         <div className="">
                             <div className="">
                                 <div className="MyAds__status-row blokk-s">
-                                    <SearchResultCount />
+                                    <Count />
                                     <Sorting />
                                 </div>
                                 <ListHeader />
@@ -71,6 +72,9 @@ class MyAds extends React.Component {
                                 {adsFound && ads.map((ad) => (
                                     <ListItem key={ad.uuid} ad={ad} />
                                 ))}
+                                {adsFound && (
+                                    <Pagination />
+                                )}
                             </div>
                         </div>
                     </div>
@@ -96,9 +100,9 @@ MyAds.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    ads: state.search.items,
-    isSearching: state.search.isSearching,
-    error: state.search.error,
+    ads: state.myAds.items,
+    isSearching: state.myAds.isSearching,
+    error: state.myAds.error,
 
 });
 

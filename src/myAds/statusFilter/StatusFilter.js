@@ -8,7 +8,11 @@ import AdStatusEnum from '../../searchPage/enums/AdStatusEnum';
 
 class StatusFilter extends React.Component {
     onFilterChange = (e) => {
-        this.props.changeStatusFilter(e.target.value);
+        if (e.target.value !== 'alle') {
+            this.props.changeStatusFilter(e.target.value);
+        } else {
+            this.props.changeStatusFilter(undefined);
+        }
         this.props.getAds();
     };
 
@@ -23,7 +27,7 @@ class StatusFilter extends React.Component {
                     aria-label="Filtrér på status"
                     className="typo-normal StatusFilter-select"
                 >
-                    <option key="alle" value="alle">Alle</option>
+                    <option key="alle" value="alle">Alle status</option>
                     {Object.keys(AdStatusEnum).map((key) => (
                         <option key={key} value={key}>
                             {AdStatusEnum[key]}

@@ -37,7 +37,7 @@ class TopMenu extends React.Component {
                         className="TopMenu__item"
                         activeClassName="TopMenu__item-active"
                     >
-                        <Normaltekst className="TopMenu__item__inner">Stillinger</Normaltekst>
+                        <Normaltekst className="TopMenu__item__inner">Mine stillinger</Normaltekst>
                     </NavLink>
                     <NavLink
                         to="/kandidatsok"
