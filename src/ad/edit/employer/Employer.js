@@ -105,11 +105,13 @@ class Employer extends React.Component {
                     placeholder="Navnet bedriften bruker"
                 />
                 <Normaltekst className="blokk-xxs">Kort om bedriften</Normaltekst>
-                <RichTextEditor
-                    text={ad.properties.employerdescription || ''}
-                    onChange={this.onEmployerDescriptionChange}
-                    placeholderText="Fortell om bedriften til den som skal søke på stillingen"
-                />
+                <div className="Edit__Employer__rteEditor-content">
+                    <RichTextEditor
+                        text={ad.properties.employerdescription || ''}
+                        onChange={this.onEmployerDescriptionChange}
+                        placeholderText="Fortell om bedriften til den som skal søke på stillingen"
+                    />
+                </div>
                 <Input
                     label="Bedriftens nettsted"
                     value={ad.properties.employerhomepage || ''}

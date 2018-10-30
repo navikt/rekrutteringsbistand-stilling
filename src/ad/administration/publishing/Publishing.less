@@ -1,4 +1,5 @@
 @import "../../../../node_modules/nav-frontend-typografi-style/src/index";
+@import "../../../variables";
 
 .Publishing__label {
   margin-bottom: 0.5rem!important;
@@ -13,10 +14,9 @@
   margin-bottom: 1rem;
 }
 
-@media (min-width: 1660px) {
-  .Publishing__datepicker {
-    max-width: 50%;
-    display: inline-grid;
+@media (min-width: 1400px) {
+  .Publishing {
+    display: flex;
   }
 
   .Publishing__datepicker-expires {
@@ -29,7 +29,7 @@
   }
 }
 
-@media (max-width: 1659px) {
+@media (max-width: 1399px) {
   .Publishing__datepicker-expires {
     margin-top: 1rem;
   }

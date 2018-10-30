@@ -2,7 +2,7 @@ const AdStatusEnum = {
     ACTIVE: 'Publisert',
     INACTIVE: 'Ikke publisert',
     STOPPED: 'Stoppet',
-    EXPIRED: 'Utgått'
+    EXPIRED: 'Utløpt'
 };
 
 export default AdStatusEnum;

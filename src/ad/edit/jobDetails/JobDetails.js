@@ -74,11 +74,13 @@ class JobDetails extends React.Component {
                     placeholder="Yrket som vises på stillingen"
                 />
                 <div className="blokk-xxs"><Normaltekst>Annonsetekst*</Normaltekst></div>
-                <RichTextEditor
-                    text={ad.properties.adtext || ''}
-                    onChange={this.onAdTextChange}
-                    errorMessage={this.props.validation.adText}
-                />
+                <div className="Edit__JobDetails__rteEditor-content">
+                    <RichTextEditor
+                        text={ad.properties.adtext || ''}
+                        onChange={this.onAdTextChange}
+                        errorMessage={this.props.validation.adText}
+                    />
+                </div>
             </Ekspanderbartpanel>
         );
     }
