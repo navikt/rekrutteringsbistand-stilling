@@ -46,14 +46,16 @@ const ListItem = ({ ad }) => (
             )}
         </Column>
         <Column md="2">
-            <LinkWithIcon
-                to={'#'}
-                classNameText="typo-normal"
-                classNameLink="CandidateList"
-                text="Se kandidatliste"/>
+            <div className="CandidateList__column">
+                <LinkWithIcon
+                    to={'#'}
+                    classNameText="typo-normal"
+                    classNameLink="CandidateList"
+                    text="Se kandidatliste"/>
+            </div>
         </Column>
         <Column md="1">
-            {ad.status && AdStatusEnum[ad.status] && (
+            { ad.status && AdStatusEnum[ad.status] && (
                 <Normaltekst className="SearchResultItem__column">
                     {AdStatusEnum[ad.status]}
                 </Normaltekst>
@@ -71,6 +73,8 @@ const ListItem = ({ ad }) => (
                 className="Icon__button"
                 aria-label="Rediger"
                 title="rediger"
+                disabled={AdStatusEnum[ad.status] === AdStatusEnum.EXPIRED}
+
             >
                 <i className="Edit__icon"/>
             </button>
@@ -78,6 +82,7 @@ const ListItem = ({ ad }) => (
                 className="Icon__button"
                 aria-label="Stopp"
                 title="stopp"
+                disabled={AdStatusEnum[ad.status] !== AdStatusEnum.ACTIVE}
             >
                 <i className="Stop__icon"/>
             </button>
@@ -85,6 +90,8 @@ const ListItem = ({ ad }) => (
                 className="Icon__button"
                 aria-label="Slett"
                 title="slett"
+                disabled={AdStatusEnum[ad.status] !== AdStatusEnum.INACTIVE}
+
             >
                 <i className="Delete__icon"/>
             </button>

@@ -56,27 +56,23 @@ class MyAds extends React.Component {
                         </AlertStripe>
                     )}
                     <div className="">
-                        <div className="">
-                            <div className="">
-                                <div className="MyAds__status-row blokk-s">
-                                    <Count />
-                                    <Sorting />
-                                </div>
-                                <ListHeader />
-                                {isSearching && (
-                                    <Loading />
-                                )}
-                                {!isSearching && ads && ads.length === 0 && (
-                                    <NoResults />
-                                )}
-                                {adsFound && ads.map((ad) => (
-                                    <ListItem key={ad.uuid} ad={ad} />
-                                ))}
-                                {adsFound && (
-                                    <Pagination />
-                                )}
-                            </div>
+                        <div className="MyAds__status-row blokk-s">
+                            <Count />
+                            <Sorting />
                         </div>
+                        <ListHeader />
+                        {isSearching && (
+                            <Loading />
+                        )}
+                        {!isSearching && ads && ads.length === 0 && (
+                            <NoResults />
+                        )}
+                        {adsFound && ads.map((ad) => (
+                            <ListItem key={ad.uuid} ad={ad} />
+                        ))}
+                        {adsFound && (
+                            <Pagination />
+                        )}
                     </div>
                 </Container>
             </div>

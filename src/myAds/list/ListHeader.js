@@ -41,16 +41,16 @@ class ListHeader extends React.Component {
                 </Column>
 
                 <Column md="3" className="Button__column">
-                    <Element className="Button__headers">
+                    <Element >
                         Kopier
                     </Element>
-                    <Element className="Button__headers">
+                    <Element>
                         Rediger
                     </Element>
-                    <Element className="Button__headers">
+                    <Element >
                         Stopp
                     </Element>
-                    <Element className="Button__headers">
+                    <Element >
                         Slett
                     </Element>
                 </Column>

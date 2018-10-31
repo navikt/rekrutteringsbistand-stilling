@@ -1,18 +1,4 @@
-.Button__headers {
-  display: inline;
 
-  &:not(:last-child){
-    margin-right: 1rem;
-  }
-}
-
-.Button__column {
-
-  &:not(:last-child){
-    margin-right: 2rem;
-  }
-
-}
 
 .ListHeader {
   /*
@@ -24,27 +10,31 @@
   display: inline-flex;
   align-items: center;
   width: 100%;
-  margin-top: 0.5rem;
   background-color: white;
   border: solid 1px #78706a;
   border-radius: 4px;
   padding: 1.25rem;
+  margin: 0;
   /*
- input {
-   position: absolute;
- }
+   .skjemaelement {
+   }
 
-
- .skjemaelement {
-   margin: 0;
- }
- */
-
-  * > {
-    top: 0;
-    bottom: 0;
-    margin-right: 0.5rem;
+  input {
+    position: absolute;
   }
+
+
+  .skjemaelement {
+    margin: 0;
+  }
+
+
+   * > {
+     top: 0;
+     bottom: 0;
+     margin-right: 0.5rem;
+   }
+   */
 }
 
 .ListItem {
@@ -52,7 +42,7 @@
   display: inline-flex;
   align-items: center;
   width: 100%;
-  margin-top: 0.5rem;
+  margin: 0.5rem 0 0 0;
   background-color: white;
   padding: 1.25rem;
   border: solid 1px #d8d8d8;
@@ -67,7 +57,7 @@
 
   .skjemaelement {
     margin: 0;
-  }  */
+  }
 
   * > {
     position: relative;
@@ -75,6 +65,7 @@
     bottom: 0;
     margin-right: 0.5rem;
   }
+  */
 
   /*
 
@@ -85,3 +76,18 @@
   }
   */
 }
+
+.CandidateList__column {
+  display: flex;
+  align-items: center; //vertically
+}
+
+.Button__column {
+  display: flex;
+  justify-content: space-between;
+
+
+}
+
+
+
