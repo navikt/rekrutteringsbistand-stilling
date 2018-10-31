@@ -1,7 +1,7 @@
 import deepEqual from 'deep-equal';
 import { put, select, takeLatest } from 'redux-saga/effects';
 import {
-    ApiError, fetchAd, fetchPost, fetchPut
+    ApiError, fetchAd, fetchDelete, fetchPost, fetchPut
 } from '../api/api';
 import { AD_API } from '../fasitProperties';
 import { getReportee } from '../reportee/reporteeReducer';
@@ -42,6 +42,11 @@ export const CREATE_AD = 'CREATE_AD';
 export const CREATE_AD_BEGIN = 'CREATE_AD_BEGIN';
 export const CREATE_AD_SUCCESS = 'CREATE_AD_SUCCESS';
 export const CREATE_AD_FAILURE = 'CREATE_AD_FAILURE';
+
+export const DELETE_AD = 'DELETE_AD';
+export const DELETE_AD_BEGIN = 'DELETE_AD_BEGIN';
+export const DELETE_AD_SUCCESS = 'DELETE_AD_SUCCESS';
+export const DELETE_AD_FAILURE = 'DELETE_AD_FAILURE';
 
 export const EDIT_AD = 'EDIT_AD';
 export const PREVIEW_EDIT_AD = 'PREVIEW_EDIT_AD';
@@ -139,6 +144,7 @@ export default function adReducer(state = initialState, action) {
             };
         case CREATE_AD_FAILURE:
         case SAVE_AD_FAILURE:
+        case DELETE_AD_FAILURE:
             return {
                 ...state,
                 isSavingAd: false,
@@ -335,6 +341,24 @@ function* publishAdChanges() {
     }
 }
 
+function* deleteAd() {
+    yield put({ type: DELETE_AD_BEGIN });
+    try {
+        yield put({ type: SET_UPDATED_BY });
+
+        const state = yield select();
+        const deleteUrl = `${AD_API}ads/${state.adData.uuid}`;
+
+        const response = yield fetchDelete(deleteUrl);
+        yield put({ type: DELETE_AD_SUCCESS, response });
+    } catch (e) {
+        if (e instanceof ApiError) {
+            yield put({ type: DELETE_AD_FAILURE, error: e });
+        }
+        throw e;
+    }
+}
+
 export const adSaga = function* saga() {
     yield takeLatest(PUBLISH_AD, publishAd);
     yield takeLatest(STOP_AD, stopAd);
@@ -342,4 +366,5 @@ export const adSaga = function* saga() {
     yield takeLatest(SAVE_AD, saveAd);
     yield takeLatest(CREATE_AD, createAd);
     yield takeLatest(PUBLISH_AD_CHANGES, publishAdChanges);
+    yield takeLatest(DELETE_AD, deleteAd);
 };
