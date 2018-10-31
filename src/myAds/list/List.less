@@ -1,3 +1,4 @@
+@import "../../variables";
 
 
 .ListHeader {
@@ -77,6 +78,13 @@
   */
 }
 
+.TableItem {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin-right: 1rem;
+}
+
 .CandidateList__column {
   display: flex;
   align-items: center; //vertically
@@ -85,9 +93,58 @@
 .Button__column {
   display: flex;
   justify-content: space-between;
+}
 
+.Result__table {
+  max-width: 100%;
+  width: 100%;
 
+  th {
+    text-align: left;
+  }
+
+  td {
+    text-align: left;
+  }
 }
 
 
+.ColWidth-se {
+  width: 100px;
+}
 
+.ColWidth-st {
+  width: 250px;
+}
+
+.ColWidth-a {
+  width: 200px;
+}
+
+.ColWidth-p {
+   width: 120px;
+ }
+
+.ColWidth-c {
+  width: 150px;
+}
+
+.ColWidth-sta {
+  width: 110px;
+}
+
+.ColWidth-br {
+  width: 64px;
+}
+
+.ColWidth-bk {
+  width: 58px;
+}
+
+.ColWidth-bst {
+  width: 52px;
+}
+
+.ColWidth-bsl {
+  width: 35px;
+}

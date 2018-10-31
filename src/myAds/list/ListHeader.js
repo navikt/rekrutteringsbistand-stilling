@@ -8,53 +8,20 @@ import './List.less';
 class ListHeader extends React.Component {
     render() {
         return (
-            <Row className="ListHeader">
-                <Column md="1">
-                    <Element>
-                        Sist endret
-                    </Element>
-                </Column>
-                <Column md="2" >
-                    <Element>
-                        Stillingstittel
-                    </Element>
-                </Column>
-                <Column md="2">
-                    <Element>
-                        Arbeidsgiver
-                    </Element>
-                </Column>
-                <Column md="1">
-                    <Element>
-                        Publisert
-                    </Element>
-                </Column>
-                <Column md="2">
-                    <Element>
-                        Kandidatliste
-                    </Element>
-                </Column>
-                <Column md="1" >
-                    <Element>
-                        Status
-                    </Element>
-                </Column>
-
-                <Column md="3" className="Button__column">
-                    <Element >
-                        Kopier
-                    </Element>
-                    <Element>
-                        Rediger
-                    </Element>
-                    <Element >
-                        Stopp
-                    </Element>
-                    <Element >
-                        Slett
-                    </Element>
-                </Column>
-            </Row>
+            <thead className="ListHeader typo-element">
+                <tr >
+                    <th className="ColWidth-se">Sist endret</th>
+                    <th className="ColWidth-st">Stillingstittel</th>
+                    <th className="ColWidth-a">Arbeidsgiver</th>
+                    <th className="ColWidth-p">Publisert</th>
+                    <th className="ColWidth-c">Kandidatliste</th>
+                    <th className="ColWidth-sta">Status</th>
+                    <th className="ColWidth-br">Rediger</th>
+                    <th className="ColWidth-bk">Kopier</th>
+                    <th className="ColWidth-bst">Stopp</th>
+                    <th className="ColWidth-bsl">Slett</th>
+                </tr>
+            </thead>
         );
     }
 }

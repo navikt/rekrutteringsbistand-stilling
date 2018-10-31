@@ -60,16 +60,21 @@ class MyAds extends React.Component {
                             <Count />
                             <Sorting />
                         </div>
-                        <ListHeader />
+
+                        <table className="Result__table">
+                            <ListHeader />
+                            {adsFound && ads.map((ad) => (
+                                <ListItem key={ad.uuid} ad={ad} />
+                            ))}
+                        </table>
+
                         {isSearching && (
                             <Loading />
                         )}
                         {!isSearching && ads && ads.length === 0 && (
                             <NoResults />
                         )}
-                        {adsFound && ads.map((ad) => (
-                            <ListItem key={ad.uuid} ad={ad} />
-                        ))}
+
                         {adsFound && (
                             <Pagination />
                         )}
