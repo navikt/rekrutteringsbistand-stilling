@@ -121,7 +121,7 @@ class Employer extends React.Component {
                 />
                 {hideOnlineAddresses
                     ? (
-                        <Row className="blokk-l">
+                        <Row>
                             <Column xs="12">
                                 <Flatknapp
                                     onClick={this.onAddOnlineAddress}

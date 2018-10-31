@@ -127,15 +127,6 @@ export default function adReducer(state = initialState, action) {
                 originalData: { ...action.response }
             };
         case SAVE_AD_SUCCESS:
-            if (action.response.status === AdStatusEnum.ACTIVE) {
-                return {
-                    ...state,
-                    isSavingAd: false,
-                    hasSavedChanges: true,
-                    isEditingAd: false,
-                    originalData: { ...action.response }
-                };
-            }
             return {
                 ...state,
                 isSavingAd: false,
