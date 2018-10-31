@@ -1,4 +1,3 @@
-import { Column, Row } from 'nav-frontend-grid';
 import { Normaltekst } from 'nav-frontend-typografi';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -9,20 +8,20 @@ import AdStatusEnum from '../../searchPage/enums/AdStatusEnum';
 import PrivacyStatusEnum from '../../ad/administration/publishing/PrivacyStatusEnum';
 import LinkWithIcon from '../../common/linkWithIcon/LinkWithIcon';
 import './Icons.less';
-import './List.less';
+import './Result.less';
 
-const ListItem = ({ ad }) => (
+const ResultItem = ({ ad }) => (
     <tbody>
-        <tr className="ListItem">
+        <tr className="ResultItem">
             <td className="ColWidth-se">
                 {ad.updated && (
-                    <Normaltekst className="TableItem">
+                    <Normaltekst className="ResultItem__column">
                         {formatISOString(ad.updated, 'DD.MM.YYYY')}
                     </Normaltekst>
                 )}
             </td>
             <td className="ColWidth-st">
-                <div className="TableItem">
+                <div className="ResultItem__column">
                     <Link
                         className="typo-normal lenke"
                         to={`/ads/${ad.uuid}`}
@@ -33,14 +32,14 @@ const ListItem = ({ ad }) => (
             </td>
             <td className="ColWidth-a">
                 {ad.employer && ad.employer.name && (
-                    <Normaltekst className="TableItem">
+                    <Normaltekst className="ResultItem__column">
                         {capitalizeEmployerName(ad.employer.name)}
                     </Normaltekst>
                 )}
             </td>
             <td className="ColWidth-p">
                 {ad.privacy && (
-                    <Normaltekst className="TableItem">
+                    <Normaltekst className="ResultItem__column">
                         {ad.privacy === PrivacyStatusEnum.SHOW_ALL
                             ? 'Arbeidsplassen' : 'Internt'}
                     </Normaltekst>
@@ -57,7 +56,7 @@ const ListItem = ({ ad }) => (
             </td>
             <td className="ColWidth-sta">
                 { ad.status && AdStatusEnum[ad.status] && (
-                    <Normaltekst className="TableItem">
+                    <Normaltekst className="ResultItem__column">
                         {AdStatusEnum[ad.status]}
                     </Normaltekst>
                 )}
@@ -106,11 +105,11 @@ const ListItem = ({ ad }) => (
     </tbody>
 );
 
-ListItem.propTypes = {
+ResultItem.propTypes = {
     ad: PropTypes.shape({
         uuid: PropTypes.string,
         title: PropTypes.string
     }).isRequired
 };
 
-export default ListItem;
+export default ResultItem;

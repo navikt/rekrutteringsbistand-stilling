@@ -7,11 +7,11 @@ import { Hovedknapp } from 'nav-frontend-knapper';
 import { Sidetittel } from 'nav-frontend-typografi';
 import Sorting  from './statusFilter/StatusFilter';
 import Loading from '../common/loading/Loading';
-import ListHeader from './list/ListHeader';
-import ListItem from './list/ListItem';
+import ResultHeader from './result/ResultHeader';
+import ResultItem from './result/ResultItem';
 import NoResults from '../searchPage/noResults/NoResults';
 import Pagination from './pagination/Pagination';
-import Count from './list/Count';
+import Count from './result/Count';
 import { FETCH_MY_ADS } from './myAdsReducer';
 import { CREATE_AD } from '../ad/adReducer';
 import './MyAds.less'
@@ -27,7 +27,7 @@ class MyAds extends React.Component {
 
     render() {
         const {
-            ads, isSearching, error, createAd
+            ads, isSearching, error
         } = this.props;
         const adsFound = !isSearching && ads && ads.length > 0;
         return (
@@ -43,6 +43,7 @@ class MyAds extends React.Component {
                         <div className="MyAds__header__item MyAds__header-button">
                             <Hovedknapp
                                 onClick={this.onCreateAd}
+                                className=""
                             >
                                 Opprett ny
                             </Hovedknapp>
@@ -62,9 +63,9 @@ class MyAds extends React.Component {
                         </div>
 
                         <table className="Result__table">
-                            <ListHeader />
+                            <ResultHeader />
                             {adsFound && ads.map((ad) => (
-                                <ListItem key={ad.uuid} ad={ad} />
+                                <ResultItem key={ad.uuid} ad={ad} />
                             ))}
                         </table>
 
@@ -93,7 +94,6 @@ MyAds.propTypes = {
     ads: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
     isSearching: PropTypes.bool.isRequired,
     getAds: PropTypes.func.isRequired,
-    resetSearch: PropTypes.func.isRequired,
     error: PropTypes.shape({
         statusCode: PropTypes.number
     }),
@@ -104,12 +104,10 @@ const mapStateToProps = (state) => ({
     ads: state.myAds.items,
     isSearching: state.myAds.isSearching,
     error: state.myAds.error,
-
 });
 
 const mapDispatchToProps = (dispatch) => ({
     getAds: () => dispatch({ type: FETCH_MY_ADS }),
-    resetSearch: () => dispatch({ type: RESET_SEARCH }),
     createAd: () => dispatch({ type: CREATE_AD })
 });
 

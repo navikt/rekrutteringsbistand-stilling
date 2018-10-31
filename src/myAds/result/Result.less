@@ -1,12 +1,5 @@
-@import "../../variables";
-
-
-.ListHeader {
-  /*
-  padding: 1.25rem 0;
-  */
+.ResultHeader {
   font-weight: bold;
-
   height: 4rem;
   display: inline-flex;
   align-items: center;
@@ -16,29 +9,9 @@
   border-radius: 4px;
   padding: 1.25rem;
   margin: 0;
-  /*
-   .skjemaelement {
-   }
-
-  input {
-    position: absolute;
-  }
-
-
-  .skjemaelement {
-    margin: 0;
-  }
-
-
-   * > {
-     top: 0;
-     bottom: 0;
-     margin-right: 0.5rem;
-   }
-   */
 }
 
-.ListItem {
+.ResultItem {
   height: 4rem;
   display: inline-flex;
   align-items: center;
@@ -48,37 +21,9 @@
   padding: 1.25rem;
   border: solid 1px #d8d8d8;
   border-radius: 4px;
-
-  /*
-  &:hover{
-    box-shadow: 1px 0 4px 1px #cecac4,
-    0 1px 4px 1px #cecac4;
-  }
-
-
-  .skjemaelement {
-    margin: 0;
-  }
-
-  * > {
-    position: relative;
-    top: 0;
-    bottom: 0;
-    margin-right: 0.5rem;
-  }
-  */
-
-  /*
-
-  .utdanning {
-    overflow: hidden;
-    max-lines: 2;
-    text-overflow: ellipsis;
-  }
-  */
 }
 
-.TableItem {
+.ResultItem__column {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -99,15 +44,10 @@
   max-width: 100%;
   width: 100%;
 
-  th {
-    text-align: left;
-  }
-
-  td {
+  th, td {
     text-align: left;
   }
 }
-
 
 .ColWidth-se {
   width: 100px;
