@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import NavFrontendModal from 'nav-frontend-modal';
-import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
+import { Hovedknapp } from 'nav-frontend-knapper';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { Link } from 'react-router-dom';
 import { DELETE_AD, HIDE_HAS_CHANGES_MODAL } from '../../adReducer';
 import './HasChangesModal.less';
 
@@ -18,7 +19,6 @@ class HasChangesModal extends React.Component {
             deleteAd();
         }
         closeModal();
-        window.location.href = '/';
     };
 
     render() {
@@ -45,12 +45,16 @@ class HasChangesModal extends React.Component {
                     <Normaltekst className="blokk-l">
                         Hvis du navigerer bort fra denne siden uten å lagre så mister du informasjonen.
                     </Normaltekst>
-                    <Hovedknapp onClick={this.onLeaveClick}>
-                        Forlat siden
-                    </Hovedknapp>
-                    <Knapp onClick={this.onClose}>
+                    <Hovedknapp onClick={this.onClose}>
                         Bli på siden
-                    </Knapp>
+                    </Hovedknapp>
+                    <Link
+                        to="/"
+                        className="lenke"
+                        onClick={this.onLeaveClick}
+                    >
+                        Forlat siden
+                    </Link>
                 </div>
             </NavFrontendModal>
         );
