@@ -7,9 +7,12 @@ import capitalizeEmployerName from '../../ad/edit/employer/capitalizeEmployerNam
 import { formatISOString } from '../../utils';
 import AdStatusEnum from '../../searchPage/enums/AdStatusEnum';
 import PrivacyStatusEnum from '../../ad/administration/publishing/PrivacyStatusEnum';
+import LinkWithIcon from '../../common/linkWithIcon/LinkWithIcon';
+import './Icons.less';
+import './List.less';
 
 const ListItem = ({ ad }) => (
-    <Row className="SearchResultItem">
+    <Row className="ListItem">
         <Column md="1">
             {ad.updated && (
                 <Normaltekst className="SearchResultItem__column">
@@ -35,13 +38,6 @@ const ListItem = ({ ad }) => (
             )}
         </Column>
         <Column md="1">
-            {ad.status && AdStatusEnum[ad.status] && (
-                <Normaltekst className="SearchResultItem__column">
-                    {AdStatusEnum[ad.status]}
-                </Normaltekst>
-            )}
-        </Column>
-        <Column md="1">
             {ad.privacy && (
                 <Normaltekst className="SearchResultItem__column">
                     {ad.privacy === PrivacyStatusEnum.SHOW_ALL
@@ -50,24 +46,48 @@ const ListItem = ({ ad }) => (
             )}
         </Column>
         <Column md="2">
-            <Normaltekst className="SearchResultItem__column">
-                Kandidatliste
-            </Normaltekst>
+            <LinkWithIcon
+                to={'#'}
+                classNameText="typo-normal"
+                classNameLink="CandidateList"
+                text="Se kandidatliste"/>
         </Column>
         <Column md="1">
-            <Normaltekst className="SearchResultItem__column">
-                Kopier
-            </Normaltekst>
+            {ad.status && AdStatusEnum[ad.status] && (
+                <Normaltekst className="SearchResultItem__column">
+                    {AdStatusEnum[ad.status]}
+                </Normaltekst>
+            )}
         </Column>
-        <Column md="1">
-            <Normaltekst className="SearchResultItem__column">
-                Rediger
-            </Normaltekst>
-        </Column>
-        <Column md="1">
-            <Normaltekst className="SearchResultItem__column">
-                Slett
-            </Normaltekst>
+        <Column md="3" className="Button__column">
+            <button
+                className="Icon__button"
+                aria-label="Kopier"
+                title="kopier"
+            >
+                <i className="Copy__icon"/>
+            </button>
+            <button
+                className="Icon__button"
+                aria-label="Rediger"
+                title="rediger"
+            >
+                <i className="Edit__icon"/>
+            </button>
+            <button
+                className="Icon__button"
+                aria-label="Stopp"
+                title="stopp"
+            >
+                <i className="Stop__icon"/>
+            </button>
+            <button
+                className="Icon__button"
+                aria-label="Slett"
+                title="slett"
+            >
+                <i className="Delete__icon"/>
+            </button>
         </Column>
     </Row>
 );

@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Element } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
-
+import './List.less';
 
 class ListHeader extends React.Component {
     render() {
         return (
-            <Row className="SearchResultHeaders">
+            <Row className="ListHeader">
                 <Column md="1">
                     <Element>
                         Sist endret
@@ -24,11 +24,6 @@ class ListHeader extends React.Component {
                         Arbeidsgiver
                     </Element>
                 </Column>
-                <Column md="1" >
-                    <Element>
-                        Status
-                    </Element>
-                </Column>
                 <Column md="1">
                     <Element>
                         Publisert
@@ -39,19 +34,24 @@ class ListHeader extends React.Component {
                         Kandidatliste
                     </Element>
                 </Column>
-                <Column md="1">
+                <Column md="1" >
                     <Element>
+                        Status
+                    </Element>
+                </Column>
+
+                <Column md="3" className="Button__column">
+                    <Element className="Button__headers">
                         Kopier
                     </Element>
-                </Column>
-                <Column md="1">
-                    <Element>
+                    <Element className="Button__headers">
                         Rediger
                     </Element>
-                </Column>
-                <Column md="1">
-                    <Element>
-                        Fjern
+                    <Element className="Button__headers">
+                        Stopp
+                    </Element>
+                    <Element className="Button__headers">
+                        Slett
                     </Element>
                 </Column>
             </Row>

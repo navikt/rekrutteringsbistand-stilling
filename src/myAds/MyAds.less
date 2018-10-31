@@ -1,8 +1,17 @@
 @import "../variables";
 
 .MyAds {
-  height: 100vh;
+  height: 100%;
+  min-height: 100vh;
   padding-top: @topMenuHeight;
+  background: #e7e9e9;
+
+  @media (min-width: @screen-lg) {
+    .container {
+      width: 1200px;
+    }
+  }
+
 }
 
 .MyAds__header {
