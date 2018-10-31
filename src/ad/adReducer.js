@@ -1,7 +1,7 @@
 import deepEqual from 'deep-equal';
 import { put, select, takeLatest } from 'redux-saga/effects';
 import {
-    ApiError, fetchAd, fetchPost, fetchPut
+    ApiError, fetchAd, fetchDelete, fetchPost, fetchPut
 } from '../api/api';
 import { AD_API } from '../fasitProperties';
 import { getReportee } from '../reportee/reporteeReducer';
@@ -11,6 +11,7 @@ import {
     SET_ADMIN_STATUS,
     SET_COMMENT,
     SET_EXPIRATION_DATE,
+    SET_NAV_IDENT,
     SET_PRIVACY,
     SET_PUBLISHED,
     SET_REPORTEE,
@@ -42,6 +43,11 @@ export const CREATE_AD_BEGIN = 'CREATE_AD_BEGIN';
 export const CREATE_AD_SUCCESS = 'CREATE_AD_SUCCESS';
 export const CREATE_AD_FAILURE = 'CREATE_AD_FAILURE';
 
+export const DELETE_AD = 'DELETE_AD';
+export const DELETE_AD_BEGIN = 'DELETE_AD_BEGIN';
+export const DELETE_AD_SUCCESS = 'DELETE_AD_SUCCESS';
+export const DELETE_AD_FAILURE = 'DELETE_AD_FAILURE';
+
 export const EDIT_AD = 'EDIT_AD';
 export const PREVIEW_EDIT_AD = 'PREVIEW_EDIT_AD';
 
@@ -69,7 +75,7 @@ const initialState = {
     error: undefined,
     isSavingAd: false,
     isFetchingStilling: false,
-    isEditingAd: true,
+    isEditingAd: false,
     originalData: undefined,
     hasChanges: false,
     hasSavedChanges: false,
@@ -92,18 +98,10 @@ export default function adReducer(state = initialState, action) {
                 originalData: undefined
             };
         case FETCH_AD_SUCCESS:
-            if (action.response.status === AdStatusEnum.ACTIVE) {
-                return {
-                    ...state,
-                    isFetchingStilling: false,
-                    isEditingAd: false,
-                    originalData: { ...action.response }
-                };
-            }
             return {
                 ...state,
                 isFetchingStilling: false,
-                isEditingAd: true,
+                isEditingAd: false,
                 originalData: { ...action.response }
             };
         case FETCH_AD_FAILURE:
@@ -121,16 +119,14 @@ export default function adReducer(state = initialState, action) {
                 hasChanges: false
             };
         case CREATE_AD_SUCCESS:
+            return {
+                ...state,
+                isSavingAd: false,
+                hasSavedChanges: true,
+                isEditingAd: true,
+                originalData: { ...action.response }
+            };
         case SAVE_AD_SUCCESS:
-            if (action.response.status === AdStatusEnum.ACTIVE) {
-                return {
-                    ...state,
-                    isSavingAd: false,
-                    hasSavedChanges: true,
-                    isEditingAd: false,
-                    originalData: { ...action.response }
-                };
-            }
             return {
                 ...state,
                 isSavingAd: false,
@@ -139,6 +135,7 @@ export default function adReducer(state = initialState, action) {
             };
         case CREATE_AD_FAILURE:
         case SAVE_AD_FAILURE:
+        case DELETE_AD_FAILURE:
             return {
                 ...state,
                 isSavingAd: false,
@@ -252,12 +249,14 @@ function* createAd() {
             privacy: PrivacyStatusEnum.INTERNAL_NOT_SHOWN,
             administration: {
                 status: AdminStatusEnum.PENDING,
-                reportee: `${reportee.displayName}[${reportee.userName}]`
+                reportee: reportee.displayName,
+                navIdent: reportee.navIdent
             }
         });
 
         yield put({ type: SET_AD_DATA, data: response });
         yield put({ type: SET_REPORTEE, reportee: reportee.displayName });
+        yield put({ type: SET_NAV_IDENT, navIdent: reportee.navIdent });
         yield put({ type: CREATE_AD_SUCCESS, response });
     } catch (e) {
         if (e instanceof ApiError) {
@@ -333,6 +332,24 @@ function* publishAdChanges() {
     }
 }
 
+function* deleteAd() {
+    yield put({ type: DELETE_AD_BEGIN });
+    try {
+        yield put({ type: SET_UPDATED_BY });
+
+        const state = yield select();
+        const deleteUrl = `${AD_API}ads/${state.adData.uuid}`;
+
+        const response = yield fetchDelete(deleteUrl);
+        yield put({ type: DELETE_AD_SUCCESS, response });
+    } catch (e) {
+        if (e instanceof ApiError) {
+            yield put({ type: DELETE_AD_FAILURE, error: e });
+        }
+        throw e;
+    }
+}
+
 export const adSaga = function* saga() {
     yield takeLatest(PUBLISH_AD, publishAd);
     yield takeLatest(STOP_AD, stopAd);
@@ -340,4 +357,5 @@ export const adSaga = function* saga() {
     yield takeLatest(SAVE_AD, saveAd);
     yield takeLatest(CREATE_AD, createAd);
     yield takeLatest(PUBLISH_AD_CHANGES, publishAdChanges);
+    yield takeLatest(DELETE_AD, deleteAd);
 };

@@ -27,6 +27,13 @@ export default function EditHeader({ onPreviewAdClick, uuid, status}) {
                         classNameLink="Ad__edit__menu-item AddCandidate"
                         text="Legg til kandidat" />
                 }
+                {showCandidateLinks &&
+                    <LinkWithIcon
+                        to={'#'}
+                        classNameText="typo-element"
+                        classNameLink="Ad__edit__menu-item CandidateList"
+                        text="Se kandidatliste"/>
+                }
                 <Knapp
                     className="Ad__edit__menu-item"
                     onClick={onPreviewAdClick}

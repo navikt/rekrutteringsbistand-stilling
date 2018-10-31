@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Sidetittel, Normaltekst } from 'nav-frontend-typografi';
 import './PreviewHeader.less';
-import capitalizeLocation from  '../../edit/location/capitalizeLocation';
+import capitalizeLocation from '../../edit/location/capitalizeLocation';
 
 export function commaSeparate(...strings) {
     const onlyStrings = strings.filter((string) => (
@@ -13,12 +13,12 @@ export function commaSeparate(...strings) {
 
 export default function AdTitle({ title, employer, location }) {
     let locationInTitle = '';
-    if(location) {
-        if(location.city) {
+    if (location) {
+        if (location.city) {
             locationInTitle = location.city;
-        } else if (location.municipal){
+        } else if (location.municipal) {
             locationInTitle = location.municipal;
-        } else if (location.country){
+        } else if (location.country) {
             locationInTitle = location.country;
         }
     }
@@ -38,7 +38,7 @@ export default function AdTitle({ title, employer, location }) {
 AdTitle.defaultProps = {
     title: '',
     employer: '',
-    location: ''
+    location: undefined
 };
 
 AdTitle.propTypes = {

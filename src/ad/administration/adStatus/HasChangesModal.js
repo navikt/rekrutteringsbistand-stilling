@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import NavFrontendModal from 'nav-frontend-modal';
-import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
+import { Hovedknapp } from 'nav-frontend-knapper';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import { HIDE_HAS_CHANGES_MODAL, SAVE_AD } from '../../adReducer';
+import { Link } from 'react-router-dom';
+import { DELETE_AD, HIDE_HAS_CHANGES_MODAL } from '../../adReducer';
 import './HasChangesModal.less';
 
 class HasChangesModal extends React.Component {
@@ -13,12 +14,15 @@ class HasChangesModal extends React.Component {
     };
 
     onLeaveClick = () => {
-        this.props.closeModal();
-        window.location.href = '/';
+        const { updated, created, closeModal, deleteAd } = this.props;
+        if (updated === created) {
+            deleteAd();
+        }
+        closeModal();
     };
 
     render() {
-        const { showHasChangesModal } = this.props;
+        const { showHasChangesModal, updated, created } = this.props;
         return (
             <NavFrontendModal
                 isOpen={showHasChangesModal}
@@ -28,38 +32,58 @@ class HasChangesModal extends React.Component {
                 appElement={document.getElementById('app')}
                 className="HasChangesModal"
             >
-                <Undertittel className="blokk-s">
-                    Du har startet registrering av en ny stilling
-                </Undertittel>
+                {updated === created ? (
+                    <Undertittel className="blokk-s">
+                        Du har startet registrering av en ny stilling
+                    </Undertittel>
+                ) : (
+                    <Undertittel className="blokk-s">
+                        Du har gjort endringer på stillingen
+                    </Undertittel>
+                )}
                 <div>
                     <Normaltekst className="blokk-l">
                         Hvis du navigerer bort fra denne siden uten å lagre så mister du informasjonen.
                     </Normaltekst>
-                    <Hovedknapp onClick={this.onLeaveClick}>
-                        Forlat siden
-                    </Hovedknapp>
-                    <Knapp onClick={this.onClose}>
+                    <Hovedknapp onClick={this.onClose}>
                         Bli på siden
-                    </Knapp>
+                    </Hovedknapp>
+                    <Link
+                        to="/"
+                        className="lenke"
+                        onClick={this.onLeaveClick}
+                    >
+                        Forlat siden
+                    </Link>
                 </div>
             </NavFrontendModal>
         );
     }
 }
 
+HasChangesModal.defaultProps = {
+    updated: undefined,
+    created: undefined
+};
+
 HasChangesModal.propTypes = {
     showHasChangesModal: PropTypes.bool.isRequired,
-    closeModal: PropTypes.func.isRequired
+    closeModal: PropTypes.func.isRequired,
+    deleteAd: PropTypes.func.isRequired,
+    updated: PropTypes.string,
+    created: PropTypes.string
 };
 
 const mapStateToProps = (state) => ({
     showHasChangesModal: state.ad.showHasChangesModal,
-    adStatus: state.adData.status
+    adStatus: state.adData.status,
+    updated: state.adData.updated,
+    created: state.adData.created
 });
 
 const mapDispatchToProps = (dispatch) => ({
     closeModal: () => dispatch({ type: HIDE_HAS_CHANGES_MODAL }),
-    saveAd: () => dispatch({ type: SAVE_AD, loadNext: true })
+    deleteAd: () => dispatch({ type: DELETE_AD })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HasChangesModal);

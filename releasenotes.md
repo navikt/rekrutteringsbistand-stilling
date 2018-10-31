@@ -1,3 +1,6 @@
+## RELEASE - 0.1.40-3751958
+#### New in this release: 
++ 2018-10-30 [Fix] Skjule felter Hvem bør søke på stillingen inntill videre
 ## RELEASE - 0.16.239-7291a67
 #### New in this release: 
 + 2018-10-09 [PAM-1431] Legger til alternative styrknavn

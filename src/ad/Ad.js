@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
+import { Normaltekst } from 'nav-frontend-typografi';
+import { Link } from 'react-router-dom';
 import Faded from '../common/faded/Faded';
 import './Ad.less';
 import { REMOVE_AD_DATA } from './adDataReducer';
@@ -12,6 +14,7 @@ import Administration from './administration/Administration';
 import SavedAdAlertStripe from './alertstripe/SavedAdAlertStripe';
 import PreviewHeader from './preview/header/PreviewHeader';
 import EditHeader from './edit/header/EditHeader';
+import AdStatusEnum from './administration/adStatus/AdStatusEnum';
 
 class Ad extends React.Component {
     componentDidMount() {
@@ -44,6 +47,20 @@ class Ad extends React.Component {
     render() {
         const { stilling, isEditingAd } = this.props;
 
+        if (stilling.status === AdStatusEnum.DELETED) {
+            return (
+                <div className="Ad Ad__deleted">
+                    <Normaltekst className="blokk-s">Stillingen er slettet</Normaltekst>
+                    <Link
+                        to="/search"
+                        className="typo-normal lenke"
+                    >
+                        Søk etter stillinger
+                    </Link>
+                </div>
+            );
+        }
+
         return (
             <div className="Ad">
                 <SavedAdAlertStripe />
@@ -54,7 +71,7 @@ class Ad extends React.Component {
                                 <div>
                                     {isEditingAd ? (
                                         <div className="Ad__edit__inner">
-                                            <EditHeader status={this.props.status} onPreviewAdClick={this.onPreviewAdClick} uuid={stilling.uuid}/>
+                                            <EditHeader status={this.props.status} onPreviewAdClick={this.onPreviewAdClick} uuid={stilling.uuid} />
                                             <Edit />
                                         </div>
                                     ) : (
@@ -66,11 +83,15 @@ class Ad extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="Ad__flex__right">
-                            <div className="Ad__flex__right__inner">
-                                <Administration />
+                        {isEditingAd ? (
+                            <div className="Ad__flex__right">
+                                <div className="Ad__flex__right__inner">
+                                    <Administration />
+                                </div>
                             </div>
-                        </div>
+                        ) : (
+                            <div />
+                        )}
                     </div>
                 </Faded>
                 <Error />

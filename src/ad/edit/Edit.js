@@ -73,14 +73,14 @@ class Edit extends React.Component {
                         <div className="Edit__left">
                             <Employer />
                             <JobDetails />
-                            <Ekspanderbartpanel
+                            {/* <Ekspanderbartpanel
                                 tittel="Hvem bør søke på stilingen"
                                 tittelProps="undertittel"
                                 border
                                 apen
                             >
                                 <Requirements />
-                            </Ekspanderbartpanel>
+                            </Ekspanderbartpanel> */}
                         </div>
                     </Column>
                     <Column xs="12" md="4">

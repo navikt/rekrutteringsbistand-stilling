@@ -63,6 +63,17 @@ export async function fetchPut(url, body) {
     });
 }
 
+export async function fetchDelete(url) {
+    return request(url, {
+        method: 'DELETE',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    });
+}
+
 /**
  * TODO: Dette er en workaround, fordi det finnes annonser med ad.administration=null i databasen.
  * Når databasen er migrert og ikke inneholder administration=null kan denne workarounden fjernes.

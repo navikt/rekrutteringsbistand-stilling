@@ -60,6 +60,11 @@ class PreviewMenu extends React.Component {
     }
 }
 
+PreviewMenu.defaultProps = {
+    stilling: undefined,
+    status: undefined
+};
+
 PreviewMenu.propTypes = {
     stilling: PropTypes.shape({
         title: PropTypes.string,
@@ -73,7 +78,7 @@ PreviewMenu.propTypes = {
             employer: PropTypes.string
         })
     }),
-    status: PropTypes.string.isRequired
+    status: PropTypes.string
 };
 
 const mapStateToProps = (state) => ({
