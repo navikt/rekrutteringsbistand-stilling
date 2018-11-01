@@ -4,8 +4,14 @@ import { SAVE_AD_FAILURE } from '../adReducer';
 export const SHOW_SAVED_AD_ALERT_STRIPE = 'SHOW_SAVED_AD_ALERT_STRIPE';
 export const HIDE_SAVED_AD_ALERT_STRIPE = 'HIDE_SAVED_AD_ALERT_STRIPE';
 
+export const AdAlertStripeMode = {
+    SAVED: 'SAVED',
+    PUBLISHED_CHANGES: 'PUBLISHED_CHANGES'
+};
+
 const initialState = {
-    showAlertStripe: false
+    showAlertStripe: false,
+    alertStripeMode: AdAlertStripeMode.SAVED
 };
 
 export default function savedSearchAlertStripeReducer(state = initialState, action) {
@@ -13,18 +19,13 @@ export default function savedSearchAlertStripeReducer(state = initialState, acti
         case SHOW_SAVED_AD_ALERT_STRIPE:
             return {
                 ...state,
-                showAlertStripe: true
+                showAlertStripe: true,
+                alertStripeMode: action.mode
             };
         case HIDE_SAVED_AD_ALERT_STRIPE:
-            return {
-                ...state,
-                showAlertStripe: false
-            };
+            return initialState;
         case SAVE_AD_FAILURE:
-            return {
-                ...state,
-                showAlertStripe: false
-            };
+            return initialState;
         default:
             return state;
     }
@@ -32,8 +33,8 @@ export default function savedSearchAlertStripeReducer(state = initialState, acti
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-export function* showAlertStripe() {
-    yield put({ type: SHOW_SAVED_AD_ALERT_STRIPE });
+export function* showAlertStripe(mode) {
+    yield put({ type: SHOW_SAVED_AD_ALERT_STRIPE, mode });
     yield call(delay, 5000);
     yield put({ type: HIDE_SAVED_AD_ALERT_STRIPE });
 }
