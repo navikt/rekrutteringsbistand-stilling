@@ -9,11 +9,7 @@ import {
     SET_AD_DATA,
     SET_AD_STATUS,
     SET_ADMIN_STATUS,
-    SET_COMMENT,
-    SET_EXPIRATION_DATE,
     SET_NAV_IDENT,
-    SET_PRIVACY,
-    SET_PUBLISHED,
     SET_REPORTEE,
     SET_UPDATED_BY
 } from './adDataReducer';
@@ -26,7 +22,7 @@ import {
     validateBeforeSave
 } from './adValidationReducer';
 import PrivacyStatusEnum from './administration/publishing/PrivacyStatusEnum';
-import { showAlertStripe } from './alertstripe/SavedAdAlertStripeReducer';
+import { AdAlertStripeMode, showAlertStripe } from './alertstripe/SavedAdAlertStripeReducer';
 
 export const FETCH_AD = 'FETCH_AD';
 export const FETCH_AD_BEGIN = 'FETCH_AD_BEGIN';
@@ -77,7 +73,6 @@ const initialState = {
     isFetchingStilling: false,
     isEditingAd: false,
     originalData: undefined,
-    hasChanges: false,
     hasSavedChanges: false,
     showPublishErrorModal: false,
     showHasChangesModal: false,
@@ -91,7 +86,6 @@ export default function adReducer(state = initialState, action) {
         case FETCH_AD_BEGIN:
             return {
                 ...state,
-                hasChanges: false,
                 hasSavedChanges: false,
                 isFetchingStilling: true,
                 error: undefined,
@@ -115,8 +109,7 @@ export default function adReducer(state = initialState, action) {
             return {
                 ...state,
                 isSavingAd: true,
-                hasSavedChanges: false,
-                hasChanges: false
+                hasSavedChanges: false
             };
         case CREATE_AD_SUCCESS:
             return {
@@ -144,8 +137,7 @@ export default function adReducer(state = initialState, action) {
         case EDIT_AD:
             return {
                 ...state,
-                isEditingAd: true,
-                hasChanges: true
+                isEditingAd: true
             };
         case PREVIEW_EDIT_AD:
             return {
@@ -201,14 +193,6 @@ export default function adReducer(state = initialState, action) {
             return {
                 ...state,
                 showAdSavedErrorModal: false
-            };
-        case SET_PUBLISHED:
-        case SET_EXPIRATION_DATE:
-        case SET_PRIVACY:
-        case SET_COMMENT:
-            return {
-                ...state,
-                hasChanges: true
             };
         default:
             return state;
@@ -316,7 +300,7 @@ function* saveAd() {
         yield put({ type: SHOW_AD_SAVED_ERROR_MODAL });
     } else {
         yield save();
-        yield showAlertStripe();
+        yield showAlertStripe(AdAlertStripeMode.SAVED);
     }
 }
 
@@ -329,6 +313,7 @@ function* publishAdChanges() {
         yield put({ type: SET_ADMIN_STATUS, status: AdminStatusEnum.DONE });
         yield put({ type: SET_AD_STATUS, status: AdStatusEnum.ACTIVE });
         yield save();
+        yield showAlertStripe(AdAlertStripeMode.PUBLISHED_CHANGES);
     }
 }
 
