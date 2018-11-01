@@ -68,7 +68,7 @@ class AdStatusEdit extends React.Component {
                                     Publisér endringer
                                 </Hovedknapp>
                                 <Knapp
-                                    className="AdStatusEdit__buttons__button AdStatusEdit__PublishChanges__button"
+                                    className="AdStatusEdit__buttons__button AdStatusEdit__StopAd__button"
                                     onClick={this.onStopClick}
                                 >
                                     Stopp stilling
@@ -86,6 +86,9 @@ class AdStatusEdit extends React.Component {
                             <Hovedknapp className="AdStatusEdit__buttons__button" onClick={this.onPublishClick}>
                                 Re-publisér stilling
                             </Hovedknapp>
+                            <Knapp className="AdStatusEdit__buttons__button" onClick={this.onCancelClick}>
+                                Avbryt
+                            </Knapp>
                         </div>
                     )}
                     <div className="AdStatusEdit__buttons-mini">
