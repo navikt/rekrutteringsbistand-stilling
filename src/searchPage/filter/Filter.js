@@ -12,7 +12,7 @@ import {
     REMOVE_PRIVACY_FILTER,
     REMOVE_STATUS_FILTER
 } from '../searchReducer';
-import StatusEnum from '../enums/AdStatusEnum';
+import AdStatusEnum from '../enums/AdStatusEnum';
 import PrivacyStatusEnum from '../enums/PrivacyStatusEnum';
 
 class Filter extends React.Component {
@@ -53,10 +53,10 @@ class Filter extends React.Component {
         return (
             <form onSubmit={this.onSubmit}>
                 <SkjemaGruppe title="Status" className="blokk-s">
-                    {Object.keys(StatusEnum).map((key) => (
+                    {Object.keys(AdStatusEnum).map((key) => (
                         <Checkbox
                             key={key}
-                            label={StatusEnum[key]}
+                            label={AdStatusEnum[key]}
                             value={key}
                             checked={adStatus.includes(key)}
                             name="adStatus"
@@ -81,14 +81,14 @@ class Filter extends React.Component {
                         label="Alle"
                         value="Alle"
                         checked={source === undefined}
-                        name="adminStatus"
+                        name="source"
                         onChange={this.onSourceFilterChange}
                     />
                     <Radio
                         label="Direktemeldt stilling"
                         value="DIR"
                         checked={source === 'DIR'}
-                        name="adminStatus"
+                        name="source"
                         onChange={this.onSourceFilterChange}
                     />
                 </SkjemaGruppe>

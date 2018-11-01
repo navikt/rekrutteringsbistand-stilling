@@ -5,8 +5,11 @@ import Alertstripe from 'nav-frontend-alertstriper';
 import AdStatusEnum from './AdStatusEnum';
 import './AdStatus.less';
 import PrivacyStatusEnum from '../publishing/PrivacyStatusEnum';
+import { formatISOString } from '../../../utils';
 
-function AdStatus({ adStatus, originalData }) {
+function AdStatus({ adStatus, originalData, published }) {
+    // TODO: Add check to see if the ad has been published in the future
+    // TODO: Add check to see if the ad has expired
     return (
         <div className="AdStatusPreview">
             {adStatus === AdStatusEnum.INACTIVE && (
@@ -16,12 +19,12 @@ function AdStatus({ adStatus, originalData }) {
             )}
             {adStatus === AdStatusEnum.ACTIVE && originalData.privacy === PrivacyStatusEnum.INTERNAL_NOT_SHOWN && (
                 <Alertstripe className="AdStatusPreview__Alertstripe" type="suksess" solid>
-                    Stillingen er publisert internt i NAV
+                    Stillingen er publisert internt i NAV {published ? ` | ${formatISOString(published)}` : ''}
                 </Alertstripe>
             )}
             {adStatus === AdStatusEnum.ACTIVE && originalData.privacy === PrivacyStatusEnum.SHOW_ALL && (
                 <Alertstripe className="AdStatusPreview__Alertstripe" type="suksess" solid>
-                    Stillingen er publisert på arbeidsplassen.no
+                    Stillingen er publisert på arbeidsplassen.no {published ? ` | ${formatISOString(published)}` : ''}
                 </Alertstripe>
             )}
             {adStatus === AdStatusEnum.STOPPED && (
@@ -39,6 +42,7 @@ AdStatus.defaultProps = {
 
 AdStatus.propTypes = {
     adStatus: PropTypes.string.isRequired,
+    published: PropTypes.string.isRequired,
     originalData: PropTypes.shape({
         privacy: PropTypes.string
     })
@@ -46,6 +50,7 @@ AdStatus.propTypes = {
 
 const mapStateToProps = (state) => ({
     adStatus: state.adData.status,
+    published: state.adData.published,
     originalData: state.ad.originalData
 });
 
