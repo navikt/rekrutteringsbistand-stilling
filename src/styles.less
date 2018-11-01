@@ -84,4 +84,23 @@ input::-ms-clear {
 }
 
 
+.AlertStripe__fullpage {
+  position: fixed;
+  top: @topMenuHeight;
+  width: 100%;
+  left: 0;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  .alertstripe__tekst {
+    flex: 0 1 auto;
+    -ms-flex: 0 1 auto;
+    -webkit-flex: 0 1 auto;
+  }
+  .alertstripe__ikon {
+    margin-right: 0;
+    padding-right: 0;
+    width: 2.2rem;
+  }
+}
 

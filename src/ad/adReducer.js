@@ -220,6 +220,10 @@ function* getAd(action) {
     try {
         const response = yield fetchAd(action.uuid);
         yield put({ type: FETCH_AD_SUCCESS, response });
+
+        if(action.edit){
+            yield put({ type: EDIT_AD });
+        }
     } catch (e) {
         if (e instanceof ApiError) {
             yield put({ type: FETCH_AD_FAILURE, error: e });

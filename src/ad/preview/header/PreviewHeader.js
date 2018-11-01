@@ -87,7 +87,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    editAd: () => dispatch({ type: EDIT_AD }),
+    editAd: () => dispatch({ type: EDIT_AD })
 
 });
 

@@ -9,7 +9,7 @@ import Sorting  from './statusFilter/StatusFilter';
 import Loading from '../common/loading/Loading';
 import ResultHeader from './result/ResultHeader';
 import ResultItem from './result/ResultItem';
-import NoResults from '../searchPage/noResults/NoResults';
+import NoResults from './noResults/NoResults';
 import Pagination from './pagination/Pagination';
 import Count from './result/Count';
 import { FETCH_MY_ADS } from './myAdsReducer';
@@ -34,25 +34,18 @@ class MyAds extends React.Component {
             <div className="MyAds">
                 <div className="MyAds__header">
                     <Container className="MyAds__header-container">
-                        <div className="MyAds__header__item">
-                            <div className="no-content" />
-                        </div>
-                        <div className="MyAds__header__item">
-                            <Sidetittel> Mine stillinger </Sidetittel>
-                        </div>
-                        <div className="MyAds__header__item MyAds__header-button">
-                            <Hovedknapp
-                                onClick={this.onCreateAd}
-                                className=""
-                            >
-                                Opprett ny
-                            </Hovedknapp>
-                        </div>
+                        <Sidetittel className="MyAds__header__title"> Mine stillinger </Sidetittel>
+                        <Hovedknapp
+                            onClick={this.onCreateAd}
+                            className="MyAds__header__button"
+                        >
+                            Opprett ny
+                        </Hovedknapp>
                     </Container>
                 </div>
                 <Container className="MyAds__content">
-                    {(error && error.statusCode !== 412) && (
-                        <AlertStripe className="SearchPage__alertStripe" type="advarsel" solid>
+                    {error && (
+                        <AlertStripe className="AlertStripe__fullpage" type="advarsel" solid>
                             Det oppsto en feil. Forsøk å laste siden på nytt
                         </AlertStripe>
                     )}
@@ -75,7 +68,6 @@ class MyAds extends React.Component {
                         {!isSearching && ads && ads.length === 0 && (
                             <NoResults />
                         )}
-
                         {adsFound && (
                             <Pagination />
                         )}

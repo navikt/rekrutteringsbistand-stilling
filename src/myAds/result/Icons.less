@@ -44,6 +44,11 @@
   }
 }
 
+.Edit__icon--disabled {
+  .Icon;
+  .background-image(replace(@edit, "230067C5", "2378706A", "gi"));
+}
+
 .Delete__icon {
   .Icon;
   background-image: url(@delete);
@@ -102,10 +107,6 @@
   }
 
   &:disabled {
-
-    .Edit__icon {
-      .background-image(replace(@edit, "230067C5", "2378706A", "gi"));
-    }
 
     .Delete__icon {
       .background-image(replace(@delete, "230067C5", "2378706A", "gi"));
