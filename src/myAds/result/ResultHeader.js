@@ -5,16 +5,16 @@ export default function ResultHeader() {
     return (
         <thead className="ResultHeader typo-element">
             <tr >
-                <th className="ColWidth-updated">Sist endret</th>
-                <th className="ColWidth-title">Stillingstittel</th>
-                <th className="ColWidth-employer">Arbeidsgiver</th>
-                <th className="ColWidth-privacy">Publisert</th>
-                <th className="ColWidth-candidate">Kandidatliste</th>
-                <th className="ColWidth-status">Status</th>
-                <th className="ColWidth-edit center">Rediger</th>
-                <th className="ColWidth-copy center">Kopier</th>
-                <th className="ColWidth-stop center">Stopp</th>
-                <th className="ColWidth-delete center">Slett</th>
+                <th className="Col-updated">Sist endret</th>
+                <th className="Col-title">Stillingstittel</th>
+                <th className="Col-employer">Arbeidsgiver</th>
+                <th className="Col-privacy">Publisert</th>
+                <th className="Col-candidate">Kandidatliste</th>
+                <th className="Col-status">Status</th>
+                <th className="Col-edit center">Rediger</th>
+                <th className="Col-copy center">Kopier</th>
+                <th className="Col-stop center">Stopp</th>
+                <th className="Col-delete center">Slett</th>
             </tr>
         </thead>
     );

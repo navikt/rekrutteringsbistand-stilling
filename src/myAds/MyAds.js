@@ -11,6 +11,7 @@ import ResultHeader from './result/ResultHeader';
 import ResultItem from './result/ResultItem';
 import NoResults from './noResults/NoResults';
 import Pagination from './pagination/Pagination';
+import StopAdModal from '../ad/administration/adStatus/StopAdModal';
 import Count from './result/Count';
 import { FETCH_MY_ADS } from './myAdsReducer';
 import { CREATE_AD } from '../ad/adReducer';
@@ -44,6 +45,7 @@ class MyAds extends React.Component {
                     </Container>
                 </div>
                 <Container className="MyAds__content">
+                    <StopAdModal />
                     {error && (
                         <AlertStripe className="AlertStripe__fullpage" type="advarsel" solid>
                             Det oppsto en feil. Forsøk å laste siden på nytt
@@ -57,9 +59,11 @@ class MyAds extends React.Component {
 
                         <table className="Result__table">
                             <ResultHeader />
-                            {adsFound && ads.map((ad) => (
-                                <ResultItem key={ad.uuid} ad={ad} />
-                            ))}
+                            <tbody>
+                                {adsFound && ads.map((ad) => (
+                                    <ResultItem key={ad.uuid} ad={ad} />
+                                ))}
+                            </tbody>
                         </table>
 
                         {isSearching && (

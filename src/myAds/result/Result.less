@@ -1,33 +1,30 @@
 .ResultHeader {
   font-weight: bold;
   height: 4rem;
-  display: inline-flex;
-  align-items: center;
+  display: inline-table;
   width: 100%;
   background-color: white;
-  border: solid 1px #78706a;
+  box-shadow: 0 0 0 1px #78706a; /* this draws the table border  */
+  border-style:hidden;
   border-radius: 4px;
-  padding: 1.25rem;
   margin: 0;
 }
 
 .ResultItem {
   height: 4rem;
-  display: inline-flex;
-  align-items: center;
+  display: inline-table;
   width: 100%;
   margin: 0.5rem 0 0 0;
   background-color: white;
-  padding: 1.25rem;
-  border: solid 1px #d8d8d8;
   border-radius: 4px;
+  border-style: hidden; /* hide standard table (collapsed) border */
+  box-shadow: 0 0 0 1px #d8d8d8; /* this draws the table border  */
 }
 
 .ResultItem__column {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-  margin-right: 1rem;
 }
 
 .CandidateList__column {
@@ -35,17 +32,17 @@
   align-items: center; //vertically
 }
 
-.Button__column {
-  display: flex;
-  justify-content: space-between;
-}
 
 .Result__table {
   max-width: 100%;
   width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
 
   th, td {
     text-align: left;
+    min-height: 4rem;
+    height: 4rem;
   }
 
   .center {
@@ -53,42 +50,54 @@
   }
 }
 
-.ColWidth-updated {
-  width: 100px;
+.Col-updated {
+   min-width: 110px;
+   width: 110px;
+   padding-left: 1.25rem;
 }
 
-.ColWidth-title {
-  width: 250px;
+.Col-title {
+  min-width: 240px;
+  max-width: 240px;
 }
 
-.ColWidth-employer {
-  width: 200px;
+.Col-employer {
+  min-width: 200px;
+  max-width: 200px;
 }
 
-.ColWidth-privacy {
-   width: 120px;
+.Col-privacy {
+  min-width: 120px;
+  max-width: 120px;
  }
 
-.ColWidth-candidate {
-  width: 150px;
+.Col-candidate {
+  min-width: 150px;
+  max-width: 150px;
 }
 
-.ColWidth-status {
-  width: 110px;
+.Col-status {
+  min-width: 110px;
+  max-width: 110px;
 }
 
-.ColWidth-edit {
-  width: 64px;
+.Col-edit {
+  min-width: 64px;
+  max-width: 64px;
 }
 
-.ColWidth-copy {
-  width: 58px;
+.Col-copy {
+  min-width: 58px;
+  max-width: 58px;
 }
 
-.ColWidth-stop {
-  width: 52px;
+.Col-stop {
+  min-width: 52px;
+  max-width: 52px;
 }
 
-.ColWidth-delete {
-  width: 35px;
+.Col-delete {
+  min-width: 34px;
+  width: 34px;
+  padding-right: 1.25rem;
 }
