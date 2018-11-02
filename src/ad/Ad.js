@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import Faded from '../common/faded/Faded';
 import './Ad.less';
 import { REMOVE_AD_DATA } from './adDataReducer';
-import { CREATE_AD, FETCH_AD, PREVIEW_EDIT_AD } from './adReducer';
+import { CREATE_AD, FETCH_AD, PREVIEW_EDIT_AD, EDIT_AD } from './adReducer';
 import Edit from './edit/Edit';
 import Error from './error/Error';
 import Preview from './preview/Preview';
@@ -21,7 +21,8 @@ class Ad extends React.Component {
         window.scrollTo(0, 0);
         if (this.props.match.params.uuid) {
             this.uuid = this.props.match.params.uuid;
-            this.props.getStilling(this.uuid);
+            const edit = this.props.location.state && this.props.location.state.openInEditMode;
+            this.props.getStilling(this.uuid, edit);
         } else {
             this.props.createAd();
         }
@@ -124,7 +125,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    getStilling: (uuid) => dispatch({ type: FETCH_AD, uuid }),
+    getStilling: (uuid, edit) => dispatch({ type: FETCH_AD, uuid, edit }),
     createAd: () => dispatch({ type: CREATE_AD }),
     previewAd: () => dispatch({ type: PREVIEW_EDIT_AD }),
     removeAdData: () => dispatch({ type: REMOVE_AD_DATA })

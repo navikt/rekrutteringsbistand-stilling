@@ -16,10 +16,12 @@ import './styles.less';
 import './variables.less';
 import StartPage from './startPage/StartPage';
 import SearchPage from './searchPage/SearchPage';
+import MyAds from './myAds/MyAds';
 import reporteeReducer, { reporteeSaga } from './reportee/reporteeReducer';
 import adDataReducer, { adDataSaga } from './ad/adDataReducer';
 import adValidationReducer, { validationSaga } from './ad/adValidationReducer';
 import savedSearchAlertStripeReducer from './ad/alertstripe/SavedAdAlertStripeReducer';
+import myAdsReducer , {myAdsSaga} from './myAds/myAdsReducer';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -32,6 +34,7 @@ const store = createStore(combineReducers({
     styrk: styrkReducer,
     reportee: reporteeReducer,
     search: searchReducer,
+    myAds: myAdsReducer,
     municipalOrCountry: municipalOrCountryReducer,
     savedAdAlertStripe: savedSearchAlertStripeReducer
 }), applyMiddleware(sagaMiddleware));
@@ -43,6 +46,7 @@ sagaMiddleware.run(locationSaga);
 sagaMiddleware.run(styrkSaga);
 sagaMiddleware.run(reporteeSaga);
 sagaMiddleware.run(searchSaga);
+sagaMiddleware.run(myAdsSaga);
 sagaMiddleware.run(adDataSaga);
 sagaMiddleware.run(municipalOrCountrySaga);
 
@@ -51,6 +55,7 @@ const Main = () => (
         <Switch>
             <Route exact path="/" component={StartPage} />
             <Route exact path="/search" component={SearchPage} />
+            <Route exact path="/mine" component={MyAds} />
             <Route exact path="/ads" component={Ad} />
             <Route exact path="/ads/:uuid" component={Ad} />
             <Route exact path="*" component={StartPage} />
