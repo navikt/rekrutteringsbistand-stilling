@@ -49,7 +49,7 @@ class HasChangesModal extends React.Component {
                         Bli på siden
                     </Hovedknapp>
                     <Link
-                        to="/"
+                        to="/mine"
                         className="lenke"
                         onClick={this.onLeaveClick}
                     >
