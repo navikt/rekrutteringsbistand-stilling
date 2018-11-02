@@ -1,5 +1,6 @@
 import { put, select, takeLatest } from 'redux-saga/effects';
 import { ApiError, fetchAds } from '../api/api';
+import AdminStatusEnum from '../ad/administration/adminStatus/AdminStatusEnum';
 
 export const FETCH_ADS = 'FETCH_ADS';
 export const FETCH_ADS_BEGIN = 'FETCH_ADS_BEGIN';
@@ -33,6 +34,7 @@ const initialState = {
     totalPages: 0,
     page: 0,
     value: '',
+    administrationStatus: AdminStatusEnum.DONE,
     field: undefined,
     suggestions: [],
     privacy: [],
@@ -140,17 +142,48 @@ export default function searchReducer(state = initialState, action) {
 
 export function toQuery(search) {
     const {
-        sortField, sortDir, page, privacy, status, source
+        sortField, sortDir, page, privacy, status, source, administrationStatus
     } = search;
 
     let query = {
         sort: `${sortField},${sortDir}`,
         page,
+        status,
+        administrationStatus,
         source
     };
 
-    if (status.length !== 0) {
-        query = { ...query, status };
+    if (status.length === 0) {
+        query = {
+            ...query,
+            status: '!REJECTED,DELETED'
+        };
+    } else {
+        if (status.includes('INACTIVE')) {
+            query = {
+                ...query,
+                published: ['now', '*']
+            };
+            if (status.includes('EXPIRED')) {
+                query = {
+                    ...query,
+                    expires: ['*', 'now']
+                };
+            }
+        } else if (status.includes('EXPIRED')) {
+            query = {
+                ...query,
+                status: [
+                    ...query.status,
+                    'INACTIVE'
+                ],
+                expires: ['*', 'now']
+            };
+        }
+        query = {
+            ...query,
+            status: query.status.filter((s) => s !== 'EXPIRED')
+        };
     }
 
     if (privacy.length !== 0) {
