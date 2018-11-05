@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { Column, Row } from 'nav-frontend-grid';
 import { LenkepanelBase } from 'nav-frontend-lenkepanel';
 import { Systemtittel } from 'nav-frontend-typografi';
@@ -25,6 +25,7 @@ class StartPage extends React.Component {
                             <LenkepanelBase
                                 href="/mine"
                                 border
+                                linkCreator={(props) => <Link to="/mine" {...props} />}
                             >
                                 <div className="StartPage__panel-flex">
                                     <div className="StartPage__icon-copy" />
@@ -38,6 +39,7 @@ class StartPage extends React.Component {
                             <LenkepanelBase
                                 href="/ads"
                                 border
+                                linkCreator={(props) => <Link to="/ads" {...props} />}
                             >
                                 <div className="StartPage__panel-flex">
                                     <div className="StartPage__icon-pen" />
@@ -53,6 +55,7 @@ class StartPage extends React.Component {
                             <LenkepanelBase
                                 href="/kandidatsok"
                                 border
+                                linkCreator={(props) => <Link to="/kandidatsok" {...props} />}
                             >
                                 <div className="StartPage__panel-flex">
                                     <div className="StartPage__icon-candidates" />
