@@ -25,7 +25,7 @@ class ResultItem extends React.Component {
                     )}
                 </td>
                 <td className="Col-title">
-                    <div className="ResultItem__column">
+                    <div className="ResultItem__column Col-title-inner">
                         <Link
                             className="typo-normal lenke"
                             to={`/ads/${ad.uuid}`}
@@ -36,7 +36,7 @@ class ResultItem extends React.Component {
                 </td>
                 <td className="Col-employer">
                     {ad.employer && ad.employer.name && (
-                        <Normaltekst className="ResultItem__column">
+                        <Normaltekst className="ResultItem__column Col-employer-inner">
                             {capitalizeEmployerName(ad.employer.name)}
                         </Normaltekst>
                     )}
