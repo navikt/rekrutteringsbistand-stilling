@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 import NavFrontendModal from 'nav-frontend-modal';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import { Link } from 'react-router-dom';
-import { DELETE_AD, HIDE_HAS_CHANGES_MODAL } from '../../adReducer';
+import { DELETE_AD_AND_REDIRECT, HIDE_HAS_CHANGES_MODAL } from '../../adReducer';
 import './HasChangesModal.less';
 
 class HasChangesModal extends React.Component {
@@ -14,9 +13,9 @@ class HasChangesModal extends React.Component {
     };
 
     onLeaveClick = () => {
-        const { updated, created, closeModal, deleteAd } = this.props;
+        const { updated, created, closeModal, deleteAdAndRedirect } = this.props;
         if (updated === created) {
-            deleteAd();
+            deleteAdAndRedirect('/mine');
         }
         closeModal();
     };
@@ -48,13 +47,12 @@ class HasChangesModal extends React.Component {
                     <Hovedknapp onClick={this.onClose}>
                         Bli på siden
                     </Hovedknapp>
-                    <Link
-                        to="/mine"
+                    <Hovedknapp
                         className="lenke"
                         onClick={this.onLeaveClick}
                     >
                         Forlat siden
-                    </Link>
+                    </Hovedknapp>
                 </div>
             </NavFrontendModal>
         );
@@ -69,7 +67,7 @@ HasChangesModal.defaultProps = {
 HasChangesModal.propTypes = {
     showHasChangesModal: PropTypes.bool.isRequired,
     closeModal: PropTypes.func.isRequired,
-    deleteAd: PropTypes.func.isRequired,
+    deleteAdAndRedirect: PropTypes.func.isRequired,
     updated: PropTypes.string,
     created: PropTypes.string
 };
@@ -83,7 +81,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     closeModal: () => dispatch({ type: HIDE_HAS_CHANGES_MODAL }),
-    deleteAd: () => dispatch({ type: DELETE_AD })
+    deleteAdAndRedirect: (url) => dispatch({ type: DELETE_AD_AND_REDIRECT, url })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HasChangesModal);

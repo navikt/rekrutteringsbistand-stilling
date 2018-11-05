@@ -1,5 +1,5 @@
 import deepEqual from 'deep-equal';
-import { put, select, takeLatest } from 'redux-saga/effects';
+import { put, select, call, takeLatest } from 'redux-saga/effects';
 import {
     ApiError, fetchAd, fetchDelete, fetchPost, fetchPut
 } from '../api/api';
@@ -24,6 +24,7 @@ import {
 import PrivacyStatusEnum from './administration/publishing/PrivacyStatusEnum';
 import { AdAlertStripeMode, showAlertStripe } from './alertstripe/SavedAdAlertStripeReducer';
 import { FETCH_MY_ADS } from '../myAds/myAdsReducer';
+import history from '../history';
 
 export const FETCH_AD = 'FETCH_AD';
 export const FETCH_AD_BEGIN = 'FETCH_AD_BEGIN';
@@ -44,6 +45,8 @@ export const DELETE_AD = 'DELETE_AD';
 export const DELETE_AD_BEGIN = 'DELETE_AD_BEGIN';
 export const DELETE_AD_SUCCESS = 'DELETE_AD_SUCCESS';
 export const DELETE_AD_FAILURE = 'DELETE_AD_FAILURE';
+
+export const DELETE_AD_AND_REDIRECT = 'DELETE_AD_AND_REDIRECT';
 
 export const EDIT_AD = 'EDIT_AD';
 export const PREVIEW_EDIT_AD = 'PREVIEW_EDIT_AD';
@@ -365,6 +368,11 @@ function* deleteAd() {
     }
 }
 
+function* deleteAdAndRedirect(action) {
+    yield deleteAd();
+    yield call(history.push, action.url);
+}
+
 export const adSaga = function* saga() {
     yield takeLatest(PUBLISH_AD, publishAd);
     yield takeLatest(STOP_AD, stopAd);
@@ -373,6 +381,7 @@ export const adSaga = function* saga() {
     yield takeLatest(CREATE_AD, createAd);
     yield takeLatest(PUBLISH_AD_CHANGES, publishAdChanges);
     yield takeLatest(DELETE_AD, deleteAd);
+    yield takeLatest(DELETE_AD_AND_REDIRECT, deleteAdAndRedirect);
     yield takeLatest(SHOW_STOP_MODAL_MY_ADS, showStopModalMyAds);
     yield takeLatest(STOP_AD_FROM_MY_ADS, stopAdFromMyAds);
 };

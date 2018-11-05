@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
 import { applyMiddleware, createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
@@ -22,6 +22,7 @@ import adDataReducer, { adDataSaga } from './ad/adDataReducer';
 import adValidationReducer, { validationSaga } from './ad/adValidationReducer';
 import savedSearchAlertStripeReducer from './ad/alertstripe/SavedAdAlertStripeReducer';
 import myAdsReducer , {myAdsSaga} from './myAds/myAdsReducer';
+import history from './history';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -74,9 +75,9 @@ const App = () => (
 ReactDOM.render(
     <Provider store={store}>
         <div>
-            <BrowserRouter>
+            <Router history={history}>
                 <App />
-            </BrowserRouter>
+            </Router>
         </div>
     </Provider>,
     document.getElementById('app')
