@@ -1,6 +1,7 @@
 import { put, select, takeLatest } from 'redux-saga/effects';
 import { ApiError, fetchAds } from '../api/api';
 import { getReportee } from '../reportee/reporteeReducer';
+import { combineStatusQuery} from '../searchPage/searchReducer';
 
 export const FETCH_MY_ADS = 'FETCH_MY_ADS';
 export const FETCH_MY_ADS_BEGIN = 'FETCH_MY_ADS_BEGIN';
@@ -69,14 +70,15 @@ export function toQuery(search) {
         reportee, status, page, source
     } = search;
 
-
-    return {
+    const query = {
         sort: 'updated,desc',
         page,
-        status,
         source,
-        reportee
+        reportee,
+        ...combineStatusQuery(status)
     };
+
+    return query;
 }
 
 function* getMyAds(action) {

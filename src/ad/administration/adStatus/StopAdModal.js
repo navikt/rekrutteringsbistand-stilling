@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import NavFrontendModal from 'nav-frontend-modal';
 import { Flatknapp, Hovedknapp } from 'nav-frontend-knapper';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import { HIDE_STOP_AD_MODAL, STOP_AD } from '../../adReducer';
+import { HIDE_STOP_AD_MODAL, STOP_AD, STOP_AD_FROM_MY_ADS } from '../../adReducer';
 import './StopAdModal.less';
 import Comment from '../comment/Comment';
 
@@ -17,7 +17,12 @@ class StopAdModal extends React.Component {
     onStopAdClick = () => {
         if (this.props.validation.comment === undefined) {
             this.props.closeModal();
-            this.props.stop();
+
+            if(this.props.fromMyAds){
+                this.props.stopAdFromMyAds();
+            } else {
+                this.props.stop();
+            }
         }
     };
 
@@ -51,13 +56,19 @@ class StopAdModal extends React.Component {
     }
 }
 
+StopAdModal.defaultProps = {
+    fromMyAds: false
+};
+
 StopAdModal.propTypes = {
     showStopAdModal: PropTypes.bool.isRequired,
     closeModal: PropTypes.func.isRequired,
     stop: PropTypes.func.isRequired,
+    stopAdFromMyAds: PropTypes.func.isRequired,
     validation: PropTypes.shape({
         comment: PropTypes.string
-    }).isRequired
+    }).isRequired,
+    fromMyAds: PropTypes.bool
 };
 
 const mapStateToProps = (state) => ({
@@ -67,7 +78,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     closeModal: () => dispatch({ type: HIDE_STOP_AD_MODAL }),
-    stop: () => dispatch({ type: STOP_AD })
+    stop: () => dispatch({ type: STOP_AD }),
+    stopAdFromMyAds: () => dispatch({ type: STOP_AD_FROM_MY_ADS })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(StopAdModal);

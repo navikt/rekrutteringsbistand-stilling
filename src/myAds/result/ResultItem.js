@@ -4,17 +4,19 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Normaltekst } from 'nav-frontend-typografi';
 import capitalizeEmployerName from '../../ad/edit/employer/capitalizeEmployerName';
-import { formatISOString } from '../../utils';
-import { FETCH_AND_SHOW_STOP_MODAL } from '../../ad/adReducer';
+import { formatISOString, toDate } from '../../utils';
+import { SHOW_STOP_MODAL_MY_ADS } from '../../ad/adReducer';
 import AdStatusEnum from '../../searchPage/enums/AdStatusEnum';
 import PrivacyStatusEnum from '../../ad/administration/publishing/PrivacyStatusEnum';
 import LinkWithIcon from '../../common/linkWithIcon/LinkWithIcon';
+import { erDatoFørSluttdato } from 'nav-datovelger/dist/datovelger/utils/datovalidering';
 import './Icons.less';
 import './Result.less';
 
 class ResultItem extends React.Component {
     render() {
         const { ad } = this.props;
+        const isExpired = AdStatusEnum[ad.status] === AdStatusEnum.INACTIVE && erDatoFørSluttdato(toDate(ad.expires), new Date(Date.now()));
         return (
              <tr className="ResultItem" >
                 <td className="Col-updated">
@@ -75,7 +77,7 @@ class ResultItem extends React.Component {
                             state: { openInEditMode: true }
                         }}
                     >
-                        <i className={AdStatusEnum[ad.status] === AdStatusEnum.EXPIRED ? "Edit__icon--disabled" : "Edit__icon"}/>
+                        <i className={isExpired ? "Edit__icon--disabled" : "Edit__icon"}/>
                     </Link>
                 </td>
                 <td className="Col-copy center">
@@ -93,6 +95,7 @@ class ResultItem extends React.Component {
                         aria-label="Stopp"
                         title="stopp"
                         disabled={AdStatusEnum[ad.status] !== AdStatusEnum.ACTIVE}
+                        onClick={() => this.props.stopAd(ad.uuid)}
                     >
                         <i className="Stop__icon"/>
                     </button>
@@ -124,6 +127,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+    stopAd: (uuid) => dispatch({ type: SHOW_STOP_MODAL_MY_ADS, uuid })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ResultItem);

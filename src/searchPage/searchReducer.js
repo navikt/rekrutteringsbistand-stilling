@@ -127,7 +127,7 @@ export default function searchReducer(state = initialState, action) {
 }
 
 
-function combineStatusQuery(status) {
+export function combineStatusQuery(status) {
     if (status === undefined) {
         return {
             status: '!REJECTED,DELETED'
