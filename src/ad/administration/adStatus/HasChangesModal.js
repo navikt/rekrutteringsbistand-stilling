@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import NavFrontendModal from 'nav-frontend-modal';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
@@ -12,9 +13,10 @@ class HasChangesModal extends React.Component {
         this.props.closeModal();
     };
 
-    onLeaveClick = () => {
+    onLeaveClick = (e) => {
         const { updated, created, closeModal, deleteAdAndRedirect } = this.props;
         if (updated === created) {
+            e.preventDefault();
             deleteAdAndRedirect('/mine');
         }
         closeModal();
@@ -47,12 +49,13 @@ class HasChangesModal extends React.Component {
                     <Hovedknapp onClick={this.onClose}>
                         Bli på siden
                     </Hovedknapp>
-                    <Hovedknapp
+                    <Link
+                        to="/mine"
                         className="lenke"
                         onClick={this.onLeaveClick}
                     >
                         Forlat siden
-                    </Hovedknapp>
+                    </Link>
                 </div>
             </NavFrontendModal>
         );
