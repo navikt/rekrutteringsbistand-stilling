@@ -45,7 +45,7 @@ class MyAds extends React.Component {
                     </Container>
                 </div>
                 <Container className="MyAds__content">
-                    <StopAdModal fromMyAds={true} />
+                    <StopAdModal fromMyAds />
                     {error && (
                         <AlertStripe className="AlertStripe__fullpage" type="advarsel" solid>
                             Det oppsto en feil. Forsøk å laste siden på nytt
