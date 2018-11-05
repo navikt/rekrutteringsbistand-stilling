@@ -23,6 +23,7 @@ import {
 } from './adValidationReducer';
 import PrivacyStatusEnum from './administration/publishing/PrivacyStatusEnum';
 import { AdAlertStripeMode, showAlertStripe } from './alertstripe/SavedAdAlertStripeReducer';
+import { FETCH_MY_ADS } from '../myAds/myAdsReducer';
 
 export const FETCH_AD = 'FETCH_AD';
 export const FETCH_AD_BEGIN = 'FETCH_AD_BEGIN';
@@ -53,6 +54,7 @@ export const SHOW_PUBLISH_ERROR_MODAL = 'SHOW_PUBLISH_ERROR_MODAL';
 export const HIDE_PUBLISH_ERROR_MODAL = 'HIDE_PUBLISH_ERROR_MODAL';
 
 export const STOP_AD = 'STOP_AD';
+export const STOP_AD_FROM_MY_ADS = 'STOP_AD_FROM_MY_ADS';
 export const SHOW_STOP_AD_MODAL = 'SHOW_STOP_AD_MODAL';
 export const HIDE_STOP_AD_MODAL = 'HIDE_STOP_AD_MODAL';
 
@@ -64,6 +66,8 @@ export const HIDE_AD_PUBLISHED_MODAL = 'HIDE_AD_PUBLISHED_MODAL';
 
 export const SHOW_AD_SAVED_ERROR_MODAL = 'SHOW_AD_SAVED_ERROR_MODAL';
 export const HIDE_AD_SAVED_ERROR_MODAL = 'HIDE_AD_SAVED_ERROR_MODAL';
+
+export const SHOW_STOP_MODAL_MY_ADS = 'SHOW_STOP_MODAL_MY_ADS';
 
 export const DEFAULT_TITLE = 'Overskrift på annonsen';
 
@@ -217,6 +221,22 @@ function* getAd(action) {
     }
 }
 
+function* showStopModalMyAds(action) {
+    // Fetch the ad first to be able to stop it
+    yield put({ type: FETCH_AD_BEGIN });
+    try {
+        const response = yield fetchAd(action.uuid);
+        yield put({ type: FETCH_AD_SUCCESS, response });
+        yield put({ type: SHOW_STOP_AD_MODAL });
+    } catch (e) {
+        if (e instanceof ApiError) {
+            yield put({ type: FETCH_AD_FAILURE, error: e });
+        } else {
+            throw e;
+        }
+    }
+}
+
 function needClassify(originalAdData, adData) {
     return !deepEqual(originalAdData.categoryList, adData.categoryList);
 }
@@ -297,6 +317,12 @@ function* stopAd() {
     yield save();
 }
 
+function* stopAdFromMyAds() {
+    yield stopAd();
+    // Update list with the new status
+    yield put({ type: FETCH_MY_ADS });
+}
+
 function* saveAd() {
     yield validateBeforeSave();
     const state = yield select();
@@ -347,4 +373,6 @@ export const adSaga = function* saga() {
     yield takeLatest(CREATE_AD, createAd);
     yield takeLatest(PUBLISH_AD_CHANGES, publishAdChanges);
     yield takeLatest(DELETE_AD, deleteAd);
+    yield takeLatest(SHOW_STOP_MODAL_MY_ADS, showStopModalMyAds);
+    yield takeLatest(STOP_AD_FROM_MY_ADS, stopAdFromMyAds);
 };
