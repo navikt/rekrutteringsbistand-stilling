@@ -49,6 +49,7 @@ const SearchResultItem = ({ ad }) => (
                 <div className="SearchResultItem__column__flex">
                     <Normaltekst className="SearchResultItem__column__flex__ellipsis">
                         {ad.administration && ad.administration.reportee ? ad.administration.reportee : ''}
+                        {ad.administration && ad.administration.navIdent ? ` (${ad.administration.navIdent})` : ''}
                     </Normaltekst>
                 </div>
             </div>
