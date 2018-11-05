@@ -5,6 +5,7 @@ import Alertstripe from 'nav-frontend-alertstriper';
 import AdStatusEnum from './AdStatusEnum';
 import './AdStatus.less';
 import PrivacyStatusEnum from '../publishing/PrivacyStatusEnum';
+import { formatISOString } from '../../../utils';
 
 function AdStatus({ adStatus, originalData }) {
     return (
@@ -17,11 +18,13 @@ function AdStatus({ adStatus, originalData }) {
             {adStatus === AdStatusEnum.ACTIVE && originalData.privacy === PrivacyStatusEnum.INTERNAL_NOT_SHOWN && (
                 <Alertstripe className="AdStatusPreview__Alertstripe" type="suksess" solid>
                     Stillingen er publisert internt i NAV
+                    {originalData.published ? ` | ${formatISOString(originalData.published)}` : ''}
                 </Alertstripe>
             )}
             {adStatus === AdStatusEnum.ACTIVE && originalData.privacy === PrivacyStatusEnum.SHOW_ALL && (
                 <Alertstripe className="AdStatusPreview__Alertstripe" type="suksess" solid>
                     Stillingen er publisert på arbeidsplassen.no
+                    {originalData.published ? ` | ${formatISOString(originalData.published)}` : ''}
                 </Alertstripe>
             )}
             {adStatus === AdStatusEnum.STOPPED && (
@@ -34,7 +37,9 @@ function AdStatus({ adStatus, originalData }) {
 }
 
 AdStatus.defaultProps = {
-    originalData: undefined
+    originalData: undefined,
+    adminStatus: undefined,
+    published: undefined
 };
 
 AdStatus.propTypes = {

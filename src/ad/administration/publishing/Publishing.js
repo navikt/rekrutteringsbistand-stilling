@@ -3,17 +3,16 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Normaltekst } from 'nav-frontend-typografi';
 import Datovelger from 'nav-datovelger';
-import { formatISOString } from '../../../utils';
-
-import { SET_PUBLISHED, SET_EXPIRATION_DATE } from '../../adDataReducer';
 import 'nav-datovelger/dist/datovelger/styles/datovelger.css';
+import { formatISOString } from '../../../utils';
+import { SET_PUBLISHED, SET_EXPIRATION_DATE } from '../../adDataReducer';
 import './Publishing.less';
 
 class Publishing extends React.Component {
     onPublishedChange = (date) => {
         let published;
         if (date && !Number.isNaN(Date.parse(date))) {
-            date.setHours(12);
+            date.setHours(3);
             published = date.toISOString();
         }
         this.props.setPublished(published);
@@ -22,7 +21,7 @@ class Publishing extends React.Component {
     onExpiresChange = (date) => {
         let expires;
         if (date && !Number.isNaN(Date.parse(date))) {
-            date.setHours(12);
+            date.setHours(3);
             expires = date.toISOString();
         }
         this.props.setExpirationDate(expires);
