@@ -1,7 +1,6 @@
 import { put, select, takeLatest } from 'redux-saga/effects';
 import { ApiError, fetchAds } from '../api/api';
 import { getReportee } from '../reportee/reporteeReducer';
-import { combineStatusQuery} from '../searchPage/searchReducer';
 
 export const FETCH_MY_ADS = 'FETCH_MY_ADS';
 export const FETCH_MY_ADS_BEGIN = 'FETCH_MY_ADS_BEGIN';
@@ -10,6 +9,10 @@ export const FETCH_MY_ADS_FAILURE = 'FETCH_MY_ADS_FAILURE';
 export const CHANGE_MY_ADS_PAGE = 'CHANGE_MY_ADS_PAGE';
 export const RESET_MY_ADS_PAGE = 'RESET_MY_ADS_PAGE';
 export const CHANGE_STATUS_FILTER = 'CHANGE_STATUS_FILTER';
+
+const INACTIVE = 'INACTIVE';
+const EXPIRED = 'EXPIRED';
+const DONE = 'DONE';
 
 const initialState = {
     items: [],
@@ -63,6 +66,22 @@ export default function myAdsReducer(state = initialState, action) {
         default:
             return state;
     }
+}
+
+
+function combineStatusQuery(status) {
+    if (status === undefined) {
+        return {
+            status: '!REJECTED,DELETED'
+        };
+    } else if (status === EXPIRED) {
+        return {
+            status: INACTIVE,
+            expires: '[*,today)',
+            administrationStatus: DONE
+        };
+    }
+    return { status };
 }
 
 export function toQuery(search) {
