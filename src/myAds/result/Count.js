@@ -11,10 +11,19 @@ function Count({ count, isSearching }) {
             </Systemtittel>
         );
     }
+
+    let text = count.toLocaleString('nb');
+    if (count === 1) {
+        text += ' stilling';
+    } else {
+        text += ' stillinger';
+    }
+
+
     return (
         <div>
             <Systemtittel>
-                {count.toLocaleString('nb')} stillinger
+                {text}
             </Systemtittel>
         </div>
     );
