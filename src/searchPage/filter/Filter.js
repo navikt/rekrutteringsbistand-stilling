@@ -48,7 +48,7 @@ class Filter extends React.Component {
         const { adStatus, privacy, source } = this.props;
         return (
             <form onSubmit={this.onSubmit}>
-                <SkjemaGruppe title="Status" className="blokk-s">
+                <SkjemaGruppe title="Status" className="blokk-l">
                     <Radio
                         label="Alle"
                         value="Alle"
@@ -67,7 +67,7 @@ class Filter extends React.Component {
                         />
                     ))}
                 </SkjemaGruppe>
-                <SkjemaGruppe title="Publisert" className="blokk-s">
+                <SkjemaGruppe title="Publisert" className="blokk-l">
                     <Radio
                         label="Alle"
                         value="Alle"
@@ -86,7 +86,7 @@ class Filter extends React.Component {
                         />
                     ))}
                 </SkjemaGruppe>
-                <SkjemaGruppe title="Kilde" className="blokk-s">
+                <SkjemaGruppe title="Kilde" className="blokk-l">
                     <Radio
                         label="Alle"
                         value="Alle"

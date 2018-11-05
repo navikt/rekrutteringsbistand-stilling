@@ -19,19 +19,51 @@ class StartPage extends React.Component {
                 <div className="StartPage__SearchBox__wrapper">
                     <SearchBox onSearch={this.onSearch} />
                 </div>
-                <Row className="StartPage__panels">
-                    <Column xs="12" md="6">
-                        <LenkepanelBase
-                            href="/ads"
-                            border
-                        >
-                            <div className="StartPage__panel-flex">
-                                <div className="StartPage__icon-pen" />
-                                <Systemtittel className="StartPage__systemtittel">Registrer ny stilling</Systemtittel>
-                            </div>
-                        </LenkepanelBase>
-                    </Column>
-                </Row>
+                <div className="StartPage__panels">
+                    <Row>
+                        <Column className="StartPage__panel blokk-s" xs="12" md="6">
+                            <LenkepanelBase
+                                href="/mine"
+                                border
+                            >
+                                <div className="StartPage__panel-flex">
+                                    <div className="StartPage__icon-copy" />
+                                    <Systemtittel className="StartPage__systemtittel">
+                                        Mine stillinger
+                                    </Systemtittel>
+                                </div>
+                            </LenkepanelBase>
+                        </Column>
+                        <Column className="StartPage__panel blokk-s" xs="12" md="6">
+                            <LenkepanelBase
+                                href="/ads"
+                                border
+                            >
+                                <div className="StartPage__panel-flex">
+                                    <div className="StartPage__icon-pen" />
+                                    <Systemtittel className="StartPage__systemtittel">
+                                        Opprett ny stilling
+                                    </Systemtittel>
+                                </div>
+                            </LenkepanelBase>
+                        </Column>
+                    </Row>
+                    <Row>
+                        <Column className="StartPage__panel" xs="12" md="6">
+                            <LenkepanelBase
+                                href="/kandidatsok"
+                                border
+                            >
+                                <div className="StartPage__panel-flex">
+                                    <div className="StartPage__icon-candidates" />
+                                    <Systemtittel className="StartPage__systemtittel">
+                                        Finn kandidater til stilling
+                                    </Systemtittel>
+                                </div>
+                            </LenkepanelBase>
+                        </Column>
+                    </Row>
+                </div>
             </div>
         );
     }
