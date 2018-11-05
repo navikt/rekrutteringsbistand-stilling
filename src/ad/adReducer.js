@@ -205,7 +205,7 @@ function* getAd(action) {
         const response = yield fetchAd(action.uuid);
         yield put({ type: FETCH_AD_SUCCESS, response });
 
-        if(action.edit){
+        if (action.edit) {
             yield put({ type: EDIT_AD });
         }
     } catch (e) {
