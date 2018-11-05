@@ -7,6 +7,7 @@ import capitalizeEmployerName from '../../ad/edit/employer/capitalizeEmployerNam
 import { formatISOString, toDate } from '../../utils';
 import { SHOW_STOP_MODAL_MY_ADS } from '../../ad/adReducer';
 import AdStatusEnum from '../../searchPage/enums/AdStatusEnum';
+import AdminStatusEnum from '../../ad/administration/adminStatus/AdminStatusEnum';
 import PrivacyStatusEnum from '../../ad/administration/publishing/PrivacyStatusEnum';
 import LinkWithIcon from '../../common/linkWithIcon/LinkWithIcon';
 import { erDatoFørSluttdato } from 'nav-datovelger/dist/datovelger/utils/datovalidering';
@@ -16,7 +17,10 @@ import './Result.less';
 class ResultItem extends React.Component {
     render() {
         const { ad } = this.props;
-        const isExpired = AdStatusEnum[ad.status] === AdStatusEnum.INACTIVE && erDatoFørSluttdato(toDate(ad.expires), new Date(Date.now()));
+        const adminDone = ad.administration && ad.administration.status && ad.administration.status === AdminStatusEnum.DONE;
+        const isExpired = AdStatusEnum[ad.status] === AdStatusEnum.INACTIVE &&
+            adminDone &&
+            erDatoFørSluttdato(toDate(ad.expires), new Date(Date.now()));
         return (
              <tr className="ResultItem" >
                 <td className="Col-updated">
