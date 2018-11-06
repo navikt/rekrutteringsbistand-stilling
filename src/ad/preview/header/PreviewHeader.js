@@ -26,27 +26,30 @@ class PreviewMenu extends React.Component {
                     location={stilling.location}
                 />
                 <div className="Ad__preview__menu">
-                    {showCandidateLinks &&
+                    {showCandidateLinks && (
                         <LinkWithIcon
                             to={`/kandidater/?id=${stilling.uuid}`}
                             classNameText="typo-element"
                             classNameLink="Ad__preview__menu-item FindCandidate"
-                            text="Finn kandidater"/>
-                    }
-                    {showCandidateLinks &&
+                            text="Finn kandidater"
+                        />
+                    )}
+                    {showCandidateLinks && stilling && stilling.source === 'DIR' && (
                         <LinkWithIcon
                             to={'#'}
                             classNameText="typo-element"
                             classNameLink="Ad__preview__menu-item AddCandidate"
-                            text="Legg til kandidat"/>
-                    }
-                    {showCandidateLinks &&
+                            text="Legg til kandidat"
+                        />
+                    )}
+                    {showCandidateLinks && stilling && stilling.source === 'DIR' && (
                         <LinkWithIcon
                             to={'#'}
                             classNameText="typo-element"
                             classNameLink="Ad__preview__menu-item CandidateList"
-                            text="Se kandidatliste"/>
-                    }
+                            text="Se kandidatliste"
+                        />
+                    )}
                     <Knapp
                         className="Ad__preview__menu-button"
                         onClick={this.onEditAdClick}
@@ -76,7 +79,8 @@ PreviewMenu.propTypes = {
         }),
         properties: PropTypes.shape({
             employer: PropTypes.string
-        })
+        }),
+        source: PropTypes.string
     }),
     status: PropTypes.string
 };
