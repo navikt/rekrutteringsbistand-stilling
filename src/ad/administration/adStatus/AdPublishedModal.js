@@ -32,7 +32,7 @@ class AdPublishedModal extends React.Component {
                     </Normaltekst>
                     <div className="AdPublishedModal__links">
                         <Link
-                            to={`/kandidater?id=${uuid}`}
+                            to={`/kandidater?stillingsid=${uuid}`}
                             className="lenke"
                             onClick={this.onClose}
                         >
