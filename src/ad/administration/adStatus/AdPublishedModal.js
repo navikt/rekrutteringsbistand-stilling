@@ -30,7 +30,22 @@ class AdPublishedModal extends React.Component {
                     <Normaltekst className="blokk-l">
                         Ønsker du å finne kandidater til stillingen du publiserte?
                     </Normaltekst>
-                    <Link to={`/kandidater/${uuid}`} className="lenke">Finn kandidater</Link>
+                    <div className="AdPublishedModal__links">
+                        <Link
+                            to={`/kandidater?id=${uuid}`}
+                            className="lenke"
+                            onClick={this.onClose}
+                        >
+                            Finn kandidater
+                        </Link>
+                        <Link
+                            to="/mine"
+                            className="lenke"
+                            onClick={this.onClose}
+                        >
+                            Til mine stillinger
+                        </Link>
+                    </div>
                 </div>
             </NavFrontendModal>
         );

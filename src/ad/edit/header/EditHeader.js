@@ -15,7 +15,7 @@ export default function EditHeader({ onPreviewAdClick, uuid, status, source }) {
                 <Sidetittel className="Ad__edit__menu-title"> Ny Stilling</Sidetittel>
                 {showCandidateLinks && (
                     <LinkWithIcon
-                        to={`/kandidater/?id=${uuid}`}
+                        to={`/kandidater?id=${uuid}`}
                         classNameText="typo-element"
                         classNameLink="Ad__edit__menu-item FindCandidate"
                         text="Finn kandidater"
@@ -31,7 +31,7 @@ export default function EditHeader({ onPreviewAdClick, uuid, status, source }) {
                 )}
                 {showCandidateLinks && source === 'DIR' && (
                     <LinkWithIcon
-                        to={'#'}
+                        to={`/kandidater/${uuid}`}
                         classNameText="typo-element"
                         classNameLink="Ad__edit__menu-item CandidateList"
                         text="Se kandidatliste"

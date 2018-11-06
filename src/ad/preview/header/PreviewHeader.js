@@ -28,7 +28,7 @@ class PreviewMenu extends React.Component {
                 <div className="Ad__preview__menu">
                     {showCandidateLinks && (
                         <LinkWithIcon
-                            to={`/kandidater/?id=${stilling.uuid}`}
+                            to={`/kandidater?id=${stilling.uuid}`}
                             classNameText="typo-element"
                             classNameLink="Ad__preview__menu-item FindCandidate"
                             text="Finn kandidater"
@@ -44,7 +44,7 @@ class PreviewMenu extends React.Component {
                     )}
                     {showCandidateLinks && stilling && stilling.source === 'DIR' && (
                         <LinkWithIcon
-                            to={'#'}
+                            to={`/kandidater/${stilling.uuid}`}
                             classNameText="typo-element"
                             classNameLink="Ad__preview__menu-item CandidateList"
                             text="Se kandidatliste"

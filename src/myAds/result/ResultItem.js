@@ -15,6 +15,10 @@ import './Icons.less';
 import './Result.less';
 
 class ResultItem extends React.Component {
+    stopAd = () => {
+        this.props.stopAd(this.props.ad.uuid);
+    };
+
     render() {
         const { ad } = this.props;
         const adminDone = ad.administration && ad.administration.status && ad.administration.status === AdminStatusEnum.DONE;
@@ -58,7 +62,7 @@ class ResultItem extends React.Component {
                 <td className="Col-candidate">
                     <div className="CandidateList__column">
                         <LinkWithIcon
-                            to={'#'}
+                            to={`/kandidater/${ad.uuid}`}
                             classNameText="typo-normal"
                             classNameLink="CandidateList"
                             text="Se kandidatliste"
@@ -100,7 +104,7 @@ class ResultItem extends React.Component {
                         aria-label="Stopp"
                         title="stopp"
                         disabled={AdStatusEnum[ad.status] !== AdStatusEnum.ACTIVE}
-                        onClick={() => this.props.stopAd(ad.uuid)}
+                        onClick={this.stopAd}
                     >
                         <i className="Stop__icon" />
                     </button>
@@ -124,7 +128,8 @@ ResultItem.propTypes = {
     ad: PropTypes.shape({
         uuid: PropTypes.string,
         title: PropTypes.string
-    }).isRequired
+    }).isRequired,
+    stopAd: PropTypes.func.isRequired
 };
 
 

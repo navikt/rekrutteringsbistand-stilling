@@ -42,7 +42,7 @@ class TopMenu extends React.Component {
                         <Normaltekst className="TopMenu__item__inner">Mine stillinger</Normaltekst>
                     </NavLink>
                     <NavLink
-                        to="/kandidatsok"
+                        to="/kandidater"
                         className="TopMenu__item"
                         activeClassName="TopMenu__item-active"
                     >
