@@ -10,7 +10,6 @@ import styrkReducer, { styrkSaga } from './ad/edit/jobDetails/styrk/styrkReducer
 import adReducer, { adSaga } from './ad/adReducer';
 import searchReducer, { searchSaga } from './searchPage/searchReducer';
 import municipalOrCountryReducer, { municipalOrCountrySaga } from './ad/edit/location/municipalOrCountryReducer';
-import expandCommentReducer from './ad/preview/header/comment/expandCommentReducer';
 import Ad from './ad/Ad';
 import TopMenu from './topmenu/TopMenu';
 import './styles.less';
@@ -32,7 +31,6 @@ const store = createStore(combineReducers({
     adData: adDataReducer,
     adValidation: adValidationReducer,
     employer: employerReducer,
-    expandComment: expandCommentReducer,
     location: locationCodeReducer,
     styrk: styrkReducer,
     reportee: reporteeReducer,

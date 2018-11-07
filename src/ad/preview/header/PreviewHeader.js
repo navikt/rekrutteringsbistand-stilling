@@ -19,7 +19,7 @@ class PreviewMenu extends React.Component {
     render() {
         const { stilling, status } = this.props;
         const showCandidateLinks = (status === AdminStatusEnum.DONE);
-        const {reportee, navIdent} = stilling.administration;
+        const { reportee, navIdent } = stilling.administration;
 
         return (
             <div>
@@ -29,8 +29,10 @@ class PreviewMenu extends React.Component {
                             <i className="Help__icon" />
                         </div>
                         <div>
-                            <Element >Spørsmål om stillingen?</Element>
-                            <Normaltekst className="TopSection__text">Kontakt {reportee} {navIdent ? ` (${navIdent})` : '' }</Normaltekst>
+                            <Element>Spørsmål om stillingen?</Element>
+                            <Normaltekst className="TopSection__text">
+                                Kontakt {reportee} {navIdent ? ` (${navIdent})` : '' }
+                            </Normaltekst>
                         </div>
                     </div>
                     <div className="Preview__TopSection__right">
@@ -95,7 +97,8 @@ PreviewMenu.propTypes = {
             employer: PropTypes.string
         })
     }),
-    status: PropTypes.string
+    status: PropTypes.string,
+    editAd: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -105,7 +108,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     editAd: () => dispatch({ type: EDIT_AD })
-
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PreviewMenu);
