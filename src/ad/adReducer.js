@@ -47,6 +47,9 @@ export const DELETE_AD_SUCCESS = 'DELETE_AD_SUCCESS';
 export const DELETE_AD_FAILURE = 'DELETE_AD_FAILURE';
 
 export const DELETE_AD_AND_REDIRECT = 'DELETE_AD_AND_REDIRECT';
+export const DELETE_AD_FROM_MY_ADS = 'DELETE_AD_FROM_MY_ADS';
+export const SHOW_DELETE_AD_MODAL = 'SHOW_DELETE_AD_MODAL';
+export const HIDE_DELETE_AD_MODAL = 'HIDE_DELETE_AD_MODAL';
 
 export const EDIT_AD = 'EDIT_AD';
 export const PREVIEW_EDIT_AD = 'PREVIEW_EDIT_AD';
@@ -71,6 +74,7 @@ export const SHOW_AD_SAVED_ERROR_MODAL = 'SHOW_AD_SAVED_ERROR_MODAL';
 export const HIDE_AD_SAVED_ERROR_MODAL = 'HIDE_AD_SAVED_ERROR_MODAL';
 
 export const SHOW_STOP_MODAL_MY_ADS = 'SHOW_STOP_MODAL_MY_ADS';
+export const SHOW_DELETE_MODAL_MY_ADS = 'SHOW_DELETE_MODAL_MY_ADS';
 
 export const DEFAULT_TITLE = 'Overskrift på annonsen';
 
@@ -85,6 +89,7 @@ const initialState = {
     showPublishErrorModal: false,
     showHasChangesModal: false,
     showStopAdModal: false,
+    showDeleteAdModal: false,
     showAdPublishedModal: false,
     showAdSavedErrorModal: false
 };
@@ -183,6 +188,16 @@ export default function adReducer(state = initialState, action) {
             return {
                 ...state,
                 showStopAdModal: false
+            };
+        case SHOW_DELETE_AD_MODAL:
+            return {
+                ...state,
+                showDeleteAdModal: true
+            };
+        case HIDE_DELETE_AD_MODAL:
+            return {
+                ...state,
+                showDeleteAdModal: false
             };
         case SHOW_AD_PUBLISHED_MODAL:
             return {
@@ -376,6 +391,28 @@ function* deleteAdAndRedirect(action) {
     yield call(history.push, action.url);
 }
 
+function* deleteAdFromMyAds() {
+    yield deleteAd();
+    // Update list with the new status
+    yield put({ type: FETCH_MY_ADS });
+}
+
+function* showDeleteModalMyAds(action) {
+    // Fetch the ad first to be able to stop it
+    yield put({ type: FETCH_AD_BEGIN });
+    try {
+        const response = yield fetchAd(action.uuid);
+        yield put({ type: FETCH_AD_SUCCESS, response });
+        yield put({ type: SHOW_DELETE_AD_MODAL });
+    } catch (e) {
+        if (e instanceof ApiError) {
+            yield put({ type: FETCH_AD_FAILURE, error: e });
+        } else {
+            throw e;
+        }
+    }
+}
+
 export const adSaga = function* saga() {
     yield takeLatest(PUBLISH_AD, publishAd);
     yield takeLatest(STOP_AD, stopAd);
@@ -386,5 +423,7 @@ export const adSaga = function* saga() {
     yield takeLatest(DELETE_AD, deleteAd);
     yield takeLatest(DELETE_AD_AND_REDIRECT, deleteAdAndRedirect);
     yield takeLatest(SHOW_STOP_MODAL_MY_ADS, showStopModalMyAds);
+    yield takeLatest(SHOW_DELETE_MODAL_MY_ADS, showDeleteModalMyAds);
     yield takeLatest(STOP_AD_FROM_MY_ADS, stopAdFromMyAds);
+    yield takeLatest(DELETE_AD_FROM_MY_ADS, deleteAdFromMyAds);
 };
