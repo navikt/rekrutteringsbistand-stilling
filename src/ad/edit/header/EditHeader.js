@@ -7,33 +7,36 @@ import AdminStatusEnum from '../../administration/adminStatus/AdminStatusEnum';
 import './EditHeader.less';
 
 
-export default function EditHeader({ onPreviewAdClick, uuid, status, title}) {
+export default function EditHeader({ onPreviewAdClick, uuid, status, title, source }) {
     const showCandidateLinks = (status === AdminStatusEnum.DONE);
     return (
         <div>
             <div className="Ad__edit__menu">
                 <Sidetittel className="Ad__edit__menu-title">{title}</Sidetittel>
-                {showCandidateLinks &&
+                {showCandidateLinks && (
                     <LinkWithIcon
-                        to={`/kandidater/?id=${uuid}`}
+                        to={`/kandidater?stillingsid=${uuid}`}
                         classNameText="typo-element"
                         classNameLink="Ad__edit__menu-item FindCandidate"
-                        text="Finn kandidater" />
-                }
-                {showCandidateLinks &&
+                        text="Finn kandidater"
+                    />
+                )}
+                {showCandidateLinks && source === 'DIR' && (
                     <LinkWithIcon
                         to={'#'}
                         classNameText="typo-element"
                         classNameLink="Ad__edit__menu-item AddCandidate"
-                        text="Legg til kandidat" />
-                }
-                {showCandidateLinks &&
+                        text="Legg til kandidat"
+                    />
+                )}
+                {showCandidateLinks && source === 'DIR' && (
                     <LinkWithIcon
-                        to={'#'}
+                        to={`/kandidater/lister/stilling/${uuid}/detaljer`}
                         classNameText="typo-element"
                         classNameLink="Ad__edit__menu-item CandidateList"
-                        text="Se kandidatliste"/>
-                }
+                        text="Se kandidatliste"
+                    />
+                )}
                 <Knapp
                     className="Ad__edit__menu-item"
                     onClick={onPreviewAdClick}
@@ -50,6 +53,7 @@ export default function EditHeader({ onPreviewAdClick, uuid, status, title}) {
 EditHeader.defaultProps = {
     uuid: '',
     status: undefined,
+    source: '',
     title: 'Ny stilling'
 };
 
@@ -57,5 +61,6 @@ EditHeader.propTypes = {
     onPreviewAdClick: PropTypes.func.isRequired,
     uuid: PropTypes.string,
     status: PropTypes.string,
+    source: PropTypes.string,
     title: PropTypes.string
 };

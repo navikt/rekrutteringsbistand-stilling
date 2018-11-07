@@ -8,6 +8,7 @@ import { formatISOString } from '../../utils';
 import AdStatusEnum from '../enums/AdStatusEnum';
 import './SearchResult.less';
 import PrivacyStatusEnum from '../../ad/administration/publishing/PrivacyStatusEnum';
+import LinkWithIcon from '../../common/linkWithIcon/LinkWithIcon';
 
 const SearchResultItem = ({ ad }) => (
     <Row className="SearchResultItem">
@@ -16,7 +17,7 @@ const SearchResultItem = ({ ad }) => (
                 {ad.created ? formatISOString(ad.created, 'DD.MM.YYYY hh:mm') : ''}
             </Normaltekst>
         </Column>
-        <Column md="4">
+        <Column md="3">
             <div className="SearchResultItem__column">
                 <Link
                     className="typo-normal lenke"
@@ -54,10 +55,17 @@ const SearchResultItem = ({ ad }) => (
                 </div>
             </div>
         </Column>
-        <Column md="1">
-            <Normaltekst className="SearchResultItem__column">
-                Kandidatliste
-            </Normaltekst>
+        <Column md="2">
+            {ad.source === 'DIR' && (
+                <div className="SearchResultItem__column">
+                    <LinkWithIcon
+                        to={`/kandidater/lister/stilling/${ad.uuid}/detaljer`}
+                        classNameText="typo-normal"
+                        classNameLink="CandidateList"
+                        text="Se kandidatliste"
+                    />
+                </div>
+            )}
         </Column>
     </Row>
 );

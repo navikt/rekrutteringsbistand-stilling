@@ -72,8 +72,13 @@ class Ad extends React.Component {
                                 <div>
                                     {isEditingAd ? (
                                         <div className="Ad__edit__inner">
-                                            <EditHeader status={this.props.status} title={editTitle}
-                                                        onPreviewAdClick={this.onPreviewAdClick} uuid={stilling.uuid} />
+                                            <EditHeader
+                                                status={this.props.status}
+                                                title={editTitle}
+                                                source={this.props.stilling.source}
+                                                onPreviewAdClick={this.onPreviewAdClick}
+                                                uuid={stilling.uuid}
+                                            />
                                             <Edit />
                                         </div>
                                     ) : (
@@ -110,13 +115,15 @@ Ad.defaultProps = {
 Ad.propTypes = {
     stilling: PropTypes.shape({
         title: PropTypes.string,
-        uuid: PropTypes.string
+        uuid: PropTypes.string,
+        source: PropTypes.string
     }),
     getStilling: PropTypes.func.isRequired,
     createAd: PropTypes.func.isRequired,
     previewAd: PropTypes.func.isRequired,
     isEditingAd: PropTypes.bool.isRequired,
-    removeAdData: PropTypes.func.isRequired
+    removeAdData: PropTypes.func.isRequired,
+    status: PropTypes.string
 };
 
 const mapStateToProps = (state) => ({

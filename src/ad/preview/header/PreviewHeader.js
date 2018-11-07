@@ -49,30 +49,30 @@ class PreviewMenu extends React.Component {
                     location={stilling.location}
                 />
                 <div className="Ad__preview__menu">
-                    {showCandidateLinks &&
+                    {showCandidateLinks && (
                         <LinkWithIcon
-                            to={`/kandidater/?id=${stilling.uuid}`}
+                            to={`/kandidater?stillingsid=${stilling.uuid}`}
                             classNameText="typo-element"
                             classNameLink="Ad__preview__menu-item FindCandidate"
                             text="Finn kandidater"
                         />
-                    }
-                    {showCandidateLinks &&
+                    )}
+                    {showCandidateLinks && stilling && stilling.source === 'DIR' && (
                         <LinkWithIcon
                             to={'#'}
                             classNameText="typo-element"
                             classNameLink="Ad__preview__menu-item AddCandidate"
                             text="Legg til kandidat"
                         />
-                    }
-                    {showCandidateLinks &&
+                    )}
+                    {showCandidateLinks && stilling && stilling.source === 'DIR' && (
                         <LinkWithIcon
-                            to={'#'}
+                            to={`/kandidater/lister/stilling/${stilling.uuid}/detaljer`}
                             classNameText="typo-element"
                             classNameLink="Ad__preview__menu-item CandidateList"
                             text="Se kandidatliste"
                         />
-                    }
+                    )}
                     <Hovedknapp
                         className="Ad__preview__menu-button"
                         onClick={this.onEditAdClick}
@@ -109,7 +109,8 @@ PreviewMenu.propTypes = {
         }),
         properties: PropTypes.shape({
             employer: PropTypes.string
-        })
+        }),
+        source: PropTypes.string
     }),
     status: PropTypes.string,
     editAd: PropTypes.func.isRequired

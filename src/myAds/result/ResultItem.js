@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Normaltekst } from 'nav-frontend-typografi';
+import { erDatoFørSluttdato } from 'nav-datovelger/dist/datovelger/utils/datovalidering';
 import capitalizeEmployerName from '../../ad/edit/employer/capitalizeEmployerName';
 import { formatISOString, toDate } from '../../utils';
 import { SHOW_STOP_MODAL_MY_ADS } from '../../ad/adReducer';
@@ -10,11 +11,14 @@ import AdStatusEnum from '../../searchPage/enums/AdStatusEnum';
 import AdminStatusEnum from '../../ad/administration/adminStatus/AdminStatusEnum';
 import PrivacyStatusEnum from '../../ad/administration/publishing/PrivacyStatusEnum';
 import LinkWithIcon from '../../common/linkWithIcon/LinkWithIcon';
-import { erDatoFørSluttdato } from 'nav-datovelger/dist/datovelger/utils/datovalidering';
 import './Icons.less';
 import './Result.less';
 
 class ResultItem extends React.Component {
+    stopAd = () => {
+        this.props.stopAd(this.props.ad.uuid);
+    };
+
     render() {
         const { ad } = this.props;
         const adminDone = ad.administration && ad.administration.status && ad.administration.status === AdminStatusEnum.DONE;
@@ -22,7 +26,7 @@ class ResultItem extends React.Component {
             adminDone &&
             erDatoFørSluttdato(toDate(ad.expires), new Date(Date.now()));
         return (
-             <tr className="ResultItem" >
+            <tr className="ResultItem" >
                 <td className="Col-updated">
                     {ad.updated && (
                         <Normaltekst className="ResultItem__column">
@@ -58,10 +62,11 @@ class ResultItem extends React.Component {
                 <td className="Col-candidate">
                     <div className="CandidateList__column">
                         <LinkWithIcon
-                            to={'#'}
+                            to={`/kandidater/lister/stilling/${ad.uuid}/detaljer`}
                             classNameText="typo-normal"
                             classNameLink="CandidateList"
-                            text="Se kandidatliste"/>
+                            text="Se kandidatliste"
+                        />
                     </div>
                 </td>
                 <td className="Col-status">
@@ -81,7 +86,7 @@ class ResultItem extends React.Component {
                             state: { openInEditMode: true }
                         }}
                     >
-                        <i className={isExpired ? "Edit__icon--disabled" : "Edit__icon"}/>
+                        <i className={isExpired ? 'Edit__icon--disabled' : 'Edit__icon'} />
                     </Link>
                 </td>
                 <td className="Col-copy center">
@@ -90,7 +95,7 @@ class ResultItem extends React.Component {
                         aria-label="Kopier"
                         title="kopier"
                     >
-                        <i className="Copy__icon"/>
+                        <i className="Copy__icon" />
                     </button>
                 </td>
                 <td className="Col-stop center">
@@ -99,9 +104,9 @@ class ResultItem extends React.Component {
                         aria-label="Stopp"
                         title="stopp"
                         disabled={AdStatusEnum[ad.status] !== AdStatusEnum.ACTIVE}
-                        onClick={() => this.props.stopAd(ad.uuid)}
+                        onClick={this.stopAd}
                     >
-                        <i className="Stop__icon"/>
+                        <i className="Stop__icon" />
                     </button>
                 </td>
                 <td className="Col-delete center">
@@ -111,7 +116,7 @@ class ResultItem extends React.Component {
                         title="slett"
                         disabled={AdStatusEnum[ad.status] !== AdStatusEnum.INACTIVE}
                     >
-                        <i className="Delete__icon"/>
+                        <i className="Delete__icon" />
                     </button>
                 </td>
             </tr>
@@ -123,7 +128,8 @@ ResultItem.propTypes = {
     ad: PropTypes.shape({
         uuid: PropTypes.string,
         title: PropTypes.string
-    }).isRequired
+    }).isRequired,
+    stopAd: PropTypes.func.isRequired
 };
 
 
