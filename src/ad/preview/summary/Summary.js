@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Undertittel } from 'nav-frontend-typografi';
 import { formatISOString } from '../../../utils';
+import PrivacyStatusEnum from '../../administration/publishing/PrivacyStatusEnum';
 
 export default function Summary({ ad }) {
     return (
@@ -23,6 +24,14 @@ export default function Summary({ ad }) {
                 {ad.id && [
                     <dt key="dt">Stillingsnummer:</dt>,
                     <dd key="dd">{ad.id}</dd>
+                ]}
+                {ad.administration && ad.administration.reportee && ad.source === 'DIR' && ad.privacy === PrivacyStatusEnum.INTERNAL_NOT_SHOWN && [
+                    <dt key="dt">Registrert av:</dt>,
+                    <dd key="dd">{ad.administration.reportee}</dd>
+                ]}
+                {ad.administration && ad.administration.navIdent && ad.source === 'DIR' && ad.privacy === PrivacyStatusEnum.INTERNAL_NOT_SHOWN && [
+                    <dt key="dt">Kontaktperson i NAV:</dt>,
+                    <dd key="dd">{ad.administration.navIdent}</dd>
                 ]}
             </dl>
         </div>

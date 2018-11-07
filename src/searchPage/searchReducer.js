@@ -1,5 +1,6 @@
 import { put, select, takeLatest } from 'redux-saga/effects';
 import { ApiError, fetchAds } from '../api/api';
+import AdminStatusEnum from '../ad/administration/adminStatus/AdminStatusEnum';
 
 export const FETCH_ADS = 'FETCH_ADS';
 export const FETCH_ADS_BEGIN = 'FETCH_ADS_BEGIN';
@@ -10,10 +11,8 @@ export const CHANGE_PAGE = 'CHANGE_PAGE';
 export const RESET_PAGE = 'RESET_PAGE';
 export const SET_SEARCH_VALUE = 'SET_SEARCH_VALUE';
 export const SET_SEARCH_FIELD = 'SET_SEARCH_FIELD';
-export const ADD_PRIVACY_FILTER = 'ADD_PRIVACY_FILTER';
-export const REMOVE_PRIVACY_FILTER = 'REMOVE_PRIVACY_FILTER';
-export const ADD_STATUS_FILTER = 'ADD_STATUS_FILTER';
-export const REMOVE_STATUS_FILTER = 'REMOVE_STATUS_FILTER';
+export const CHANGE_PRIVACY_FILTER = 'CHANGE_PRIVACY_FILTER';
+export const CHANGE_STATUS_FILTER = 'CHANGE_STATUS_FILTER';
 export const CHANGE_SOURCE_FILTER = 'CHANGE_SOURCE_FILTER';
 export const RESET_SEARCH = 'RESET_SEARCH';
 
@@ -22,6 +21,10 @@ export const Fields = {
     TITLE: 'title',
     ID: 'id'
 };
+
+const ACTIVE = 'ACTIVE';
+const INACTIVE = 'INACTIVE';
+const EXPIRED = 'EXPIRED';
 
 const initialState = {
     items: [],
@@ -33,10 +36,11 @@ const initialState = {
     totalPages: 0,
     page: 0,
     value: '',
+    administrationStatus: AdminStatusEnum.DONE,
     field: undefined,
     suggestions: [],
-    privacy: [],
-    status: [],
+    privacy: undefined,
+    status: ACTIVE,
     source: undefined
 };
 
@@ -66,31 +70,15 @@ export default function searchReducer(state = initialState, action) {
                 ...state,
                 field: action.field
             };
-        case ADD_PRIVACY_FILTER:
+        case CHANGE_PRIVACY_FILTER:
             return {
                 ...state,
-                privacy: [
-                    ...state.privacy,
-                    action.value
-                ]
+                privacy: action.value
             };
-        case REMOVE_PRIVACY_FILTER:
+        case CHANGE_STATUS_FILTER:
             return {
                 ...state,
-                privacy: state.privacy.filter((p) => p !== action.value)
-            };
-        case ADD_STATUS_FILTER:
-            return {
-                ...state,
-                status: [
-                    ...state.status,
-                    action.value
-                ]
-            };
-        case REMOVE_STATUS_FILTER:
-            return {
-                ...state,
-                status: state.status.filter((s) => s !== action.value)
+                status: action.value
             };
         case CHANGE_SOURCE_FILTER:
             return {
@@ -138,24 +126,39 @@ export default function searchReducer(state = initialState, action) {
     }
 }
 
+
+function combineStatusQuery(status) {
+    if (status === undefined) {
+        return {
+            status: '!REJECTED,DELETED'
+        };
+    } else if (status === INACTIVE) {
+        return {
+            status,
+            published: '(today,*]'
+        };
+    } else if (status === EXPIRED) {
+        return {
+            status: INACTIVE,
+            expires: '[*,today)'
+        };
+    }
+    return { status };
+}
+
 export function toQuery(search) {
     const {
-        sortField, sortDir, page, privacy, status, source
+        sortField, sortDir, page, privacy, status, source, administrationStatus
     } = search;
 
-    let query = {
+    const query = {
         sort: `${sortField},${sortDir}`,
         page,
-        source
+        administrationStatus,
+        source,
+        privacy,
+        ...combineStatusQuery(status)
     };
-
-    if (status.length !== 0) {
-        query = { ...query, status };
-    }
-
-    if (privacy.length !== 0) {
-        query = { ...query, privacy };
-    }
 
     query[search.field] = search.value;
     return query;
@@ -185,11 +188,9 @@ function* getAds(action) {
 export const searchSaga = function* saga() {
     yield takeLatest([
         RESET_SEARCH,
-        ADD_STATUS_FILTER,
-        REMOVE_STATUS_FILTER,
+        CHANGE_STATUS_FILTER,
         CHANGE_SOURCE_FILTER,
-        ADD_PRIVACY_FILTER,
-        REMOVE_PRIVACY_FILTER,
+        CHANGE_PRIVACY_FILTER,
         SET_SEARCH_FIELD,
         CHANGE_SORTING,
         CHANGE_PAGE,

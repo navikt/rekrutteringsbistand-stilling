@@ -1,7 +1,7 @@
 import { put, takeLatest } from 'redux-saga/es/effects';
 import { lookUpStyrk } from './edit/jobDetails/styrk/styrkReducer';
 import { findLocationByPostalCode } from './edit/location/locationCodeReducer';
-import { FETCH_AD_BEGIN, FETCH_AD_SUCCESS, SAVE_AD_SUCCESS } from './adReducer';
+import { CREATE_AD_BEGIN, FETCH_AD_BEGIN, FETCH_AD_SUCCESS, SAVE_AD_SUCCESS } from './adReducer';
 import AdStatusEnum from './administration/adStatus/AdStatusEnum';
 import PrivacyStatusEnum from './administration/publishing/PrivacyStatusEnum';
 
@@ -70,6 +70,7 @@ function findStyrkAndSkipAlternativeNames(code) {
 
 export default function adDataReducer(state = initialState, action) {
     switch (action.type) {
+        case CREATE_AD_BEGIN:
         case FETCH_AD_BEGIN:
             return initialState;
         case FETCH_AD_SUCCESS:

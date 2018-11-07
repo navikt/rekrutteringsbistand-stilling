@@ -40,14 +40,14 @@ class SearchPage extends React.Component {
                         </Flatknapp>
                     </div>
                 </div>
-                <Container className="SearchPage2">
+                <Container className="SearchPage__container">
                     {(error && error.statusCode === 412) && (
-                        <AlertStripe className="SearchPage__alertStripe" type="advarsel" solid>
+                        <AlertStripe className="AlertStripe__fullpage" type="advarsel" solid>
                         Noen andre har gjort endringer annonsen i mellomtiden. Forsøk å laste søket på nytt
                         </AlertStripe>
                     )}
                     {(error && error.statusCode !== 412) && (
-                        <AlertStripe className="SearchPage__alertStripe" type="advarsel" solid>
+                        <AlertStripe className="AlertStripe__fullpage" type="advarsel" solid>
                         Det oppsto en feil. Forsøk å laste siden på nytt
                         </AlertStripe>
                     )}

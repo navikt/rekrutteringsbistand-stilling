@@ -1,7 +1,6 @@
 name: pam-rekrutteringsbistand
 team: teampam
 image: repo.adeo.no:5443/pam-rekrutteringsbistand
-team: pam
 replicas:
   min: 2
   max: 3

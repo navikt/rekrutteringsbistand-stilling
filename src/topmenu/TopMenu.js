@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import './TopMenu.less';
 import Reportee from '../reportee/Reportee';
-import { SET_SEARCH_VALUE } from '../searchPage/searchReducer';
+import { RESET_SEARCH, SET_SEARCH_VALUE } from '../searchPage/searchReducer';
 
 class TopMenu extends React.Component {
     resetSearchValue = () => {
@@ -13,6 +13,7 @@ class TopMenu extends React.Component {
     };
 
     render() {
+        const { resetSearch } = this.props;
         return (
             <div className="TopMenu">
                 <div className="TopMenu__left">
@@ -29,15 +30,16 @@ class TopMenu extends React.Component {
                         to="/search"
                         className="TopMenu__item"
                         activeClassName="TopMenu__item-active"
+                        onClick={resetSearch}
                     >
                         <Normaltekst className="TopMenu__item__inner">Søk etter stilling</Normaltekst>
                     </NavLink>
                     <NavLink
-                        to="/ads"
+                        to="/mine"
                         className="TopMenu__item"
                         activeClassName="TopMenu__item-active"
                     >
-                        <Normaltekst className="TopMenu__item__inner">Stillinger</Normaltekst>
+                        <Normaltekst className="TopMenu__item__inner">Mine stillinger</Normaltekst>
                     </NavLink>
                     <NavLink
                         to="/kandidatsok"
@@ -45,13 +47,6 @@ class TopMenu extends React.Component {
                         activeClassName="TopMenu__item-active"
                     >
                         <Normaltekst className="TopMenu__item__inner">Kandidatsøk</Normaltekst>
-                    </NavLink>
-                    <NavLink
-                        to="/kandidatlister"
-                        className="TopMenu__item"
-                        activeClassName="TopMenu__item-active"
-                    >
-                        <Normaltekst className="TopMenu__item__inner">Kandidatlister</Normaltekst>
                     </NavLink>
                 </div>
                 <div className="TopMenu__right">
@@ -65,13 +60,15 @@ class TopMenu extends React.Component {
 }
 
 TopMenu.propTypes = {
-    resetSearchValue: PropTypes.func.isRequired
+    resetSearchValue: PropTypes.func.isRequired,
+    resetSearch: PropTypes.func.isRequired
 };
 
 const mapStateToProps = () => ({});
 
 const mapDispatchToProps = (dispatch) => ({
-    resetSearchValue: () => dispatch({ type: SET_SEARCH_VALUE, value: '' })
+    resetSearchValue: () => dispatch({ type: SET_SEARCH_VALUE, value: '' }),
+    resetSearch: () => dispatch({ type: RESET_SEARCH })
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TopMenu));

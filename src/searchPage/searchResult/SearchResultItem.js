@@ -13,7 +13,7 @@ const SearchResultItem = ({ ad }) => (
     <Row className="SearchResultItem">
         <Column md="1">
             <Normaltekst className="SearchResultItem__column">
-                {ad.created ? formatISOString(ad.created, 'D. MMMM YYYY TTTT') : ''}
+                {ad.created ? formatISOString(ad.created, 'DD.MM.YYYY hh:mm') : ''}
             </Normaltekst>
         </Column>
         <Column md="4">
@@ -49,6 +49,7 @@ const SearchResultItem = ({ ad }) => (
                 <div className="SearchResultItem__column__flex">
                     <Normaltekst className="SearchResultItem__column__flex__ellipsis">
                         {ad.administration && ad.administration.reportee ? ad.administration.reportee : ''}
+                        {ad.administration && ad.administration.navIdent ? ` (${ad.administration.navIdent})` : ''}
                     </Normaltekst>
                 </div>
             </div>

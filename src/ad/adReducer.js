@@ -1,7 +1,7 @@
 import deepEqual from 'deep-equal';
-import { put, select, takeLatest } from 'redux-saga/effects';
+import { put, select, call, takeLatest } from 'redux-saga/effects';
 import {
-    ApiError, fetchAd, fetchPost, fetchPut
+    ApiError, fetchAd, fetchDelete, fetchPost, fetchPut
 } from '../api/api';
 import { AD_API } from '../fasitProperties';
 import { getReportee } from '../reportee/reporteeReducer';
@@ -9,11 +9,7 @@ import {
     SET_AD_DATA,
     SET_AD_STATUS,
     SET_ADMIN_STATUS,
-    SET_COMMENT,
-    SET_EXPIRATION_DATE,
     SET_NAV_IDENT,
-    SET_PRIVACY,
-    SET_PUBLISHED,
     SET_REPORTEE,
     SET_UPDATED_BY
 } from './adDataReducer';
@@ -26,7 +22,9 @@ import {
     validateBeforeSave
 } from './adValidationReducer';
 import PrivacyStatusEnum from './administration/publishing/PrivacyStatusEnum';
-import { showAlertStripe } from './alertstripe/SavedAdAlertStripeReducer';
+import { AdAlertStripeMode, showAlertStripe } from './alertstripe/SavedAdAlertStripeReducer';
+import { FETCH_MY_ADS } from '../myAds/myAdsReducer';
+import history from '../history';
 
 export const FETCH_AD = 'FETCH_AD';
 export const FETCH_AD_BEGIN = 'FETCH_AD_BEGIN';
@@ -43,6 +41,13 @@ export const CREATE_AD_BEGIN = 'CREATE_AD_BEGIN';
 export const CREATE_AD_SUCCESS = 'CREATE_AD_SUCCESS';
 export const CREATE_AD_FAILURE = 'CREATE_AD_FAILURE';
 
+export const DELETE_AD = 'DELETE_AD';
+export const DELETE_AD_BEGIN = 'DELETE_AD_BEGIN';
+export const DELETE_AD_SUCCESS = 'DELETE_AD_SUCCESS';
+export const DELETE_AD_FAILURE = 'DELETE_AD_FAILURE';
+
+export const DELETE_AD_AND_REDIRECT = 'DELETE_AD_AND_REDIRECT';
+
 export const EDIT_AD = 'EDIT_AD';
 export const PREVIEW_EDIT_AD = 'PREVIEW_EDIT_AD';
 
@@ -52,6 +57,7 @@ export const SHOW_PUBLISH_ERROR_MODAL = 'SHOW_PUBLISH_ERROR_MODAL';
 export const HIDE_PUBLISH_ERROR_MODAL = 'HIDE_PUBLISH_ERROR_MODAL';
 
 export const STOP_AD = 'STOP_AD';
+export const STOP_AD_FROM_MY_ADS = 'STOP_AD_FROM_MY_ADS';
 export const SHOW_STOP_AD_MODAL = 'SHOW_STOP_AD_MODAL';
 export const HIDE_STOP_AD_MODAL = 'HIDE_STOP_AD_MODAL';
 
@@ -64,6 +70,8 @@ export const HIDE_AD_PUBLISHED_MODAL = 'HIDE_AD_PUBLISHED_MODAL';
 export const SHOW_AD_SAVED_ERROR_MODAL = 'SHOW_AD_SAVED_ERROR_MODAL';
 export const HIDE_AD_SAVED_ERROR_MODAL = 'HIDE_AD_SAVED_ERROR_MODAL';
 
+export const SHOW_STOP_MODAL_MY_ADS = 'SHOW_STOP_MODAL_MY_ADS';
+
 export const DEFAULT_TITLE = 'Overskrift på annonsen';
 
 const initialState = {
@@ -72,7 +80,6 @@ const initialState = {
     isFetchingStilling: false,
     isEditingAd: false,
     originalData: undefined,
-    hasChanges: false,
     hasSavedChanges: false,
     showPublishErrorModal: false,
     showHasChangesModal: false,
@@ -86,7 +93,6 @@ export default function adReducer(state = initialState, action) {
         case FETCH_AD_BEGIN:
             return {
                 ...state,
-                hasChanges: false,
                 hasSavedChanges: false,
                 isFetchingStilling: true,
                 error: undefined,
@@ -110,8 +116,7 @@ export default function adReducer(state = initialState, action) {
             return {
                 ...state,
                 isSavingAd: true,
-                hasSavedChanges: false,
-                hasChanges: false
+                hasSavedChanges: false
             };
         case CREATE_AD_SUCCESS:
             return {
@@ -122,15 +127,6 @@ export default function adReducer(state = initialState, action) {
                 originalData: { ...action.response }
             };
         case SAVE_AD_SUCCESS:
-            if (action.response.status === AdStatusEnum.ACTIVE) {
-                return {
-                    ...state,
-                    isSavingAd: false,
-                    hasSavedChanges: true,
-                    isEditingAd: false,
-                    originalData: { ...action.response }
-                };
-            }
             return {
                 ...state,
                 isSavingAd: false,
@@ -139,6 +135,7 @@ export default function adReducer(state = initialState, action) {
             };
         case CREATE_AD_FAILURE:
         case SAVE_AD_FAILURE:
+        case DELETE_AD_FAILURE:
             return {
                 ...state,
                 isSavingAd: false,
@@ -147,8 +144,7 @@ export default function adReducer(state = initialState, action) {
         case EDIT_AD:
             return {
                 ...state,
-                isEditingAd: true,
-                hasChanges: true
+                isEditingAd: true
             };
         case PREVIEW_EDIT_AD:
             return {
@@ -205,14 +201,6 @@ export default function adReducer(state = initialState, action) {
                 ...state,
                 showAdSavedErrorModal: false
             };
-        case SET_PUBLISHED:
-        case SET_EXPIRATION_DATE:
-        case SET_PRIVACY:
-        case SET_COMMENT:
-            return {
-                ...state,
-                hasChanges: true
-            };
         default:
             return state;
     }
@@ -223,6 +211,26 @@ function* getAd(action) {
     try {
         const response = yield fetchAd(action.uuid);
         yield put({ type: FETCH_AD_SUCCESS, response });
+
+        if (action.edit) {
+            yield put({ type: EDIT_AD });
+        }
+    } catch (e) {
+        if (e instanceof ApiError) {
+            yield put({ type: FETCH_AD_FAILURE, error: e });
+        } else {
+            throw e;
+        }
+    }
+}
+
+function* showStopModalMyAds(action) {
+    // Fetch the ad first to be able to stop it
+    yield put({ type: FETCH_AD_BEGIN });
+    try {
+        const response = yield fetchAd(action.uuid);
+        yield put({ type: FETCH_AD_SUCCESS, response });
+        yield put({ type: SHOW_STOP_AD_MODAL });
     } catch (e) {
         if (e instanceof ApiError) {
             yield put({ type: FETCH_AD_FAILURE, error: e });
@@ -312,6 +320,12 @@ function* stopAd() {
     yield save();
 }
 
+function* stopAdFromMyAds() {
+    yield stopAd();
+    // Update list with the new status
+    yield put({ type: FETCH_MY_ADS });
+}
+
 function* saveAd() {
     yield validateBeforeSave();
     const state = yield select();
@@ -319,7 +333,7 @@ function* saveAd() {
         yield put({ type: SHOW_AD_SAVED_ERROR_MODAL });
     } else {
         yield save();
-        yield showAlertStripe();
+        yield showAlertStripe(AdAlertStripeMode.SAVED);
     }
 }
 
@@ -332,7 +346,31 @@ function* publishAdChanges() {
         yield put({ type: SET_ADMIN_STATUS, status: AdminStatusEnum.DONE });
         yield put({ type: SET_AD_STATUS, status: AdStatusEnum.ACTIVE });
         yield save();
+        yield showAlertStripe(AdAlertStripeMode.PUBLISHED_CHANGES);
     }
+}
+
+function* deleteAd() {
+    yield put({ type: DELETE_AD_BEGIN });
+    try {
+        yield put({ type: SET_UPDATED_BY });
+
+        const state = yield select();
+        const deleteUrl = `${AD_API}ads/${state.adData.uuid}`;
+
+        const response = yield fetchDelete(deleteUrl);
+        yield put({ type: DELETE_AD_SUCCESS, response });
+    } catch (e) {
+        if (e instanceof ApiError) {
+            yield put({ type: DELETE_AD_FAILURE, error: e });
+        }
+        throw e;
+    }
+}
+
+function* deleteAdAndRedirect(action) {
+    yield deleteAd();
+    yield call(history.push, action.url);
 }
 
 export const adSaga = function* saga() {
@@ -342,4 +380,8 @@ export const adSaga = function* saga() {
     yield takeLatest(SAVE_AD, saveAd);
     yield takeLatest(CREATE_AD, createAd);
     yield takeLatest(PUBLISH_AD_CHANGES, publishAdChanges);
+    yield takeLatest(DELETE_AD, deleteAd);
+    yield takeLatest(DELETE_AD_AND_REDIRECT, deleteAdAndRedirect);
+    yield takeLatest(SHOW_STOP_MODAL_MY_ADS, showStopModalMyAds);
+    yield takeLatest(STOP_AD_FROM_MY_ADS, stopAdFromMyAds);
 };

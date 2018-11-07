@@ -1,6 +1,8 @@
 import { put, throttle, select, call } from 'redux-saga/effects';
 import { ApiError, fetchEmployerNameCompletionHits, fetchOrgnrSuggestions } from '../../../api/api';
 import {
+    CREATE_AD_BEGIN,
+    CREATE_AD_SUCCESS,
     FETCH_AD_BEGIN,
     FETCH_AD_SUCCESS,
     SAVE_AD_BEGIN,
@@ -20,12 +22,14 @@ const initialState = {
 
 export default function employerReducer(state = initialState, action) {
     switch (action.type) {
+        case CREATE_AD_BEGIN:
         case FETCH_AD_BEGIN:
         case SAVE_AD_BEGIN:
             return {
                 ...state,
                 suggestions: []
             };
+        case CREATE_AD_SUCCESS:
         case SAVE_AD_SUCCESS:
         case FETCH_AD_SUCCESS:
             return {

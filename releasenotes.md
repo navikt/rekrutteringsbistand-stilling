@@ -1,3 +1,28 @@
+## RELEASE - 0.3.61-df65bde
+#### New in this release: 
++ 2018-11-06 [PAM-1743] Fjerne kandidatlister som menypunkt
++ 2018-11-05 [Fix] Fortsatt linke til mine annonser selv om annonsen ikke skal slettes
++ 2018-11-05 [Fix] Flytte redirect til mine annonser til saga
++ 2018-11-05 [PAM-1887]: legger til funksjonalitet for å vise utgåtte stillinger og for å stoppe publiserte stillinger
++ 2018-11-05 [Fix] Vise navIdent i søkeresultat når den er satt
++ 2018-11-05 [Fix] Nullstille stillingsdata når man oppretter en ny annonse
++ 2018-11-05 [PAM-1309] Bruke react-router i lenkepanel for å slippe refresh av siden ved linking
++ 2018-11-05 [PAM-1309] Legge til lenkepanel for mine stillinger og finn kandidater på forsiden
++ 2018-11-02 [Fix] Nullstille søket når man trykker på Søk etter stilling
++ 2018-11-02 [PAM-1310] Skrive om filtre til radio-buttons siden søket ikke støtter checkbokser
++ 2018-11-02 [PAM-1310] Fjerne avvist og slettet fra søkeresultat, søke på utløpt og publisert frem i tid
++ 2018-11-01 [Fix] Oppdatere datovisning i søkeresultat, fjerne ubrukt kode og vise publiseringsdato i alertstripe
++ 2018-10-30 [PAM-1887]: første versjon (uferdig) av side med mine stillinger
+## RELEASE - 0.2.46-43cadce
+#### New in this release: 
++ 2018-11-01 [Fix] Vise publiser endringer, stopp og avbryt samtidig og vise alertstripe ved publisering av endringer
++ 2018-10-31 [Fix] Forhindre at forhåndsvisning vises når man publiserer en annonse
++ 2018-10-30 [PAM-1265] Legger til Kontaktperson i NAV på "Om annonsen"
++ 2018-10-30 [PAM-1265] Legger på sjekk for publisert internt
++ 2018-10-30 [PAM-1612] Vise annen overskrift i avbryt-modal ved tidligere lagrede stillinger
++ 2018-10-30 [PAM-1612] Vise lenke til søkesiden hvis annonsen er slettet
++ 2018-10-30 [PAM-1612] Slette stilling hvis bruker trykker avbryt og det aldri har blitt gjort endringer på den
++ 2018-10-30 [PAM-1265] Legger til Registrert av i "Om annonsen"
 ## RELEASE - 0.1.40-3751958
 #### New in this release: 
 + 2018-10-30 [Fix] Skjule felter Hvem bør søke på stillingen inntill videre

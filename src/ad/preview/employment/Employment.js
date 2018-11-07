@@ -72,6 +72,10 @@ export default function Employment({ properties, location }) {
     );
 }
 
+Employment.defaultProps = {
+    location: undefined
+};
+
 Employment.propTypes = {
     properties: PropTypes.shape({
         jobtitle: PropTypes.string,
@@ -91,6 +95,6 @@ Employment.propTypes = {
         city: PropTypes.string,
         municipal: PropTypes.string,
         country: PropTypes.string
-    }).isRequired
+    })
 };
 
