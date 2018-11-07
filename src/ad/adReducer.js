@@ -398,7 +398,7 @@ function* deleteAdFromMyAds() {
 }
 
 function* showDeleteModalMyAds(action) {
-    // Fetch the ad first to be able to stop it
+    // Fetch the ad first to be able to delete it
     yield put({ type: FETCH_AD_BEGIN });
     try {
         const response = yield fetchAd(action.uuid);
