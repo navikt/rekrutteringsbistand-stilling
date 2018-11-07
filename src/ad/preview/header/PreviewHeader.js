@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Knapp } from 'nav-frontend-knapper';
+import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
 import Comment from './comment/Comment'
 import { EDIT_AD } from '../../adReducer';
@@ -14,6 +14,10 @@ import './PreviewHeader.less';
 class PreviewMenu extends React.Component {
     onEditAdClick = () => {
         this.props.editAd();
+    };
+
+    onPrintClick = () => {
+        window.print();
     };
 
     render() {
@@ -50,28 +54,38 @@ class PreviewMenu extends React.Component {
                             to={`/kandidater/?id=${stilling.uuid}`}
                             classNameText="typo-element"
                             classNameLink="Ad__preview__menu-item FindCandidate"
-                            text="Finn kandidater"/>
+                            text="Finn kandidater"
+                        />
                     }
                     {showCandidateLinks &&
                         <LinkWithIcon
                             to={'#'}
                             classNameText="typo-element"
                             classNameLink="Ad__preview__menu-item AddCandidate"
-                            text="Legg til kandidat"/>
+                            text="Legg til kandidat"
+                        />
                     }
                     {showCandidateLinks &&
                         <LinkWithIcon
                             to={'#'}
                             classNameText="typo-element"
                             classNameLink="Ad__preview__menu-item CandidateList"
-                            text="Se kandidatliste"/>
+                            text="Se kandidatliste"
+                        />
                     }
-                    <Knapp
+                    <Hovedknapp
                         className="Ad__preview__menu-button"
                         onClick={this.onEditAdClick}
                         mini
                     >
                         Rediger stillingen
+                    </Hovedknapp>
+                    <Knapp
+                        className="button-print"
+                        onClick={this.onPrintClick}
+                        mini
+                    >
+                        Skriv ut
                     </Knapp>
                 </div>
             </div>
