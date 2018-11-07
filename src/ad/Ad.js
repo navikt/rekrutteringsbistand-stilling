@@ -46,7 +46,7 @@ class Ad extends React.Component {
     };
 
     render() {
-        const { stilling, isEditingAd } = this.props;
+        const { stilling, isEditingAd, editTitle } = this.props;
 
         if (stilling.status === AdStatusEnum.DELETED) {
             return (
@@ -74,6 +74,7 @@ class Ad extends React.Component {
                                         <div className="Ad__edit__inner">
                                             <EditHeader
                                                 status={this.props.status}
+                                                title={editTitle}
                                                 source={this.props.stilling.source}
                                                 onPreviewAdClick={this.onPreviewAdClick}
                                                 uuid={stilling.uuid}
@@ -128,6 +129,7 @@ Ad.propTypes = {
 const mapStateToProps = (state) => ({
     stilling: state.adData,
     isEditingAd: state.ad.isEditingAd,
+    editTitle: state.ad.editTitle,
     status: state.adData.administration.status
 });
 

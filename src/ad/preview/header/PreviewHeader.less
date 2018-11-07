@@ -30,7 +30,37 @@
   margin-left: auto;
 
   &:not(:last-child){
-    margin-right: 2rem;
+    margin-right: 1rem;
   }
 }
 
+.Preview__TopSection {
+  display: flex;
+  padding-bottom: 1.25rem;
+  border-bottom: solid 1px #d8d8d8;
+  margin-bottom: 1.25rem;
+}
+
+.Preview__TopSection__left {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.Preview__TopSection__right {
+  display: flex;
+  margin-left: auto;
+}
+
+.Help__icon {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' data-name='Layer 1' viewBox='0 0 18.22 18.22'%3E%3Cpath fill='none' d='M9.11 1a8.11 8.11 0 1 0 8.11 8.11A8.12 8.12 0 0 0 9.11 1zm0 13.7a.89.89 0 1 1 .89-.9.89.89 0 0 1-.89.9zm.5-5.7v1.89a.5.5 0 0 1-1 0V8.5a.5.5 0 0 1 .5-.5 1.85 1.85 0 1 0-1.85-1.85.5.5 0 0 1-1 0A2.85 2.85 0 1 1 9.61 9z'/%3E%3Cpath fill='%232968b2' d='M9.11 0a9.11 9.11 0 1 0 9.11 9.11A9.12 9.12 0 0 0 9.11 0zm0 17.22a8.11 8.11 0 1 1 8.11-8.11 8.12 8.12 0 0 1-8.11 8.11z'/%3E%3Cpath fill='%232968b2' d='M9.11 3.3a2.85 2.85 0 0 0-2.85 2.85.5.5 0 0 0 1 0A1.85 1.85 0 1 1 9.11 8a.5.5 0 0 0-.5.5v2.35a.5.5 0 0 0 1 0V9a2.85 2.85 0 0 0-.5-5.65z'/%3E%3Ccircle cx='9.11' cy='13.8' r='.89' fill='%232968b2'/%3E%3C/svg%3E");
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  vertical-align: bottom;
+  margin: 0.1rem 0.5rem 0 0;
+}
+
+p.TopSection__text {
+  padding-top: 5px;
+  line-height: 27px;
+}

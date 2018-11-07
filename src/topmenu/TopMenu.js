@@ -48,13 +48,6 @@ class TopMenu extends React.Component {
                     >
                         <Normaltekst className="TopMenu__item__inner">Kandidatsøk</Normaltekst>
                     </NavLink>
-                    <NavLink
-                        to="/kandidatlister"
-                        className="TopMenu__item"
-                        activeClassName="TopMenu__item-active"
-                    >
-                        <Normaltekst className="TopMenu__item__inner">Kandidatlister</Normaltekst>
-                    </NavLink>
                 </div>
                 <div className="TopMenu__right">
                     <div className="TopMenu__item TopMenu__reportee">
