@@ -71,14 +71,12 @@ class ResultItem extends React.Component {
                     )}
                 </td>
                 <td className="Col-candidate">
-                    <div className="CandidateList__column">
-                        <LinkWithIcon
-                            to={`/kandidater/lister/stilling/${ad.uuid}/detaljer`}
-                            classNameText="typo-normal"
-                            classNameLink="CandidateList"
-                            text="Se kandidatliste"
-                        />
-                    </div>
+                    <LinkWithIcon
+                        to={`/kandidater/lister/stilling/${ad.uuid}/detaljer`}
+                        classNameText="typo-normal"
+                        classNameLink="CandidateList"
+                        text="Se kandidatliste"
+                    />
                 </td>
                 <td className="Col-status">
                     {ad.status && AdStatusEnum[ad.status] && (
