@@ -59,7 +59,7 @@ const SearchResultItem = ({ ad }) => (
             {ad.source === 'DIR' && (
                 <div className="SearchResultItem__column">
                     <LinkWithIcon
-                        to={`/kandidater/lister/stillingsliste/${ad.uuid}/detaljer`}
+                        to={`/kandidater/lister/stilling/${ad.uuid}/detaljer`}
                         classNameText="typo-normal"
                         classNameLink="CandidateList"
                         text="Se kandidatliste"

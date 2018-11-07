@@ -62,7 +62,7 @@ class ResultItem extends React.Component {
                 <td className="Col-candidate">
                     <div className="CandidateList__column">
                         <LinkWithIcon
-                            to={`/kandidater/lister/stillingsliste/${ad.uuid}/detaljer`}
+                            to={`/kandidater/lister/stilling/${ad.uuid}/detaljer`}
                             classNameText="typo-normal"
                             classNameLink="CandidateList"
                             text="Se kandidatliste"

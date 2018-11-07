@@ -31,7 +31,7 @@ export default function EditHeader({ onPreviewAdClick, uuid, status, title, sour
                 )}
                 {showCandidateLinks && source === 'DIR' && (
                     <LinkWithIcon
-                        to={`/kandidater/lister/stillingsliste/${uuid}/detaljer`}
+                        to={`/kandidater/lister/stilling/${uuid}/detaljer`}
                         classNameText="typo-element"
                         classNameLink="Ad__edit__menu-item CandidateList"
                         text="Se kandidatliste"

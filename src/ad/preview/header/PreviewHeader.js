@@ -67,7 +67,7 @@ class PreviewMenu extends React.Component {
                     )}
                     {showCandidateLinks && stilling && stilling.source === 'DIR' && (
                         <LinkWithIcon
-                            to={`/kandidater/lister/stillingsliste/${stilling.uuid}/detaljer`}
+                            to={`/kandidater/lister/stilling/${stilling.uuid}/detaljer`}
                             classNameText="typo-element"
                             classNameLink="Ad__preview__menu-item CandidateList"
                             text="Se kandidatliste"
