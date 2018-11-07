@@ -30,6 +30,9 @@ class ResultItem extends React.Component {
     stopButtonWithIcon = () => (<div className="ResultItem__Icon-button">
         <i className="Stop__icon--disabled" /></div>);
 
+    editButtonWithIcon = () => (<div className="ResultItem__Icon-button">
+        <i className="Edit__icon--disabled" /></div>);
+
     render() {
         const { ad } = this.props;
         const adminDone = ad.administration && ad.administration.status && ad.administration.status === AdminStatusEnum.DONE;
@@ -86,17 +89,26 @@ class ResultItem extends React.Component {
                     )}
                 </td>
                 <td className="Col-edit center">
-                    <Link
-                        className="Icon__button"
-                        aria-label="Rediger"
-                        title="rediger"
-                        to={{
-                            pathname: `/ads/${ad.uuid}`,
-                            state: { openInEditMode: true }
-                        }}
-                    >
-                        <i className={isExpired ? 'Edit__icon--disabled' : 'Edit__icon'} />
-                    </Link>
+                    {isExpired ? (
+                        <HjelpetekstBase
+                            anchor={this.editButtonWithIcon}
+                            tittel="rediger"
+                        >
+                            Stillingen har utløpt
+                        </HjelpetekstBase>
+                    ) : (
+                        <Link
+                            className="Icon__button"
+                            aria-label="Rediger"
+                            title="rediger"
+                            to={{
+                                pathname: `/ads/${ad.uuid}`,
+                                state: { openInEditMode: true }
+                            }}
+                        >
+                            <i className="Edit__icon" />
+                        </Link>
+                    )}
                 </td>
                 <td className="Col-copy center">
                     <button
