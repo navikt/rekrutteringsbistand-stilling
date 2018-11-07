@@ -6,6 +6,11 @@ import { connect } from 'react-redux';
 import { EXPAND_COMMENT, COLLAPSE_COMMENT } from './expandCommentReducer';
 
 class ExpandComment extends React.Component {
+
+    componentWillUnmount() {
+        this.props.collapseComment();
+    }
+
     onClick = () => {
         if (this.props.isCommentExpanded) {
             this.props.collapseComment();

@@ -37,8 +37,12 @@ p.Comment__text{
   }
 
   &:hover {
-    .Expand__comment__chevron {
-      transform: translateX(0.25rem, -0.25rem);
+    .Expand__comment__chevron[class~='chevron--opp'] {
+      transform: translateY(-0.25rem);
+    }
+
+    .Expand__comment__chevron[class~='chevron--ned'] {
+      transform: translateY(0.25rem);
     }
   }
 }

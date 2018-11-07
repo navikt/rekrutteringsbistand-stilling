@@ -14,8 +14,8 @@ class Comment extends React.Component {
         }
 
         let shortComments;
-        if(comments && comments.length > 60){
-            shortComments = comments.substring(0, 57);
+        if(comments && comments.length > 55){
+            shortComments = comments.substring(0, 52);
             shortComments += '...';
         }
 
