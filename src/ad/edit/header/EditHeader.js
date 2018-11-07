@@ -7,12 +7,12 @@ import AdminStatusEnum from '../../administration/adminStatus/AdminStatusEnum';
 import './EditHeader.less';
 
 
-export default function EditHeader({ onPreviewAdClick, uuid, status}) {
+export default function EditHeader({ onPreviewAdClick, uuid, status, title}) {
     const showCandidateLinks = (status === AdminStatusEnum.DONE);
     return (
         <div>
             <div className="Ad__edit__menu">
-                <Sidetittel className="Ad__edit__menu-title"> Ny Stilling</Sidetittel>
+                <Sidetittel className="Ad__edit__menu-title">{title}</Sidetittel>
                 {showCandidateLinks &&
                     <LinkWithIcon
                         to={`/kandidater/?id=${uuid}`}
@@ -49,11 +49,13 @@ export default function EditHeader({ onPreviewAdClick, uuid, status}) {
 
 EditHeader.defaultProps = {
     uuid: '',
-    status: undefined
+    status: undefined,
+    title: 'Ny stilling'
 };
 
 EditHeader.propTypes = {
     onPreviewAdClick: PropTypes.func.isRequired,
     uuid: PropTypes.string,
-    status: PropTypes.string
+    status: PropTypes.string,
+    title: PropTypes.string
 };

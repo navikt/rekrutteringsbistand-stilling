@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Knapp } from 'nav-frontend-knapper';
+import { Element, Normaltekst } from 'nav-frontend-typografi';
+import Comment from './comment/Comment'
 import { EDIT_AD } from '../../adReducer';
 import AdminStatusEnum from '../../administration/adminStatus/AdminStatusEnum';
 import LinkWithIcon from '../../../common/linkWithIcon/LinkWithIcon';
@@ -17,9 +19,24 @@ class PreviewMenu extends React.Component {
     render() {
         const { stilling, status } = this.props;
         const showCandidateLinks = (status === AdminStatusEnum.DONE);
+        const {reportee, navIdent} = stilling.administration;
 
         return (
             <div>
+                <div className="Preview__TopSection">
+                    <div className="Preview__TopSection__left">
+                        <div>
+                            <i className="Help__icon" />
+                        </div>
+                        <div>
+                            <Element >Spørsmål om stillingen?</Element>
+                            <Normaltekst className="TopSection__text">Kontakt {reportee} {navIdent ? ` (${navIdent})` : '' }</Normaltekst>
+                        </div>
+                    </div>
+                    <div className="Preview__TopSection__right">
+                        <Comment />
+                    </div>
+                </div>
                 <AdTitle
                     title={stilling.title}
                     employer={stilling.properties.employer}

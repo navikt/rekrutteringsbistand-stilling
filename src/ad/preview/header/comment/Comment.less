@@ -1,0 +1,46 @@
+@import "../../../../variables";
+
+.Preview__Comment {
+  display: flex;
+  max-width: 530px;
+}
+
+.Comment__icon {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' contentScriptType='text/ecmascript' version='1' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%230067c5' stroke-linecap='round' stroke-linejoin='round' stroke-miterlimit='10' d='M.513.5h23v23h-23zm6 5h14m-17 3h17m-17 3h17m-17 3h17m-17 3h7'/%3E%3C/svg%3E");
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  vertical-align: bottom;
+  margin: 0.1rem 0.5rem 0 0;
+}
+
+p.Comment__text{
+  white-space: normal;
+}
+
+
+.Expand__comment__chevron {
+  margin-left: 0.25rem;
+}
+
+
+.Expand__comment__button {
+  background: transparent;
+  border: 0;
+  color: @navBla;
+  cursor: pointer;
+  margin: 0 0 0 0.5rem;
+
+  &:focus {
+    box-shadow: 0 0 0 3px @orangeFocus;
+    outline: none;
+  }
+
+  &:hover {
+    .Expand__comment__chevron {
+      transform: translateX(0.25rem, -0.25rem);
+    }
+  }
+}
+
+

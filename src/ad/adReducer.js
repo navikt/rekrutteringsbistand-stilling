@@ -79,6 +79,7 @@ const initialState = {
     isSavingAd: false,
     isFetchingStilling: false,
     isEditingAd: false,
+    editTitle: 'Ny stilling',
     originalData: undefined,
     hasSavedChanges: false,
     showPublishErrorModal: false,
@@ -124,6 +125,7 @@ export default function adReducer(state = initialState, action) {
                 isSavingAd: false,
                 hasSavedChanges: true,
                 isEditingAd: true,
+                editTitle: 'Ny stilling',
                 originalData: { ...action.response }
             };
         case SAVE_AD_SUCCESS:
@@ -144,7 +146,8 @@ export default function adReducer(state = initialState, action) {
         case EDIT_AD:
             return {
                 ...state,
-                isEditingAd: true
+                isEditingAd: true,
+                editTitle: 'Endre stilling'
             };
         case PREVIEW_EDIT_AD:
             return {
