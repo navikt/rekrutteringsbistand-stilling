@@ -1,4 +1,5 @@
 const EngagementTypeEnum = {
+    NONE: '',
     FAST: 'Fast',
     VIKARIAT: 'Vikariat',
     ENGASJEMENT: 'Engasjement',

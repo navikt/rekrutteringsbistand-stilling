@@ -21,7 +21,7 @@ class JobArrangement extends React.Component {
                     onChange={this.onJobArrangementChange}
                 >
                     <option value={JobArrangementEnum.NONE} key={JobArrangementEnum.NONE}>
-                        {JobArrangementEnum.NONE}
+                        Velg
                     </option>
                     <option value={JobArrangementEnum.SKIFT} key={JobArrangementEnum.SKIFT}>
                         {JobArrangementEnum.SKIFT}

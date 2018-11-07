@@ -12,7 +12,10 @@ import {
     SET_AD_TEXT,
     SET_AD_TITLE,
     SET_LOCATION,
-    SET_COMMENT
+    SET_COMMENT,
+    SET_APPLICATIONDUE,
+    SET_EMPLOYMENT_ENGAGEMENTTYPE,
+    SET_EMPLOYMENT_POSITIONCOUNT
 } from './adDataReducer';
 
 const ADD_VALIDATION_ERROR = 'ADD_VALIDATION_ERROR';
@@ -188,6 +191,41 @@ export function* validateComment() {
     }
 }
 
+function* validateApplicationdueDate() {
+    const state = yield select();
+    const { applicationdue } = state.adData.properties;
+
+    if (valueIsNotSet(applicationdue)) {
+        yield put({ type: ADD_VALIDATION_ERROR, field: 'applicationdue', message: 'Søknadsfrist mangler' });
+    } else {
+        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'applicationdue' });
+    }
+}
+
+function* validateEngagementType() {
+    const state = yield select();
+    const { engagementtype } = state.adData.properties;
+
+    if (valueIsNotSet(engagementtype)) {
+        yield put({ type: ADD_VALIDATION_ERROR, field: 'engagementtype', message: 'Ansettelsesform mangler' });
+    } else {
+        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'engagementtype' });
+    }
+}
+
+function* validatePositionCount() {
+    const state = yield select();
+    const { positioncount } = state.adData.properties;
+
+    const error = !positioncount.match(/^[1-9]\d*$/);
+
+    if (error) {
+        yield put({ type: ADD_VALIDATION_ERROR, field: 'positioncount', message: 'Antall stillinger mangler' });
+    } else {
+        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'positioncount' });
+    }
+}
+
 export function* validateAll() {
     const state = yield select();
     if (state.adData !== null) {
@@ -202,6 +240,9 @@ export function* validateAll() {
         yield validateContactpersonEmail();
         yield validatePostalCode();
         yield validateComment();
+        yield validateApplicationdueDate();
+        yield validateEngagementType();
+        yield validatePositionCount();
     }
 }
 
@@ -216,7 +257,10 @@ export function hasValidationErrors(validation) {
            || validation.contactpersonEmail !== undefined
            || validation.publish !== undefined
            || validation.postalCode !== undefined
-           || validation.comment !== undefined;
+           || validation.comment !== undefined
+           || validation.applicationdue !== undefined
+           || validation.engagementtype !== undefined
+           || validation.positioncount !== undefined;
 }
 
 export function* validateBeforeSave() {
@@ -239,7 +283,7 @@ export function hasValidationErrorsOnSave(validation) {
         || validation.contactpersonEmail !== undefined
         || validation.contactpersonPhone !== undefined
         || validation.postalCode !== undefined
-        || validation.comment !== undefined;
+        || validation.comment !== undefined
 }
 
 const initialState = {
@@ -282,4 +326,7 @@ export const validationSaga = function* saga() {
     yield takeLatest(VALIDATE_CONTACTPERSON_EMAIL, validateContactpersonEmail);
     yield takeLatest(VALIDATE_CONTACTPERSON_PHONE, validateContactpersonPhone);
     yield takeLatest(SET_COMMENT, validateComment);
+    yield takeLatest(SET_APPLICATIONDUE, validateApplicationdueDate);
+    yield takeLatest(SET_EMPLOYMENT_ENGAGEMENTTYPE, validateEngagementType);
+    yield takeLatest(SET_EMPLOYMENT_POSITIONCOUNT, validatePositionCount);
 };

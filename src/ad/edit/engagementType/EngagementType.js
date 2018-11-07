@@ -16,10 +16,13 @@ class EngagementType extends React.Component {
             <div className="EngagementType">
                 <Select
                     id="EngagementType__input"
-                    label="Ansettelsesform"
+                    label="Ansettelsesform*"
                     value={this.props.engagementType}
                     onChange={this.onEngagementTypeChange}
                 >
+                    <option value={EngagementTypeEnum.NONE} key={EngagementTypeEnum.NONE}>
+                        Velg
+                    </option>
                     <option value={EngagementTypeEnum.FAST} key={EngagementTypeEnum.FAST}>
                         {EngagementTypeEnum.FAST}
                     </option>
@@ -51,6 +54,9 @@ class EngagementType extends React.Component {
                         {EngagementTypeEnum.ANNET}
                     </option>
                 </Select>
+                {this.props.validation.engagementtype && (
+                    <div className="Administration__error">{this.props.validation.engagementtype}</div>
+                )}
             </div>
         );
     }
@@ -62,11 +68,15 @@ EngagementType.defaultProps = {
 
 EngagementType.propTypes = {
     setEngagementType: PropTypes.func.isRequired,
-    engagementType: PropTypes.string
+    engagementType: PropTypes.string,
+    validation: PropTypes.shape({
+        title: PropTypes.string
+    }).isRequired
 };
 
 const mapStateToProps = (state) => ({
-    engagementType: state.adData.properties.engagementtype
+    engagementType: state.adData.properties.engagementtype,
+    validation: state.adValidation.errors
 });
 
 const mapDispatchToProps = (dispatch) => ({
