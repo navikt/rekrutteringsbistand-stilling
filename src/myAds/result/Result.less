@@ -21,6 +21,10 @@
   border-radius: 4px;
   border-style: hidden; /* hide standard table (collapsed) border */
   box-shadow: 0 0 0 1px #d8d8d8; /* this draws the table border  */
+
+  &.copied {
+    border: 2px solid @navBla;
+  }
 }
 
 .ResultItem__column {
@@ -31,11 +35,6 @@
 
 .ResultItem__Icon-button {
   padding: 1px 6px;
-}
-
-.ResultItem-copied {
-  border: 2px solid @navBla;
-  border-radius: 4px!important;
 }
 
 .Result__table {

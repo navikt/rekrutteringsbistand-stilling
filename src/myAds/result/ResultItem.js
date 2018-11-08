@@ -45,7 +45,7 @@ class ResultItem extends React.Component {
             erDatoFørSluttdato(toDate(ad.expires), new Date(Date.now()));
         const isCopy = copiedAds.includes(ad.uuid);
         return (
-            <tr className={`ResultItem${isCopy ? ' ResultItem-copied' : ''}`}>
+            <tr className={`ResultItem${isCopy ? ' copied' : ''}`}>
                 <td className="Col-updated">
                     {ad.updated && (
                         <Normaltekst className="ResultItem__column">
