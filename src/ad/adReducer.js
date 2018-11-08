@@ -419,7 +419,7 @@ function* copyAd() {
 
         const response = yield fetchPost(postUrl, {
             ...state.adData,
-            title: `${state.adData.title} - kopi`,
+            title: `Kopi - ${state.adData.title}`,
             createdBy: 'pam-rekrutteringsbistand',
             updatedBy: 'pam-rekrutteringsbistand',
             source: 'DIR',
