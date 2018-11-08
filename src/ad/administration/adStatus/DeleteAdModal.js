@@ -19,7 +19,7 @@ class DeleteAdModal extends React.Component {
     };
 
     render() {
-        const { showDeleteAdModal } = this.props;
+        const { showDeleteAdModal, title } = this.props;
         return (
             <NavFrontendModal
                 isOpen={showDeleteAdModal}
@@ -33,7 +33,7 @@ class DeleteAdModal extends React.Component {
                     Slett stilling
                 </Undertittel>
                 <Normaltekst className="blokk-l">
-                    Er du sikker på at du ønsker å slette stillingen?
+                    {`Er du sikker på at du ønsker å slette "${title}"?`}
                 </Normaltekst>
                 <div className="DeleteAdModal__buttons">
                     <Hovedknapp onClick={this.onDeleteAdClick}>Slett stillingen</Hovedknapp>
@@ -44,14 +44,20 @@ class DeleteAdModal extends React.Component {
     }
 }
 
+DeleteAdModal.defaultProps = {
+    title: undefined
+}
+
 DeleteAdModal.propTypes = {
     closeModal: PropTypes.func.isRequired,
     deleteAd: PropTypes.func.isRequired,
-    showDeleteAdModal: PropTypes.bool.isRequired
+    showDeleteAdModal: PropTypes.bool.isRequired,
+    title: PropTypes.string
 };
 
 const mapStateToProps = (state) => ({
-    showDeleteAdModal: state.ad.showDeleteAdModal
+    showDeleteAdModal: state.ad.showDeleteAdModal,
+    title: state.adData.title
 });
 
 const mapDispatchToProps = (dispatch) => ({

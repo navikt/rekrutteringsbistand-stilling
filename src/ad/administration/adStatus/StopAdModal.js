@@ -27,7 +27,7 @@ class StopAdModal extends React.Component {
     };
 
     render() {
-        const { showStopAdModal } = this.props;
+        const { showStopAdModal, title } = this.props;
         return (
             <NavFrontendModal
                 isOpen={showStopAdModal}
@@ -41,8 +41,8 @@ class StopAdModal extends React.Component {
                     Stopp stillingen
                 </Undertittel>
                 <Normaltekst className="blokk-l">
-                    Er du sikker på at du ønsker å stoppe stillingen? Stopper du stillingen
-                    vil den ikke lenger være tilgjengelig for søk.
+                    {`Er du sikker på at du ønsker å stoppe "${title}"? Stopper du stillingen
+                    vil den ikke lenger være tilgjengelig for søk.`}
                 </Normaltekst>
                 <div className="StopAdModal__Comment">
                     <Comment />
@@ -57,7 +57,8 @@ class StopAdModal extends React.Component {
 }
 
 StopAdModal.defaultProps = {
-    fromMyAds: false
+    fromMyAds: false,
+    title: undefined
 };
 
 StopAdModal.propTypes = {
@@ -68,12 +69,14 @@ StopAdModal.propTypes = {
     validation: PropTypes.shape({
         comment: PropTypes.string
     }).isRequired,
-    fromMyAds: PropTypes.bool
+    fromMyAds: PropTypes.bool,
+    title: PropTypes.string
 };
 
 const mapStateToProps = (state) => ({
     showStopAdModal: state.ad.showStopAdModal,
-    validation: state.adValidation.errors
+    validation: state.adValidation.errors,
+    title: state.adData.title
 });
 
 const mapDispatchToProps = (dispatch) => ({

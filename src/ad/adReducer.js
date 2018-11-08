@@ -64,6 +64,8 @@ export const STOP_AD_FROM_MY_ADS = 'STOP_AD_FROM_MY_ADS';
 export const SHOW_STOP_AD_MODAL = 'SHOW_STOP_AD_MODAL';
 export const HIDE_STOP_AD_MODAL = 'HIDE_STOP_AD_MODAL';
 
+export const COPY_AD_FROM_MY_ADS = 'COPY_AD_FROM_MY_ADS';
+
 export const SHOW_HAS_CHANGES_MODAL = 'SHOW_HAS_CHANGES_MODAL';
 export const HIDE_HAS_CHANGES_MODAL = 'HIDE_HAS_CHANGES_MODAL';
 
@@ -76,6 +78,9 @@ export const HIDE_AD_SAVED_ERROR_MODAL = 'HIDE_AD_SAVED_ERROR_MODAL';
 export const SHOW_STOP_MODAL_MY_ADS = 'SHOW_STOP_MODAL_MY_ADS';
 export const SHOW_DELETE_MODAL_MY_ADS = 'SHOW_DELETE_MODAL_MY_ADS';
 
+export const ADD_COPIED_ADS = 'ADD_COPIED_ADS';
+export const CLEAR_COPIED_ADS = 'CLEAR_COPIED_ADS';
+
 export const DEFAULT_TITLE = 'Overskrift på annonsen';
 
 const initialState = {
@@ -86,6 +91,7 @@ const initialState = {
     editTitle: 'Ny stilling',
     originalData: undefined,
     hasSavedChanges: false,
+    copiedAds: [],
     showPublishErrorModal: false,
     showHasChangesModal: false,
     showStopAdModal: false,
@@ -219,6 +225,19 @@ export default function adReducer(state = initialState, action) {
                 ...state,
                 showAdSavedErrorModal: false
             };
+        case ADD_COPIED_ADS:
+            return {
+                ...state,
+                copiedAds: [
+                    ...state.copiedAds,
+                    action.adUuid
+                ]
+            };
+        case CLEAR_COPIED_ADS:
+            return {
+                ...state,
+                copiedAds: []
+            };
         default:
             return state;
     }
@@ -243,19 +262,8 @@ function* getAd(action) {
 }
 
 function* showStopModalMyAds(action) {
-    // Fetch the ad first to be able to stop it
-    yield put({ type: FETCH_AD_BEGIN });
-    try {
-        const response = yield fetchAd(action.uuid);
-        yield put({ type: FETCH_AD_SUCCESS, response });
-        yield put({ type: SHOW_STOP_AD_MODAL });
-    } catch (e) {
-        if (e instanceof ApiError) {
-            yield put({ type: FETCH_AD_FAILURE, error: e });
-        } else {
-            throw e;
-        }
-    }
+    yield getAd(action);
+    yield put({ type: SHOW_STOP_AD_MODAL });
 }
 
 function needClassify(originalAdData, adData) {
@@ -265,8 +273,6 @@ function needClassify(originalAdData, adData) {
 function* createAd() {
     yield put({ type: CREATE_AD_BEGIN });
     try {
-        yield put({ type: SET_UPDATED_BY });
-
         const reportee = yield getReportee();
 
         const postUrl = `${AD_API}ads?classify=true`;
@@ -274,6 +280,7 @@ function* createAd() {
         const response = yield fetchPost(postUrl, {
             title: DEFAULT_TITLE,
             createdBy: 'pam-rekrutteringsbistand',
+            updatedBy: 'pam-rekrutteringsbistand',
             source: 'DIR',
             privacy: PrivacyStatusEnum.INTERNAL_NOT_SHOWN,
             administration: {
@@ -398,19 +405,59 @@ function* deleteAdFromMyAds() {
 }
 
 function* showDeleteModalMyAds(action) {
-    // Fetch the ad first to be able to delete it
-    yield put({ type: FETCH_AD_BEGIN });
+    yield getAd(action);
+    yield put({ type: SHOW_DELETE_AD_MODAL });
+}
+
+function* copyAd() {
     try {
-        const response = yield fetchAd(action.uuid);
-        yield put({ type: FETCH_AD_SUCCESS, response });
-        yield put({ type: SHOW_DELETE_AD_MODAL });
+        const state = yield select();
+
+        const reportee = yield getReportee();
+
+        const postUrl = `${AD_API}ads?classify=true`;
+
+        const response = yield fetchPost(postUrl, {
+            ...state.adData,
+            title: `Kopi - ${state.adData.title}`,
+            createdBy: 'pam-rekrutteringsbistand',
+            updatedBy: 'pam-rekrutteringsbistand',
+            source: 'DIR',
+            privacy: PrivacyStatusEnum.INTERNAL_NOT_SHOWN,
+            administration: {
+                status: AdminStatusEnum.PENDING,
+                reportee: reportee.displayName,
+                navIdent: reportee.navIdent
+            },
+            created: undefined,
+            expires: undefined,
+            id: undefined,
+            uuid: undefined,
+            updated: undefined,
+            status: undefined,
+            published: undefined,
+            reference: undefined
+        });
+
+        yield put({ type: SET_AD_DATA, data: response });
+        yield put({ type: SET_REPORTEE, reportee: reportee.displayName });
+        yield put({ type: SET_NAV_IDENT, navIdent: reportee.navIdent });
+        yield put({ type: CREATE_AD_SUCCESS, response });
     } catch (e) {
         if (e instanceof ApiError) {
-            yield put({ type: FETCH_AD_FAILURE, error: e });
-        } else {
-            throw e;
+            yield put({ type: CREATE_AD_FAILURE, error: e });
         }
+        throw e;
     }
+}
+
+function* copyAdFromMyAds(action) {
+    yield getAd(action);
+    yield copyAd();
+    const state = yield select();
+    yield put({ type: ADD_COPIED_ADS, adUuid: state.adData.uuid });
+    // Update list with the new ad
+    yield put({ type: FETCH_MY_ADS });
 }
 
 export const adSaga = function* saga() {
@@ -426,4 +473,5 @@ export const adSaga = function* saga() {
     yield takeLatest(SHOW_DELETE_MODAL_MY_ADS, showDeleteModalMyAds);
     yield takeLatest(STOP_AD_FROM_MY_ADS, stopAdFromMyAds);
     yield takeLatest(DELETE_AD_FROM_MY_ADS, deleteAdFromMyAds);
+    yield takeLatest(COPY_AD_FROM_MY_ADS, copyAdFromMyAds);
 };

@@ -14,13 +14,17 @@ import Pagination from './pagination/Pagination';
 import StopAdModal from '../ad/administration/adStatus/StopAdModal';
 import Count from './result/Count';
 import { FETCH_MY_ADS } from './myAdsReducer';
-import { CREATE_AD } from '../ad/adReducer';
+import { CLEAR_COPIED_ADS, CREATE_AD } from '../ad/adReducer';
 import './MyAds.less';
 import DeleteAdModal from '../ad/administration/adStatus/DeleteAdModal';
 
 class MyAds extends React.Component {
     componentDidMount() {
         this.props.getAds();
+    }
+
+    componentWillUnmount() {
+        this.props.clearCopiedAds();
     }
 
     onCreateAd = () => {
@@ -95,7 +99,7 @@ MyAds.propTypes = {
     error: PropTypes.shape({
         statusCode: PropTypes.number
     }),
-    createAd: PropTypes.func.isRequired
+    clearCopiedAds: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -106,7 +110,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     getAds: () => dispatch({ type: FETCH_MY_ADS }),
-    createAd: () => dispatch({ type: CREATE_AD })
+    createAd: () => dispatch({ type: CREATE_AD }),
+    clearCopiedAds: () => dispatch({ type: CLEAR_COPIED_ADS })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyAds);
