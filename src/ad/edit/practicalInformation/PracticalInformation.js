@@ -8,14 +8,13 @@ import { Normaltekst } from 'nav-frontend-typografi';
 import Datovelger from 'nav-datovelger';
 import { formatISOString } from '../../../utils';
 import {
-    SET_APPLICATIONDUE,
-    SET_EMPLOYER,
     SET_EMPLOYMENT_EXTENT,
-    SET_EMPLOYMENT_POSITIONCOUNT,
-    SET_EMPLOYMENT_SECTOR,
-    SET_EMPLOYMENT_STARTTIME,
     SET_EMPLOYMENT_WORKDAY,
-    SET_EMPLOYMENT_WORKHOURS
+    SET_EMPLOYMENT_WORKHOURS,
+    SET_EMPLOYMENT_SECTOR,
+    SET_EMPLOYMENT_POSITIONCOUNT,
+    SET_APPLICATIONDUE,
+    SET_EMPLOYMENT_STARTTIME
 } from '../../adDataReducer';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import EngagementType from '../engagementType/EngagementType';
@@ -27,12 +26,12 @@ class PracticalInformation extends React.Component {
         this.props.setExtent(e.target.value);
     };
 
-    onPositioncountChange = (e) => {
-        this.props.setPositionCount(e.target.value);
-    };
-
     onSectorChange = (e) => {
         this.props.setSector(e.target.value);
+    };
+
+    onPositioncountChange = (e) => {
+        this.props.setPositionCount(e.target.value);
     };
 
     onApplicationDueChange = (date) => {
@@ -45,8 +44,9 @@ class PracticalInformation extends React.Component {
     };
 
     onSnarestChange = (e) => {
+        const { value } = e.target;
         if (e.target.checked) {
-            this.props.setApplicationDue('Snarest');
+            this.props.setApplicationDue(value);
         } else {
             this.props.setApplicationDue('');
         }
@@ -62,8 +62,9 @@ class PracticalInformation extends React.Component {
     };
 
     onEtterAvtaleChange = (e) => {
+        const { value } = e.target;
         if (e.target.checked) {
-            this.props.setStartTime('Etter avtale');
+            this.props.setStartTime(value);
         } else {
             this.props.setStartTime('');
         }
@@ -103,6 +104,9 @@ class PracticalInformation extends React.Component {
                         checked={ad.properties.extent === 'Deltid'}
                         onChange={this.onExtentChange}
                     />
+                    {this.props.validation.extent && (
+                        <div className="Administration__error">{this.props.validation.extent}</div>
+                    )}
                 </SkjemaGruppe>
                 <SkjemaGruppe
                     className="Edit__SkjemaGruppe-title blokk-xs"
@@ -180,6 +184,9 @@ class PracticalInformation extends React.Component {
                             onChange={this.onSectorChange}
                         />
                     </div>
+                    {this.props.validation.sector && (
+                        <div className="Administration__error">{this.props.validation.sector}</div>
+                    )}
                 </SkjemaGruppe>
                 <div className="Edit__border" />
                 <Input
@@ -248,11 +255,13 @@ class PracticalInformation extends React.Component {
 
 PracticalInformation.propTypes = {
     ad: PropTypes.shape({
-        title: PropTypes.string,
-        updated: PropTypes.string,
-        created: PropTypes.string,
-        medium: PropTypes.string,
-        id: PropTypes.number
+        extent: PropTypes.string,
+        workday: PropTypes.string,
+        workhours: PropTypes.string,
+        sector: PropTypes.string,
+        positioncount: PropTypes.string,
+        applicationdue: PropTypes.string,
+        starttime: PropTypes.string
     }),
     setExtent: PropTypes.func.isRequired,
     setPositionCount: PropTypes.func.isRequired,
@@ -263,24 +272,21 @@ PracticalInformation.propTypes = {
     setApplicationDue: PropTypes.func.isRequired,
     validation: PropTypes.shape({
         title: PropTypes.string
-    }).isRequired,
-    isFetchingStilling: PropTypes.bool.isRequired
+    }).isRequired
 };
 const mapStateToProps = (state) => ({
     ad: state.adData,
-    validation: state.adValidation.errors,
-    isFetchingStilling: state.ad.isFetchingStilling
+    validation: state.adValidation.errors
 });
 
 const mapDispatchToProps = (dispatch) => ({
     setExtent: (extent) => dispatch({ type: SET_EMPLOYMENT_EXTENT, extent }),
-    setPositionCount: (positioncount) => dispatch({ type: SET_EMPLOYMENT_POSITIONCOUNT, positioncount }),
-    setSector: (sector) => dispatch({ type: SET_EMPLOYMENT_SECTOR, sector }),
     setWorkDay: (workday) => dispatch({ type: SET_EMPLOYMENT_WORKDAY, workday }),
     setWorkHours: (workhours) => dispatch({ type: SET_EMPLOYMENT_WORKHOURS, workhours }),
-    setStartTime: (starttime) => dispatch({ type: SET_EMPLOYMENT_STARTTIME, starttime }),
+    setSector: (sector) => dispatch({ type: SET_EMPLOYMENT_SECTOR, sector }),
+    setPositionCount: (positioncount) => dispatch({ type: SET_EMPLOYMENT_POSITIONCOUNT, positioncount }),
     setApplicationDue: (applicationdue) => dispatch({ type: SET_APPLICATIONDUE, applicationdue }),
-    setEmployer: (employer) => dispatch({ type: SET_EMPLOYER, employer })
+    setStartTime: (starttime) => dispatch({ type: SET_EMPLOYMENT_STARTTIME, starttime })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PracticalInformation);

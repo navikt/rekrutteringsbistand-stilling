@@ -15,7 +15,9 @@ import {
     SET_COMMENT,
     SET_APPLICATIONDUE,
     SET_EMPLOYMENT_ENGAGEMENTTYPE,
-    SET_EMPLOYMENT_POSITIONCOUNT
+    SET_EMPLOYMENT_POSITIONCOUNT,
+    SET_EMPLOYMENT_EXTENT,
+    SET_EMPLOYMENT_SECTOR
 } from './adDataReducer';
 
 const ADD_VALIDATION_ERROR = 'ADD_VALIDATION_ERROR';
@@ -226,6 +228,28 @@ function* validatePositionCount() {
     }
 }
 
+function* validateExtent() {
+    const state = yield select();
+    const { extent } = state.adData.properties;
+
+    if (valueIsNotSet(extent)) {
+        yield put({ type: ADD_VALIDATION_ERROR, field: 'extent', message: 'Omfang mangler' });
+    } else {
+        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'extent' });
+    }
+}
+
+function* validateSector() {
+    const state = yield select();
+    const { sector } = state.adData.properties;
+
+    if (valueIsNotSet(sector)) {
+        yield put({ type: ADD_VALIDATION_ERROR, field: 'sector', message: 'Sektor mangler' });
+    } else {
+        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'sector' });
+    }
+}
+
 export function* validateAll() {
     const state = yield select();
     if (state.adData !== null) {
@@ -243,6 +267,8 @@ export function* validateAll() {
         yield validateApplicationdueDate();
         yield validateEngagementType();
         yield validatePositionCount();
+        yield validateExtent();
+        yield validateSector();
     }
 }
 
@@ -260,7 +286,9 @@ export function hasValidationErrors(validation) {
            || validation.comment !== undefined
            || validation.applicationdue !== undefined
            || validation.engagementtype !== undefined
-           || validation.positioncount !== undefined;
+           || validation.positioncount !== undefined
+           || validation.extent !== undefined
+           || validation.sector !== undefined;
 }
 
 export function* validateBeforeSave() {
@@ -329,4 +357,6 @@ export const validationSaga = function* saga() {
     yield takeLatest(SET_APPLICATIONDUE, validateApplicationdueDate);
     yield takeLatest(SET_EMPLOYMENT_ENGAGEMENTTYPE, validateEngagementType);
     yield takeLatest(SET_EMPLOYMENT_POSITIONCOUNT, validatePositionCount);
+    yield takeLatest(SET_EMPLOYMENT_EXTENT, validateExtent);
+    yield takeLatest(SET_EMPLOYMENT_SECTOR, validateSector);
 };

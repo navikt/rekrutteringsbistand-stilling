@@ -89,15 +89,11 @@ Edit.propTypes = {
         medium: PropTypes.string,
         id: PropTypes.number
     }),
-    validation: PropTypes.shape({
-        title: PropTypes.string
-    }).isRequired,
     isFetchingStilling: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state) => ({
     ad: state.adData,
-    validation: state.adValidation.errors,
     isFetchingStilling: state.ad.isFetchingStilling
 });
 
