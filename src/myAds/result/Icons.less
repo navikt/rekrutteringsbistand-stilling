@@ -62,6 +62,11 @@
   }
 }
 
+.Delete__icon--disabled {
+  .Icon;
+  .background-image(replace(@delete, "230067C5", "2378706A", "gi"));
+}
+
 .Copy__icon {
   .Icon;
   background-image: url(@copy);
@@ -81,7 +86,13 @@
   }
 }
 
+.Stop__icon--disabled {
+  .Icon;
+  .background-image(replace(@stop, "230067C5", "2378706A", "gi"));
+}
+
 .Icon__button {
+  cursor: pointer;
   border: none;
   background: transparent;
 

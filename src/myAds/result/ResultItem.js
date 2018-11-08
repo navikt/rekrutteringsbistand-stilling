@@ -4,9 +4,10 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { erDatoFørSluttdato } from 'nav-datovelger/dist/datovelger/utils/datovalidering';
+import HjelpetekstBase from 'nav-frontend-hjelpetekst';
 import capitalizeEmployerName from '../../ad/edit/employer/capitalizeEmployerName';
 import { formatISOString, toDate } from '../../utils';
-import { SHOW_STOP_MODAL_MY_ADS } from '../../ad/adReducer';
+import { SHOW_DELETE_MODAL_MY_ADS, SHOW_STOP_MODAL_MY_ADS } from '../../ad/adReducer';
 import AdStatusEnum from '../../searchPage/enums/AdStatusEnum';
 import AdminStatusEnum from '../../ad/administration/adminStatus/AdminStatusEnum';
 import PrivacyStatusEnum from '../../ad/administration/publishing/PrivacyStatusEnum';
@@ -18,6 +19,19 @@ class ResultItem extends React.Component {
     stopAd = () => {
         this.props.stopAd(this.props.ad.uuid);
     };
+
+    deleteAd = () => {
+        this.props.deleteAd(this.props.ad.uuid);
+    };
+
+    deleteButtonWithIcon = () => (<div className="ResultItem__Icon-button">
+        <i className="Delete__icon--disabled" /></div>);
+
+    stopButtonWithIcon = () => (<div className="ResultItem__Icon-button">
+        <i className="Stop__icon--disabled" /></div>);
+
+    editButtonWithIcon = () => (<div className="ResultItem__Icon-button">
+        <i className="Edit__icon--disabled" /></div>);
 
     render() {
         const { ad } = this.props;
@@ -75,17 +89,26 @@ class ResultItem extends React.Component {
                     )}
                 </td>
                 <td className="Col-edit center">
-                    <Link
-                        className="Icon__button"
-                        aria-label="Rediger"
-                        title="rediger"
-                        to={{
-                            pathname: `/ads/${ad.uuid}`,
-                            state: { openInEditMode: true }
-                        }}
-                    >
-                        <i className={isExpired ? 'Edit__icon--disabled' : 'Edit__icon'} />
-                    </Link>
+                    {isExpired ? (
+                        <HjelpetekstBase
+                            anchor={this.editButtonWithIcon}
+                            tittel="rediger"
+                        >
+                            Stillingen har utløpt
+                        </HjelpetekstBase>
+                    ) : (
+                        <Link
+                            className="Icon__button"
+                            aria-label="Rediger"
+                            title="rediger"
+                            to={{
+                                pathname: `/ads/${ad.uuid}`,
+                                state: { openInEditMode: true }
+                            }}
+                        >
+                            <i className="Edit__icon" />
+                        </Link>
+                    )}
                 </td>
                 <td className="Col-copy center">
                     <button
@@ -97,25 +120,42 @@ class ResultItem extends React.Component {
                     </button>
                 </td>
                 <td className="Col-stop center">
-                    <button
-                        className="Icon__button"
-                        aria-label="Stopp"
-                        title="stopp"
-                        disabled={AdStatusEnum[ad.status] !== AdStatusEnum.ACTIVE}
-                        onClick={this.stopAd}
-                    >
-                        <i className="Stop__icon" />
-                    </button>
+                    {AdStatusEnum[ad.status] !== AdStatusEnum.ACTIVE ? (
+                        <HjelpetekstBase
+                            anchor={this.stopButtonWithIcon}
+                            tittel="stopp"
+                        >
+                            Du kan ikke stoppe en stilling som ikke er publisert
+                        </HjelpetekstBase>
+                    ) : (
+                        <button
+                            className="Icon__button"
+                            aria-label="Stopp"
+                            title="stopp"
+                            onClick={this.stopAd}
+                        >
+                            <i className="Stop__icon" />
+                        </button>
+                    )}
                 </td>
                 <td className="Col-delete center">
-                    <button
-                        className="Icon__button"
-                        aria-label="Slett"
-                        title="slett"
-                        disabled={AdStatusEnum[ad.status] !== AdStatusEnum.INACTIVE}
-                    >
-                        <i className="Delete__icon" />
-                    </button>
+                    {AdStatusEnum[ad.status] !== AdStatusEnum.INACTIVE ? (
+                        <HjelpetekstBase
+                            anchor={this.deleteButtonWithIcon}
+                            tittel="slett"
+                        >
+                            {`Du kan ikke slette en ${AdStatusEnum[ad.status].toLowerCase()} stilling`}
+                        </HjelpetekstBase>
+                    ) : (
+                        <button
+                            className="Icon__button"
+                            aria-label="Slett"
+                            title="slett"
+                            onClick={this.deleteAd}
+                        >
+                            <i className="Delete__icon" />
+                        </button>
+                    )}
                 </td>
             </tr>
         );
@@ -127,7 +167,8 @@ ResultItem.propTypes = {
         uuid: PropTypes.string,
         title: PropTypes.string
     }).isRequired,
-    stopAd: PropTypes.func.isRequired
+    stopAd: PropTypes.func.isRequired,
+    deleteAd: PropTypes.func.isRequired
 };
 
 
@@ -135,7 +176,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    stopAd: (uuid) => dispatch({ type: SHOW_STOP_MODAL_MY_ADS, uuid })
+    stopAd: (uuid) => dispatch({ type: SHOW_STOP_MODAL_MY_ADS, uuid }),
+    deleteAd: (uuid) => dispatch({ type: SHOW_DELETE_MODAL_MY_ADS, uuid })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ResultItem);
