@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Knapp } from 'nav-frontend-knapper';
 import { Sidetittel, Normaltekst } from 'nav-frontend-typografi';
-import LinkWithIcon from '../../../common/linkWithIcon/LinkWithIcon';
 import AdminStatusEnum from '../../administration/adminStatus/AdminStatusEnum';
 import './EditHeader.less';
+import AWithIcon from '../../../common/aWithIcon/AWithIcon';
 
 
 export default function EditHeader({ onPreviewAdClick, uuid, status, title, source }) {
@@ -14,24 +14,24 @@ export default function EditHeader({ onPreviewAdClick, uuid, status, title, sour
             <div className="Ad__edit__menu">
                 <Sidetittel className="Ad__edit__menu-title">{title}</Sidetittel>
                 {showCandidateLinks && (
-                    <LinkWithIcon
-                        to={`/kandidater?stillingsid=${uuid}`}
+                    <AWithIcon
+                        href={`/kandidater?stillingsid=${uuid}`}
                         classNameText="typo-element"
                         classNameLink="Ad__edit__menu-item FindCandidate"
                         text="Finn kandidater"
                     />
                 )}
                 {showCandidateLinks && source === 'DIR' && (
-                    <LinkWithIcon
-                        to={'#'}
+                    <AWithIcon
+                        href={'#'}
                         classNameText="typo-element"
                         classNameLink="Ad__edit__menu-item AddCandidate"
                         text="Legg til kandidat"
                     />
                 )}
                 {showCandidateLinks && source === 'DIR' && (
-                    <LinkWithIcon
-                        to={`/kandidater/lister/stilling/${uuid}/detaljer`}
+                    <AWithIcon
+                        href={`/kandidater/lister/stilling/${uuid}/detaljer`}
                         classNameText="typo-element"
                         classNameLink="Ad__edit__menu-item CandidateList"
                         text="Se kandidatliste"
