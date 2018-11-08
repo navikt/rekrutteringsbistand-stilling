@@ -1,3 +1,15 @@
+## RELEASE - 0.5.71-ae594c3
+#### New in this release: 
++ 2018-11-08 [Fix] Oppdatere lenke på forsiden til kandidatsøk
++ 2018-11-08 [Fix] Oppdatere lenker til kandidatsok
++ 2018-11-08 [Fix] Legge copied-css inn i ResultItem, ikke en egen klasse
++ 2018-11-08 [PAM-1982] Markere kopierte stillinger med border
++ 2018-11-08 [Bugfix] Fikse skrivefeil
++ 2018-11-08 [PAM-1982] Legge til mulighet for å kopiere stilling
++ 2018-11-07 [PAM-1937] Legge til modal og hjelpetekst ved slett stilling
++ 2018-11-07 [PAM-1927] Legge til mulighet for å printe stilling
++ 2018-11-06 [PAM-1942] Legge til lenker til kandidatsøk
++ 2018-11-06 [PAM-1892] Kun vise lenker for legg til kandidat og kandidatlister for direktemeldte stillinger
 ## RELEASE - 0.3.61-df65bde
 #### New in this release: 
 + 2018-11-06 [PAM-1743] Fjerne kandidatlister som menypunkt
