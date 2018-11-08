@@ -60,7 +60,7 @@ class JobDetails extends React.Component {
                 apen
             >
                 <Input
-                    label="Overskift på annonsen*"
+                    label="Overskrift på annonsen*"
                     value={this.getAdTitle()}
                     placeholder="For eksempel: Engasjert barnehagelærer til Oslo-skole"
                     onChange={this.onTitleChange}
