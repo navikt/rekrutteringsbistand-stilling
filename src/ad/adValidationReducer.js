@@ -311,7 +311,7 @@ export function hasValidationErrorsOnSave(validation) {
         || validation.contactpersonEmail !== undefined
         || validation.contactpersonPhone !== undefined
         || validation.postalCode !== undefined
-        || validation.comment !== undefined
+        || validation.comment !== undefined;
 }
 
 const initialState = {
