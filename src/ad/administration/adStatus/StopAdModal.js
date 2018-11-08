@@ -18,7 +18,7 @@ class StopAdModal extends React.Component {
         if (this.props.validation.comment === undefined) {
             this.props.closeModal();
 
-            if(this.props.fromMyAds){
+            if (this.props.fromMyAds) {
                 this.props.stopAdFromMyAds();
             } else {
                 this.props.stop();

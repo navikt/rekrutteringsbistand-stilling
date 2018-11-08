@@ -5,7 +5,7 @@ import AlertStripe from 'nav-frontend-alertstriper';
 import { Container } from 'nav-frontend-grid';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { Sidetittel } from 'nav-frontend-typografi';
-import Sorting  from './statusFilter/StatusFilter';
+import Sorting from './statusFilter/StatusFilter';
 import Loading from '../common/loading/Loading';
 import ResultHeader from './result/ResultHeader';
 import ResultItem from './result/ResultItem';
@@ -15,7 +15,8 @@ import StopAdModal from '../ad/administration/adStatus/StopAdModal';
 import Count from './result/Count';
 import { FETCH_MY_ADS } from './myAdsReducer';
 import { CREATE_AD } from '../ad/adReducer';
-import './MyAds.less'
+import './MyAds.less';
+import DeleteAdModal from '../ad/administration/adStatus/DeleteAdModal';
 
 class MyAds extends React.Component {
     componentDidMount() {
@@ -23,7 +24,7 @@ class MyAds extends React.Component {
     }
 
     onCreateAd = () => {
-        this.props.history.push(`/ads`);
+        this.props.history.push('/ads');
     };
 
     render() {
@@ -46,6 +47,7 @@ class MyAds extends React.Component {
                 </div>
                 <Container className="MyAds__content">
                     <StopAdModal fromMyAds />
+                    <DeleteAdModal />
                     {error && (
                         <AlertStripe className="AlertStripe__fullpage" type="advarsel" solid>
                             Det oppsto en feil. Forsøk å laste siden på nytt
@@ -93,13 +95,13 @@ MyAds.propTypes = {
     error: PropTypes.shape({
         statusCode: PropTypes.number
     }),
-    createAd: PropTypes.func.isRequired,
+    createAd: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
     ads: state.myAds.items,
     isSearching: state.myAds.isSearching,
-    error: state.myAds.error,
+    error: state.myAds.error
 });
 
 const mapDispatchToProps = (dispatch) => ({

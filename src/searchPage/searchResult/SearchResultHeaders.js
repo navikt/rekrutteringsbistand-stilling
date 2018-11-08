@@ -35,7 +35,7 @@ class SearchResultHeaders extends React.Component {
                         <i className={sortField === 'created' ? className : 'SearchResultHeader--unsorted'} />
                     </Element>
                 </Column>
-                <Column md="4" onClick={() => this.onSortClick('title')}>
+                <Column md="3" onClick={() => this.onSortClick('title')}>
                     <Element>
                         Stillingstittel
                         <i className={sortField === 'title' ? className : 'SearchResultHeader--unsorted'} />
@@ -64,7 +64,7 @@ class SearchResultHeaders extends React.Component {
                         Saksbehandler
                     </Element>
                 </Column>
-                <Column md="1">
+                <Column md="2">
                     <Element>
                         Kandidatliste
                     </Element>
