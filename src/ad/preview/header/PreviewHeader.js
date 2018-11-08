@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
-import Comment from './comment/Comment'
+import Comment from './comment/Comment';
 import { EDIT_AD } from '../../adReducer';
 import AdminStatusEnum from '../../administration/adminStatus/AdminStatusEnum';
-import LinkWithIcon from '../../../common/linkWithIcon/LinkWithIcon';
 import AdTitle from './AdTitle';
 import './PreviewHeader.less';
+import AWithIcon from '../../../common/aWithIcon/AWithIcon';
 
 
 class PreviewMenu extends React.Component {
@@ -50,24 +50,24 @@ class PreviewMenu extends React.Component {
                 />
                 <div className="Ad__preview__menu">
                     {showCandidateLinks && (
-                        <LinkWithIcon
-                            to={`/kandidater?stillingsid=${stilling.uuid}`}
+                        <AWithIcon
+                            href={`/kandidater?stillingsid=${stilling.uuid}`}
                             classNameText="typo-element"
                             classNameLink="Ad__preview__menu-item FindCandidate"
                             text="Finn kandidater"
                         />
                     )}
                     {showCandidateLinks && stilling && stilling.source === 'DIR' && (
-                        <LinkWithIcon
-                            to={'#'}
+                        <AWithIcon
+                            href={'#'}
                             classNameText="typo-element"
                             classNameLink="Ad__preview__menu-item AddCandidate"
                             text="Legg til kandidat"
                         />
                     )}
                     {showCandidateLinks && stilling && stilling.source === 'DIR' && (
-                        <LinkWithIcon
-                            to={`/kandidater/lister/stilling/${stilling.uuid}/detaljer`}
+                        <AWithIcon
+                            href={`/kandidater/lister/stilling/${stilling.uuid}/detaljer`}
                             classNameText="typo-element"
                             classNameLink="Ad__preview__menu-item CandidateList"
                             text="Se kandidatliste"

@@ -31,13 +31,13 @@ class AdPublishedModal extends React.Component {
                         Ønsker du å finne kandidater til stillingen du publiserte?
                     </Normaltekst>
                     <div className="AdPublishedModal__links">
-                        <Link
-                            to={`/kandidater?stillingsid=${uuid}`}
+                        <a
+                            href={`/kandidater?stillingsid=${uuid}`}
                             className="lenke"
                             onClick={this.onClose}
                         >
                             Finn kandidater
-                        </Link>
+                        </a>
                         <Link
                             to="/mine"
                             className="lenke"
