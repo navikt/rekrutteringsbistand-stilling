@@ -219,9 +219,9 @@ function* validatePositionCount() {
     const state = yield select();
     const { positioncount } = state.adData.properties;
 
-    const error = !positioncount.match(/^[1-9]\d*$/);
+    const error = positioncount && !positioncount.match(/^[1-9]\d*$/);
 
-    if (error) {
+    if (valueIsNotSet(positioncount) || error) {
         yield put({ type: ADD_VALIDATION_ERROR, field: 'positioncount', message: 'Antall stillinger mangler' });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'positioncount' });

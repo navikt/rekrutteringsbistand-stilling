@@ -197,7 +197,7 @@ class PracticalInformation extends React.Component {
                     onChange={this.onPositioncountChange}
                 />
                 {this.props.validation.positioncount && (
-                    <div className="Administration__error">{this.props.validation.positioncount}</div>
+                    <div className="Administration__error blokk-xs">{this.props.validation.positioncount}</div>
                 )}
                 <div className="PracticalInformation typo-normal">
                     <div className="PracticalInformation__datepicker">
