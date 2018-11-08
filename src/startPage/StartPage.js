@@ -55,7 +55,6 @@ class StartPage extends React.Component {
                             <LenkepanelBase
                                 href="/kandidater"
                                 border
-                                linkCreator={(props) => <Link to="/kandidater" {...props} />}
                             >
                                 <div className="StartPage__panel-flex">
                                     <div className="StartPage__icon-candidates" />
