@@ -7,7 +7,7 @@ import { erDatoFørSluttdato } from 'nav-datovelger/dist/datovelger/utils/datova
 import HjelpetekstBase from 'nav-frontend-hjelpetekst';
 import capitalizeEmployerName from '../../ad/edit/employer/capitalizeEmployerName';
 import { formatISOString, toDate } from '../../utils';
-import { SHOW_DELETE_MODAL_MY_ADS, SHOW_STOP_MODAL_MY_ADS } from '../../ad/adReducer';
+import { COPY_AD_FROM_MY_ADS, SHOW_DELETE_MODAL_MY_ADS, SHOW_STOP_MODAL_MY_ADS } from '../../ad/adReducer';
 import AdStatusEnum from '../../searchPage/enums/AdStatusEnum';
 import AdminStatusEnum from '../../ad/administration/adminStatus/AdminStatusEnum';
 import PrivacyStatusEnum from '../../ad/administration/publishing/PrivacyStatusEnum';
@@ -24,6 +24,10 @@ class ResultItem extends React.Component {
         this.props.deleteAd(this.props.ad.uuid);
     };
 
+    copyAd = () => {
+        this.props.copyAd(this.props.ad.uuid);
+    };
+
     deleteButtonWithIcon = () => (<div className="ResultItem__Icon-button">
         <i className="Delete__icon--disabled" /></div>);
 
@@ -34,13 +38,14 @@ class ResultItem extends React.Component {
         <i className="Edit__icon--disabled" /></div>);
 
     render() {
-        const { ad } = this.props;
+        const { ad, copiedAds } = this.props;
         const adminDone = ad.administration && ad.administration.status && ad.administration.status === AdminStatusEnum.DONE;
         const isExpired = AdStatusEnum[ad.status] === AdStatusEnum.INACTIVE &&
             adminDone &&
             erDatoFørSluttdato(toDate(ad.expires), new Date(Date.now()));
+        const isCopy = copiedAds.includes(ad.uuid);
         return (
-            <tr className="ResultItem" >
+            <tr className={`ResultItem${isCopy ? ' ResultItem-copied' : ''}`}>
                 <td className="Col-updated">
                     {ad.updated && (
                         <Normaltekst className="ResultItem__column">
@@ -115,6 +120,7 @@ class ResultItem extends React.Component {
                         className="Icon__button"
                         aria-label="Kopier"
                         title="kopier"
+                        onClick={this.copyAd}
                     >
                         <i className="Copy__icon" />
                     </button>
@@ -168,16 +174,20 @@ ResultItem.propTypes = {
         title: PropTypes.string
     }).isRequired,
     stopAd: PropTypes.func.isRequired,
-    deleteAd: PropTypes.func.isRequired
+    deleteAd: PropTypes.func.isRequired,
+    copyAd: PropTypes.func.isRequired,
+    copiedAds: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
 
 const mapStateToProps = (state) => ({
+    copiedAds: state.ad.copiedAds
 });
 
 const mapDispatchToProps = (dispatch) => ({
     stopAd: (uuid) => dispatch({ type: SHOW_STOP_MODAL_MY_ADS, uuid }),
-    deleteAd: (uuid) => dispatch({ type: SHOW_DELETE_MODAL_MY_ADS, uuid })
+    deleteAd: (uuid) => dispatch({ type: SHOW_DELETE_MODAL_MY_ADS, uuid }),
+    copyAd: (uuid) => dispatch({ type: COPY_AD_FROM_MY_ADS, uuid })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ResultItem);
