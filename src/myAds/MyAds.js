@@ -14,7 +14,7 @@ import Pagination from './pagination/Pagination';
 import StopAdModal from '../ad/administration/adStatus/StopAdModal';
 import Count from './result/Count';
 import { FETCH_MY_ADS } from './myAdsReducer';
-import {CLEAR_COPIED_ADS, CREATE_AD} from '../ad/adReducer';
+import { CLEAR_COPIED_ADS, CREATE_AD } from '../ad/adReducer';
 import './MyAds.less';
 import DeleteAdModal from '../ad/administration/adStatus/DeleteAdModal';
 
