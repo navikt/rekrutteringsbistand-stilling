@@ -4,9 +4,7 @@ import { Input } from 'nav-frontend-skjema';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Column, Row } from 'nav-frontend-grid';
 import { connect } from 'react-redux';
-import {
-    SET_EMPLOYER
-} from '../adDataReducer';
+import { RESET_VALIDATION_ERROR } from '../adValidationReducer';
 import './Edit.less';
 import Requirements from './requirements/Requirements';
 import PracticalInformation from './practicalInformation/PracticalInformation';
@@ -19,6 +17,9 @@ import Location from './location/Location';
 import { formatISOString } from '../../utils';
 
 class Edit extends React.Component {
+    componentWillUnmount() {
+        this.props.resetValidation();
+    }
 
     render() {
         const { ad, isFetchingStilling } = this.props;
@@ -89,7 +90,8 @@ Edit.propTypes = {
         medium: PropTypes.string,
         id: PropTypes.number
     }),
-    isFetchingStilling: PropTypes.bool.isRequired
+    isFetchingStilling: PropTypes.bool.isRequired,
+    resetValidation: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -98,7 +100,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    setEmployer: (employer) => dispatch({ type: SET_EMPLOYER, employer })
+    resetValidation: () => dispatch({ type: RESET_VALIDATION_ERROR })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Edit);

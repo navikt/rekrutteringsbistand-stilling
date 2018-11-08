@@ -26,6 +26,7 @@ export const VALIDATE_ALL = 'VALIDATE_ALL';
 export const VALIDATE_APPLICATION_EMAIL = 'VALIDATE_APPLICATION_EMAIL';
 export const VALIDATE_CONTACTPERSON_EMAIL = 'VALIDATE_CONTACTPERSON_EMAIL';
 export const VALIDATE_CONTACTPERSON_PHONE = 'VALIDATE_CONTACTPERSON_PHONE';
+export const RESET_VALIDATION_ERROR = 'RESET_VALIDATION_ERROR';
 
 export const MAX_LENGTH_COMMENT = 400;
 
@@ -335,6 +336,8 @@ export default function adValidationReducer(state = initialState, action) {
                     [action.field]: undefined
                 }
             };
+        case RESET_VALIDATION_ERROR:
+            return initialState;
         default:
             return state;
     }
