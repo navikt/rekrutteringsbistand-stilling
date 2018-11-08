@@ -59,7 +59,11 @@ class ResultItem extends React.Component {
                             className="typo-normal lenke"
                             to={`/ads/${ad.uuid}`}
                         >
-                            {ad.title ? ad.title : ''}
+                            {isCopy ? (
+                                <div><b>{ad.title.substr(0, 5)}</b>{ad.title.substr(5)}</div> || ''
+                            ) : (
+                                ad.title || ''
+                            )}
                         </Link>
                     </div>
                 </td>

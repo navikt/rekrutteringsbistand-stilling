@@ -52,10 +52,14 @@ class AdPublishedModal extends React.Component {
     }
 }
 
+AdPublishedModal.defaultProps = {
+    uuid: undefined
+};
+
 AdPublishedModal.propTypes = {
     showAdPublishedModal: PropTypes.bool.isRequired,
     closeModal: PropTypes.func.isRequired,
-    uuid: PropTypes.string.isRequired
+    uuid: PropTypes.string
 };
 
 const mapStateToProps = (state) => ({
