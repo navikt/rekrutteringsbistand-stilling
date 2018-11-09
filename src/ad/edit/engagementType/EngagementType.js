@@ -11,15 +11,23 @@ class EngagementType extends React.Component {
         this.props.setEngagementType(e.target.value);
     };
 
+    createErrorObject = (errorMessage) => {
+        return errorMessage ? {feilmelding: errorMessage} : null;
+    };
+
     render() {
         return (
             <div className="EngagementType">
                 <Select
                     id="EngagementType__input"
-                    label="Ansettelsesform"
+                    label="Ansettelsesform*"
                     value={this.props.engagementType}
                     onChange={this.onEngagementTypeChange}
+                    feil={this.createErrorObject(this.props.validation.engagementtype)}
                 >
+                    <option value={EngagementTypeEnum.NONE} key={EngagementTypeEnum.NONE}>
+                        Velg
+                    </option>
                     <option value={EngagementTypeEnum.FAST} key={EngagementTypeEnum.FAST}>
                         {EngagementTypeEnum.FAST}
                     </option>
@@ -62,11 +70,15 @@ EngagementType.defaultProps = {
 
 EngagementType.propTypes = {
     setEngagementType: PropTypes.func.isRequired,
-    engagementType: PropTypes.string
+    engagementType: PropTypes.string,
+    validation: PropTypes.shape({
+        title: PropTypes.string
+    }).isRequired
 };
 
 const mapStateToProps = (state) => ({
-    engagementType: state.adData.properties.engagementtype
+    engagementType: state.adData.properties.engagementtype,
+    validation: state.adValidation.errors
 });
 
 const mapDispatchToProps = (dispatch) => ({
