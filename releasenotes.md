@@ -1,3 +1,12 @@
+## RELEASE - 0.6.73-1e4cf3d
+#### New in this release: 
++ 2018-11-09 [PAM-1351] Legger på feilmeldingsfarge på valideringsfelt
++ 2018-11-09 [PAM-2006] Forhindre kommentaren fra å hoppe på siden når man ekspanderer
++ 2018-11-08 [PAM-1351] Bugfix valideringsfeil
++ 2018-11-08 [PAM-1351] Bugfix på positioncount
++ 2018-11-08 [PAM-1351] La til semikolon
++ 2018-11-08 [PAM-1351] La til validering av Omfang og Sektor
++ 2018-11-07 [PAM-1351] Praktiske opplysninger
 ## RELEASE - 0.5.71-ae594c3
 #### New in this release: 
 + 2018-11-08 [Fix] Oppdatere lenke på forsiden til kandidatsøk
