@@ -11,6 +11,10 @@ class EngagementType extends React.Component {
         this.props.setEngagementType(e.target.value);
     };
 
+    createErrorObject = (errorMessage) => {
+        return errorMessage ? {feilmelding: errorMessage} : null;
+    };
+
     render() {
         return (
             <div className="EngagementType">
@@ -19,6 +23,7 @@ class EngagementType extends React.Component {
                     label="Ansettelsesform*"
                     value={this.props.engagementType}
                     onChange={this.onEngagementTypeChange}
+                    feil={this.createErrorObject(this.props.validation.engagementtype)}
                 >
                     <option value={EngagementTypeEnum.NONE} key={EngagementTypeEnum.NONE}>
                         Velg
@@ -54,9 +59,6 @@ class EngagementType extends React.Component {
                         {EngagementTypeEnum.ANNET}
                     </option>
                 </Select>
-                {this.props.validation.engagementtype && (
-                    <div className="Administration__error">{this.props.validation.engagementtype}</div>
-                )}
             </div>
         );
     }

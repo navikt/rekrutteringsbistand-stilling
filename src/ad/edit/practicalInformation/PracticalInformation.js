@@ -70,6 +70,10 @@ class PracticalInformation extends React.Component {
         }
     };
 
+    createErrorObject = (errorMessage) => {
+        return errorMessage ? {feilmelding: errorMessage} : null;
+    };
+
     render() {
         const { ad } = this.props;
 
@@ -84,9 +88,10 @@ class PracticalInformation extends React.Component {
                 <EngagementType />
                 <JobArrangement />
                 <div className="Edit__border" />
+                <Normaltekst className="PracticalInformation__label">Omfang*</Normaltekst>
                 <SkjemaGruppe
-                    className="Edit__SkjemaGruppe-title blokk-xs"
-                    title="Omfang*"
+                    className="blokk-xs typo-normal"
+                    feil={this.createErrorObject(this.props.validation.extent)}
                 >
                     <Radio
                         className="Edit__inline"
@@ -104,13 +109,10 @@ class PracticalInformation extends React.Component {
                         checked={ad.properties.extent === 'Deltid'}
                         onChange={this.onExtentChange}
                     />
-                    {this.props.validation.extent && (
-                        <div className="Administration__error">{this.props.validation.extent}</div>
-                    )}
                 </SkjemaGruppe>
+                <Normaltekst className="PracticalInformation__label">Arbeidsdager*</Normaltekst>
                 <SkjemaGruppe
-                    className="Edit__SkjemaGruppe-title blokk-xs"
-                    title="Arbeidsdager*"
+                    className="blokk-xs"
                 >
                     <Checkbox
                         className="Edit__inline"
@@ -131,9 +133,9 @@ class PracticalInformation extends React.Component {
                         onChange={this.onWorkdayChange}
                     />
                 </SkjemaGruppe>
+                <Normaltekst className="PracticalInformation__label">Arbeidstid*</Normaltekst>
                 <SkjemaGruppe
-                    className="Edit__SkjemaGruppe-title blokk-xs"
-                    title="Arbeidstid*"
+                    className="blokk-xs"
                 >
                     <Checkbox
                         className="Edit__inline"
@@ -154,9 +156,10 @@ class PracticalInformation extends React.Component {
                         onChange={this.onWorkhoursChange}
                     />
                 </SkjemaGruppe>
+                <Normaltekst className="PracticalInformation__label">Sektor*</Normaltekst>
                 <SkjemaGruppe
-                    className="Edit__SkjemaGruppe-title"
-                    title="Sektor*"
+                    className="typo-normal"
+                    feil={this.createErrorObject(this.props.validation.sector)}
                 >
                     <div>
                         <Radio
@@ -184,9 +187,6 @@ class PracticalInformation extends React.Component {
                             onChange={this.onSectorChange}
                         />
                     </div>
-                    {this.props.validation.sector && (
-                        <div className="Administration__error">{this.props.validation.sector}</div>
-                    )}
                 </SkjemaGruppe>
                 <div className="Edit__border" />
                 <Input
@@ -195,59 +195,61 @@ class PracticalInformation extends React.Component {
                     label="Antall stillinger*"
                     value={ad.properties.positioncount || ''}
                     onChange={this.onPositioncountChange}
+                    feil={this.createErrorObject(this.props.validation.positioncount)}
                 />
-                {this.props.validation.positioncount && (
-                    <div className="Administration__error blokk-xs">{this.props.validation.positioncount}</div>
-                )}
-                <div className="PracticalInformation typo-normal">
-                    <div className="PracticalInformation__datepicker">
-                        <Normaltekst className="PracticalInformation__label">Søknadsfrist*</Normaltekst>
-                        <Datovelger
-                            id="applicationDue"
-                            dato={formatISOString(ad.properties.applicationdue, 'DD.MM.YYYY') || ''}
-                            onChange={this.onApplicationDueChange}
-                            ref={(instance) => { this.refapplicationDue = instance; }}
-                            avgrensninger={{ minDato: new Date(Date.now()) }}
-                            inputProps={{ placeholder: 'dd.mm.åååå' }}
-                            disabled={ad.properties.applicationdue === 'Snarest'}
-                        />
-                        {this.props.validation.applicationdue && (
-                            <div className="Administration__error">{this.props.validation.applicationdue}</div>
-                        )}
+                <Normaltekst className="PracticalInformation__label">Søknadsfrist*</Normaltekst>
+                <SkjemaGruppe
+                    className={this.createErrorObject(this.props.validation.applicationdue) ? "typo-normal blokk-xs" : "typo-normal"}
+                    feil={this.createErrorObject(this.props.validation.applicationdue)}
+                >
+                    <div className="PracticalInformation">
+                        <div className="PracticalInformation__datepicker">
+                            <Datovelger
+                                id="applicationDue"
+                                dato={formatISOString(ad.properties.applicationdue, 'DD.MM.YYYY') || ''}
+                                onChange={this.onApplicationDueChange}
+                                ref={(instance) => { this.refapplicationDue = instance; }}
+                                avgrensninger={{ minDato: new Date(Date.now()) }}
+                                inputProps={{ placeholder: 'dd.mm.åååå' }}
+                                disabled={ad.properties.applicationdue === 'Snarest'}
+                            />
+                        </div>
+                        <div className="PracticalInformation__top">
+                            <Checkbox
+                                id="chbx-snarest"
+                                onChange={this.onSnarestChange}
+                                checked={ad.properties.applicationdue === 'Snarest'}
+                                value="Snarest"
+                                label="Snarest"
+                            />
+                        </div>
                     </div>
-                    <div className="PracticalInformation__top">
-                        <Checkbox
-                            id="chbx-snarest"
-                            onChange={this.onSnarestChange}
-                            checked={ad.properties.applicationdue === 'Snarest'}
-                            value="Snarest"
-                            label="Snarest"
-                        />
+                </SkjemaGruppe>
+                <Normaltekst className="PracticalInformation__label">Oppstart</Normaltekst>
+                <SkjemaGruppe>
+                    <div className="PracticalInformation typo-normal">
+                        <div className="PracticalInformation__datepicker">
+                            <Datovelger
+                                id="starttime"
+                                dato={formatISOString(ad.properties.starttime, 'DD.MM.YYYY') || ''}
+                                onChange={this.onStarttimeChange}
+                                ref={(instance) => { this.refStarttime = instance; }}
+                                avgrensninger={{ minDato: new Date(Date.now()) }}
+                                inputProps={{ placeholder: 'dd.mm.åååå' }}
+                                disabled={ad.properties.starttime === 'Etter avtale'}
+                            />
+                        </div>
+                        <div className="PracticalInformation__top">
+                            <Checkbox
+                                id="chbx-etterAvtale"
+                                onChange={this.onEtterAvtaleChange}
+                                checked={ad.properties.starttime === 'Etter avtale'}
+                                value="Etter avtale"
+                                label="Etter avtale"
+                            />
+                        </div>
                     </div>
-                </div>
-                <div className="PracticalInformation typo-normal">
-                    <div className="PracticalInformation__datepicker">
-                        <Normaltekst className="PracticalInformation__label">Oppstart</Normaltekst>
-                        <Datovelger
-                            id="starttime"
-                            dato={formatISOString(ad.properties.starttime, 'DD.MM.YYYY') || ''}
-                            onChange={this.onStarttimeChange}
-                            ref={(instance) => { this.refStarttime = instance; }}
-                            avgrensninger={{ minDato: new Date(Date.now()) }}
-                            inputProps={{ placeholder: 'dd.mm.åååå' }}
-                            disabled={ad.properties.starttime === 'Etter avtale'}
-                        />
-                    </div>
-                    <div className="PracticalInformation__top">
-                        <Checkbox
-                            id="chbx-etterAvtale"
-                            onChange={this.onEtterAvtaleChange}
-                            checked={ad.properties.starttime === 'Etter avtale'}
-                            value="Etter avtale"
-                            label="Etter avtale"
-                        />
-                    </div>
-                </div>
+                </SkjemaGruppe>
             </Ekspanderbartpanel>
         );
     }
