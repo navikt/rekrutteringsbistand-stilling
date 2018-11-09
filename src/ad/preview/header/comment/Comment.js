@@ -43,21 +43,27 @@ class Comment extends React.Component {
                         <Normaltekst>{comments}</Normaltekst>
                     }
                     {shortComments &&
-                        <Normaltekst className="Comment__text TopSection__text">
-                            {this.state.isCommentExpanded ? comments : shortComments}
-                            <button
-                                type="button"
-                                className="Expand__comment__button"
-                                onClick={this.onExpandClick}
-                                aria-expanded={this.state.isCommentExpanded}
-                            >
-                                {this.state.isCommentExpanded ? 'Se mindre' : 'Se mer'}
-                                <Chevron
-                                    className="Expand__comment__chevron"
-                                    type={this.state.isCommentExpanded ? 'opp' : 'ned'}
-                                />
-                            </button>
-                        </Normaltekst>
+                        <div className="Comment__wrapper">
+                            <div className="Comment__text__wrapper">
+                                <Normaltekst className={`${!this.state.isCommentExpanded ? 'Comment__text' : 'Comment__text__short'} TopSection__text`}>
+                                    {comments}
+                                </Normaltekst>
+                            </div>
+                            <div>
+                                <button
+                                    type="button"
+                                    className="Expand__comment__button"
+                                    onClick={this.onExpandClick}
+                                    aria-expanded={this.state.isCommentExpanded}
+                                >
+                                    {this.state.isCommentExpanded ? 'Se mindre' : 'Se mer'}
+                                    <Chevron
+                                        className="Expand__comment__chevron"
+                                        type={this.state.isCommentExpanded ? 'opp' : 'ned'}
+                                    />
+                                </button>
+                            </div>
+                        </div>
                     }
                 </div>
             </div>
@@ -74,7 +80,7 @@ Comment.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    comments: state.adData.administration.comments,
+    comments: state.adData.administration.comments
 });
 
 export default connect(mapStateToProps)(Comment);

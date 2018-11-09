@@ -2,7 +2,6 @@
 
 .Preview__Comment {
   display: flex;
-  max-width: 530px;
 }
 
 .Comment__icon {
@@ -14,10 +13,37 @@
   margin: 0.1rem 0.5rem 0 0;
 }
 
-p.Comment__text{
+p.Comment__text__short {
   white-space: normal;
 }
 
+@media (min-width: 900px) {
+  .Comment__wrapper {
+    display: flex;
+    max-width: 500px;
+  }
+
+  .Comment__text__wrapper {
+    max-width: 75%;
+  }
+}
+
+@media (max-width: 899px) {
+  .Comment__wrapper {
+    display: flex;
+    max-width: 300px;
+  }
+
+  .Comment__text__wrapper {
+    max-width: 65%;
+  }
+}
+
+.Comment__text {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
 
 .Expand__comment__chevron {
   margin-left: 0.25rem;
@@ -29,7 +55,7 @@ p.Comment__text{
   border: 0;
   color: @navBla;
   cursor: pointer;
-  margin: 0 0 0 0.5rem;
+  margin: 0.5rem 0 0 0.5rem;
 
   &:focus {
     box-shadow: 0 0 0 3px @orangeFocus;
