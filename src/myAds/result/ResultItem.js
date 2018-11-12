@@ -11,7 +11,7 @@ import { COPY_AD_FROM_MY_ADS, SHOW_DELETE_MODAL_MY_ADS, SHOW_STOP_MODAL_MY_ADS }
 import AdStatusEnum from '../../searchPage/enums/AdStatusEnum';
 import AdminStatusEnum from '../../ad/administration/adminStatus/AdminStatusEnum';
 import PrivacyStatusEnum from '../../ad/administration/publishing/PrivacyStatusEnum';
-import LinkWithIcon from '../../common/linkWithIcon/LinkWithIcon';
+import AWithIcon from '../../common/aWithIcon/AWithIcon';
 import './Icons.less';
 import './Result.less';
 
@@ -83,8 +83,8 @@ class ResultItem extends React.Component {
                     )}
                 </td>
                 <td className="Col-candidate">
-                    <LinkWithIcon
-                        to={`/kandidater/lister/stilling/${ad.uuid}/detaljer`}
+                    <AWithIcon
+                        href={`/kandidater/lister/stilling/${ad.uuid}/detaljer`}
                         classNameText="typo-normal"
                         classNameLink="CandidateList"
                         text="Se kandidatliste"
