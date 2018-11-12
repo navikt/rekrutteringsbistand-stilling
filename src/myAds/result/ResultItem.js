@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { erDatoFørSluttdato } from 'nav-datovelger/dist/datovelger/utils/datovalidering';
-import HjelpetekstBase from 'nav-frontend-hjelpetekst';
+import { HjelpetekstUnderVenstre } from 'nav-frontend-hjelpetekst';
 import capitalizeEmployerName from '../../ad/edit/employer/capitalizeEmployerName';
 import { formatISOString, toDate } from '../../utils';
 import { COPY_AD_FROM_MY_ADS, SHOW_DELETE_MODAL_MY_ADS, SHOW_STOP_MODAL_MY_ADS } from '../../ad/adReducer';
@@ -99,12 +99,12 @@ class ResultItem extends React.Component {
                 </td>
                 <td className="Col-edit center">
                     {isExpired ? (
-                        <HjelpetekstBase
+                        <HjelpetekstUnderVenstre
                             anchor={this.editButtonWithIcon}
                             tittel="rediger"
                         >
                             Stillingen har utløpt
-                        </HjelpetekstBase>
+                        </HjelpetekstUnderVenstre>
                     ) : (
                         <Link
                             className="Icon__button"
@@ -131,12 +131,12 @@ class ResultItem extends React.Component {
                 </td>
                 <td className="Col-stop center">
                     {AdStatusEnum[ad.status] !== AdStatusEnum.ACTIVE ? (
-                        <HjelpetekstBase
+                        <HjelpetekstUnderVenstre
                             anchor={this.stopButtonWithIcon}
                             tittel="stopp"
                         >
                             Du kan ikke stoppe en stilling som ikke er publisert
-                        </HjelpetekstBase>
+                        </HjelpetekstUnderVenstre>
                     ) : (
                         <button
                             className="Icon__button"
@@ -150,12 +150,12 @@ class ResultItem extends React.Component {
                 </td>
                 <td className="Col-delete center">
                     {AdStatusEnum[ad.status] !== AdStatusEnum.INACTIVE ? (
-                        <HjelpetekstBase
+                        <HjelpetekstUnderVenstre
                             anchor={this.deleteButtonWithIcon}
                             tittel="slett"
                         >
                             {`Du kan ikke slette en ${AdStatusEnum[ad.status].toLowerCase()} stilling`}
-                        </HjelpetekstBase>
+                        </HjelpetekstUnderVenstre>
                     ) : (
                         <button
                             className="Icon__button"
