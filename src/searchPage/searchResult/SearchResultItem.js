@@ -21,7 +21,7 @@ const SearchResultItem = ({ ad }) => (
             <div className="SearchResultItem__column">
                 <Link
                     className="typo-normal lenke"
-                    to={`/ads/${ad.uuid}`}
+                    to={`/stillinger/${ad.uuid}`}
                 >
                     {ad.title ? ad.title : ''}
                 </Link>

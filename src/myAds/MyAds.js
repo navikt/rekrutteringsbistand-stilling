@@ -28,7 +28,7 @@ class MyAds extends React.Component {
     }
 
     onCreateAd = () => {
-        this.props.history.push('/ads');
+        this.props.history.push('/stillinger');
     };
 
     render() {
