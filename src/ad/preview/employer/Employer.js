@@ -16,14 +16,16 @@ export default function Employer({ properties }) {
                 ]}
                 {properties.employerhomepage && isValidUrl(properties.employerhomepage) && [
                     <dt key="dt">Nettsted:</dt>,
-                    <a
-                        className="lenke"
-                        href={properties.employerhomepage}
-                        rel="noopener noreferrer"
-                        target="_blank"
-                    >
-                        {properties.employerhomepage}
-                    </a>
+                    <dd key="dd">
+                        <a
+                            className="lenke"
+                            href={properties.employerhomepage}
+                            rel="noopener noreferrer"
+                            target="_blank"
+                        >
+                            {properties.employerhomepage}
+                        </a>
+                    </dd>
                 ]}
                 {properties.employerhomepage && !isValidUrl(properties.employerhomepage) && [
                     <dt key="dt">Nettsted:</dt>,
@@ -31,14 +33,16 @@ export default function Employer({ properties }) {
                 ]}
                 {properties.linkedinpage && isValidUrl(properties.linkedinpage) && [
                     <dt key="dt">LinkedIn:</dt>,
-                    <a
-                        className="lenke"
-                        href={properties.linkedinpage}
-                        rel="noopener noreferrer"
-                        target="_blank"
-                    >
-                        {properties.linkedinpage}
-                    </a>
+                    <dd key="dd">
+                        <a
+                            className="lenke"
+                            href={properties.linkedinpage}
+                            rel="noopener noreferrer"
+                            target="_blank"
+                        >
+                            {properties.linkedinpage}
+                        </a>
+                    </dd>
                 ]}
                 {properties.linkedinpage && !isValidUrl(properties.linkedinpage) && [
                     <dt key="dt">LinkedIn:</dt>,
@@ -46,14 +50,16 @@ export default function Employer({ properties }) {
                 ]}
                 {properties.twitteraddress && isValidUrl(properties.twitteraddress) && [
                     <dt key="dt">Twitter:</dt>,
-                    <a
-                        className="lenke"
-                        href={properties.twitteraddress}
-                        rel="noopener noreferrer"
-                        target="_blank"
-                    >
-                        {properties.twitteraddress}
-                    </a>
+                    <dd key="dd">
+                        <a
+                            className="lenke"
+                            href={properties.twitteraddress}
+                            rel="noopener noreferrer"
+                            target="_blank"
+                        >
+                            {properties.twitteraddress}
+                        </a>
+                    </dd>
                 ]}
                 {properties.twitteraddress && !isValidUrl(properties.twitteraddress) && [
                     <dt key="dt">Twitter:</dt>,
@@ -61,14 +67,16 @@ export default function Employer({ properties }) {
                 ]}
                 {properties.facebookpage && isValidUrl(properties.facebookpage) && [
                     <dt key="dt">Facebook:</dt>,
-                    <a
-                        className="lenke"
-                        href={properties.facebookpage}
-                        rel="noopener noreferrer"
-                        target="_blank"
-                    >
-                        {properties.facebookpage}
-                    </a>
+                    <dd key="dd">
+                        <a
+                            className="lenke"
+                            href={properties.facebookpage}
+                            rel="noopener noreferrer"
+                            target="_blank"
+                        >
+                            {properties.facebookpage}
+                        </a>
+                    </dd>
                 ]}
                 {properties.facebookpage && !isValidUrl(properties.facebookpage) && [
                     <dt key="dt">Facebook:</dt>,
