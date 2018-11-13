@@ -1,3 +1,10 @@
+## RELEASE - 0.7.76-114ded0
+#### New in this release: 
++ 2018-11-13 [Fix] Fikse at kommentarfelt ikke flytter på seg
++ 2018-11-12 [Fix] Oppdatere visning av alerstripe ved lagring og når stillingen er publisert
++ 2018-11-12 [Fix] Skrive om fra Link til a ved redirect til kandidatsøket
++ 2018-11-12 [Fix] Alltid vise hjelpetekst under til venstre
++ 2018-11-12 [Fix] vise teksten 1 stilling ved ett søkresultat
 ## RELEASE - 0.6.73-1e4cf3d
 #### New in this release: 
 + 2018-11-09 [PAM-1351] Legger på feilmeldingsfarge på valideringsfelt
