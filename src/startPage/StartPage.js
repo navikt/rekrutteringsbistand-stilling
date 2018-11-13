@@ -37,9 +37,9 @@ class StartPage extends React.Component {
                         </Column>
                         <Column className="StartPage__panel blokk-s" xs="12" md="6">
                             <LenkepanelBase
-                                href="/ads"
+                                href="/stillinger"
                                 border
-                                linkCreator={(props) => <Link to="/ads" {...props} />}
+                                linkCreator={(props) => <Link to="/stillinger" {...props} />}
                             >
                                 <div className="StartPage__panel-flex">
                                     <div className="StartPage__icon-pen" />

@@ -8,7 +8,7 @@ import { formatISOString } from '../../utils';
 import AdStatusEnum from '../enums/AdStatusEnum';
 import './SearchResult.less';
 import PrivacyStatusEnum from '../../ad/administration/publishing/PrivacyStatusEnum';
-import LinkWithIcon from '../../common/linkWithIcon/LinkWithIcon';
+import AWithIcon from '../../common/aWithIcon/AWithIcon';
 
 const SearchResultItem = ({ ad }) => (
     <Row className="SearchResultItem">
@@ -21,7 +21,7 @@ const SearchResultItem = ({ ad }) => (
             <div className="SearchResultItem__column">
                 <Link
                     className="typo-normal lenke"
-                    to={`/ads/${ad.uuid}`}
+                    to={`/stillinger/${ad.uuid}`}
                 >
                     {ad.title ? ad.title : ''}
                 </Link>
@@ -58,8 +58,8 @@ const SearchResultItem = ({ ad }) => (
         <Column md="2">
             {ad.source === 'DIR' && (
                 <div className="SearchResultItem__column">
-                    <LinkWithIcon
-                        to={`/kandidater/lister/stilling/${ad.uuid}/detaljer`}
+                    <AWithIcon
+                        href={`/kandidater/lister/stilling/${ad.uuid}/detaljer`}
                         classNameText="typo-normal"
                         classNameLink="CandidateList"
                         text="Se kandidatliste"

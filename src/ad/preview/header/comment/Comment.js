@@ -45,7 +45,7 @@ class Comment extends React.Component {
                     {shortComments &&
                         <div className="Comment__wrapper">
                             <div className="Comment__text__wrapper">
-                                <Normaltekst className={`${!this.state.isCommentExpanded ? 'Comment__text' : 'Comment__text__short'} TopSection__text`}>
+                                <Normaltekst className={!this.state.isCommentExpanded ? 'Comment__text' : 'Comment__text__short'}>
                                     {comments}
                                 </Normaltekst>
                             </div>

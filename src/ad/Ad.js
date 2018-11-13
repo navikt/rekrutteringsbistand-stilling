@@ -30,9 +30,9 @@ class Ad extends React.Component {
 
     componentDidUpdate() {
         if (!this.uuid && this.props.stilling && this.props.stilling.uuid) {
-            // Skjer når man kommer rett til /ads uten uuid
+            // Skjer når man kommer rett til /stillinger uten uuid
             this.uuid = this.props.stilling.uuid;
-            this.props.history.replace(`/ads/${this.uuid}`);
+            this.props.history.replace(`/stillinger/${this.uuid}`);
         }
     }
 

@@ -35,6 +35,6 @@ const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export function* showAlertStripe(mode) {
     yield put({ type: SHOW_SAVED_AD_ALERT_STRIPE, mode });
-    yield call(delay, 5000);
+    yield call(delay, 3000);
     yield put({ type: HIDE_SAVED_AD_ALERT_STRIPE });
 }

@@ -111,7 +111,7 @@ function* validateEmployer() {
     if (employer === null || employer === undefined
         || valueIsNotSet(employer.name)
         || valueIsNotSet(employer.orgnr)) {
-        yield put({ type: ADD_VALIDATION_ERROR, field: 'employer', message: 'Navn på arbeidsgiver mangler' });
+        yield put({ type: ADD_VALIDATION_ERROR, field: 'employer', message: 'Bedriftens navn mangler' });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'employer' });
     }
@@ -175,7 +175,7 @@ function* validateContactpersonPhone() {
 
     const error = contactperson && contactperson.phone
         && (contactperson.phone.length > 0)
-        && (!contactperson.phone.match(/^[0-9 ()+-]+$/g));
+        && (!contactperson.phone.match(/^(\(?\+?[0-9]*\)?)?[0-9_\- \(\)]*$/));
 
     if (error) {
         yield put({ type: ADD_VALIDATION_ERROR, field: 'contactpersonPhone', message: 'Ugyldig telefonnummer' });

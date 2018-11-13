@@ -60,7 +60,7 @@ class JobDetails extends React.Component {
                 apen
             >
                 <Input
-                    label="Overskrift på annonsen*"
+                    label="Overskrift på stillingen*"
                     value={this.getAdTitle()}
                     placeholder="For eksempel: Engasjert barnehagelærer til Oslo-skole"
                     onChange={this.onTitleChange}
@@ -73,7 +73,7 @@ class JobDetails extends React.Component {
                     onChange={this.onJobtitleChange}
                     placeholder="Yrket som vises på stillingen"
                 />
-                <div className="blokk-xxs"><Normaltekst>Annonsetekst*</Normaltekst></div>
+                <div className="blokk-xxs"><Normaltekst>Stillingstekst*</Normaltekst></div>
                 <div className="Edit__JobDetails__rteEditor-content">
                     <RichTextEditor
                         text={ad.properties.adtext || ''}
