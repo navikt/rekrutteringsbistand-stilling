@@ -15,7 +15,7 @@ export default function EditHeader({ onPreviewAdClick, uuid, status, title, sour
                 <Sidetittel className="Ad__edit__menu-title">{title}</Sidetittel>
                 {showCandidateLinks && (
                     <AWithIcon
-                        href={`/kandidater?stillingsid=${uuid}`}
+                        href={`/kandidater/stilling/${uuid}`}
                         classNameText="typo-element"
                         classNameLink="Ad__edit__menu-item FindCandidate"
                         text="Finn kandidater"

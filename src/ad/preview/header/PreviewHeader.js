@@ -51,7 +51,7 @@ class PreviewMenu extends React.Component {
                 <div className="Ad__preview__menu">
                     {showCandidateLinks && (
                         <AWithIcon
-                            href={`/kandidater?stillingsid=${stilling.uuid}`}
+                            href={`/kandidater/stilling/${stilling.uuid}`}
                             classNameText="typo-element"
                             classNameLink="Ad__preview__menu-item FindCandidate"
                             text="Finn kandidater"
