@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Undertittel } from 'nav-frontend-typografi';
 import { formatISOString, isValidISOString } from '../../../utils';
 import capitalizeLocation from '../../edit/location/capitalizeLocation';
+import worktimeParser from './worktimeParser';
 
 export default function Employment({ properties, location }) {
     return (
@@ -49,11 +50,11 @@ export default function Employment({ properties, location }) {
                 ]}
                 {properties.workday && [
                     <dt key="dt">Arbeidsdager:</dt>,
-                    <dd key="dd">{properties.workday}</dd>
+                    <dd key="dd">{worktimeParser(properties.workday)}</dd>
                 ]}
                 {properties.workhours && [
                     <dt key="dt">Arbeidstid:</dt>,
-                    <dd key="dd">{properties.workhours}</dd>
+                    <dd key="dd">{worktimeParser(properties.workhours)}</dd>
                 ]}
                 {properties.jobarrangement && [
                     <dt key="dt">Arb.tidsordning:</dt>,
