@@ -1,3 +1,6 @@
+## RELEASE - 0.8.79-4fac9fe
+#### New in this release: 
++ 2018-11-14 [PAM-1819] representing worktime values as json-arrays * also converts old spaced separated values to json-arrays
 ## RELEASE - 0.7.76-114ded0
 #### New in this release: 
 + 2018-11-13 [Fix] Fikse at kommentarfelt ikke flytter på seg
