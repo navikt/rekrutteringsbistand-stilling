@@ -30,9 +30,9 @@ class Ad extends React.Component {
 
     componentDidUpdate() {
         if (!this.uuid && this.props.stilling && this.props.stilling.uuid) {
-            // Skjer når man kommer rett til /stillinger uten uuid
+            // Skjer når man kommer rett til /stilling uten uuid
             this.uuid = this.props.stilling.uuid;
-            this.props.history.replace(`/stillinger/${this.uuid}`);
+            this.props.history.replace(`/stilling/${this.uuid}`);
         }
     }
 
@@ -53,7 +53,7 @@ class Ad extends React.Component {
                 <div className="Ad Ad__deleted">
                     <Normaltekst className="blokk-s">Stillingen er slettet</Normaltekst>
                     <Link
-                        to="/search"
+                        to="/stillinger"
                         className="typo-normal lenke"
                     >
                         Søk etter stillinger

@@ -17,7 +17,7 @@ class HasChangesModal extends React.Component {
         const { updated, created, closeModal, deleteAdAndRedirect } = this.props;
         if (updated === created) {
             e.preventDefault();
-            deleteAdAndRedirect('/mine');
+            deleteAdAndRedirect('/minestillinger');
         }
         closeModal();
     };
@@ -50,7 +50,7 @@ class HasChangesModal extends React.Component {
                         Bli på siden
                     </Hovedknapp>
                     <Link
-                        to="/mine"
+                        to="/minestillinger"
                         className="lenke"
                         onClick={this.onLeaveClick}
                     >

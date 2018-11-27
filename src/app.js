@@ -55,10 +55,10 @@ const Main = () => (
     <main>
         <Switch>
             <Route exact path="/" component={StartPage} />
-            <Route exact path="/search" component={SearchPage} />
-            <Route exact path="/mine" component={MyAds} />
-            <Route exact path="/stillinger" component={Ad} />
-            <Route exact path="/stillinger/:uuid" component={Ad} />
+            <Route exact path="/stillinger" component={SearchPage} />
+            <Route exact path="/minestillinger" component={MyAds} />
+            <Route exact path="/stilling" component={Ad} />
+            <Route exact path="/stilling/:uuid" component={Ad} />
             <Route exact path="*" component={StartPage} />
         </Switch>
     </main>

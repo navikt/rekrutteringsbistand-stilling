@@ -27,7 +27,7 @@ class TopMenu extends React.Component {
                     </NavLink>
                     <div className="TopMenu__pipe" />
                     <NavLink
-                        to="/search"
+                        to="/stillinger"
                         className="TopMenu__item"
                         activeClassName="TopMenu__item-active"
                         onClick={resetSearch}
@@ -35,7 +35,7 @@ class TopMenu extends React.Component {
                         <Normaltekst className="TopMenu__item__inner">Søk etter stilling</Normaltekst>
                     </NavLink>
                     <NavLink
-                        to="/mine"
+                        to="/minestillinger"
                         className="TopMenu__item"
                         activeClassName="TopMenu__item-active"
                     >

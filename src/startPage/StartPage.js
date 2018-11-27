@@ -10,7 +10,7 @@ import SearchBox from '../searchPage/searchBox/SearchBox';
 
 class StartPage extends React.Component {
     onSearch = () => {
-        this.props.history.push('/search');
+        this.props.history.push('/stillinger');
     };
 
     render() {
@@ -23,9 +23,9 @@ class StartPage extends React.Component {
                     <Row>
                         <Column className="StartPage__panel blokk-s" xs="12" md="6">
                             <LenkepanelBase
-                                href="/mine"
+                                href="/minestillinger"
                                 border
-                                linkCreator={(props) => <Link to="/mine" {...props} />}
+                                linkCreator={(props) => <Link to="/minestillinger" {...props} />}
                             >
                                 <div className="StartPage__panel-flex">
                                     <div className="StartPage__icon-copy" />
@@ -37,9 +37,9 @@ class StartPage extends React.Component {
                         </Column>
                         <Column className="StartPage__panel blokk-s" xs="12" md="6">
                             <LenkepanelBase
-                                href="/stillinger"
+                                href="/stilling"
                                 border
-                                linkCreator={(props) => <Link to="/stillinger" {...props} />}
+                                linkCreator={(props) => <Link to="/stilling" {...props} />}
                             >
                                 <div className="StartPage__panel-flex">
                                     <div className="StartPage__icon-pen" />
