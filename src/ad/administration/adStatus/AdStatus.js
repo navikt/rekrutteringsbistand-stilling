@@ -46,7 +46,7 @@ AdStatus.defaultProps = {
 
 AdStatus.propTypes = {
     adStatus: PropTypes.string.isRequired,
-    isEditingAd: PropTypes.string.isRequired,
+    isEditingAd: PropTypes.bool.isRequired,
     originalData: PropTypes.shape({
         privacy: PropTypes.string
     })
