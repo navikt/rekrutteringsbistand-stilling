@@ -40,13 +40,12 @@ class Ad extends React.Component {
         this.props.removeAdData();
     }
 
-
     onPreviewAdClick = () => {
         this.props.previewAd();
     };
 
     render() {
-        const { stilling, isEditingAd, editTitle } = this.props;
+        const { stilling, isEditingAd } = this.props;
 
         if (stilling.status === AdStatusEnum.DELETED) {
             return (
@@ -73,11 +72,7 @@ class Ad extends React.Component {
                                     {isEditingAd ? (
                                         <div className="Ad__edit__inner">
                                             <EditHeader
-                                                status={this.props.status}
-                                                title={stilling.title}
-                                                source={this.props.stilling.source}
                                                 onPreviewAdClick={this.onPreviewAdClick}
-                                                uuid={stilling.uuid}
                                             />
                                             <Edit />
                                         </div>
@@ -129,7 +124,6 @@ Ad.propTypes = {
 const mapStateToProps = (state) => ({
     stilling: state.adData,
     isEditingAd: state.ad.isEditingAd,
-    editTitle: state.ad.editTitle,
     status: state.adData.administration.status
 });
 
