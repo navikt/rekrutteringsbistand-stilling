@@ -74,7 +74,7 @@ class Ad extends React.Component {
                                         <div className="Ad__edit__inner">
                                             <EditHeader
                                                 status={this.props.status}
-                                                title={editTitle}
+                                                title={stilling.title}
                                                 source={this.props.stilling.source}
                                                 onPreviewAdClick={this.onPreviewAdClick}
                                                 uuid={stilling.uuid}

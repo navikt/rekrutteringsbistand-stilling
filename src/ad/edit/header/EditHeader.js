@@ -11,8 +11,9 @@ export default function EditHeader({ onPreviewAdClick, uuid, status, title, sour
     const showCandidateLinks = (status === AdminStatusEnum.DONE);
     return (
         <div>
+            <Sidetittel className="Ad__edit__menu-title">{title}</Sidetittel>
+            <Normaltekst>* er obligatoriske felter du må fylle ut</Normaltekst>
             <div className="Ad__edit__menu">
-                <Sidetittel className="Ad__edit__menu-title">{title}</Sidetittel>
                 {showCandidateLinks && (
                     <AWithIcon
                         href={`/kandidater/stilling/${uuid}`}
@@ -38,14 +39,13 @@ export default function EditHeader({ onPreviewAdClick, uuid, status, title, sour
                     />
                 )}
                 <Knapp
-                    className="Ad__edit__menu-item"
+                    className="Ad__edit__menu-button"
                     onClick={onPreviewAdClick}
                     mini
                 >
                     Forhåndsvis stillingen
                 </Knapp>
             </div>
-            <Normaltekst>* er obligatoriske felter du må fylle ut</Normaltekst>
         </div>
     );
 }
