@@ -19,7 +19,8 @@ export const SET_EMPLOYMENT_ENGAGEMENTTYPE = 'SET_EMPLOYMENT_ENGAGEMENTTYPE';
 export const SET_EMPLOYMENT_EXTENT = 'SET_EMPLOYMENT_EXTENT';
 export const SET_EMPLOYMENT_POSITIONCOUNT = 'SET_EMPLOYMENT_POSITIONCOUNT';
 export const SET_EMPLOYMENT_SECTOR = 'SET_EMPLOYMENT_SECTOR';
-export const SET_EMPLOYMENT_WORKDAY = 'SET_EMPLOYMENT_WORKDAY';
+export const CHECK_EMPLOYMENT_WORKDAY = 'CHECK_EMPLOYMENT_WORKDAY';
+export const UNCHECK_EMPLOYMENT_WORKDAY = 'UNCHECK_EMPLOYMENT_WORKDAY';
 export const SET_EMPLOYMENT_WORKHOURS = 'SET_EMPLOYMENT_WORKHOURS';
 export const SET_EMPLOYMENT_JOBARRANGEMENT = 'SET_EMPLOYMENT_JOBARRANGEMENT';
 export const SET_EMPLOYMENT_STARTTIME = 'SET_EMPLOYMENT_STARTTIME';
@@ -174,12 +175,21 @@ export default function adDataReducer(state = initialState, action) {
                     sector: action.sector
                 }
             };
-        case SET_EMPLOYMENT_WORKDAY:
+        case CHECK_EMPLOYMENT_WORKDAY:
+            const workday = state.properties.workday ? JSON.parse(state.properties.workday) : state.properties.workday;
             return {
                 ...state,
                 properties: {
                     ...state.properties,
-                    workday: action.workday
+                    workday: workday ? JSON.stringify([...workday, action.value]) : JSON.stringify([action.value])
+                }
+            };
+        case UNCHECK_EMPLOYMENT_WORKDAY:
+            return {
+                ...state,
+                properties: {
+                    ...state.properties,
+                    workday: JSON.stringify(JSON.parse(state.properties.workday).filter((m) => (m !== action.value)))
                 }
             };
         case SET_EMPLOYMENT_WORKHOURS:
