@@ -7,8 +7,13 @@ import { LenkepanelBase } from 'nav-frontend-lenkepanel';
 import { Systemtittel } from 'nav-frontend-typografi';
 import './StartPage.less';
 import SearchBox from '../searchPage/searchBox/SearchBox';
+import { FETCH_REPORTEE } from '../reportee/reporteeReducer';
 
 class StartPage extends React.Component {
+    componentWillMount() {
+        this.props.fetchReportee();
+    }
+
     onSearch = () => {
         this.props.history.push('/stillinger');
     };
@@ -72,12 +77,14 @@ class StartPage extends React.Component {
 }
 
 StartPage.propTypes = {
-    history: PropTypes.shape().isRequired
+    history: PropTypes.shape().isRequired,
+    fetchReportee: PropTypes.func.isRequired
 };
 
 const mapStateToProps = () => ({});
 
 const mapDispatchToProps = (dispatch) => ({
+    fetchReportee: () => dispatch({ type: FETCH_REPORTEE })
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(StartPage));
