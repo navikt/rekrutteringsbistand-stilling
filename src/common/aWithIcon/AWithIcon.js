@@ -28,5 +28,5 @@ AWithIcon.propTypes = {
     classNameText: PropTypes.string,
     classNameLink: PropTypes.string,
     text: PropTypes.string,
-    href: PropTypes.string.isRequired
+    href: PropTypes.string
 };

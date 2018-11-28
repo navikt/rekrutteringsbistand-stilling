@@ -5,10 +5,16 @@ import { Sidetittel, Normaltekst } from 'nav-frontend-typografi';
 import AdminStatusEnum from '../../administration/adminStatus/AdminStatusEnum';
 import './EditHeader.less';
 import AWithIcon from '../../../common/aWithIcon/AWithIcon';
-import {SET_EDIT_TITLE, TOGGLE_EDIT_TITLE} from "../../adReducer";
+import { SET_EDIT_TITLE, TOGGLE_EDIT_TITLE } from '../../adReducer';
+import { SET_AD_TITLE } from '../../adDataReducer';
 import connect from "react-redux/es/connect/connect";
 
 class EditHeader extends React.Component {
+    constructor(props) {
+        super(props);
+        this.titleInput = React.createRef();
+    }
+
     handleTitleInput = (event) => {
         const { setEditTitle } = this.props;
         setEditTitle(event.target.value);
@@ -18,6 +24,17 @@ class EditHeader extends React.Component {
         const { toggleEditTitle, setEditTitle } = this.props;
         toggleEditTitle();
         setEditTitle(this.props.stilling.title);
+    };
+
+    handleSaveTitle = () => {
+        const { toggleEditTitle, saveTitle, saveAd } = this.props;
+        const value = this.titleInput.current.value;
+
+        if (value && value !== '') {
+            saveTitle(this.titleInput.current.value);
+        }
+
+        toggleEditTitle();
     };
 
     render() {
@@ -34,10 +51,12 @@ class EditHeader extends React.Component {
                             onChange={this.handleTitleInput}
                             className="skjemaelement__input Ad__edit__top-section-input"
                             value={editTitle}
+                            ref={this.titleInput}
                             autoFocus
                         />
                         <Knapp
                             className="Ad__edit__top-section-button knapp--hoved"
+                            onClick={this.handleSaveTitle}
                             mini
                         >
                             Lagre
@@ -52,14 +71,13 @@ class EditHeader extends React.Component {
                     </div>
                 ) : (
                     <div className={"Ad__edit__top-section"}>
-                        <Sidetittel className="Ad__edit__menu-title">{title}</Sidetittel>
+                        <Sidetittel className="Ad__edit__menu-title">{title || '...'}</Sidetittel>
                         <div
                             role="button"
                             className="Ad__edit__top-section-item"
                             onClick={this.handleEditToggle}
                         >
                             <AWithIcon
-                                href="#"
                                 classNameText="typo-element"
                                 classNameLink="Ad__edit__menu-item EditAd"
                                 text="Rediger"
@@ -120,7 +138,8 @@ EditHeader.propTypes = {
     status: PropTypes.string,
     toggleEditTitle: PropTypes.func.isRequired,
     setEditTitle: PropTypes.func.isRequired,
-    editTitle: PropTypes.string.isRequired
+    editTitle: PropTypes.string.isRequired,
+    saveTitle: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -132,7 +151,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     toggleEditTitle: () => dispatch({ type: TOGGLE_EDIT_TITLE }),
-    setEditTitle: (title) => dispatch({ type: SET_EDIT_TITLE, title })
+    setEditTitle: (title) => dispatch({ type: SET_EDIT_TITLE, title }),
+    saveTitle: (title) => dispatch({ type: SET_AD_TITLE, title }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditHeader);
