@@ -19,7 +19,9 @@ import {
     SET_EMPLOYMENT_EXTENT,
     SET_EMPLOYMENT_SECTOR,
     CHECK_EMPLOYMENT_WORKDAY,
-    UNCHECK_EMPLOYMENT_WORKDAY
+    UNCHECK_EMPLOYMENT_WORKDAY,
+    CHECK_EMPLOYMENT_WORKHOURS,
+    UNCHECK_EMPLOYMENT_WORKHOURS
 } from './adDataReducer';
 
 const ADD_VALIDATION_ERROR = 'ADD_VALIDATION_ERROR';
@@ -264,6 +266,17 @@ function* validateWorkday() {
     }
 }
 
+function* validateWorkhours() {
+    const state = yield select();
+    const { workhours } = state.adData.properties;
+
+    if (valueIsNotSet(workhours) || valueIsNotSet(JSON.parse(workhours))) {
+        yield put({ type: ADD_VALIDATION_ERROR, field: 'workhours', message: 'Arbeidstid mangler' });
+    } else {
+        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'workhours' });
+    }
+}
+
 export function* validateAll() {
     const state = yield select();
     if (state.adData !== null) {
@@ -284,6 +297,7 @@ export function* validateAll() {
         yield validateExtent();
         yield validateSector();
         yield validateWorkday();
+        yield validateWorkhours();
     }
 }
 
@@ -304,7 +318,8 @@ export function hasValidationErrors(validation) {
            || validation.positioncount !== undefined
            || validation.extent !== undefined
            || validation.sector !== undefined
-           || validation.workday !== undefined;
+           || validation.workday !== undefined
+           || validation.workhours !== undefined;
 }
 
 export function* validateBeforeSave() {
@@ -379,4 +394,6 @@ export const validationSaga = function* saga() {
     yield takeLatest(SET_EMPLOYMENT_SECTOR, validateSector);
     yield takeLatest(CHECK_EMPLOYMENT_WORKDAY, validateWorkday);
     yield takeLatest(UNCHECK_EMPLOYMENT_WORKDAY, validateWorkday);
+    yield takeLatest(CHECK_EMPLOYMENT_WORKHOURS, validateWorkhours);
+    yield takeLatest(UNCHECK_EMPLOYMENT_WORKHOURS, validateWorkhours);
 };

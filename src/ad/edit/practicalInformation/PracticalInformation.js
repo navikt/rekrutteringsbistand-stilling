@@ -11,7 +11,8 @@ import {
     SET_EMPLOYMENT_EXTENT,
     CHECK_EMPLOYMENT_WORKDAY,
     UNCHECK_EMPLOYMENT_WORKDAY,
-    SET_EMPLOYMENT_WORKHOURS,
+    CHECK_EMPLOYMENT_WORKHOURS,
+    UNCHECK_EMPLOYMENT_WORKHOURS,
     SET_EMPLOYMENT_SECTOR,
     SET_EMPLOYMENT_POSITIONCOUNT,
     SET_APPLICATIONDUE,
@@ -29,6 +30,15 @@ class PracticalInformation extends React.Component {
             this.props.checkWorkday(value);
         } else {
             this.props.uncheckWorkday(value);
+        }
+    };
+
+    onWorkhoursChange = (e) => {
+        const { value } = e.target;
+        if (e.target.checked) {
+            this.props.checkWorkhours(value);
+        } else {
+            this.props.uncheckWorkhours(value);
         }
     };
 
@@ -149,24 +159,28 @@ class PracticalInformation extends React.Component {
                 </SkjemaGruppe>
                 <Normaltekst className="PracticalInformation__label">Arbeidstid*</Normaltekst>
                 <SkjemaGruppe
-                    className="blokk-xs"
+                    className="blokk-xs typo-normal"
+                    feil={this.createErrorObject(this.props.validation.workhours)}
                 >
                     <Checkbox
                         className="Edit__inline"
                         label="Dagtid"
-                        value={ad.properties.workhours || ''}
+                        value="Dagtid"
+                        checked={ad.properties.workhours ? JSON.parse(ad.properties.workhours).includes("Dagtid") : false}
                         onChange={this.onWorkhoursChange}
                     />
                     <Checkbox
                         className="Edit__inline"
                         label="Kveld"
-                        value={ad.properties.workhours || ''}
+                        value="Kveld"
+                        checked={ad.properties.workhours ? JSON.parse(ad.properties.workhours).includes("Kveld") : false}
                         onChange={this.onWorkhoursChange}
                     />
                     <Checkbox
                         className="Edit__inline"
                         label="Natt"
-                        value={ad.properties.workhours || ''}
+                        value="Natt"
+                        checked={ad.properties.workhours ? JSON.parse(ad.properties.workhours).includes("Natt") : false}
                         onChange={this.onWorkhoursChange}
                     />
                 </SkjemaGruppe>
@@ -284,7 +298,8 @@ PracticalInformation.propTypes = {
     setSector: PropTypes.func.isRequired,
     checkWorkday: PropTypes.func.isRequired,
     uncheckWorkday: PropTypes.func.isRequired,
-    setWorkHours: PropTypes.func.isRequired,
+    checkWorkhours: PropTypes.func.isRequired,
+    uncheckWorkhours: PropTypes.func.isRequired,
     setStartTime: PropTypes.func.isRequired,
     setApplicationDue: PropTypes.func.isRequired,
     validation: PropTypes.shape({
@@ -300,7 +315,8 @@ const mapDispatchToProps = (dispatch) => ({
     setExtent: (extent) => dispatch({ type: SET_EMPLOYMENT_EXTENT, extent }),
     checkWorkday: (value) => dispatch({ type: CHECK_EMPLOYMENT_WORKDAY, value }),
     uncheckWorkday: (value) => dispatch({ type: UNCHECK_EMPLOYMENT_WORKDAY, value }),
-    setWorkHours: (workhours) => dispatch({ type: SET_EMPLOYMENT_WORKHOURS, workhours }),
+    checkWorkhours: (value) => dispatch({ type: CHECK_EMPLOYMENT_WORKHOURS, value }),
+    uncheckWorkhours: (value) => dispatch({ type: UNCHECK_EMPLOYMENT_WORKHOURS, value }),
     setSector: (sector) => dispatch({ type: SET_EMPLOYMENT_SECTOR, sector }),
     setPositionCount: (positioncount) => dispatch({ type: SET_EMPLOYMENT_POSITIONCOUNT, positioncount }),
     setApplicationDue: (applicationdue) => dispatch({ type: SET_APPLICATIONDUE, applicationdue }),
