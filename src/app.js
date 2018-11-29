@@ -51,23 +51,15 @@ sagaMiddleware.run(myAdsSaga);
 sagaMiddleware.run(adDataSaga);
 sagaMiddleware.run(municipalOrCountrySaga);
 
-class StillingssokWrap extends React.Component {
+class StillingssokWrapper extends React.Component {
     componentDidMount() {
-        this.props.resetSearch();
+        store.dispatch({ type: RESET_SEARCH });
     }
 
     render() {
         return this.props.children;
     }
 }
-
-const mapStateToProps = () => ({});
-
-const mapDispatchToProps = (dispatch) => ({
-    resetSearch: () => dispatch({ type: RESET_SEARCH })
-});
-
-const StillingssokWrapper = connect(mapStateToProps, mapDispatchToProps)(StillingssokWrap);
 
 const Main = () => (
     <main>
