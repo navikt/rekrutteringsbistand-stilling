@@ -22,7 +22,7 @@ import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import EngagementType from '../engagementType/EngagementType';
 import JobArrangement from '../jobArrangement/JobArrangement';
 import './PracticalInformation.less';
-import IsJsonArray from './IsJsonArray';
+import IsJson from './IsJson';
 
 class PracticalInformation extends React.Component {
     onWorkdayChange = (e) => {
@@ -140,21 +140,21 @@ class PracticalInformation extends React.Component {
                         className="Edit__inline"
                         label="Ukedager"
                         value="Ukedager"
-                        checked={workday ? (IsJsonArray(workday) ? JSON.parse(workday).includes("Ukedager") : false) : false}
+                        checked={workday ? (IsJson(workday) ? JSON.parse(workday).includes("Ukedager") : false) : false}
                         onChange={this.onWorkdayChange}
                     />
                     <Checkbox
                         className="Edit__inline"
                         label="Lørdag"
                         value="Lørdag"
-                        checked={workday ? (IsJsonArray(workday) ? JSON.parse(workday).includes("Lørdag") : false) : false}
+                        checked={workday ? (IsJson(workday) ? JSON.parse(workday).includes("Lørdag") : false) : false}
                         onChange={this.onWorkdayChange}
                     />
                     <Checkbox
                         className="Edit__inline"
                         label="Søndag"
                         value="Søndag"
-                        checked={workday ? (IsJsonArray(workday) ? JSON.parse(workday).includes("Søndag") : false) : false}
+                        checked={workday ? (IsJson(workday) ? JSON.parse(workday).includes("Søndag") : false) : false}
                         onChange={this.onWorkdayChange}
                     />
                 </SkjemaGruppe>
@@ -167,21 +167,21 @@ class PracticalInformation extends React.Component {
                         className="Edit__inline"
                         label="Dagtid"
                         value="Dagtid"
-                        checked={workhours ? (IsJsonArray(workhours) ? JSON.parse(workhours).includes("Dagtid") : false) : false}
+                        checked={workhours ? (IsJson(workhours) ? JSON.parse(workhours).includes("Dagtid") : false) : false}
                         onChange={this.onWorkhoursChange}
                     />
                     <Checkbox
                         className="Edit__inline"
                         label="Kveld"
                         value="Kveld"
-                        checked={workhours ? (IsJsonArray(workhours) ? JSON.parse(workhours).includes("Kveld") : false) : false}
+                        checked={workhours ? (IsJson(workhours) ? JSON.parse(workhours).includes("Kveld") : false) : false}
                         onChange={this.onWorkhoursChange}
                     />
                     <Checkbox
                         className="Edit__inline"
                         label="Natt"
                         value="Natt"
-                        checked={workhours ? (IsJsonArray(workhours) ? JSON.parse(workhours).includes("Natt") : false) : false}
+                        checked={workhours ? (IsJson(workhours) ? JSON.parse(workhours).includes("Natt") : false) : false}
                         onChange={this.onWorkhoursChange}
                     />
                 </SkjemaGruppe>

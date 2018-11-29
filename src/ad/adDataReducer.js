@@ -4,7 +4,7 @@ import { findLocationByPostalCode } from './edit/location/locationCodeReducer';
 import { CREATE_AD_BEGIN, FETCH_AD_BEGIN, FETCH_AD_SUCCESS, SAVE_AD_SUCCESS } from './adReducer';
 import AdStatusEnum from './administration/adStatus/AdStatusEnum';
 import PrivacyStatusEnum from './administration/publishing/PrivacyStatusEnum';
-import IsJsonArray from './edit/practicalInformation/IsJsonArray';
+import IsJson from './edit/practicalInformation/IsJson';
 
 export const SET_AD_DATA = 'SET_AD_DATA';
 export const REMOVE_AD_DATA = 'REMOVE_AD_DATA';
@@ -183,7 +183,7 @@ export default function adDataReducer(state = initialState, action) {
                 ...state,
                 properties: {
                     ...state.properties,
-                    workday: workday ? JSON.stringify([...(IsJsonArray(workday) ? JSON.parse(workday) : ''), action.value]) : JSON.stringify([action.value])
+                    workday: workday ? JSON.stringify([...(IsJson(workday) ? JSON.parse(workday) : ''), action.value]) : JSON.stringify([action.value])
                 }
             };
         case UNCHECK_EMPLOYMENT_WORKDAY:
@@ -200,7 +200,7 @@ export default function adDataReducer(state = initialState, action) {
                 ...state,
                 properties: {
                     ...state.properties,
-                    workhours: workhours ? JSON.stringify([...(IsJsonArray(workhours) ? JSON.parse(workhours) : ''), action.value]) : JSON.stringify([action.value])
+                    workhours: workhours ? JSON.stringify([...(IsJson(workhours) ? JSON.parse(workhours) : ''), action.value]) : JSON.stringify([action.value])
                 }
             };
         case UNCHECK_EMPLOYMENT_WORKHOURS:

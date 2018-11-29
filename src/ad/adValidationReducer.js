@@ -3,7 +3,7 @@ import { erDatoEtterMinDato } from 'nav-datovelger/dist/datovelger/utils/datoval
 import { findLocationByPostalCode } from './edit/location/locationCodeReducer';
 import { toDate } from '../utils';
 import { DEFAULT_TITLE } from './adReducer';
-import IsJsonArray from './edit/practicalInformation/IsJsonArray';
+import IsJson from './edit/practicalInformation/IsJson';
 
 import {
     SET_STYRK,
@@ -261,7 +261,7 @@ function* validateWorkday() {
     const state = yield select();
     const { workday } = state.adData.properties;
 
-    if (valueIsNotSet(workday) || !IsJsonArray(workday) || valueIsNotSet(JSON.parse(workday))) {
+    if (valueIsNotSet(workday) || !IsJson(workday) || valueIsNotSet(JSON.parse(workday))) {
         yield put({ type: ADD_VALIDATION_ERROR, field: 'workday', message: 'Arbeidsdager mangler' });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'workday' });
@@ -272,7 +272,7 @@ function* validateWorkhours() {
     const state = yield select();
     const { workhours } = state.adData.properties;
 
-    if (valueIsNotSet(workhours) || !IsJsonArray(workhours) || valueIsNotSet(JSON.parse(workhours))) {
+    if (valueIsNotSet(workhours) || !IsJson(workhours) || valueIsNotSet(JSON.parse(workhours))) {
         yield put({ type: ADD_VALIDATION_ERROR, field: 'workhours', message: 'Arbeidstid mangler' });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'workhours' });
