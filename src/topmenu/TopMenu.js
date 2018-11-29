@@ -4,57 +4,33 @@ import { connect } from 'react-redux';
 import { VeilederHeaderMeny, VeilederTabId } from 'pam-frontend-header';
 import 'pam-frontend-header/dist/style.css';
 
-const Minestillinger = ({ data }) =>
-    <VeilederHeaderMeny activeTabID={VeilederTabId.MINE_STILLINGER} innloggetBruker={data.displayName} />;
-
-Minestillinger.defaultProps = {
-    data: {
-        displayName: ''
-    }
-};
+const Minestillinger = ({ displayName }) =>
+    <VeilederHeaderMeny activeTabID={VeilederTabId.MINE_STILLINGER} innloggetBruker={displayName} />;
 
 Minestillinger.propTypes = {
-    data: PropTypes.shape({
-        displayName: PropTypes.string
-    })
+    displayName: PropTypes.string.isRequired
 };
 
 
-const Stillingssok = ({ data }) =>
-    <VeilederHeaderMeny activeTabID={VeilederTabId.STILLINGSSOK} innloggetBruker={data.displayName} />;
-
-Stillingssok.defaultProps = {
-    data: {
-        displayName: ''
-    }
-};
+const Stillingssok = ({ displayName }) =>
+    <VeilederHeaderMeny activeTabID={VeilederTabId.STILLINGSSOK} innloggetBruker={displayName} />;
 
 Stillingssok.propTypes = {
-    data: PropTypes.shape({
-        displayName: PropTypes.string
-    })
+    displayName: PropTypes.string.isRequired
 };
 
-const Rekbistand = ({ data }) => (
+const Rekbistand = ({ displayName }) => (
     <VeilederHeaderMeny
         activeTabID={VeilederTabId.REKRUTTERINGSBISTAND_INGEN_TAB}
-        innloggetBruker={data.displayName}
+        innloggetBruker={displayName}
     />);
 
-Rekbistand.defaultProps = {
-    data: {
-        displayName: ''
-    }
-};
-
 Rekbistand.propTypes = {
-    data: PropTypes.shape({
-        displayName: PropTypes.string
-    })
+    displayName: PropTypes.string.isRequired
 };
 
 const mapStateToProps = (state) => ({
-    data: state.reportee.data
+    displayName: state.reportee.data ? state.reportee.data.displayName : ''
 });
 
 export const MinestillingerHeader = connect(mapStateToProps)(Minestillinger);
