@@ -4,6 +4,7 @@ import { findLocationByPostalCode } from './edit/location/locationCodeReducer';
 import { CREATE_AD_BEGIN, FETCH_AD_BEGIN, FETCH_AD_SUCCESS, SAVE_AD_SUCCESS } from './adReducer';
 import AdStatusEnum from './administration/adStatus/AdStatusEnum';
 import PrivacyStatusEnum from './administration/publishing/PrivacyStatusEnum';
+import IsJsonArray from './edit/practicalInformation/IsJsonArray';
 
 export const SET_AD_DATA = 'SET_AD_DATA';
 export const REMOVE_AD_DATA = 'REMOVE_AD_DATA';
@@ -177,12 +178,12 @@ export default function adDataReducer(state = initialState, action) {
                 }
             };
         case CHECK_EMPLOYMENT_WORKDAY:
-            const workday = state.properties.workday ? JSON.parse(state.properties.workday) : state.properties.workday;
+            const { workday } = state.properties;
             return {
                 ...state,
                 properties: {
                     ...state.properties,
-                    workday: workday ? JSON.stringify([...workday, action.value]) : JSON.stringify([action.value])
+                    workday: workday ? JSON.stringify([...(IsJsonArray(workday) ? JSON.parse(workday) : ''), action.value]) : JSON.stringify([action.value])
                 }
             };
         case UNCHECK_EMPLOYMENT_WORKDAY:
@@ -194,12 +195,12 @@ export default function adDataReducer(state = initialState, action) {
                 }
             };
         case CHECK_EMPLOYMENT_WORKHOURS:
-            const workhours = state.properties.workhours ? JSON.parse(state.properties.workhours) : state.properties.workhours;
+            const { workhours } = state.properties;
             return {
                 ...state,
                 properties: {
                     ...state.properties,
-                    workhours: workhours ? JSON.stringify([...workhours, action.value]) : JSON.stringify([action.value])
+                    workhours: workhours ? JSON.stringify([...(IsJsonArray(workhours) ? JSON.parse(workhours) : ''), action.value]) : JSON.stringify([action.value])
                 }
             };
         case UNCHECK_EMPLOYMENT_WORKHOURS:

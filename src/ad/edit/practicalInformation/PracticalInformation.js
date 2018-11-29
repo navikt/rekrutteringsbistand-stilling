@@ -22,6 +22,7 @@ import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import EngagementType from '../engagementType/EngagementType';
 import JobArrangement from '../jobArrangement/JobArrangement';
 import './PracticalInformation.less';
+import IsJsonArray from './IsJsonArray';
 
 class PracticalInformation extends React.Component {
     onWorkdayChange = (e) => {
@@ -95,7 +96,7 @@ class PracticalInformation extends React.Component {
     };
 
     render() {
-        const { ad } = this.props;
+        const { ad, workday, workhours } = this.props;
 
         return (
             <Ekspanderbartpanel
@@ -139,21 +140,21 @@ class PracticalInformation extends React.Component {
                         className="Edit__inline"
                         label="Ukedager"
                         value="Ukedager"
-                        checked={ad.properties.workday ? JSON.parse(ad.properties.workday).includes("Ukedager") : false}
+                        checked={workday ? (IsJsonArray(workday) ? JSON.parse(workday).includes("Ukedager") : false) : false}
                         onChange={this.onWorkdayChange}
                     />
                     <Checkbox
                         className="Edit__inline"
                         label="Lørdag"
                         value="Lørdag"
-                        checked={ad.properties.workday ? JSON.parse(ad.properties.workday).includes("Lørdag") : false}
+                        checked={workday ? (IsJsonArray(workday) ? JSON.parse(workday).includes("Lørdag") : false) : false}
                         onChange={this.onWorkdayChange}
                     />
                     <Checkbox
                         className="Edit__inline"
                         label="Søndag"
                         value="Søndag"
-                        checked={ad.properties.workday ? JSON.parse(ad.properties.workday).includes("Søndag") : false}
+                        checked={workday ? (IsJsonArray(workday) ? JSON.parse(workday).includes("Søndag") : false) : false}
                         onChange={this.onWorkdayChange}
                     />
                 </SkjemaGruppe>
@@ -166,21 +167,21 @@ class PracticalInformation extends React.Component {
                         className="Edit__inline"
                         label="Dagtid"
                         value="Dagtid"
-                        checked={ad.properties.workhours ? JSON.parse(ad.properties.workhours).includes("Dagtid") : false}
+                        checked={workhours ? (IsJsonArray(workhours) ? JSON.parse(workhours).includes("Dagtid") : false) : false}
                         onChange={this.onWorkhoursChange}
                     />
                     <Checkbox
                         className="Edit__inline"
                         label="Kveld"
                         value="Kveld"
-                        checked={ad.properties.workhours ? JSON.parse(ad.properties.workhours).includes("Kveld") : false}
+                        checked={workhours ? (IsJsonArray(workhours) ? JSON.parse(workhours).includes("Kveld") : false) : false}
                         onChange={this.onWorkhoursChange}
                     />
                     <Checkbox
                         className="Edit__inline"
                         label="Natt"
                         value="Natt"
-                        checked={ad.properties.workhours ? JSON.parse(ad.properties.workhours).includes("Natt") : false}
+                        checked={workhours ? (IsJsonArray(workhours) ? JSON.parse(workhours).includes("Natt") : false) : false}
                         onChange={this.onWorkhoursChange}
                     />
                 </SkjemaGruppe>
@@ -308,6 +309,8 @@ PracticalInformation.propTypes = {
 };
 const mapStateToProps = (state) => ({
     ad: state.adData,
+    workday: state.adData.properties.workday,
+    workhours: state.adData.properties.workhours,
     validation: state.adValidation.errors
 });
 
