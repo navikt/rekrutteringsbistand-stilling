@@ -48,9 +48,13 @@ class JobDetails extends React.Component {
         return errorMessage ? {feilmelding: errorMessage} : null;
     };
 
-    render() {
-        const { ad } = this.props;
+    shouldShowTitleField = () => {
+        console.log()
+    };
 
+    render() {
+        const { ad, isSaved } = this.props;
+        console.log(isSaved);
         return (
             <Ekspanderbartpanel
                 tittel="Om stillingen"
@@ -59,13 +63,16 @@ class JobDetails extends React.Component {
                 border
                 apen
             >
-                <Input
-                    label="Overskrift på stillingen*"
-                    value={this.getAdTitle()}
-                    placeholder="For eksempel: Engasjert barnehagelærer til Oslo-skole"
-                    onChange={this.onTitleChange}
-                    feil={this.createErrorObject(this.props.validation.title)}
-                />
+
+                {!isSaved &&
+                    <Input
+                        label="Overskrift på stillingen*"
+                        value={this.getAdTitle()}
+                        placeholder="For eksempel: Engasjert barnehagelærer til Oslo-skole"
+                        onChange={this.onTitleChange}
+                        feil={this.createErrorObject(this.props.validation.title)}
+                    />
+                }
                 <Styrk />
                 <Input
                     label="Stilling/yrke"
@@ -95,12 +102,14 @@ JobDetails.propTypes = {
     }),
     setAdText: PropTypes.func.isRequired,
     setAdTitle: PropTypes.func.isRequired,
-    setJobTitle: PropTypes.func.isRequired
+    setJobTitle: PropTypes.func.isRequired,
+    isSaved: PropTypes.bool
 };
 
 const mapStateToProps = (state) => ({
     ad: state.adData,
-    validation: state.adValidation.errors
+    validation: state.adValidation.errors,
+    isSaved: state.ad.isSaved
 });
 
 const mapDispatchToProps = (dispatch) => ({

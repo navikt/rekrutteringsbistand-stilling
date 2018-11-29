@@ -88,11 +88,12 @@ export const DEFAULT_TITLE = 'Overskrift på annonsen';
 
 const initialState = {
     error: undefined,
+    isSaved: false,
     isSavingAd: false,
     isFetchingStilling: false,
     isEditingAd: false,
     isEditingTitle: false,
-    editTitle: '',
+    editTitle: 'Ny stilling',
     originalData: undefined,
     hasSavedChanges: false,
     copiedAds: [],
@@ -148,7 +149,8 @@ export default function adReducer(state = initialState, action) {
                 ...state,
                 isSavingAd: false,
                 hasSavedChanges: true,
-                originalData: { ...action.response }
+                originalData: { ...action.response },
+                isSaved: true
             };
         case CREATE_AD_FAILURE:
         case SAVE_AD_FAILURE:
