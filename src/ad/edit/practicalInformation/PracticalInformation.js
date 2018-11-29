@@ -9,8 +9,10 @@ import Datovelger from 'nav-datovelger';
 import { formatISOString } from '../../../utils';
 import {
     SET_EMPLOYMENT_EXTENT,
-    SET_EMPLOYMENT_WORKDAY,
-    SET_EMPLOYMENT_WORKHOURS,
+    CHECK_EMPLOYMENT_WORKDAY,
+    UNCHECK_EMPLOYMENT_WORKDAY,
+    CHECK_EMPLOYMENT_WORKHOURS,
+    UNCHECK_EMPLOYMENT_WORKHOURS,
     SET_EMPLOYMENT_SECTOR,
     SET_EMPLOYMENT_POSITIONCOUNT,
     SET_APPLICATIONDUE,
@@ -20,8 +22,27 @@ import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import EngagementType from '../engagementType/EngagementType';
 import JobArrangement from '../jobArrangement/JobArrangement';
 import './PracticalInformation.less';
+import IsJson from './IsJson';
 
 class PracticalInformation extends React.Component {
+    onWorkdayChange = (e) => {
+        const { value } = e.target;
+        if (e.target.checked) {
+            this.props.checkWorkday(value);
+        } else {
+            this.props.uncheckWorkday(value);
+        }
+    };
+
+    onWorkhoursChange = (e) => {
+        const { value } = e.target;
+        if (e.target.checked) {
+            this.props.checkWorkhours(value);
+        } else {
+            this.props.uncheckWorkhours(value);
+        }
+    };
+
     onExtentChange = (e) => {
         this.props.setExtent(e.target.value);
     };
@@ -75,7 +96,7 @@ class PracticalInformation extends React.Component {
     };
 
     render() {
-        const { ad } = this.props;
+        const { ad, workday, workhours } = this.props;
 
         return (
             <Ekspanderbartpanel
@@ -112,47 +133,55 @@ class PracticalInformation extends React.Component {
                 </SkjemaGruppe>
                 <Normaltekst className="PracticalInformation__label">Arbeidsdager*</Normaltekst>
                 <SkjemaGruppe
-                    className="blokk-xs"
+                    className="blokk-xs typo-normal"
+                    feil={this.createErrorObject(this.props.validation.workday)}
                 >
                     <Checkbox
                         className="Edit__inline"
                         label="Ukedager"
-                        value={ad.properties.workday || ''}
+                        value="Ukedager"
+                        checked={workday ? (IsJson(workday) ? JSON.parse(workday).includes("Ukedager") : false) : false}
                         onChange={this.onWorkdayChange}
                     />
                     <Checkbox
                         className="Edit__inline"
                         label="Lørdag"
-                        value={ad.properties.workday || ''}
+                        value="Lørdag"
+                        checked={workday ? (IsJson(workday) ? JSON.parse(workday).includes("Lørdag") : false) : false}
                         onChange={this.onWorkdayChange}
                     />
                     <Checkbox
                         className="Edit__inline"
                         label="Søndag"
-                        value={ad.properties.workday || ''}
+                        value="Søndag"
+                        checked={workday ? (IsJson(workday) ? JSON.parse(workday).includes("Søndag") : false) : false}
                         onChange={this.onWorkdayChange}
                     />
                 </SkjemaGruppe>
                 <Normaltekst className="PracticalInformation__label">Arbeidstid*</Normaltekst>
                 <SkjemaGruppe
-                    className="blokk-xs"
+                    className="blokk-xs typo-normal"
+                    feil={this.createErrorObject(this.props.validation.workhours)}
                 >
                     <Checkbox
                         className="Edit__inline"
                         label="Dagtid"
-                        value={ad.properties.workhours || ''}
+                        value="Dagtid"
+                        checked={workhours ? (IsJson(workhours) ? JSON.parse(workhours).includes("Dagtid") : false) : false}
                         onChange={this.onWorkhoursChange}
                     />
                     <Checkbox
                         className="Edit__inline"
                         label="Kveld"
-                        value={ad.properties.workhours || ''}
+                        value="Kveld"
+                        checked={workhours ? (IsJson(workhours) ? JSON.parse(workhours).includes("Kveld") : false) : false}
                         onChange={this.onWorkhoursChange}
                     />
                     <Checkbox
                         className="Edit__inline"
                         label="Natt"
-                        value={ad.properties.workhours || ''}
+                        value="Natt"
+                        checked={workhours ? (IsJson(workhours) ? JSON.parse(workhours).includes("Natt") : false) : false}
                         onChange={this.onWorkhoursChange}
                     />
                 </SkjemaGruppe>
@@ -268,8 +297,10 @@ PracticalInformation.propTypes = {
     setExtent: PropTypes.func.isRequired,
     setPositionCount: PropTypes.func.isRequired,
     setSector: PropTypes.func.isRequired,
-    setWorkDay: PropTypes.func.isRequired,
-    setWorkHours: PropTypes.func.isRequired,
+    checkWorkday: PropTypes.func.isRequired,
+    uncheckWorkday: PropTypes.func.isRequired,
+    checkWorkhours: PropTypes.func.isRequired,
+    uncheckWorkhours: PropTypes.func.isRequired,
     setStartTime: PropTypes.func.isRequired,
     setApplicationDue: PropTypes.func.isRequired,
     validation: PropTypes.shape({
@@ -278,13 +309,17 @@ PracticalInformation.propTypes = {
 };
 const mapStateToProps = (state) => ({
     ad: state.adData,
+    workday: state.adData.properties.workday,
+    workhours: state.adData.properties.workhours,
     validation: state.adValidation.errors
 });
 
 const mapDispatchToProps = (dispatch) => ({
     setExtent: (extent) => dispatch({ type: SET_EMPLOYMENT_EXTENT, extent }),
-    setWorkDay: (workday) => dispatch({ type: SET_EMPLOYMENT_WORKDAY, workday }),
-    setWorkHours: (workhours) => dispatch({ type: SET_EMPLOYMENT_WORKHOURS, workhours }),
+    checkWorkday: (value) => dispatch({ type: CHECK_EMPLOYMENT_WORKDAY, value }),
+    uncheckWorkday: (value) => dispatch({ type: UNCHECK_EMPLOYMENT_WORKDAY, value }),
+    checkWorkhours: (value) => dispatch({ type: CHECK_EMPLOYMENT_WORKHOURS, value }),
+    uncheckWorkhours: (value) => dispatch({ type: UNCHECK_EMPLOYMENT_WORKHOURS, value }),
     setSector: (sector) => dispatch({ type: SET_EMPLOYMENT_SECTOR, sector }),
     setPositionCount: (positioncount) => dispatch({ type: SET_EMPLOYMENT_POSITIONCOUNT, positioncount }),
     setApplicationDue: (applicationdue) => dispatch({ type: SET_APPLICATIONDUE, applicationdue }),
