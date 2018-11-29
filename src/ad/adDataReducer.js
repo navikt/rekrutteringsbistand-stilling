@@ -75,7 +75,7 @@ export default function adDataReducer(state = initialState, action) {
             return initialState;
         case FETCH_AD_SUCCESS:
         case SAVE_AD_SUCCESS:
-            return { ...action.response };
+            return action.response;
         case SET_AD_DATA:
             return action.data;
         case SET_COMMENT: {
