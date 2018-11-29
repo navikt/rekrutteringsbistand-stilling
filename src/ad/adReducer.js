@@ -93,7 +93,7 @@ const initialState = {
     isFetchingStilling: false,
     isEditingAd: false,
     isEditingTitle: false,
-    editTitle: 'Ny stilling',
+    editTitle: DEFAULT_TITLE_NEW_AD,
     originalData: undefined,
     hasSavedChanges: false,
     copiedAds: [],
@@ -145,9 +145,6 @@ export default function adReducer(state = initialState, action) {
                 originalData: { ...action.response }
             };
         case SAVE_AD_SUCCESS:
-            console.group('SAVE_AD_SUCCESS');
-            console.log(action.response);
-            console.groupEnd();
             return {
                 ...state,
                 isSavingAd: false,

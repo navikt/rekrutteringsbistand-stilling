@@ -49,7 +49,7 @@ class JobDetails extends React.Component {
     };
 
     render() {
-        const { ad, isSaved } = this.props;
+        const { ad, isNewAd } = this.props;
         return (
             <Ekspanderbartpanel
                 tittel="Om stillingen"
@@ -59,7 +59,7 @@ class JobDetails extends React.Component {
                 apen
             >
 
-                {!isSaved &&
+                {isNewAd &&
                     <Input
                         label={`${DEFAULT_TITLE}*`}
                         value={this.getAdTitle()}
@@ -103,8 +103,7 @@ JobDetails.propTypes = {
 
 const mapStateToProps = (state) => ({
     ad: state.adData,
-    validation: state.adValidation.errors,
-    isSaved: state.adData.isSaved
+    validation: state.adValidation.errors
 });
 
 const mapDispatchToProps = (dispatch) => ({

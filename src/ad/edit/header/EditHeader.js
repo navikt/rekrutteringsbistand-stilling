@@ -38,7 +38,7 @@ class EditHeader extends React.Component {
     };
 
     render() {
-        const { isEditingTitle, editTitle, onPreviewAdClick, isSaved } = this.props;
+        const { isEditingTitle, editTitle, onPreviewAdClick, isNewAd } = this.props;
         const { uuid, status, title, source } = this.props.stilling;
         const showCandidateLinks = (status === AdminStatusEnum.DONE || status === AdminStatusEnum.ACTIVE);
 
@@ -72,7 +72,7 @@ class EditHeader extends React.Component {
                 ) : (
                     <div className={"Ad__edit__top-section"}>
                         <Sidetittel className="Ad__edit__menu-title">{title || editTitle}</Sidetittel>
-                        {isSaved &&
+                        {!isNewAd &&
                             <div
                                 role="button"
                                 className="Ad__edit__top-section-item"
@@ -142,13 +142,12 @@ EditHeader.propTypes = {
     setEditTitle: PropTypes.func.isRequired,
     editTitle: PropTypes.string.isRequired,
     saveTitle: PropTypes.func.isRequired,
-    isSaved: PropTypes.bool
+    isNewAd: PropTypes.bool
 };
 
 const mapStateToProps = (state) => ({
     stilling: state.adData,
     status: state.adData.administration.status,
-    isSaved: state.adData.isSaved,
     isEditingTitle: state.ad.isEditingTitle,
     editTitle: state.ad.editTitle
 });

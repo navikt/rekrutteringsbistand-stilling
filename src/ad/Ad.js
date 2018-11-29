@@ -32,7 +32,10 @@ class Ad extends React.Component {
         if (!this.uuid && this.props.stilling && this.props.stilling.uuid) {
             // Skjer når man kommer rett til /stillinger uten uuid
             this.uuid = this.props.stilling.uuid;
-            this.props.history.replace(`/stillinger/${this.uuid}`);
+            this.props.history.replace({
+                pathname: `/stillinger/${this.uuid}`,
+                state: this.props.location.state
+            });
         }
     }
 
@@ -46,6 +49,7 @@ class Ad extends React.Component {
 
     render() {
         const { stilling, isEditingAd } = this.props;
+        const { isNew } = this.props.location.state || { isNewAd: false };
 
         if (stilling.status === AdStatusEnum.DELETED) {
             return (
@@ -72,9 +76,10 @@ class Ad extends React.Component {
                                     {isEditingAd ? (
                                         <div className="Ad__edit__inner">
                                             <EditHeader
+                                                isNewAd={isNew}
                                                 onPreviewAdClick={this.onPreviewAdClick}
                                             />
-                                            <Edit />
+                                            <Edit isNewAd={isNew}/>
                                         </div>
                                     ) : (
                                         <div className="Ad__preview">

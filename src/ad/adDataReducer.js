@@ -55,8 +55,7 @@ const initialState = {
     properties: {},
     status: AdStatusEnum.INACTIVE,
     administration: {},
-    privacy: PrivacyStatusEnum.INTERNAL_NOT_SHOWN,
-    isSaved: false
+    privacy: PrivacyStatusEnum.INTERNAL_NOT_SHOWN
 };
 
 function findStyrkAndSkipAlternativeNames(code) {
@@ -76,14 +75,7 @@ export default function adDataReducer(state = initialState, action) {
             return initialState;
         case FETCH_AD_SUCCESS:
         case SAVE_AD_SUCCESS:
-            console.group('adDataReducer');
-            console.log('SAVE_AD_SUCCESS');
-            console.log(action.response);
-            console.groupEnd();
-            return {
-                ...action.response,
-                isSaved: true
-            };
+            return { ...action.response };
         case SET_AD_DATA:
             return action.data;
         case SET_COMMENT: {
