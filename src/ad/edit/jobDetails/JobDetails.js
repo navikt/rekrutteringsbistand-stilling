@@ -10,7 +10,7 @@ import {
     SET_AD_TEXT,
     SET_EMPLOYMENT_JOBTITLE,
 } from '../../adDataReducer';
-import { DEFAULT_TITLE } from '../../adReducer';
+import {DEFAULT_TITLE, DEFAULT_TITLE_NEW_AD} from '../../adReducer';
 import Styrk from './styrk/Styrk';
 
 
@@ -19,7 +19,7 @@ class JobDetails extends React.Component {
 
     getAdTitle = () => {
         // Hack for hiding the default title coming from backend
-        if(this.props.ad.title === DEFAULT_TITLE){
+        if (this.props.ad.title === DEFAULT_TITLE || this.props.ad.title === DEFAULT_TITLE_NEW_AD) {
             return '';
         } else {
             return this.props.ad.title || '';
@@ -48,13 +48,8 @@ class JobDetails extends React.Component {
         return errorMessage ? {feilmelding: errorMessage} : null;
     };
 
-    shouldShowTitleField = () => {
-        console.log()
-    };
-
     render() {
         const { ad, isSaved } = this.props;
-        console.log(isSaved);
         return (
             <Ekspanderbartpanel
                 tittel="Om stillingen"
@@ -66,7 +61,7 @@ class JobDetails extends React.Component {
 
                 {!isSaved &&
                     <Input
-                        label="Overskrift på stillingen*"
+                        label={`${DEFAULT_TITLE}*`}
                         value={this.getAdTitle()}
                         placeholder="For eksempel: Engasjert barnehagelærer til Oslo-skole"
                         onChange={this.onTitleChange}
@@ -109,7 +104,7 @@ JobDetails.propTypes = {
 const mapStateToProps = (state) => ({
     ad: state.adData,
     validation: state.adValidation.errors,
-    isSaved: state.ad.isSaved
+    isSaved: state.adData.isSaved
 });
 
 const mapDispatchToProps = (dispatch) => ({

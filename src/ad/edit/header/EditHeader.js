@@ -71,7 +71,7 @@ class EditHeader extends React.Component {
                     </div>
                 ) : (
                     <div className={"Ad__edit__top-section"}>
-                        <Sidetittel className="Ad__edit__menu-title">{title || '...'}</Sidetittel>
+                        <Sidetittel className="Ad__edit__menu-title">{title || editTitle}</Sidetittel>
                         {isSaved &&
                             <div
                                 role="button"
@@ -148,9 +148,9 @@ EditHeader.propTypes = {
 const mapStateToProps = (state) => ({
     stilling: state.adData,
     status: state.adData.administration.status,
+    isSaved: state.adData.isSaved,
     isEditingTitle: state.ad.isEditingTitle,
-    editTitle: state.ad.editTitle,
-    isSaved: state.ad.isSaved
+    editTitle: state.ad.editTitle
 });
 
 const mapDispatchToProps = (dispatch) => ({

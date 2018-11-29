@@ -85,10 +85,10 @@ export const ADD_COPIED_ADS = 'ADD_COPIED_ADS';
 export const CLEAR_COPIED_ADS = 'CLEAR_COPIED_ADS';
 
 export const DEFAULT_TITLE = 'Overskrift på annonsen';
+export const DEFAULT_TITLE_NEW_AD = 'Ny stilling';
 
 const initialState = {
     error: undefined,
-    isSaved: false,
     isSavingAd: false,
     isFetchingStilling: false,
     isEditingAd: false,
@@ -145,12 +145,14 @@ export default function adReducer(state = initialState, action) {
                 originalData: { ...action.response }
             };
         case SAVE_AD_SUCCESS:
+            console.group('SAVE_AD_SUCCESS');
+            console.log(action.response);
+            console.groupEnd();
             return {
                 ...state,
                 isSavingAd: false,
                 hasSavedChanges: true,
-                originalData: { ...action.response },
-                isSaved: true
+                originalData: { ...action.response }
             };
         case CREATE_AD_FAILURE:
         case SAVE_AD_FAILURE:
@@ -163,8 +165,7 @@ export default function adReducer(state = initialState, action) {
         case EDIT_AD:
             return {
                 ...state,
-                isEditingAd: true,
-                editTitle: ''
+                isEditingAd: true
             };
         case PREVIEW_EDIT_AD:
             return {
@@ -294,7 +295,7 @@ function* createAd() {
         const postUrl = `${AD_API}ads?classify=true`;
 
         const response = yield fetchPost(postUrl, {
-            title: DEFAULT_TITLE,
+            title: DEFAULT_TITLE_NEW_AD,
             createdBy: 'pam-rekrutteringsbistand',
             updatedBy: 'pam-rekrutteringsbistand',
             source: 'DIR',
