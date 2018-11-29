@@ -32,7 +32,7 @@ class Ad extends React.Component {
         if (!this.uuid && this.props.stilling && this.props.stilling.uuid) {
             // Skjer når man kommer rett til /stilling uten uuid
             this.uuid = this.props.stilling.uuid;
-            this.props.history.replace(`/stilling/${this.uuid}`);
+            this.props.history.replace({ pathname: `/stilling/${this.uuid}`, state: { openInEditMode: true } });
         }
     }
 
