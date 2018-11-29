@@ -57,7 +57,7 @@ class ResultItem extends React.Component {
                     <div className="ResultItem__column Col-title-inner">
                         <Link
                             className="typo-normal lenke"
-                            to={`/stillinger/${ad.uuid}`}
+                            to={`/stilling/${ad.uuid}`}
                         >
                             {isCopy ? (
                                 <div><b>{ad.title.substr(0, 5)}</b>{ad.title.substr(5)}</div> || ''
@@ -111,7 +111,7 @@ class ResultItem extends React.Component {
                             aria-label="Rediger"
                             title="rediger"
                             to={{
-                                pathname: `/stillinger/${ad.uuid}`,
+                                pathname: `/stilling/${ad.uuid}`,
                                 state: { openInEditMode: true }
                             }}
                         >

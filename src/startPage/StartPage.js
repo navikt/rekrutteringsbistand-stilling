@@ -7,10 +7,15 @@ import { LenkepanelBase } from 'nav-frontend-lenkepanel';
 import { Systemtittel } from 'nav-frontend-typografi';
 import './StartPage.less';
 import SearchBox from '../searchPage/searchBox/SearchBox';
+import { FETCH_REPORTEE } from '../reportee/reporteeReducer';
 
 class StartPage extends React.Component {
+    componentWillMount() {
+        this.props.fetchReportee();
+    }
+
     onSearch = () => {
-        this.props.history.push('/search');
+        this.props.history.push('/stillinger');
     };
 
     render() {
@@ -23,9 +28,9 @@ class StartPage extends React.Component {
                     <Row>
                         <Column className="StartPage__panel blokk-s" xs="12" md="6">
                             <LenkepanelBase
-                                href="/mine"
+                                href="/minestillinger"
                                 border
-                                linkCreator={(props) => <Link to="/mine" {...props} />}
+                                linkCreator={(props) => <Link to="/minestillinger" {...props} />}
                             >
                                 <div className="StartPage__panel-flex">
                                     <div className="StartPage__icon-copy" />
@@ -37,9 +42,9 @@ class StartPage extends React.Component {
                         </Column>
                         <Column className="StartPage__panel blokk-s" xs="12" md="6">
                             <LenkepanelBase
-                                href="/stillinger"
+                                href="/stilling"
                                 border
-                                linkCreator={(props) => <Link to="/stillinger" {...props} />}
+                                linkCreator={(props) => <Link to="/stilling" {...props} />}
                             >
                                 <div className="StartPage__panel-flex">
                                     <div className="StartPage__icon-pen" />
@@ -72,12 +77,14 @@ class StartPage extends React.Component {
 }
 
 StartPage.propTypes = {
-    history: PropTypes.shape().isRequired
+    history: PropTypes.shape().isRequired,
+    fetchReportee: PropTypes.func.isRequired
 };
 
 const mapStateToProps = () => ({});
 
 const mapDispatchToProps = (dispatch) => ({
+    fetchReportee: () => dispatch({ type: FETCH_REPORTEE })
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(StartPage));
