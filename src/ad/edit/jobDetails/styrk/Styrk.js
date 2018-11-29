@@ -74,6 +74,7 @@ class Styrk extends React.Component {
                     id="Styrk__typeahead"
                     label=""
                     className="Styrk__typeahead"
+                    placeholder="Skriv inn STYRK"
                     onSelect={this.onTypeAheadSuggestionSelected}
                     onChange={this.onTypeAheadValueChange}
                     onBlur={this.onTypeAheadBlur}
