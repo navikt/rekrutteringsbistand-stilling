@@ -4,6 +4,7 @@ import { findLocationByPostalCode } from './edit/location/locationCodeReducer';
 import { CREATE_AD_BEGIN, FETCH_AD_BEGIN, FETCH_AD_SUCCESS, SAVE_AD_SUCCESS } from './adReducer';
 import AdStatusEnum from './administration/adStatus/AdStatusEnum';
 import PrivacyStatusEnum from './administration/publishing/PrivacyStatusEnum';
+import IsJson from './edit/practicalInformation/IsJson';
 
 export const SET_AD_DATA = 'SET_AD_DATA';
 export const REMOVE_AD_DATA = 'REMOVE_AD_DATA';
@@ -19,8 +20,10 @@ export const SET_EMPLOYMENT_ENGAGEMENTTYPE = 'SET_EMPLOYMENT_ENGAGEMENTTYPE';
 export const SET_EMPLOYMENT_EXTENT = 'SET_EMPLOYMENT_EXTENT';
 export const SET_EMPLOYMENT_POSITIONCOUNT = 'SET_EMPLOYMENT_POSITIONCOUNT';
 export const SET_EMPLOYMENT_SECTOR = 'SET_EMPLOYMENT_SECTOR';
-export const SET_EMPLOYMENT_WORKDAY = 'SET_EMPLOYMENT_WORKDAY';
-export const SET_EMPLOYMENT_WORKHOURS = 'SET_EMPLOYMENT_WORKHOURS';
+export const CHECK_EMPLOYMENT_WORKDAY = 'CHECK_EMPLOYMENT_WORKDAY';
+export const UNCHECK_EMPLOYMENT_WORKDAY = 'UNCHECK_EMPLOYMENT_WORKDAY';
+export const CHECK_EMPLOYMENT_WORKHOURS = 'CHECK_EMPLOYMENT_WORKHOURS';
+export const UNCHECK_EMPLOYMENT_WORKHOURS = 'UNCHECK_EMPLOYMENT_WORKHOURS';
 export const SET_EMPLOYMENT_JOBARRANGEMENT = 'SET_EMPLOYMENT_JOBARRANGEMENT';
 export const SET_EMPLOYMENT_STARTTIME = 'SET_EMPLOYMENT_STARTTIME';
 export const SET_APPLICATIONDUE = 'SET_APPLICATIONDUE';
@@ -174,20 +177,38 @@ export default function adDataReducer(state = initialState, action) {
                     sector: action.sector
                 }
             };
-        case SET_EMPLOYMENT_WORKDAY:
+        case CHECK_EMPLOYMENT_WORKDAY:
+            const { workday } = state.properties;
             return {
                 ...state,
                 properties: {
                     ...state.properties,
-                    workday: action.workday
+                    workday: workday ? JSON.stringify([...(IsJson(workday) ? JSON.parse(workday) : ''), action.value]) : JSON.stringify([action.value])
                 }
             };
-        case SET_EMPLOYMENT_WORKHOURS:
+        case UNCHECK_EMPLOYMENT_WORKDAY:
             return {
                 ...state,
                 properties: {
                     ...state.properties,
-                    workhours: action.workhours
+                    workday: JSON.stringify(JSON.parse(state.properties.workday).filter((m) => (m !== action.value)))
+                }
+            };
+        case CHECK_EMPLOYMENT_WORKHOURS:
+            const { workhours } = state.properties;
+            return {
+                ...state,
+                properties: {
+                    ...state.properties,
+                    workhours: workhours ? JSON.stringify([...(IsJson(workhours) ? JSON.parse(workhours) : ''), action.value]) : JSON.stringify([action.value])
+                }
+            };
+        case UNCHECK_EMPLOYMENT_WORKHOURS:
+            return {
+                ...state,
+                properties: {
+                    ...state.properties,
+                    workhours: JSON.stringify(JSON.parse(state.properties.workhours).filter((m) => (m !== action.value)))
                 }
             };
         case SET_EMPLOYMENT_JOBARRANGEMENT:
