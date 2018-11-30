@@ -1,3 +1,8 @@
+## RELEASE - 0.9.83-751c368
+#### New in this release: 
++ 2018-11-29 [PAM-2121] Endret logikk
++ 2018-11-28 [PAM-2121] La til Arbeidstid
++ 2018-11-27 [PAM-2121] La til funksjonalitet for Arbeidsdager samt validering
 ## RELEASE - 0.8.79-4fac9fe
 #### New in this release: 
 + 2018-11-14 [PAM-1819] representing worktime values as json-arrays * also converts old spaced separated values to json-arrays
