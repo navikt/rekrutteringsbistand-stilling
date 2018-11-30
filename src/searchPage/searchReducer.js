@@ -14,6 +14,7 @@ export const SET_SEARCH_FIELD = 'SET_SEARCH_FIELD';
 export const CHANGE_PRIVACY_FILTER = 'CHANGE_PRIVACY_FILTER';
 export const CHANGE_STATUS_FILTER = 'CHANGE_STATUS_FILTER';
 export const CHANGE_SOURCE_FILTER = 'CHANGE_SOURCE_FILTER';
+export const CHANGE_MUNICIPAL_FILTER = 'CHANGE_MUNICIPAL_FILTER';
 export const RESET_SEARCH = 'RESET_SEARCH';
 
 export const Fields = {
@@ -41,7 +42,8 @@ const initialState = {
     suggestions: [],
     privacy: undefined,
     status: ACTIVE,
-    source: undefined
+    source: undefined,
+    municipal: undefined
 };
 
 export default function searchReducer(state = initialState, action) {
@@ -84,6 +86,11 @@ export default function searchReducer(state = initialState, action) {
             return {
                 ...state,
                 source: action.value
+            };
+        case CHANGE_MUNICIPAL_FILTER:
+            return {
+                ...state,
+                municipal: action.municipal
             };
         case FETCH_ADS_BEGIN:
             return {
@@ -148,7 +155,7 @@ function combineStatusQuery(status) {
 
 export function toQuery(search) {
     const {
-        sortField, sortDir, page, privacy, status, source, administrationStatus
+        sortField, sortDir, page, privacy, status, source, administrationStatus, municipal
     } = search;
 
     const query = {
@@ -157,6 +164,7 @@ export function toQuery(search) {
         administrationStatus,
         source,
         privacy,
+        municipal,
         ...combineStatusQuery(status)
     };
 
@@ -191,6 +199,7 @@ export const searchSaga = function* saga() {
         CHANGE_STATUS_FILTER,
         CHANGE_SOURCE_FILTER,
         CHANGE_PRIVACY_FILTER,
+        CHANGE_MUNICIPAL_FILTER,
         SET_SEARCH_FIELD,
         CHANGE_SORTING,
         CHANGE_PAGE,

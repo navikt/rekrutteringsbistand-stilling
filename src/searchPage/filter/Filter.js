@@ -10,6 +10,7 @@ import {
 } from '../searchReducer';
 import AdStatusEnum from '../enums/AdStatusEnum';
 import PrivacyStatusEnum from '../enums/PrivacyStatusEnum';
+import Municipal from './municipal/Municipal';
 
 class Filter extends React.Component {
     onPrivacyFilterChange = (e) => {
@@ -102,6 +103,7 @@ class Filter extends React.Component {
                         onChange={this.onSourceFilterChange}
                     />
                 </SkjemaGruppe>
+                <Municipal />
             </form>
         );
     }
