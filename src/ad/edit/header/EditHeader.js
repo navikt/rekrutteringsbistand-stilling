@@ -7,7 +7,7 @@ import './EditHeader.less';
 import AWithIcon from '../../../common/aWithIcon/AWithIcon';
 import { SET_EDIT_TITLE, TOGGLE_EDIT_TITLE } from '../../adReducer';
 import { SET_AD_TITLE } from '../../adDataReducer';
-import connect from "react-redux/es/connect/connect";
+import { connect } from 'react-redux';
 
 class EditHeader extends React.Component {
     constructor(props) {
@@ -38,7 +38,7 @@ class EditHeader extends React.Component {
     };
 
     render() {
-        const { isEditingTitle, editTitle, onPreviewAdClick, isNewAd } = this.props;
+        const { isEditingTitle, editTitle, onPreviewAdClick, isNew } = this.props;
         const { uuid, status, title, source } = this.props.stilling;
         const showCandidateLinks = (status === AdminStatusEnum.DONE || status === AdminStatusEnum.ACTIVE);
 
@@ -72,7 +72,7 @@ class EditHeader extends React.Component {
                 ) : (
                     <div className={"Ad__edit__top-section"}>
                         <Sidetittel className="Ad__edit__menu-title">{title || editTitle}</Sidetittel>
-                        {!isNewAd &&
+                        {!isNew &&
                             <div
                                 role="button"
                                 className="Ad__edit__top-section-item"
@@ -142,7 +142,7 @@ EditHeader.propTypes = {
     setEditTitle: PropTypes.func.isRequired,
     editTitle: PropTypes.string.isRequired,
     saveTitle: PropTypes.func.isRequired,
-    isNewAd: PropTypes.bool
+    isNew: PropTypes.bool
 };
 
 const mapStateToProps = (state) => ({

@@ -49,7 +49,7 @@ class JobDetails extends React.Component {
     };
 
     render() {
-        const { ad, isNewAd } = this.props;
+        const { ad, isNew } = this.props;
         return (
             <Ekspanderbartpanel
                 tittel="Om stillingen"
@@ -59,7 +59,7 @@ class JobDetails extends React.Component {
                 apen
             >
 
-                {isNewAd &&
+                {isNew &&
                     <Input
                         label={`${DEFAULT_TITLE}*`}
                         value={this.getAdTitle()}

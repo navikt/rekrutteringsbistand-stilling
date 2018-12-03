@@ -22,7 +22,7 @@ class Edit extends React.Component {
     }
 
     render() {
-        const { ad, isFetchingStilling, isNewAd } = this.props;
+        const { ad, isFetchingStilling, isNew } = this.props;
 
         if (isFetchingStilling) {
             return (
@@ -36,7 +36,7 @@ class Edit extends React.Component {
                     <Column xs="12" md="8">
                         <div className="Edit__left">
                             <Employer />
-                            <JobDetails isNewAd={isNewAd} />
+                            <JobDetails isNew={isNew} />
                             {/* <Ekspanderbartpanel
                              tittel="Hvem bør søke på stilingen"
                              tittelProps="undertittel"
@@ -92,7 +92,7 @@ Edit.propTypes = {
     }),
     isFetchingStilling: PropTypes.bool.isRequired,
     resetValidation: PropTypes.func.isRequired,
-    isNewAd: PropTypes.bool
+    isNew: PropTypes.bool
 };
 
 const mapStateToProps = (state) => ({

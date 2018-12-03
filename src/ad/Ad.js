@@ -33,7 +33,7 @@ class Ad extends React.Component {
             // Skjer når man kommer rett til /stilling uten uuid
             this.uuid = this.props.stilling.uuid;
             this.props.history.replace({
-                pathname: `/stillinger/${this.uuid}`,
+                pathname: `/stilling/${this.uuid}`,
                 state: {
                   ...this.props.location.state,
                   openInEditMode: true
@@ -52,7 +52,7 @@ class Ad extends React.Component {
 
     render() {
         const { stilling, isEditingAd } = this.props;
-        const { isNew } = this.props.location.state || { isNewAd: false };
+        const { isNew } = this.props.location.state || { isNew: false };
 
         if (stilling.status === AdStatusEnum.DELETED) {
             return (
@@ -79,10 +79,10 @@ class Ad extends React.Component {
                                     {isEditingAd ? (
                                         <div className="Ad__edit__inner">
                                             <EditHeader
-                                                isNewAd={isNew}
+                                                isNew={isNew}
                                                 onPreviewAdClick={this.onPreviewAdClick}
                                             />
-                                            <Edit isNewAd={isNew}/>
+                                            <Edit isNew={isNew}/>
                                         </div>
                                     ) : (
                                         <div className="Ad__preview">
