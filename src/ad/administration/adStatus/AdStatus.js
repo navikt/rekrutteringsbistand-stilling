@@ -24,7 +24,7 @@ function AdStatus({ adStatus, originalData, isEditingAd }) {
             )}
             {adStatus === AdStatusEnum.ACTIVE && originalData.privacy === PrivacyStatusEnum.SHOW_ALL && (
                 <Alertstripe className="AdStatusPreview__Alertstripe" type="suksess" solid>
-                    Stillingen er publisert på arbeidsplassen.no
+                    Stillingen er publisert på nav.no
                     {isEditingAd ? ' | ' : ' '}
                     {originalData.published ? formatISOString(originalData.published) : ''}
                 </Alertstripe>
