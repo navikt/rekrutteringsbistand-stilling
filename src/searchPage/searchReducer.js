@@ -153,9 +153,9 @@ function combineStatusQuery(status) {
     return { status };
 }
 
-export function toQuery(search) {
+export function toQuery(search, municipal) {
     const {
-        sortField, sortDir, page, privacy, status, source, administrationStatus, municipal
+        sortField, sortDir, page, privacy, status, source, administrationStatus
     } = search;
 
     const query = {
@@ -181,7 +181,7 @@ function* getAds(action) {
 
         const state = yield select();
 
-        const query = toQuery(state.search);
+        const query = toQuery(state.search, state.municipal.municipal);
         const response = yield fetchAds(query);
         yield put({ type: FETCH_ADS_SUCCESS, response });
     } catch (e) {

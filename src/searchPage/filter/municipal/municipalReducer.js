@@ -1,7 +1,7 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import { fetchGet } from '../../../api/api';
 import { AD_API } from '../../../fasitProperties';
-
+import { RESET_SEARCH } from '../../searchReducer'
 /** *********************************************************
  * ACTIONS
  ********************************************************* */
@@ -39,6 +39,11 @@ export default function municipalReducer(state = initialState, action) {
         case FETCH_MUNICIPALS_FAILURE:
             return {
                 ...state
+            };
+        case RESET_SEARCH:
+            return {
+                ...state,
+                municipal: ''
             };
         default:
             return state;

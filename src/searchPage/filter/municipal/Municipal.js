@@ -20,8 +20,8 @@ class Municipal extends React.Component {
     onMunicipalSelect = (value) => {
         const municipal = this.props.municipals.find((m) => m.name.toLowerCase() === value.label.toLowerCase());
         if (municipal) {
-            this.props.changeMunicipalFilter(municipal.name);
             this.props.setTypeAheadValue(capitalizeLocation(municipal.name));
+            this.props.changeMunicipalFilter(municipal.name);
         } else {
             this.props.changeMunicipalFilter(undefined);
         }
@@ -38,10 +38,6 @@ class Municipal extends React.Component {
         this.props.changeMunicipalFilter(this.props.municipalFilter);
     };
 
-    onBlur = (value) => {
-        this.props.changeMunicipalFilter(value);
-    };
-
     render() {
         return (
             <div className="Municipal">
@@ -50,7 +46,6 @@ class Municipal extends React.Component {
                     className="Municipal__typeahead"
                     onChange={this.onMunicipalChange}
                     onSelect={this.onMunicipalSelect}
-                    onBlur={this.onBlur}
                     label="Kommune"
                     suggestions={this.props.municipals.map((m) => ({
                         value: m.code,
