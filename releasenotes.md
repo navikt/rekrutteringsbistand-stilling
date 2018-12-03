@@ -1,3 +1,6 @@
+## RELEASE - 0.10.84-0d8d7d2
+#### New in this release: 
++ 2018-11-30 [PAM-2021]: søke på kommune
 ## RELEASE - 0.9.83-751c368
 #### New in this release: 
 + 2018-11-29 [PAM-2121] Endret logikk
