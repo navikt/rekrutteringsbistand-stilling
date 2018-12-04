@@ -5,30 +5,18 @@ import { VeilederHeaderMeny, VeilederTabId } from 'pam-frontend-header';
 import {FETCH_REPORTEE} from '../reportee/reporteeReducer';
 import 'pam-frontend-header/dist/style.css';
 
-const validateDisplayName = (displayName, fetchDisplayName, isFetchingDisplayName) => {
+const HeaderMenu = ({ tabId, displayName, fetchDisplayName, isFetchingDisplayName }) => {
     if (!displayName && !isFetchingDisplayName) {
         fetchDisplayName();
     }
+    return <VeilederHeaderMeny activeTabID={tabId} innloggetBruker={displayName}/>;
 };
 
-const Minestillinger = ({ displayName, fetchDisplayName, isFetchingDisplayName }) => {
-    validateDisplayName(displayName, fetchDisplayName, isFetchingDisplayName);
-    return <VeilederHeaderMeny activeTabID={VeilederTabId.MINE_STILLINGER} innloggetBruker={displayName}/>;
-};
-
-const Stillingssok = ({ displayName, fetchDisplayName, isFetchingDisplayName }) => {
-    validateDisplayName(displayName, fetchDisplayName, isFetchingDisplayName);
-    return  <VeilederHeaderMeny activeTabID={VeilederTabId.STILLINGSSOK} innloggetBruker={displayName} />;
-};
-
-const Rekbistand = ({ displayName, fetchDisplayName, isFetchingDisplayName }) => {
-    validateDisplayName(displayName, fetchDisplayName, isFetchingDisplayName);
-    return (
-        <VeilederHeaderMeny
-            activeTabID={VeilederTabId.REKRUTTERINGSBISTAND_INGEN_TAB}
-            innloggetBruker={displayName}
-        />
-    );
+HeaderMenu.propTypes = {
+    tabId: PropTypes.string.isRequired,
+    displayName: PropTypes.string.isRequired,
+    fetchDisplayName: PropTypes.func.isRequired,
+    isFetchingDisplayName: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -36,21 +24,26 @@ const mapStateToProps = (state) => ({
         isFetchingDisplayName: state.reportee.isFetchingReportee
 });
 
+const stillingssokProps = (state) => ({
+    ...mapStateToProps(state),
+    tabId: VeilederTabId.STILLINGSSOK
+});
+
+const mineStillingerProps = (state) => ({
+    ...mapStateToProps(state),
+    tabId: VeilederTabId.MINE_STILLINGER
+});
+
+const rekrutteringsbistandProps = (state) => ({
+    ...mapStateToProps(state),
+    tabId: VeilederTabId.REKRUTTERINGSBISTAND_INGEN_TAB
+});
+
 const mapDispatchToProps = (dispatch) => ({
     fetchDisplayName: () => dispatch({ type: FETCH_REPORTEE })
 });
 
-const commonPropTypes = {
-    displayName: PropTypes.string.isRequired,
-    fetchDisplayName: PropTypes.func.isRequired,
-    isFetchingDisplayName: PropTypes.bool.isRequired
-};
-
-Minestillinger.propTypes = commonPropTypes;
-Stillingssok.propTypes = commonPropTypes;
-Rekbistand.propTypes = commonPropTypes;
-
-export const MinestillingerHeader = connect(mapStateToProps, mapDispatchToProps)(Minestillinger);
-export const StillingssokHeader = connect(mapStateToProps, mapDispatchToProps)(Stillingssok);
-export const Rekrutteringsbisstand = connect(mapStateToProps, mapDispatchToProps)(Rekbistand);
+export const StillingssokHeader = connect(stillingssokProps, mapDispatchToProps)(HeaderMenu);
+export const MinestillingerHeader = connect(mineStillingerProps, mapDispatchToProps)(HeaderMenu);
+export const Rekrutteringsbisstand = connect(rekrutteringsbistandProps, mapDispatchToProps)(HeaderMenu);
 
