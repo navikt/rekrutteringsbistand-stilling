@@ -2,38 +2,55 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { VeilederHeaderMeny, VeilederTabId } from 'pam-frontend-header';
+import {FETCH_REPORTEE} from '../reportee/reporteeReducer';
 import 'pam-frontend-header/dist/style.css';
 
-const Minestillinger = ({ displayName }) =>
-    <VeilederHeaderMeny activeTabID={VeilederTabId.MINE_STILLINGER} innloggetBruker={displayName} />;
-
-Minestillinger.propTypes = {
-    displayName: PropTypes.string.isRequired
+const validateDisplayName = (displayName, fetchDisplayName, isFetchingDisplayName) => {
+    if (!displayName && !isFetchingDisplayName) {
+        fetchDisplayName();
+    }
 };
 
-
-const Stillingssok = ({ displayName }) =>
-    <VeilederHeaderMeny activeTabID={VeilederTabId.STILLINGSSOK} innloggetBruker={displayName} />;
-
-Stillingssok.propTypes = {
-    displayName: PropTypes.string.isRequired
+const Minestillinger = ({ displayName, fetchDisplayName, isFetchingDisplayName }) => {
+    validateDisplayName(displayName, fetchDisplayName, isFetchingDisplayName);
+    return <VeilederHeaderMeny activeTabID={VeilederTabId.MINE_STILLINGER} innloggetBruker={displayName}/>;
 };
 
-const Rekbistand = ({ displayName }) => (
-    <VeilederHeaderMeny
-        activeTabID={VeilederTabId.REKRUTTERINGSBISTAND_INGEN_TAB}
-        innloggetBruker={displayName}
-    />);
+const Stillingssok = ({ displayName, fetchDisplayName, isFetchingDisplayName }) => {
+    validateDisplayName(displayName, fetchDisplayName, isFetchingDisplayName);
+    return  <VeilederHeaderMeny activeTabID={VeilederTabId.STILLINGSSOK} innloggetBruker={displayName} />;
+};
 
-Rekbistand.propTypes = {
-    displayName: PropTypes.string.isRequired
+const Rekbistand = ({ displayName, fetchDisplayName, isFetchingDisplayName }) => {
+    validateDisplayName(displayName, fetchDisplayName, isFetchingDisplayName);
+    return (
+        <VeilederHeaderMeny
+            activeTabID={VeilederTabId.REKRUTTERINGSBISTAND_INGEN_TAB}
+            innloggetBruker={displayName}
+        />
+    );
 };
 
 const mapStateToProps = (state) => ({
-    displayName: state.reportee.data ? state.reportee.data.displayName : ''
+        displayName: state.reportee.data ? state.reportee.data.displayName : '',
+        isFetchingDisplayName: state.reportee.isFetchingReportee
 });
 
-export const MinestillingerHeader = connect(mapStateToProps)(Minestillinger);
-export const StillingssokHeader = connect(mapStateToProps)(Stillingssok);
-export const Rekrutteringsbisstand = connect(mapStateToProps)(Rekbistand);
+const mapDispatchToProps = (dispatch) => ({
+    fetchDisplayName: () => dispatch({ type: FETCH_REPORTEE })
+});
+
+const commonPropTypes = {
+    displayName: PropTypes.string.isRequired,
+    fetchDisplayName: PropTypes.func.isRequired,
+    isFetchingDisplayName: PropTypes.bool.isRequired
+};
+
+Minestillinger.propTypes = commonPropTypes;
+Stillingssok.propTypes = commonPropTypes;
+Rekbistand.propTypes = commonPropTypes;
+
+export const MinestillingerHeader = connect(mapStateToProps, mapDispatchToProps)(Minestillinger);
+export const StillingssokHeader = connect(mapStateToProps, mapDispatchToProps)(Stillingssok);
+export const Rekrutteringsbisstand = connect(mapStateToProps, mapDispatchToProps)(Rekbistand);
 
