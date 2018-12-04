@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { VeilederHeaderMeny, VeilederTabId } from 'pam-frontend-header';
-import {FETCH_REPORTEE} from '../reportee/reporteeReducer';
+import { FETCH_REPORTEE } from '../reportee/reporteeReducer';
 import 'pam-frontend-header/dist/style.css';
 
 const HeaderMenu = ({ tabId, displayName, fetchDisplayName, isFetchingDisplayName }) => {
