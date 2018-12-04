@@ -1,36 +1,37 @@
 @import "../variables";
 
-@adHeight: calc(~"100vh - 8rem");
-
 .Ad {
   background: @navLysGra;
-  height: @adHeight;
+  min-height: calc(~"100vh - 8rem");
 }
 
 .Ad__flex {
   display: flex;
-  height: @adHeight;
+  overflow-y: auto;
 }
 
 .Ad__flex__center {
   flex: auto;
-  height: 100%;
 }
 
 .Ad__flex__right {
-  width: 32rem;
+  width: @admin-width-large !important;
   border-left: 2px solid #dddddd;
-  height: 100%;
+  background: #EBF3FB;
+}
+
+@media (max-width: @admin-break) {
+  .Ad__flex__right {
+    width: @admin-width-small !important;
+  }
 }
 
 .Ad__flex__center__inner {
   height: 100%;
-  overflow-y: auto;
 }
 
 .Ad__flex__right__inner {
   height: 100%;
-  overflow-y: auto;
 }
 
 .Ad__preview {
