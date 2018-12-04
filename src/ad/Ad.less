@@ -1,13 +1,15 @@
 @import "../variables";
 
+@adHeight: calc(~"100vh - 8rem");
+
 .Ad {
   background: @navLysGra;
-  height: 100vh;
+  height: @adHeight;
 }
 
 .Ad__flex {
   display: flex;
-  height: 100vh;
+  height: @adHeight;
 }
 
 .Ad__flex__center {
