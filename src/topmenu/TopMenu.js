@@ -20,8 +20,8 @@ HeaderMenu.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-        displayName: state.reportee.data ? state.reportee.data.displayName : '',
-        isFetchingDisplayName: state.reportee.isFetchingReportee
+    displayName: state.reportee.data ? state.reportee.data.displayName : '',
+    isFetchingDisplayName: state.reportee.isFetchingReportee
 });
 
 const stillingssokProps = (state) => ({
