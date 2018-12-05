@@ -3,26 +3,62 @@
 @import "../../../node_modules/nav-frontend-lenker-style/src/lenker-mixins";
 @import "../../../node_modules/nav-frontend-skjema-style/src/validering";
 
-.Administration {
-  height: 100%;
-}
-
 .Administration__flex {
   display: flex;
   flex-direction: column;
-  height: 100%;
 }
 
 .Administration__flex__center {
   flex: auto;
   overflow-y: auto;
   background: #EBF3FB;
+  width: @admin-width-large !important;
 }
 
 .Administration__flex__bottom {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: @admin-width-large !important;
   background: #d9e8f7;
   border-top: 1px solid #b7b1a9;
+  border-left: 2px solid #dddddd;
   padding: 1.5rem 2.5rem 0;
+  z-index: 100;
+}
+
+@media (max-width: @admin-break) {
+  .Administration__flex__center,
+  .Administration__flex__bottom {
+    width: @admin-width-small !important;
+  }
+
+  .AdStatusEdit__buttons {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .AdStatusEdit__buttons__button:not(:last-child) {
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: @admin-break-small) {
+  .Administration__flex__bottom {
+    width: 100% !important;
+    left: 0;
+  }
+
+  .AdStatusEdit__buttons {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .AdStatusEdit__buttons__button:not(:last-child) {
+    margin-right: 1rem;
+    margin-bottom: 0;
+  }
 }
 
 .Administration__header {
