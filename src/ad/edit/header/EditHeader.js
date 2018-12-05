@@ -102,7 +102,7 @@ class EditHeader extends React.Component {
                     </div>
                 )}
                 <div role="alert" aria-live="assertive">
-                    {validation.title || this.state.validationError && <div className="skjemaelement__feilmelding">{'Overskrift på stillingen mangler'}</div>}
+                    {(validation.title || this.state.validationError) && <div className="skjemaelement__feilmelding">{'Overskrift på stillingen mangler'}</div>}
                 </div>
                 <Normaltekst>* er obligatoriske felter du må fylle ut</Normaltekst>
                 <div className="Ad__edit__menu">

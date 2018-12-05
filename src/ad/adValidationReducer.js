@@ -94,7 +94,7 @@ export function* validateStyrk() {
 
 export function* validateTitle() {
     const adTitle = yield select((state) => state.adData.title);
-    if (valueIsNotSet(adTitle)) {
+    if (valueIsNotSet(adTitle) || adTitle === DEFAULT_TITLE || adTitle === DEFAULT_TITLE_NEW_AD) {
         yield put({ type: ADD_VALIDATION_ERROR, field: 'title', message: 'Overskrift på stillingen mangler' });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'title' });
