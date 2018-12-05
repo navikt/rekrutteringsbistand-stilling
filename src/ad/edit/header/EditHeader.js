@@ -5,7 +5,7 @@ import { Sidetittel, Normaltekst } from 'nav-frontend-typografi';
 import AdminStatusEnum from '../../administration/adminStatus/AdminStatusEnum';
 import './EditHeader.less';
 import AWithIcon from '../../../common/aWithIcon/AWithIcon';
-import { SET_EDIT_TITLE, TOGGLE_EDIT_TITLE } from '../../adReducer';
+import { SAVE_AD, SET_EDIT_TITLE, TOGGLE_EDIT_TITLE } from '../../adReducer';
 import { SET_AD_TITLE } from '../../adDataReducer';
 import { connect } from 'react-redux';
 
@@ -40,11 +40,12 @@ class EditHeader extends React.Component {
     };
 
     handleSaveTitle = () => {
-        const { toggleEditTitle, saveTitle } = this.props;
+        const { toggleEditTitle, saveTitle, saveAd } = this.props;
         const value = this.titleInput.current.value;
 
         if (value && value !== '') {
             saveTitle(value);
+            saveAd();
             toggleEditTitle();
         } else {
             this.setState({ validationError: true })
@@ -159,6 +160,7 @@ EditHeader.propTypes = {
     setEditTitle: PropTypes.func.isRequired,
     editTitle: PropTypes.string.isRequired,
     saveTitle: PropTypes.func.isRequired,
+    saveAd: PropTypes.func.isRequired,
     isNew: PropTypes.bool
 };
 
@@ -173,7 +175,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     toggleEditTitle: () => dispatch({ type: TOGGLE_EDIT_TITLE }),
     setEditTitle: (title) => dispatch({ type: SET_EDIT_TITLE, title }),
-    saveTitle: (title) => dispatch({ type: SET_AD_TITLE, title })
+    saveTitle: (title) => dispatch({ type: SET_AD_TITLE, title }),
+    saveAd: () => dispatch({ type: SAVE_AD })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditHeader);
