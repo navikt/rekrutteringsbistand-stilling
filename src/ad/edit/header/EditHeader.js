@@ -17,6 +17,10 @@ class EditHeader extends React.Component {
     constructor(props) {
         super(props);
         this.titleInput = React.createRef();
+
+        this.state = {
+            previousTitle: props.stilling.title
+        };
     }
 
     handleTitleInput = (event) => {
@@ -29,9 +33,11 @@ class EditHeader extends React.Component {
         setEditTitle(this.props.stilling.title);
 
         if (isEditingTitle && this.props.stilling.title === '') {
-            const backupTitle = this.state.previousTitle || DEFAULT_TITLE;
-            saveTitle(backupTitle);
-            setEditTitle(this.props.stilling.title);
+            /* Gjenoppretter gammel tittel dersom bruker avbryter tittelredigeringen etter å ha forsøkt å lagre en tom
+             * tittel.
+             */
+            saveTitle(this.state.previousTitle);
+            setEditTitle(this.state.previousTitle);
         }
 
         toggleEditTitle();
