@@ -5,7 +5,7 @@ import { Sidetittel, Normaltekst } from 'nav-frontend-typografi';
 import AdminStatusEnum from '../../administration/adminStatus/AdminStatusEnum';
 import './EditHeader.less';
 import AWithIcon from '../../../common/aWithIcon/AWithIcon';
-import { DEFAULT_TITLE, SET_EDIT_TITLE, TOGGLE_EDIT_TITLE } from '../../adReducer';
+import { SET_EDIT_TITLE, TOGGLE_EDIT_TITLE } from '../../adReducer';
 import { SET_AD_TITLE } from '../../adDataReducer';
 import { connect } from 'react-redux';
 
@@ -19,7 +19,7 @@ class EditHeader extends React.Component {
         this.titleInput = React.createRef();
 
         this.state = {
-            previousTitle: props.stilling.title
+            validationError: false
         };
     }
 
@@ -29,15 +29,11 @@ class EditHeader extends React.Component {
     };
 
     handleEditToggle = () => {
-        const { isEditingTitle, toggleEditTitle, setEditTitle, saveTitle } = this.props;
+        const { isEditingTitle, toggleEditTitle, setEditTitle } = this.props;
         setEditTitle(this.props.stilling.title);
 
-        if (isEditingTitle && this.props.stilling.title === '') {
-            /* Gjenoppretter gammel tittel dersom bruker avbryter tittelredigeringen etter å ha forsøkt å lagre en tom
-             * tittel.
-             */
-            saveTitle(this.state.previousTitle);
-            setEditTitle(this.state.previousTitle);
+        if (isEditingTitle) {
+            this.setState({ validationError: false });
         }
 
         toggleEditTitle();
@@ -46,11 +42,12 @@ class EditHeader extends React.Component {
     handleSaveTitle = () => {
         const { toggleEditTitle, saveTitle } = this.props;
         const value = this.titleInput.current.value;
-        saveTitle(value);
 
         if (value && value !== '') {
-            this.setState({ previousTitle: value });
+            saveTitle(value);
             toggleEditTitle();
+        } else {
+            this.setState({ validationError: true })
         }
     };
 
@@ -66,7 +63,7 @@ class EditHeader extends React.Component {
                         <input
                             type="text"
                             onChange={this.handleTitleInput}
-                            className={headerClassName(validation.title)}
+                            className={headerClassName(validation.title || this.state.validationError)}
                             value={editTitle}
                             ref={this.titleInput}
                             autoFocus
@@ -105,7 +102,7 @@ class EditHeader extends React.Component {
                     </div>
                 )}
                 <div role="alert" aria-live="assertive">
-                    {validation.title && <div className="skjemaelement__feilmelding">{validation.title}</div>}
+                    {validation.title || this.state.validationError && <div className="skjemaelement__feilmelding">{'Overskrift på stillingen mangler'}</div>}
                 </div>
                 <Normaltekst>* er obligatoriske felter du må fylle ut</Normaltekst>
                 <div className="Ad__edit__menu">
