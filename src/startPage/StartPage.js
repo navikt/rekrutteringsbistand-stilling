@@ -19,6 +19,10 @@ class StartPage extends React.Component {
     };
 
     render() {
+        const newAdRoute = {
+            pathname: '/stilling',
+            state: { isNew: true }
+        };
         return (
             <div className="StartPage">
                 <div className="StartPage__SearchBox__wrapper">
@@ -44,7 +48,7 @@ class StartPage extends React.Component {
                             <LenkepanelBase
                                 href="/stilling"
                                 border
-                                linkCreator={(props) => <Link to="/stilling" {...props} />}
+                                linkCreator={(props) => <Link to={newAdRoute} {...props} />}
                             >
                                 <div className="StartPage__panel-flex">
                                     <div className="StartPage__icon-pen" />

@@ -10,7 +10,7 @@ import {
     SET_AD_TEXT,
     SET_EMPLOYMENT_JOBTITLE,
 } from '../../adDataReducer';
-import { DEFAULT_TITLE } from '../../adReducer';
+import {DEFAULT_TITLE, DEFAULT_TITLE_NEW_AD} from '../../adReducer';
 import Styrk from './styrk/Styrk';
 
 
@@ -19,7 +19,7 @@ class JobDetails extends React.Component {
 
     getAdTitle = () => {
         // Hack for hiding the default title coming from backend
-        if(this.props.ad.title === DEFAULT_TITLE){
+        if (this.props.ad.title === DEFAULT_TITLE || this.props.ad.title === DEFAULT_TITLE_NEW_AD) {
             return '';
         } else {
             return this.props.ad.title || '';
@@ -49,8 +49,7 @@ class JobDetails extends React.Component {
     };
 
     render() {
-        const { ad } = this.props;
-
+        const { ad, isNew } = this.props;
         return (
             <Ekspanderbartpanel
                 tittel="Om stillingen"
@@ -59,13 +58,16 @@ class JobDetails extends React.Component {
                 border
                 apen
             >
-                <Input
-                    label="Overskrift på stillingen*"
-                    value={this.getAdTitle()}
-                    placeholder="For eksempel: Engasjert barnehagelærer til Oslo-skole"
-                    onChange={this.onTitleChange}
-                    feil={this.createErrorObject(this.props.validation.title)}
-                />
+
+                {isNew &&
+                    <Input
+                        label={`${DEFAULT_TITLE}*`}
+                        value={this.getAdTitle()}
+                        placeholder="For eksempel: Engasjert barnehagelærer til Oslo-skole"
+                        onChange={this.onTitleChange}
+                        feil={this.createErrorObject(this.props.validation.title)}
+                    />
+                }
                 <Styrk />
                 <Input
                     label="Stilling/yrke"
@@ -95,7 +97,8 @@ JobDetails.propTypes = {
     }),
     setAdText: PropTypes.func.isRequired,
     setAdTitle: PropTypes.func.isRequired,
-    setJobTitle: PropTypes.func.isRequired
+    setJobTitle: PropTypes.func.isRequired,
+    isSaved: PropTypes.bool
 };
 
 const mapStateToProps = (state) => ({

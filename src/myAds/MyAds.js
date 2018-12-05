@@ -28,7 +28,10 @@ class MyAds extends React.Component {
     }
 
     onCreateAd = () => {
-        this.props.history.push('/stilling');
+        this.props.history.push({
+            pathname: '/stilling',
+            state: { isNew: true }
+        });
     };
 
     render() {

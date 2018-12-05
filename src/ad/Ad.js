@@ -32,7 +32,13 @@ class Ad extends React.Component {
         if (!this.uuid && this.props.stilling && this.props.stilling.uuid) {
             // Skjer når man kommer rett til /stilling uten uuid
             this.uuid = this.props.stilling.uuid;
-            this.props.history.replace({ pathname: `/stilling/${this.uuid}`, state: { openInEditMode: true } });
+            this.props.history.replace({
+                pathname: `/stilling/${this.uuid}`,
+                state: {
+                  ...this.props.location.state,
+                  openInEditMode: true
+                }
+            });
         }
     }
 
@@ -40,13 +46,13 @@ class Ad extends React.Component {
         this.props.removeAdData();
     }
 
-
     onPreviewAdClick = () => {
         this.props.previewAd();
     };
 
     render() {
-        const { stilling, isEditingAd, editTitle } = this.props;
+        const { stilling, isEditingAd } = this.props;
+        const { isNew } = this.props.location.state || { isNew: false };
 
         if (stilling.status === AdStatusEnum.DELETED) {
             return (
@@ -73,13 +79,10 @@ class Ad extends React.Component {
                                     {isEditingAd ? (
                                         <div className="Ad__edit__inner">
                                             <EditHeader
-                                                status={this.props.status}
-                                                title={editTitle}
-                                                source={this.props.stilling.source}
+                                                isNew={isNew}
                                                 onPreviewAdClick={this.onPreviewAdClick}
-                                                uuid={stilling.uuid}
                                             />
-                                            <Edit />
+                                            <Edit isNew={isNew}/>
                                         </div>
                                     ) : (
                                         <div className="Ad__preview">
@@ -129,7 +132,6 @@ Ad.propTypes = {
 const mapStateToProps = (state) => ({
     stilling: state.adData,
     isEditingAd: state.ad.isEditingAd,
-    editTitle: state.ad.editTitle,
     status: state.adData.administration.status
 });
 

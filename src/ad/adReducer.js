@@ -51,6 +51,9 @@ export const DELETE_AD_FROM_MY_ADS = 'DELETE_AD_FROM_MY_ADS';
 export const SHOW_DELETE_AD_MODAL = 'SHOW_DELETE_AD_MODAL';
 export const HIDE_DELETE_AD_MODAL = 'HIDE_DELETE_AD_MODAL';
 
+export const TOGGLE_EDIT_TITLE = 'TOGGLE_EDIT_TITLE';
+export const SET_EDIT_TITLE = 'SET_EDIT_TITLE';
+
 export const EDIT_AD = 'EDIT_AD';
 export const PREVIEW_EDIT_AD = 'PREVIEW_EDIT_AD';
 
@@ -82,13 +85,15 @@ export const ADD_COPIED_ADS = 'ADD_COPIED_ADS';
 export const CLEAR_COPIED_ADS = 'CLEAR_COPIED_ADS';
 
 export const DEFAULT_TITLE = 'Overskrift på annonsen';
+export const DEFAULT_TITLE_NEW_AD = 'Ny stilling';
 
 const initialState = {
     error: undefined,
     isSavingAd: false,
     isFetchingStilling: false,
     isEditingAd: false,
-    editTitle: 'Ny stilling',
+    isEditingTitle: false,
+    editTitle: DEFAULT_TITLE_NEW_AD,
     originalData: undefined,
     hasSavedChanges: false,
     copiedAds: [],
@@ -157,8 +162,7 @@ export default function adReducer(state = initialState, action) {
         case EDIT_AD:
             return {
                 ...state,
-                isEditingAd: true,
-                editTitle: 'Endre stilling'
+                isEditingAd: true
             };
         case PREVIEW_EDIT_AD:
             return {
@@ -238,6 +242,16 @@ export default function adReducer(state = initialState, action) {
                 ...state,
                 copiedAds: []
             };
+        case TOGGLE_EDIT_TITLE:
+            return {
+                ...state,
+                isEditingTitle: !state.isEditingTitle
+            };
+        case SET_EDIT_TITLE:
+            return {
+                ...state,
+                editTitle: action.title
+            };
         default:
             return state;
     }
@@ -278,7 +292,7 @@ function* createAd() {
         const postUrl = `${AD_API}ads?classify=true`;
 
         const response = yield fetchPost(postUrl, {
-            title: DEFAULT_TITLE,
+            title: DEFAULT_TITLE_NEW_AD,
             createdBy: 'pam-rekrutteringsbistand',
             updatedBy: 'pam-rekrutteringsbistand',
             source: 'DIR',
