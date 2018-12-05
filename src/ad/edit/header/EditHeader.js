@@ -9,6 +9,10 @@ import { SET_EDIT_TITLE, TOGGLE_EDIT_TITLE } from '../../adReducer';
 import { SET_AD_TITLE } from '../../adDataReducer';
 import { connect } from 'react-redux';
 
+const headerClassName = (feil) => {
+    return `skjemaelement__input Ad__edit__top-section-input ${feil ? 'skjemaelement__input--harFeil' : ''}`;
+};
+
 class EditHeader extends React.Component {
     constructor(props) {
         super(props);
@@ -27,18 +31,17 @@ class EditHeader extends React.Component {
     };
 
     handleSaveTitle = () => {
-        const { toggleEditTitle, saveTitle, saveAd } = this.props;
+        const { toggleEditTitle, saveTitle } = this.props;
         const value = this.titleInput.current.value;
+        saveTitle(value);
 
         if (value && value !== '') {
-            saveTitle(this.titleInput.current.value);
+            toggleEditTitle();
         }
-
-        toggleEditTitle();
     };
 
     render() {
-        const { isEditingTitle, editTitle, onPreviewAdClick, isNew } = this.props;
+        const { isEditingTitle, editTitle, onPreviewAdClick, isNew, validation } = this.props;
         const { uuid, status, title, source } = this.props.stilling;
         const showCandidateLinks = (status === AdminStatusEnum.DONE || status === AdminStatusEnum.ACTIVE);
 
@@ -49,7 +52,7 @@ class EditHeader extends React.Component {
                         <input
                             type="text"
                             onChange={this.handleTitleInput}
-                            className="skjemaelement__input Ad__edit__top-section-input"
+                            className={headerClassName(validation.title)}
                             value={editTitle}
                             ref={this.titleInput}
                             autoFocus
@@ -64,6 +67,7 @@ class EditHeader extends React.Component {
                         <Knapp
                             className="Ad__edit__top-section-button"
                             onClick={this.handleEditToggle}
+                            disabled={validation.title}
                             mini
                         >
                             Avbryt
@@ -87,6 +91,9 @@ class EditHeader extends React.Component {
                         }
                     </div>
                 )}
+                <div role="alert" aria-live="assertive">
+                    {validation.title && <div className="skjemaelement__feilmelding">{validation.title}</div>}
+                </div>
                 <Normaltekst>* er obligatoriske felter du må fylle ut</Normaltekst>
                 <div className="Ad__edit__menu">
                     {showCandidateLinks && (
@@ -149,13 +156,14 @@ const mapStateToProps = (state) => ({
     stilling: state.adData,
     status: state.adData.administration.status,
     isEditingTitle: state.ad.isEditingTitle,
-    editTitle: state.ad.editTitle
+    editTitle: state.ad.editTitle,
+    validation: state.adValidation.errors
 });
 
 const mapDispatchToProps = (dispatch) => ({
     toggleEditTitle: () => dispatch({ type: TOGGLE_EDIT_TITLE }),
     setEditTitle: (title) => dispatch({ type: SET_EDIT_TITLE, title }),
-    saveTitle: (title) => dispatch({ type: SET_AD_TITLE, title }),
+    saveTitle: (title) => dispatch({ type: SET_AD_TITLE, title })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditHeader);
