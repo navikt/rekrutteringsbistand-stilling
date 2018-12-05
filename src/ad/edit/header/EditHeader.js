@@ -5,7 +5,7 @@ import { Sidetittel, Normaltekst } from 'nav-frontend-typografi';
 import AdminStatusEnum from '../../administration/adminStatus/AdminStatusEnum';
 import './EditHeader.less';
 import AWithIcon from '../../../common/aWithIcon/AWithIcon';
-import { SET_EDIT_TITLE, TOGGLE_EDIT_TITLE } from '../../adReducer';
+import { DEFAULT_TITLE, SET_EDIT_TITLE, TOGGLE_EDIT_TITLE } from '../../adReducer';
 import { SET_AD_TITLE } from '../../adDataReducer';
 import { connect } from 'react-redux';
 
@@ -25,9 +25,16 @@ class EditHeader extends React.Component {
     };
 
     handleEditToggle = () => {
-        const { toggleEditTitle, setEditTitle } = this.props;
-        toggleEditTitle();
+        const { isEditingTitle, toggleEditTitle, setEditTitle, saveTitle } = this.props;
         setEditTitle(this.props.stilling.title);
+
+        if (isEditingTitle && this.props.stilling.title === '') {
+            const backupTitle = this.state.previousTitle || DEFAULT_TITLE;
+            saveTitle(backupTitle);
+            setEditTitle(this.props.stilling.title);
+        }
+
+        toggleEditTitle();
     };
 
     handleSaveTitle = () => {
@@ -36,6 +43,7 @@ class EditHeader extends React.Component {
         saveTitle(value);
 
         if (value && value !== '') {
+            this.setState({ previousTitle: value });
             toggleEditTitle();
         }
     };
@@ -67,7 +75,6 @@ class EditHeader extends React.Component {
                         <Knapp
                             className="Ad__edit__top-section-button"
                             onClick={this.handleEditToggle}
-                            disabled={validation.title}
                             mini
                         >
                             Avbryt
