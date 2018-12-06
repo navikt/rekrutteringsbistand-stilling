@@ -1,3 +1,30 @@
+## RELEASE - 0.11.87-980b773
+#### New in this release: 
++ 2018-12-05 [PAM-2027] Fiks lagring av tittel
++ 2018-12-05 [PAM-2027] Revert valideringslogikk, refaktorer
++ 2018-12-05 [PAM-2027] Refaktorer
++ 2018-12-05 [PAM-2027] Sett previousTitle ved init av komponenten
++ 2018-12-05 [PAM-2027] Opprett tidligere tittel om bruker avbryter etter mislykket lagring
++ 2018-12-05 [PAM-2027] Fiks validering av tittel
++ 2018-12-05 [PAM-2027] Fiks route ved oppretting av ny stilling
++ 2018-12-05 [PAM-2027] Vis feilmelding om bruker lagrer tom tittel
++ 2018-12-04 [Fix] Linter
++ 2018-12-04 [Fix] Indentering
++ 2018-12-04 [PAM-2260] Refaktorer
++ 2018-12-04 [PAM-2260] Sjekk at veileders navn er gylig ved lasting av side
++ 2018-12-04 [PAM-2245] Gjør header non-sticky
++ 2018-12-04 [PAM-2248] Fiks plassering av publiseringspanel
++ 2018-12-03 [Fix] Refaktorer
++ 2018-11-29 [PAM-2027] Fiks styling
++ 2018-11-29 [PAM-2027] Refaktorer
++ 2018-11-29 [PAM-2027] Refaktorer
++ 2018-11-29 [PAM-2027] Fiks sjekk av lagret-status
++ 2018-11-29 [PAM-2027] Toggle synlighet av overskrifts-felt
++ 2018-11-28 [PAM-2027] Fiks
++ 2018-11-27 [PAM-2027] Legg til redigeringsknapp for tittel
++ 2018-11-27 [PAM-2027] Legg til edit-ikon
++ 2018-11-27 [PAM-2027] Fiks layout
++ 2018-11-27 [Fix] Endre proptype for isEditing til bool
 ## RELEASE - 0.10.84-0d8d7d2
 #### New in this release: 
 + 2018-11-30 [PAM-2021]: søke på kommune
