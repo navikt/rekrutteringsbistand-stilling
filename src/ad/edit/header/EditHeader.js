@@ -17,25 +17,22 @@ class EditHeader extends React.Component {
     constructor(props) {
         super(props);
         this.titleInput = React.createRef();
-
         this.state = {
             validationError: false
         };
     }
 
     handleTitleInput = (event) => {
-        const { setEditTitle } = this.props;
-        setEditTitle(event.target.value);
+        this.props.setEditTitle(event.target.value);
     };
 
     handleEditToggle = () => {
         const { isEditingTitle, toggleEditTitle, setEditTitle } = this.props;
-        setEditTitle(this.props.stilling.title);
-
         if (isEditingTitle) {
             this.setState({ validationError: false });
         }
 
+        setEditTitle(this.props.stilling.title);
         toggleEditTitle();
     };
 
@@ -47,6 +44,7 @@ class EditHeader extends React.Component {
             saveTitle(value);
             saveAd();
             toggleEditTitle();
+            this.setState({ validationError: false})
         } else {
             this.setState({ validationError: true })
         }
@@ -176,7 +174,7 @@ const mapDispatchToProps = (dispatch) => ({
     toggleEditTitle: () => dispatch({ type: TOGGLE_EDIT_TITLE }),
     setEditTitle: (title) => dispatch({ type: SET_EDIT_TITLE, title }),
     saveTitle: (title) => dispatch({ type: SET_AD_TITLE, title }),
-    saveAd: () => dispatch({ type: SAVE_AD })
+    saveAd: () => dispatch({ type: SAVE_AD, showModal: false })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditHeader);
