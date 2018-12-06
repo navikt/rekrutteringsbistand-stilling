@@ -20,6 +20,10 @@ class EditHeader extends React.Component {
         this.state = {
             validationError: false
         };
+
+        if (props.isEditingTitle && !props.editTitle) {
+            props.toggleEditTitle();
+        }
     }
 
     handleTitleInput = (event) => {
