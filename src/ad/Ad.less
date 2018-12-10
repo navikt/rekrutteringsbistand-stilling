@@ -2,28 +2,27 @@
 
 .Ad {
   background: @navLysGra;
-  min-height: calc(~"100vh - 8rem");
+  min-height: @ad-height;
 }
 
 .Ad__flex {
   display: flex;
-  overflow-y: auto;
 }
 
 .Ad__flex__center {
   flex: auto;
+  flex-shrink: 2;
+  overflow-y: auto;
+  height: @ad-height;
+  min-width: 500px;
 }
 
 .Ad__flex__right {
-  width: @admin-width-large !important;
+  flex: auto;
   border-left: 2px solid #dddddd;
   background: #EBF3FB;
-}
-
-@media (max-width: @admin-break) {
-  .Ad__flex__right {
-    width: @admin-width-small !important;
-  }
+  overflow: hidden;
+  max-height: @ad-height;
 }
 
 .Ad__flex__center__inner {
