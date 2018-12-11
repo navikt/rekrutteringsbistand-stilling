@@ -57,7 +57,7 @@ class EditHeader extends React.Component {
     render() {
         const { isEditingTitle, editTitle, onPreviewAdClick, isNew, validation } = this.props;
         const { uuid, status, title, source } = this.props.stilling;
-        const showCandidateLinks = (status === AdminStatusEnum.DONE || status === AdminStatusEnum.ACTIVE);
+        const showCandidateLinks = (status === AdminStatusEnum.DONE || status === AdminStatusEnum.ACTIVE) && source === 'DIR';
 
         return (
             <div>
@@ -117,7 +117,7 @@ class EditHeader extends React.Component {
                             text="Finn kandidater"
                         />
                     )}
-                    {showCandidateLinks && source === 'DIR' && (
+                    {showCandidateLinks && (
                         <AWithIcon
                             href={'#'}
                             classNameText="typo-element"
@@ -125,7 +125,7 @@ class EditHeader extends React.Component {
                             text="Legg til kandidat"
                         />
                     )}
-                    {showCandidateLinks && source === 'DIR' && (
+                    {showCandidateLinks && (
                         <AWithIcon
                             href={`/kandidater/lister/stilling/${uuid}/detaljer`}
                             classNameText="typo-element"

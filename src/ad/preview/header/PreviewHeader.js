@@ -22,7 +22,7 @@ class PreviewMenu extends React.Component {
 
     render() {
         const { stilling, status } = this.props;
-        const showCandidateLinks = (status === AdminStatusEnum.DONE);
+        const showCandidateLinks = (status === AdminStatusEnum.DONE) && stilling && stilling.source === 'DIR';
         const { reportee, navIdent } = stilling.administration;
 
         return (
@@ -57,7 +57,7 @@ class PreviewMenu extends React.Component {
                             text="Finn kandidater"
                         />
                     )}
-                    {showCandidateLinks && stilling && stilling.source === 'DIR' && (
+                    {showCandidateLinks && (
                         <AWithIcon
                             href={'#'}
                             classNameText="typo-element"
@@ -65,7 +65,7 @@ class PreviewMenu extends React.Component {
                             text="Legg til kandidat"
                         />
                     )}
-                    {showCandidateLinks && stilling && stilling.source === 'DIR' && (
+                    {showCandidateLinks && (
                         <AWithIcon
                             href={`/kandidater/lister/stilling/${stilling.uuid}/detaljer`}
                             classNameText="typo-element"
