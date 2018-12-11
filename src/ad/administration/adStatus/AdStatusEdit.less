@@ -32,3 +32,24 @@
 .AdStatusEdit__StopAd__button {
   padding: 0 1rem 0 1rem !important;
 }
+
+@media (max-width: 1350px) {
+  .AdStatusEdit__buttons {
+    flex-direction: column;
+    margin-bottom: 0.5rem;
+    margin-right: 0;
+    width: 100%;
+  }
+
+  .AdStatusEdit__buttons__button {
+    margin-bottom: 0.5rem;
+  }
+
+  .AdStatusEdit__buttons-mini {
+    margin-bottom: 2.5rem;
+  }
+
+  .AdStatusEdit__buttons__button:not(:last-child) {
+    margin-right: 0;
+  }
+}
