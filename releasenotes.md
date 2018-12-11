@@ -1,3 +1,6 @@
+## RELEASE - 0.12.90-bb7d98d
+#### New in this release: 
++ 2018-12-11 [PAM-2251] Fjern kandidatlenker for annonser som ikke er direktemeldte
 ## RELEASE - 0.11.87-980b773
 #### New in this release: 
 + 2018-12-05 [PAM-2027] Fiks lagring av tittel
