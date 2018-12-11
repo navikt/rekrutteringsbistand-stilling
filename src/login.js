@@ -1,8 +1,8 @@
 import { LOGIN_URL } from './fasitProperties';
 
 const whiteList = [
-    '/stillinger',
-    '/kandidater'
+    'stillinger',
+    'kandidater'
 ];
 
 export const redirectToLogin = () => {
