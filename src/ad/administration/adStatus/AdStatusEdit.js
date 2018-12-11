@@ -120,7 +120,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     publish: () => dispatch({ type: PUBLISH_AD }),
     stop: () => dispatch({ type: SHOW_STOP_AD_MODAL }),
-    saveAd: () => dispatch({ type: SAVE_AD }),
+    saveAd: () => dispatch({ type: SAVE_AD, showModal: true }),
     showHasChangesModal: () => dispatch({ type: SHOW_HAS_CHANGES_MODAL }),
     publishAdChanges: () => dispatch({ type: PUBLISH_AD_CHANGES })
 });

@@ -365,14 +365,16 @@ function* stopAdFromMyAds() {
     yield put({ type: FETCH_MY_ADS });
 }
 
-function* saveAd() {
+function* saveAd(action) {
     yield validateBeforeSave();
     const state = yield select();
     if (hasValidationErrorsOnSave(state.adValidation.errors)) {
         yield put({ type: SHOW_AD_SAVED_ERROR_MODAL });
     } else {
         yield save();
-        yield showAlertStripe(AdAlertStripeMode.SAVED);
+        if (action.showModal) {
+            yield showAlertStripe(AdAlertStripeMode.SAVED);
+        }
     }
 }
 
