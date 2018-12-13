@@ -87,6 +87,8 @@ export const CLEAR_COPIED_ADS = 'CLEAR_COPIED_ADS';
 export const DEFAULT_TITLE = 'Overskrift på annonsen';
 export const DEFAULT_TITLE_NEW_AD = 'Ny stilling';
 
+export const SET_FIRST_PUBLISHED = 'SET_FIRST_PUBLISHED';
+
 const initialState = {
     error: undefined,
     isSavingAd: false,
@@ -102,7 +104,8 @@ const initialState = {
     showStopAdModal: false,
     showDeleteAdModal: false,
     showAdPublishedModal: false,
-    showAdSavedErrorModal: false
+    showAdSavedErrorModal: false,
+    firstPublished: false
 };
 
 export default function adReducer(state = initialState, action) {
@@ -252,6 +255,11 @@ export default function adReducer(state = initialState, action) {
                 ...state,
                 editTitle: action.title
             };
+        case SET_FIRST_PUBLISHED:
+            return {
+                ...state,
+                firstPublished: action.firstPublished
+            };
         default:
             return state;
     }
@@ -349,6 +357,9 @@ function* publishAd() {
         yield put({ type: SET_ADMIN_STATUS, status: AdminStatusEnum.DONE });
         yield put({ type: SET_AD_STATUS, status: AdStatusEnum.ACTIVE });
         yield put({ type: SHOW_AD_PUBLISHED_MODAL });
+        if (state.ad.firstPublished === false) {
+            yield put({ type: SET_FIRST_PUBLISHED, firstPublished: true });
+        }
         yield save();
     }
 }
