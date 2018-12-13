@@ -83,9 +83,8 @@ function* validatePostalCode() {
 export function* validateStyrk() {
     const state = yield select();
     const { categoryList } = state.adData;
-    const { originalData } = state.ad;
 
-    if (valueIsNotSet(categoryList) && !valueIsNotSet(originalData.categoryList)) {
+    if (valueIsNotSet(categoryList)) {
         yield put({ type: ADD_VALIDATION_ERROR, field: 'styrk', message: 'STYRK mangler' });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'styrk' });
