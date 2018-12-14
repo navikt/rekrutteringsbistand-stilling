@@ -1,3 +1,9 @@
+## RELEASE - 0.13.94-3eaef72
+#### New in this release: 
++ 2018-12-14 [PAM-2349]: tekstendring placeholder
++ 2018-12-14 [PAM-2278]: endret tekst fra orgnr til virksomhetsnummer
++ 2018-12-11 [PAM-2312] Redirect tilbake til siden bruker var på ved login
++ 2018-12-11 [PAM-2277]: Fjerner at det er lov å publisere stilling uten styrk selv om den aldri har vært satt før
 ## RELEASE - 0.12.90-bb7d98d
 #### New in this release: 
 + 2018-12-11 [PAM-2251] Fjern kandidatlenker for annonser som ikke er direktemeldte
