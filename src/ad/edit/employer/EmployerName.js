@@ -76,7 +76,7 @@ class EmployerName extends React.Component {
                         id="EmployerName__typeahead"
                         className="EmployerName__typeahead"
                         label="Bedriftens navn hentet fra Enhetsregisteret*"
-                        placeholder="Skriv inn arb.givernavn eller virksomhetsnummer"
+                        placeholder="Skriv inn arbeidsgivernavn eller virksomhetsnummer"
                         onBlur={this.onTypeAheadValueBlur}
                         onSelect={this.onTypeAheadSuggestionSelected}
                         onChange={this.onTypeAheadValueChange}
