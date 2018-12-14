@@ -50,7 +50,7 @@ class EmployerName extends React.Component {
             }
         }
         if (suggestion.orgnr) {
-            commaSeparate = [...commaSeparate, `Orgnr. ${suggestion.orgnr}`];
+            commaSeparate = [...commaSeparate, `Virksomhetsnummer: ${suggestion.orgnr}`];
         }
         return (
             <div className="Employer__typeahead__item">
@@ -76,7 +76,7 @@ class EmployerName extends React.Component {
                         id="EmployerName__typeahead"
                         className="EmployerName__typeahead"
                         label="Bedriftens navn hentet fra Enhetsregisteret*"
-                        placeholder="Skriv inn arb.givernavn eller org.nr"
+                        placeholder="Skriv inn arb.givernavn eller virksomhetsnummer"
                         onBlur={this.onTypeAheadValueBlur}
                         onSelect={this.onTypeAheadSuggestionSelected}
                         onChange={this.onTypeAheadValueChange}
