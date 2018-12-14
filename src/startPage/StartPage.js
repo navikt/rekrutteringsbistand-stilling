@@ -8,9 +8,11 @@ import { Systemtittel } from 'nav-frontend-typografi';
 import './StartPage.less';
 import SearchBox from '../searchPage/searchBox/SearchBox';
 import { FETCH_REPORTEE } from '../reportee/reporteeReducer';
+import { RESET_SEARCH } from '../searchPage/searchReducer';
 
 class StartPage extends React.Component {
     componentWillMount() {
+        this.props.resetSearch();
         this.props.fetchReportee();
     }
 
@@ -82,13 +84,15 @@ class StartPage extends React.Component {
 
 StartPage.propTypes = {
     history: PropTypes.shape().isRequired,
-    fetchReportee: PropTypes.func.isRequired
+    fetchReportee: PropTypes.func.isRequired,
+    resetSearch: PropTypes.func.isRequired
 };
 
 const mapStateToProps = () => ({});
 
 const mapDispatchToProps = (dispatch) => ({
-    fetchReportee: () => dispatch({ type: FETCH_REPORTEE })
+    fetchReportee: () => dispatch({ type: FETCH_REPORTEE }),
+    resetSearch: () => dispatch({ type: RESET_SEARCH })
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(StartPage));
