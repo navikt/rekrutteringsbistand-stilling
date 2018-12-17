@@ -8,7 +8,7 @@ import employerReducer, { employerSaga } from './ad/edit/employer/employerReduce
 import locationCodeReducer, { locationSaga } from './ad/edit/location/locationCodeReducer';
 import styrkReducer, { styrkSaga } from './ad/edit/jobDetails/styrk/styrkReducer';
 import adReducer, { adSaga } from './ad/adReducer';
-import searchReducer, { RESET_SEARCH, searchSaga } from './searchPage/searchReducer';
+import searchReducer, { searchSaga } from './searchPage/searchReducer';
 import municipalReducer, { municipalSaga } from './searchPage/filter/municipal/municipalReducer';
 import municipalOrCountryReducer, { municipalOrCountrySaga } from './ad/edit/location/municipalOrCountryReducer';
 import Ad from './ad/Ad';
@@ -54,15 +54,6 @@ sagaMiddleware.run(myAdsSaga);
 sagaMiddleware.run(adDataSaga);
 sagaMiddleware.run(municipalOrCountrySaga);
 
-class StillingssokWrapper extends React.Component {
-    componentDidMount() {
-        store.dispatch({ type: RESET_SEARCH });
-    }
-
-    render() {
-        return this.props.children;
-    }
-}
 
 const Main = () => (
     <main>
@@ -75,10 +66,9 @@ const Main = () => (
             <Route exact path="/" component={StartPage} />
             <Route exact path="/minestillinger" component={MyAds} />
             <Route exact path="/stilling" component={Ad} />
-            <StillingssokWrapper>
-                <Route exact path="/stillinger" component={SearchPage} />
-                <Route exact path="/stilling/:uuid" component={Ad} />
-            </StillingssokWrapper>
+
+            <Route exact path="/stillinger" component={SearchPage} />
+            <Route exact path="/stilling/:uuid" component={Ad} />
             <Route exact path="*" component={StartPage} />
         </Switch>
     </main>
