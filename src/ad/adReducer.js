@@ -11,7 +11,8 @@ import {
     SET_ADMIN_STATUS,
     SET_NAV_IDENT,
     SET_REPORTEE,
-    SET_UPDATED_BY
+    SET_UPDATED_BY,
+    SET_FIRST_PUBLISHED
 } from './adDataReducer';
 import AdminStatusEnum from './administration/adminStatus/AdminStatusEnum';
 import AdStatusEnum from './administration/adStatus/AdStatusEnum';
@@ -87,8 +88,6 @@ export const CLEAR_COPIED_ADS = 'CLEAR_COPIED_ADS';
 export const DEFAULT_TITLE = 'Overskrift på annonsen';
 export const DEFAULT_TITLE_NEW_AD = 'Ny stilling';
 
-export const SET_FIRST_PUBLISHED = 'SET_FIRST_PUBLISHED';
-
 const initialState = {
     error: undefined,
     isSavingAd: false,
@@ -104,8 +103,7 @@ const initialState = {
     showStopAdModal: false,
     showDeleteAdModal: false,
     showAdPublishedModal: false,
-    showAdSavedErrorModal: false,
-    firstPublished: false
+    showAdSavedErrorModal: false
 };
 
 export default function adReducer(state = initialState, action) {
@@ -255,11 +253,6 @@ export default function adReducer(state = initialState, action) {
                 ...state,
                 editTitle: action.title
             };
-        case SET_FIRST_PUBLISHED:
-            return {
-                ...state,
-                firstPublished: action.firstPublished
-            };
         default:
             return state;
     }
@@ -356,10 +349,10 @@ function* publishAd() {
     } else {
         yield put({ type: SET_ADMIN_STATUS, status: AdminStatusEnum.DONE });
         yield put({ type: SET_AD_STATUS, status: AdStatusEnum.ACTIVE });
-        yield put({ type: SHOW_AD_PUBLISHED_MODAL });
-        if (state.ad.firstPublished === false) {
-            yield put({ type: SET_FIRST_PUBLISHED, firstPublished: true });
+        if (state.adData.firstPublished === false) {
+            yield put({ type: SET_FIRST_PUBLISHED });
         }
+        yield put({ type: SHOW_AD_PUBLISHED_MODAL });
         yield save();
     }
 }
