@@ -8,6 +8,7 @@ import AWithIcon from '../../../common/aWithIcon/AWithIcon';
 import { SAVE_AD, SET_EDIT_TITLE, TOGGLE_EDIT_TITLE } from '../../adReducer';
 import { SET_AD_TITLE } from '../../adDataReducer';
 import { connect } from 'react-redux';
+import LeggTilKandidatModal from '../../kandidatModal/LeggTilKandidatModal';
 
 const headerClassName = (feil) => {
     return `skjemaelement__input Ad__edit__top-section-input ${feil ? 'skjemaelement__input--harFeil' : ''}`;
@@ -18,7 +19,8 @@ class EditHeader extends React.Component {
         super(props);
         this.titleInput = React.createRef();
         this.state = {
-            validationError: false
+            validationError: false,
+            showKandidatModal: false
         };
 
         if (props.isEditingTitle && !props.editTitle) {
@@ -54,6 +56,12 @@ class EditHeader extends React.Component {
         }
     };
 
+    toggleKandidatModal = () => {
+        this.setState({
+            showKandidatModal: !this.state.showKandidatModal
+        });
+    };
+
     render() {
         const { isEditingTitle, editTitle, onPreviewAdClick, isNew, validation } = this.props;
         const { uuid, status, title, source } = this.props.stilling;
@@ -61,6 +69,13 @@ class EditHeader extends React.Component {
 
         return (
             <div>
+                {this.state.showKandidatModal &&
+                <LeggTilKandidatModal
+                    vis={this.state.showKandidatModal}
+                    onClose={this.toggleKandidatModal}
+                    stillingsId={stilling.id}
+                />
+                }
                 {isEditingTitle ? (
                     <div className={"Ad__edit__top-section"}>
                         <input
@@ -118,12 +133,18 @@ class EditHeader extends React.Component {
                         />
                     )}
                     {showCandidateLinks && (
-                        <AWithIcon
-                            href={'#'}
-                            classNameText="typo-element"
-                            classNameLink="Ad__edit__menu-item AddCandidate"
-                            text="Legg til kandidat"
-                        />
+                        <div
+                            role="button"
+                            className="Ad__preview__menu-item"
+                            onClick={this.toggleKandidatModal}
+                        >
+                            <AWithIcon
+                                href={'#'}
+                                classNameText="typo-element"
+                                classNameLink="Ad__preview__menu-item AddCandidate"
+                                text="Legg til kandidat"
+                            />
+                        </div>
                     )}
                     {showCandidateLinks && (
                         <AWithIcon

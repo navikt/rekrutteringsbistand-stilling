@@ -32,11 +32,11 @@ server.engine('html', mustacheExpress());
 
 
 const writeEnvironmentVariablesToFile = () => {
-    const fileContent =
-        `window.__PAM_AD_API__="${process.env.PAM_AD_API_BACKEND_REKRUTTERINGSBISTAND_URL}";\n` +
-        `window.__PAM_SEARCH_API__="${process.env.PAMADAPIBACKENDSEARCH_URL}";\n` +
-        `window.__PAM_CONTEXT_PATH__="";\n` +
-        `window.__PAM_LOGIN_URL__="${process.env.LOGIN_URL}";\n`;
+    const fileContent = `window.__PAM_AD_API__="${process.env.PAM_AD_API_BACKEND_REKRUTTERINGSBISTAND_URL}";\n`
+        + `window.__PAM_SEARCH_API__="${process.env.PAMADAPIBACKENDSEARCH_URL}";\n`
+        + `window.__PAM_CONTEXT_PATH__="";\n`
+        + `window.__PAM_LOGIN_URL__="${process.env.LOGIN_URL}";\n`
+        + `window.__PAM_KANDIDATLISTE_API_URL__="/kandidater/rest/veileder";\n`;
 
     fs.writeFile(path.resolve(__dirname, 'dist/js/env.js'), fileContent, (err) => {
         if (err) throw err;
