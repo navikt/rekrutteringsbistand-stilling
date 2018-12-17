@@ -28,7 +28,8 @@ const initialState = {
     },
     error: undefined,
     fodselsnummer: undefined,
-    henteStatus: Hentestatus.IKKE_HENTET,
+    kandidatStatus: Hentestatus.IKKE_HENTET,
+    kandidatlisteStatus: Hentestatus.IKKE_HENTET,
     kandidat: {
         arenaKandidatnr: undefined,
         fornavn: undefined,
@@ -66,24 +67,24 @@ export default function kandidatReducer(state = initialState, action) {
         case HENT_KANDIDAT_MED_FNR_RESET:
             return {
                 ...state,
-                henteStatus: Hentestatus.IKKE_HENTET,
+                kandidatStatus: Hentestatus.IKKE_HENTET,
                 kandidat: initialState.kandidat
             };
         case HENT_KANDIDAT_MED_FNR_SUCCESS:
             return {
                 ...state,
-                henteStatus: Hentestatus.SUCCESS,
+                kandidatStatus: Hentestatus.SUCCESS,
                 kandidat: action.kandidat
             };
         case HENT_KANDIDAT_MED_FNR_NOT_FOUND:
             return {
                 ...state,
-                henteStatus: Hentestatus.FINNES_IKKE
+                kandidatStatus: Hentestatus.FINNES_IKKE
             };
         case HENT_KANDIDAT_MED_FNR_FAILURE:
             return {
                 ...state,
-                henteStatus: Hentestatus.FAILURE
+                kandidatStatus: Hentestatus.FAILURE
             };
         case HENT_KANDIDATLISTE:
             return {
@@ -96,7 +97,7 @@ export default function kandidatReducer(state = initialState, action) {
         case HENT_KANDIDATLISTE_FAILURE:
             return {
                 ...state,
-                henteStatus: Hentestatus.FAILURE,
+                kandidatlisteStatus: Hentestatus.FAILURE,
                 detaljer: {
                     ...state.detaljer,
                     fetching: false
@@ -105,12 +106,12 @@ export default function kandidatReducer(state = initialState, action) {
         case HENT_KANDIDATLISTE_NOT_FOUND:
             return {
                 ...state,
-                henteStatus: Hentestatus.FINNES_IKKE
+                kandidatlisteStatus: Hentestatus.FINNES_IKKE
             };
         case HENT_KANDIDATLISTE_SUCCESS:
             return {
                 ...state,
-                henteStatus: Hentestatus.SUCCESS,
+                kandidatlisteStatus: Hentestatus.SUCCESS,
                 detaljer: {
                     ...state.detaljer,
                     kandidatliste: action.kandidatliste,

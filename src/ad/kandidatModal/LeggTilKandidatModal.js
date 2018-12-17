@@ -39,15 +39,15 @@ class LeggTilKandidatModal extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { henteStatus } = this.props;
-        if (henteStatus !== prevProps.henteStatus) {
-            if (henteStatus === Hentestatus.SUCCESS) {
+        const { kandidatStatus } = this.props;
+        if (kandidatStatus !== prevProps.kandidatStatus) {
+            if (kandidatStatus === Hentestatus.SUCCESS) {
                 this.setState({
                     showFodselsnummer: true,
                     errorMessage: undefined,
                     alleredeLagtTil: this.kandidatenFinnesAllerede()
                 });
-            } else if (henteStatus === Hentestatus.FINNES_IKKE) {
+            } else if (kandidatStatus === Hentestatus.FINNES_IKKE) {
                 this.setState({
                     showFodselsnummer: false,
                     errorMessage: 'Fodselsnummer finnes ikke'
@@ -83,14 +83,14 @@ class LeggTilKandidatModal extends React.Component {
     leggTilKandidat = () => {
         const {
             fodselsnummer,
-            henteStatus,
+            kandidatStatus,
             kandidat,
             kandidatliste,
             leggTilKandidatMedFnr,
             onClose
         } = this.props;
 
-        if (henteStatus === Hentestatus.SUCCESS && !this.kandidatenFinnesAllerede()) {
+        if (kandidatStatus === Hentestatus.SUCCESS && !this.kandidatenFinnesAllerede()) {
             const nyKandidat = {
                 kandidatnr: kandidat.arenaKandidatnr,
                 sisteArbeidserfaring: kandidat.mestRelevanteYrkeserfaring ? kandidat.mestRelevanteYrkeserfaring.styrkKodeStillingstittel : ''
@@ -167,7 +167,8 @@ LeggTilKandidatModal.defaultProps = {
 
 LeggTilKandidatModal.propTypes = {
     fodselsnummer: PropTypes.string,
-    henteStatus: PropTypes.string.isRequired,
+    kandidatStatus: PropTypes.string.isRequired,
+    kandidatlisteStatus: PropTypes.string.isRequired,
     hentKandidatMedFnr: PropTypes.func.isRequired,
     kandidat: PropTypes.shape({
         arenaKandidatnr: PropTypes.string,
@@ -190,7 +191,7 @@ LeggTilKandidatModal.propTypes = {
 
 const mapStateToProps = (state) => ({
     fodselsnummer: state.kandidat.fodselsnummer,
-    henteStatus: state.kandidat.henteStatus,
+    kandidatStatus: state.kandidat.kandidatStatus,
     kandidat: state.kandidat.kandidat,
     kandidatliste: state.kandidat.detaljer.kandidatliste,
     stillingsid: state.ad.originalData.uuid
