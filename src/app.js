@@ -24,6 +24,7 @@ import adValidationReducer, { validationSaga } from './ad/adValidationReducer';
 import savedSearchAlertStripeReducer from './ad/alertstripe/SavedAdAlertStripeReducer';
 import myAdsReducer, { myAdsSaga } from './myAds/myAdsReducer';
 import history from './history';
+import kandidatReducer, { kandidatSaga } from './ad/kandidatModal/kandidatReducer';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -32,14 +33,15 @@ const store = createStore(combineReducers({
     adData: adDataReducer,
     adValidation: adValidationReducer,
     employer: employerReducer,
+    kandidat: kandidatReducer,
     location: locationCodeReducer,
-    styrk: styrkReducer,
-    reportee: reporteeReducer,
-    search: searchReducer,
     municipal: municipalReducer,
-    myAds: myAdsReducer,
     municipalOrCountry: municipalOrCountryReducer,
-    savedAdAlertStripe: savedSearchAlertStripeReducer
+    myAds: myAdsReducer,
+    reportee: reporteeReducer,
+    savedAdAlertStripe: savedSearchAlertStripeReducer,
+    search: searchReducer,
+    styrk: styrkReducer
 }), applyMiddleware(sagaMiddleware));
 
 sagaMiddleware.run(adSaga);
@@ -53,6 +55,7 @@ sagaMiddleware.run(municipalSaga);
 sagaMiddleware.run(myAdsSaga);
 sagaMiddleware.run(adDataSaga);
 sagaMiddleware.run(municipalOrCountrySaga);
+sagaMiddleware.run(kandidatSaga);
 
 class StillingssokWrapper extends React.Component {
     componentDidMount() {
