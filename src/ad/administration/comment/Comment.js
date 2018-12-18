@@ -46,7 +46,7 @@ class Comment extends React.Component {
 
         return (
             <Textarea
-                label="Kommentar"
+                label="Kommentar (vises kun internt)"
                 maxLength={MAX_LENGTH_COMMENT}
                 onChange={this.onChange}
                 onBlur={this.onBlur}
