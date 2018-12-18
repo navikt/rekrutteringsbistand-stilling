@@ -4,9 +4,9 @@ import { Input } from 'nav-frontend-skjema';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Column, Row } from 'nav-frontend-grid';
 import { connect } from 'react-redux';
+import { SAVE_AD } from '../adReducer';
 import { RESET_VALIDATION_ERROR } from '../adValidationReducer';
 import './Edit.less';
-import Requirements from './requirements/Requirements';
 import PracticalInformation from './practicalInformation/PracticalInformation';
 import Employer from './employer/Employer';
 import JobDetails from './jobDetails/JobDetails';
@@ -15,36 +15,87 @@ import ContactPerson from './contactPerson/ContactPerson';
 import Application from './application/Application';
 import Location from './location/Location';
 import { formatISOString } from '../../utils';
+import { loginAndRedirectToAd } from '../../login';
+import TokenExpirationChecker, { TOKEN_EXPIRES_SOON, TOKEN_HAS_EXPIRED } from './session/TokenExpirationChecker';
+import SessionExpirationModal from './session/SessionExpirationModal';
 
 class Edit extends React.Component {
+    constructor(props) {
+        super(props);
+        this.tokenExpirationChecker = new TokenExpirationChecker();
+        this.tokenExpirationChecker.on(TOKEN_EXPIRES_SOON, this.showWillTimeoutModal);
+        this.tokenExpirationChecker.on(TOKEN_HAS_EXPIRED, this.showDidTimeoutModal);
+        this.state = {
+            willTimeout: false,
+            didTimeout: false
+        };
+    }
+
+    componentDidMount() {
+        this.tokenExpirationChecker.start();
+    }
+
     componentWillUnmount() {
         this.props.resetValidation();
+        this.tokenExpirationChecker.destroy();
     }
+
+    showWillTimeoutModal = () => {
+        this.setState({ willTimeout: true });
+    };
+
+    showDidTimeoutModal = () => {
+        this.setState({
+            willTimeout: false,
+            didTimeout: true
+        });
+        this.tokenExpirationChecker.pause();
+    };
+
+    saveAndLogin = () => {
+        this.props.saveAd();
+        this.loginAndRedirect();
+    };
+
+    loginAndRedirect = () => {
+        loginAndRedirectToAd(this.props.ad.uuid);
+    };
 
     render() {
         const { ad, isFetchingStilling, isNew } = this.props;
+        const { didTimeout, willTimeout } = this.state;
 
         if (isFetchingStilling) {
-            return (
-                <Loading />
-            );
+            return <Loading />;
         }
 
         return (
             <div className="Edit">
+                {willTimeout &&
+                <SessionExpirationModal
+                    title={'Du blir snart logget ut'}
+                    bodyText={'Lagre nå for å unngå å miste endringene dine.'}
+                    mainButtonText={'Lagre'}
+                    mainOnClick={this.saveAndLogin}
+                    secondaryButtonText={'Avbryt'}
+                    secondaryOnClick={this.loginAndRedirect}
+                    isOpen={willTimeout}
+                />
+                }
+                {didTimeout &&
+                <SessionExpirationModal
+                    title={'Du har blitt logget ut'}
+                    bodyText={'Denne sesjonen har utløpt.'}
+                    mainButtonText={'Logg inn'}
+                    mainOnClick={this.loginAndRedirect}
+                    isOpen={didTimeout}
+                />
+                }
                 <Row className="Edit__inner">
                     <Column xs="12" md="8">
                         <div className="Edit__left">
                             <Employer />
                             <JobDetails isNew={isNew} />
-                            {/* <Ekspanderbartpanel
-                             tittel="Hvem bør søke på stilingen"
-                             tittelProps="undertittel"
-                             border
-                             apen
-                             >
-                             <Requirements />
-                             </Ekspanderbartpanel> */}
                         </div>
                     </Column>
                     <Column xs="12" md="4">
@@ -88,6 +139,7 @@ Edit.propTypes = {
         updated: PropTypes.string,
         created: PropTypes.string,
         medium: PropTypes.string,
+        uuid: PropTypes.string,
         id: PropTypes.number
     }),
     isFetchingStilling: PropTypes.bool.isRequired,
@@ -101,6 +153,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+    saveAd: () => dispatch({ type: SAVE_AD, showModal: true }),
     resetValidation: () => dispatch({ type: RESET_VALIDATION_ERROR })
 });
 
