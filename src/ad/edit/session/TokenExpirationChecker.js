@@ -29,8 +29,6 @@ export default class TokenExpirationChecker extends EventEmitter {
         this.removeAllListeners();
     }
 
-    tokenWillExpireSoon = async () => (await checkTokenExpiration().content);
-
     timeout = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
     dispatchTokenExpired() {
@@ -53,7 +51,7 @@ export default class TokenExpirationChecker extends EventEmitter {
         await this.timeout(this.intervalInMilliseconds);
 
         try {
-            const tokenExpiresSoon = await this.tokenWillExpireSoon();
+            const tokenExpiresSoon = await checkTokenExpiration();
 
             if (tokenExpiresSoon && !this.isPaused) {
                 this.dispatchTokenExpiresSoon();

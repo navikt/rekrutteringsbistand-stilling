@@ -74,10 +74,10 @@ class Edit extends React.Component {
                 {willTimeout &&
                 <SessionExpirationModal
                     title={'Du blir snart logget ut'}
-                    bodyText={'Ønsker du å lagre dine endringer?'}
+                    bodyText={'Lagre nå for å unngå å miste endringene dine.'}
                     mainButtonText={'Lagre'}
                     mainOnClick={this.saveAndLogin}
-                    secondaryButtonText={'Forkast'}
+                    secondaryButtonText={'Avbryt'}
                     secondaryOnClick={this.loginAndRedirect}
                     isOpen={willTimeout}
                 />
