@@ -1,7 +1,7 @@
 import AdminStatusEnum from '../ad/administration/adminStatus/AdminStatusEnum';
 import toUrl from '../common/toUrl';
 import { AD_API, SEARCH_API } from '../fasitProperties';
-import { redirectToLogin } from '../login';
+import { loginAndRedirectToCurrentLocation } from '../login';
 
 export class ApiError {
     constructor(message, statusCode) {
@@ -20,11 +20,12 @@ async function request(url, options) {
 
     if (response.status !== 200 && response.status !== 201) {
         if (response.status === 401) {
-            redirectToLogin();
+            loginAndRedirectToCurrentLocation();
         } else {
             throw new ApiError(response.statusText, response.status);
         }
     }
+
     return response.json();
 }
 
@@ -162,3 +163,6 @@ export async function fetchOrgnrSuggestions(match) {
     };
 }
 
+export async function checkTokenExpiration() {
+    return await fetchGet(`${AD_API}reportee/isvalid`);
+}
