@@ -8,7 +8,7 @@ const LeggTilKandidatAlertStripe = ({ showAlertStripe, alertStripeMode, kandidat
     if (showAlertStripe && alertStripeMode === KandidatAlertStripeMode.SAVED) {
         return (
             <AlertStripeSuksess solid className="LeggTilKandidatAlertStripe">
-                {`Kandidat ${kandidat.fornavn} ${kandidat.etternavn} (${kandidat.fodselsnummer}) er lagt til`}
+                {`Kandidat ${kandidat.fornavn} ${kandidat.etternavn} er lagt til`}
             </AlertStripeSuksess>
         );
     } else if (showAlertStripe && alertStripeMode === KandidatAlertStripeMode.FAILURE) {
@@ -26,8 +26,7 @@ LeggTilKandidatAlertStripe.propTypes = {
     alertStripeMode: PropTypes.string.isRequired,
     kandidat: PropTypes.shape({
         fornavn: PropTypes.string,
-        etternavn: PropTypes.string,
-        fodselsnummer: PropTypes.string
+        etternavn: PropTypes.string
     })
 };
 
