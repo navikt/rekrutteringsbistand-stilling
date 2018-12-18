@@ -11,7 +11,8 @@ import {
     SET_ADMIN_STATUS,
     SET_NAV_IDENT,
     SET_REPORTEE,
-    SET_UPDATED_BY
+    SET_UPDATED_BY,
+    SET_FIRST_PUBLISHED
 } from './adDataReducer';
 import AdminStatusEnum from './administration/adminStatus/AdminStatusEnum';
 import AdStatusEnum from './administration/adStatus/AdStatusEnum';
@@ -348,6 +349,9 @@ function* publishAd() {
     } else {
         yield put({ type: SET_ADMIN_STATUS, status: AdminStatusEnum.DONE });
         yield put({ type: SET_AD_STATUS, status: AdStatusEnum.ACTIVE });
+        if (state.adData.firstPublished === false) {
+            yield put({ type: SET_FIRST_PUBLISHED });
+        }
         yield put({ type: SHOW_AD_PUBLISHED_MODAL });
         yield save();
     }

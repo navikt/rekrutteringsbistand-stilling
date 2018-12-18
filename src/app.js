@@ -25,6 +25,7 @@ import savedSearchAlertStripeReducer from './ad/alertstripe/SavedAdAlertStripeRe
 import myAdsReducer, { myAdsSaga } from './myAds/myAdsReducer';
 import history from './history';
 import { hasContextParameter, redirectToContext } from './login';
+import kandidatReducer, { kandidatSaga } from './ad/kandidatModal/kandidatReducer';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -33,14 +34,15 @@ const store = createStore(combineReducers({
     adData: adDataReducer,
     adValidation: adValidationReducer,
     employer: employerReducer,
+    kandidat: kandidatReducer,
     location: locationCodeReducer,
-    styrk: styrkReducer,
-    reportee: reporteeReducer,
-    search: searchReducer,
     municipal: municipalReducer,
-    myAds: myAdsReducer,
     municipalOrCountry: municipalOrCountryReducer,
-    savedAdAlertStripe: savedSearchAlertStripeReducer
+    myAds: myAdsReducer,
+    reportee: reporteeReducer,
+    savedAdAlertStripe: savedSearchAlertStripeReducer,
+    search: searchReducer,
+    styrk: styrkReducer
 }), applyMiddleware(sagaMiddleware));
 
 sagaMiddleware.run(adSaga);
@@ -54,6 +56,7 @@ sagaMiddleware.run(municipalSaga);
 sagaMiddleware.run(myAdsSaga);
 sagaMiddleware.run(adDataSaga);
 sagaMiddleware.run(municipalOrCountrySaga);
+sagaMiddleware.run(kandidatSaga);
 
 const Main = () => {
     if (hasContextParameter()) {

@@ -49,7 +49,6 @@ export async function fetchPost(url, body) {
             'X-Requested-With': 'XMLHttpRequest'
         }
     });
-
 }
 
 export async function fetchPut(url, body) {

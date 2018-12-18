@@ -9,15 +9,28 @@ import AdminStatusEnum from '../../administration/adminStatus/AdminStatusEnum';
 import AdTitle from './AdTitle';
 import './PreviewHeader.less';
 import AWithIcon from '../../../common/aWithIcon/AWithIcon';
-
+import LeggTilKandidatModal from '../../kandidatModal/LeggTilKandidatModal';
 
 class PreviewMenu extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            showKandidatModal: false
+        };
+    }
+
     onEditAdClick = () => {
         this.props.editAd();
     };
 
     onPrintClick = () => {
         window.print();
+    };
+
+    toggleKandidatModal = () => {
+        this.setState({
+            showKandidatModal: !this.state.showKandidatModal
+        });
     };
 
     render() {
@@ -27,6 +40,13 @@ class PreviewMenu extends React.Component {
 
         return (
             <div>
+                {this.state.showKandidatModal &&
+                    <LeggTilKandidatModal
+                        vis={this.state.showKandidatModal}
+                        onClose={this.toggleKandidatModal}
+                        stillingsId={stilling.id}
+                    />
+                }
                 <div className="Preview__TopSection">
                     <div className="Preview__TopSection__left">
                         <div>
@@ -58,12 +78,18 @@ class PreviewMenu extends React.Component {
                         />
                     )}
                     {showCandidateLinks && (
-                        <AWithIcon
-                            href={'#'}
-                            classNameText="typo-element"
-                            classNameLink="Ad__preview__menu-item AddCandidate"
-                            text="Legg til kandidat"
-                        />
+                        <div
+                            role="button"
+                            className="Ad__preview__menu-item"
+                            onClick={this.toggleKandidatModal}
+                        >
+                            <AWithIcon
+                                href={'#'}
+                                classNameText="typo-element"
+                                classNameLink="Ad__preview__menu-item AddCandidate"
+                                text="Legg til kandidat"
+                            />
+                        </div>
                     )}
                     {showCandidateLinks && (
                         <AWithIcon
