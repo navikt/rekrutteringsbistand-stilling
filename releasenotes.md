@@ -1,3 +1,8 @@
+## RELEASE - 0.15.105-78a307d
+#### New in this release: 
++ 2018-12-18 [Fix] Vis alertstripe når kandidat legges til kandidatliste
++ 2018-12-18 [Fix] Tekstendring og bugfiks
++ 2018-12-18 [PAM-2351] La bruker lagre før sesjon utløper
 ## RELEASE - 0.14.99-2f67b66
 #### New in this release: 
 + 2018-12-17 [Bugfix] Ikke vis personnummer om kandidat ikke er hentet
