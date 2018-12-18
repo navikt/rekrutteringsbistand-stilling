@@ -9,7 +9,7 @@ import locationCodeReducer, { locationSaga } from './ad/edit/location/locationCo
 import styrkReducer, { styrkSaga } from './ad/edit/jobDetails/styrk/styrkReducer';
 import adReducer, { adSaga } from './ad/adReducer';
 import searchReducer, { searchSaga } from './searchPage/searchReducer';
-import municipalReducer, { municipalSaga } from './searchPage/filter/municipal/municipalReducer';
+import filterLocationReducer, { filterLocationSaga } from './searchPage/filter/location/filterLocationReducer';
 import municipalOrCountryReducer, { municipalOrCountrySaga } from './ad/edit/location/municipalOrCountryReducer';
 import Ad from './ad/Ad';
 import { MinestillingerHeader, Rekrutteringsbisstand, StillingssokHeader } from './topmenu/TopMenu';
@@ -36,7 +36,7 @@ const store = createStore(combineReducers({
     employer: employerReducer,
     kandidat: kandidatReducer,
     location: locationCodeReducer,
-    municipal: municipalReducer,
+    filterLocation: filterLocationReducer,
     municipalOrCountry: municipalOrCountryReducer,
     myAds: myAdsReducer,
     reportee: reporteeReducer,
@@ -52,7 +52,7 @@ sagaMiddleware.run(locationSaga);
 sagaMiddleware.run(styrkSaga);
 sagaMiddleware.run(reporteeSaga);
 sagaMiddleware.run(searchSaga);
-sagaMiddleware.run(municipalSaga);
+sagaMiddleware.run(filterLocationSaga);
 sagaMiddleware.run(myAdsSaga);
 sagaMiddleware.run(adDataSaga);
 sagaMiddleware.run(municipalOrCountrySaga);

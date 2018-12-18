@@ -277,7 +277,7 @@ export default class Typeahead extends React.Component {
                         {showOptionalSuggestions && this.props.optionalSuggestions.length > 0 && (
                             <li className="Typeahead__suggestions-label">
                                 <span className="Typeahead__suggestions-label2">
-                                    Land
+                                    {this.props.optionalSuggestionsLabel ? this.props.optionalSuggestionsLabel : 'Land'}
                                 </span>
                             </li>
                         )}
@@ -363,6 +363,7 @@ Typeahead.defaultProps = {
     placeholder: undefined,
     error: false,
     optionalSuggestions: undefined,
+    optionalSuggestionsLabel: undefined,
     onBlur: undefined
 };
 
@@ -385,6 +386,7 @@ Typeahead.propTypes = {
             value: PropTypes.string
         }))
     ]),
+    optionalSuggestionsLabel: PropTypes.string,
     value: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
     disabled: PropTypes.bool,

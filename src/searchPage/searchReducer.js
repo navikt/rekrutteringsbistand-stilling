@@ -14,7 +14,7 @@ export const SET_SEARCH_FIELD = 'SET_SEARCH_FIELD';
 export const CHANGE_PRIVACY_FILTER = 'CHANGE_PRIVACY_FILTER';
 export const CHANGE_STATUS_FILTER = 'CHANGE_STATUS_FILTER';
 export const CHANGE_SOURCE_FILTER = 'CHANGE_SOURCE_FILTER';
-export const CHANGE_MUNICIPAL_FILTER = 'CHANGE_MUNICIPAL_FILTER';
+export const CHANGE_LOCATION_FILTER = 'CHANGE_LOCATION_FILTER';
 export const RESET_SEARCH = 'RESET_SEARCH';
 
 export const Fields = {
@@ -43,7 +43,7 @@ const initialState = {
     privacy: undefined,
     status: ACTIVE,
     source: undefined,
-    municipal: undefined
+    locationName: undefined
 };
 
 export default function searchReducer(state = initialState, action) {
@@ -87,10 +87,10 @@ export default function searchReducer(state = initialState, action) {
                 ...state,
                 source: action.value
             };
-        case CHANGE_MUNICIPAL_FILTER:
+        case CHANGE_LOCATION_FILTER:
             return {
                 ...state,
-                municipal: action.municipal
+                locationName: action.location
             };
         case FETCH_ADS_BEGIN:
             return {
@@ -153,9 +153,9 @@ function combineStatusQuery(status) {
     return { status };
 }
 
-export function toQuery(search, municipal) {
+export function toQuery(search) {
     const {
-        sortField, sortDir, page, privacy, status, source, administrationStatus
+        sortField, sortDir, page, privacy, status, source, administrationStatus, locationName
     } = search;
 
     const query = {
@@ -164,7 +164,7 @@ export function toQuery(search, municipal) {
         administrationStatus,
         source,
         privacy,
-        municipal,
+        locationName,
         ...combineStatusQuery(status)
     };
 
@@ -181,7 +181,7 @@ function* getAds(action) {
 
         const state = yield select();
 
-        const query = toQuery(state.search, state.municipal.municipal);
+        const query = toQuery(state.search);
         const response = yield fetchAds(query);
         yield put({ type: FETCH_ADS_SUCCESS, response });
     } catch (e) {
@@ -199,7 +199,7 @@ export const searchSaga = function* saga() {
         CHANGE_STATUS_FILTER,
         CHANGE_SOURCE_FILTER,
         CHANGE_PRIVACY_FILTER,
-        CHANGE_MUNICIPAL_FILTER,
+        CHANGE_LOCATION_FILTER,
         SET_SEARCH_FIELD,
         CHANGE_SORTING,
         CHANGE_PAGE,
