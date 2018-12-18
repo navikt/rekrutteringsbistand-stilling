@@ -39,6 +39,7 @@ export const SET_FACEBOOK_PAGE = 'SET_FACEBOOK_PAGE';
 export const SET_LINKEDIN_PAGE = 'SET_LINKEDIN_PAGE';
 export const SET_TWITTER_ADDRESS = 'SET_TWITTER_ADDRESS';
 export const SET_PUBLISHED = 'SET_PUBLISHED';
+export const SET_FIRST_PUBLISHED = 'SET_FIRST_PUBLISHED';
 export const SET_LAST_UPDATED = 'SET_LAST_UPDATED';
 export const SET_MEDIUM = 'SET_MEDIUM';
 export const SET_ID = 'SET_ID';
@@ -340,6 +341,11 @@ export default function adDataReducer(state = initialState, action) {
             return {
                 ...state,
                 published: action.published
+            };
+        case SET_FIRST_PUBLISHED:
+            return {
+                ...state,
+                firstPublished: true
             };
         case SET_MEDIUM:
             return {

@@ -1,3 +1,10 @@
+## RELEASE - 0.14.99-2f67b66
+#### New in this release: 
++ 2018-12-17 [Bugfix] Ikke vis personnummer om kandidat ikke er hentet
++ 2018-12-17 [PAM-2333] Make `firstPublished` part of adData state (not ad state)
++ 2018-12-13 [PAM-2333] Setter firstPublished ved publisering første gang
++ 2018-12-17 [PAM-1943] Implementer Legg til kandidat-modal
++ 2018-12-14 [PAM-2321]: Fixet bug som gjorde at søketekst ikke fulgte med fra startside til søkeside
 ## RELEASE - 0.13.94-3eaef72
 #### New in this release: 
 + 2018-12-14 [PAM-2349]: tekstendring placeholder
