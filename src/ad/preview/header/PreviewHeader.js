@@ -55,7 +55,7 @@ class PreviewMenu extends React.Component {
                         <div>
                             <Element>Spørsmål om stillingen?</Element>
                             <Normaltekst>
-                                Kontakt {reportee} {navIdent ? ` (${navIdent})` : '' }
+                                Kontakt: {reportee} {navIdent ? ` (${navIdent})` : '' }
                             </Normaltekst>
                         </div>
                     </div>
