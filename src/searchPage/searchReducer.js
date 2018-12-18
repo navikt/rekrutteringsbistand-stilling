@@ -43,7 +43,7 @@ const initialState = {
     privacy: undefined,
     status: ACTIVE,
     source: undefined,
-    muncipalOrCounty: undefined
+    locationName: undefined
 };
 
 export default function searchReducer(state = initialState, action) {
@@ -90,7 +90,7 @@ export default function searchReducer(state = initialState, action) {
         case CHANGE_LOCATION_FILTER:
             return {
                 ...state,
-                muncipalOrCounty: action.location
+                locationName: action.location
             };
         case FETCH_ADS_BEGIN:
             return {
@@ -155,7 +155,7 @@ function combineStatusQuery(status) {
 
 export function toQuery(search) {
     const {
-        sortField, sortDir, page, privacy, status, source, administrationStatus, muncipalOrCounty
+        sortField, sortDir, page, privacy, status, source, administrationStatus, locationName
     } = search;
 
     const query = {
@@ -164,7 +164,7 @@ export function toQuery(search) {
         administrationStatus,
         source,
         privacy,
-        muncipalOrCounty,
+        locationName,
         ...combineStatusQuery(status)
     };
 
