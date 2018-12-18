@@ -5,6 +5,7 @@ import { Input } from 'nav-frontend-skjema';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { SET_CONTACT_PERSON } from '../../adDataReducer';
 import { VALIDATE_CONTACTPERSON_EMAIL, VALIDATE_CONTACTPERSON_PHONE } from '../../adValidationReducer';
+import { Normaltekst } from 'nav-frontend-typografi';
 
 
 class ContactPerson extends React.Component {
@@ -54,6 +55,9 @@ class ContactPerson extends React.Component {
                 border
                 apen
             >
+                <Normaltekst className="Edit__panel__undertittel">
+                    Din egen eller arbeidsgivers kontaktinformasjon
+                </Normaltekst>
                 <Input
                     label="Navn på kontaktperson"
                     value={contactList[0] && contactList[0].name ? contactList[0].name : ''}
