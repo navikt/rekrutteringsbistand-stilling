@@ -1,4 +1,5 @@
-import { put, takeLatest } from 'redux-saga/effects';
+import { delay } from 'redux-saga';
+import { call, put, takeLatest } from 'redux-saga/effects';
 import {
     fetchKandidatliste,
     fetchKandidatMedFnr,
@@ -6,6 +7,12 @@ import {
     putKandidatliste
 } from './kandidatApi';
 import { ApiError } from '../../api/api';
+
+export const KandidatAlertStripeMode = {
+    SAVED: 'SAVED',
+    INACTIVE: 'INACTIVE',
+    FAILURE: 'FAILURE'
+};
 
 export const Hentestatus = {
     IKKE_HENTET: 'IKKE_HENTET',
@@ -34,12 +41,15 @@ const initialState = {
         arenaKandidatnr: undefined,
         fornavn: undefined,
         etternavn: undefined,
+        fodselsnummer: undefined,
         mestRelevanteYrkesErfaring: {
             styrkKodeStillingstittel: undefined,
             yrkeserfaringManeder: undefined
         }
     },
-    lagreStatus: Lagrestatus.UNSAVED
+    lagreStatus: Lagrestatus.UNSAVED,
+    showAlertStripe: false,
+    alertStripeMode: KandidatAlertStripeMode.INACTIVE
 };
 
 export const HENT_KANDIDAT_MED_FNR = 'HENT_KANDIDAT_MED_FNR';
@@ -56,6 +66,9 @@ export const LEGG_TIL_KANDIDAT = 'LEGG_TIL_KANDIDAT';
 export const LEGG_TIL_KANDIDAT_FAILURE = 'LEGG_TIL_KANDIDAT_FAILURE';
 export const LEGG_TIL_KANDIDAT_SUCCESS = 'LEGG_TIL_KANDIDAT_SUCCESS';
 export const SET_FODSELSNUMMER = 'SET_FODSELSNUMMER';
+
+const SHOW_SAVED_KANDIDAT_ALERT_STRIPE = 'SHOW_SAVED_KANDIDAT_ALERT_STRIPE';
+const HIDE_SAVED_KANDIDAT_ALERT_STRIPE = 'HIDE_SAVED_KANDIDAT_ALERT_STRIPE';
 
 export default function kandidatReducer(state = initialState, action) {
     switch (action.type) {
@@ -143,6 +156,18 @@ export default function kandidatReducer(state = initialState, action) {
                 ...state,
                 fodselsnummer: action.fodselsnummer
             };
+        case SHOW_SAVED_KANDIDAT_ALERT_STRIPE:
+            return {
+                ...state,
+                showAlertStripe: true,
+                alertStripeMode: action.mode
+            };
+        case HIDE_SAVED_KANDIDAT_ALERT_STRIPE:
+            return {
+                ...state,
+                showAlertStripe: false,
+                alertStripeMode: KandidatAlertStripeMode.INACTIVE
+            };
         default:
             return state;
     }
@@ -182,10 +207,12 @@ function* leggTilKandidat({ id, kandidat }) {
     try {
         const response = yield postKandidatTilKandidatliste(id, kandidat);
         yield put({ type: LEGG_TIL_KANDIDAT_SUCCESS, kandidatliste: response });
+        yield showAlertStripe(KandidatAlertStripeMode.SAVED);
     } catch (e) {
         if (e instanceof ApiError) {
             yield put({ type: LEGG_TIL_KANDIDAT_FAILURE, error: e});
         }
+        yield showAlertStripe(KandidatAlertStripeMode.FAILURE);
     }
 }
 
@@ -203,6 +230,12 @@ function* opprettKandidatlisteForStilling(stillingsnummer, error) {
 
 function* sjekkError({ error }) {
     yield put({ type: KANDIDAT_ERROR, error });
+}
+
+export function* showAlertStripe(mode) {
+    yield put({ type: SHOW_SAVED_KANDIDAT_ALERT_STRIPE, mode });
+    yield call(delay, 3000);
+    yield put({ type: HIDE_SAVED_KANDIDAT_ALERT_STRIPE });
 }
 
 export function* kandidatSaga() {

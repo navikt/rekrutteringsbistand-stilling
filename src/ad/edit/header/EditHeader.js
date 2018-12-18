@@ -63,7 +63,7 @@ class EditHeader extends React.Component {
     };
 
     render() {
-        const { isEditingTitle, editTitle, onPreviewAdClick, isNew, validation } = this.props;
+        const { isEditingTitle, editTitle, onPreviewAdClick, isNew, validation, stilling } = this.props;
         const { uuid, status, title, source } = this.props.stilling;
         const showCandidateLinks = (status === AdminStatusEnum.DONE || status === AdminStatusEnum.ACTIVE) && source === 'DIR';
 

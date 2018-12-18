@@ -167,8 +167,8 @@ LeggTilKandidatModal.defaultProps = {
 
 LeggTilKandidatModal.propTypes = {
     fodselsnummer: PropTypes.string,
-    kandidatStatus: PropTypes.string.isRequired,
-    kandidatlisteStatus: PropTypes.string.isRequired,
+    kandidatStatus: PropTypes.string,
+    kandidatlisteStatus: PropTypes.string,
     hentKandidatMedFnr: PropTypes.func.isRequired,
     kandidat: PropTypes.shape({
         arenaKandidatnr: PropTypes.string,

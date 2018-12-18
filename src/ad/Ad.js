@@ -15,6 +15,7 @@ import SavedAdAlertStripe from './alertstripe/SavedAdAlertStripe';
 import PreviewHeader from './preview/header/PreviewHeader';
 import EditHeader from './edit/header/EditHeader';
 import AdStatusEnum from './administration/adStatus/AdStatusEnum';
+import LeggTilKandidatAlertStripe from './kandidatModal/LeggTilKandidatAlertStripe';
 
 class Ad extends React.Component {
     componentDidMount() {
@@ -70,6 +71,7 @@ class Ad extends React.Component {
 
         return (
             <div className="Ad">
+                <LeggTilKandidatAlertStripe />
                 <SavedAdAlertStripe />
                 <Faded>
                     <div className="Ad__flex">
