@@ -78,7 +78,7 @@ class ResultItem extends React.Component {
                     {ad.privacy && (
                         <Normaltekst className="ResultItem__column">
                             {ad.privacy === PrivacyStatusEnum.SHOW_ALL
-                                ? 'Arbeidsplassen' : 'Internt'}
+                                ? 'Nav.no' : 'Internt'}
                         </Normaltekst>
                     )}
                 </td>

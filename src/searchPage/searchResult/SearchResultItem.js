@@ -41,7 +41,7 @@ const SearchResultItem = ({ ad }) => (
             {ad.privacy && (
                 <Normaltekst className="SearchResultItem__column">
                     {ad.privacy === PrivacyStatusEnum.SHOW_ALL
-                        ? 'Arbeidsplassen' : 'Internt'}
+                        ? 'Nav.no' : 'Internt'}
                 </Normaltekst>
             )}
         </Column>
