@@ -32,7 +32,7 @@ const initialState = {
     error: undefined,
     isSearching: false,
     sortField: 'created',
-    sortDir: 'asc',
+    sortDir: 'desc',
     totalElements: 0,
     totalPages: 0,
     page: 0,
