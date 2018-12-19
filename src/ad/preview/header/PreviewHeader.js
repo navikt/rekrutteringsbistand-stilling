@@ -36,6 +36,7 @@ class PreviewMenu extends React.Component {
     render() {
         const { stilling, status } = this.props;
         const showCandidateLinks = (status === AdminStatusEnum.DONE) && stilling && stilling.source === 'DIR';
+        const showContactHelp = (stilling && stilling.source === 'DIR');
         const { reportee, navIdent } = stilling.administration;
 
         return (
@@ -48,17 +49,19 @@ class PreviewMenu extends React.Component {
                     />
                 }
                 <div className="Preview__TopSection">
-                    <div className="Preview__TopSection__left">
-                        <div>
-                            <i className="Help__icon" />
+                    {showContactHelp && (
+                        <div className="Preview__TopSection__left">
+                            <div>
+                                <i className="Help__icon" />
+                            </div>
+                            <div>
+                                <Element>Spørsmål om stillingen?</Element>
+                                <Normaltekst>
+                                    Kontakt: {reportee} {navIdent ? ` (${navIdent})` : '' }
+                                </Normaltekst>
+                            </div>
                         </div>
-                        <div>
-                            <Element>Spørsmål om stillingen?</Element>
-                            <Normaltekst>
-                                Kontakt: {reportee} {navIdent ? ` (${navIdent})` : '' }
-                            </Normaltekst>
-                        </div>
-                    </div>
+                    )}
                     <div className="Preview__TopSection__right">
                         <Comment />
                     </div>
