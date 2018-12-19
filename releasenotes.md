@@ -1,3 +1,6 @@
+## RELEASE - 0.17.108-35f1537
+#### New in this release: 
++ 2018-12-19 [PAM-2386] Dont show help contact in preview unless DIR ad
 ## RELEASE - 0.16.107-a7806b5
 #### New in this release: 
 + 2018-12-18 [PAM-2387] Ensure timeout is cleared on destroy
