@@ -1,3 +1,6 @@
+## RELEASE - 0.19.111-1e0324e
+#### New in this release: 
++ 2018-12-19 [PAM-2388] Update publication channel text
 ## RELEASE - 0.18.110-a31f6c8
 #### New in this release: 
 + 2018-12-19 [PAM-2385] Search: use most recent ads sorting by default
