@@ -1,3 +1,6 @@
+## RELEASE - 0.18.110-a31f6c8
+#### New in this release: 
++ 2018-12-19 [PAM-2385] Search: use most recent ads sorting by default
 ## RELEASE - 0.17.108-35f1537
 #### New in this release: 
 + 2018-12-19 [PAM-2386] Dont show help contact in preview unless DIR ad
