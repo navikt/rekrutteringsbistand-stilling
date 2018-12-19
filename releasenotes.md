@@ -1,3 +1,8 @@
+## RELEASE - 0.16.107-a7806b5
+#### New in this release: 
++ 2018-12-18 [PAM-2387] Ensure timeout is cleared on destroy
++ 2018-12-18 [PAM-2343] Use locationName filter param for "county or municipal"
++ 2018-12-17 [PAM-2343]: endrer søkefelt for kommune til fylke og kommune.
 ## RELEASE - 0.15.105-78a307d
 #### New in this release: 
 + 2018-12-18 [Fix] Vis alertstripe når kandidat legges til kandidatliste
