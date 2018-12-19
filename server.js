@@ -4,24 +4,25 @@ const helmet = require('helmet');
 const mustacheExpress = require('mustache-express');
 const Promise = require('promise');
 const fs = require('fs');
-
+const compression = require('compression');
 
 const currentDirectory = __dirname;
 const server = express();
 const port = process.env.PORT || 8080;
 server.set('port', port);
 
+server.use(compression());
 server.disable('x-powered-by');
 server.use(helmet());
 
 server.use(helmet.contentSecurityPolicy({
     directives: {
-        defaultSrc: ["'none'"],
-        scriptSrc: ["'self'"],
-        styleSrc: ["'self'"],
-        fontSrc: ["'self'", 'data:'],
-        imgSrc: ["'self'", 'data:'],
-        connectSrc: ["'self'", process.env.PAM_AD_API_BACKEND_REKRUTTERINGSBISTAND_URL, process.env.PAMADAPIBACKENDSEARCH_URL]
+        defaultSrc: ['\'none\''],
+        scriptSrc: ['\'self\''],
+        styleSrc: ['\'self\''],
+        fontSrc: ['\'self\'', 'data:'],
+        imgSrc: ['\'self\'', 'data:'],
+        connectSrc: ['\'self\'', process.env.PAM_AD_API_BACKEND_REKRUTTERINGSBISTAND_URL, process.env.PAMADAPIBACKENDSEARCH_URL]
     }
 }));
 
