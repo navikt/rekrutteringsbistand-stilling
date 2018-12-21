@@ -163,5 +163,5 @@ export async function fetchOrgnrSuggestions(match) {
 }
 
 export async function checkTokenExpiration() {
-    return await fetchGet(`${AD_API}reportee/isvalid`);
+    return await fetchGet(`${AD_API}reportee/token-expiring`);
 }
