@@ -33,7 +33,8 @@ class DeleteAdModal extends React.Component {
                     Slett stilling
                 </Undertittel>
                 <Normaltekst className="blokk-l">
-                    {`Er du sikker på at du ønsker å slette "${title}"?`}
+                    {`Er du sikker på at du ønsker å slette "${title}"?
+                    Stillinger som er slettet vises ikke i løsningen.`}
                 </Normaltekst>
                 <div className="DeleteAdModal__buttons">
                     <Hovedknapp onClick={this.onDeleteAdClick}>Slett stillingen</Hovedknapp>
@@ -46,7 +47,7 @@ class DeleteAdModal extends React.Component {
 
 DeleteAdModal.defaultProps = {
     title: undefined
-}
+};
 
 DeleteAdModal.propTypes = {
     closeModal: PropTypes.func.isRequired,
