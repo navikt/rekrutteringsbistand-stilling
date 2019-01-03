@@ -50,7 +50,7 @@ class LeggTilKandidatModal extends React.Component {
             } else if (kandidatStatus === Hentestatus.FINNES_IKKE) {
                 this.setState({
                     showFodselsnummer: false,
-                    errorMessage: 'Fodselsnummer finnes ikke'
+                    errorMessage: 'Fødselsnummeret er ikke tilgjengelig i denne løsningen'
                 });
             }
         }

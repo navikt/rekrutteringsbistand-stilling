@@ -3,10 +3,10 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import {
     fetchKandidatliste,
     fetchKandidatMedFnr,
+    KandidatSokError,
     postKandidatTilKandidatliste,
     putKandidatliste
 } from './kandidatApi';
-import { ApiError } from '../../api/api';
 
 export const KandidatAlertStripeMode = {
     SAVED: 'SAVED',
@@ -178,7 +178,7 @@ function* hentKandidatliste({ stillingsnummer }) {
         const kandidatliste = yield fetchKandidatliste(stillingsnummer);
         yield put({ type: HENT_KANDIDATLISTE_SUCCESS, kandidatliste });
     } catch (e) {
-        if (e instanceof ApiError) {
+        if (e instanceof KandidatSokError) {
             if (e.status === 404) {
                 yield opprettKandidatlisteForStilling(stillingsnummer, e);
             } else {
@@ -193,7 +193,7 @@ function* hentKandidatMedFnr({ fodselsnummer }) {
         const response = yield fetchKandidatMedFnr(fodselsnummer);
         yield put({ type: HENT_KANDIDAT_MED_FNR_SUCCESS, kandidat: response });
     } catch (e) {
-        if (e instanceof ApiError) {
+        if (e instanceof KandidatSokError) {
             if (e.status === 404) {
                 yield put({ type: HENT_KANDIDAT_MED_FNR_NOT_FOUND });
             } else {
@@ -209,7 +209,7 @@ function* leggTilKandidat({ id, kandidat }) {
         yield put({ type: LEGG_TIL_KANDIDAT_SUCCESS, kandidatliste: response });
         yield showAlertStripe(KandidatAlertStripeMode.SAVED);
     } catch (e) {
-        if (e instanceof ApiError) {
+        if (e instanceof KandidatSokError) {
             yield put({ type: LEGG_TIL_KANDIDAT_FAILURE, error: e});
         }
         yield showAlertStripe(KandidatAlertStripeMode.FAILURE);
@@ -222,7 +222,7 @@ function* opprettKandidatlisteForStilling(stillingsnummer, error) {
         const kandidatliste = yield fetchKandidatliste(stillingsnummer);
         yield put({ type: HENT_KANDIDATLISTE_SUCCESS, kandidatliste });
     } catch (e) {
-        if (e instanceof ApiError) {
+        if (e instanceof KandidatSokError) {
             yield put({ type: HENT_KANDIDATLISTE_FAILURE, error });
         }
     }
