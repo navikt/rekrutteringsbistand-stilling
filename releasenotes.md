@@ -1,3 +1,8 @@
+## RELEASE - 0.20.119-069700a
+#### New in this release: 
++ 2019-01-02 [PAM-2395] Changed search box text and label according to sketches (#53)
++ 2018-12-21 [CLEANUP] Use renamed endpoint "token-expiring" for token check
++ 2018-12-19 [fix] added gzip compression and eslint packages
 ## RELEASE - 0.19.111-1e0324e
 #### New in this release: 
 + 2018-12-19 [PAM-2388] Update publication channel text
