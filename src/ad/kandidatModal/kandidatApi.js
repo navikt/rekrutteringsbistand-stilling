@@ -1,6 +1,11 @@
-
 import { KANDIDATLISTE_API, KANDIDATSOK_API } from '../../fasitProperties';
-import { ApiError } from '../../api/api';
+
+export class KandidatSokError {
+    constructor(error) {
+        this.message = error.message;
+        this.status = error.status;
+    }
+}
 
 export const postKandidatTilKandidatliste = (kandidatlisteId, kandidat) => (
     postKandidaterTilKandidatliste(kandidatlisteId, [kandidat])
@@ -81,7 +86,7 @@ async function putRequest(url) {
 }
 
 const throwError = (message, status) => {
-    throw new ApiError({ message, status })
+    throw new KandidatSokError({ message, status })
 };
 
 const getCookie = (name) => {
