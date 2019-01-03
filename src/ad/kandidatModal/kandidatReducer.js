@@ -3,10 +3,10 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import {
     fetchKandidatliste,
     fetchKandidatMedFnr,
+    KandidatSokError,
     postKandidatTilKandidatliste,
     putKandidatliste
 } from './kandidatApi';
-import { KandidatSokError} from '../../api/api';
 
 export const KandidatAlertStripeMode = {
     SAVED: 'SAVED',
