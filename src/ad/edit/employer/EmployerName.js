@@ -50,7 +50,8 @@ class EmployerName extends React.Component {
             }
         }
         if (suggestion.orgnr) {
-            commaSeparate = [...commaSeparate, `Virksomhetsnummer: ${suggestion.orgnr}`];
+            const groupedOrgNumber = suggestion.orgnr.match(/.{1,3}/g).join(' ');
+            commaSeparate = [...commaSeparate, `Virksomhetsnummer: ${groupedOrgNumber}`];
         }
         return (
             <div className="Employer__typeahead__item">
