@@ -46,7 +46,7 @@ class Publishing extends React.Component {
                     )}
                 </div>
                 <div className="Publishing__datepicker Publishing__datepicker-expires">
-                    <Normaltekst className="Publishing__label">Siste visningsdag*</Normaltekst>
+                    <Normaltekst className="Publishing__label">Siste visningsdato*</Normaltekst>
                     <Datovelger
                         id="expires"
                         dato={formatISOString(expires, 'DD.MM.YYYY') || ''}
