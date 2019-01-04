@@ -9,14 +9,14 @@ const UndoRedoButtons = ({ onRedoClick, redoDisabled, onUndoClick, undoDisabled 
             onClick={onUndoClick}
             disabled={undoDisabled}
         >
-            <div className="icon-undo" />
+            <div className="icon-undo rte-icon" />
         </button>
         <button
             className={`RichTextEditor__styleButton${redoDisabled ? ' RichTextEditor__disabledButton' : ''}`}
             onClick={onRedoClick}
             disabled={redoDisabled}
         >
-            <div className="icon-redo" />
+            <div className="icon-redo rte-icon" />
         </button>
     </div>
 );
