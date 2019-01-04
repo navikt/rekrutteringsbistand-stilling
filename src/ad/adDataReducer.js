@@ -234,7 +234,8 @@ export default function adDataReducer(state = initialState, action) {
                 properties: {
                     ...state.properties,
                     applicationdue: action.applicationdue
-                }
+                },
+                expires: state.expires > action.applicationdue ? state.expires : action.applicationdue
             };
         case SET_APPLICATIONEMAIL:
             return {
