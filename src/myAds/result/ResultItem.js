@@ -167,6 +167,7 @@ class ResultItem extends React.Component {
                         </button>
                     )}
                 </td>
+                <td className="Col-help center" />
             </tr>
         );
     }

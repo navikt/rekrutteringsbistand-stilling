@@ -1,5 +1,6 @@
 import React from 'react';
 import './Result.less';
+import { HjelpetekstUnderVenstre } from 'nav-frontend-hjelpetekst';
 
 export default function ResultHeader() {
     return (
@@ -15,6 +16,20 @@ export default function ResultHeader() {
                 <th className="Col-copy center">Kopier</th>
                 <th className="Col-stop center">Stopp</th>
                 <th className="Col-delete center">Slett</th>
+                <th className="Col-help">
+                    <HjelpetekstUnderVenstre id="hjelpetekst-result-header">
+                        <strong>Rediger</strong> - Du kan redigere alle stillinger med status publisert, ikke publisert og stoppet.
+                        <br />
+                        <br />
+                        <strong>Kopier</strong> - Du kan kopiere alle stillinger.
+                        <br />
+                        <br />
+                        <strong>Stopp</strong> - Du kan stoppe en publisert stilling. Stopper du stillingen vil den ikke være tilgjengelig for søk.
+                        <br />
+                        <br />
+                        <strong>Slett</strong> - Du kan slette en stilling som ikke er publisert. Stillinger som er slettet vises ikke i løsningen.
+                    </HjelpetekstUnderVenstre>
+                </th>
             </tr>
         </thead>
     );
