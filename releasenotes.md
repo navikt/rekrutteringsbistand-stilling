@@ -1,3 +1,7 @@
+## RELEASE - 0.22.124-48d18a9
+#### New in this release: 
++ 2019-01-03 [PAM-2372] Formatér visning av virksomhetsnummer
++ 2019-01-03 [PAM-2399] Legg til feilmelding når fødselsnummer ikke finnes
 ## RELEASE - 0.20.119-069700a
 #### New in this release: 
 + 2019-01-02 [PAM-2395] Changed search box text and label according to sketches (#53)
