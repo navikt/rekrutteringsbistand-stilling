@@ -1,3 +1,7 @@
+## RELEASE - 0.23.127-5475138
+#### New in this release: 
++ 2019-01-07 [PAM-2381] Added help text to Mine stillinger describing editing actions (#54)
++ 2019-01-07 [PAM-2389] Fiks visning av alertstripe når kandidat legges til i kandidatliste
 ## RELEASE - 0.22.124-48d18a9
 #### New in this release: 
 + 2019-01-03 [PAM-2372] Formatér visning av virksomhetsnummer
