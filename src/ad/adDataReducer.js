@@ -32,7 +32,6 @@ export const SET_APPLICATIONURL = 'SET_APPLICATIONURL';
 export const SET_SOURCEURL = 'SET_SOURCEURL';
 export const SET_EMPLOYER = 'SET_EMPLOYER';
 export const SET_EMPLOYER_NAME = 'SET_EMPLOYER_NAME';
-export const SET_EMPLOYER_ADDRESS = 'SET_EMPLOYER_ADDRESS';
 export const SET_EMPLOYER_HOMEPAGE = 'SET_EMPLOYER_HOMEPAGE';
 export const SET_EMPLOYERDESCRIPTION = 'SET_EMPLOYERDESCRIPTION';
 export const SET_FACEBOOK_PAGE = 'SET_FACEBOOK_PAGE';
@@ -290,14 +289,6 @@ export default function adDataReducer(state = initialState, action) {
                 properties: {
                     ...state.properties,
                     employer: action.employername
-                }
-            };
-        case SET_EMPLOYER_ADDRESS:
-            return {
-                ...state,
-                properties: {
-                    ...state.properties,
-                    address: action.employeraddress
                 }
             };
         case SET_EMPLOYER_HOMEPAGE:

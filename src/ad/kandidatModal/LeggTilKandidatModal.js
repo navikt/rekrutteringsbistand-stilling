@@ -50,7 +50,7 @@ class LeggTilKandidatModal extends React.Component {
             } else if (kandidatStatus === Hentestatus.FINNES_IKKE) {
                 this.setState({
                     showFodselsnummer: false,
-                    errorMessage: 'Fødselsnummeret er ikke tilgjengelig i denne løsningen'
+                    errorMessage: this.kandidatenFinnesIkke()
                 });
             }
         }
@@ -122,6 +122,19 @@ class LeggTilKandidatModal extends React.Component {
         const kandidat = this.props.kandidatliste.kandidater.filter((k) => (this.props.kandidat.arenaKandidatnr === k.kandidatnr));
         return kandidat.length > 0;
     };
+
+    kandidatenFinnesIkke = () => (
+        <div className="LeggTilKandidat__feilmelding">
+            <div className="blokk-xxs">Du kan ikke legge til kandidaten.</div>
+            <div>Mulige årsaker:</div>
+            <ul>
+                <li>Fødselsnummeret er feil</li>
+                <li>Kandidaten har ikke CV</li>
+                <li>Kandidaten har anonym CV</li>
+                <li>Kandidaten har status "Fritatt for kandidatsøk"</li>
+            </ul>
+        </div>
+    );
 
     render() {
         const { vis, onClose, fodselsnummer, kandidat } = this.props;

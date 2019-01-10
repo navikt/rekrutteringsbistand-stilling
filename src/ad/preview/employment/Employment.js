@@ -26,7 +26,7 @@ export default function Employment({ properties, location }) {
                         {capitalizeLocation(location.municipal)}
                     </dd>
                 ]}
-                {location && location.country && !location.postalCode && [
+                {location && location.country && !location.postalCode && !location.municipal && [
                     <dt key="dt">Arbeidssted:</dt>,
                     <dd key="dd">
                         {capitalizeLocation(location.country)}
