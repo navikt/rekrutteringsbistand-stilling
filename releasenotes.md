@@ -1,3 +1,6 @@
+## RELEASE - 0.24.130-a7f7421
+#### New in this release: 
++ 2019-01-10 [PAM-2431]: feilmelding tekstendring
 ## RELEASE - 0.23.127-5475138
 #### New in this release: 
 + 2019-01-07 [PAM-2381] Added help text to Mine stillinger describing editing actions (#54)
