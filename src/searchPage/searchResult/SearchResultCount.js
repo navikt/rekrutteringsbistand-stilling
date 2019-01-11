@@ -14,7 +14,7 @@ function SearchResultCount({ count, isSearching }) {
     return (
         <div>
             <Systemtittel>
-                {`${count.toLocaleString('nb')} ${count === 1 ? 'stilling' : 'stillinger'}`}
+                {`${count.toLocaleString('nb')} ${count === 1 ? 'annonse' : 'annonser'}`}
             </Systemtittel>
         </div>
     );

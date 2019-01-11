@@ -50,6 +50,18 @@ class Filter extends React.Component {
         return (
             <form onSubmit={this.onSubmit}>
                 <SkjemaGruppe title="Status" className="blokk-l">
+                    {Object.keys(AdStatusEnum)
+                        .filter((key) => key !== 'INACTIVE')
+                        .map((key) => (
+                            <Radio
+                                key={key}
+                                label={AdStatusEnum[key]}
+                                value={key}
+                                checked={adStatus === key}
+                                name="adStatus"
+                                onChange={this.onStatusFilterChange}
+                            />
+                        ))}
                     <Radio
                         label="Alle"
                         value="Alle"
@@ -57,16 +69,6 @@ class Filter extends React.Component {
                         name="adStatus"
                         onChange={this.onStatusFilterChange}
                     />
-                    {Object.keys(AdStatusEnum).map((key) => (
-                        <Radio
-                            key={key}
-                            label={AdStatusEnum[key]}
-                            value={key}
-                            checked={adStatus === key}
-                            name="adStatus"
-                            onChange={this.onStatusFilterChange}
-                        />
-                    ))}
                 </SkjemaGruppe>
                 <SkjemaGruppe title="Publisert" className="blokk-l">
                     <Radio

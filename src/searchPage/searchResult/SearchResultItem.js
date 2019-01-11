@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import capitalizeEmployerName from '../../ad/edit/employer/capitalizeEmployerName';
+import getWorkLocation from '../../common/getWorkLocation';
 import { formatISOString } from '../../utils';
-import AdStatusEnum from '../enums/AdStatusEnum';
 import './SearchResult.less';
 import PrivacyStatusEnum from '../../ad/administration/publishing/PrivacyStatusEnum';
 import AWithIcon from '../../common/aWithIcon/AWithIcon';
@@ -14,7 +14,7 @@ const SearchResultItem = ({ ad }) => (
     <Row className="SearchResultItem">
         <Column md="1">
             <Normaltekst className="SearchResultItem__column">
-                {ad.created ? formatISOString(ad.created, 'DD.MM.YYYY hh:mm') : ''}
+                {ad.published ? formatISOString(ad.published) : ''}
             </Normaltekst>
         </Column>
         <Column md="3">
@@ -27,14 +27,14 @@ const SearchResultItem = ({ ad }) => (
                 </Link>
             </div>
         </Column>
-        <Column md="2">
+        <Column md="3">
             <Normaltekst className="SearchResultItem__column">
                 {ad.employer && ad.employer.name ? capitalizeEmployerName(ad.employer.name) : ''}
             </Normaltekst>
         </Column>
         <Column md="1">
             <Normaltekst className="SearchResultItem__column">
-                {ad.status ? AdStatusEnum[ad.status] : ''}
+                {getWorkLocation(ad, true) || ''}
             </Normaltekst>
         </Column>
         <Column md="1">
@@ -45,15 +45,10 @@ const SearchResultItem = ({ ad }) => (
                 </Normaltekst>
             )}
         </Column>
-        <Column md="2">
-            <div className="SearchResultItem__column">
-                <div className="SearchResultItem__column__flex">
-                    <Normaltekst className="SearchResultItem__column__flex__ellipsis">
-                        {ad.administration && ad.administration.reportee ? ad.administration.reportee : ''}
-                        {ad.administration && ad.administration.navIdent ? ` (${ad.administration.navIdent})` : ''}
-                    </Normaltekst>
-                </div>
-            </div>
+        <Column md="1">
+            <Normaltekst className="SearchResultItem__column">
+                {ad.expires ? formatISOString(ad.expires) : ''}
+            </Normaltekst>
         </Column>
         <Column md="2">
             {ad.source === 'DIR' && (

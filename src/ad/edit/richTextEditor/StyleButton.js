@@ -14,7 +14,7 @@ export default class StyleButton extends React.Component {
             className += ' RichTextEditor__activeButton';
         }
         return (
-            <button className={className} onClick={this.onToggle}>
+            <button className={className} onMouseDown={this.onToggle}>
                 <div className={this.props.label} />
             </button>
         );
