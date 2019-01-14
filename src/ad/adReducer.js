@@ -113,7 +113,7 @@ export default function adReducer(state = initialState, action) {
             return {
                 ...state,
                 isEditingTitle: false,
-                editTitle: DEFAULT_TITLE_NEW_AD,
+                editTitle: DEFAULT_TITLE_NEW_AD
             };
         case FETCH_AD_BEGIN:
             return {
