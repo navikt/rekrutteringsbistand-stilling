@@ -121,7 +121,7 @@ class Edit extends React.Component {
                                 disabled
                             />
                             <Input
-                                label="Stillingsnummer"
+                                label="Annonsenummer"
                                 value={ad.id || ''}
                                 disabled
                             />

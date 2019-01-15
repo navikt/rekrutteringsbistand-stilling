@@ -29,28 +29,28 @@ class SearchResultHeaders extends React.Component {
 
         return (
             <Row className="SearchResultHeaders">
-                <Column md="1" onClick={() => this.onSortClick('created')}>
+                <Column md="1" onClick={() => this.onSortClick('published')}>
                     <Element>
-                        Opprettet
-                        <i className={sortField === 'created' ? className : 'SearchResultHeader--unsorted'} />
+                        Publisert <br />
+                        dato
+                        <i className={sortField === 'published' ? className : 'SearchResultHeader--unsorted'} />
                     </Element>
                 </Column>
                 <Column md="3" onClick={() => this.onSortClick('title')}>
                     <Element>
-                        Stillingstittel
+                        Annonseoverskrift
                         <i className={sortField === 'title' ? className : 'SearchResultHeader--unsorted'} />
                     </Element>
                 </Column>
-                <Column md="2" onClick={() => this.onSortClick('employerName')}>
+                <Column md="3" onClick={() => this.onSortClick('employerName')}>
                     <Element>
                         Arbeidsgiver
                         <i className={sortField === 'employerName' ? className : 'SearchResultHeader--unsorted'} />
                     </Element>
                 </Column>
-                <Column md="1" onClick={() => this.onSortClick('status')}>
+                <Column md="1">
                     <Element>
-                        Status
-                        <i className={sortField === 'status' ? className : 'SearchResultHeader--unsorted'} />
+                        Sted
                     </Element>
                 </Column>
                 <Column md="1" onClick={() => this.onSortClick('privacy')}>
@@ -59,9 +59,10 @@ class SearchResultHeaders extends React.Component {
                         <i className={sortField === 'privacy' ? className : 'SearchResultHeader--unsorted'} />
                     </Element>
                 </Column>
-                <Column md="2">
+                <Column md="1" onClick={() => this.onSortClick('expires')}>
                     <Element>
-                        Saksbehandler
+                        Utløpsdato
+                        <i className={sortField === 'expires' ? className : 'SearchResultHeader--unsorted'} />
                     </Element>
                 </Column>
                 <Column md="2">

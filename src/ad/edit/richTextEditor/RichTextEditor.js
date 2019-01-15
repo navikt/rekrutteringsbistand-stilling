@@ -116,7 +116,12 @@ export default class RichTextEditor extends React.Component {
     };
 
     onToggleInlineStyle = (inlineStyle) => {
-        this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, inlineStyle));
+        const { editorState } = this.state;
+        const editorStateFocused = EditorState.forceSelection(
+            editorState,
+            editorState.getSelection(),
+        );
+        this.onChange(RichUtils.toggleInlineStyle(editorStateFocused, inlineStyle));
     };
 
     onRedoButtonClick = () => {
