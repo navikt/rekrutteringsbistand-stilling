@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { VeilederHeaderMeny, VeilederTabId } from 'pam-frontend-header';
 import { FETCH_REPORTEE } from '../reportee/reporteeReducer';
 import 'pam-frontend-header/dist/style.css';
+import './TopMenu.less';
 
 const HeaderMenu = ({ tabId, displayName, fetchDisplayName, isFetchingDisplayName }) => {
     if (!displayName && !isFetchingDisplayName) {

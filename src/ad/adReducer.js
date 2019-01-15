@@ -12,7 +12,8 @@ import {
     SET_NAV_IDENT,
     SET_REPORTEE,
     SET_UPDATED_BY,
-    SET_FIRST_PUBLISHED
+    SET_FIRST_PUBLISHED,
+    REMOVE_AD_DATA
 } from './adDataReducer';
 import AdminStatusEnum from './administration/adminStatus/AdminStatusEnum';
 import AdStatusEnum from './administration/adStatus/AdStatusEnum';
@@ -108,6 +109,12 @@ const initialState = {
 
 export default function adReducer(state = initialState, action) {
     switch (action.type) {
+        case REMOVE_AD_DATA:
+            return {
+                ...state,
+                isEditingTitle: false,
+                editTitle: DEFAULT_TITLE_NEW_AD
+            };
         case FETCH_AD_BEGIN:
             return {
                 ...state,
