@@ -5,6 +5,7 @@ import { CREATE_AD_BEGIN, FETCH_AD_BEGIN, FETCH_AD_SUCCESS, SAVE_AD_SUCCESS } fr
 import AdStatusEnum from './administration/adStatus/AdStatusEnum';
 import PrivacyStatusEnum from './administration/publishing/PrivacyStatusEnum';
 import IsJson from './edit/practicalInformation/IsJson';
+import { isValidISOString } from '../utils';
 
 export const SET_AD_DATA = 'SET_AD_DATA';
 export const REMOVE_AD_DATA = 'REMOVE_AD_DATA';
@@ -234,7 +235,8 @@ export default function adDataReducer(state = initialState, action) {
                     ...state.properties,
                     applicationdue: action.applicationdue
                 },
-                expires: state.expires > action.applicationdue ? state.expires : action.applicationdue
+                expires: isValidISOString(action.applicationdue) && (state.expires < action.applicationdue) ?
+                    action.applicationdue : state.expires
             };
         case SET_APPLICATIONEMAIL:
             return {
