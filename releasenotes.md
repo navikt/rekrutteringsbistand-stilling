@@ -1,3 +1,11 @@
+## RELEASE - 0.26.138-af7ff26
+#### New in this release: 
++ 2019-01-16 [PAM-2379] Endre størrelse på editor-ikon
++ 2019-01-14 [PAM-2390] Print hele annonsen uten toppmeny
++ 2019-01-14 [PAM-2379] Endre størrelse og styling på ikoner
++ 2019-01-14 [PAM-2380] Fyll inn siste publiseringsdag når bruker setter en senere søknadsfrist
++ 2019-01-14 [PAM-2421]: bugfix
++ 2019-01-11 [PAM-1994]: justeringer på søkesiden - fikset bug i richTextEditor
 ## RELEASE - 0.24.130-a7f7421
 #### New in this release: 
 + 2019-01-10 [PAM-2431]: feilmelding tekstendring
