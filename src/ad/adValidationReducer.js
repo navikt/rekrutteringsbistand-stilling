@@ -128,9 +128,9 @@ function* validateExpireDate() {
     const { expires } = state.adData;
 
     if (valueIsNotSet(expires)) {
-        yield put({ type: ADD_VALIDATION_ERROR, field: 'expires', message: 'Siste visningsdag mangler' });
+        yield put({ type: ADD_VALIDATION_ERROR, field: 'expires', message: 'Siste visningsdato mangler' });
     } else if (!erDatoEtterMinDato(toDate(expires), new Date(Date.now()))) {
-        yield put({ type: ADD_VALIDATION_ERROR, field: 'expires', message: 'Siste visningsdag kan ikke være før dagens dato' });
+        yield put({ type: ADD_VALIDATION_ERROR, field: 'expires', message: 'Siste visningsdato kan ikke være før dagens dato' });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'expires' });
     }
