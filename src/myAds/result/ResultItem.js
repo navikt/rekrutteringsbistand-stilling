@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { erDatoFørSluttdato } from 'nav-datovelger/dist/datovelger/utils/datovalidering';
 import { HjelpetekstUnderVenstre } from 'nav-frontend-hjelpetekst';
-import capitalizeEmployerName from '../../ad/edit/employer/capitalizeEmployerName';
+import getEmployerName from '../../common/getEmployerName';
 import { formatISOString, toDate } from '../../utils';
 import { COPY_AD_FROM_MY_ADS, SHOW_DELETE_MODAL_MY_ADS, SHOW_STOP_MODAL_MY_ADS } from '../../ad/adReducer';
 import AdStatusEnum from '../../searchPage/enums/AdStatusEnum';
@@ -68,11 +68,9 @@ class ResultItem extends React.Component {
                     </div>
                 </td>
                 <td className="Col-employer">
-                    {ad.employer && ad.employer.name && (
-                        <Normaltekst className="ResultItem__column Col-employer-inner">
-                            {capitalizeEmployerName(ad.employer.name)}
-                        </Normaltekst>
-                    )}
+                    <Normaltekst className="ResultItem__column Col-employer-inner">
+                        {getEmployerName(ad)}
+                    </Normaltekst>
                 </td>
                 <td className="Col-privacy">
                     {ad.privacy && (

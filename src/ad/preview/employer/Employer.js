@@ -5,14 +5,14 @@ import { Undertittel } from 'nav-frontend-typografi';
 import './Employer.less';
 import { isValidUrl } from '../../../common/utils';
 
-export default function Employer({ properties }) {
+export default function Employer({ properties, businessName }) {
     return (
         <div className="detail-section">
             <Undertittel className="detail-section__head">Om bedriften</Undertittel>
             <dl className="dl-flex typo-normal">
-                {properties.employer && [
+                {(properties.employer || businessName ) && [
                     <dt key="dt">Bedriftens navn:</dt>,
-                    <dd key="dd">{properties.employer}</dd>
+                    <dd key="dd">{properties.employer || businessName}</dd> // todo: remove ad.properties.employer when depricated
                 ]}
                 {properties.employerhomepage && isValidUrl(properties.employerhomepage) && [
                     <dt key="dt">Nettsted:</dt>,

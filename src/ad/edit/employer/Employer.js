@@ -100,7 +100,7 @@ class Employer extends React.Component {
                 <EmployerName />
                 <Input
                     label="Navn på bedrift"
-                    value={ad.properties.employer || ''}
+                    value={ad.properties.employer || ad.businessName || ''} // todo: remove ad.properties.employer when depricated
                     onChange={this.onEmployerNameChange}
                     placeholder="Navnet bedriften bruker"
                 />

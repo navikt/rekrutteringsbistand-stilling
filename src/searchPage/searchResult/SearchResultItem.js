@@ -3,8 +3,8 @@ import { Normaltekst } from 'nav-frontend-typografi';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import capitalizeEmployerName from '../../ad/edit/employer/capitalizeEmployerName';
 import getWorkLocation from '../../common/getWorkLocation';
+import getEmployerName from '../../common/getEmployerName';
 import { formatISOString } from '../../utils';
 import './SearchResult.less';
 import PrivacyStatusEnum from '../../ad/administration/publishing/PrivacyStatusEnum';
@@ -29,7 +29,7 @@ const SearchResultItem = ({ ad }) => (
         </Column>
         <Column md="3">
             <Normaltekst className="SearchResultItem__column">
-                {ad.employer && ad.employer.name ? capitalizeEmployerName(ad.employer.name) : ''}
+                {getEmployerName(ad)}
             </Normaltekst>
         </Column>
         <Column md="1">

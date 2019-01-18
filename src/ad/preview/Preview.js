@@ -83,7 +83,7 @@ export default function Preview({ ad }) {
                         />
                         <ContactPerson contactList={ad.contactList} />
                         <Employer
-                            employer={ad.employer}
+                            businessName={ad.businessName}
                             properties={ad.properties}
                         />
                         <Summary ad={ad} />
