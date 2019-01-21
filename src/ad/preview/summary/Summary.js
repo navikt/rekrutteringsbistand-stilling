@@ -22,7 +22,7 @@ export default function Summary({ ad }) {
                     <dd key="dd">{ad.reference}</dd>
                 ]}
                 {ad.id && [
-                    <dt key="dt">Stillingsnummer:</dt>,
+                    <dt key="dt">Annonsenummer:</dt>,
                     <dd key="dd">{ad.id}</dd>
                 ]}
             </dl>
