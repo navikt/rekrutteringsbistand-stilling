@@ -2,7 +2,7 @@ import { put, select, takeLatest } from 'redux-saga/es/effects';
 import { erDatoEtterMinDato } from 'nav-datovelger/dist/datovelger/utils/datovalidering';
 import { findLocationByPostalCode } from './edit/location/locationCodeReducer';
 import { toDate } from '../utils';
-import { DEFAULT_TITLE, DEFAULT_TITLE_NEW_AD } from './adReducer';
+import { DEFAULT_TITLE_NEW_AD } from './adReducer';
 import IsJson from './edit/practicalInformation/IsJson';
 
 import {
@@ -93,7 +93,7 @@ export function* validateStyrk() {
 
 export function* validateTitle() {
     const adTitle = yield select((state) => state.adData.title);
-    if (valueIsNotSet(adTitle) || adTitle === DEFAULT_TITLE || adTitle === DEFAULT_TITLE_NEW_AD) {
+    if (valueIsNotSet(adTitle) || adTitle === DEFAULT_TITLE_NEW_AD) {
         yield put({ type: ADD_VALIDATION_ERROR, field: 'title', message: 'Overskrift på stillingen mangler' });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'title' });

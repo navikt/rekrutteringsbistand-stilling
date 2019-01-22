@@ -121,20 +121,19 @@ Ad.propTypes = {
     stilling: PropTypes.shape({
         title: PropTypes.string,
         uuid: PropTypes.string,
-        source: PropTypes.string
+        source: PropTypes.string,
+        status: PropTypes.string
     }),
     getStilling: PropTypes.func.isRequired,
     createAd: PropTypes.func.isRequired,
     previewAd: PropTypes.func.isRequired,
     isEditingAd: PropTypes.bool.isRequired,
     removeAdData: PropTypes.func.isRequired,
-    status: PropTypes.string
 };
 
 const mapStateToProps = (state) => ({
     stilling: state.adData,
     isEditingAd: state.ad.isEditingAd,
-    status: state.adData.administration.status
 });
 
 const mapDispatchToProps = (dispatch) => ({

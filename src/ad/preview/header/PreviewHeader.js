@@ -34,8 +34,8 @@ class PreviewMenu extends React.Component {
     };
 
     render() {
-        const { stilling, status } = this.props;
-        const showCandidateLinks = (status === AdminStatusEnum.DONE) && stilling && stilling.source === 'DIR';
+        const { stilling, adminStatus, comments } = this.props;
+        const showCandidateLinks = (adminStatus === AdminStatusEnum.DONE) && stilling && stilling.source === 'DIR';
         const showContactHelp = (stilling && stilling.source === 'DIR');
         const { reportee, navIdent } = stilling.administration;
 
@@ -48,48 +48,25 @@ class PreviewMenu extends React.Component {
                         stillingsId={stilling.id}
                     />
                 }
-                <div className="Preview__TopSection">
-                    {showContactHelp && (
-                        <div className="Preview__TopSection__left">
-                            <div>
-                                <i className="Help__icon" />
-                            </div>
-                            <div>
-                                <Element>Spørsmål om stillingen?</Element>
-                                <Normaltekst>
-                                    Kontakt: {reportee} {navIdent ? ` (${navIdent})` : '' }
-                                </Normaltekst>
-                            </div>
-                        </div>
-                    )}
-                    <div className="Preview__TopSection__right">
-                        <Comment />
-                    </div>
-                </div>
-                <AdTitle
-                    title={stilling.title}
-                    employer={stilling.properties.employer}
-                    location={stilling.location}
-                />
-                <div className="Ad__preview__menu">
+                <div className="Ad__actions">
                     {showCandidateLinks && (
                         <AWithIcon
                             href={`/kandidater/stilling/${stilling.uuid}`}
                             classNameText="typo-element"
-                            classNameLink="Ad__preview__menu-item FindCandidate"
+                            classNameLink="Ad__actions-link FindCandidate"
                             text="Finn kandidater"
                         />
                     )}
                     {showCandidateLinks && (
                         <div
                             role="button"
-                            className="Ad__preview__menu-item"
+                            className="Ad__actions-link"
                             onClick={this.toggleKandidatModal}
                         >
                             <AWithIcon
                                 href={'#'}
                                 classNameText="typo-element"
-                                classNameLink="Ad__preview__menu-item AddCandidate"
+                                classNameLink="AddCandidate"
                                 text="Legg til kandidat"
                             />
                         </div>
@@ -98,12 +75,12 @@ class PreviewMenu extends React.Component {
                         <AWithIcon
                             href={`/kandidater/lister/stilling/${stilling.uuid}/detaljer`}
                             classNameText="typo-element"
-                            classNameLink="Ad__preview__menu-item CandidateList"
+                            classNameLink="Ad__actions-link CandidateList"
                             text="Se kandidatliste"
                         />
                     )}
                     <Hovedknapp
-                        className="Ad__preview__menu-button"
+                        className="Ad__actions-button"
                         onClick={this.onEditAdClick}
                         mini
                     >
@@ -117,6 +94,29 @@ class PreviewMenu extends React.Component {
                         Skriv ut
                     </Knapp>
                 </div>
+                { (showContactHelp || comments) && (
+                    <div className="PreviewHeader">
+                        {showContactHelp && (
+                            <div className="PreviewHeader__Contact">
+                                <div>
+                                    <i className="Help__icon"/>
+                                </div>
+                                <div>
+                                    <Element>Spørsmål om stillingen?</Element>
+                                    <Normaltekst>
+                                        Kontakt: {reportee} {navIdent ? ` (${navIdent})` : ''}
+                                    </Normaltekst>
+                                </div>
+                            </div>
+                        )}
+                        <Comment />
+                    </div>
+                )}
+                <AdTitle
+                    title={stilling.title}
+                    employer={stilling.properties.employer}
+                    location={stilling.location}
+                />
             </div>
         );
     }
@@ -124,7 +124,8 @@ class PreviewMenu extends React.Component {
 
 PreviewMenu.defaultProps = {
     stilling: undefined,
-    status: undefined
+    adminStatus: undefined,
+    comments: undefined
 };
 
 PreviewMenu.propTypes = {
@@ -141,13 +142,15 @@ PreviewMenu.propTypes = {
         }),
         source: PropTypes.string
     }),
-    status: PropTypes.string,
-    editAd: PropTypes.func.isRequired
+    adminStatus: PropTypes.string,
+    editAd: PropTypes.func.isRequired,
+    comments: PropTypes.string
 };
 
 const mapStateToProps = (state) => ({
     stilling: state.adData,
-    status: state.adData.administration.status
+    adminStatus: state.adData.administration.status,
+    comments: state.adData.administration.comments
 });
 
 const mapDispatchToProps = (dispatch) => ({

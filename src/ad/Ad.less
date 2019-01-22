@@ -33,44 +33,13 @@
   height: 100%;
 }
 
-.Ad__preview {
-  padding: 2rem 1rem;
-  margin: 0 auto;
-  max-width: 75rem;
-}
-
+.Ad__preview,
 .Ad__edit__inner {
-  margin: 0 auto;
-  padding: 2rem 1rem;
-  max-width: 75rem;
-}
-
-
-.Ad__end-of-list{
-  padding-top: 20rem;
+  padding: 1.25rem 1rem;
   margin: 0 auto;
   max-width: 75rem;
 }
 
-.Ad__title__end-of-list {
-  margin-bottom: 1rem!important;
-}
-
-.Ad__text__end-of-list {
-  margin-bottom: 2rem!important;
-}
-
-.Ad__spinner {
-  text-align: center;
-  padding-top: 30rem;
-}
-
-.Ad__showAdFormButton,
-.Ad__hideAdFormButton {
-  margin: 1rem;
-  min-width: 12rem;
-  float: right;
-}
 
 .Ad__deleted {
   text-align: center;
@@ -81,5 +50,27 @@
   .Ad__flex__center {
     height: 100%;
     width: 100%;
+  }
+}
+
+.Ad__actions {
+  padding-bottom: 1.25rem;
+  display: flex;
+  align-items: center; //vertically
+}
+
+.Ad__actions-link {
+  align-self: flex-start;
+
+  &:not(:last-child){
+    margin-right: 2rem;
+  }
+}
+
+.Ad__actions-button {
+  margin-left: auto;
+
+  &:not(:last-child){
+    margin-right: 1rem;
   }
 }
