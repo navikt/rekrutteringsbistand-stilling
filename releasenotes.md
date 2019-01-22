@@ -1,3 +1,6 @@
+## RELEASE - 0.27.141-973e91f
+#### New in this release: 
++ 2019-01-21 [PAM-2532]: tekstendring
 ## RELEASE - 0.26.138-af7ff26
 #### New in this release: 
 + 2019-01-16 [PAM-2379] Endre størrelse på editor-ikon
