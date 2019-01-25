@@ -289,12 +289,8 @@ export default function adDataReducer(state = initialState, action) {
         case SET_EMPLOYER_NAME:
             return {
                 ...state,
-                businessName: action.employername,
-                // Todo: remove code below when properties.employer is deprecated
-                properties: {
-                    ...state.properties,
-                    employer: undefined
-                }
+                businessName: action.employername
+
             };
         case SET_EMPLOYER_HOMEPAGE:
             return {

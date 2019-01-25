@@ -4,15 +4,12 @@ import { connect } from 'react-redux';
 import { Select } from 'nav-frontend-skjema';
 import EngagementTypeEnum from './EngagementTypeEnum';
 import { SET_EMPLOYMENT_ENGAGEMENTTYPE } from '../../adDataReducer';
+import { createErrorObject } from '../../../common/utils';
 import './EngagementType.less';
 
 class EngagementType extends React.Component {
     onEngagementTypeChange = (e) => {
         this.props.setEngagementType(e.target.value);
-    };
-
-    createErrorObject = (errorMessage) => {
-        return errorMessage ? {feilmelding: errorMessage} : null;
     };
 
     render() {
@@ -23,7 +20,7 @@ class EngagementType extends React.Component {
                     label="Ansettelsesform*"
                     value={this.props.engagementType}
                     onChange={this.onEngagementTypeChange}
-                    feil={this.createErrorObject(this.props.validation.engagementtype)}
+                    feil={createErrorObject(this.props.validation.engagementtype)}
                 >
                     <option value={EngagementTypeEnum.NONE} key={EngagementTypeEnum.NONE}>
                         Velg

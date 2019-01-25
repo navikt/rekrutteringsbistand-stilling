@@ -5,6 +5,7 @@ import {
 } from 'nav-frontend-skjema';
 import { connect } from 'react-redux';
 import { Normaltekst } from 'nav-frontend-typografi';
+import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import Datovelger from 'nav-datovelger';
 import { formatISOString } from '../../../utils';
 import {
@@ -18,11 +19,11 @@ import {
     SET_APPLICATIONDUE,
     SET_EMPLOYMENT_STARTTIME
 } from '../../adDataReducer';
-import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import EngagementType from '../engagementType/EngagementType';
 import JobArrangement from '../jobArrangement/JobArrangement';
 import './PracticalInformation.less';
 import IsJson from './IsJson';
+import { createErrorObject } from '../../../common/utils';
 
 class PracticalInformation extends React.Component {
     onWorkdayChange = (e) => {
@@ -91,10 +92,6 @@ class PracticalInformation extends React.Component {
         }
     };
 
-    createErrorObject = (errorMessage) => {
-        return errorMessage ? {feilmelding: errorMessage} : null;
-    };
-
     render() {
         const { ad, workday, workhours } = this.props;
 
@@ -112,7 +109,7 @@ class PracticalInformation extends React.Component {
                 <Normaltekst className="PracticalInformation__label">Omfang*</Normaltekst>
                 <SkjemaGruppe
                     className="blokk-xs typo-normal"
-                    feil={this.createErrorObject(this.props.validation.extent)}
+                    feil={createErrorObject(this.props.validation.extent)}
                 >
                     <Radio
                         className="Edit__inline"
@@ -134,7 +131,7 @@ class PracticalInformation extends React.Component {
                 <Normaltekst className="PracticalInformation__label">Arbeidsdager*</Normaltekst>
                 <SkjemaGruppe
                     className="blokk-xs typo-normal"
-                    feil={this.createErrorObject(this.props.validation.workday)}
+                    feil={createErrorObject(this.props.validation.workday)}
                 >
                     <Checkbox
                         className="Edit__inline"
@@ -161,7 +158,7 @@ class PracticalInformation extends React.Component {
                 <Normaltekst className="PracticalInformation__label">Arbeidstid*</Normaltekst>
                 <SkjemaGruppe
                     className="blokk-xs typo-normal"
-                    feil={this.createErrorObject(this.props.validation.workhours)}
+                    feil={createErrorObject(this.props.validation.workhours)}
                 >
                     <Checkbox
                         className="Edit__inline"
@@ -188,7 +185,7 @@ class PracticalInformation extends React.Component {
                 <Normaltekst className="PracticalInformation__label">Sektor*</Normaltekst>
                 <SkjemaGruppe
                     className="typo-normal"
-                    feil={this.createErrorObject(this.props.validation.sector)}
+                    feil={createErrorObject(this.props.validation.sector)}
                 >
                     <div>
                         <Radio
@@ -224,12 +221,12 @@ class PracticalInformation extends React.Component {
                     label="Antall stillinger*"
                     value={ad.properties.positioncount || ''}
                     onChange={this.onPositioncountChange}
-                    feil={this.createErrorObject(this.props.validation.positioncount)}
+                    feil={createErrorObject(this.props.validation.positioncount)}
                 />
                 <Normaltekst className="PracticalInformation__label">Søknadsfrist*</Normaltekst>
                 <SkjemaGruppe
-                    className={this.createErrorObject(this.props.validation.applicationdue) ? "typo-normal blokk-xs" : "typo-normal"}
-                    feil={this.createErrorObject(this.props.validation.applicationdue)}
+                    className={createErrorObject(this.props.validation.applicationdue) ? "typo-normal blokk-xs" : "typo-normal"}
+                    feil={createErrorObject(this.props.validation.applicationdue)}
                 >
                     <div className="PracticalInformation">
                         <div className="PracticalInformation__datepicker">

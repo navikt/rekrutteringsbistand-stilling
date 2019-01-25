@@ -101,7 +101,6 @@ class EditHeader extends React.Component {
                     placeholder="For eksempel engasjert barnehagelærer til Oslo-skole"
                     onChange={this.onTitleChange}
                     feil={createErrorObject(validation.title)}
-                    autoFocus
                 />
                 <Normaltekst className="blokk-xs">* felter du må fylle ut</Normaltekst>
             </div>
