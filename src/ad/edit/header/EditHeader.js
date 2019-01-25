@@ -1,58 +1,36 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Knapp } from 'nav-frontend-knapper';
-import { Sidetittel, Normaltekst } from 'nav-frontend-typografi';
+import { Input } from 'nav-frontend-skjema';
+import { Normaltekst, Element } from 'nav-frontend-typografi';
 import AdminStatusEnum from '../../administration/adminStatus/AdminStatusEnum';
 import './EditHeader.less';
 import AWithIcon from '../../../common/aWithIcon/AWithIcon';
-import { SAVE_AD, SET_EDIT_TITLE, TOGGLE_EDIT_TITLE } from '../../adReducer';
+import { DEFAULT_TITLE_NEW_AD } from '../../adReducer';
 import { SET_AD_TITLE } from '../../adDataReducer';
-import { connect } from 'react-redux';
+import { createErrorObject } from '../../../common/utils';
 import LeggTilKandidatModal from '../../kandidatModal/LeggTilKandidatModal';
 
-const headerClassName = (feil) => {
-    return `skjemaelement__input Ad__edit__top-section-input ${feil ? 'skjemaelement__input--harFeil' : ''}`;
-};
 
 class EditHeader extends React.Component {
     constructor(props) {
         super(props);
-        this.titleInput = React.createRef();
         this.state = {
-            validationError: false,
             showKandidatModal: false
         };
-
-        if (props.isEditingTitle && !props.editTitle) {
-            props.toggleEditTitle();
-        }
     }
 
-    handleTitleInput = (event) => {
-        this.props.setEditTitle(event.target.value);
+    onTitleChange = (e) => {
+        this.props.setAdTitle(e.target.value);
     };
 
-    handleEditToggle = () => {
-        const { isEditingTitle, toggleEditTitle, setEditTitle } = this.props;
-        if (isEditingTitle) {
-            this.setState({ validationError: false });
-        }
-
-        setEditTitle(this.props.stilling.title);
-        toggleEditTitle();
-    };
-
-    handleSaveTitle = () => {
-        const { toggleEditTitle, saveTitle, saveAd } = this.props;
-        const value = this.titleInput.current.value;
-
-        if (value && value !== '') {
-            saveTitle(value);
-            saveAd();
-            toggleEditTitle();
-            this.setState({ validationError: false})
+    getAdTitle = () => {
+        // Hack for hiding the default title coming from backend
+        if (this.props.ad.title === DEFAULT_TITLE_NEW_AD) {
+            return '';
         } else {
-            this.setState({ validationError: true })
+            return this.props.ad.title || '';
         }
     };
 
@@ -63,88 +41,39 @@ class EditHeader extends React.Component {
     };
 
     render() {
-        const { isEditingTitle, editTitle, onPreviewAdClick, isNew, validation, stilling } = this.props;
-        const { uuid, status, title, source } = this.props.stilling;
-        const showCandidateLinks = (status === AdminStatusEnum.DONE || status === AdminStatusEnum.ACTIVE) && source === 'DIR';
+        const { onPreviewAdClick, validation, ad, status } = this.props;
+        const { uuid, source } = ad;
+        const showCandidateLinks = (status === AdminStatusEnum.DONE || status === AdminStatusEnum.ACTIVE)
+            && source === 'DIR';
 
         return (
             <div>
-                {this.state.showKandidatModal &&
-                <LeggTilKandidatModal
-                    vis={this.state.showKandidatModal}
-                    onClose={this.toggleKandidatModal}
-                    stillingsId={stilling.id}
-                />
-                }
-                {isEditingTitle ? (
-                    <div className={"Ad__edit__top-section"}>
-                        <input
-                            type="text"
-                            onChange={this.handleTitleInput}
-                            className={headerClassName(validation.title || this.state.validationError)}
-                            value={editTitle}
-                            ref={this.titleInput}
-                            autoFocus
-                        />
-                        <Knapp
-                            className="Ad__edit__top-section-button knapp--hoved"
-                            onClick={this.handleSaveTitle}
-                            mini
-                        >
-                            Lagre
-                        </Knapp>
-                        <Knapp
-                            className="Ad__edit__top-section-button"
-                            onClick={this.handleEditToggle}
-                            mini
-                        >
-                            Avbryt
-                        </Knapp>
-                    </div>
-                ) : (
-                    <div className={"Ad__edit__top-section"}>
-                        <Sidetittel className="Ad__edit__menu-title">{title || editTitle}</Sidetittel>
-                        {!isNew &&
-                            <div
-                                role="button"
-                                className="Ad__edit__top-section-item"
-                                onClick={this.handleEditToggle}
-                            >
-                                <AWithIcon
-                                    classNameText="typo-element"
-                                    classNameLink="Ad__edit__menu-item EditAd"
-                                    text="Rediger"
-                                />
-                            </div>
-                        }
-                    </div>
+                {this.state.showKandidatModal && (
+                    <LeggTilKandidatModal
+                        vis={this.state.showKandidatModal}
+                        onClose={this.toggleKandidatModal}
+                        stillingsId={ad.id}
+                    />
                 )}
-                {!isNew &&
-                    <div role="alert" aria-live="assertive">
-                        {(validation.title || this.state.validationError) &&
-                        <div className="skjemaelement__feilmelding">{'Overskrift på stillingen mangler'}</div>}
-                    </div>
-                }
-                <Normaltekst>* er obligatoriske felter du må fylle ut</Normaltekst>
-                <div className="Ad__edit__menu">
+                <div className="Ad__actions">
                     {showCandidateLinks && (
                         <AWithIcon
                             href={`/kandidater/stilling/${uuid}`}
                             classNameText="typo-element"
-                            classNameLink="Ad__edit__menu-item FindCandidate"
+                            classNameLink="Ad__actions-link FindCandidate"
                             text="Finn kandidater"
                         />
                     )}
                     {showCandidateLinks && (
                         <div
                             role="button"
-                            className="Ad__preview__menu-item"
+                            className="Ad__actions-link"
                             onClick={this.toggleKandidatModal}
                         >
                             <AWithIcon
                                 href={'#'}
                                 classNameText="typo-element"
-                                classNameLink="Ad__preview__menu-item AddCandidate"
+                                classNameLink="AddCandidate"
                                 text="Legg til kandidat"
                             />
                         </div>
@@ -153,56 +82,59 @@ class EditHeader extends React.Component {
                         <AWithIcon
                             href={`/kandidater/lister/stilling/${uuid}/detaljer`}
                             classNameText="typo-element"
-                            classNameLink="Ad__edit__menu-item CandidateList"
+                            classNameLink="Ad__actions-link CandidateList"
                             text="Se kandidatliste"
                         />
                     )}
                     <Knapp
-                        className="Ad__edit__menu-button"
+                        className="Ad__actions-button"
                         onClick={onPreviewAdClick}
                         mini
                     >
                         Forhåndsvis stillingen
                     </Knapp>
                 </div>
+                <Input
+                    inputClassName="EditHeader__AdTitle"
+                    label={<Element>Overskrift på annonsen* </Element>}
+                    value={this.getAdTitle()}
+                    placeholder="For eksempel engasjert barnehagelærer til Oslo-skole"
+                    onChange={this.onTitleChange}
+                    feil={createErrorObject(validation.title)}
+                    autoFocus
+                />
+                <Normaltekst className="blokk-xs">* felter du må fylle ut</Normaltekst>
             </div>
         );
     }
 }
 
 EditHeader.defaultProps = {
-    status: undefined
+    status: undefined,
 };
 
 EditHeader.propTypes = {
-    stilling: PropTypes.shape({
+    ad: PropTypes.shape({
         title: PropTypes.string,
         uuid: PropTypes.string,
         source: PropTypes.string
-    }),
+    }).isRequired,
     onPreviewAdClick: PropTypes.func.isRequired,
     status: PropTypes.string,
-    toggleEditTitle: PropTypes.func.isRequired,
-    setEditTitle: PropTypes.func.isRequired,
-    editTitle: PropTypes.string.isRequired,
-    saveTitle: PropTypes.func.isRequired,
-    saveAd: PropTypes.func.isRequired,
-    isNew: PropTypes.bool
+    setAdTitle: PropTypes.func.isRequired,
+    validation: PropTypes.shape({
+        title: PropTypes.string
+    }).isRequired
 };
 
 const mapStateToProps = (state) => ({
-    stilling: state.adData,
+    ad: state.adData,
     status: state.adData.administration.status,
-    isEditingTitle: state.ad.isEditingTitle,
-    editTitle: state.ad.editTitle,
     validation: state.adValidation.errors
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    toggleEditTitle: () => dispatch({ type: TOGGLE_EDIT_TITLE }),
-    setEditTitle: (title) => dispatch({ type: SET_EDIT_TITLE, title }),
-    saveTitle: (title) => dispatch({ type: SET_AD_TITLE, title }),
-    saveAd: () => dispatch({ type: SAVE_AD, showModal: false })
+    setAdTitle: (title) => dispatch({ type: SET_AD_TITLE, title })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditHeader);
