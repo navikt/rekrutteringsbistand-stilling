@@ -1,3 +1,6 @@
+## RELEASE - 0.28.143-6831622
+#### New in this release: 
++ 2019-01-22 [PAM-2480]: Forenkling av felt for stillingstittel + opprydning
 ## RELEASE - 0.27.141-973e91f
 #### New in this release: 
 + 2019-01-21 [PAM-2532]: tekstendring
