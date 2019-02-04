@@ -54,8 +54,7 @@ class Ad extends React.Component {
     };
 
     render() {
-        const { stilling, isEditingAd, showHasChangesModal } = this.props;
-        const { created, updated } = stilling;
+        const { stilling, isEditingAd, showHasChangesModal, hasChanges } = this.props;
         const { isNew } = this.props.location.state || { isNew: false };
 
         if (stilling.status === AdStatusEnum.DELETED) {
@@ -72,7 +71,7 @@ class Ad extends React.Component {
             );
         }
 
-        const showNavigationPropt = !showHasChangesModal && ((created === updated) || isEditingAd);
+        const showNavigationPropt = !showHasChangesModal && hasChanges;
 
         return (
             <div className="Ad">
@@ -142,6 +141,7 @@ Ad.propTypes = {
     createAd: PropTypes.func.isRequired,
     previewAd: PropTypes.func.isRequired,
     isEditingAd: PropTypes.bool.isRequired,
+    hasChanges: PropTypes.bool.isRequired,
     removeAdData: PropTypes.func.isRequired,
     showHasChangesModal: PropTypes.bool.isRequired
 };
@@ -149,6 +149,7 @@ Ad.propTypes = {
 const mapStateToProps = (state) => ({
     stilling: state.adData,
     isEditingAd: state.ad.isEditingAd,
+    hasChanges: state.ad.hasChanges,
     showHasChangesModal: state.ad.showHasChangesModal
 });
 

@@ -91,6 +91,7 @@ const initialState = {
     isFetchingStilling: false,
     isEditingAd: false,
     originalData: undefined,
+    hasChanges: false,
     hasSavedChanges: false,
     copiedAds: [],
     showPublishErrorModal: false,
@@ -113,7 +114,8 @@ export default function adReducer(state = initialState, action) {
                 hasSavedChanges: false,
                 isFetchingStilling: true,
                 error: undefined,
-                originalData: undefined
+                originalData: undefined,
+                hasChanges: false
             };
         case FETCH_AD_SUCCESS:
             return {
@@ -133,7 +135,8 @@ export default function adReducer(state = initialState, action) {
             return {
                 ...state,
                 isSavingAd: true,
-                hasSavedChanges: false
+                hasSavedChanges: false,
+                hasChanges: false
             };
         case CREATE_AD_SUCCESS:
             return {
@@ -141,7 +144,8 @@ export default function adReducer(state = initialState, action) {
                 isSavingAd: false,
                 hasSavedChanges: true,
                 isEditingAd: true,
-                originalData: { ...action.response }
+                originalData: { ...action.response },
+                hasChanges: true
             };
         case SAVE_AD_SUCCESS:
             return {
@@ -162,7 +166,8 @@ export default function adReducer(state = initialState, action) {
         case EDIT_AD:
             return {
                 ...state,
-                isEditingAd: true
+                isEditingAd: true,
+                hasChanges: true,
             };
         case PREVIEW_EDIT_AD:
             return {
