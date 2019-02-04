@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { Link } from 'react-router-dom';
+import NavigationPrompt from './navigation/NavigationPrompt';
 import Faded from '../common/faded/Faded';
 import './Ad.less';
 import { REMOVE_AD_DATA } from './adDataReducer';
@@ -16,6 +17,7 @@ import PreviewHeader from './preview/header/PreviewHeader';
 import EditHeader from './edit/header/EditHeader';
 import AdStatusEnum from './administration/adStatus/AdStatusEnum';
 import LeggTilKandidatAlertStripe from './kandidatModal/LeggTilKandidatAlertStripe';
+import NavigationModal from './navigation/NavigationModal';
 
 class Ad extends React.Component {
     componentDidMount() {
@@ -36,8 +38,8 @@ class Ad extends React.Component {
             this.props.history.replace({
                 pathname: `/stilling/${this.uuid}`,
                 state: {
-                  ...this.props.location.state,
-                  openInEditMode: true
+                    ...this.props.location.state,
+                    openInEditMode: true
                 }
             });
         }
@@ -52,7 +54,8 @@ class Ad extends React.Component {
     };
 
     render() {
-        const { stilling, isEditingAd } = this.props;
+        const { stilling, isEditingAd, showHasChangesModal } = this.props;
+        const { created, updated } = stilling;
         const { isNew } = this.props.location.state || { isNew: false };
 
         if (stilling.status === AdStatusEnum.DELETED) {
@@ -69,8 +72,19 @@ class Ad extends React.Component {
             );
         }
 
+        const showNavigationPropt = !showHasChangesModal && ((created === updated) || isEditingAd);
+
         return (
             <div className="Ad">
+                <NavigationPrompt currentLocation={this.props.history.location.pathname} when={showNavigationPropt}>
+                    {(isOpen, onConfirm, onCancel) => (
+                        <NavigationModal
+                            isOpen={isOpen}
+                            onCancel={onCancel}
+                            onConfirm={onConfirm}
+                        />
+                    )}
+                </NavigationPrompt>
                 <LeggTilKandidatAlertStripe />
                 <SavedAdAlertStripe />
                 <Faded>
@@ -129,11 +143,13 @@ Ad.propTypes = {
     previewAd: PropTypes.func.isRequired,
     isEditingAd: PropTypes.bool.isRequired,
     removeAdData: PropTypes.func.isRequired,
+    showHasChangesModal: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state) => ({
     stilling: state.adData,
     isEditingAd: state.ad.isEditingAd,
+    showHasChangesModal: state.ad.showHasChangesModal
 });
 
 const mapDispatchToProps = (dispatch) => ({
