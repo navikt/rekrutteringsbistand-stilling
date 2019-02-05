@@ -71,11 +71,11 @@ class Ad extends React.Component {
             );
         }
 
-        const showNavigationPropt = !showHasChangesModal && hasChanges;
+        const showNavigationPrompt = !showHasChangesModal && hasChanges;
 
         return (
             <div className="Ad">
-                <NavigationPrompt currentLocation={this.props.history.location.pathname} when={showNavigationPropt}>
+                <NavigationPrompt currentLocation={this.props.history.location.pathname} when={showNavigationPrompt}>
                     {(isOpen, onConfirm, onCancel) => (
                         <NavigationModal
                             isOpen={isOpen}
