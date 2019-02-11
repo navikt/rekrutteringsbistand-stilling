@@ -31,13 +31,17 @@ class HeaderMenu extends React.Component {
     }
 }
 
+HeaderMenu.defaultProps = {
+    hasChanges: false
+};
+
 HeaderMenu.propTypes = {
     tabId: PropTypes.string.isRequired,
     displayName: PropTypes.string.isRequired,
     fetchDisplayName: PropTypes.func.isRequired,
     isFetchingDisplayName: PropTypes.bool.isRequired,
     showHasChangesModal: PropTypes.func.isRequired,
-    hasChanges: PropTypes.bool.isRequired
+    hasChanges: PropTypes.bool
 };
 
 const mapStateToProps = (state) => ({
