@@ -37,8 +37,8 @@ class Ad extends React.Component {
             this.props.history.replace({
                 pathname: `/stilling/${this.uuid}`,
                 state: {
-                  ...this.props.location.state,
-                  openInEditMode: true
+                    ...this.props.location.state,
+                    openInEditMode: true
                 }
             });
         }
