@@ -5,28 +5,34 @@ import NavFrontendModal from 'nav-frontend-modal';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import LinkButton from '../../common/linkbutton/LinkButton';
-import { DELETE_AD_FROM_MY_ADS } from '../adReducer';
-import './NavigationModal.less';
+import { DELETE_AD_AND_REDIRECT, HIDE_HAS_CHANGES_MODAL } from '../adReducer';
+import './HasChangesModal.less';
 
-class NavigationModal extends React.Component {
+class HasChangesModal extends React.Component {
+    onClose = () => {
+        this.props.closeModal();
+    };
+
     onLeaveClick = () => {
-        const { updated, created, onConfirm, deleteAd } = this.props;
+        const { updated, created, closeModal, deleteAdAndRedirect, hasChangesLeaveUrl } = this.props;
         if (updated === created) {
-            deleteAd();
+            deleteAdAndRedirect(hasChangesLeaveUrl);
+        } else {
+            window.location.pathname = this.props.hasChangesLeaveUrl;
         }
-        onConfirm();
+        closeModal();
     };
 
     render() {
-        const { isOpen, onCancel, updated, created } = this.props;
+        const { showHasChangesModal, updated, created } = this.props;
         return (
             <NavFrontendModal
-                isOpen={isOpen}
-                contentLabel="Forlate siden?"
-                onRequestClose={onCancel}
+                isOpen={showHasChangesModal}
+                contentLabel="Fortsett"
+                onRequestClose={this.onClose}
                 closeButton
                 appElement={document.getElementById('app')}
-                className="NavigationModal"
+                className="HasChangesModal"
             >
                 {updated === created ? (
                     <Undertittel className="blokk-s">
@@ -41,7 +47,7 @@ class NavigationModal extends React.Component {
                     <Normaltekst className="blokk-l">
                         Hvis du navigerer bort fra denne siden uten å lagre så mister du informasjonen.
                     </Normaltekst>
-                    <Hovedknapp onClick={onCancel}>
+                    <Hovedknapp onClick={this.onClose}>
                         Bli på siden
                     </Hovedknapp>
                     <LinkButton
@@ -56,29 +62,33 @@ class NavigationModal extends React.Component {
     }
 }
 
-NavigationModal.defaultProps = {
+HasChangesModal.defaultProps = {
+    updated: undefined,
     created: undefined,
-    updated: undefined
+    hasChangesLeaveUrl: '/mineStillinger'
 };
 
-NavigationModal.propTypes = {
-    isOpen: PropTypes.bool.isRequired,
+HasChangesModal.propTypes = {
+    showHasChangesModal: PropTypes.bool.isRequired,
+    hasChangesLeaveUrl: PropTypes.string,
+    closeModal: PropTypes.func.isRequired,
+    deleteAdAndRedirect: PropTypes.func.isRequired,
     updated: PropTypes.string,
-    created: PropTypes.string,
-    onCancel: PropTypes.func.isRequired,
-    onConfirm: PropTypes.func.isRequired,
-    deleteAd: PropTypes.func.isRequired
+    created: PropTypes.string
 };
 
 const mapStateToProps = (state) => ({
+    showHasChangesModal: state.ad.showHasChangesModal,
+    hasChangesLeaveUrl: state.ad.hasChangesLeaveUrl,
     adStatus: state.adData.status,
     updated: state.adData.updated,
     created: state.adData.created
 });
 
-
 const mapDispatchToProps = (dispatch) => ({
-    deleteAd: () => dispatch({ type: DELETE_AD_FROM_MY_ADS })
+    closeModal: () => dispatch({ type: HIDE_HAS_CHANGES_MODAL }),
+    deleteAdAndRedirect: (url) => dispatch({ type: DELETE_AD_AND_REDIRECT, url })
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(NavigationModal);
+export default connect(mapStateToProps, mapDispatchToProps)(HasChangesModal);
+

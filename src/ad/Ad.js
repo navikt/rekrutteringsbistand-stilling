@@ -3,7 +3,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { Link } from 'react-router-dom';
-import NavigationPrompt from './navigation/NavigationPrompt';
 import Faded from '../common/faded/Faded';
 import './Ad.less';
 import { REMOVE_AD_DATA } from './adDataReducer';
@@ -17,7 +16,7 @@ import PreviewHeader from './preview/header/PreviewHeader';
 import EditHeader from './edit/header/EditHeader';
 import AdStatusEnum from './administration/adStatus/AdStatusEnum';
 import LeggTilKandidatAlertStripe from './kandidatModal/LeggTilKandidatAlertStripe';
-import NavigationModal from './navigation/NavigationModal';
+import HasChangesModal from './navigation/HasChangesModal';
 
 class Ad extends React.Component {
     componentDidMount() {
@@ -71,19 +70,9 @@ class Ad extends React.Component {
             );
         }
 
-        const showNavigationPrompt = !showHasChangesModal && hasChanges;
-
         return (
             <div className="Ad">
-                <NavigationPrompt currentLocation={this.props.history.location.pathname} when={showNavigationPrompt}>
-                    {(isOpen, onConfirm, onCancel) => (
-                        <NavigationModal
-                            isOpen={isOpen}
-                            onCancel={onCancel}
-                            onConfirm={onConfirm}
-                        />
-                    )}
-                </NavigationPrompt>
+                <HasChangesModal />
                 <LeggTilKandidatAlertStripe />
                 <SavedAdAlertStripe />
                 <Faded>

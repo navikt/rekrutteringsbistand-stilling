@@ -5,19 +5,12 @@ import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
 import Comment from './comment/Comment';
 import { EDIT_AD } from '../../adReducer';
-import AdminStatusEnum from '../../administration/adminStatus/AdminStatusEnum';
 import AdTitle from './AdTitle';
+import CandidateActions from '../../candidateActions/CandidateActions';
 import './PreviewHeader.less';
-import AWithIcon from '../../../common/aWithIcon/AWithIcon';
-import LeggTilKandidatModal from '../../kandidatModal/LeggTilKandidatModal';
+
 
 class PreviewMenu extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            showKandidatModal: false
-        };
-    }
 
     onEditAdClick = () => {
         this.props.editAd();
@@ -27,58 +20,15 @@ class PreviewMenu extends React.Component {
         window.print();
     };
 
-    toggleKandidatModal = () => {
-        this.setState({
-            showKandidatModal: !this.state.showKandidatModal
-        });
-    };
-
     render() {
-        const { stilling, adminStatus, comments } = this.props;
-        const showCandidateLinks = (adminStatus === AdminStatusEnum.DONE) && stilling && stilling.source === 'DIR';
+        const { stilling, comments } = this.props;
         const showContactHelp = (stilling && stilling.source === 'DIR');
         const { reportee, navIdent } = stilling.administration;
 
         return (
             <div>
-                {this.state.showKandidatModal &&
-                    <LeggTilKandidatModal
-                        vis={this.state.showKandidatModal}
-                        onClose={this.toggleKandidatModal}
-                        stillingsId={stilling.id}
-                    />
-                }
                 <div className="Ad__actions">
-                    {showCandidateLinks && (
-                        <AWithIcon
-                            href={`/kandidater/stilling/${stilling.uuid}`}
-                            classNameText="typo-element"
-                            classNameLink="Ad__actions-link FindCandidate"
-                            text="Finn kandidater"
-                        />
-                    )}
-                    {showCandidateLinks && (
-                        <div
-                            role="button"
-                            className="Ad__actions-link"
-                            onClick={this.toggleKandidatModal}
-                        >
-                            <AWithIcon
-                                href={'#'}
-                                classNameText="typo-element"
-                                classNameLink="AddCandidate"
-                                text="Legg til kandidat"
-                            />
-                        </div>
-                    )}
-                    {showCandidateLinks && (
-                        <AWithIcon
-                            href={`/kandidater/lister/stilling/${stilling.uuid}/detaljer`}
-                            classNameText="typo-element"
-                            classNameLink="Ad__actions-link CandidateList"
-                            text="Se kandidatliste"
-                        />
-                    )}
+                    <CandidateActions />
                     <Hovedknapp
                         className="Ad__actions-button"
                         onClick={this.onEditAdClick}
@@ -124,7 +74,6 @@ class PreviewMenu extends React.Component {
 
 PreviewMenu.defaultProps = {
     stilling: undefined,
-    adminStatus: undefined,
     comments: undefined
 };
 
@@ -142,7 +91,6 @@ PreviewMenu.propTypes = {
         }),
         source: PropTypes.string
     }),
-    adminStatus: PropTypes.string,
     editAd: PropTypes.func.isRequired,
     comments: PropTypes.string
 };
