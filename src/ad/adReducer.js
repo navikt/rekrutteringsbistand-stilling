@@ -26,7 +26,6 @@ import {
 import PrivacyStatusEnum from './administration/publishing/PrivacyStatusEnum';
 import { AdAlertStripeMode, showAlertStripe } from './alertstripe/SavedAdAlertStripeReducer';
 import { FETCH_MY_ADS } from '../myAds/myAdsReducer';
-import history from '../history';
 
 export const FETCH_AD = 'FETCH_AD';
 export const FETCH_AD_BEGIN = 'FETCH_AD_BEGIN';
@@ -70,6 +69,7 @@ export const COPY_AD_FROM_MY_ADS = 'COPY_AD_FROM_MY_ADS';
 
 export const SHOW_HAS_CHANGES_MODAL = 'SHOW_HAS_CHANGES_MODAL';
 export const HIDE_HAS_CHANGES_MODAL = 'HIDE_HAS_CHANGES_MODAL';
+export const LEAVE_PAGE_TRIGGER = 'LEAVE_PAGE_TRIGGER';
 
 export const SHOW_AD_PUBLISHED_MODAL = 'SHOW_AD_PUBLISHED_MODAL';
 export const HIDE_AD_PUBLISHED_MODAL = 'HIDE_AD_PUBLISHED_MODAL';
@@ -100,7 +100,8 @@ const initialState = {
     showDeleteAdModal: false,
     showAdPublishedModal: false,
     showAdSavedErrorModal: false,
-    hasChangesLeaveUrl: undefined
+    hasChangesLeaveUrl: undefined,
+    leavePageTrigger: false
 };
 
 export default function adReducer(state = initialState, action) {
@@ -194,8 +195,7 @@ export default function adReducer(state = initialState, action) {
         case HIDE_HAS_CHANGES_MODAL:
             return {
                 ...state,
-                showHasChangesModal: false,
-                hasChangesLeaveUrl: undefined
+                showHasChangesModal: false
             };
         case SHOW_STOP_AD_MODAL:
             return {
@@ -249,6 +249,11 @@ export default function adReducer(state = initialState, action) {
             return {
                 ...state,
                 copiedAds: []
+            };
+        case LEAVE_PAGE_TRIGGER:
+            return {
+                ...state,
+                leavePageTrigger: true
             };
         default:
             return state;
@@ -410,9 +415,9 @@ function* deleteAd() {
     }
 }
 
-function* deleteAdAndRedirect(action) {
+function* deleteAdAndRedirect() {
     yield deleteAd();
-    yield call(window.location.href = action.url);
+    yield put({ type: LEAVE_PAGE_TRIGGER });
 }
 
 function* deleteAdFromMyAds() {

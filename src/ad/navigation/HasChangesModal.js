@@ -16,7 +16,7 @@ class HasChangesModal extends React.Component {
     onLeaveClick = () => {
         const { updated, created, closeModal, deleteAdAndRedirect, hasChangesLeaveUrl } = this.props;
         if (updated === created) {
-            deleteAdAndRedirect(hasChangesLeaveUrl);
+            deleteAdAndRedirect();
         } else {
             window.location.pathname = this.props.hasChangesLeaveUrl;
         }
@@ -24,7 +24,13 @@ class HasChangesModal extends React.Component {
     };
 
     render() {
-        const { showHasChangesModal, updated, created } = this.props;
+        const { showHasChangesModal, updated, created, leavePageTrigger, hasChangesLeaveUrl } = this.props;
+
+        if (leavePageTrigger) {
+            window.location.pathname = hasChangesLeaveUrl;
+            return null;
+        }
+
         return (
             <NavFrontendModal
                 isOpen={showHasChangesModal}
@@ -74,12 +80,14 @@ HasChangesModal.propTypes = {
     closeModal: PropTypes.func.isRequired,
     deleteAdAndRedirect: PropTypes.func.isRequired,
     updated: PropTypes.string,
-    created: PropTypes.string
+    created: PropTypes.string,
+    leavePageTrigger: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state) => ({
     showHasChangesModal: state.ad.showHasChangesModal,
     hasChangesLeaveUrl: state.ad.hasChangesLeaveUrl,
+    leavePageTrigger: state.ad.leavePageTrigger,
     adStatus: state.adData.status,
     updated: state.adData.updated,
     created: state.adData.created
@@ -87,8 +95,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     closeModal: () => dispatch({ type: HIDE_HAS_CHANGES_MODAL }),
-    deleteAdAndRedirect: (url) => dispatch({ type: DELETE_AD_AND_REDIRECT, url })
+    deleteAdAndRedirect: () => dispatch({ type: DELETE_AD_AND_REDIRECT })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HasChangesModal);
-
