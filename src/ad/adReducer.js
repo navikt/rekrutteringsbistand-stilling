@@ -412,7 +412,7 @@ function* deleteAd() {
 
 function* deleteAdAndRedirect(action) {
     yield deleteAd();
-    yield call(history.push, action.url);
+    yield call(window.location.href = action.url);
 }
 
 function* deleteAdFromMyAds() {
