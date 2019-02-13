@@ -92,13 +92,15 @@ const initialState = {
     isEditingAd: false,
     originalData: undefined,
     hasSavedChanges: false,
+    hasChanges: false,
     copiedAds: [],
     showPublishErrorModal: false,
     showHasChangesModal: false,
     showStopAdModal: false,
     showDeleteAdModal: false,
     showAdPublishedModal: false,
-    showAdSavedErrorModal: false
+    showAdSavedErrorModal: false,
+    hasChangesLeaveUrl: undefined
 };
 
 export default function adReducer(state = initialState, action) {
@@ -113,7 +115,8 @@ export default function adReducer(state = initialState, action) {
                 hasSavedChanges: false,
                 isFetchingStilling: true,
                 error: undefined,
-                originalData: undefined
+                originalData: undefined,
+                hasChanges: false
             };
         case FETCH_AD_SUCCESS:
             return {
@@ -130,10 +133,12 @@ export default function adReducer(state = initialState, action) {
             };
         case CREATE_AD_BEGIN:
         case SAVE_AD_BEGIN:
+        case DELETE_AD_BEGIN:
             return {
                 ...state,
                 isSavingAd: true,
-                hasSavedChanges: false
+                hasSavedChanges: false,
+                hasChanges: false
             };
         case CREATE_AD_SUCCESS:
             return {
@@ -141,7 +146,8 @@ export default function adReducer(state = initialState, action) {
                 isSavingAd: false,
                 hasSavedChanges: true,
                 isEditingAd: true,
-                originalData: { ...action.response }
+                originalData: { ...action.response },
+                hasChanges: true
             };
         case SAVE_AD_SUCCESS:
             return {
@@ -161,7 +167,8 @@ export default function adReducer(state = initialState, action) {
         case EDIT_AD:
             return {
                 ...state,
-                isEditingAd: true
+                isEditingAd: true,
+                hasChanges: true
             };
         case PREVIEW_EDIT_AD:
             return {
@@ -181,12 +188,14 @@ export default function adReducer(state = initialState, action) {
         case SHOW_HAS_CHANGES_MODAL:
             return {
                 ...state,
-                showHasChangesModal: true
+                showHasChangesModal: true,
+                hasChangesLeaveUrl: action.leaveUrl
             };
         case HIDE_HAS_CHANGES_MODAL:
             return {
                 ...state,
-                showHasChangesModal: false
+                showHasChangesModal: false,
+                hasChangesLeaveUrl: undefined
             };
         case SHOW_STOP_AD_MODAL:
             return {

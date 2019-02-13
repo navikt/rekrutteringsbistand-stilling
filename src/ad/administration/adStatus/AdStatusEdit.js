@@ -12,7 +12,6 @@ import {
 } from '../../adReducer';
 import PublishErrorModal from './PublishErrorModal';
 import './AdStatusEdit.less';
-import HasChangesModal from './HasChangesModal';
 import StopAdModal from './StopAdModal';
 import AdPublishedModal from './AdPublishedModal';
 import SaveAdErrorModal from './SaveAdErrorModal';
@@ -43,7 +42,6 @@ class AdStatusEdit extends React.Component {
         return (
             <div className="AdStatusEdit">
                 <PublishErrorModal />
-                <HasChangesModal />
                 <StopAdModal />
                 <AdPublishedModal />
                 <SaveAdErrorModal />

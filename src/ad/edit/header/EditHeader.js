@@ -4,22 +4,14 @@ import PropTypes from 'prop-types';
 import { Knapp } from 'nav-frontend-knapper';
 import { Input } from 'nav-frontend-skjema';
 import { Normaltekst, Element } from 'nav-frontend-typografi';
-import AdminStatusEnum from '../../administration/adminStatus/AdminStatusEnum';
 import './EditHeader.less';
-import AWithIcon from '../../../common/aWithIcon/AWithIcon';
-import { DEFAULT_TITLE_NEW_AD } from '../../adReducer';
+import { DEFAULT_TITLE_NEW_AD, SHOW_HAS_CHANGES_MODAL } from '../../adReducer';
 import { SET_AD_TITLE } from '../../adDataReducer';
 import { createErrorObject } from '../../../common/utils';
-import LeggTilKandidatModal from '../../kandidatModal/LeggTilKandidatModal';
+import CandidateActions from '../../candidateActions/CandidateActions';
 
 
 class EditHeader extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            showKandidatModal: false
-        };
-    }
 
     onTitleChange = (e) => {
         this.props.setAdTitle(e.target.value);
@@ -34,58 +26,13 @@ class EditHeader extends React.Component {
         }
     };
 
-    toggleKandidatModal = () => {
-        this.setState({
-            showKandidatModal: !this.state.showKandidatModal
-        });
-    };
-
     render() {
-        const { onPreviewAdClick, validation, ad, status } = this.props;
-        const { uuid, source } = ad;
-        const showCandidateLinks = (status === AdminStatusEnum.DONE || status === AdminStatusEnum.ACTIVE)
-            && source === 'DIR';
+        const { onPreviewAdClick, validation } = this.props;
 
         return (
             <div>
-                {this.state.showKandidatModal && (
-                    <LeggTilKandidatModal
-                        vis={this.state.showKandidatModal}
-                        onClose={this.toggleKandidatModal}
-                        stillingsId={ad.id}
-                    />
-                )}
                 <div className="Ad__actions">
-                    {showCandidateLinks && (
-                        <AWithIcon
-                            href={`/kandidater/stilling/${uuid}`}
-                            classNameText="typo-element"
-                            classNameLink="Ad__actions-link FindCandidate"
-                            text="Finn kandidater"
-                        />
-                    )}
-                    {showCandidateLinks && (
-                        <div
-                            role="button"
-                            className="Ad__actions-link"
-                            onClick={this.toggleKandidatModal}
-                        >
-                            <AWithIcon
-                                href={'#'}
-                                classNameText="typo-element"
-                                classNameLink="AddCandidate"
-                                text="Legg til kandidat"
-                            />
-                        </div>
-                    )}
-                    {showCandidateLinks && (
-                        <AWithIcon
-                            href={`/kandidater/lister/stilling/${uuid}/detaljer`}
-                            classNameText="typo-element"
-                            classNameLink="Ad__actions-link CandidateList"
-                            text="Se kandidatliste"
-                        />
-                    )}
+                    <CandidateActions />
                     <Knapp
                         className="Ad__actions-button"
                         onClick={onPreviewAdClick}
@@ -109,7 +56,7 @@ class EditHeader extends React.Component {
 }
 
 EditHeader.defaultProps = {
-    status: undefined,
+    status: undefined
 };
 
 EditHeader.propTypes = {
@@ -120,7 +67,9 @@ EditHeader.propTypes = {
     }).isRequired,
     onPreviewAdClick: PropTypes.func.isRequired,
     status: PropTypes.string,
+    hasChanges: PropTypes.bool.isRequired,
     setAdTitle: PropTypes.func.isRequired,
+    showHasChangesModal: PropTypes.func.isRequired,
     validation: PropTypes.shape({
         title: PropTypes.string
     }).isRequired
@@ -129,11 +78,13 @@ EditHeader.propTypes = {
 const mapStateToProps = (state) => ({
     ad: state.adData,
     status: state.adData.administration.status,
-    validation: state.adValidation.errors
+    validation: state.adValidation.errors,
+    hasChanges: state.ad.hasChanges
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    setAdTitle: (title) => dispatch({ type: SET_AD_TITLE, title })
+    setAdTitle: (title) => dispatch({ type: SET_AD_TITLE, title }),
+    showHasChangesModal: (leaveUrl) => dispatch({ type: SHOW_HAS_CHANGES_MODAL, leaveUrl })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditHeader);

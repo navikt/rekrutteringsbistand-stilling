@@ -16,6 +16,7 @@ import PreviewHeader from './preview/header/PreviewHeader';
 import EditHeader from './edit/header/EditHeader';
 import AdStatusEnum from './administration/adStatus/AdStatusEnum';
 import LeggTilKandidatAlertStripe from './kandidatModal/LeggTilKandidatAlertStripe';
+import HasChangesModal from './navigation/HasChangesModal';
 
 class Ad extends React.Component {
     componentDidMount() {
@@ -36,8 +37,8 @@ class Ad extends React.Component {
             this.props.history.replace({
                 pathname: `/stilling/${this.uuid}`,
                 state: {
-                  ...this.props.location.state,
-                  openInEditMode: true
+                    ...this.props.location.state,
+                    openInEditMode: true
                 }
             });
         }
@@ -71,6 +72,7 @@ class Ad extends React.Component {
 
         return (
             <div className="Ad">
+                <HasChangesModal />
                 <LeggTilKandidatAlertStripe />
                 <SavedAdAlertStripe />
                 <Faded>

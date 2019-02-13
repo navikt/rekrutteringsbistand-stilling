@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import NavFrontendModal from 'nav-frontend-modal';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import { DELETE_AD_AND_REDIRECT, HIDE_HAS_CHANGES_MODAL } from '../../adReducer';
+import LinkButton from '../../common/linkbutton/LinkButton';
+import { DELETE_AD_AND_REDIRECT, HIDE_HAS_CHANGES_MODAL } from '../adReducer';
 import './HasChangesModal.less';
 
 class HasChangesModal extends React.Component {
@@ -13,11 +13,12 @@ class HasChangesModal extends React.Component {
         this.props.closeModal();
     };
 
-    onLeaveClick = (e) => {
-        const { updated, created, closeModal, deleteAdAndRedirect } = this.props;
+    onLeaveClick = () => {
+        const { updated, created, closeModal, deleteAdAndRedirect, hasChangesLeaveUrl } = this.props;
         if (updated === created) {
-            e.preventDefault();
-            deleteAdAndRedirect('/minestillinger');
+            deleteAdAndRedirect(hasChangesLeaveUrl);
+        } else {
+            window.location.pathname = this.props.hasChangesLeaveUrl;
         }
         closeModal();
     };
@@ -49,13 +50,12 @@ class HasChangesModal extends React.Component {
                     <Hovedknapp onClick={this.onClose}>
                         Bli på siden
                     </Hovedknapp>
-                    <Link
-                        to="/minestillinger"
+                    <LinkButton
                         className="lenke"
                         onClick={this.onLeaveClick}
                     >
                         Forlat siden
-                    </Link>
+                    </LinkButton>
                 </div>
             </NavFrontendModal>
         );
@@ -64,11 +64,13 @@ class HasChangesModal extends React.Component {
 
 HasChangesModal.defaultProps = {
     updated: undefined,
-    created: undefined
+    created: undefined,
+    hasChangesLeaveUrl: '/mineStillinger'
 };
 
 HasChangesModal.propTypes = {
     showHasChangesModal: PropTypes.bool.isRequired,
+    hasChangesLeaveUrl: PropTypes.string,
     closeModal: PropTypes.func.isRequired,
     deleteAdAndRedirect: PropTypes.func.isRequired,
     updated: PropTypes.string,
@@ -77,6 +79,7 @@ HasChangesModal.propTypes = {
 
 const mapStateToProps = (state) => ({
     showHasChangesModal: state.ad.showHasChangesModal,
+    hasChangesLeaveUrl: state.ad.hasChangesLeaveUrl,
     adStatus: state.adData.status,
     updated: state.adData.updated,
     created: state.adData.created
