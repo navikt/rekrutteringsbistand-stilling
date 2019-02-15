@@ -15,16 +15,17 @@ import {
     SET_FIRST_PUBLISHED,
     REMOVE_AD_DATA
 } from './adDataReducer';
-import AdminStatusEnum from './administration/adminStatus/AdminStatusEnum';
-import AdStatusEnum from './administration/adStatus/AdStatusEnum';
+import AdminStatusEnum from '../common/enums/AdminStatusEnum';
+import AdStatusEnum from '../common/enums/AdStatusEnum';
 import {
     hasValidationErrors,
     hasValidationErrorsOnSave,
     validateAll,
     validateBeforeSave
 } from './adValidationReducer';
-import PrivacyStatusEnum from './administration/publishing/PrivacyStatusEnum';
-import { AdAlertStripeMode, showAlertStripe } from './alertstripe/SavedAdAlertStripeReducer';
+import PrivacyStatusEnum from '../common/enums/PrivacyStatusEnum';
+import { showAlertStripe } from './alertstripe/SavedAdAlertStripeReducer';
+import AdAlertStripeEnum from './alertstripe/AdAlertStripeEnum';
 import { FETCH_MY_ADS } from '../myAds/myAdsReducer';
 
 export const FETCH_AD = 'FETCH_AD';
@@ -379,12 +380,12 @@ function* saveAd(action) {
     } else {
         yield save();
         if (action.showModal) {
-            yield showAlertStripe(AdAlertStripeMode.SAVED);
+            yield showAlertStripe(AdAlertStripeEnum.SAVED);
         }
     }
 }
 
-function* publishAdChanges() {
+function* publishAdChanges(action) {
     yield validateAll();
     const state = yield select();
     if (hasValidationErrors(state.adValidation.errors)) {
@@ -393,7 +394,7 @@ function* publishAdChanges() {
         yield put({ type: SET_ADMIN_STATUS, status: AdminStatusEnum.DONE });
         yield put({ type: SET_AD_STATUS, status: AdStatusEnum.ACTIVE });
         yield save();
-        yield showAlertStripe(AdAlertStripeMode.PUBLISHED_CHANGES);
+        yield showAlertStripe(action.mode, action.variable);
     }
 }
 

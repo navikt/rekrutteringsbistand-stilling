@@ -1,17 +1,15 @@
 import { call, put } from 'redux-saga/effects';
 import { SAVE_AD_FAILURE } from '../adReducer';
+import AdAlertStripeEnum from './AdAlertStripeEnum';
 
 export const SHOW_SAVED_AD_ALERT_STRIPE = 'SHOW_SAVED_AD_ALERT_STRIPE';
 export const HIDE_SAVED_AD_ALERT_STRIPE = 'HIDE_SAVED_AD_ALERT_STRIPE';
 
-export const AdAlertStripeMode = {
-    SAVED: 'SAVED',
-    PUBLISHED_CHANGES: 'PUBLISHED_CHANGES'
-};
 
 const initialState = {
     showAlertStripe: false,
-    alertStripeMode: AdAlertStripeMode.SAVED
+    alertStripeMode: AdAlertStripeEnum.SAVED,
+    variable: undefined
 };
 
 export default function savedSearchAlertStripeReducer(state = initialState, action) {
@@ -20,7 +18,8 @@ export default function savedSearchAlertStripeReducer(state = initialState, acti
             return {
                 ...state,
                 showAlertStripe: true,
-                alertStripeMode: action.mode
+                alertStripeMode: action.mode,
+                variable: action.variable
             };
         case HIDE_SAVED_AD_ALERT_STRIPE:
             return initialState;
@@ -33,8 +32,8 @@ export default function savedSearchAlertStripeReducer(state = initialState, acti
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-export function* showAlertStripe(mode) {
-    yield put({ type: SHOW_SAVED_AD_ALERT_STRIPE, mode });
+export function* showAlertStripe(mode, variable) {
+    yield put({ type: SHOW_SAVED_AD_ALERT_STRIPE, mode, variable });
     yield call(delay, 3000);
     yield put({ type: HIDE_SAVED_AD_ALERT_STRIPE });
 }

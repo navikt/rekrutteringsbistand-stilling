@@ -8,12 +8,13 @@ import { HjelpetekstUnderVenstre } from 'nav-frontend-hjelpetekst';
 import getEmployerName from '../../common/getEmployerName';
 import { formatISOString, toDate } from '../../utils';
 import { COPY_AD_FROM_MY_ADS, SHOW_DELETE_MODAL_MY_ADS, SHOW_STOP_MODAL_MY_ADS } from '../../ad/adReducer';
-import AdStatusEnum from '../../searchPage/enums/AdStatusEnum';
-import AdminStatusEnum from '../../ad/administration/adminStatus/AdminStatusEnum';
-import PrivacyStatusEnum from '../../ad/administration/publishing/PrivacyStatusEnum';
+import AdStatusEnum from '../../common/enums/AdStatusEnum';
+import AdminStatusEnum from '../../common/enums/AdminStatusEnum';
+import PrivacyStatusEnum from '../../common/enums/PrivacyStatusEnum';
 import AWithIcon from '../../common/aWithIcon/AWithIcon';
 import './Icons.less';
 import './Result.less';
+import {getAdStatusLabel} from '../../common/enums/getEnumLabels';
 
 class ResultItem extends React.Component {
     stopAd = () => {
@@ -39,10 +40,8 @@ class ResultItem extends React.Component {
 
     render() {
         const { ad, copiedAds } = this.props;
-        const adminDone = ad.administration && ad.administration.status && ad.administration.status === AdminStatusEnum.DONE;
-        const isExpired = AdStatusEnum[ad.status] === AdStatusEnum.INACTIVE &&
-            adminDone &&
-            erDatoFørSluttdato(toDate(ad.expires), new Date(Date.now()));
+        const isExpired = ad.status === AdStatusEnum.INACTIVE && ad.deactivatedByExpiry;
+
         const isCopy = copiedAds.includes(ad.uuid);
         return (
             <tr className={`ResultItem${isCopy ? ' copied' : ''}`}>
@@ -89,9 +88,9 @@ class ResultItem extends React.Component {
                     />
                 </td>
                 <td className="Col-status">
-                    {ad.status && AdStatusEnum[ad.status] && (
+                    {ad.status && (
                         <Normaltekst className="ResultItem__column">
-                            {AdStatusEnum[ad.status]}
+                            {getAdStatusLabel(ad.status, ad.deactivatedByExpiry)}
                         </Normaltekst>
                     )}
                 </td>
@@ -128,7 +127,7 @@ class ResultItem extends React.Component {
                     </button>
                 </td>
                 <td className="Col-stop center">
-                    {AdStatusEnum[ad.status] !== AdStatusEnum.ACTIVE ? (
+                    {ad.status !== AdStatusEnum.ACTIVE ? (
                         <HjelpetekstUnderVenstre
                             anchor={this.stopButtonWithIcon}
                             tittel="stopp"
@@ -147,12 +146,12 @@ class ResultItem extends React.Component {
                     )}
                 </td>
                 <td className="Col-delete center">
-                    {AdStatusEnum[ad.status] !== AdStatusEnum.INACTIVE ? (
+                    {ad.publishedByAdmin ? (
                         <HjelpetekstUnderVenstre
                             anchor={this.deleteButtonWithIcon}
                             tittel="slett"
                         >
-                            {`Du kan ikke slette en ${AdStatusEnum[ad.status].toLowerCase()} stilling`}
+                            {`Du kan ikke slette en ${getAdStatusLabel(ad.status, ad.deactivatedByExpiry).toLowerCase()} stilling`}
                         </HjelpetekstUnderVenstre>
                     ) : (
                         <button
@@ -174,7 +173,8 @@ class ResultItem extends React.Component {
 ResultItem.propTypes = {
     ad: PropTypes.shape({
         uuid: PropTypes.string,
-        title: PropTypes.string
+        title: PropTypes.string,
+        deactivatedByExpiry: PropTypes.bool
     }).isRequired,
     stopAd: PropTypes.func.isRequired,
     deleteAd: PropTypes.func.isRequired,
@@ -184,7 +184,7 @@ ResultItem.propTypes = {
 
 
 const mapStateToProps = (state) => ({
-    copiedAds: state.ad.copiedAds
+    copiedAds: state.ad.copiedAds,
 });
 
 const mapDispatchToProps = (dispatch) => ({

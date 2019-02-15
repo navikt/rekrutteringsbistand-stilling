@@ -2,15 +2,26 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Alertstripe from 'nav-frontend-alertstriper';
-import AdStatusEnum from './AdStatusEnum';
+import AdStatusEnum from '../../../common/enums/AdStatusEnum';
 import './AdStatus.less';
-import PrivacyStatusEnum from '../publishing/PrivacyStatusEnum';
+import PrivacyStatusEnum from '../../../common/enums/PrivacyStatusEnum';
 import { formatISOString } from '../../../utils';
 
-function AdStatus({ adStatus, originalData, isEditingAd }) {
-    return (
+function AdStatus(props) {
+    const { adStatus, deactivatedByExpiry, activationOnPublishingDate, originalData, isEditingAd, isSavingAd } = props;
+    return isSavingAd ? null : (
         <div className="AdStatusPreview">
-            {adStatus === AdStatusEnum.INACTIVE && (
+            {adStatus === AdStatusEnum.INACTIVE && deactivatedByExpiry && (
+                <Alertstripe className="AdStatusPreview__Alertstripe" type="info" solid>
+                    Stillingen er utløpt
+                </Alertstripe>
+            )}
+            {adStatus === AdStatusEnum.INACTIVE && activationOnPublishingDate && (
+                <Alertstripe className="AdStatusPreview__Alertstripe" type="info" solid>
+                    Stillingen blir publisert {formatISOString(originalData.published)}
+                </Alertstripe>
+            )}
+            {adStatus === AdStatusEnum.INACTIVE && !deactivatedByExpiry && !activationOnPublishingDate && (
                 <Alertstripe className="AdStatusPreview__Alertstripe" type="info" solid>
                     Stillingen er ikke publisert
                 </Alertstripe>
@@ -40,22 +51,29 @@ function AdStatus({ adStatus, originalData, isEditingAd }) {
 
 AdStatus.defaultProps = {
     originalData: undefined,
-    adminStatus: undefined,
-    published: undefined
+    deactivatedByExpiry: undefined,
+    activationOnPublishingDate: undefined
 };
 
 AdStatus.propTypes = {
     adStatus: PropTypes.string.isRequired,
     isEditingAd: PropTypes.bool.isRequired,
     originalData: PropTypes.shape({
-        privacy: PropTypes.string
-    })
+        privacy: PropTypes.string,
+        published: PropTypes.string
+    }),
+    deactivatedByExpiry: PropTypes.bool,
+    activationOnPublishingDate: PropTypes.bool,
+    isSavingAd: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state) => ({
     adStatus: state.adData.status,
     originalData: state.ad.originalData,
-    isEditingAd: state.ad.isEditingAd
+    isEditingAd: state.ad.isEditingAd,
+    deactivatedByExpiry: state.adData.deactivatedByExpiry,
+    activationOnPublishingDate: state.adData.activationOnPublishingDate,
+    isSavingAd: state.ad.isSavingAd
 });
 
 export default connect(mapStateToProps)(AdStatus);

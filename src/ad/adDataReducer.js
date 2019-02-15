@@ -2,8 +2,8 @@ import { put, takeLatest } from 'redux-saga/es/effects';
 import { lookUpStyrk } from './edit/jobDetails/styrk/styrkReducer';
 import { findLocationByPostalCode } from './edit/location/locationCodeReducer';
 import { CREATE_AD_BEGIN, FETCH_AD_BEGIN, FETCH_AD_SUCCESS, SAVE_AD_SUCCESS } from './adReducer';
-import AdStatusEnum from './administration/adStatus/AdStatusEnum';
-import PrivacyStatusEnum from './administration/publishing/PrivacyStatusEnum';
+import AdStatusEnum from '../common/enums/AdStatusEnum';
+import PrivacyStatusEnum from '../common/enums/PrivacyStatusEnum';
 import IsJson from './edit/practicalInformation/IsJson';
 import { isValidISOString } from '../utils';
 
