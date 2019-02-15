@@ -79,7 +79,7 @@ CandidateActions.propTypes = {
         uuid: PropTypes.string,
         source: PropTypes.string,
         publishedByAdmin: PropTypes.string,
-        id: PropTypes.string
+        id: PropTypes.number
     }).isRequired,
     hasChanges: PropTypes.bool.isRequired,
     showHasChangesModal: PropTypes.func.isRequired

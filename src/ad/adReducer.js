@@ -385,16 +385,21 @@ function* saveAd(action) {
     }
 }
 
-function* publishAdChanges(action) {
+function* publishAdChanges() {
     yield validateAll();
-    const state = yield select();
+    let state = yield select();
     if (hasValidationErrors(state.adValidation.errors)) {
         yield put({ type: SHOW_PUBLISH_ERROR_MODAL });
     } else {
         yield put({ type: SET_ADMIN_STATUS, status: AdminStatusEnum.DONE });
         yield put({ type: SET_AD_STATUS, status: AdStatusEnum.ACTIVE });
         yield save();
-        yield showAlertStripe(action.mode, action.variable);
+        state = yield select();
+        if (state.adData.activationOnPublishingDate && state.adData.status === AdStatusEnum.INACTIVE) {
+            yield showAlertStripe(AdAlertStripeEnum.WILL_PUBLISH_CHANGES);
+        } else {
+            yield showAlertStripe(AdAlertStripeEnum.PUBLISHED_CHANGES);
+        }
     }
 }
 

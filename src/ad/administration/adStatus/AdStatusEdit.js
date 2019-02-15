@@ -15,8 +15,6 @@ import './AdStatusEdit.less';
 import StopAdModal from './StopAdModal';
 import AdPublishedModal from './AdPublishedModal';
 import SaveAdErrorModal from './SaveAdErrorModal';
-import AdAlertStripeEnum from '../../alertstripe/AdAlertStripeEnum';
-import { formatISOString } from '../../../utils';
 
 class AdStatusEdit extends React.Component {
     onPublishClick = () => {
@@ -24,12 +22,7 @@ class AdStatusEdit extends React.Component {
     };
 
     onPublishAdChangesClick = () => {
-        if (this.props.adStatus === AdStatusEnum.INACTIVE && this.props.activationOnPublishingDate) {
-            const variable = formatISOString(this.props.published);
-            this.props.publishAdChanges(AdAlertStripeEnum.WILL_PUBLISH_CHANGES, variable);
-        } else {
-            this.props.publishAdChanges(AdAlertStripeEnum.PUBLISHED_CHANGES);
-        }
+        this.props.publishAdChanges();
     };
 
     onCancelClick = () => {
@@ -131,15 +124,13 @@ AdStatusEdit.propTypes = {
     showHasChangesModal: PropTypes.func.isRequired,
     publishAdChanges: PropTypes.func.isRequired,
     activationOnPublishingDate: PropTypes.bool.isRequired,
-    deactivatedByExpiry: PropTypes.bool.isRequired,
-    published: PropTypes.string.isRequired
+    deactivatedByExpiry: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state) => ({
     adStatus: state.adData.status,
     activationOnPublishingDate: state.adData.activationOnPublishingDate,
     deactivatedByExpiry: state.adData.deactivatedByExpiry,
-    published: state.ad.originalData.published
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -147,7 +138,7 @@ const mapDispatchToProps = (dispatch) => ({
     stop: () => dispatch({ type: SHOW_STOP_AD_MODAL }),
     saveAd: () => dispatch({ type: SAVE_AD, showModal: true }),
     showHasChangesModal: () => dispatch({ type: SHOW_HAS_CHANGES_MODAL }),
-    publishAdChanges: (mode, variable) => dispatch({ type: PUBLISH_AD_CHANGES, mode, variable })
+    publishAdChanges: () => dispatch({ type: PUBLISH_AD_CHANGES })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdStatusEdit);

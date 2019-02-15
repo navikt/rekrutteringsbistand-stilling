@@ -62,7 +62,8 @@ class AdPublishedModal extends React.Component {
 }
 
 AdPublishedModal.defaultProps = {
-    uuid: undefined
+    uuid: undefined,
+    activationOnPublishingDate: undefined
 };
 
 AdPublishedModal.propTypes = {
@@ -71,7 +72,7 @@ AdPublishedModal.propTypes = {
     closeModal: PropTypes.func.isRequired,
     uuid: PropTypes.string,
     adStatus: PropTypes.string.isRequired,
-    activationOnPublishingDate: PropTypes.bool.isRequired,
+    activationOnPublishingDate: PropTypes.bool,
     published: PropTypes.string.isRequired
 };
 
