@@ -144,7 +144,7 @@ class ResultItem extends React.Component {
                             tittel="slett"
                         >
                             {`Du kan ikke slette en stilling som ${willBePublished ? ' blir publisert frem i tid'
-                                : `er ${getAdStatusLabel(ad.status, ad.deactivatedByExpiry).toLowerCase()} `} `}
+                                : 'har blitt publisert'} `}
                         </HjelpetekstUnderVenstre>
                     ) : (
                         <button
