@@ -17,7 +17,7 @@ export default function savedSearchAlertStripeReducer(state = initialState, acti
             return {
                 ...state,
                 showAlertStripe: true,
-                alertStripeMode: action.mode,
+                alertStripeMode: action.mode
             };
         case HIDE_SAVED_AD_ALERT_STRIPE:
             return initialState;
