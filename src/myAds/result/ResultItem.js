@@ -40,7 +40,7 @@ class ResultItem extends React.Component {
 
     render() {
         const { ad, copiedAds } = this.props;
-        const isExpired = ad.status === AdStatusEnum.INACTIVE && ad.deactivatedByExpiry;
+        const willBePublished  = ad.status === AdStatusEnum.INACTIVE && ad.activationOnPublishingDate;
 
         const isCopy = copiedAds.includes(ad.uuid);
         return (
@@ -95,26 +95,17 @@ class ResultItem extends React.Component {
                     )}
                 </td>
                 <td className="Col-edit center">
-                    {isExpired ? (
-                        <HjelpetekstUnderVenstre
-                            anchor={this.editButtonWithIcon}
-                            tittel="rediger"
-                        >
-                            Stillingen har utløpt
-                        </HjelpetekstUnderVenstre>
-                    ) : (
-                        <Link
-                            className="Icon__button"
-                            aria-label="Rediger"
-                            title="rediger"
-                            to={{
-                                pathname: `/stilling/${ad.uuid}`,
-                                state: { openInEditMode: true }
-                            }}
-                        >
-                            <i className="Edit__icon" />
-                        </Link>
-                    )}
+                    <Link
+                        className="Icon__button"
+                        aria-label="Rediger"
+                        title="rediger"
+                        to={{
+                            pathname: `/stilling/${ad.uuid}`,
+                            state: { openInEditMode: true }
+                        }}
+                    >
+                        <i className="Edit__icon" />
+                    </Link>
                 </td>
                 <td className="Col-copy center">
                     <button
@@ -127,12 +118,13 @@ class ResultItem extends React.Component {
                     </button>
                 </td>
                 <td className="Col-stop center">
-                    {ad.status !== AdStatusEnum.ACTIVE ? (
+                    {ad.status !== AdStatusEnum.ACTIVE  && !willBePublished ? (
                         <HjelpetekstUnderVenstre
                             anchor={this.stopButtonWithIcon}
                             tittel="stopp"
                         >
-                            Du kan ikke stoppe en stilling som ikke er publisert
+                            {`Du kan ikke stoppe en stilling som
+                            er ${getAdStatusLabel(ad.status, ad.deactivatedByExpiry).toLowerCase()} `}
                         </HjelpetekstUnderVenstre>
                     ) : (
                         <button
@@ -151,7 +143,8 @@ class ResultItem extends React.Component {
                             anchor={this.deleteButtonWithIcon}
                             tittel="slett"
                         >
-                            {`Du kan ikke slette en ${getAdStatusLabel(ad.status, ad.deactivatedByExpiry).toLowerCase()} stilling`}
+                            {`Du kan ikke slette en stilling som ${willBePublished ? ' blir publisert frem i tid'
+                                : `er ${getAdStatusLabel(ad.status, ad.deactivatedByExpiry).toLowerCase()} `} `}
                         </HjelpetekstUnderVenstre>
                     ) : (
                         <button
