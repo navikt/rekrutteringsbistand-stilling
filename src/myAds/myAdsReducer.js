@@ -51,7 +51,8 @@ export default function myAdsReducer(state = initialState, action) {
         case CHANGE_STATUS_FILTER:
             return {
                 ...state,
-                status: action.status
+                status: action.status,
+                deactivatedByExpiry: action.deactivatedByExpiry
             };
         case CHANGE_MY_ADS_PAGE:
             return {
@@ -74,19 +75,13 @@ function combineStatusQuery(status) {
         return {
             status: '!REJECTED,DELETED'
         };
-    } else if (status === EXPIRED) {
-        return {
-            status: INACTIVE,
-            expires: '[*,today)',
-            administrationStatus: DONE
-        };
     }
     return { status };
 }
 
 export function toQuery(search) {
     const {
-        reportee, status, page, source
+        reportee, status, page, source, deactivatedByExpiry
     } = search;
 
     const query = {
@@ -94,6 +89,7 @@ export function toQuery(search) {
         page,
         source,
         reportee,
+        deactivatedByExpiry,
         ...combineStatusQuery(status)
     };
 

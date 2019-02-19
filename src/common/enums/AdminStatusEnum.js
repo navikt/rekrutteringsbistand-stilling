@@ -1,8 +1,7 @@
 const AdminStatusEnum = {
     RECEIVED: 'RECEIVED',
     PENDING: 'PENDING',
-    DONE: 'DONE',
-    ACTIVE: 'ACTIVE'
+    DONE: 'DONE'
 };
 
 export default AdminStatusEnum;

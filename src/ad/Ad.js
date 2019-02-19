@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { Link } from 'react-router-dom';
 import Faded from '../common/faded/Faded';
-import './Ad.less';
+import DelayedSpinner from '../common/DelayedSpinner';
 import { REMOVE_AD_DATA } from './adDataReducer';
-import { CREATE_AD, FETCH_AD, PREVIEW_EDIT_AD, EDIT_AD } from './adReducer';
+import { CREATE_AD, FETCH_AD, PREVIEW_EDIT_AD } from './adReducer';
 import Edit from './edit/Edit';
 import Error from './error/Error';
 import Preview from './preview/Preview';
@@ -14,9 +14,10 @@ import Administration from './administration/Administration';
 import SavedAdAlertStripe from './alertstripe/SavedAdAlertStripe';
 import PreviewHeader from './preview/header/PreviewHeader';
 import EditHeader from './edit/header/EditHeader';
-import AdStatusEnum from './administration/adStatus/AdStatusEnum';
+import AdStatusEnum from '../common/enums/AdStatusEnum';
 import LeggTilKandidatAlertStripe from './kandidatModal/LeggTilKandidatAlertStripe';
 import HasChangesModal from './navigation/HasChangesModal';
+import './Ad.less';
 
 class Ad extends React.Component {
     componentDidMount() {
@@ -50,7 +51,7 @@ class Ad extends React.Component {
     };
 
     render() {
-        const { stilling, isEditingAd } = this.props;
+        const { stilling, isEditingAd, isFetchingStilling } = this.props;
         const { isNew } = this.props.location.state || { isNew: false };
 
         if (stilling.status === AdStatusEnum.DELETED) {
@@ -72,39 +73,45 @@ class Ad extends React.Component {
                 <HasChangesModal />
                 <LeggTilKandidatAlertStripe />
                 <SavedAdAlertStripe />
-                <Faded>
-                    <div className="Ad__flex">
-                        <div className="Ad__flex__center">
-                            <div className="Ad__flex__center__inner">
-                                <div>
-                                    {isEditingAd ? (
-                                        <div className="Ad__edit__inner">
-                                            <EditHeader
-                                                isNew={isNew}
-                                                onPreviewAdClick={this.onPreviewAdClick}
-                                            />
-                                            <Edit isNew={isNew}/>
-                                        </div>
-                                    ) : (
-                                        <div className="Ad__preview">
-                                            <PreviewHeader />
-                                            <Preview ad={stilling} />
-                                        </div>
-                                    )}
+                {!isFetchingStilling && stilling ? (
+                    <Faded>
+                        <div className="Ad__flex">
+                            <div className="Ad__flex__center">
+                                <div className="Ad__flex__center__inner">
+                                    <div>
+                                        {isEditingAd ? (
+                                            <div className="Ad__edit__inner">
+                                                <EditHeader
+                                                    isNew={isNew}
+                                                    onPreviewAdClick={this.onPreviewAdClick}
+                                                />
+                                                <Edit isNew={isNew}/>
+                                            </div>
+                                        ) : (
+                                            <div className="Ad__preview">
+                                                <PreviewHeader />
+                                                <Preview ad={stilling} />
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
+                            {isEditingAd ? (
+                                <div className="Ad__flex__right">
+                                    <div className="Ad__flex__right__inner">
+                                        <Administration />
+                                    </div>
+                                </div>
+                            ) : (
+                                <div />
+                            )}
                         </div>
-                        {isEditingAd ? (
-                            <div className="Ad__flex__right">
-                                <div className="Ad__flex__right__inner">
-                                    <Administration />
-                                </div>
-                            </div>
-                        ) : (
-                            <div />
-                        )}
+                    </Faded>
+                ) : (
+                    <div className="Ad__spinner">
+                        <DelayedSpinner />
                     </div>
-                </Faded>
+                )}
                 <Error />
             </div>
         );
@@ -113,7 +120,8 @@ class Ad extends React.Component {
 
 
 Ad.defaultProps = {
-    stilling: undefined
+    stilling: undefined,
+    isFetchingStilling: false
 };
 
 Ad.propTypes = {
@@ -128,11 +136,13 @@ Ad.propTypes = {
     previewAd: PropTypes.func.isRequired,
     isEditingAd: PropTypes.bool.isRequired,
     removeAdData: PropTypes.func.isRequired,
+    isFetchingStilling: PropTypes.bool
 };
 
 const mapStateToProps = (state) => ({
     stilling: state.adData,
-    isEditingAd: state.ad.isEditingAd
+    isEditingAd: state.ad.isEditingAd,
+    isFetchingStilling: state.ad.isFetchingStilling
 });
 
 const mapDispatchToProps = (dispatch) => ({

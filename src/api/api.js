@@ -1,4 +1,4 @@
-import AdminStatusEnum from '../ad/administration/adminStatus/AdminStatusEnum';
+import AdminStatusEnum from '../common/enums/AdminStatusEnum';
 import toUrl from '../common/toUrl';
 import { AD_API, SEARCH_API } from '../fasitProperties';
 import { loginAndRedirectToCurrentLocation } from '../login';

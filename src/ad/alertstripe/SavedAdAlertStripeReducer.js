@@ -1,17 +1,14 @@
 import { call, put } from 'redux-saga/effects';
 import { SAVE_AD_FAILURE } from '../adReducer';
+import AdAlertStripeEnum from './AdAlertStripeEnum';
 
 export const SHOW_SAVED_AD_ALERT_STRIPE = 'SHOW_SAVED_AD_ALERT_STRIPE';
 export const HIDE_SAVED_AD_ALERT_STRIPE = 'HIDE_SAVED_AD_ALERT_STRIPE';
 
-export const AdAlertStripeMode = {
-    SAVED: 'SAVED',
-    PUBLISHED_CHANGES: 'PUBLISHED_CHANGES'
-};
 
 const initialState = {
     showAlertStripe: false,
-    alertStripeMode: AdAlertStripeMode.SAVED
+    alertStripeMode: AdAlertStripeEnum.SAVED
 };
 
 export default function savedSearchAlertStripeReducer(state = initialState, action) {

@@ -7,7 +7,7 @@ import getWorkLocation from '../../common/getWorkLocation';
 import getEmployerName from '../../common/getEmployerName';
 import { formatISOString } from '../../utils';
 import './SearchResult.less';
-import PrivacyStatusEnum from '../../ad/administration/publishing/PrivacyStatusEnum';
+import PrivacyStatusEnum from '../../common/enums/PrivacyStatusEnum';
 import AWithIcon from '../../common/aWithIcon/AWithIcon';
 
 const SearchResultItem = ({ ad }) => (

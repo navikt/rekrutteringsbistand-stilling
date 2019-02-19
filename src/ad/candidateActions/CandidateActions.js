@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import AdminStatusEnum from '../administration/adminStatus/AdminStatusEnum';
 import AWithIcon from '../../common/aWithIcon/AWithIcon';
 import { SHOW_HAS_CHANGES_MODAL } from '../adReducer';
 import LeggTilKandidatModal from '../kandidatModal/LeggTilKandidatModal';
@@ -31,10 +30,8 @@ class CandidateActions extends React.Component {
     };
 
     render() {
-        const { ad, adminStatus } = this.props;
-        const { uuid, source } = ad;
-        const showCandidateLinks = (adminStatus === AdminStatusEnum.DONE || adminStatus === AdminStatusEnum.ACTIVE)
-            && source === 'DIR';
+        const { uuid, source, publishedByAdmin, id } = this.props.ad;
+        const showCandidateLinks = publishedByAdmin && source === 'DIR';
 
         return (
             <div className="CandidateActions">
@@ -42,7 +39,7 @@ class CandidateActions extends React.Component {
                     <LeggTilKandidatModal
                         vis={this.state.showKandidatModal}
                         onClose={this.toggleKandidatModal}
-                        stillingsId={ad.id}
+                        stillingsId={id}
                     />
                 )}
                 {showCandidateLinks && (
@@ -76,23 +73,20 @@ class CandidateActions extends React.Component {
     }
 }
 
-CandidateActions.defaultProps = {
-    adminStatus: undefined
-};
 
 CandidateActions.propTypes = {
     ad: PropTypes.shape({
         uuid: PropTypes.string,
-        source: PropTypes.string
+        source: PropTypes.string,
+        publishedByAdmin: PropTypes.string,
+        id: PropTypes.number
     }).isRequired,
-    adminStatus: PropTypes.string,
     hasChanges: PropTypes.bool.isRequired,
     showHasChangesModal: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
     ad: state.adData,
-    adminStatus: state.adData.administration.status,
     hasChanges: state.ad.hasChanges
 });
 

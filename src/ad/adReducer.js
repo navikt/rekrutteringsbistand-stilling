@@ -15,16 +15,17 @@ import {
     SET_FIRST_PUBLISHED,
     REMOVE_AD_DATA
 } from './adDataReducer';
-import AdminStatusEnum from './administration/adminStatus/AdminStatusEnum';
-import AdStatusEnum from './administration/adStatus/AdStatusEnum';
+import AdminStatusEnum from '../common/enums/AdminStatusEnum';
+import AdStatusEnum from '../common/enums/AdStatusEnum';
 import {
     hasValidationErrors,
     hasValidationErrorsOnSave,
     validateAll,
     validateBeforeSave
 } from './adValidationReducer';
-import PrivacyStatusEnum from './administration/publishing/PrivacyStatusEnum';
-import { AdAlertStripeMode, showAlertStripe } from './alertstripe/SavedAdAlertStripeReducer';
+import PrivacyStatusEnum from '../common/enums/PrivacyStatusEnum';
+import { showAlertStripe } from './alertstripe/SavedAdAlertStripeReducer';
+import AdAlertStripeEnum from './alertstripe/AdAlertStripeEnum';
 import { FETCH_MY_ADS } from '../myAds/myAdsReducer';
 
 export const FETCH_AD = 'FETCH_AD';
@@ -379,21 +380,26 @@ function* saveAd(action) {
     } else {
         yield save();
         if (action.showModal) {
-            yield showAlertStripe(AdAlertStripeMode.SAVED);
+            yield showAlertStripe(AdAlertStripeEnum.SAVED);
         }
     }
 }
 
 function* publishAdChanges() {
     yield validateAll();
-    const state = yield select();
+    let state = yield select();
     if (hasValidationErrors(state.adValidation.errors)) {
         yield put({ type: SHOW_PUBLISH_ERROR_MODAL });
     } else {
         yield put({ type: SET_ADMIN_STATUS, status: AdminStatusEnum.DONE });
         yield put({ type: SET_AD_STATUS, status: AdStatusEnum.ACTIVE });
         yield save();
-        yield showAlertStripe(AdAlertStripeMode.PUBLISHED_CHANGES);
+        state = yield select();
+        if (state.adData.activationOnPublishingDate && state.adData.status === AdStatusEnum.INACTIVE) {
+            yield showAlertStripe(AdAlertStripeEnum.WILL_PUBLISH_CHANGES);
+        } else {
+            yield showAlertStripe(AdAlertStripeEnum.PUBLISHED_CHANGES);
+        }
     }
 }
 

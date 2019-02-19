@@ -2,16 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Select } from 'nav-frontend-skjema';
-import { FETCH_MY_ADS } from '../myAdsReducer';
-import { CHANGE_STATUS_FILTER } from '../myAdsReducer';
-import AdStatusEnum from '../../searchPage/enums/AdStatusEnum';
+import { FETCH_MY_ADS, CHANGE_STATUS_FILTER } from '../myAdsReducer';
+import AdStatusEnum from '../../common/enums/AdStatusEnum';
+import { getAdStatusLabel } from '../../common/enums/getEnumLabels';
 
 class StatusFilter extends React.Component {
     onFilterChange = (e) => {
-        if (e.target.value !== 'alle') {
-            this.props.changeStatusFilter(e.target.value);
+        if (e.target.value === 'alle') {
+            this.props.changeStatusFilter(undefined, undefined);
+        } else if (e.target.value === 'utløpt') {
+            this.props.changeStatusFilter(undefined, true);
         } else {
-            this.props.changeStatusFilter(undefined);
+            this.props.changeStatusFilter(e.target.value, false);
         }
         this.props.getAds();
     };
@@ -28,11 +30,15 @@ class StatusFilter extends React.Component {
                     className="typo-normal StatusFilter-select"
                 >
                     <option key="alle" value="alle">Alle status</option>
-                    {Object.keys(AdStatusEnum).map((key) => (
-                        <option key={key} value={key}>
-                            {AdStatusEnum[key]}
-                        </option>
-                    ))}
+                    {Object.keys(AdStatusEnum)
+                        .filter((key) => key !== AdStatusEnum.REJECTED && key !== AdStatusEnum.DELETED)
+                        .map((key) => (
+                            <option key={key} value={key}>
+                                {getAdStatusLabel(AdStatusEnum[key])}
+                            </option>
+                        ))
+                    }
+                    <option key="utløpt" value="utløpt">Utløpt</option>
                 </Select>
             </div>
         );
@@ -56,7 +62,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     getAds: () => dispatch({ type: FETCH_MY_ADS }),
-    changeStatusFilter: (status) => dispatch({ type: CHANGE_STATUS_FILTER, status })
+    changeStatusFilter: (status, deactivatedByExpiry) => dispatch({ type: CHANGE_STATUS_FILTER, status, deactivatedByExpiry })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(StatusFilter);

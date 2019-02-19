@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Fieldset, Radio } from 'nav-frontend-skjema';
 import { SET_PRIVACY } from '../../adDataReducer';
 import './Publishing.less';
-import PrivacyStatusEnum from './PrivacyStatusEnum';
+import PrivacyStatusEnum from '../../../common/enums/PrivacyStatusEnum';
 
 class Privacy extends React.Component {
 

@@ -5,7 +5,9 @@ import { Link } from 'react-router-dom';
 import NavFrontendModal from 'nav-frontend-modal';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import { HIDE_AD_PUBLISHED_MODAL } from '../../adReducer';
+import { formatISOString } from '../../../utils';
 import './AdPublishedModal.less';
+import AdStatusEnum from '../../../common/enums/AdStatusEnum';
 
 class AdPublishedModal extends React.Component {
     onClose = () => {
@@ -13,8 +15,9 @@ class AdPublishedModal extends React.Component {
     };
 
     render() {
-        const { showAdPublishedModal, uuid } = this.props;
-        return (
+        const { showAdPublishedModal, uuid, adStatus, activationOnPublishingDate, published, isSavingAd } = this.props;
+
+        return isSavingAd ? null : (
             <NavFrontendModal
                 isOpen={showAdPublishedModal}
                 contentLabel="Fortsett"
@@ -23,9 +26,15 @@ class AdPublishedModal extends React.Component {
                 appElement={document.getElementById('app')}
                 className="AdPublishedModal"
             >
-                <Undertittel className="blokk-s">
-                    Stillingen er publisert
-                </Undertittel>
+                {adStatus === AdStatusEnum.INACTIVE && activationOnPublishingDate ? (
+                    <Undertittel className="blokk-s">
+                        Stillingen blir publisert {formatISOString(published)}
+                    </Undertittel>
+                ) : (
+                    <Undertittel className="blokk-s">
+                        Stillingen er publisert
+                    </Undertittel>
+                )}
                 <div>
                     <Normaltekst className="blokk-l">
                         Ønsker du å finne kandidater til stillingen du publiserte?
@@ -53,18 +62,27 @@ class AdPublishedModal extends React.Component {
 }
 
 AdPublishedModal.defaultProps = {
-    uuid: undefined
+    uuid: undefined,
+    activationOnPublishingDate: undefined
 };
 
 AdPublishedModal.propTypes = {
     showAdPublishedModal: PropTypes.bool.isRequired,
+    isSavingAd: PropTypes.bool.isRequired,
     closeModal: PropTypes.func.isRequired,
-    uuid: PropTypes.string
+    uuid: PropTypes.string,
+    adStatus: PropTypes.string.isRequired,
+    activationOnPublishingDate: PropTypes.bool,
+    published: PropTypes.string.isRequired
 };
 
 const mapStateToProps = (state) => ({
     showAdPublishedModal: state.ad.showAdPublishedModal,
-    uuid: state.adData.uuid
+    uuid: state.adData.uuid,
+    adStatus: state.adData.status,
+    activationOnPublishingDate: state.adData.activationOnPublishingDate,
+    published: state.ad.originalData.published,
+    isSavingAd: state.ad.isSavingAd
 });
 
 const mapDispatchToProps = (dispatch) => ({

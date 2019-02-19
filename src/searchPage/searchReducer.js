@@ -1,6 +1,6 @@
 import { put, select, takeLatest } from 'redux-saga/effects';
 import { ApiError, fetchAds } from '../api/api';
-import AdminStatusEnum from '../ad/administration/adminStatus/AdminStatusEnum';
+import AdminStatusEnum from '../common/enums/AdminStatusEnum';
 
 export const FETCH_ADS = 'FETCH_ADS';
 export const FETCH_ADS_BEGIN = 'FETCH_ADS_BEGIN';
@@ -42,6 +42,7 @@ const initialState = {
     suggestions: [],
     privacy: undefined,
     status: ACTIVE,
+    deactivatedByExpiry: undefined,
     source: undefined,
     locationName: undefined
 };
@@ -80,7 +81,8 @@ export default function searchReducer(state = initialState, action) {
         case CHANGE_STATUS_FILTER:
             return {
                 ...state,
-                status: action.value
+                status: action.status,
+                deactivatedByExpiry: action.deactivatedByExpiry
             };
         case CHANGE_SOURCE_FILTER:
             return {
@@ -139,23 +141,13 @@ function combineStatusQuery(status) {
         return {
             status: '!REJECTED,DELETED'
         };
-    } else if (status === INACTIVE) {
-        return {
-            status,
-            published: '(today,*]'
-        };
-    } else if (status === EXPIRED) {
-        return {
-            status: INACTIVE,
-            expires: '[*,today)'
-        };
     }
     return { status };
 }
 
 export function toQuery(search) {
     const {
-        sortField, sortDir, page, privacy, status, source, administrationStatus, locationName
+        sortField, sortDir, page, privacy, status, source, administrationStatus, locationName, deactivatedByExpiry
     } = search;
 
     const query = {
@@ -165,6 +157,7 @@ export function toQuery(search) {
         source,
         privacy,
         locationName,
+        deactivatedByExpiry,
         ...combineStatusQuery(status)
     };
 

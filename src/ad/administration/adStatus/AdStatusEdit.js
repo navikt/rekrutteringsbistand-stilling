@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Flatknapp, Hovedknapp, Knapp } from 'nav-frontend-knapper';
-import AdStatusEnum from './AdStatusEnum';
+import AdStatusEnum from '../../../common/enums/AdStatusEnum';
 import {
     PUBLISH_AD,
     SAVE_AD,
@@ -38,7 +38,14 @@ class AdStatusEdit extends React.Component {
     };
 
     render() {
-        const { adStatus } = this.props;
+        const {
+            adStatus, activationOnPublishingDate, deactivatedByExpiry
+        } = this.props;
+
+        const isPublished = (adStatus === AdStatusEnum.ACTIVE ||
+            (adStatus === AdStatusEnum.INACTIVE && activationOnPublishingDate));
+        const isExpired = adStatus === AdStatusEnum.INACTIVE && deactivatedByExpiry;
+
         return (
             <div className="AdStatusEdit">
                 <PublishErrorModal />
@@ -46,7 +53,7 @@ class AdStatusEdit extends React.Component {
                 <AdPublishedModal />
                 <SaveAdErrorModal />
                 <div>
-                    {adStatus === AdStatusEnum.INACTIVE && (
+                    {adStatus === AdStatusEnum.INACTIVE && !activationOnPublishingDate && !deactivatedByExpiry && (
                         <div className="AdStatusEdit__buttons">
                             <Hovedknapp className="AdStatusEdit__buttons__button" onClick={this.onPublishClick}>
                                 Publisér
@@ -56,7 +63,14 @@ class AdStatusEdit extends React.Component {
                             </Knapp>
                         </div>
                     )}
-                    {adStatus === AdStatusEnum.ACTIVE && (
+                    {isExpired && (
+                        <div className="AdStatusEdit__buttons">
+                            <Hovedknapp className="AdStatusEdit__buttons__button" onClick={this.onPublishClick}>
+                                Republisér stilling
+                            </Hovedknapp>
+                        </div>
+                    )}
+                    {isPublished && (
                         <div>
                             <div className="AdStatusEdit__buttons">
                                 <Hovedknapp
@@ -82,7 +96,7 @@ class AdStatusEdit extends React.Component {
                     {adStatus === AdStatusEnum.STOPPED && (
                         <div className="AdStatusEdit__buttons">
                             <Hovedknapp className="AdStatusEdit__buttons__button" onClick={this.onPublishClick}>
-                                Re-publisér stilling
+                                Republisér stilling
                             </Hovedknapp>
                             <Knapp className="AdStatusEdit__buttons__button" onClick={this.onCancelClick}>
                                 Avbryt
@@ -90,7 +104,7 @@ class AdStatusEdit extends React.Component {
                         </div>
                     )}
                     <div className="AdStatusEdit__buttons-mini">
-                        {adStatus !== AdStatusEnum.ACTIVE && (
+                        {!isPublished && !isExpired && (
                             <Flatknapp mini onClick={this.onSaveAdClick}>
                                 Lagre
                             </Flatknapp>
@@ -108,11 +122,15 @@ AdStatusEdit.propTypes = {
     stop: PropTypes.func.isRequired,
     saveAd: PropTypes.func.isRequired,
     showHasChangesModal: PropTypes.func.isRequired,
-    publishAdChanges: PropTypes.func.isRequired
+    publishAdChanges: PropTypes.func.isRequired,
+    activationOnPublishingDate: PropTypes.bool.isRequired,
+    deactivatedByExpiry: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state) => ({
-    adStatus: state.adData.status
+    adStatus: state.adData.status,
+    activationOnPublishingDate: state.adData.activationOnPublishingDate,
+    deactivatedByExpiry: state.adData.deactivatedByExpiry,
 });
 
 const mapDispatchToProps = (dispatch) => ({
