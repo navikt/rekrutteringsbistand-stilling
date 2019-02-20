@@ -8,7 +8,7 @@ export const FETCH_MY_ADS_SUCCESS = 'FETCH_MY_ADS_SUCCESS';
 export const FETCH_MY_ADS_FAILURE = 'FETCH_MY_ADS_FAILURE';
 export const CHANGE_MY_ADS_PAGE = 'CHANGE_MY_ADS_PAGE';
 export const RESET_MY_ADS_PAGE = 'RESET_MY_ADS_PAGE';
-export const CHANGE_STATUS_FILTER = 'CHANGE_STATUS_FILTER';
+export const CHANGE_MY_ADS_STATUS_FILTER = 'CHANGE_MY_ADS_STATUS_FILTER';
 
 const INACTIVE = 'INACTIVE';
 const EXPIRED = 'EXPIRED';
@@ -48,7 +48,7 @@ export default function myAdsReducer(state = initialState, action) {
                 error: action.error,
                 isSearching: false
             };
-        case CHANGE_STATUS_FILTER:
+        case CHANGE_MY_ADS_STATUS_FILTER:
             return {
                 ...state,
                 status: action.status,
@@ -125,7 +125,7 @@ function* getMyAds(action) {
 
 export const myAdsSaga = function* saga() {
     yield takeLatest([
-        CHANGE_STATUS_FILTER,
+        CHANGE_MY_ADS_STATUS_FILTER,
         CHANGE_MY_ADS_PAGE,
         FETCH_MY_ADS
     ], getMyAds);
