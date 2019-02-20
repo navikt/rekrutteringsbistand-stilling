@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Select } from 'nav-frontend-skjema';
-import { FETCH_MY_ADS, CHANGE_STATUS_FILTER } from '../myAdsReducer';
+import { FETCH_MY_ADS, CHANGE_MY_ADS_STATUS_FILTER } from '../myAdsReducer';
 import AdStatusEnum from '../../common/enums/AdStatusEnum';
 import { getAdStatusLabel } from '../../common/enums/getEnumLabels';
 
@@ -15,7 +15,6 @@ class StatusFilter extends React.Component {
         } else {
             this.props.changeStatusFilter(e.target.value, false);
         }
-        this.props.getAds();
     };
 
     // TODO: Dropp className="typo-normal" når Select har SourceSansPro som default font.
@@ -52,8 +51,7 @@ StatusFilter.defaultProps = {
 
 StatusFilter.propTypes = {
     status: PropTypes.string,
-    changeStatusFilter: PropTypes.func.isRequired,
-    getAds: PropTypes.func.isRequired
+    changeStatusFilter: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -61,8 +59,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    getAds: () => dispatch({ type: FETCH_MY_ADS }),
-    changeStatusFilter: (status, deactivatedByExpiry) => dispatch({ type: CHANGE_STATUS_FILTER, status, deactivatedByExpiry })
+    changeStatusFilter: (status, deactivatedByExpiry) => dispatch({ type: CHANGE_MY_ADS_STATUS_FILTER, status, deactivatedByExpiry })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(StatusFilter);
