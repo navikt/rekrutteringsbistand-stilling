@@ -89,7 +89,7 @@ export const DEFAULT_TITLE_NEW_AD = 'Ny stilling';
 const initialState = {
     error: undefined,
     isSavingAd: false,
-    isFetchingStilling: false,
+    isLoadingAd: false,
     isEditingAd: false,
     originalData: undefined,
     hasSavedChanges: false,
@@ -115,7 +115,7 @@ export default function adReducer(state = initialState, action) {
             return {
                 ...state,
                 hasSavedChanges: false,
-                isFetchingStilling: true,
+                isLoadingAd: true,
                 error: undefined,
                 originalData: undefined,
                 hasChanges: false
@@ -123,7 +123,7 @@ export default function adReducer(state = initialState, action) {
         case FETCH_AD_SUCCESS:
             return {
                 ...state,
-                isFetchingStilling: false,
+                isLoadingAd: false,
                 isEditingAd: false,
                 originalData: { ...action.response }
             };
@@ -131,21 +131,35 @@ export default function adReducer(state = initialState, action) {
             return {
                 ...state,
                 error: action.error,
-                isFetchingStilling: false
+                isLoadingAd: false
             };
-        case CREATE_AD_BEGIN:
         case SAVE_AD_BEGIN:
-        case DELETE_AD_BEGIN:
             return {
                 ...state,
                 isSavingAd: true,
                 hasSavedChanges: false,
                 hasChanges: false
             };
+        case CREATE_AD_BEGIN:
+        case DELETE_AD_BEGIN:
+            return {
+                ...state,
+                isLoadingAd: true,
+                isSavingAd: true,
+                hasSavedChanges: false,
+                hasChanges: false
+            };
+        case DELETE_AD_SUCCESS:
+            return {
+                ...state,
+                isSavingAd: false,
+                isLoadingAd: false,
+            };
         case CREATE_AD_SUCCESS:
             return {
                 ...state,
                 isSavingAd: false,
+                isLoadingAd: false,
                 hasSavedChanges: true,
                 isEditingAd: true,
                 originalData: { ...action.response },
@@ -164,6 +178,7 @@ export default function adReducer(state = initialState, action) {
             return {
                 ...state,
                 isSavingAd: false,
+                isLoadingAd: false,
                 error: action.error,
                 showPublishErrorModal: false,
                 showHasChangesModal: false,

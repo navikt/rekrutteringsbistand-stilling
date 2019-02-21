@@ -16,74 +16,68 @@ import StopAdModal from './StopAdModal';
 import AdPublishedModal from './AdPublishedModal';
 import SaveAdErrorModal from './SaveAdErrorModal';
 
+const ButtonEnum = {
+    PUBLISH: 'PUBLISH',
+    REPUBLISH: 'REPUBLISH',
+    PUBLISH_CHANGES: 'PUBLISH_CHANGES',
+    STOP: 'STOP',
+    CANCEL: 'CANCEL',
+    SAVE: 'SAVE'
+};
+
+const ButtonGroupEnum = {
+    NEW_AD: 'NEW_AD',
+    PUBLISHED_BEFORE: 'PUBLISHED_BEFORE',
+    IS_PUBLISHED_NOW: 'IS_PUBLISHED_NOW',
+};
+
 class AdStatusEdit extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            onPublishClicked: false,
-            onRePublishClicked: false,
-            onPublishChangesClicked: false,
-            onStopClicked: false
+            buttonClicked: undefined
         };
     }
 
     onPublishClick = () => {
         this.props.publish();
         this.setState({
-            onPublishClicked: true,
-            onStopClicked: false,
-            onPublishChangesClicked: false,
-            onRePublishClicked: false
+            buttonClicked: ButtonEnum.PUBLISH
         });
     };
 
     onRePublishClick = () => {
         this.props.publish();
         this.setState({
-            onPublishClicked: false,
-            onStopClicked: false,
-            onPublishChangesClicked: false,
-            onRePublishClicked: true
+            buttonClicked: ButtonEnum.REPUBLISH
         });
     };
 
     onPublishAdChangesClick = () => {
         this.props.publishAdChanges();
         this.setState({
-            onPublishClicked: false,
-            onStopClicked: false,
-            onPublishChangesClicked: true,
-            onRePublishClicked: false
+            buttonClicked: ButtonEnum.PUBLISH_CHANGES
         });
     };
 
     onCancelClick = () => {
         this.props.showHasChangesModal();
         this.setState({
-            onPublishClicked: false,
-            onStopClicked: false,
-            onPublishChangesClicked: false,
-            onRePublishClicked: false
+            buttonClicked: undefined
         });
     };
 
     onStopClick = () => {
         this.props.stop();
         this.setState({
-            onPublishClicked: false,
-            onStopClicked: true,
-            onPublishChangesClicked: false,
-            onRePublishClicked: false
+            buttonClicked: ButtonEnum.STOP
         });
     };
 
     onSaveAdClick = () => {
         this.props.saveAd();
         this.setState({
-            onPublishClicked: false,
-            onStopClicked: false,
-            onPublishChangesClicked: false,
-            onRePublishClicked: false
+            buttonClicked: undefined
         });
     };
 
@@ -92,25 +86,22 @@ class AdStatusEdit extends React.PureComponent {
             adStatus, activationOnPublishingDate, deactivatedByExpiry, isSavingAd
         } = this.props;
 
-        const isPublished = (adStatus === AdStatusEnum.ACTIVE ||
-            (adStatus === AdStatusEnum.INACTIVE && activationOnPublishingDate));
-        const isExpired = adStatus === AdStatusEnum.INACTIVE && deactivatedByExpiry;
-
-
-        const isStopping = this.state.onStopClicked && isSavingAd;
-        const isPublishing = this.state.onPublishClicked && isSavingAd;
-        const isRePublishing = this.state.onRePublishClicked && isSavingAd;
-        const isPublishingChanges = this.state.onPublishChangesClicked && isSavingAd;
+        const isPublished = ((adStatus === AdStatusEnum.ACTIVE)
+            || ((adStatus === AdStatusEnum.INACTIVE) && activationOnPublishingDate));
+        const isExpired = (adStatus === AdStatusEnum.INACTIVE) && deactivatedByExpiry;
+        const isStopping = (this.state.buttonClicked === ButtonEnum.STOP) && isSavingAd;
+        const isPublishing = (this.state.buttonClicked === ButtonEnum.PUBLISH) && isSavingAd;
+        const isRePublishing = (this.state.buttonClicked === ButtonEnum.REPUBLISH) && isSavingAd;
+        const isPublishingChanges = (this.state.buttonClicked === ButtonEnum.PUBLISH_CHANGES) && isSavingAd;
         const canSave = !isPublished && !isExpired && !isSavingAd;
 
-        let buttonState = 'NewAd';
+        let buttonState = ButtonGroupEnum.NEW_AD;
         if (isExpired || (adStatus === AdStatusEnum.STOPPED && !isStopping) || isRePublishing) {
-            buttonState = 'PublishedBefore';
+            buttonState = ButtonGroupEnum.PUBLISHED_BEFORE;
         } else if ((isPublished && !isPublishing) || isStopping || isPublishingChanges) {
-            buttonState = 'IsPublished';
+            buttonState = ButtonGroupEnum.IS_PUBLISHED_NOW;
         }
 
-        console.log(isSavingAd, this.state)
         return (
             <div className="AdStatusEdit">
                 <PublishErrorModal />
@@ -118,7 +109,7 @@ class AdStatusEdit extends React.PureComponent {
                 <AdPublishedModal />
                 <SaveAdErrorModal />
                 <div>
-                    {buttonState === 'NewAd' && (
+                    {buttonState === ButtonGroupEnum.NEW_AD && (
                         <div className="AdStatusEdit__buttons">
                             <Hovedknapp
                                 className="AdStatusEdit__buttons__button"
@@ -131,7 +122,7 @@ class AdStatusEdit extends React.PureComponent {
                             </Knapp>
                         </div>
                     )}
-                    {buttonState === 'PublishedBefore' && (
+                    {buttonState === ButtonGroupEnum.PUBLISHED_BEFORE && (
                         <div className="AdStatusEdit__buttons">
                             <Hovedknapp
                                 className="AdStatusEdit__buttons__button"
@@ -145,7 +136,7 @@ class AdStatusEdit extends React.PureComponent {
                             </Knapp>
                         </div>
                     )}
-                    {buttonState === 'IsPublished' && (
+                    {buttonState === ButtonGroupEnum.IS_PUBLISHED_NOW && (
                         <div>
                             <div className="AdStatusEdit__buttons">
                                 <Hovedknapp

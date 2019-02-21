@@ -18,7 +18,7 @@ class HasChangesModal extends React.Component {
         if (updated === created) {
             deleteAdAndRedirect();
         } else {
-            window.location.pathname = this.props.hasChangesLeaveUrl;
+            window.location.pathname = hasChangesLeaveUrl;
         }
         closeModal();
     };
