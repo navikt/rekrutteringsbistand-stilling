@@ -164,7 +164,13 @@ export default function adReducer(state = initialState, action) {
             return {
                 ...state,
                 isSavingAd: false,
-                error: action.error
+                error: action.error,
+                showPublishErrorModal: false,
+                showHasChangesModal: false,
+                showStopAdModal: false,
+                showDeleteAdModal: false,
+                showAdPublishedModal: false,
+                showAdSavedErrorModal: false
             };
         case EDIT_AD:
             return {

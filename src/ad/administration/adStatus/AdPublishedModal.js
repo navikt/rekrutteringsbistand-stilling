@@ -45,7 +45,7 @@ class AdPublishedModal extends React.Component {
                             className="lenke"
                             onClick={this.onClose}
                         >
-                            Finn kandidater
+                        Finn kandidater
                         </a>
                         <Link
                             to="/minestillinger"
@@ -81,7 +81,7 @@ const mapStateToProps = (state) => ({
     uuid: state.adData.uuid,
     adStatus: state.adData.status,
     activationOnPublishingDate: state.adData.activationOnPublishingDate,
-    published: state.ad.originalData.published,
+    published: state.adData.published,
     isSavingAd: state.ad.isSavingAd
 });
 
