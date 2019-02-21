@@ -24,12 +24,7 @@ class HasChangesModal extends React.Component {
     };
 
     render() {
-        const { showHasChangesModal, updated, created, leavePageTrigger, hasChangesLeaveUrl } = this.props;
-
-        if (leavePageTrigger) {
-            window.location.pathname = hasChangesLeaveUrl;
-            return null;
-        }
+        const { showHasChangesModal, updated, created } = this.props;
 
         return (
             <NavFrontendModal
@@ -80,8 +75,7 @@ HasChangesModal.propTypes = {
     closeModal: PropTypes.func.isRequired,
     deleteAdAndRedirect: PropTypes.func.isRequired,
     updated: PropTypes.string,
-    created: PropTypes.string,
-    leavePageTrigger: PropTypes.bool.isRequired
+    created: PropTypes.string
 };
 
 const mapStateToProps = (state) => ({

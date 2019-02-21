@@ -51,8 +51,12 @@ class Ad extends React.Component {
     };
 
     render() {
-        const { stilling, isEditingAd, isLoadingAd, leavePageTrigger } = this.props;
+        const { stilling, isEditingAd, isLoadingAd, leavePageTrigger, hasChangesLeaveUrl } = this.props;
         const { isNew } = this.props.location.state || { isNew: false };
+
+        if (leavePageTrigger) {
+            window.location.pathname = hasChangesLeaveUrl;
+        }
 
         if (leavePageTrigger || isLoadingAd || !stilling) {
             return (
@@ -62,7 +66,7 @@ class Ad extends React.Component {
             );
         }
 
-        if (stilling.status === AdStatusEnum.DELETED && !leavePageTrigger) {
+        if (stilling.status === AdStatusEnum.DELETED) {
             return (
                 <div className="Ad Ad__deleted">
                     <Normaltekst className="blokk-s">Stillingen er slettet</Normaltekst>
@@ -124,7 +128,8 @@ class Ad extends React.Component {
 Ad.defaultProps = {
     stilling: undefined,
     isLoadingAd: false,
-    leavePageTrigger: false
+    leavePageTrigger: false,
+    hasChangesLeaveUrl: '/mineStillinger'
 };
 
 Ad.propTypes = {
@@ -140,14 +145,16 @@ Ad.propTypes = {
     isEditingAd: PropTypes.bool.isRequired,
     removeAdData: PropTypes.func.isRequired,
     isLoadingAd: PropTypes.bool,
-    leavePageTrigger: PropTypes.bool
+    leavePageTrigger: PropTypes.bool,
+    hasChangesLeaveUrl: PropTypes.string
 };
 
 const mapStateToProps = (state) => ({
     stilling: state.adData,
     isEditingAd: state.ad.isEditingAd,
     isLoadingAd: state.ad.isLoadingAd,
-    leavePageTrigger: state.ad.leavePageTrigger
+    leavePageTrigger: state.ad.leavePageTrigger,
+    hasChangesLeaveUrl: state.ad.hasChangesLeaveUrl
 });
 
 const mapDispatchToProps = (dispatch) => ({
