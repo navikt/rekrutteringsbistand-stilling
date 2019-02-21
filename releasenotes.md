@@ -1,3 +1,9 @@
+## RELEASE - 0.29.150-a10003b
+#### New in this release: 
++ 2019-02-20 [PAM-2771] Remove redundant async backend queries
++ 2019-02-15 [PAM-2666], [PAM-2694], [PAM-2044]: oppgaver knyttet til statusene utløpt og publiseres frem i tid
++ 2019-02-06 Revert "[PAM-1991]: avbryt-modal"
++ 2019-02-04 [PAM-1991]: viser modal når bruker forsøker å navigere seg bort fra ny stilling eller stilling i endring
 ## RELEASE - 0.28.143-6831622
 #### New in this release: 
 + 2019-01-22 [PAM-2480]: Forenkling av felt for stillingstittel + opprydning
