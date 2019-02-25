@@ -77,7 +77,7 @@ class ContactPerson extends React.Component {
                     onBlur={this.onEmailBlur}
                     feil={this.props.validation.contactpersonEmail
                         && { feilmelding: this.props.validation.contactpersonEmail }}
-                    placeholder="For eksempel: ola.normann@firma.no"
+                    placeholder="ola.normann@firmanavn.no"
                 />
                 <Input
                     type="tel"

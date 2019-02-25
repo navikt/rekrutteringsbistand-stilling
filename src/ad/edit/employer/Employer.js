@@ -109,7 +109,7 @@ class Employer extends React.Component {
                     <RichTextEditor
                         text={ad.properties.employerdescription || ''}
                         onChange={this.onEmployerDescriptionChange}
-                        placeholderText="Fortell om bedriften til den som skal søke på stillingen"
+                        placeholderText="Skriv noen linjer om bedriften"
                     />
                 </div>
                 <Input

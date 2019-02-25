@@ -39,7 +39,7 @@ class JobDetails extends React.Component {
             >
                 <Styrk />
                 <Input
-                    label="Stilling/yrke (vises på stillingen)"
+                    label="Yrkestittel som vises på stillingen (du kan overskrive)"
                     value={ad.properties.jobtitle || ''}
                     onChange={this.onJobtitleChange}
                     placeholder="Yrket som vises på stillingen"

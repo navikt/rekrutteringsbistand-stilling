@@ -45,7 +45,7 @@ class EditHeader extends React.Component {
                     inputClassName="EditHeader__AdTitle"
                     label={<Element>Overskrift på annonsen* </Element>}
                     value={this.getAdTitle()}
-                    placeholder="For eksempel engasjert barnehagelærer til Oslo-skole"
+                    placeholder="For eksempel: engasjert barnehagelærer til Oslo-skole"
                     onChange={this.onTitleChange}
                     feil={createErrorObject(validation.title)}
                 />

@@ -18,14 +18,14 @@ class Privacy extends React.Component {
             <div className="Privacy">
                 <Fieldset legend="Hvor skal stillingen publiseres?*">
                     <Radio
-                        label="Publiser kun internt i NAV"
+                        label="Kun internt i NAV"
                         value={PrivacyStatusEnum.INTERNAL_NOT_SHOWN}
                         name="privacy"
                         checked={privacy === PrivacyStatusEnum.INTERNAL_NOT_SHOWN}
                         onChange={this.onPrivacyChange}
                     />
                     <Radio
-                        label="Publiser eksternt på nav.no"
+                        label="Eksternt på nav.no"
                         value={PrivacyStatusEnum.SHOW_ALL}
                         name="privacy"
                         checked={privacy === PrivacyStatusEnum.SHOW_ALL}

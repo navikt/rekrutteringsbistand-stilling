@@ -60,14 +60,14 @@ class Location extends React.Component {
             >
                 <SkjemaGruppe>
                     <Radio
-                        label="Enten: Eksakt adresse"
+                        label="Adresse"
                         name="addressMunicipalOrCountry"
                         value="address"
                         checked={this.state.radioChecked === 'address'}
                         onChange={this.onRadioButtonChange}
                     />
                     <Radio
-                        label="Eller: En kommune eller et land"
+                        label="Kommune eller land"
                         name="addressMunicipalOrCountry"
                         value="municipalOrCountry"
                         checked={this.state.radioChecked === 'municipalOrCountry'}

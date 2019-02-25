@@ -73,7 +73,7 @@ class Application extends React.Component {
                 <Checkbox
                     checked={showEmail}
                     onChange={this.onEmailChecked}
-                    label="E-post"
+                    label="Via e-post"
                 />
                 {showEmail && (
                     <Input
@@ -90,7 +90,7 @@ class Application extends React.Component {
                 <Checkbox
                     checked={showLink}
                     onChange={this.onLinkChecked}
-                    label="Lenke til søknadsskjema"
+                    label="Via søknadsskjema"
                 />
                 {showLink && (
                     <Input
