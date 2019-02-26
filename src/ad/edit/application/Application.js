@@ -65,8 +65,8 @@ class Application extends React.Component {
         return (
             <EkspanderbartpanelBase
                 className="Edit__panel"
-                heading=<p>sdfdsfds</p>
-                ariaTittel="undertittel"
+                tittel="Hvordan sende søknad (gjelder kun eksternt utlyste stillinger)?"
+                tittelProps="undertittel"
                 border
                 apen
             >
