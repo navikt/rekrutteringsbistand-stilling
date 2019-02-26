@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Input, Checkbox } from 'nav-frontend-skjema';
-import EkspanderbartpanelBase from 'nav-frontend-ekspanderbartpanel';
+import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import {
     SET_APPLICATIONURL,
     SET_APPLICATIONEMAIL
@@ -63,10 +63,10 @@ class Application extends React.Component {
         const showLink = applicationUrl || this.state.linkChecked;
 
         return (
-            <EkspanderbartpanelBase
+            <Ekspanderbartpanel
                 className="Edit__panel"
-                heading={<p>Hvordan sende søknad</p>}
-                ariaTittel="undertittel"
+                tittel="Hvordan sende søknad (gjelder kun eksternt utlyste stillinger)?"
+                tittelProps="undertittel"
                 border
                 apen
             >
@@ -101,7 +101,7 @@ class Application extends React.Component {
                         placeholder="For eksempel: www.rekruttering.no"
                     />
                 )}
-            </EkspanderbartpanelBase>
+            </Ekspanderbartpanel>
         );
     }
 }
