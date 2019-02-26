@@ -116,19 +116,15 @@
 .Col-edit {
   min-width: 64px;
   max-width: 64px;
-
-  > * {
-    .Inner__button;
-  }
 }
 
+@edit-width: 64px;
+
 .Col-menu {
-  min-width: 64px;
-  max-width: 64px;
+  min-width: @edit-width;
+  max-width: @edit-width;
 
-  > * {
-    .Inner__button;
-
+  > .Inner__button {
     &:hover {
       cursor: pointer;
     }
