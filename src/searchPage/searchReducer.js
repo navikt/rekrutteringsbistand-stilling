@@ -16,6 +16,8 @@ export const CHANGE_STATUS_FILTER = 'CHANGE_STATUS_FILTER';
 export const CHANGE_SOURCE_FILTER = 'CHANGE_SOURCE_FILTER';
 export const CHANGE_LOCATION_FILTER = 'CHANGE_LOCATION_FILTER';
 export const RESET_SEARCH = 'RESET_SEARCH';
+export const RESTORE_SEARCH = 'RESTORE_SEARCH';
+export const SET_SEARCH = 'SET_SEARCH';
 
 export const Fields = {
     EMPLOYER_NAME: 'employerName',
@@ -26,6 +28,8 @@ export const Fields = {
 const ACTIVE = 'ACTIVE';
 const INACTIVE = 'INACTIVE';
 const EXPIRED = 'EXPIRED';
+
+const LOCAL_STORAGE_SEARCH_KEY = 'last_search';
 
 const initialState = {
     items: [],
@@ -130,6 +134,10 @@ export default function searchReducer(state = initialState, action) {
                 ...state,
                 page: 0
             };
+        case SET_SEARCH:
+            return {
+                ...action.search
+            };
         default:
             return state;
     }
@@ -173,10 +181,11 @@ function* getAds(action) {
         yield put({ type: FETCH_ADS_BEGIN });
 
         const state = yield select();
-
         const query = toQuery(state.search);
         const response = yield fetchAds(query);
+
         yield put({ type: FETCH_ADS_SUCCESS, response });
+        yield saveSearchToLocalStorage();
     } catch (e) {
         if (e instanceof ApiError) {
             yield put({ type: FETCH_ADS_FAILURE, error: e });
@@ -186,7 +195,34 @@ function* getAds(action) {
     }
 }
 
+function* saveSearchToLocalStorage() {
+    const search = yield select(state => state.search);
+    if (search.field) {
+        const searchTerm = { ...search, items: [] };
+        try {
+            localStorage.setItem(LOCAL_STORAGE_SEARCH_KEY, JSON.stringify(searchTerm));
+        } catch (error) {
+            // Klarte ikke lagre søk til localStorage.
+        }
+    }
+}
+
+function* restoreSearchFromLocalStorage() {
+    try {
+        const search =  JSON.parse(localStorage.getItem(LOCAL_STORAGE_SEARCH_KEY));
+        if (search) {
+            yield put({ type: SET_SEARCH, search })
+        }
+    } catch (error) {
+        if (error instanceof SyntaxError) {
+            // Data i localStorage er korrupt/ikke gyldig json. Fjerner data.
+            localStorage.removeItem(LOCAL_STORAGE_SEARCH_KEY);
+        }
+    }
+}
+
 export const searchSaga = function* saga() {
+    yield takeLatest(RESTORE_SEARCH, restoreSearchFromLocalStorage);
     yield takeLatest([
         RESET_SEARCH,
         CHANGE_STATUS_FILTER,

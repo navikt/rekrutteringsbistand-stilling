@@ -12,11 +12,12 @@ import NoResults from './noResults/NoResults';
 import Loading from '../common/loading/Loading';
 import Filter from './filter/Filter';
 import Pagination from './pagination/Pagination';
-import { FETCH_ADS, RESET_SEARCH } from './searchReducer';
+import { FETCH_ADS, RESET_SEARCH, RESTORE_SEARCH } from './searchReducer';
 import './SearchPage.less';
 
 class SearchPage extends React.Component {
     componentDidMount() {
+        this.props.restoreSearch();
         this.props.getAds();
     }
 
@@ -93,6 +94,7 @@ SearchPage.propTypes = {
     isSearching: PropTypes.bool.isRequired,
     getAds: PropTypes.func.isRequired,
     resetSearch: PropTypes.func.isRequired,
+    restoreSearch: PropTypes.func.isRequired,
     error: PropTypes.shape({
         statusCode: PropTypes.number
     })
@@ -106,7 +108,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     getAds: () => dispatch({ type: FETCH_ADS }),
-    resetSearch: () => dispatch({ type: RESET_SEARCH })
+    resetSearch: () => dispatch({ type: RESET_SEARCH }),
+    restoreSearch: () => dispatch({ type: RESTORE_SEARCH })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchPage);
