@@ -4,21 +4,16 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Normaltekst } from 'nav-frontend-typografi';
 import getEmployerName from '../../common/getEmployerName';
-import { formatISOString, toDate } from '../../utils';
-import { COPY_AD_FROM_MY_ADS, SHOW_DELETE_MODAL_MY_ADS, SHOW_STOP_MODAL_MY_ADS } from '../../ad/adReducer';
+import { formatISOString } from '../../utils';
 import PrivacyStatusEnum from '../../common/enums/PrivacyStatusEnum';
 import AWithIcon from '../../common/aWithIcon/AWithIcon';
 import './Icons.less';
 import './Result.less';
 import {getAdStatusLabel} from '../../common/enums/getEnumLabels';
-import DropDown from './DropDown';
+import ResultItemDropDown from './ResultItemDropDown';
 
-const ResultItem = ({ ad, copiedAds, stopAd, deleteAd, copyAd }) => {
-    const [visible, setVisible ] = useState(false);
-    const onDropDownClick = () => {
-        setVisible(!visible);
-    };
-
+const ResultItem = ({ ad, copiedAds }) => {
+    const [dropDownVisible, setDropDownVisible ] = useState(false);
     const isCopy = copiedAds.includes(ad.uuid);
 
     return (
@@ -100,28 +95,27 @@ const ResultItem = ({ ad, copiedAds, stopAd, deleteAd, copyAd }) => {
                 </Link>
             </td>
             <td className="Col-menu">
-                <div
-                    className="Inner__button"
+                <a
+                    className="Inner__button Icon__button"
                     aria-label="Meny"
                     role="button"
                     title="meny"
-                    onClick={onDropDownClick}
+                    tabIndex={0}
+                    onClick={() => setDropDownVisible(!dropDownVisible)}
                 >
                     <i className="Menu__icon" />
-                </div>
-                <DropDown
-                    items={[
-                        { label: 'Kopier', onClick: () => undefined },
-                        { label: 'Stopp', onClick: () => undefined },
-                        { label: 'Slett', onClick: () => undefined },
-                        { label: 'Arkiver', onClick: () => undefined }
-                    ]}
-                    visible={visible}
-                />
+                </a>
+                {dropDownVisible &&
+                    <ResultItemDropDown
+                        ad={ad}
+                        visible={dropDownVisible}
+                        setVisible={setDropDownVisible}
+                    />
+                }
             </td>
         </tr>
     );
-}
+};
 
 ResultItem.propTypes = {
     ad: PropTypes.shape({
@@ -129,9 +123,6 @@ ResultItem.propTypes = {
         title: PropTypes.string,
         deactivatedByExpiry: PropTypes.bool
     }).isRequired,
-    stopAd: PropTypes.func.isRequired,
-    deleteAd: PropTypes.func.isRequired,
-    copyAd: PropTypes.func.isRequired,
     copiedAds: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
@@ -140,10 +131,4 @@ const mapStateToProps = (state) => ({
     copiedAds: state.ad.copiedAds,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    stopAd: (uuid) => dispatch({ type: SHOW_STOP_MODAL_MY_ADS, uuid }),
-    deleteAd: (uuid) => dispatch({ type: SHOW_DELETE_MODAL_MY_ADS, uuid }),
-    copyAd: (uuid) => dispatch({ type: COPY_AD_FROM_MY_ADS, uuid })
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ResultItem);
+export default connect(mapStateToProps)(ResultItem);
