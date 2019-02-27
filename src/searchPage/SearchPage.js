@@ -17,8 +17,9 @@ import './SearchPage.less';
 
 class SearchPage extends React.Component {
     componentDidMount() {
-        this.props.restoreSearch();
-        this.props.getAds();
+        const { getAds, restoreSearch } = this.props;
+        restoreSearch();
+        getAds();
     }
 
     render() {

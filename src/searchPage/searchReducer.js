@@ -26,8 +26,6 @@ export const Fields = {
 };
 
 const ACTIVE = 'ACTIVE';
-const INACTIVE = 'INACTIVE';
-const EXPIRED = 'EXPIRED';
 
 const LOCAL_STORAGE_SEARCH_KEY = 'last_search';
 
@@ -173,6 +171,16 @@ export function toQuery(search) {
     return query;
 }
 
+function* saveSearchToLocalStorage() {
+    const search = yield select((state) => state.search);
+    const searchTerm = { ...search, items: [] };
+    try {
+        localStorage.setItem(LOCAL_STORAGE_SEARCH_KEY, JSON.stringify(searchTerm));
+    } catch (error) {
+        // Klarte ikke lagre søk til localStorage.
+    }
+}
+
 function* getAds(action) {
     try {
         if (action.type !== CHANGE_PAGE) {
@@ -195,23 +203,11 @@ function* getAds(action) {
     }
 }
 
-function* saveSearchToLocalStorage() {
-    const search = yield select(state => state.search);
-    if (search.field) {
-        const searchTerm = { ...search, items: [] };
-        try {
-            localStorage.setItem(LOCAL_STORAGE_SEARCH_KEY, JSON.stringify(searchTerm));
-        } catch (error) {
-            // Klarte ikke lagre søk til localStorage.
-        }
-    }
-}
-
 function* restoreSearchFromLocalStorage() {
     try {
-        const search =  JSON.parse(localStorage.getItem(LOCAL_STORAGE_SEARCH_KEY));
+        const search = JSON.parse(localStorage.getItem(LOCAL_STORAGE_SEARCH_KEY));
         if (search) {
-            yield put({ type: SET_SEARCH, search })
+            yield put({ type: SET_SEARCH, search });
         }
     } catch (error) {
         if (error instanceof SyntaxError) {
