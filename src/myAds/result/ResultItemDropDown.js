@@ -1,20 +1,34 @@
+/* eslint-disable object-curly-newline */
+/* eslint-disable react/forbid-prop-types */
+/* eslint-disable jsx-a11y/no-noninteractive-element-to-interactive-role */
+
 import React, { useEffect, useRef } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import './ResultItemDropDown.less';
+import { HjelpetekstUnderVenstre } from 'nav-frontend-hjelpetekst';
 import AdStatusEnum from '../../common/enums/AdStatusEnum';
 import { COPY_AD_FROM_MY_ADS, SHOW_DELETE_MODAL_MY_ADS, SHOW_STOP_MODAL_MY_ADS } from '../../ad/adReducer';
-import { connect } from 'react-redux';
-import { HjelpetekstUnderVenstre } from 'nav-frontend-hjelpetekst';
 import { getAdStatusLabel } from '../../common/enums/getEnumLabels';
 
 const DropDownItem = ({ label, onClick, active, helpText, refProp }) => {
+    const handleKeyDown = (event) => {
+        if ((event.keyCode === 13 || event.keyCode === 32) && active) {
+            onClick();
+        }
+    };
+
     const item = (
-        <li
+        <div
             className={`typo-normal${active ? '' : ' disabled'}`}
             onClick={active ? onClick : null}
+            onKeyDown={handleKeyDown}
+            role="button"
             tabIndex={active ? 0 : -1}
             ref={refProp}
-        >{label}</li>
+        >
+            {label}
+        </div>
     );
 
     return active ? item : (
@@ -22,42 +36,30 @@ const DropDownItem = ({ label, onClick, active, helpText, refProp }) => {
             id={label}
             anchor={() => item}
             tittel={label}
-            children={helpText}
-        />
+        >
+            {helpText}
+        </HjelpetekstUnderVenstre>
     );
 };
 
 DropDownItem.propTypes = {
     label: PropTypes.string.isRequired,
     active: PropTypes.bool.isRequired,
-    onClick: PropTypes.func.isRequired
+    onClick: PropTypes.func.isRequired,
+    helpText: PropTypes.string,
+    refProp: PropTypes.object
 };
 
-const ResultItemDropDown = ({ ad, copyAd, stopAd, deleteAd, visible, setVisible }) => {
+DropDownItem.defaultProps = {
+    helpText: '',
+    refProp: undefined
+};
+
+const ResultItemDropDown = ({ ad, copyAd, stopAd, deleteAd, setVisible }) => {
     const listRef = useRef(null);
     const copyRef = useRef(null);
     const stopRef = useRef(null);
     const deleteRef = useRef(null);
-
-    useEffect(() => {
-        document.addEventListener("click", handleCloseMenu);
-        return () => document.removeEventListener("click", handleCloseMenu);
-    }, []);
-
-    const willBePublished = ad.status === AdStatusEnum.INACTIVE && ad.activationOnPublishingDate;
-
-    const onItemClick = (action) => {
-        action(ad.uuid);
-        setVisible(false);
-    };
-
-    const handleCloseMenu = () => {
-        window.setTimeout(() => {
-            if (!hasFocus()) {
-                setVisible(false);
-            }
-        }, 0);
-    };
 
     const hasFocus = () => {
         const active = document.activeElement;
@@ -68,6 +70,26 @@ const ResultItemDropDown = ({ ad, copyAd, stopAd, deleteAd, visible, setVisible 
             || active.className.includes('hjelpetekst');
     };
 
+    const handleCloseMenu = () => {
+        window.setTimeout(() => {
+            if (!hasFocus()) {
+                setVisible(false);
+            }
+        }, 0);
+    };
+
+    useEffect(() => {
+        document.addEventListener('click', handleCloseMenu);
+        return () => document.removeEventListener('click', handleCloseMenu);
+    }, []);
+
+    const willBePublished = ad.status === AdStatusEnum.INACTIVE && ad.activationOnPublishingDate;
+
+    const onItemClick = (action) => {
+        action(ad.uuid);
+        setVisible(false);
+    };
+
     return (
         <div>
             <ul
@@ -76,23 +98,22 @@ const ResultItemDropDown = ({ ad, copyAd, stopAd, deleteAd, visible, setVisible 
                 onBlur={handleCloseMenu}
             >
                 <DropDownItem
-                    label={'Kopier'}
+                    label="Kopier"
                     onClick={() => onItemClick(copyAd)}
-                    active={true}
                     refProp={copyRef}
+                    active
                 />
                 <DropDownItem
-                    label={'Stopp'}
+                    label="Stopp"
                     onClick={() => onItemClick(stopAd)}
                     active={ad.status === AdStatusEnum.ACTIVE && !willBePublished}
                     helpText={`Du kan ikke stoppe en stilling som er ${
-                            getAdStatusLabel(ad.status, ad.deactivatedByExpiry).toLowerCase()
-                        }`
-                    }
+                        getAdStatusLabel(ad.status, ad.deactivatedByExpiry).toLowerCase()
+                    }`}
                     refProp={stopRef}
                 />
                 <DropDownItem
-                    label={'Slett'}
+                    label="Slett"
                     onClick={() => onItemClick(deleteAd)}
                     active={!ad.publishedByAdmin}
                     helpText={`Du kan ikke slette en stilling som ${willBePublished
@@ -108,11 +129,15 @@ const ResultItemDropDown = ({ ad, copyAd, stopAd, deleteAd, visible, setVisible 
 };
 
 ResultItemDropDown.propTypes = {
-    items: PropTypes.arrayOf(PropTypes.shape(DropDownItem)),
+    ad: PropTypes.shape({
+        uuid: PropTypes.string,
+        title: PropTypes.string,
+        deactivatedByExpiry: PropTypes.bool
+    }).isRequired,
     stopAd: PropTypes.func.isRequired,
     deleteAd: PropTypes.func.isRequired,
     copyAd: PropTypes.func.isRequired,
-    visible: PropTypes.bool.isRequired
+    setVisible: PropTypes.func.isRequired
 };
 
 const mapDispatchToProps = (dispatch) => ({

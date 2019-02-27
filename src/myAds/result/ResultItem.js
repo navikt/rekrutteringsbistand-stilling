@@ -9,11 +9,11 @@ import PrivacyStatusEnum from '../../common/enums/PrivacyStatusEnum';
 import AWithIcon from '../../common/aWithIcon/AWithIcon';
 import './Icons.less';
 import './Result.less';
-import {getAdStatusLabel} from '../../common/enums/getEnumLabels';
+import { getAdStatusLabel } from '../../common/enums/getEnumLabels';
 import ResultItemDropDown from './ResultItemDropDown';
 
 const ResultItem = ({ ad, copiedAds }) => {
-    const [dropDownVisible, setDropDownVisible ] = useState(false);
+    const [dropDownVisible, setDropDownVisible] = useState(false);
     const isCopy = copiedAds.includes(ad.uuid);
 
     return (
@@ -32,7 +32,10 @@ const ResultItem = ({ ad, copiedAds }) => {
                         to={`/stilling/${ad.uuid}`}
                     >
                         {isCopy ? (
-                            <div><b>{ad.title.substr(0, 5)}</b>{ad.title.substr(5)}</div> || ''
+                            <div>
+                                <b>{ad.title.substr(0, 5)}</b>
+                                {ad.title.substr(5)}
+                            </div> || ''
                         ) : (
                             ad.title || ''
                         )}
@@ -95,23 +98,23 @@ const ResultItem = ({ ad, copiedAds }) => {
                 </Link>
             </td>
             <td className="Col-menu">
-                <a
+                <button
                     className="Inner__button Icon__button"
                     aria-label="Meny"
-                    role="button"
+                    type="button"
                     title="meny"
                     tabIndex={0}
                     onClick={() => setDropDownVisible(!dropDownVisible)}
                 >
                     <i className="Menu__icon" />
-                </a>
-                {dropDownVisible &&
+                </button>
+                {dropDownVisible && (
                     <ResultItemDropDown
                         ad={ad}
                         visible={dropDownVisible}
                         setVisible={setDropDownVisible}
                     />
-                }
+                )}
             </td>
         </tr>
     );
@@ -128,7 +131,7 @@ ResultItem.propTypes = {
 
 
 const mapStateToProps = (state) => ({
-    copiedAds: state.ad.copiedAds,
+    copiedAds: state.ad.copiedAds
 });
 
 export default connect(mapStateToProps)(ResultItem);

@@ -14,9 +14,10 @@
   transform: translateX(@drop-down-x-offset);
   width: @drop-down-width;
 
-  > li {
-    padding: 0.25rem;
+  > div {
     color: #0067c5;
+    padding: 0.25rem;
+    display: list-item;
 
     &:hover {
       cursor: pointer;
@@ -25,8 +26,10 @@
   }
 
   > .hjelpetekst {
-    display: list-item;
+    background: transparent;
+    border: none;
     padding: 0.25rem;
+    display: list-item;
   }
 }
 

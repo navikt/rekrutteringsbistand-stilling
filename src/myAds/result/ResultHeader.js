@@ -7,7 +7,11 @@ export default function ResultHeader() {
             <tr >
                 <th className="Col-updated">Sist endret</th>
                 <th className="Col-title">Stillingstittel</th>
-                <th className="Col-id">Annonse-<br/>nummer</th>
+                <th className="Col-id">
+                    Annonse-
+                    <br />
+                    nummer
+                </th>
                 <th className="Col-employer">Arbeidsgiver</th>
                 <th className="Col-expires">Søknadsfrist</th>
                 <th className="Col-privacy">Publisert</th>
