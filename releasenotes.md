@@ -1,3 +1,17 @@
+## RELEASE - 0.30.168-57335ba
+#### New in this release: 
++ 2019-02-26 Revert "[PAM-2756] Tekstendringer - stillinger #5"
++ 2019-02-26 [PAM-2756] Tekstendringer - stillinger #7
++ 2019-02-26 [PAM-2756] Tekstendringer - stillinger #6
++ 2019-02-26 [PAM-2756] Tekstendringer - stillinger #5
++ 2019-02-25 [PAM-2756] Tekstendringer - stillinger #4
++ 2019-02-25 Revert "[PAM-2756] Tekstendringer - stillinger #Hvordan sende søknad revert"
++ 2019-02-25 [PAM-2756] Tekstendringer - stillinger #3 Revert
++ 2019-02-25 [PAM-2756] Tekstendringer - stillinger #3
++ 2019-02-25 [PAM-2756] Tekstendringer - stillinger #Hvordan sende søknad revert
++ 2019-02-25 [PAM-2756] Tekstendringer - stillinger #Hvordan sende søknad
++ 2019-02-25 [PAM-2756] Tekstendringer - stillinger
++ 2019-02-21 [PAM-2786] Tekstendring feilmelding
 ## RELEASE - 0.29.150-a10003b
 #### New in this release: 
 + 2019-02-20 [PAM-2771] Remove redundant async backend queries
