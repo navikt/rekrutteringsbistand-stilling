@@ -84,7 +84,7 @@ const ResultItemDropDown = ({ ad, copyAd, stopAd, deleteAd, visible, setVisible 
                 <DropDownItem
                     label={'Stopp'}
                     onClick={() => onItemClick(stopAd)}
-                    active={!willBePublished}
+                    active={ad.status === AdStatusEnum.ACTIVE && !willBePublished}
                     helpText={`Du kan ikke stoppe en stilling som er ${
                             getAdStatusLabel(ad.status, ad.deactivatedByExpiry).toLowerCase()
                         }`
