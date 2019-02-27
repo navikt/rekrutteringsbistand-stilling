@@ -16,35 +16,91 @@ import StopAdModal from './StopAdModal';
 import AdPublishedModal from './AdPublishedModal';
 import SaveAdErrorModal from './SaveAdErrorModal';
 
-class AdStatusEdit extends React.Component {
+const ButtonEnum = {
+    PUBLISH: 'PUBLISH',
+    REPUBLISH: 'REPUBLISH',
+    PUBLISH_CHANGES: 'PUBLISH_CHANGES',
+    STOP: 'STOP',
+    CANCEL: 'CANCEL',
+    SAVE: 'SAVE'
+};
+
+const ButtonGroupEnum = {
+    NEW_AD: 'NEW_AD',
+    PUBLISHED_BEFORE: 'PUBLISHED_BEFORE',
+    IS_PUBLISHED_NOW: 'IS_PUBLISHED_NOW',
+};
+
+class AdStatusEdit extends React.PureComponent {
+    constructor(props) {
+        super(props);
+        this.state = {
+            buttonClicked: undefined
+        };
+    }
+
     onPublishClick = () => {
         this.props.publish();
+        this.setState({
+            buttonClicked: ButtonEnum.PUBLISH
+        });
+    };
+
+    onRePublishClick = () => {
+        this.props.publish();
+        this.setState({
+            buttonClicked: ButtonEnum.REPUBLISH
+        });
     };
 
     onPublishAdChangesClick = () => {
         this.props.publishAdChanges();
+        this.setState({
+            buttonClicked: ButtonEnum.PUBLISH_CHANGES
+        });
     };
 
     onCancelClick = () => {
         this.props.showHasChangesModal();
+        this.setState({
+            buttonClicked: undefined
+        });
     };
 
     onStopClick = () => {
         this.props.stop();
+        this.setState({
+            buttonClicked: ButtonEnum.STOP
+        });
     };
 
     onSaveAdClick = () => {
         this.props.saveAd();
+        this.setState({
+            buttonClicked: undefined
+        });
     };
 
     render() {
         const {
-            adStatus, activationOnPublishingDate, deactivatedByExpiry
+            adStatus, activationOnPublishingDate, deactivatedByExpiry, isSavingAd
         } = this.props;
 
-        const isPublished = (adStatus === AdStatusEnum.ACTIVE ||
-            (adStatus === AdStatusEnum.INACTIVE && activationOnPublishingDate));
-        const isExpired = adStatus === AdStatusEnum.INACTIVE && deactivatedByExpiry;
+        const isPublished = ((adStatus === AdStatusEnum.ACTIVE)
+            || ((adStatus === AdStatusEnum.INACTIVE) && activationOnPublishingDate));
+        const isExpired = (adStatus === AdStatusEnum.INACTIVE) && deactivatedByExpiry;
+        const isStopping = (this.state.buttonClicked === ButtonEnum.STOP) && isSavingAd;
+        const isPublishing = (this.state.buttonClicked === ButtonEnum.PUBLISH) && isSavingAd;
+        const isRePublishing = (this.state.buttonClicked === ButtonEnum.REPUBLISH) && isSavingAd;
+        const isPublishingChanges = (this.state.buttonClicked === ButtonEnum.PUBLISH_CHANGES) && isSavingAd;
+        const canSave = !isPublished && !isExpired && !isSavingAd;
+
+        let buttonState = ButtonGroupEnum.NEW_AD;
+        if (isExpired || (adStatus === AdStatusEnum.STOPPED && !isStopping) || isRePublishing) {
+            buttonState = ButtonGroupEnum.PUBLISHED_BEFORE;
+        } else if ((isPublished && !isPublishing) || isStopping || isPublishingChanges) {
+            buttonState = ButtonGroupEnum.IS_PUBLISHED_NOW;
+        }
 
         return (
             <div className="AdStatusEdit">
@@ -53,9 +109,12 @@ class AdStatusEdit extends React.Component {
                 <AdPublishedModal />
                 <SaveAdErrorModal />
                 <div>
-                    {adStatus === AdStatusEnum.INACTIVE && !activationOnPublishingDate && !deactivatedByExpiry && (
+                    {buttonState === ButtonGroupEnum.NEW_AD && (
                         <div className="AdStatusEdit__buttons">
-                            <Hovedknapp className="AdStatusEdit__buttons__button" onClick={this.onPublishClick}>
+                            <Hovedknapp
+                                className="AdStatusEdit__buttons__button"
+                                onClick={this.onPublishClick}
+                                spinner={isPublishing}>
                                 Publisér
                             </Hovedknapp>
                             <Knapp className="AdStatusEdit__buttons__button" onClick={this.onCancelClick}>
@@ -63,25 +122,34 @@ class AdStatusEdit extends React.Component {
                             </Knapp>
                         </div>
                     )}
-                    {isExpired && (
+                    {buttonState === ButtonGroupEnum.PUBLISHED_BEFORE && (
                         <div className="AdStatusEdit__buttons">
-                            <Hovedknapp className="AdStatusEdit__buttons__button" onClick={this.onPublishClick}>
+                            <Hovedknapp
+                                className="AdStatusEdit__buttons__button"
+                                onClick={this.onRePublishClick}
+                                spinner={isRePublishing}
+                            >
                                 Republisér stilling
                             </Hovedknapp>
+                            <Knapp className="AdStatusEdit__buttons__button" onClick={this.onCancelClick}>
+                                Avbryt
+                            </Knapp>
                         </div>
                     )}
-                    {isPublished && (
+                    {buttonState === ButtonGroupEnum.IS_PUBLISHED_NOW && (
                         <div>
                             <div className="AdStatusEdit__buttons">
                                 <Hovedknapp
                                     className="AdStatusEdit__buttons__button AdStatusEdit__PublishChanges__button"
                                     onClick={this.onPublishAdChangesClick}
+                                    spinner={isPublishingChanges}
                                 >
                                     Publisér endringer
                                 </Hovedknapp>
                                 <Knapp
                                     className="AdStatusEdit__buttons__button AdStatusEdit__StopAd__button"
                                     onClick={this.onStopClick}
+                                    spinner={isStopping}
                                 >
                                     Stopp stilling
                                 </Knapp>
@@ -93,18 +161,8 @@ class AdStatusEdit extends React.Component {
                             </div>
                         </div>
                     )}
-                    {adStatus === AdStatusEnum.STOPPED && (
-                        <div className="AdStatusEdit__buttons">
-                            <Hovedknapp className="AdStatusEdit__buttons__button" onClick={this.onPublishClick}>
-                                Republisér stilling
-                            </Hovedknapp>
-                            <Knapp className="AdStatusEdit__buttons__button" onClick={this.onCancelClick}>
-                                Avbryt
-                            </Knapp>
-                        </div>
-                    )}
                     <div className="AdStatusEdit__buttons-mini">
-                        {!isPublished && !isExpired && (
+                        {canSave && (
                             <Flatknapp mini onClick={this.onSaveAdClick}>
                                 Lagre
                             </Flatknapp>
@@ -124,13 +182,15 @@ AdStatusEdit.propTypes = {
     showHasChangesModal: PropTypes.func.isRequired,
     publishAdChanges: PropTypes.func.isRequired,
     activationOnPublishingDate: PropTypes.bool.isRequired,
-    deactivatedByExpiry: PropTypes.bool.isRequired
+    deactivatedByExpiry: PropTypes.bool.isRequired,
+    isSavingAd: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state) => ({
     adStatus: state.adData.status,
     activationOnPublishingDate: state.adData.activationOnPublishingDate,
     deactivatedByExpiry: state.adData.deactivatedByExpiry,
+    isSavingAd: state.ad.isSavingAd
 });
 
 const mapDispatchToProps = (dispatch) => ({

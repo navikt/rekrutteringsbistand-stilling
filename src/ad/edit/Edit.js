@@ -62,12 +62,8 @@ class Edit extends React.Component {
     };
 
     render() {
-        const { ad, isFetchingStilling, isNew } = this.props;
+        const { ad, isNew } = this.props;
         const { didTimeout, willTimeout } = this.state;
-
-        if (isFetchingStilling) {
-            return <Loading />;
-        }
 
         return (
             <div className="Edit">
@@ -142,14 +138,12 @@ Edit.propTypes = {
         uuid: PropTypes.string,
         id: PropTypes.number
     }),
-    isFetchingStilling: PropTypes.bool.isRequired,
     resetValidation: PropTypes.func.isRequired,
     isNew: PropTypes.bool
 };
 
 const mapStateToProps = (state) => ({
-    ad: state.adData,
-    isFetchingStilling: state.ad.isFetchingStilling
+    ad: state.adData
 });
 
 const mapDispatchToProps = (dispatch) => ({
