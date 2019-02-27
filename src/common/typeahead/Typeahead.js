@@ -16,18 +16,18 @@ export default class Typeahead extends React.Component {
         this.shouldBlur = true;
     }
 
-    componentWillUnmount() {
-        if (this.blurDelay) {
-            clearTimeout(this.blurDelay);
-            this.blurDelay = undefined;
-        }
-    }
-
     componentWillReceiveProps(props) {
         if (props.suggestions.length === 1) {
             this.setState({
                 activeSuggestionIndex: 0
             });
+        }
+    }
+
+    componentWillUnmount() {
+        if (this.blurDelay) {
+            clearTimeout(this.blurDelay);
+            this.blurDelay = undefined;
         }
     }
 
@@ -242,11 +242,6 @@ export default class Typeahead extends React.Component {
                         }}
                         className={classNames('Typeahead__input typo-normal', { 'skjemaelement__input--harFeil': this.props.error })}
                     />
-                    {this.props.feil && this.props.feil.feilmelding && (
-                        <div className="skjemaelement__feilmelding typo-normal">
-                            {this.props.feil.feilmelding}
-                        </div>
-                    )}
                     <ul
                         id={`${this.props.id}-suggestions`}
                         role="listbox"
@@ -255,7 +250,7 @@ export default class Typeahead extends React.Component {
                         {showSuggestions && this.props.suggestions.length > 0 && (
                             <li className="Typeahead__suggestions-label">
                                 <span className="Typeahead__suggestions-label2">
-                                    Kommune
+                                    {this.props.suggestionsLabel ? this.props.suggestionsLabel : 'Kommune'}
                                 </span>
                             </li>
                         )}
@@ -364,6 +359,7 @@ Typeahead.defaultProps = {
     error: false,
     optionalSuggestions: undefined,
     optionalSuggestionsLabel: undefined,
+    suggestionsLabel: undefined,
     onBlur: undefined
 };
 
@@ -387,6 +383,7 @@ Typeahead.propTypes = {
         }))
     ]),
     optionalSuggestionsLabel: PropTypes.string,
+    suggestionsLabel: PropTypes.string,
     value: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
     disabled: PropTypes.bool,

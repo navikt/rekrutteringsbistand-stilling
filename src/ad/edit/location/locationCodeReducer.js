@@ -1,13 +1,13 @@
 import { take, put, takeEvery, select } from 'redux-saga/effects';
 import { ApiError, fetchGet } from '../../../api/api';
 import { AD_API } from '../../../fasitProperties';
-import { CREATE_AD_BEGIN, FETCH_AD_BEGIN } from '../../adReducer';
+import { CREATE_AD_BEGIN, FETCH_AD_BEGIN, CREATE_AD_SUCCESS, SAVE_AD_SUCCESS, FETCH_AD_SUCCESS } from '../../adReducer';
 
 export const FETCH_LOCATIONS = 'FETCH_LOCATIONS';
 export const FETCH_LOCATIONS_BEGIN = 'FETCH_LOCATIONS_BEGIN';
 export const FETCH_LOCATIONS_SUCCESS = 'FETCH_LOCATIONS_SUCCESS';
 export const FETCH_LOCATIONS_FAILURE = 'FETCH_LOCATIONS_FAILURE';
-export const SET_LOCATION_TYPE_AHEAD_VALUE = 'SET_LOCATION_TYPE_AHEAD_VALUE';
+export const SET_POSTAL_CODE_TYPEAHEAD_VALUE = 'SET_POSTAL_CODE_TYPEAHEAD_VALUE';
 
 const initialState = {
     suggestions: [],
@@ -15,7 +15,7 @@ const initialState = {
     hasFetchedLocations: false
 };
 
-export default function locationlCodeReducer(state = initialState, action) {
+export default function locationCodeReducer(state = initialState, action) {
     switch (action.type) {
         case FETCH_LOCATIONS_BEGIN:
             return {
@@ -38,9 +38,18 @@ export default function locationlCodeReducer(state = initialState, action) {
                 ...state,
                 suggestions: []
             };
-        case SET_LOCATION_TYPE_AHEAD_VALUE:
+        case CREATE_AD_SUCCESS:
+        case SAVE_AD_SUCCESS:
+        case FETCH_AD_SUCCESS:
             return {
                 ...state,
+                typeAheadValue: action.response.locationList && action.response.locationList.length && action.response.locationList[0].postalCode ?
+                    action.response.locationList[0].postalCode : ''
+            };
+        case SET_POSTAL_CODE_TYPEAHEAD_VALUE:
+            return {
+                ...state,
+                typeAheadValue: action.value,
                 suggestions: (state.locations === undefined || action.value.length === 0) ? [] :
                     state.locations.filter(((location) =>
                         location.city.toLowerCase().startsWith(action.value.toLowerCase()) ||
@@ -55,7 +64,7 @@ export default function locationlCodeReducer(state = initialState, action) {
 export function* fetchLocations() {
     const state = yield select();
     try {
-        if (!state.location.hasFetchedLocations) {
+        if (!state.locationCode.hasFetchedLocations) {
             yield put({ type: FETCH_LOCATIONS_BEGIN });
             const response = yield fetchGet(`${AD_API}postdata/`);
             const sorted = response.sort((a, b) => {
@@ -76,19 +85,7 @@ export function* fetchLocations() {
     }
 }
 
-export function* findLocationByPostalCode(value) {
-    let state = yield select();
-    if (!state.location.locations) {
-        yield put({ type: FETCH_LOCATIONS });
-        yield take(FETCH_LOCATIONS_SUCCESS);
-        state = yield select();
-    }
-    if (state.location.locations) {
-        return state.location.locations.find((location) => (location.postalCode === value));
-    }
-    return undefined;
-}
 
-export const locationSaga = function* saga() {
+export const locationCodeSaga = function* saga() {
     yield takeEvery(FETCH_LOCATIONS, fetchLocations);
 };
