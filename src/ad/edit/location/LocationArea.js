@@ -20,7 +20,9 @@ class LocationArea extends React.Component {
     onLocationAreaSelect = (value) => {
         const { municipalsCounties, countries, addLocationArea, validateLocationArea } = this.props;
 
-        const country = countries.find((c) => c.name.toLowerCase() === value.label.toLowerCase());
+        const country = countries.find(
+            (c) => c.name.toLowerCase() === value.label.toLowerCase()
+        );
         const county = municipalsCounties.find(
             (c) => (!c.countyCode && (c.name.toLowerCase() === value.label.toLowerCase()))
         );
@@ -28,39 +30,21 @@ class LocationArea extends React.Component {
             (m) => (m.countyCode && (m.name.toLowerCase() === value.label.toLowerCase()))
         );
 
-        if (country) {
-            addLocationArea({
-                country: country.name,
-                county: undefined,
-                municipal: undefined,
-                municipalCode: undefined,
-                address: undefined,
-                postalCode: undefined,
-                city: undefined
-            });
-        } else if (municipal) {
+        if (municipal) {
             addLocationArea({
                 municipal: municipal.name,
-                municipalCode: municipal.code,
-                country: undefined,
-                county: undefined,
-                address: undefined,
-                postalCode: undefined,
-                city: undefined
+                municipalCode: municipal.code
             });
         } else if (county) {
             addLocationArea({
-                municipal: undefined,
-                municipalCode: undefined,
-                country: undefined,
-                county: county.name,
-                address: undefined,
-                postalCode: undefined,
-                city: undefined
+                county: county.name
             });
-        } else {
-            validateLocationArea();
+        } else if (country) {
+            addLocationArea({
+                country: country.name
+            });
         }
+        validateLocationArea();
     };
 
     onLocationAreaChange = (value) => {
@@ -114,7 +98,7 @@ class LocationArea extends React.Component {
                     }))}
                     value={typeaheadValue}
                     minLength={1}
-                    placeholder="For eksempel Drammen"
+                    placeholder="For eksempel Oslo, Sandefjord eller Danmark"
                     error={!!validation.locationArea}
                 />
                 {validation.locationArea && (
@@ -134,17 +118,6 @@ class LocationArea extends React.Component {
                                     />
                                 );
                             }
-                            if (this.locationIsCountry(location)) {
-                                return (
-                                    <Tag
-                                        key={location.country}
-                                        value={location.country}
-                                        label={capitalizeLocation(location.country)}
-                                        canRemove
-                                        onRemove={this.onRemoveCountry}
-                                    />
-                                );
-                            }
                             if (this.locationIsCounty(location)) {
                                 return (
                                     <Tag
@@ -153,6 +126,17 @@ class LocationArea extends React.Component {
                                         label={capitalizeLocation(location.county)}
                                         canRemove
                                         onRemove={this.onRemoveCounty}
+                                    />
+                                );
+                            }
+                            if (this.locationIsCountry(location) /*&& location.country !== 'NORGE' */) {
+                                return (
+                                    <Tag
+                                        key={location.country}
+                                        value={location.country}
+                                        label={capitalizeLocation(location.country)}
+                                        canRemove
+                                        onRemove={this.onRemoveCountry}
                                     />
                                 );
                             }

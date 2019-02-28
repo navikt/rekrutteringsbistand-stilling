@@ -1,6 +1,5 @@
 import { put, select, takeLatest } from 'redux-saga/es/effects';
 import { erDatoEtterMinDato } from 'nav-datovelger/dist/datovelger/utils/datovalidering';
-import { SET_POSTAL_CODE_TYPEAHEAD_VALUE } from './edit/location/locationCodeReducer';
 import { toDate } from '../utils';
 import { DEFAULT_TITLE_NEW_AD } from './adReducer';
 import IsJson from './edit/practicalInformation/IsJson';
@@ -9,6 +8,7 @@ import {
     SET_STYRK,
     SET_EMPLOYER,
     ADD_POSTAL_CODE,
+    ADD_POSTAL_CODE_BEGIN,
     REMOVE_POSTAL_CODE,
     ADD_LOCATION_AREA,
     REMOVE_COUNTRY,
@@ -401,7 +401,7 @@ export const validationSaga = function* saga() {
     yield takeLatest(SET_EMPLOYER, validateEmployer);
     yield takeLatest(SET_EXPIRATION_DATE, validateExpireDate);
     yield takeLatest(SET_PUBLISHED, validatePublishDate);
-    yield takeLatest(SET_POSTAL_CODE_TYPEAHEAD_VALUE, validatePostalCode);
+    yield takeLatest(ADD_POSTAL_CODE_BEGIN, validatePostalCode);
     yield takeLatest(VALIDATE_LOCATION_AREA, validateLocationArea);
     yield takeLatest([ADD_POSTAL_CODE, REMOVE_POSTAL_CODE, ADD_LOCATION_AREA, REMOVE_MUNICIPAL, REMOVE_COUNTY, REMOVE_COUNTRY], validateLocation);
     yield takeLatest(SET_AD_TEXT, validateAdtext);

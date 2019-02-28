@@ -20,6 +20,7 @@ export const REMOVE_MUNICIPAL = 'REMOVE_MUNICIPAL';
 export const REMOVE_COUNTRY = 'REMOVE_COUNTRY';
 export const REMOVE_COUNTY = 'REMOVE_COUNTY';
 export const REMOVE_POSTAL_CODE = 'REMOVE_POSTAL_CODE';
+export const REMOVE_POSTAL_CODE_ADDRESS = 'REMOVE_POSTAL_CODE_ADDRESS';
 export const SET_EMPLOYMENT_JOBTITLE = 'SET_EMPLOYMENT_JOBTITLE';
 export const SET_EMPLOYMENT_LOCATION = 'SET_EMPLOYMENT_LOCATION';
 export const SET_EMPLOYMENT_ENGAGEMENTTYPE = 'SET_EMPLOYMENT_ENGAGEMENTTYPE';
@@ -90,6 +91,24 @@ function findStyrkAndSkipAlternativeNames(code) {
     return found;
 }
 
+function isLocationInList(location, locationList) {
+    let isAlreadyAdded = false;
+    if (location.country) {
+        isAlreadyAdded = locationList && locationList.find(
+            (item) => (( item.country === location.country) && !item.postalCode && !item.municipal && !item.county)
+        );
+    } else if (location.county) {
+        isAlreadyAdded = locationList && locationList.find(
+            (item) => (( item.county === location.county) && !item.postalCode && !item.municipal)
+        );
+    } else if (location.municipal) {
+        isAlreadyAdded = locationList && locationList.find(
+            (item) => (( item.municipal === location.municipal) && !item.postalCode)
+        );
+    }
+    return isAlreadyAdded;
+}
+
 export default function adDataReducer(state = initialState, action) {
     switch (action.type) {
         case CREATE_AD_BEGIN:
@@ -97,7 +116,12 @@ export default function adDataReducer(state = initialState, action) {
             return initialState;
         case FETCH_AD_SUCCESS:
         case SAVE_AD_SUCCESS:
-            return action.response;
+            return {
+                ...action.response,
+                locationList: action.response.locationList.filter((loc) => (loc.postalCode || loc.municipal ||
+                    loc.county || (loc.country !== 'NORGE'))), // filtrer vekk object med kun Norge
+                location: null
+            };
         case SET_AD_DATA:
             return action.data;
         case SET_COMMENT: {
@@ -120,10 +144,7 @@ export default function adDataReducer(state = initialState, action) {
                 title: action.title
             };
         case ADD_LOCATION_AREA: {
-            const isAlreadyAdded = state.locationList && state.locationList.find(
-                (loc) => (loc.municipal === action.location.municipal && loc.country === action.location.country
-                    && loc.county === action.location.county && !loc.postalCode)
-            );
+            const isAlreadyAdded = isLocationInList(action.location, state.locationList);
             if (!action.location || isAlreadyAdded) {
                 return state;
             }
@@ -134,15 +155,18 @@ export default function adDataReducer(state = initialState, action) {
             };
         }
         case ADD_POSTAL_CODE: {
-            // Get current postalCode-location from first index in list. If it exists, replace it
+            // Look for postalCode-location in first index in list. If it exists, replace it
             const current = state.locationList && state.locationList.length &&
                 (state.locationList[0].postalCode || state.locationList[0].address);
 
             if (current) {
-                state.locationList.splice(0, 1, { ...state.locationList[0], ...action.location });
+                // Remove location and insert a new one, in order to trigger re-render
+                const newLocation = { ...state.locationList[0], ...action.location };
+                state.locationList.shift();
                 return {
                     ...state,
-                    location: null
+                    location: null,
+                    locationList: state.locationList ? [newLocation, ...state.locationList] : [newLocation]
                 };
             }
             // Else, insert postalCode at first index
@@ -155,24 +179,63 @@ export default function adDataReducer(state = initialState, action) {
         case REMOVE_MUNICIPAL:
             return {
                 ...state,
+                location: null,
                 locationList: state.locationList.filter((loc) => (loc.postalCode || (loc.municipal !== action.value)))
-            };
-        case REMOVE_COUNTRY:
-            return {
-                ...state,
-                locationList: state.locationList.filter((loc) => (loc.postalCode || (loc.country !== action.value)))
             };
         case REMOVE_COUNTY:
             return {
                 ...state,
-                locationList: state.locationList.filter((loc) => (loc.postalCode || loc.municipal ||
-                    (loc.county !== action.value)))
+                location: null,
+                locationList: state.locationList.filter((loc) => (loc.postalCode || loc.municipal
+                    || (loc.county !== action.value)))
             };
-        case REMOVE_POSTAL_CODE:
+        case REMOVE_COUNTRY:
             return {
                 ...state,
+                location: null,
+                locationList: state.locationList.filter((loc) => (loc.postalCode || loc.municipal || loc.county
+                    || (loc.country !== action.value)))
+            };
+        case REMOVE_POSTAL_CODE: {
+            // Look for address in first index in list. If it exists, keep it
+            const current = state.locationList && state.locationList.length && state.locationList[0].address;
+            if (current) {
+                const newLocation = { address: state.locationList[0].address };
+                // Remove location and insert a new one without address, in order to trigger re-render
+                state.locationList.shift();
+                return {
+                    ...state,
+                    location: null,
+                    locationList: state.locationList ? [newLocation, ...state.locationList] : [newLocation]
+                };
+            }
+            // Else, remove object
+            return {
+                ...state,
+                location: null,
                 locationList: state.locationList.filter((loc) => (!loc.postalCode))
             };
+        }
+        case REMOVE_POSTAL_CODE_ADDRESS: {
+            // Look for postalCode in first index in list. If it exists, remove address only
+            const current = state.locationList && state.locationList.length && state.locationList[0].postalCode;
+            if (current) {
+                const newLocation = { ...state.locationList[0], address: null };
+                // Remove first location and insert a new one without address, in order to trigger re-render
+                state.locationList.shift();
+                return {
+                    ...state,
+                    location: null,
+                    locationList: state.locationList ? [newLocation, ...state.locationList] : [newLocation]
+                };
+            }
+            // Else, remove object
+            return {
+                ...state,
+                location: null,
+                locationList: state.locationList.filter((loc) => (!loc.address))
+            };
+        }
         case SET_EMPLOYMENT_JOBTITLE:
             return {
                 ...state,

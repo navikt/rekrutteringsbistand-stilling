@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Input, Checkbox } from 'nav-frontend-skjema';
-import { Undertekst, Element } from 'nav-frontend-typografi';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import Typeahead from '../../../common/typeahead/Typeahead';
 import { FETCH_LOCATIONS, SET_POSTAL_CODE_TYPEAHEAD_VALUE } from './locationCodeReducer';
-import { ADD_POSTAL_CODE_BEGIN, REMOVE_POSTAL_CODE, ADD_POSTAL_CODE_ADDRESS_BEGIN } from '../../adDataReducer';
+import { ADD_POSTAL_CODE_BEGIN, REMOVE_POSTAL_CODE, ADD_POSTAL_CODE_ADDRESS_BEGIN,
+    REMOVE_POSTAL_CODE_ADDRESS } from '../../adDataReducer';
 import capitalizeLocation from './capitalizeLocation';
 import LocationArea from './LocationArea';
 import './Location.less';
@@ -25,14 +25,17 @@ class Location extends React.Component {
         this.props.fetchLocations();
     }
 
-
     onAddressChange = (e) => {
-        this.props.addPostalCodeAddress(e.target.value);
+        const { value } = e.target;
+        if (value === '') {
+            this.props.removePostalCodeAddress();
+        } else {
+            this.props.addPostalCodeAddress(value);
+        }
     };
 
     onTypeAheadValueChange = (value) => {
         this.props.setPostalCodeTypeAheadValue(value);
-        this.props.addPostalCode(value);
         if (value === '') {
             this.props.removePostalCode();
         }
@@ -45,6 +48,11 @@ class Location extends React.Component {
         }
     };
 
+    onBlur = (code) => {
+        if (code !== '') {
+            this.onTypeAheadSuggestionSelected({ value: code });
+        }
+    };
 
     onPostCodeChecked = (e) => {
         this.setState({
@@ -60,49 +68,32 @@ class Location extends React.Component {
         });
     };
 
-    getLocationPostalCode = (locationList) => {
-        return locationList.find((loc) => (!!loc.postalCode));
-    };
-
-    getLocationAsString = (locationList, separator) => {
-        const location = this.getLocationPostalCode(locationList);
-        if (!location) {
-            return '';
-        }
-        return (
-            [
-                location.city && `Sted: ${capitalizeLocation(location.city)}`,
-                location.municipal && `Kommune: ${capitalizeLocation(location.municipal)}`,
-                location.county && `Fylke: ${capitalizeLocation(location.county)}`
-            ].filter((l) => l).join(separator)
-        );
-    };
-
     locationListContainsArea = (locationList) => locationList.some(
         (location) => ((location.country || location.municipal || location.county) && !location.postalCode)
     );
 
-
     render() {
         const { suggestions, typeAheadValue, validation, locationList } = this.props;
+        const locationListHasAddress = locationList && locationList.length && locationList[0] && locationList[0].address;
+
         return (
             <Ekspanderbartpanel
                 className="Edit__panel"
-                tittel="Arbeidsstedets adresse*"
+                tittel="Arbeidssted*"
                 tittelProps="undertittel"
                 border
                 apen
             >
                 <Checkbox
-                    label="Postnummer eller poststed"
+                    label="Adresse"
                     checked={this.state.postCode === true}
                     onChange={this.onPostCodeChecked}
                 />
                 {this.state.postCode && (
-                    <div className="blokk-s">
+                    <div className="blokk-m">
                         <Input
                             label="Gateadresse"
-                            value={locationList && locationList.length && locationList[0] && locationList[0].address
+                            value={locationListHasAddress
                                 ? locationList[0].address : ''}
                             onChange={this.onAddressChange}
                         />
@@ -112,7 +103,8 @@ class Location extends React.Component {
                                 className="PostalCode__typeahead"
                                 onSelect={this.onTypeAheadSuggestionSelected}
                                 onChange={this.onTypeAheadValueChange}
-                                label="Sted/postnummer*"
+                                onBlur={this.onBlur}
+                                label="Postnummer"
                                 suggestions={suggestions.map((loc) => ({
                                     value: loc.postalCode,
                                     label: `${loc.postalCode} ${capitalizeLocation(loc.city)}`
@@ -125,7 +117,7 @@ class Location extends React.Component {
                             )}
                         </div>
                         <Input
-                            label="Sted*"
+                            label="Poststed"
                             value={locationList && locationList.length && locationList[0] && locationList[0].city
                                 ? locationList[0].city : ''}
                             disabled
@@ -168,6 +160,7 @@ Location.propTypes = {
     }),
     addPostalCodeAddress: PropTypes.func.isRequired,
     removePostalCode: PropTypes.func.isRequired,
+    removePostalCodeAddress: PropTypes.func.isRequired,
     locationList: PropTypes.arrayOf(PropTypes.object),
     typeAheadValue: PropTypes.string
 };
@@ -184,7 +177,8 @@ const mapDispatchToProps = (dispatch) => ({
     fetchLocations: () => dispatch({ type: FETCH_LOCATIONS }),
     setPostalCodeTypeAheadValue: (value) => dispatch({ type: SET_POSTAL_CODE_TYPEAHEAD_VALUE, value }),
     addPostalCode: (postalCode) => dispatch({ type: ADD_POSTAL_CODE_BEGIN, postalCode }),
-    removePostalCode: () => dispatch({ type: REMOVE_POSTAL_CODE })
+    removePostalCode: () => dispatch({ type: REMOVE_POSTAL_CODE }),
+    removePostalCodeAddress: () => dispatch({ type: REMOVE_POSTAL_CODE_ADDRESS })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Location);
