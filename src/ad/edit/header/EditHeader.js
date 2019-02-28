@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -5,25 +6,22 @@ import { Knapp } from 'nav-frontend-knapper';
 import { Input } from 'nav-frontend-skjema';
 import { Normaltekst, Element } from 'nav-frontend-typografi';
 import './EditHeader.less';
-import { DEFAULT_TITLE_NEW_AD, SHOW_HAS_CHANGES_MODAL } from '../../adReducer';
+import { DEFAULT_TITLE_NEW_AD } from '../../adReducer';
 import { SET_AD_TITLE } from '../../adDataReducer';
 import { createErrorObject } from '../../../common/utils';
 import CandidateActions from '../../candidateActions/CandidateActions';
 
-
 class EditHeader extends React.Component {
-
     onTitleChange = (e) => {
-        this.props.setAdTitle(e.target.value);
+        this.props.setAdTitle(e.target.value.replace(/^\s+/g, '')); // Regex for å fjerne whitespace
     };
 
     getAdTitle = () => {
         // Hack for hiding the default title coming from backend
         if (this.props.ad.title === DEFAULT_TITLE_NEW_AD) {
             return '';
-        } else {
-            return this.props.ad.title || '';
         }
+        return this.props.ad.title || '';
     };
 
     render() {
@@ -55,10 +53,6 @@ class EditHeader extends React.Component {
     }
 }
 
-EditHeader.defaultProps = {
-    status: undefined
-};
-
 EditHeader.propTypes = {
     ad: PropTypes.shape({
         title: PropTypes.string,
@@ -66,10 +60,7 @@ EditHeader.propTypes = {
         source: PropTypes.string
     }).isRequired,
     onPreviewAdClick: PropTypes.func.isRequired,
-    status: PropTypes.string,
-    hasChanges: PropTypes.bool.isRequired,
     setAdTitle: PropTypes.func.isRequired,
-    showHasChangesModal: PropTypes.func.isRequired,
     validation: PropTypes.shape({
         title: PropTypes.string
     }).isRequired
@@ -77,14 +68,11 @@ EditHeader.propTypes = {
 
 const mapStateToProps = (state) => ({
     ad: state.adData,
-    status: state.adData.administration.status,
-    validation: state.adValidation.errors,
-    hasChanges: state.ad.hasChanges
+    validation: state.adValidation.errors
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    setAdTitle: (title) => dispatch({ type: SET_AD_TITLE, title }),
-    showHasChangesModal: (leaveUrl) => dispatch({ type: SHOW_HAS_CHANGES_MODAL, leaveUrl })
+    setAdTitle: (title) => dispatch({ type: SET_AD_TITLE, title })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditHeader);
