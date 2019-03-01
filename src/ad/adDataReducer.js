@@ -1,6 +1,6 @@
 import { put, take, takeLatest, select } from 'redux-saga/es/effects';
 import { lookUpStyrk } from './edit/jobDetails/styrk/styrkReducer';
-import { CREATE_AD_BEGIN, FETCH_AD_BEGIN, FETCH_AD_SUCCESS, SAVE_AD_SUCCESS } from './adReducer';
+import { CREATE_AD_BEGIN, FETCH_AD_BEGIN, FETCH_AD_SUCCESS, SAVE_AD_SUCCESS, DELETE_AD_SUCCESS } from './adReducer';
 import { FETCH_LOCATIONS, FETCH_LOCATIONS_SUCCESS } from './edit/location/locationCodeReducer';
 import AdStatusEnum from '../common/enums/AdStatusEnum';
 import PrivacyStatusEnum from '../common/enums/PrivacyStatusEnum';
@@ -116,6 +116,7 @@ export default function adDataReducer(state = initialState, action) {
             return initialState;
         case FETCH_AD_SUCCESS:
         case SAVE_AD_SUCCESS:
+        case DELETE_AD_SUCCESS:
             return {
                 ...action.response,
                 locationList: action.response.locationList.filter((loc) => (loc.postalCode || loc.municipal ||

@@ -89,7 +89,7 @@ export const DEFAULT_TITLE_NEW_AD = 'Ny stilling';
 const initialState = {
     error: undefined,
     isSavingAd: false,
-    isFetchingStilling: false,
+    isLoadingAd: false,
     isEditingAd: false,
     originalData: undefined,
     hasSavedChanges: false,
@@ -109,13 +109,13 @@ export default function adReducer(state = initialState, action) {
     switch (action.type) {
         case REMOVE_AD_DATA:
             return {
-                ...state
+                ...initialState
             };
         case FETCH_AD_BEGIN:
             return {
                 ...state,
                 hasSavedChanges: false,
-                isFetchingStilling: true,
+                isLoadingAd: true,
                 error: undefined,
                 originalData: undefined,
                 hasChanges: false
@@ -123,7 +123,7 @@ export default function adReducer(state = initialState, action) {
         case FETCH_AD_SUCCESS:
             return {
                 ...state,
-                isFetchingStilling: false,
+                isLoadingAd: false,
                 isEditingAd: false,
                 originalData: { ...action.response }
             };
@@ -131,21 +131,35 @@ export default function adReducer(state = initialState, action) {
             return {
                 ...state,
                 error: action.error,
-                isFetchingStilling: false
+                isLoadingAd: false
             };
-        case CREATE_AD_BEGIN:
         case SAVE_AD_BEGIN:
-        case DELETE_AD_BEGIN:
             return {
                 ...state,
                 isSavingAd: true,
                 hasSavedChanges: false,
                 hasChanges: false
             };
+        case CREATE_AD_BEGIN:
+        case DELETE_AD_BEGIN:
+            return {
+                ...state,
+                isLoadingAd: true,
+                isSavingAd: true,
+                hasSavedChanges: false,
+                hasChanges: false
+            };
+        case DELETE_AD_SUCCESS:
+            return {
+                ...state,
+                isSavingAd: false,
+                isLoadingAd: false
+            };
         case CREATE_AD_SUCCESS:
             return {
                 ...state,
                 isSavingAd: false,
+                isLoadingAd: false,
                 hasSavedChanges: true,
                 isEditingAd: true,
                 originalData: { ...action.response },
@@ -164,7 +178,14 @@ export default function adReducer(state = initialState, action) {
             return {
                 ...state,
                 isSavingAd: false,
-                error: action.error
+                isLoadingAd: false,
+                error: action.error,
+                showPublishErrorModal: false,
+                showHasChangesModal: false,
+                showStopAdModal: false,
+                showDeleteAdModal: false,
+                showAdPublishedModal: false,
+                showAdSavedErrorModal: false
             };
         case EDIT_AD:
             return {
@@ -437,17 +458,16 @@ function* showDeleteModalMyAds(action) {
     yield put({ type: SHOW_DELETE_AD_MODAL });
 }
 
-function* copyAd() {
+function* copyAdFromMyAds(action) {
     try {
-        const state = yield select();
-
+        const adToCopy = yield fetchAd(action.uuid);
         const reportee = yield getReportee();
 
         const postUrl = `${AD_API}ads?classify=true`;
 
         const response = yield fetchPost(postUrl, {
-            ...state.adData,
-            title: `Kopi - ${state.adData.title}`,
+            ...adToCopy,
+            title: `Kopi - ${adToCopy.title}`,
             createdBy: 'pam-rekrutteringsbistand',
             updatedBy: 'pam-rekrutteringsbistand',
             source: 'DIR',
@@ -464,13 +484,14 @@ function* copyAd() {
             updated: undefined,
             status: undefined,
             published: undefined,
+            publishedByAdmin: undefined,
             reference: undefined
         });
 
-        yield put({ type: SET_AD_DATA, data: response });
-        yield put({ type: SET_REPORTEE, reportee: reportee.displayName });
-        yield put({ type: SET_NAV_IDENT, navIdent: reportee.navIdent });
-        yield put({ type: CREATE_AD_SUCCESS, response });
+        // Mark copied ad in myAds
+        yield put({ type: ADD_COPIED_ADS, adUuid: response.uuid });
+        // Update list with the new ad
+        yield put({ type: FETCH_MY_ADS });
     } catch (e) {
         if (e instanceof ApiError) {
             yield put({ type: CREATE_AD_FAILURE, error: e });
@@ -479,14 +500,6 @@ function* copyAd() {
     }
 }
 
-function* copyAdFromMyAds(action) {
-    yield getAd(action);
-    yield copyAd();
-    const state = yield select();
-    yield put({ type: ADD_COPIED_ADS, adUuid: state.adData.uuid });
-    // Update list with the new ad
-    yield put({ type: FETCH_MY_ADS });
-}
 
 export const adSaga = function* saga() {
     yield takeLatest(PUBLISH_AD, publishAd);

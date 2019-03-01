@@ -51,8 +51,20 @@ class Ad extends React.Component {
     };
 
     render() {
-        const { stilling, isEditingAd, isFetchingStilling } = this.props;
+        const { stilling, isEditingAd, isLoadingAd, leavePageTrigger, hasChangesLeaveUrl } = this.props;
         const { isNew } = this.props.location.state || { isNew: false };
+
+        if (leavePageTrigger) {
+            window.location.pathname = hasChangesLeaveUrl;
+        }
+
+        if (leavePageTrigger || isLoadingAd || !stilling) {
+            return (
+                <div className="Ad Ad__spinner">
+                    <DelayedSpinner />
+                </div>
+            );
+        }
 
         if (stilling.status === AdStatusEnum.DELETED) {
             return (
@@ -73,45 +85,39 @@ class Ad extends React.Component {
                 <HasChangesModal />
                 <LeggTilKandidatAlertStripe />
                 <SavedAdAlertStripe />
-                {!isFetchingStilling && stilling ? (
-                    <Faded>
-                        <div className="Ad__flex">
-                            <div className="Ad__flex__center">
-                                <div className="Ad__flex__center__inner">
-                                    <div>
-                                        {isEditingAd ? (
-                                            <div className="Ad__edit__inner">
-                                                <EditHeader
-                                                    isNew={isNew}
-                                                    onPreviewAdClick={this.onPreviewAdClick}
-                                                />
-                                                <Edit isNew={isNew}/>
-                                            </div>
-                                        ) : (
-                                            <div className="Ad__preview">
-                                                <PreviewHeader />
-                                                <Preview ad={stilling} />
-                                            </div>
-                                        )}
-                                    </div>
+                <Faded>
+                    <div className="Ad__flex">
+                        <div className="Ad__flex__center">
+                            <div className="Ad__flex__center__inner">
+                                <div>
+                                    {isEditingAd ? (
+                                        <div className="Ad__edit__inner">
+                                            <EditHeader
+                                                isNew={isNew}
+                                                onPreviewAdClick={this.onPreviewAdClick}
+                                            />
+                                            <Edit isNew={isNew}/>
+                                        </div>
+                                    ) : (
+                                        <div className="Ad__preview">
+                                            <PreviewHeader />
+                                            <Preview ad={stilling} />
+                                        </div>
+                                    )}
                                 </div>
                             </div>
-                            {isEditingAd ? (
-                                <div className="Ad__flex__right">
-                                    <div className="Ad__flex__right__inner">
-                                        <Administration />
-                                    </div>
-                                </div>
-                            ) : (
-                                <div />
-                            )}
                         </div>
-                    </Faded>
-                ) : (
-                    <div className="Ad__spinner">
-                        <DelayedSpinner />
+                        {isEditingAd ? (
+                            <div className="Ad__flex__right">
+                                <div className="Ad__flex__right__inner">
+                                    <Administration />
+                                </div>
+                            </div>
+                        ) : (
+                            <div />
+                        )}
                     </div>
-                )}
+                </Faded>
                 <Error />
             </div>
         );
@@ -121,7 +127,9 @@ class Ad extends React.Component {
 
 Ad.defaultProps = {
     stilling: undefined,
-    isFetchingStilling: false
+    isLoadingAd: false,
+    leavePageTrigger: false,
+    hasChangesLeaveUrl: '/mineStillinger'
 };
 
 Ad.propTypes = {
@@ -136,13 +144,17 @@ Ad.propTypes = {
     previewAd: PropTypes.func.isRequired,
     isEditingAd: PropTypes.bool.isRequired,
     removeAdData: PropTypes.func.isRequired,
-    isFetchingStilling: PropTypes.bool
+    isLoadingAd: PropTypes.bool,
+    leavePageTrigger: PropTypes.bool,
+    hasChangesLeaveUrl: PropTypes.string
 };
 
 const mapStateToProps = (state) => ({
     stilling: state.adData,
     isEditingAd: state.ad.isEditingAd,
-    isFetchingStilling: state.ad.isFetchingStilling
+    isLoadingAd: state.ad.isLoadingAd,
+    leavePageTrigger: state.ad.leavePageTrigger,
+    hasChangesLeaveUrl: state.ad.hasChangesLeaveUrl
 });
 
 const mapDispatchToProps = (dispatch) => ({
