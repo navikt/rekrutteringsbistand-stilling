@@ -57,7 +57,7 @@ const ResultItem = ({ ad, copiedAds }) => {
             <td className="Col-expires">
                 {ad.expires && (
                     <Normaltekst className="ResultItem__column">
-                        {formatISOString(ad.expires)}
+                        {formatISOString(ad.properties.applicationdue)}
                     </Normaltekst>
                 )}
             </td>
