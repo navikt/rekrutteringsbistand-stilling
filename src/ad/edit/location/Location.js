@@ -116,10 +116,20 @@ class Location extends React.Component {
                                 <div className="Administration__error">{validation.postalCode}</div>
                             )}
                         </div>
+                        {this.props.validation.location && (
+                            <div className="Administration__error blokk-xs">{this.props.validation.location}</div>
+                        )}
                         <Input
+<<<<<<< HEAD
                             label="Poststed"
                             value={locationList && locationList.length && locationList[0] && locationList[0].city
                                 ? locationList[0].city : ''}
+=======
+                            id="arbeidssted-sted"
+                            label="Sted"
+                            value={location && location.city
+                                ? location.city : ''}
+>>>>>>> db55f15... [PAM-2602] Endrer feilmeldingstekst + fikser linting
                             disabled
                         />
                     </div>
