@@ -1,3 +1,10 @@
+## RELEASE - 0.31.172-03644fa
+#### New in this release: 
++ 2019-03-01 [PAM-2846]: Gjør kopiering til en isolert funksjon slik at ikke redux state blir påvirket. Dette løser problemet med at en stilling var lastet opp i editerings-modus slik at toppmenylenkene ikke virket. + Resetter publishedByAdmin slik at den nye stillingen kan slettes.
++ 2019-02-28 [PAM-1337] Fjern whitespace + fiks linting
++ 2019-02-28 [Fix] Fjern linker fra print
++ 2019-02-28 [Fix] Fjern knapper fra print
++ 2019-02-26 [PAM-2340] Lagrer siste utførte søk lokalt
 ## RELEASE - 0.30.168-57335ba
 #### New in this release: 
 + 2019-02-26 Revert "[PAM-2756] Tekstendringer - stillinger #5"
