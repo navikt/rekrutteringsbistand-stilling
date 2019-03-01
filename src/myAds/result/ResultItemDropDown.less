@@ -1,7 +1,8 @@
 @import "Result";
 
 @drop-down-width: 160px;
-@drop-down-x-offset: calc(-@drop-down-width + @edit-width + 4px);
+@drop-down-x-offset: calc(@edit-width + 4px - @drop-down-width);
+@hjelpetekst-x-offset: calc(@edit-width / 2 - @drop-down-width);
 
 .ResultItemDropDown {
   background: #e3edf8;
@@ -46,4 +47,8 @@
 .typo-normal.disabled {
   color: @navGra40;
   text-decoration: line-through;
+}
+
+.hjelpetekst__meny {
+  transform: translateX(@hjelpetekst-x-offset);
 }

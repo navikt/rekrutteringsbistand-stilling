@@ -6,7 +6,7 @@ import React, { useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import './ResultItemDropDown.less';
-import { HjelpetekstUnderVenstre } from 'nav-frontend-hjelpetekst';
+import { HjelpetekstVenstre } from 'nav-frontend-hjelpetekst';
 import AdStatusEnum from '../../common/enums/AdStatusEnum';
 import { COPY_AD_FROM_MY_ADS, SHOW_DELETE_MODAL_MY_ADS, SHOW_STOP_MODAL_MY_ADS } from '../../ad/adReducer';
 import { getAdStatusLabel } from '../../common/enums/getEnumLabels';
@@ -32,13 +32,14 @@ const DropDownItem = ({ label, onClick, active, helpText, refProp }) => {
     );
 
     return active ? item : (
-        <HjelpetekstUnderVenstre
+        <HjelpetekstVenstre
             id={label}
             anchor={() => item}
             tittel={label}
+            className="hjelpetekst__meny"
         >
             {helpText}
-        </HjelpetekstUnderVenstre>
+        </HjelpetekstVenstre>
     );
 };
 
@@ -67,7 +68,8 @@ const ResultItemDropDown = ({ ad, copyAd, stopAd, deleteAd, setVisible }) => {
             || copyRef.current === active
             || stopRef.current === active
             || deleteRef.current === active
-            || active.className.includes('hjelpetekst');
+            || active.className.includes('hjelpetekst')
+            || active.className.includes('lukknapp');
     };
 
     const handleCloseMenu = () => {
