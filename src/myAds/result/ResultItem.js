@@ -54,10 +54,10 @@ const ResultItem = ({ ad, copiedAds }) => {
                     {getEmployerName(ad)}
                 </Normaltekst>
             </td>
-            <td className="Col-due">
-                {ad.properties.applicationdue && (
+            <td className="Col-expires">
+                {ad.expires && (
                     <Normaltekst className="ResultItem__column">
-                        {formatISOString(ad.properties.applicationdue)}
+                        {formatISOString(ad.expires)}
                     </Normaltekst>
                 )}
             </td>

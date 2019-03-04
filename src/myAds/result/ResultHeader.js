@@ -13,7 +13,7 @@ export default function ResultHeader() {
                     nummer
                 </th>
                 <th className="Col-employer">Arbeidsgiver</th>
-                <th className="Col-due">Søknadsfrist</th>
+                <th className="Col-expires">Utløpsdato</th>
                 <th className="Col-privacy">Publisert</th>
                 <th className="Col-status">Status</th>
                 <th className="Col-candidate">Kandidatliste</th>
