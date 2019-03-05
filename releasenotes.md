@@ -1,3 +1,7 @@
+## RELEASE - 0.32.173-45efa6b
+#### New in this release: 
++ 2019-03-01 [PAM-2608] Fiks plassering av hjelpetekst
++ 2019-02-26 [PAM-2608] Vis annonsenummer og utløpsdato i mine stillinger
 ## RELEASE - 0.31.172-03644fa
 #### New in this release: 
 + 2019-03-01 [PAM-2846]: Gjør kopiering til en isolert funksjon slik at ikke redux state blir påvirket. Dette løser problemet med at en stilling var lastet opp i editerings-modus slik at toppmenylenkene ikke virket. + Resetter publishedByAdmin slik at den nye stillingen kan slettes.
