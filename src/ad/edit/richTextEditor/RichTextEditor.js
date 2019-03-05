@@ -17,6 +17,14 @@ export const checkIfEmptyInput = (value) => {
     return (value.length === 0 || emptySpaceOrNotWordRegex.test(value));
 };
 
+export const isEmptyPTag = (value) => {
+    // remove whitespaces
+    let strippedValue = value.replace(/\s/g, '');
+    // remove empty <p></p> tag
+    strippedValue = strippedValue.replace(/(<p><\/p>)/ig, '');
+    return (strippedValue.length === 0);
+};
+
 const findLinkEntities = (contentBlock, callback, contentState) => {
     contentBlock.findEntityRanges(
         (character) => {
@@ -68,7 +76,7 @@ export default class RichTextEditor extends React.Component {
             }
         ]);
 
-        if (this.props.text === '') {
+        if (this.props.text === '' || isEmptyPTag(this.props.text)) {
             this.state = {
                 editorState: EditorState.createEmpty(decorator),
                 redoDisabled: true,
