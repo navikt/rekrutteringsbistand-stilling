@@ -1,6 +1,5 @@
 import { put, select, takeLatest } from 'redux-saga/es/effects';
 import { erDatoEtterMinDato } from 'nav-datovelger/dist/datovelger/utils/datovalidering';
-import { findLocationByPostalCode } from './edit/location/locationCodeReducer';
 import { toDate } from '../utils';
 import { DEFAULT_TITLE_NEW_AD } from './adReducer';
 import IsJson from './edit/practicalInformation/IsJson';
@@ -8,12 +7,17 @@ import IsJson from './edit/practicalInformation/IsJson';
 import {
     SET_STYRK,
     SET_EMPLOYER,
-    SET_LOCATION_POSTAL_CODE,
+    ADD_POSTAL_CODE,
+    ADD_POSTAL_CODE_BEGIN,
+    REMOVE_POSTAL_CODE,
+    ADD_LOCATION_AREA,
+    REMOVE_COUNTRY,
+    REMOVE_MUNICIPAL,
+    REMOVE_COUNTY,
     SET_EXPIRATION_DATE,
     SET_PUBLISHED,
     SET_AD_TEXT,
     SET_AD_TITLE,
-    SET_LOCATION,
     SET_COMMENT,
     SET_APPLICATIONDUE,
     SET_EMPLOYMENT_ENGAGEMENTTYPE,
@@ -23,7 +27,8 @@ import {
     CHECK_EMPLOYMENT_WORKDAY,
     UNCHECK_EMPLOYMENT_WORKDAY,
     CHECK_EMPLOYMENT_WORKHOURS,
-    UNCHECK_EMPLOYMENT_WORKHOURS
+    UNCHECK_EMPLOYMENT_WORKHOURS,
+    findLocationByPostalCode
 } from './adDataReducer';
 
 const ADD_VALIDATION_ERROR = 'ADD_VALIDATION_ERROR';
@@ -32,34 +37,18 @@ export const VALIDATE_ALL = 'VALIDATE_ALL';
 export const VALIDATE_APPLICATION_EMAIL = 'VALIDATE_APPLICATION_EMAIL';
 export const VALIDATE_CONTACTPERSON_EMAIL = 'VALIDATE_CONTACTPERSON_EMAIL';
 export const VALIDATE_CONTACTPERSON_PHONE = 'VALIDATE_CONTACTPERSON_PHONE';
+export const VALIDATE_LOCATION_AREA = 'VALIDATE_LOCATION_AREA';
 export const RESET_VALIDATION_ERROR = 'RESET_VALIDATION_ERROR';
 
 export const MAX_LENGTH_COMMENT = 400;
 
 const valueIsNotSet = (value) => (value === undefined || value === null || value.length === 0);
 
-const locationIsCountryOrMunicipal = (location) => location && (location.country || location.municipal)
-        && !location.postalCode;
-
-function* validateLocation() {
-    const state = yield select();
-    const { location } = state.adData;
-    if (!location || (!location.postalCode && !locationIsCountryOrMunicipal(location))) {
-        yield put({
-            type: ADD_VALIDATION_ERROR,
-            field: 'location',
-            message: 'Arbeidssted mangler'
-        });
-    } else {
-        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'location' });
-    }
-}
-
 function* validatePostalCode() {
     const state = yield select();
-    const { location } = state.adData;
-    if (location && location.postalCode && location.postalCode.match('^[0-9]{4}$')) {
-        const locationByPostalCode = yield findLocationByPostalCode(location.postalCode);
+    const { typeAheadValue } = state.locationCode;
+    if (typeAheadValue && typeAheadValue.match('^[0-9]{4}$')) {
+        const locationByPostalCode = yield findLocationByPostalCode(typeAheadValue);
         if (locationByPostalCode === undefined) {
             yield put({
                 type: ADD_VALIDATION_ERROR,
@@ -69,7 +58,7 @@ function* validatePostalCode() {
         } else {
             yield put({ type: REMOVE_VALIDATION_ERROR, field: 'postalCode' });
         }
-    } else if (location && location.postalCode && !location.postalCode.match('^[0-9]{4}$')) {
+    } else if (typeAheadValue && !typeAheadValue.match('^[0-9]{4}$')) {
         yield put({
             type: ADD_VALIDATION_ERROR,
             field: 'postalCode',
@@ -79,6 +68,38 @@ function* validatePostalCode() {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'postalCode' });
     }
 }
+
+function* validateLocationArea() {
+    const state = yield select();
+    const { typeaheadValue } = state.locationArea;
+
+    if (typeaheadValue) {
+        yield put({
+            type: ADD_VALIDATION_ERROR,
+            field: 'locationArea',
+            message: 'Må være kommune, fylke eller land utenfor Norge'
+        });
+    } else {
+        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'locationArea' });
+    }
+}
+
+function* validateLocation() {
+    const state = yield select();
+    const { locationList } = state.adData;
+
+    if (valueIsNotSet(locationList)) {
+        yield put({
+            type: ADD_VALIDATION_ERROR,
+            field: 'location',
+            message: 'Geografi (arbeidssted) mangler'
+        });
+    } else {
+        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'location' });
+    }
+}
+
+
 
 export function* validateStyrk() {
     const state = yield select();
@@ -380,8 +401,9 @@ export const validationSaga = function* saga() {
     yield takeLatest(SET_EMPLOYER, validateEmployer);
     yield takeLatest(SET_EXPIRATION_DATE, validateExpireDate);
     yield takeLatest(SET_PUBLISHED, validatePublishDate);
-    yield takeLatest(SET_LOCATION_POSTAL_CODE, validatePostalCode);
-    yield takeLatest([SET_LOCATION_POSTAL_CODE, SET_LOCATION], validateLocation);
+    yield takeLatest(ADD_POSTAL_CODE_BEGIN, validatePostalCode);
+    yield takeLatest(VALIDATE_LOCATION_AREA, validateLocationArea);
+    yield takeLatest([ADD_POSTAL_CODE, REMOVE_POSTAL_CODE, ADD_LOCATION_AREA, REMOVE_MUNICIPAL, REMOVE_COUNTY, REMOVE_COUNTRY], validateLocation);
     yield takeLatest(SET_AD_TEXT, validateAdtext);
     yield takeLatest(SET_AD_TITLE, validateTitle);
     yield takeLatest(VALIDATE_APPLICATION_EMAIL, validateApplicationEmail);

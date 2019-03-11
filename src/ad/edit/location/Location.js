@@ -1,19 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Input, Radio, SkjemaGruppe } from 'nav-frontend-skjema';
+import { Input, Checkbox } from 'nav-frontend-skjema';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
-import { SET_LOCATION_ADDRESS, SET_LOCATION_POSTAL_CODE } from '../../adDataReducer';
-import MunicipalOrCountry from './MunicipalOrCountry';
 import Typeahead from '../../../common/typeahead/Typeahead';
-import { FETCH_LOCATIONS, SET_LOCATION_TYPE_AHEAD_VALUE } from './locationCodeReducer';
+import { FETCH_LOCATIONS, SET_POSTAL_CODE_TYPEAHEAD_VALUE } from './locationCodeReducer';
+import { ADD_POSTAL_CODE_BEGIN, REMOVE_POSTAL_CODE, ADD_POSTAL_CODE_ADDRESS_BEGIN,
+    REMOVE_POSTAL_CODE_ADDRESS } from '../../adDataReducer';
 import capitalizeLocation from './capitalizeLocation';
+import LocationArea from './LocationArea';
+import './Location.less';
 
 class Location extends React.Component {
     constructor(props) {
         super(props);
+        const { locationList } = props;
         this.state = {
-            radioChecked: this.locationIsMunicipalOrCountry(props.location) ? 'municipalOrCountry' : 'address'
+            postCode: true,
+            locationArea: this.locationListContainsArea(locationList)
         };
     }
 
@@ -21,140 +25,160 @@ class Location extends React.Component {
         this.props.fetchLocations();
     }
 
-    onRadioButtonChange = (e) => {
-        this.setState({
-            radioChecked: e.target.value
-        });
-    };
-
     onAddressChange = (e) => {
-        this.props.setAddress(e.target.value);
+        const { value } = e.target;
+        if (value === '') {
+            this.props.removePostalCodeAddress();
+        } else {
+            this.props.addPostalCodeAddress(value);
+        }
     };
 
     onTypeAheadValueChange = (value) => {
-        this.props.setLocationTypeAheadValue(value);
-        this.props.setLocationPostalCode(value);
+        this.props.setPostalCodeTypeAheadValue(value);
+        if (value === '') {
+            this.props.removePostalCode();
+        }
     };
 
     onTypeAheadSuggestionSelected = (location) => {
         if (location) {
-            this.props.setLocationTypeAheadValue(location.value);
-            this.props.setLocationPostalCode(location.value);
+            this.props.setPostalCodeTypeAheadValue(location.value);
+            this.props.addPostalCode(location.value);
         }
     };
 
-    locationIsMunicipalOrCountry = (location) => location
-        && (location.country || location.municipal)
-        && !location.postalCode;
+    onBlur = (code) => {
+        if (code !== '') {
+            this.onTypeAheadSuggestionSelected({ value: code });
+        }
+    };
 
+    onPostCodeChecked = (e) => {
+        this.setState({
+            ...this.state,
+            postCode: e.target.checked
+        });
+    };
+
+    onLocationAreaChecked = (e) => {
+        this.setState({
+            ...this.state,
+            locationArea: e.target.checked
+        });
+    };
+
+    locationListContainsArea = (locationList) => locationList && locationList.some(
+        (location) => ((location.country || location.municipal || location.county) && !location.postalCode)
+    );
 
     render() {
-        const { location } = this.props;
+        const { suggestions, typeAheadValue, validation, locationList } = this.props;
+        const locationListHasAddress = locationList && locationList.length && locationList[0] && locationList[0].address;
+
         return (
             <Ekspanderbartpanel
                 className="Edit__panel"
-                tittel="Arbeidsstedets adresse*"
+                tittel="Arbeidssted*"
                 tittelProps="undertittel"
                 border
                 apen
             >
-                <SkjemaGruppe>
-                    <Radio
-                        label="Adresse"
-                        name="addressMunicipalOrCountry"
-                        value="address"
-                        checked={this.state.radioChecked === 'address'}
-                        onChange={this.onRadioButtonChange}
-                    />
-                    <Radio
-                        label="Kommune eller land"
-                        name="addressMunicipalOrCountry"
-                        value="municipalOrCountry"
-                        checked={this.state.radioChecked === 'municipalOrCountry'}
-                        onChange={this.onRadioButtonChange}
-                    />
-                </SkjemaGruppe>
-                {this.state.radioChecked === 'address' && (
-                    <div className="Arbeidsstedsadresse">
+                <Checkbox
+                    label="Adresse"
+                    checked={this.state.postCode === true}
+                    onChange={this.onPostCodeChecked}
+                />
+                {this.state.postCode && (
+                    <div className="blokk-m">
                         <Input
-                            id="arbeidssted-adresse"
                             label="Gateadresse"
-                            value={location && location.address
-                                ? location.address : ''}
+                            value={locationListHasAddress
+                                ? locationList[0].address : ''}
                             onChange={this.onAddressChange}
                         />
                         <div className="blokk-xs">
                             <Typeahead
-                                id="arbeidssted-postnummer"
+                                id="typeahead-postal-code"
                                 className="PostalCode__typeahead"
                                 onSelect={this.onTypeAheadSuggestionSelected}
                                 onChange={this.onTypeAheadValueChange}
-                                label="Sted/postnummer*"
-                                suggestions={this.props.suggestions.map((loc) => ({
+                                onBlur={this.onBlur}
+                                label="Postnummer"
+                                suggestions={suggestions.map((loc) => ({
                                     value: loc.postalCode,
                                     label: `${loc.postalCode} ${capitalizeLocation(loc.city)}`
                                 }))}
-                                value={this.props.location && this.props.location.postalCode ?
-                                    this.props.location.postalCode : ''}
-                                error={(this.props.validation.postalCode !== undefined
-                                    || this.props.validation.location !== undefined)}
+                                value={typeAheadValue}
+                                error={validation.postalCode !== undefined}
                             />
-                            {this.props.validation.postalCode && (
-                                <div className="Administration__error">{this.props.validation.postalCode}</div>
+                            {validation.postalCode && (
+                                <div className="Administration__error">{validation.postalCode}</div>
                             )}
                         </div>
                         <Input
-                            id="arbeidssted-sted"
-                            label="Sted*"
-                            value={location && location.city
-                                ? location.city : ''}
+                            label="Poststed"
+                            value={locationList && locationList.length && locationList[0] && locationList[0].city
+                                ? locationList[0].city : ''}
                             disabled
                         />
-                        {this.props.validation.location && (
-                            <div className="Administration__error">{this.props.validation.location}</div>
-                        )}
                     </div>
                 )}
-                {this.state.radioChecked === 'municipalOrCountry' && (
-                    <div className="Arbeidsstedsadresse">
-                        <MunicipalOrCountry />
-                    </div>
+                <Checkbox
+                    label="Kommuner, fylker eller land"
+                    checked={this.state.locationArea === true}
+                    onChange={this.onLocationAreaChecked}
+                />
+                {this.state.locationArea && (
+                    <LocationArea />
+                )}
+                {validation.location && (
+                    <div className="Administration__error blokk-xs">{validation.location}</div>
                 )}
             </Ekspanderbartpanel>
         );
     }
 }
 
+Location.defaultProps = {
+    validation: undefined,
+    locationList: [],
+    typeAheadValue: ''
+};
+
 Location.propTypes = {
     suggestions: PropTypes.arrayOf(PropTypes.shape({
         kode: PropTypes.string,
         navn: PropTypes.string
     })).isRequired,
-    location: PropTypes.shape({
-        address: PropTypes.string,
-        postalCode: PropTypes.string
-    }),
-    setAddress: PropTypes.func.isRequired,
-    setLocationTypeAheadValue: PropTypes.func.isRequired,
+    setPostalCodeTypeAheadValue: PropTypes.func.isRequired,
     fetchLocations: PropTypes.func.isRequired,
-    setLocationPostalCode: PropTypes.func.isRequired,
+    addPostalCode: PropTypes.func.isRequired,
     validation: PropTypes.shape({
         location: PropTypes.string,
         postalCode: PropTypes.string
-    })
+    }),
+    addPostalCodeAddress: PropTypes.func.isRequired,
+    removePostalCode: PropTypes.func.isRequired,
+    removePostalCodeAddress: PropTypes.func.isRequired,
+    locationList: PropTypes.arrayOf(PropTypes.object),
+    typeAheadValue: PropTypes.string
 };
 
 const mapStateToProps = (state) => ({
-    location: state.adData.location,
-    suggestions: state.location.suggestions,
+    typeAheadValue: state.locationCode.typeAheadValue,
+    suggestions: state.locationCode.suggestions,
+    locationList: state.adData.locationList,
     validation: state.adValidation.errors
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    setAddress: (address) => dispatch({ type: SET_LOCATION_ADDRESS, address }),
-    setLocationTypeAheadValue: (value) => dispatch({ type: SET_LOCATION_TYPE_AHEAD_VALUE, value }),
-    setLocationPostalCode: (postalCode) => dispatch({ type: SET_LOCATION_POSTAL_CODE, postalCode }),
-    fetchLocations: () => dispatch({ type: FETCH_LOCATIONS })
+    addPostalCodeAddress: (address) => dispatch({ type: ADD_POSTAL_CODE_ADDRESS_BEGIN, address }),
+    fetchLocations: () => dispatch({ type: FETCH_LOCATIONS }),
+    setPostalCodeTypeAheadValue: (value) => dispatch({ type: SET_POSTAL_CODE_TYPEAHEAD_VALUE, value }),
+    addPostalCode: (postalCode) => dispatch({ type: ADD_POSTAL_CODE_BEGIN, postalCode }),
+    removePostalCode: () => dispatch({ type: REMOVE_POSTAL_CODE }),
+    removePostalCodeAddress: () => dispatch({ type: REMOVE_POSTAL_CODE_ADDRESS })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Location);

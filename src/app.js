@@ -5,12 +5,12 @@ import { applyMiddleware, createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 import employerReducer, { employerSaga } from './ad/edit/employer/employerReducer';
-import locationCodeReducer, { locationSaga } from './ad/edit/location/locationCodeReducer';
+import locationCodeReducer, { locationCodeSaga } from './ad/edit/location/locationCodeReducer';
 import styrkReducer, { styrkSaga } from './ad/edit/jobDetails/styrk/styrkReducer';
 import adReducer, { adSaga } from './ad/adReducer';
 import searchReducer, { searchSaga } from './searchPage/searchReducer';
 import filterLocationReducer, { filterLocationSaga } from './searchPage/filter/location/filterLocationReducer';
-import municipalOrCountryReducer, { municipalOrCountrySaga } from './ad/edit/location/municipalOrCountryReducer';
+import locationAreaReducer, { locationAreaSaga } from './ad/edit/location/locationAreaReducer';
 import Ad from './ad/Ad';
 import { MinestillingerHeader, Rekrutteringsbisstand, StillingssokHeader } from './topmenu/TopMenu';
 import './styles.less';
@@ -35,9 +35,9 @@ const store = createStore(combineReducers({
     adValidation: adValidationReducer,
     employer: employerReducer,
     kandidat: kandidatReducer,
-    location: locationCodeReducer,
     filterLocation: filterLocationReducer,
-    municipalOrCountry: municipalOrCountryReducer,
+    locationCode: locationCodeReducer,
+    locationArea: locationAreaReducer,
     myAds: myAdsReducer,
     reportee: reporteeReducer,
     savedAdAlertStripe: savedSearchAlertStripeReducer,
@@ -48,14 +48,14 @@ const store = createStore(combineReducers({
 sagaMiddleware.run(adSaga);
 sagaMiddleware.run(validationSaga);
 sagaMiddleware.run(employerSaga);
-sagaMiddleware.run(locationSaga);
+sagaMiddleware.run(locationCodeSaga);
 sagaMiddleware.run(styrkSaga);
 sagaMiddleware.run(reporteeSaga);
 sagaMiddleware.run(searchSaga);
 sagaMiddleware.run(filterLocationSaga);
 sagaMiddleware.run(myAdsSaga);
 sagaMiddleware.run(adDataSaga);
-sagaMiddleware.run(municipalOrCountrySaga);
+sagaMiddleware.run(locationAreaSaga);
 sagaMiddleware.run(kandidatSaga);
 
 const Main = () => {

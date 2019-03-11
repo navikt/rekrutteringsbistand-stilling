@@ -1,7 +1,7 @@
-import { put, takeLatest } from 'redux-saga/es/effects';
+import { put, take, takeLatest, select } from 'redux-saga/es/effects';
 import { lookUpStyrk } from './edit/jobDetails/styrk/styrkReducer';
-import { findLocationByPostalCode } from './edit/location/locationCodeReducer';
 import { CREATE_AD_BEGIN, FETCH_AD_BEGIN, FETCH_AD_SUCCESS, SAVE_AD_SUCCESS, DELETE_AD_SUCCESS } from './adReducer';
+import { FETCH_LOCATIONS, FETCH_LOCATIONS_SUCCESS } from './edit/location/locationCodeReducer';
 import AdStatusEnum from '../common/enums/AdStatusEnum';
 import PrivacyStatusEnum from '../common/enums/PrivacyStatusEnum';
 import IsJson from './edit/practicalInformation/IsJson';
@@ -12,9 +12,15 @@ export const REMOVE_AD_DATA = 'REMOVE_AD_DATA';
 
 export const SET_COMMENT = 'SET_COMMENT';
 export const SET_STYRK = 'SET_STYRK';
-export const SET_LOCATION_POSTAL_CODE = 'SET_LOCATION_POSTAL_CODE';
-export const SET_LOCATION = 'SET_LOCATION';
-export const SET_LOCATION_ADDRESS = 'SET_LOCATION_ADDRESS';
+export const ADD_LOCATION_AREA = 'ADD_LOCATION_AREA';
+export const ADD_POSTAL_CODE_BEGIN = 'ADD_POSTAL_CODE_BEGIN';
+export const ADD_POSTAL_CODE_ADDRESS_BEGIN = 'ADD_POSTAL_CODE_ADDRESS_BEGIN';
+export const ADD_POSTAL_CODE = 'ADD_POSTAL_CODE';
+export const REMOVE_MUNICIPAL = 'REMOVE_MUNICIPAL';
+export const REMOVE_COUNTRY = 'REMOVE_COUNTRY';
+export const REMOVE_COUNTY = 'REMOVE_COUNTY';
+export const REMOVE_POSTAL_CODE = 'REMOVE_POSTAL_CODE';
+export const REMOVE_POSTAL_CODE_ADDRESS = 'REMOVE_POSTAL_CODE_ADDRESS';
 export const SET_EMPLOYMENT_JOBTITLE = 'SET_EMPLOYMENT_JOBTITLE';
 export const SET_EMPLOYMENT_LOCATION = 'SET_EMPLOYMENT_LOCATION';
 export const SET_EMPLOYMENT_ENGAGEMENTTYPE = 'SET_EMPLOYMENT_ENGAGEMENTTYPE';
@@ -62,6 +68,19 @@ const initialState = {
     privacy: PrivacyStatusEnum.INTERNAL_NOT_SHOWN
 };
 
+export function* findLocationByPostalCode(value) {
+    let state = yield select();
+    if (!state.locationCode.locations) {
+        yield put({ type: FETCH_LOCATIONS });
+        yield take(FETCH_LOCATIONS_SUCCESS);
+        state = yield select();
+    }
+    if (state.locationCode.locations) {
+        return state.locationCode.locations.find((location) => (location.postalCode === value));
+    }
+    return undefined;
+}
+
 function findStyrkAndSkipAlternativeNames(code) {
     const found = lookUpStyrk(code);
     if (found) {
@@ -72,6 +91,24 @@ function findStyrkAndSkipAlternativeNames(code) {
     return found;
 }
 
+function isLocationInList(location, locationList) {
+    let isAlreadyAdded = false;
+    if (location.country) {
+        isAlreadyAdded = locationList && locationList.find(
+            (item) => (( item.country === location.country) && !item.postalCode && !item.municipal && !item.county)
+        );
+    } else if (location.county) {
+        isAlreadyAdded = locationList && locationList.find(
+            (item) => (( item.county === location.county) && !item.postalCode && !item.municipal)
+        );
+    } else if (location.municipal) {
+        isAlreadyAdded = locationList && locationList.find(
+            (item) => (( item.municipal === location.municipal) && !item.postalCode)
+        );
+    }
+    return isAlreadyAdded;
+}
+
 export default function adDataReducer(state = initialState, action) {
     switch (action.type) {
         case CREATE_AD_BEGIN:
@@ -80,7 +117,12 @@ export default function adDataReducer(state = initialState, action) {
         case FETCH_AD_SUCCESS:
         case SAVE_AD_SUCCESS:
         case DELETE_AD_SUCCESS:
-            return action.response;
+            return {
+                ...action.response,
+                locationList: action.response.locationList.filter((loc) => (loc.postalCode || loc.municipal ||
+                    loc.county || (loc.country !== 'NORGE'))), // filtrer vekk object med kun Norge
+                location: null
+            };
         case SET_AD_DATA:
             return action.data;
         case SET_COMMENT: {
@@ -97,40 +139,104 @@ export default function adDataReducer(state = initialState, action) {
                 ...state,
                 categoryList: action.code ? [findStyrkAndSkipAlternativeNames(action.code)] : undefined
             };
-        case SET_AD_TITLE: {
+        case SET_AD_TITLE:
             return {
                 ...state,
                 title: action.title
             };
+        case ADD_LOCATION_AREA: {
+            const isAlreadyAdded = isLocationInList(action.location, state.locationList);
+            if (!action.location || isAlreadyAdded) {
+                return state;
+            }
+            return {
+                ...state,
+                location: null, // for bakoverkompabilitet
+                locationList: state.locationList ? [...state.locationList, action.location] : [action.location]
+            };
         }
-        case SET_LOCATION_POSTAL_CODE:
+        case ADD_POSTAL_CODE: {
+            // Look for postalCode-location in first index in list. If it exists, replace it
+            const current = state.locationList && state.locationList.length &&
+                (state.locationList[0].postalCode || state.locationList[0].address);
+
+            if (current) {
+                // Remove location and insert a new one, in order to trigger re-render
+                const newLocation = { ...state.locationList[0], ...action.location };
+                state.locationList.shift();
+                return {
+                    ...state,
+                    location: null,
+                    locationList: state.locationList ? [newLocation, ...state.locationList] : [newLocation]
+                };
+            }
+            // Else, insert postalCode at first index
             return {
                 ...state,
-                location: {
-                    ...state.location,
-                    city: null,
-                    county: null,
-                    municipal: null,
-                    municipalCode: null,
-                    postalCode: action.postalCode
-                }
+                location: null, // for bakoverkompabilitet
+                locationList: state.locationList ? [action.location, ...state.locationList] : [action.location]
             };
-        case SET_LOCATION:
+        }
+        case REMOVE_MUNICIPAL:
             return {
                 ...state,
-                location: {
-                    ...state.location,
-                    ...action.location
-                }
+                location: null,
+                locationList: state.locationList.filter((loc) => (loc.postalCode || (loc.municipal !== action.value)))
             };
-        case SET_LOCATION_ADDRESS:
+        case REMOVE_COUNTY:
             return {
                 ...state,
-                location: {
-                    ...state.location,
-                    address: action.address
-                }
+                location: null,
+                locationList: state.locationList.filter((loc) => (loc.postalCode || loc.municipal
+                    || (loc.county !== action.value)))
             };
+        case REMOVE_COUNTRY:
+            return {
+                ...state,
+                location: null,
+                locationList: state.locationList.filter((loc) => (loc.postalCode || loc.municipal || loc.county
+                    || (loc.country !== action.value)))
+            };
+        case REMOVE_POSTAL_CODE: {
+            // Look for address in first index in list. If it exists, keep it
+            const current = state.locationList && state.locationList.length && state.locationList[0].address;
+            if (current) {
+                const newLocation = { address: state.locationList[0].address };
+                // Remove location and insert a new one without address, in order to trigger re-render
+                state.locationList.shift();
+                return {
+                    ...state,
+                    location: null,
+                    locationList: state.locationList ? [newLocation, ...state.locationList] : [newLocation]
+                };
+            }
+            // Else, remove object
+            return {
+                ...state,
+                location: null,
+                locationList: state.locationList.filter((loc) => (!loc.postalCode))
+            };
+        }
+        case REMOVE_POSTAL_CODE_ADDRESS: {
+            // Look for postalCode in first index in list. If it exists, remove address only
+            const current = state.locationList && state.locationList.length && state.locationList[0].postalCode;
+            if (current) {
+                const newLocation = { ...state.locationList[0], address: null };
+                // Remove first location and insert a new one without address, in order to trigger re-render
+                state.locationList.shift();
+                return {
+                    ...state,
+                    location: null,
+                    locationList: state.locationList ? [newLocation, ...state.locationList] : [newLocation]
+                };
+            }
+            // Else, remove object
+            return {
+                ...state,
+                location: null,
+                locationList: state.locationList.filter((loc) => (!loc.address))
+            };
+        }
         case SET_EMPLOYMENT_JOBTITLE:
             return {
                 ...state,
@@ -422,11 +528,11 @@ export default function adDataReducer(state = initialState, action) {
     }
 }
 
-function* lookUpLocation(action) {
+function* addLocationPostalCode(action) {
     const location = yield findLocationByPostalCode(action.postalCode);
     if (location !== undefined) {
         yield put({
-            type: SET_LOCATION,
+            type: ADD_POSTAL_CODE,
             location: {
                 city: location.city,
                 county: location.county.name,
@@ -435,9 +541,23 @@ function* lookUpLocation(action) {
                 postalCode: location.postalCode
             }
         });
+    } else {
+        yield put({
+            type: REMOVE_POSTAL_CODE
+        });
     }
 }
 
+function* setLocationAddress(action) {
+    yield put({
+        type: ADD_POSTAL_CODE,
+        location: {
+            address: action.address
+        }
+    });
+}
+
 export const adDataSaga = function* saga() {
-    yield takeLatest(SET_LOCATION_POSTAL_CODE, lookUpLocation);
+    yield takeLatest(ADD_POSTAL_CODE_BEGIN, addLocationPostalCode);
+    yield takeLatest(ADD_POSTAL_CODE_ADDRESS_BEGIN, setLocationAddress);
 };

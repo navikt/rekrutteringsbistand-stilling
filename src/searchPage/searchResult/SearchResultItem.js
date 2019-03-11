@@ -34,7 +34,7 @@ const SearchResultItem = ({ ad }) => (
         </Column>
         <Column md="1">
             <Normaltekst className="SearchResultItem__column">
-                {getWorkLocation(ad, true) || ''}
+                {getWorkLocation(ad.locationList, true) || ''}
             </Normaltekst>
         </Column>
         <Column md="1">
