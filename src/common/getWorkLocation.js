@@ -27,26 +27,24 @@ export default function getWorkLocation(locationList, hidePostAddress = false) {
 
 export function getLocationsAsString(locationList) {
     const workLocations = [];
-    let tmp;
     if (!locationList) {
         return workLocations;
     }
 
     for (let i = 0; i < locationList.length; i += 1) {
         if (locationList[i].postalCode) {
-            tmp = locationList[i].address ? `${locationList[i].address}, ` : '';
+            let tmp = locationList[i].address ? `${locationList[i].address}, ` : '';
             tmp += `${locationList[i].postalCode} ${capitalizeLocation(locationList[i].city)}`;
             workLocations.push(tmp);
         } else if (locationList[i].municipal) {
-            tmp = `, ${capitalizeLocation(locationList[i].municipal)}`;
-            workLocations.push(tmp);
+            workLocations.push(capitalizeLocation(locationList[i].municipal));
         } else if (locationList[i].county) {
-            tmp = `, ${capitalizeLocation(locationList[i].county)}`;
-            workLocations.push(tmp);
+            workLocations.push(capitalizeLocation(locationList[i].county));
         } else if (locationList[i].country) {
-            tmp = `, ${capitalizeLocation(locationList[i].country)}`;
-            workLocations.push(tmp);
+            workLocations.push(capitalizeLocation(locationList[i].country));
         }
     }
-    return workLocations;
+
+    const locationString = workLocations.join(', ');
+    return locationString;
 }
