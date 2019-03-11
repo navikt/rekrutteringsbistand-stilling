@@ -129,7 +129,7 @@ class LocationArea extends React.Component {
                                     />
                                 );
                             }
-                            if (this.locationIsCountry(location) /*&& location.country !== 'NORGE' */) {
+                            if (this.locationIsCountry(location)) {
                                 return (
                                     <Tag
                                         key={location.country}

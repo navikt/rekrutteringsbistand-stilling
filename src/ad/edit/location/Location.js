@@ -68,7 +68,7 @@ class Location extends React.Component {
         });
     };
 
-    locationListContainsArea = (locationList) => locationList.some(
+    locationListContainsArea = (locationList) => locationList && locationList.some(
         (location) => ((location.country || location.municipal || location.county) && !location.postalCode)
     );
 
