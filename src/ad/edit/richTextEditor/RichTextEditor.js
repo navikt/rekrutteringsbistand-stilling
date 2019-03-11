@@ -20,8 +20,8 @@ export const checkIfEmptyInput = (value) => {
 export const isEmptyPTag = (value) => {
     // remove whitespaces
     let strippedValue = value.replace(/\s/g, '');
-    // remove empty <p></p> tag
-    strippedValue = strippedValue.replace(/(<p><\/p>)/ig, '');
+    // remove empty html tags
+    strippedValue = strippedValue.replace(/<[^>]+>/g, '');
     return (strippedValue.length === 0);
 };
 
