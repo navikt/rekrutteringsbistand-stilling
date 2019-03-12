@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Undertittel } from 'nav-frontend-typografi';
 import { formatISOString, isValidISOString } from '../../../utils';
-import { getLocationsAsString } from '../../../common/getWorkLocation';
+import { getWorkLocationsAsString } from '../../../common/getWorkLocation';
 import worktimeParser from './worktimeParser';
 
 export default function Employment({ properties, locationList }) {
@@ -17,7 +17,7 @@ export default function Employment({ properties, locationList }) {
                 {locationList && locationList.length > 0 && [
                     <dt key="dt">Arbeidssted:</dt>,
                     <dd key="dd">
-                        {getLocationsAsString(locationList)}
+                        {getWorkLocationsAsString(locationList)}
                     </dd>
                 ]}
                 {properties.engagementtype && [

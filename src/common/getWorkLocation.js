@@ -1,14 +1,11 @@
 import capitalizeLocation from '../ad/edit/location/capitalizeLocation';
 
-export default function getWorkLocation(locationList, hidePostAddress = false) {
+export function getTruncatedWorkLocation(locationList) {
     let workLocation = null;
     if (locationList && locationList.length > 0) {
         const location = locationList[0];
-        if (location.city && hidePostAddress) {
+        if (location.city) {
             workLocation = capitalizeLocation(location.city);
-        } else if (location.postalCode) {
-            workLocation = location.address ? `${location.address}, ` : '';
-            workLocation += `${location.postalCode} ${capitalizeLocation(location.city)}`;
         } else if (location.municipal) {
             workLocation = `${capitalizeLocation(location.municipal)}`;
         } else if (location.county) {
@@ -25,7 +22,7 @@ export default function getWorkLocation(locationList, hidePostAddress = false) {
 }
 
 
-export function getLocationsAsString(locationList) {
+export function getWorkLocationsAsString(locationList) {
     const workLocations = [];
     if (!locationList) {
         return workLocations;

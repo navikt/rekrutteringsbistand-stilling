@@ -3,7 +3,7 @@ import { Normaltekst } from 'nav-frontend-typografi';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import getWorkLocation from '../../common/getWorkLocation';
+import { getTruncatedWorkLocation } from '../../common/getWorkLocation';
 import getEmployerName from '../../common/getEmployerName';
 import { formatISOString } from '../../utils';
 import './SearchResult.less';
@@ -34,7 +34,7 @@ const SearchResultItem = ({ ad }) => (
         </Column>
         <Column md="1">
             <Normaltekst className="SearchResultItem__column">
-                {getWorkLocation(ad.locationList, true) || ''}
+                {getTruncatedWorkLocation(ad.locationList) || ''}
             </Normaltekst>
         </Column>
         <Column md="1">
