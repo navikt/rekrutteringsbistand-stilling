@@ -1,3 +1,6 @@
+## RELEASE - 0.33.178-60bfdb8
+#### New in this release: 
++ 2019-02-27 [PAM-2307]: Legger til støtte for å velge flere kommuner/land og også legge til fylke
 ## RELEASE - 0.32.173-45efa6b
 #### New in this release: 
 + 2019-03-01 [PAM-2608] Fiks plassering av hjelpetekst
