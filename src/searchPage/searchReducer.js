@@ -73,27 +73,32 @@ export default function searchReducer(state = initialState, action) {
         case SET_SEARCH_FIELD:
             return {
                 ...state,
+                page: 0,
                 field: action.field
             };
         case CHANGE_PRIVACY_FILTER:
             return {
                 ...state,
+                page: 0,
                 privacy: action.value
             };
         case CHANGE_STATUS_FILTER:
             return {
                 ...state,
                 status: action.status,
+                page: 0,
                 deactivatedByExpiry: action.deactivatedByExpiry
             };
         case CHANGE_SOURCE_FILTER:
             return {
                 ...state,
+                page: 0,
                 source: action.value
             };
         case CHANGE_LOCATION_FILTER:
             return {
                 ...state,
+                page: 0,
                 locationName: action.location
             };
         case FETCH_ADS_BEGIN:
@@ -119,6 +124,7 @@ export default function searchReducer(state = initialState, action) {
         case CHANGE_SORTING:
             return {
                 ...state,
+                page: 0,
                 sortField: action.field,
                 sortDir: action.dir
             };
@@ -181,11 +187,8 @@ function* saveSearchToLocalStorage() {
     }
 }
 
-function* getAds(action) {
+function* getAds() {
     try {
-        if (action.type !== CHANGE_PAGE) {
-            yield put({ type: RESET_PAGE });
-        }
         yield put({ type: FETCH_ADS_BEGIN });
 
         const state = yield select();
