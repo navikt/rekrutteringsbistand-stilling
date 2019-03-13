@@ -111,18 +111,18 @@ const ResultItemDropDown = ({ ad, copyAd, stopAd, deleteAd, setVisible }) => {
                     active={
                         ad.status === AdStatusEnum.ACTIVE || (ad.status === AdStatusEnum.INACTIVE && willBePublished)
                     }
-                    helpText={`Du kan ikke stoppe en stilling som er ${
+                    helpText={`Du kan ikke stoppe en stilling som har status: "${
                         getAdStatusLabel(ad.status, ad.deactivatedByExpiry).toLowerCase()
-                    }`}
+                    }"`}
                     refProp={stopRef}
                 />
                 <DropDownItem
                     label="Slett"
                     onClick={() => onItemClick(deleteAd)}
                     active={!ad.publishedByAdmin}
-                    helpText={`Du kan ikke slette en stilling som ${willBePublished
+                    helpText={`Du kan ikke slette en stilling som har status: "${willBePublished
                         ? 'blir publisert frem i tid'
-                        : 'har blitt publisert'} `
+                        : 'publisert'}"`
                     }
                     refProp={deleteRef}
                 />
