@@ -1,3 +1,6 @@
+## RELEASE - 0.34.181-25b7c88
+#### New in this release: 
++ 2019-03-13 [PAM-2895]: sørger for at page er beholdt i søket hvis bruker går inn på en annonse og tilbake til søk
 ## RELEASE - 0.33.178-60bfdb8
 #### New in this release: 
 + 2019-02-27 [PAM-2307]: Legger til støtte for å velge flere kommuner/land og også legge til fylke
