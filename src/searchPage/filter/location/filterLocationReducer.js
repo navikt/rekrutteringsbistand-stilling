@@ -18,7 +18,7 @@ export const SET_FILTER_LOCATION_TYPE_AHEAD = 'SET_FILTER_LOCATION_TYPE_AHEAD';
 const initialState = {
     municipalsCache: undefined,
     municipals: [],
-    location: '',
+    typeaheadValue: '',
     countiesCache: undefined,
     counties: []
 };
@@ -28,7 +28,7 @@ export default function filterLocationReducer(state = initialState, action) {
         case SET_FILTER_LOCATION_TYPE_AHEAD:
             return {
                 ...state,
-                location: action.value,
+                typeaheadValue: action.value,
                 municipals: (state.municipalsCache === undefined || action.value.length === 0)
                     ? [] : state.municipalsCache.filter(
                         (municipal) => municipal.name.toLowerCase().startsWith(action.value.toLowerCase())
@@ -49,7 +49,7 @@ export default function filterLocationReducer(state = initialState, action) {
         case RESET_SEARCH:
             return {
                 ...state,
-                location: ''
+                typeaheadValue: ''
             };
         default:
             return state;
