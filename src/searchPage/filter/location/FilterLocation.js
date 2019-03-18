@@ -3,32 +3,34 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Knapp } from 'nav-frontend-knapper';
 import Typeahead from '../../../common/typeahead/Typeahead';
+import Tag from '../../../common/tag/Tag';
 import { FETCH_FILTER_LOCATIONS_BEGIN, SET_FILTER_LOCATION_TYPE_AHEAD } from './filterLocationReducer';
 import capitalizeLocation from '../../../ad/edit/location/capitalizeLocation';
 import { CHANGE_LOCATION_FILTER } from '../../searchReducer';
 import './FilterLocation.less';
 
 class FilterLocation extends React.Component {
+    constructor(props) {
+        super(props);
+        this.locationList = this.props.locationName ? this.props.locationName.split(', ') : [];
+    }
+
     componentDidMount() {
         this.props.fetchLocations();
-        const { locationFilter } = this.props;
-        if (locationFilter) {
-            this.props.setTypeAheadValue(locationFilter);
-        }
     }
 
     onLocationSelect = (value) => {
         const county = this.props.counties.find((c) => c.name.toLowerCase() === value.label.toLowerCase());
         const municipal = this.props.municipals.find((m) => m.name.toLowerCase() === value.label.toLowerCase());
+
         if (county) {
-            this.props.setTypeAheadValue(capitalizeLocation(county.name));
-            this.props.changeLocationFilter(county.name);
+            this.locationList.push(county.name);
         } else if (municipal) {
-            this.props.setTypeAheadValue(capitalizeLocation(municipal.name));
-            this.props.changeLocationFilter(municipal.name);
-        } else {
-            this.props.changeLocationFilter(undefined);
+            this.locationList.push(municipal.name);
         }
+
+        this.props.setTypeAheadValue('');
+        this.props.changeLocationFilter(this.locationList.join(', '));
     };
 
     onLocationChange = (value) => {
@@ -39,49 +41,76 @@ class FilterLocation extends React.Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        this.props.changeLocationFilter(this.props.locationFilter);
+        this.props.changeLocationFilter(this.locationList.join(', '));
+    };
+
+    onRemoveLocation = (location) => {
+        this.locationList = this.locationList.filter((item) => item.toLowerCase() !== location.toLowerCase())
+        this.props.changeLocationFilter(this.locationList.join(', '));
     };
 
     render() {
         return (
-            <div className="FilterLocation">
-                <Typeahead
-                    id="typeahead-location"
-                    className="FilterLocation__typeahead"
-                    onChange={this.onLocationChange}
-                    onSelect={this.onLocationSelect}
-                    label="Kommune eller fylke"
-                    suggestions={this.props.municipals.map((m) => ({
-                        value: m.code,
-                        label: capitalizeLocation(m.name)
-                    }))}
-                    optionalSuggestions={this.props.counties.map((c) => ({
-                        value: c.code,
-                        label: capitalizeLocation(c.name)
-                    }))}
-                    optionalSuggestionsLabel="Fylke"
-                    value={this.props.locationFilter}
-                    minLength={1}
-                    inputRef={(input) => {
-                        this.refInputError = input;
-                    }}
-                    placeholder="F.eks: Drammen"
-                />
-                <Knapp
-                    aria-label="søk"
-                    className="FilterLocation__SearchButton"
-                    onClick={this.onSubmit}
-                >
-                    <i className="FilterLocation__SearchButton__icon" />
-                </Knapp>
-            </div>
+            <React.Fragment>
+                <div className="FilterLocation">
+                    <Typeahead
+                        id="typeahead-location"
+                        className="FilterLocation__typeahead"
+                        onChange={this.onLocationChange}
+                        onSelect={this.onLocationSelect}
+                        label="Kommune eller fylke"
+                        suggestions={this.props.municipals.map((m) => ({
+                            value: m.code,
+                            label: capitalizeLocation(m.name)
+                        }))}
+                        optionalSuggestions={this.props.counties.map((c) => ({
+                            value: c.code,
+                            label: capitalizeLocation(c.name)
+                        }))}
+                        optionalSuggestionsLabel="Fylke"
+                        value={this.props.typeaheadValue}
+                        minLength={1}
+                        placeholder="F.eks: Drammen"
+                    />
+                    <Knapp
+                        aria-label="søk"
+                        className="FilterLocation__SearchButton"
+                        onClick={this.onSubmit}
+                    >
+                        <i className="FilterLocation__SearchButton__icon" />
+                    </Knapp>
+                </div>
+                {this.locationList.length > 0 && (
+                    <div className="FilterLocation__tags">
+                        {this.locationList.map((location) => {
+                            if (location) {
+                                return (
+                                    <Tag
+                                        key={location}
+                                        value={location}
+                                        label={capitalizeLocation(location)}
+                                        canRemove
+                                        onRemove={this.onRemoveLocation}
+                                    />
+                                );
+                            }
+                            return null;
+                        })}
+                    </div>
+                )}
+            </React.Fragment>
         );
     }
 }
 
 
+FilterLocation.defaultProps = {
+    locationName: undefined
+};
+
 FilterLocation.propTypes = {
-    locationFilter: PropTypes.string.isRequired,
+    typeaheadValue: PropTypes.string.isRequired,
+    locationName: PropTypes.string,
     municipals: PropTypes.arrayOf(PropTypes.shape({
         name: PropTypes.string
     })).isRequired,
@@ -96,7 +125,8 @@ FilterLocation.propTypes = {
 const mapStateToProps = (state) => ({
     municipals: state.filterLocation.municipals,
     counties: state.filterLocation.counties,
-    locationFilter: state.filterLocation.location
+    typeaheadValue: state.filterLocation.typeaheadValue,
+    locationName: state.search.locationName
 });
 
 const mapDispatchToProps = (dispatch) => ({
