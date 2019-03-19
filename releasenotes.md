@@ -1,3 +1,6 @@
+## RELEASE - 0.36.183-59a62ad
+#### New in this release: 
++ 2019-03-18 [PAM-2951]: tekstendring
 ## RELEASE - 0.34.181-25b7c88
 #### New in this release: 
 + 2019-03-13 [PAM-2895]: sørger for at page er beholdt i søket hvis bruker går inn på en annonse og tilbake til søk
