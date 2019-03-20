@@ -87,6 +87,7 @@ class Ad extends React.Component {
                 <SavedAdAlertStripe />
                 <Faded>
                     <div className="Ad__flex">
+                        <h1 className="visually-hidden">Stilling</h1>
                         <div className="Ad__flex__center">
                             <div className="Ad__flex__center__inner">
                                 <div>

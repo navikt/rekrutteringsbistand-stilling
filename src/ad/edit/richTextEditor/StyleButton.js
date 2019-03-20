@@ -13,7 +13,7 @@ export default class StyleButton extends React.Component {
             + (this.props.active ? ' RichTextEditor__activeButton' : '');
 
         return (
-            <button className={className} onMouseDown={this.onToggle}>
+            <button className={className} onMouseDown={this.onToggle} aria-label={this.props.style}>
                 <div className={this.props.label + ' rte-icon'} />
             </button>
         );

@@ -27,6 +27,7 @@ class StartPage extends React.Component {
         };
         return (
             <div className="StartPage">
+                <h1 className="visually-hidden">Forside rekrutteringsbistand</h1>
                 <div className="StartPage__SearchBox__wrapper">
                     <SearchBox onSearch={this.onSearch} />
                 </div>

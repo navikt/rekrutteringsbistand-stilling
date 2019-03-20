@@ -204,7 +204,7 @@ export default class Typeahead extends React.Component {
             && this.props.suggestions.length > 0;
 
         const activeDescendant = this.state.activeSuggestionIndex > -1
-            ? `${this.props.id}-item-${this.state.activeSuggestionIndex}` : undefined;
+            ? `${this.props.id}-item-${this.state.activeSuggestionIndex}` : null;
 
         if (this.props.optionalSuggestions !== undefined) {
             const showOptionalSuggestions = this.state.hasFocus
@@ -223,7 +223,7 @@ export default class Typeahead extends React.Component {
                         disabled={this.props.disabled}
                         id={this.props.id}
                         role="combobox"
-                        type="search"
+                        type="text"
                         aria-autocomplete="list"
                         aria-controls={`${this.props.id}-suggestions`}
                         aria-owns={`${this.props.id}-suggestions`}
@@ -308,7 +308,7 @@ export default class Typeahead extends React.Component {
                     disabled={this.props.disabled}
                     id={this.props.id}
                     role="combobox"
-                    type="search"
+                    type="text"
                     aria-autocomplete="list"
                     aria-controls={`${this.props.id}-suggestions`}
                     aria-owns={`${this.props.id}-suggestions`}

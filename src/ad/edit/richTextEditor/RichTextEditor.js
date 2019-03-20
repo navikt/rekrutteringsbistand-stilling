@@ -183,6 +183,7 @@ export default class RichTextEditor extends React.Component {
                         onChange={this.onChange}
                         blockStyleFn={blockStyleFunction}
                         placeholder={this.props.placeholderText || ''}
+                        ariaDescribedBy={this.props.ariaDescribedBy}
                     />
                 </div>
                 {this.props.errorMessage && (
@@ -196,12 +197,13 @@ export default class RichTextEditor extends React.Component {
 }
 
 RichTextEditor.defaultProps = {
-    placeholderText: ''
+    placeholderText: '',
+    ariaDescribedBy: undefined
 };
 
 RichTextEditor.propTypes = {
     onChange: PropTypes.func.isRequired,
     text: PropTypes.string.isRequired,
-    placeholderText: PropTypes.string
+    placeholderText: PropTypes.string,
+    ariaDescribedBy: PropTypes.string
 };
-

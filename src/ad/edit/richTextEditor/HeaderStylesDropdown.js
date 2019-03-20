@@ -30,6 +30,7 @@ export default class HeaderStylesDropdown extends React.Component {
                 bredde="s"
                 value={blockType}
                 onChange={this.onSelect}
+                aria-label="Velg header element"
             >
                 {HEADERS.map((type) => (
                     <option

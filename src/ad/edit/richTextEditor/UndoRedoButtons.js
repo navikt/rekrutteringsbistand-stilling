@@ -8,6 +8,7 @@ const UndoRedoButtons = ({ onRedoClick, redoDisabled, onUndoClick, undoDisabled 
             className={`RichTextEditor__styleButton${undoDisabled ? ' RichTextEditor__disabledButton' : ''}`}
             onClick={onUndoClick}
             disabled={undoDisabled}
+            aria-label="Undo"
         >
             <div className="icon-undo rte-icon" />
         </button>
@@ -15,6 +16,7 @@ const UndoRedoButtons = ({ onRedoClick, redoDisabled, onUndoClick, undoDisabled 
             className={`RichTextEditor__styleButton${redoDisabled ? ' RichTextEditor__disabledButton' : ''}`}
             onClick={onRedoClick}
             disabled={redoDisabled}
+            aria-label="Redo"
         >
             <div className="icon-redo rte-icon" />
         </button>

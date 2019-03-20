@@ -22,9 +22,9 @@ export default function Preview({ ad }) {
         <div className="AdText">
             <Row>
                 <Column xs="12" md="8">
-                    <div className="AdText__body">
+                    <article className="AdText__body">
                         {ad.properties.adtext && ReactHtmlParser(ad.properties.adtext)}
-                    </div>
+                    </article>
                     {hardrequirements && (
                         <div className="HardRequirements">
                             <div className="HardRequirements__label">
