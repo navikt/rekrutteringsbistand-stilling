@@ -9,6 +9,7 @@ import {
 } from '../../adDataReducer';
 import { VALIDATE_APPLICATION_EMAIL } from '../../adValidationReducer';
 import { adjustUrl } from '../../../common/utils';
+import {Normaltekst} from 'nav-frontend-typografi';
 
 
 class Application extends React.Component {
@@ -65,11 +66,14 @@ class Application extends React.Component {
         return (
             <Ekspanderbartpanel
                 className="Edit__panel"
-                tittel="Hvordan sende søknad (gjelder kun eksternt utlyste stillinger)?"
+                tittel="Hvordan sende søknad?"
                 tittelProps="undertittel"
                 border
                 apen
             >
+                <Normaltekst className="Edit__panel__undertittel">
+                    Gjelder kun eksternt utlyste stillinger
+                </Normaltekst>
                 <Checkbox
                     checked={showEmail}
                     onChange={this.onEmailChecked}
