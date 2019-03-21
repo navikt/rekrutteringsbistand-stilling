@@ -88,11 +88,12 @@ function* validateLocation() {
     const state = yield select();
     const { locationList } = state.adData;
 
-    if (valueIsNotSet(locationList)) {
+    if (valueIsNotSet(locationList) ||
+        (locationList.length === 1 && locationList[0].address && !locationList[0].postalCode)) {
         yield put({
             type: ADD_VALIDATION_ERROR,
             field: 'location',
-            message: 'Geografi (arbeidssted) mangler'
+            message: 'Arbeidssted mangler'
         });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'location' });
