@@ -26,7 +26,7 @@ class AdminStatusPreview extends React.Component {
             <div className="AdminStatusPreview">
                 <div>
                     <Normaltekst>
-                        <b>Registrert av: </b>
+                        <b>Veileder: </b>
                         {administration.reportee || ''}
                         {administration.navIdent ? ` (${administration.navIdent})` : ''}
                     </Normaltekst>
