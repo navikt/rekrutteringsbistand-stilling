@@ -72,6 +72,9 @@ class EmployerName extends React.Component {
         const location = employer ? employer.location : undefined;
         return (
             <div className="EmployerName">
+                <Normaltekst className="blokk-s"><b>Obs!</b> For at arbeidsgiver skal få CV-er du sender må
+                    virksomhetsnummeret du registrerer stillingen på samsvare med arbeidsgivers virksomhetsnummer.
+                </Normaltekst>
                 <div className="blokk-xxs">
                     <Typeahead
                         id="EmployerName__typeahead"
@@ -93,7 +96,11 @@ class EmployerName extends React.Component {
                     />
                 </div>
                 {employer && location &&
-                <Undertekst>{capitalizeEmployerName(employer.name)}, {location.address}, {location.postalCode} {capitalizeLocation(location.city)}</Undertekst>
+                    <Undertekst>
+                        {capitalizeEmployerName(employer.name)}, {location.address}
+                        , {location.postalCode} {capitalizeLocation(location.city)}
+                        , Virksomhetsnummer: {employer.orgnr.match(/.{1,3}/g).join(' ')}
+                    </Undertekst>
                 }
                 {this.props.validation.employer && (
                     <div className="Administration__error">{this.props.validation.employer}</div>
