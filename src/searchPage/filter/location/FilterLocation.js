@@ -10,11 +10,6 @@ import { CHANGE_LOCATION_FILTER } from '../../searchReducer';
 import './FilterLocation.less';
 
 class FilterLocation extends React.Component {
-    constructor(props) {
-        super(props);
-        this.locationList = this.props.locationName ? this.props.locationName.split(', ') : [];
-    }
-
     componentDidMount() {
         this.props.fetchLocations();
     }
@@ -23,14 +18,16 @@ class FilterLocation extends React.Component {
         const county = this.props.counties.find((c) => c.name.toLowerCase() === value.label.toLowerCase());
         const municipal = this.props.municipals.find((m) => m.name.toLowerCase() === value.label.toLowerCase());
 
-        if (county) {
-            this.locationList.push(county.name);
-        } else if (municipal) {
-            this.locationList.push(municipal.name);
+        const locationArray = this.getLocationAsArray(this.props.locationName);
+
+        if (county && !this.valueAlreadyInList(county.name, locationArray)) {
+            locationArray.push(county.name);
+        } else if (municipal && !this.valueAlreadyInList(municipal.name, locationArray)) {
+            locationArray.push(municipal.name);
         }
 
         this.props.setTypeAheadValue('');
-        this.props.changeLocationFilter(this.locationList.join(', '));
+        this.props.changeLocationFilter(locationArray.join(', '));
     };
 
     onLocationChange = (value) => {
@@ -39,17 +36,31 @@ class FilterLocation extends React.Component {
         }
     };
 
+    onBlur = (e) => {
+        this.onLocationSelect({ label: e });
+    };
+
     onSubmit = (e) => {
         e.preventDefault();
-        this.props.changeLocationFilter(this.locationList.join(', '));
+        const locationArray = this.getLocationAsArray(this.props.locationName);
+        this.props.changeLocationFilter(locationArray.join(', '));
     };
 
     onRemoveLocation = (location) => {
-        this.locationList = this.locationList.filter((item) => item.toLowerCase() !== location.toLowerCase())
-        this.props.changeLocationFilter(this.locationList.join(', '));
+        const locationArray = this.getLocationAsArray(this.props.locationName);
+        const newLocationArray = locationArray.filter((item) => item.toLowerCase() !== location.toLowerCase());
+        this.props.changeLocationFilter(newLocationArray.join(', '));
     };
 
+    getLocationAsArray = (locationName) => {
+        return locationName ? locationName.split(', ') : [];
+    };
+
+    valueAlreadyInList = (value, list) =>  list && list.find((a) => (a.toLowerCase() === value.toLowerCase())) !== undefined;
+
     render() {
+        const locationArray = this.getLocationAsArray(this.props.locationName);
+
         return (
             <React.Fragment>
                 <div className="FilterLocation">
@@ -58,6 +69,7 @@ class FilterLocation extends React.Component {
                         className="FilterLocation__typeahead"
                         onChange={this.onLocationChange}
                         onSelect={this.onLocationSelect}
+                        onBlur={this.onBlur}
                         label="Kommune eller fylke"
                         suggestions={this.props.municipals.map((m) => ({
                             value: m.code,
@@ -80,9 +92,9 @@ class FilterLocation extends React.Component {
                         <i className="FilterLocation__SearchButton__icon" />
                     </Knapp>
                 </div>
-                {this.locationList.length > 0 && (
+                {locationArray.length > 0 && (
                     <div className="FilterLocation__tags">
-                        {this.locationList.map((location) => {
+                        {locationArray.map((location) => {
                             if (location) {
                                 return (
                                     <Tag
