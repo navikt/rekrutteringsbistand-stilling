@@ -17,6 +17,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/react-router-dom": "^4.3.1",
     "classnames": "^2.2.6",
     "compression": "^1.7.3",
     "draft-convert": "^2.1.4",
@@ -59,7 +60,7 @@
     "nav-frontend-spinner-style": "^0.2.4",
     "nav-frontend-typografi": "^2.0.6",
     "nav-frontend-typografi-style": "^1.0.10",
-    "pam-frontend-header": "^3.0.7",
+    "pam-frontend-header": "^4.3.2",
     "prom-client": "^11.0.0",
     "promise": "^8.0.2",
     "prop-types": "^15.6.2",
@@ -73,8 +74,7 @@
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.0",
     "redux-saga": "^0.16.0",
-    "whatwg-fetch": "^2.0.4",
-    "@types/react-router-dom": "^4.3.1"
+    "whatwg-fetch": "^2.0.4"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
