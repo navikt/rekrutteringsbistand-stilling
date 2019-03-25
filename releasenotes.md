@@ -1,3 +1,8 @@
+## RELEASE - 0.37.188-2c1f8f8
+#### New in this release: 
++ 2019-03-21 [PAM-2978]: tekstendring
++ 2019-03-21 [PAM-2756]: tekstendring
++ 2019-03-21 [PAM-2979]: tekstendring ved bedriftens navn
 ## RELEASE - 0.36.183-59a62ad
 #### New in this release: 
 + 2019-03-18 [PAM-2951]: tekstendring
