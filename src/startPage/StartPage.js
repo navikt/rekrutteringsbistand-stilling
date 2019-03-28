@@ -75,6 +75,19 @@ class StartPage extends React.Component {
                                 </div>
                             </LenkepanelBase>
                         </Column>
+                        <Column className="StartPage__panel" xs="12" md="6">
+                            <LenkepanelBase
+                                href="/kandidater/lister"
+                                border
+                            >
+                                <div className="StartPage__panel-flex">
+                                    <div className="StartPage__icon-candidateList" />
+                                    <Systemtittel className="StartPage__systemtittel">
+                                        Se og opprett kandidatlister
+                                    </Systemtittel>
+                                </div>
+                            </LenkepanelBase>
+                        </Column>
                     </Row>
                 </div>
             </div>
