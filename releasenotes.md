@@ -1,3 +1,6 @@
+## RELEASE - 0.39.190-9dd9b11
+#### New in this release: 
++ 2019-03-28 [PAM-2838] Legger til lenkepanel for kandidatlister
 ## RELEASE - 0.37.188-2c1f8f8
 #### New in this release: 
 + 2019-03-21 [PAM-2978]: tekstendring
