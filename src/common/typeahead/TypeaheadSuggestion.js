@@ -12,6 +12,11 @@ export default class TypeaheadSuggestion extends React.Component {
     };
 
     render() {
+        let matchIndex = -1;
+        if (typeof this.props.label === 'string') {
+            matchIndex = this.props.label.toLowerCase().indexOf(this.props.match.toLowerCase());
+        }
+
         return (
             <li
                 id={this.props.id}
@@ -24,13 +29,27 @@ export default class TypeaheadSuggestion extends React.Component {
                 onKeyDown={this.props.avoidBlur}
                 className="TypeaheadSuggestion typo-normal"
             >
-                <span
-                    className={this.props.active ?
-                        'TypeaheadSuggestion__inner TypeaheadSuggestion--active' :
-                        'TypeaheadSuggestion__inner'}
-                >
-                    {this.props.label}
-                </span>
+                {matchIndex !== -1 && this.props.match !== '' ? (
+                    <span
+                        className={this.props.active ?
+                            'TypeaheadSuggestion__inner TypeaheadSuggestion--active' :
+                            'TypeaheadSuggestion__inner'}
+                    >
+                        {this.props.label.substring(0, matchIndex)}
+                        <span className="TypeaheadSuggestion__substring">
+                            {this.props.label.substring(matchIndex, matchIndex + this.props.match.length)}
+                        </span>
+                        {this.props.label.substring(matchIndex + this.props.match.length)}
+                    </span>
+                ) : (
+                    <span
+                        className={this.props.active ?
+                            'TypeaheadSuggestion__inner TypeaheadSuggestion--active' :
+                            'TypeaheadSuggestion__inner'}
+                    >
+                        {this.props.label}
+                    </span>
+                )}
             </li>
         );
     }
@@ -40,6 +59,7 @@ TypeaheadSuggestion.propTypes = {
     item: PropTypes.shape({}).isRequired,
     id: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,
+    match: PropTypes.string.isRequired,
     active: PropTypes.bool.isRequired,
     index: PropTypes.number.isRequired,
     setSuggestionIndex: PropTypes.func.isRequired,
