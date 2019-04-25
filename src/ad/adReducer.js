@@ -1,5 +1,5 @@
 import deepEqual from 'deep-equal';
-import { put, select, call, takeLatest } from 'redux-saga/effects';
+import { put, select, takeLatest } from 'redux-saga/effects';
 import {
     ApiError, fetchAd, fetchDelete, fetchPost, fetchPut
 } from '../api/api';
@@ -27,6 +27,7 @@ import PrivacyStatusEnum from '../common/enums/PrivacyStatusEnum';
 import { showAlertStripe } from './alertstripe/SavedAdAlertStripeReducer';
 import AdAlertStripeEnum from './alertstripe/AdAlertStripeEnum';
 import { FETCH_MY_ADS } from '../myAds/myAdsReducer';
+import { loginWithRedirectToCurrentLocation } from '../login';
 
 export const FETCH_AD = 'FETCH_AD';
 export const FETCH_AD_BEGIN = 'FETCH_AD_BEGIN';
@@ -360,8 +361,9 @@ function* save() {
     } catch (e) {
         if (e instanceof ApiError) {
             yield put({ type: SAVE_AD_FAILURE, error: e });
+        } else {
+            throw e;
         }
-        throw e;
     }
 }
 
@@ -400,6 +402,9 @@ function* saveAd(action) {
         yield put({ type: SHOW_AD_SAVED_ERROR_MODAL });
     } else {
         yield save();
+        if (action.login) {
+            loginWithRedirectToCurrentLocation();
+        }
         if (action.showModal) {
             yield showAlertStripe(AdAlertStripeEnum.SAVED);
         }

@@ -17,7 +17,7 @@ export default class TokenExpirationChecker extends EventEmitter {
 
     start() {
         this.isPaused = false;
-        this.loop();
+        this.loop().catch(console.error);
     }
 
     pause() {
@@ -68,6 +68,6 @@ export default class TokenExpirationChecker extends EventEmitter {
             }
         }
 
-        this.loop();
+        this.loop().catch(console.error);
     };
 }

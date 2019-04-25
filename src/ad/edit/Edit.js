@@ -10,12 +10,11 @@ import './Edit.less';
 import PracticalInformation from './practicalInformation/PracticalInformation';
 import Employer from './employer/Employer';
 import JobDetails from './jobDetails/JobDetails';
-import Loading from '../../common/loading/Loading';
 import ContactPerson from './contactPerson/ContactPerson';
 import Application from './application/Application';
 import Location from './location/Location';
 import { formatISOString } from '../../utils';
-import { loginAndRedirectToAd } from '../../login';
+import { loginWithRedirectToCurrentLocation } from '../../login';
 import TokenExpirationChecker, { TOKEN_EXPIRES_SOON, TOKEN_HAS_EXPIRED } from './session/TokenExpirationChecker';
 import SessionExpirationModal from './session/SessionExpirationModal';
 
@@ -53,12 +52,11 @@ class Edit extends React.Component {
     };
 
     saveAndLogin = () => {
-        this.props.saveAd();
-        this.loginAndRedirect();
+        this.props.saveAndLogin();
     };
 
     loginAndRedirect = () => {
-        loginAndRedirectToAd(this.props.ad.uuid);
+        loginWithRedirectToCurrentLocation();
     };
 
     render() {
@@ -129,6 +127,10 @@ class Edit extends React.Component {
     }
 }
 
+Edit.defaultProps = {
+    isNew: false
+};
+
 Edit.propTypes = {
     ad: PropTypes.shape({
         title: PropTypes.string,
@@ -137,9 +139,10 @@ Edit.propTypes = {
         medium: PropTypes.string,
         uuid: PropTypes.string,
         id: PropTypes.number
-    }),
+    }).isRequired,
     resetValidation: PropTypes.func.isRequired,
-    isNew: PropTypes.bool
+    isNew: PropTypes.bool,
+    saveAndLogin: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -147,7 +150,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    saveAd: () => dispatch({ type: SAVE_AD, showModal: true }),
+    saveAndLogin: () => dispatch({ type: SAVE_AD, login: true }),
     resetValidation: () => dispatch({ type: RESET_VALIDATION_ERROR })
 });
 

@@ -1,7 +1,7 @@
 import AdminStatusEnum from '../common/enums/AdminStatusEnum';
 import toUrl from '../common/toUrl';
 import { AD_API, SEARCH_API } from '../fasitProperties';
-import { loginAndRedirectToCurrentLocation } from '../login';
+import { loginWithRedirectToCurrentLocation } from '../login';
 
 export class ApiError {
     constructor(message, statusCode) {
@@ -20,7 +20,7 @@ async function request(url, options) {
 
     if (response.status !== 200 && response.status !== 201) {
         if (response.status === 401) {
-            loginAndRedirectToCurrentLocation();
+            loginWithRedirectToCurrentLocation();
         } else {
             throw new ApiError(response.statusText, response.status);
         }
@@ -142,8 +142,8 @@ export async function fetchEmployerNameCompletionHits(match) {
 }
 
 
-export async function fetchOrgnrSuggestions(match) {
-    match = match.replace(/\s/g, '');
+export async function fetchOrgnrSuggestions(value) {
+    const match = value.replace(/\s/g, '');
     const result = await fetchGet(`${SEARCH_API}underenhet/_search?q=organisasjonsnummer:${match}*`);
 
     return {
@@ -163,5 +163,5 @@ export async function fetchOrgnrSuggestions(match) {
 }
 
 export async function checkTokenExpiration() {
-    return await fetchGet(`${AD_API}reportee/token-expiring`);
+    return fetchGet(`${AD_API}reportee/token-expiring`);
 }

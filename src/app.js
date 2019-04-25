@@ -24,7 +24,7 @@ import adValidationReducer, { validationSaga } from './ad/adValidationReducer';
 import savedSearchAlertStripeReducer from './ad/alertstripe/SavedAdAlertStripeReducer';
 import myAdsReducer, { myAdsSaga } from './myAds/myAdsReducer';
 import history from './history';
-import { hasContextParameter, redirectToContext } from './login';
+import { urlHasPath, redirectToUrlPath } from './login';
 import kandidatReducer, { kandidatSaga } from './ad/kandidatModal/kandidatReducer';
 
 const sagaMiddleware = createSagaMiddleware();
@@ -59,9 +59,9 @@ sagaMiddleware.run(locationAreaSaga);
 sagaMiddleware.run(kandidatSaga);
 
 const Main = () => {
-    if (hasContextParameter()) {
-        redirectToContext();
-        return;
+    if (urlHasPath()) {
+        redirectToUrlPath();
+        return null;
     }
 
     return (
