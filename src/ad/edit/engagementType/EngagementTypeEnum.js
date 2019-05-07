@@ -8,6 +8,7 @@ const EngagementTypeEnum = {
     FERIEJOBB: 'Feriejobb',
     TRAINEE: 'Trainee',
     LAERLING: 'Lærling',
+    AAREMAAL: 'Åremål',
     SELVSTENDIG: 'Selvstendig næringsdrivende',
     ANNET: 'Annet'
 };

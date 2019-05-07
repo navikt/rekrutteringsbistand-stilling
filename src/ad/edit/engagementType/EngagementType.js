@@ -37,6 +37,9 @@ class EngagementType extends React.Component {
                     <option value={EngagementTypeEnum.PROSJEKT} key={EngagementTypeEnum.PROSJEKT}>
                         {EngagementTypeEnum.PROSJEKT}
                     </option>
+                    <option value={EngagementTypeEnum.AAREMAAL} key={EngagementTypeEnum.AAREMAAL}>
+                        {EngagementTypeEnum.AAREMAAL}
+                    </option>
                     <option value={EngagementTypeEnum.SESONG} key={EngagementTypeEnum.SESONG}>
                         {EngagementTypeEnum.SESONG}
                     </option>
