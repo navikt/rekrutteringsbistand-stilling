@@ -1,3 +1,6 @@
+## RELEASE - 0.41.193-8c15cdc
+#### New in this release: 
++ 2019-05-06 [PAM-3236] Add fixed term engagementtype
 ## RELEASE - 0.40.192-434ca35
 #### New in this release: 
 + 2019-04-25 [PAM-2824]: legger til bold på søkte bokstaver i typeahead (kun når suggestion er en string)
