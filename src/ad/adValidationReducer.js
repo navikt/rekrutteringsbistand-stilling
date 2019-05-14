@@ -44,6 +44,26 @@ export const MAX_LENGTH_COMMENT = 400;
 
 const valueIsNotSet = (value) => (value === undefined || value === null || value.length === 0);
 
+<<<<<<< HEAD
+=======
+const locationIsCountryOrMunicipal = (location) => location && (location.country || location.municipal)
+        && !location.postalCode;
+
+function* validateLocation() {
+    const state = yield select();
+    const { location } = state.adData;
+    if (!location || (!location.postalCode && !locationIsCountryOrMunicipal(location))) {
+        yield put({
+            type: ADD_VALIDATION_ERROR,
+            field: 'location',
+            message: 'Sted/postnummer mangler'
+        });
+    } else {
+        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'location' });
+    }
+}
+
+>>>>>>> db55f15... [PAM-2602] Endrer feilmeldingstekst + fikser linting
 function* validatePostalCode() {
     const state = yield select();
     const { typeAheadValue } = state.locationCode;
@@ -116,7 +136,7 @@ export function* validateStyrk() {
 export function* validateTitle() {
     const adTitle = yield select((state) => state.adData.title);
     if (valueIsNotSet(adTitle) || adTitle === DEFAULT_TITLE_NEW_AD) {
-        yield put({ type: ADD_VALIDATION_ERROR, field: 'title', message: 'Overskrift på stillingen mangler' });
+        yield put({ type: ADD_VALIDATION_ERROR, field: 'title', message: 'Overskrift på annonsen mangler' });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'title' });
     }
@@ -152,7 +172,11 @@ function* validateExpireDate() {
     if (valueIsNotSet(expires)) {
         yield put({ type: ADD_VALIDATION_ERROR, field: 'expires', message: 'Siste visningsdato mangler' });
     } else if (!erDatoEtterMinDato(toDate(expires), new Date(Date.now()))) {
-        yield put({ type: ADD_VALIDATION_ERROR, field: 'expires', message: 'Siste visningsdato kan ikke være før dagens dato' });
+        yield put({
+            type: ADD_VALIDATION_ERROR,
+            field: 'expires',
+            message: 'Siste visningsdato kan ikke være før dagens dato'
+        });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'expires' });
     }
@@ -176,7 +200,11 @@ function* validateApplicationEmail() {
     const error = email && (email.length > 0) && (email.indexOf('@') === -1);
 
     if (error) {
-        yield put({ type: ADD_VALIDATION_ERROR, field: 'applicationEmail', message: 'E-postadressen er ugyldig. Den må minimum inneholde en «@»' });
+        yield put({
+            type: ADD_VALIDATION_ERROR,
+            field: 'applicationEmail',
+            message: 'E-postadressen er ugyldig. Den må minimum inneholde en «@»'
+        });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'applicationEmail' });
     }
@@ -191,7 +219,10 @@ function* validateContactpersonEmail() {
         && (contactperson.email.indexOf('@') === -1);
 
     if (error) {
-        yield put({ type: ADD_VALIDATION_ERROR, field: 'contactpersonEmail', message: 'E-postadressen er ugyldig. Den må minimum inneholde en «@»' });
+        yield put({
+            type: ADD_VALIDATION_ERROR,
+            field: 'contactpersonEmail',
+            message: 'E-postadressen er ugyldig. Den må minimum inneholde en «@»' });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'contactpersonEmail' });
     }
@@ -202,7 +233,7 @@ function* validateContactpersonPhone() {
 
     const error = contactperson && contactperson.phone
         && (contactperson.phone.length > 0)
-        && (!contactperson.phone.match(/^(\(?\+?[0-9]*\)?)?[0-9_\- \(\)]*$/));
+        && (!contactperson.phone.match(/^(\(?\+?[0-9]*\)?)?[0-9_\- ()]*$/));
 
     if (error) {
         yield put({ type: ADD_VALIDATION_ERROR, field: 'contactpersonPhone', message: 'Ugyldig telefonnummer' });
