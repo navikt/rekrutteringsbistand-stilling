@@ -44,8 +44,6 @@ export const MAX_LENGTH_COMMENT = 400;
 
 const valueIsNotSet = (value) => (value === undefined || value === null || value.length === 0);
 
-<<<<<<< HEAD
-=======
 const locationIsCountryOrMunicipal = (location) => location && (location.country || location.municipal)
         && !location.postalCode;
 
@@ -56,14 +54,13 @@ function* validateLocation() {
         yield put({
             type: ADD_VALIDATION_ERROR,
             field: 'location',
-            message: 'Sted/postnummer mangler'
+            message: 'Arbeidssted mangler'
         });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'location' });
     }
 }
 
->>>>>>> db55f15... [PAM-2602] Endrer feilmeldingstekst + fikser linting
 function* validatePostalCode() {
     const state = yield select();
     const { typeAheadValue } = state.locationCode;
@@ -103,24 +100,6 @@ function* validateLocationArea() {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'locationArea' });
     }
 }
-
-function* validateLocation() {
-    const state = yield select();
-    const { locationList } = state.adData;
-
-    if (valueIsNotSet(locationList) ||
-        (locationList.length === 1 && locationList[0].address && !locationList[0].postalCode)) {
-        yield put({
-            type: ADD_VALIDATION_ERROR,
-            field: 'location',
-            message: 'Arbeidssted mangler'
-        });
-    } else {
-        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'location' });
-    }
-}
-
-
 
 export function* validateStyrk() {
     const state = yield select();
@@ -222,7 +201,8 @@ function* validateContactpersonEmail() {
         yield put({
             type: ADD_VALIDATION_ERROR,
             field: 'contactpersonEmail',
-            message: 'E-postadressen er ugyldig. Den må minimum inneholde en «@»' });
+            message: 'E-postadressen er ugyldig. Den må minimum inneholde en «@»'
+        });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'contactpersonEmail' });
     }
@@ -435,7 +415,14 @@ export const validationSaga = function* saga() {
     yield takeLatest(SET_PUBLISHED, validatePublishDate);
     yield takeLatest(ADD_POSTAL_CODE_BEGIN, validatePostalCode);
     yield takeLatest(VALIDATE_LOCATION_AREA, validateLocationArea);
-    yield takeLatest([ADD_POSTAL_CODE, REMOVE_POSTAL_CODE, ADD_LOCATION_AREA, REMOVE_MUNICIPAL, REMOVE_COUNTY, REMOVE_COUNTRY], validateLocation);
+    yield takeLatest([
+        ADD_POSTAL_CODE,
+        REMOVE_POSTAL_CODE,
+        ADD_LOCATION_AREA,
+        REMOVE_MUNICIPAL,
+        REMOVE_COUNTY,
+        REMOVE_COUNTRY
+    ], validateLocation);
     yield takeLatest(SET_AD_TEXT, validateAdtext);
     yield takeLatest(SET_AD_TITLE, validateTitle);
     yield takeLatest(VALIDATE_APPLICATION_EMAIL, validateApplicationEmail);
