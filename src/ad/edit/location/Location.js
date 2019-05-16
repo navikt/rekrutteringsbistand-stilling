@@ -116,9 +116,6 @@ class Location extends React.Component {
                                 <div className="Administration__error">{validation.postalCode}</div>
                             )}
                         </div>
-                        {this.props.validation.location && (
-                            <div className="Administration__error blokk-xs">{this.props.validation.location}</div>
-                        )}
                         <Input
                             label="Poststed"
                             value={locationList && locationList.length && locationList[0] && locationList[0].city
