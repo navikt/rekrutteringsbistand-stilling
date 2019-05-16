@@ -32,7 +32,7 @@ spec:
     - https://rekrutteringsbistand.nais.preprod.local
     - https://pam-rekrutteringsbistand.nais.preprod.local
   env:
-    - name: LOGIN_UR
+    - name: LOGIN_URL
       value: https://loginservice.nais.preprod.local/login
     - name: PAM_AD_API_BACKEND_REKRUTTERINGSBISTAND_URL
       value: https://pam-ad-api.nais.preprod.local/rekrutteringsbistand/api/v1/

@@ -32,7 +32,7 @@ spec:
     - https://pam-rekrutteringsbistand.nais.adeo.no
     - https://rekrutteringsbistand.nais.adeo.no
   env:
-    - name: LOGIN_UR
+    - name: LOGIN_URL
       value: https://loginservice.nais.adeo.no/login
     - name: PAM_AD_API_BACKEND_REKRUTTERINGSBISTAND_URL
       value: https://pam-ad-api.nais.adeo.no/rekrutteringsbistand/api/v1/
