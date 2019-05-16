@@ -29,12 +29,12 @@ spec:
       cpu: 200m
       memory: 128Mi
   ingresses:
-    - https://pam-rekrutteringsbistand.nais.adeo.no
-    - https://rekrutteringsbistand.nais.adeo.no
+    - https://rekrutteringsbistand.nais.preprod.local
+    - https://pam-rekrutteringsbistand.nais.preprod.local
   env:
     - name: LOGIN_UR
-      value: https://loginservice.nais.adeo.no/login
+      value: https://loginservice.nais.preprod.local/login
     - name: PAM_AD_API_BACKEND_REKRUTTERINGSBISTAND_URL
-      value:https://pam-ad-api.nais.adeo.no/rekrutteringsbistand/api/v1/
+      value: https://pam-ad-api.nais.preprod.local/rekrutteringsbistand/api/v1/
     - name: PAMADAPIBACKENDSEARCH_URL
-      value: https://pam-ad-api.nais.adeo.no/search-api/
+      value: https://pam-ad-api.nais.preprod.local/search-api/
