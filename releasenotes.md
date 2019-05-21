@@ -1,3 +1,9 @@
+## RELEASE - 0.42.199-e6661e9
+#### New in this release: 
++ 2019-05-16 [PAM-3257]  pam-rekrutteringsbistand på naiserator
++ 2019-05-16 [PAM-3257]  pam-rekrutteringsbistand på naiserator
++ 2019-03-01 [PAM-2602] Endrer feilmeldingstekst + fikser linting
++ 2019-03-01 [PAM-2602] Endrer feilmeldingstekst + fikser linting
 ## RELEASE - 0.41.193-8c15cdc
 #### New in this release: 
 + 2019-05-06 [PAM-3236] Add fixed term engagementtype
