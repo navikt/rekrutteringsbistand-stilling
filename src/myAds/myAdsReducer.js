@@ -9,10 +9,8 @@ export const FETCH_MY_ADS_FAILURE = 'FETCH_MY_ADS_FAILURE';
 export const CHANGE_MY_ADS_PAGE = 'CHANGE_MY_ADS_PAGE';
 export const RESET_MY_ADS_PAGE = 'RESET_MY_ADS_PAGE';
 export const CHANGE_MY_ADS_STATUS_FILTER = 'CHANGE_MY_ADS_STATUS_FILTER';
+export const CHANGE_MY_ADS_SORTING = 'CHANGE_MY_ADS_SORTING';
 
-const INACTIVE = 'INACTIVE';
-const EXPIRED = 'EXPIRED';
-const DONE = 'DONE';
 
 const initialState = {
     items: [],
@@ -23,7 +21,9 @@ const initialState = {
     page: 0,
     source: 'DIR',
     status: undefined,
-    reportee: ''
+    reportee: '',
+    sortField: 'updated',
+    sortDir: 'desc'
 };
 
 export default function myAdsReducer(state = initialState, action) {
@@ -64,6 +64,13 @@ export default function myAdsReducer(state = initialState, action) {
                 ...state,
                 page: 0
             };
+        case CHANGE_MY_ADS_SORTING:
+            return {
+                ...state,
+                page: 0,
+                sortField: action.field,
+                sortDir: action.dir
+            };
         default:
             return state;
     }
@@ -81,11 +88,11 @@ function combineStatusQuery(status) {
 
 export function toQuery(search) {
     const {
-        reportee, status, page, source, deactivatedByExpiry
+        reportee, status, page, source, deactivatedByExpiry, sortField, sortDir,
     } = search;
 
     const query = {
-        sort: 'updated,desc',
+        sort: `${sortField},${sortDir}`,
         page,
         source,
         reportee,
@@ -106,7 +113,8 @@ function* getMyAds(action) {
 
         const state = yield select();
 
-        let search = {...state.myAds,
+        const search = {
+            ...state.myAds,
             reportee: reportee.displayName
         };
 
@@ -127,6 +135,7 @@ export const myAdsSaga = function* saga() {
     yield takeLatest([
         CHANGE_MY_ADS_STATUS_FILTER,
         CHANGE_MY_ADS_PAGE,
-        FETCH_MY_ADS
+        FETCH_MY_ADS,
+        CHANGE_MY_ADS_SORTING
     ], getMyAds);
 };
