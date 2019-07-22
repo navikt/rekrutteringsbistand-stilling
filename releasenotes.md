@@ -1,3 +1,6 @@
+## RELEASE - 0.43.202-4707a14
+#### New in this release: 
++ 2019-07-15 [PAM-2743]: endrer farge på visited links i søkeresultatet
 ## RELEASE - 0.42.199-e6661e9
 #### New in this release: 
 + 2019-05-16 [PAM-3257]  pam-rekrutteringsbistand på naiserator
