@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Normaltekst } from 'nav-frontend-typografi';
-import Datovelger from 'nav-datovelger';
+import Datovelger from 'nav-datovelger/dist/datovelger/Datovelger';
 import 'nav-datovelger/dist/datovelger/styles/datovelger.css';
 import { formatISOString } from '../../../utils';
 import { SET_PUBLISHED, SET_EXPIRATION_DATE } from '../../adDataReducer';
@@ -35,6 +35,12 @@ class Publishing extends React.Component {
                     <Normaltekst className="Publishing__label">Publiseringsdato*</Normaltekst>
                     <Datovelger
                         id="published"
+                        input={{
+                            id: 'published__input',
+                            name: 'published',
+                            placeholder: 'dd.mm.åååå',
+                            ariaLabel: 'Sett publiseringsdato',
+                        }}
                         dato={formatISOString(published, 'DD.MM.YYYY') || ''}
                         onChange={this.onPublishedChange}
                         ref={(instance) => { this.refPublished = instance; }}
@@ -49,11 +55,15 @@ class Publishing extends React.Component {
                     <Normaltekst className="Publishing__label">Siste visningsdato*</Normaltekst>
                     <Datovelger
                         id="expires"
+                        input={{
+                            id: 'expires__input',
+                            name: 'expires',
+                            placeholder: 'dd.mm.åååå',
+                            ariaLabel: 'Sett siste visningsdato',
+                        }}
                         dato={formatISOString(expires, 'DD.MM.YYYY') || ''}
                         onChange={this.onExpiresChange}
-                        ref={(instance) => { this.refExpires = instance; }}
                         avgrensninger={{ minDato: new Date(Date.now()) }}
-                        inputProps={{ placeholder: 'dd.mm.åååå' }}
                     />
                     {this.props.validation.expires && (
                         <div className="Administration__error">{this.props.validation.expires}</div>

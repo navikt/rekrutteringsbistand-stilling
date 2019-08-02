@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Radio, SkjemaGruppe } from 'nav-frontend-skjema';
+import { Radio, SkjemaGruppe, Fieldset } from 'nav-frontend-skjema';
 import {
     CHANGE_PRIVACY_FILTER,
     CHANGE_SOURCE_FILTER,
@@ -52,69 +52,81 @@ class Filter extends React.Component {
         const { adStatus, privacy, source, deactivatedByExpiry } = this.props;
         return (
             <form onSubmit={this.onSubmit}>
-                <SkjemaGruppe title="Status" className="blokk-l">
-                    {Object.keys(AdStatusEnum)
-                        .filter((key) => key !== AdStatusEnum.INACTIVE && key !== AdStatusEnum.REJECTED
-                            && key !== AdStatusEnum.DELETED)
-                        .map((key) => (
-                            <Radio
-                                key={key}
-                                label={getAdStatusLabel(AdStatusEnum[key])}
-                                value={key}
-                                checked={(adStatus === key) && (deactivatedByExpiry !== true)}
-                                name="adStatus"
-                                onChange={this.onStatusFilterChange}
-                            />
-                        ))}
-                    <Radio
-                        label="Utløpt"
-                        value="Utløpt"
-                        checked={(adStatus === undefined) && (deactivatedByExpiry === true)}
-                        name="adStatus"
-                        onChange={this.onStatusFilterChange}
-                    />
-                    <Radio
-                        label="Alle"
-                        value="Alle"
-                        checked={(adStatus === undefined) && (deactivatedByExpiry === undefined)}
-                        name="adStatus"
-                        onChange={this.onStatusFilterChange}
-                    />
-                </SkjemaGruppe>
-                <SkjemaGruppe title="Publisert" className="blokk-l">
-                    <Radio
-                        label="Alle"
-                        value="Alle"
-                        checked={privacy === undefined}
-                        name="privacyStatus"
-                        onChange={this.onPrivacyFilterChange}
-                    />
-                    {Object.keys(PrivacyStatusEnum).map((key) => (
+                <SkjemaGruppe className="blokk-l">
+                    <Fieldset
+                        legend="Status"
+                    >
+                        {Object.keys(AdStatusEnum)
+                            .filter((key) => key !== AdStatusEnum.INACTIVE && key !== AdStatusEnum.REJECTED
+                                && key !== AdStatusEnum.DELETED)
+                            .map((key) => (
+                                <Radio
+                                    key={key}
+                                    label={getAdStatusLabel(AdStatusEnum[key])}
+                                    value={key}
+                                    checked={(adStatus === key) && (deactivatedByExpiry !== true)}
+                                    name="adStatus"
+                                    onChange={this.onStatusFilterChange}
+                                />
+                            ))}
                         <Radio
-                            key={key}
-                            label={getPrivacyStatusLabel( PrivacyStatusEnum[key])}
-                            value={key}
+                            label="Utløpt"
+                            value="Utløpt"
+                            checked={(adStatus === undefined) && (deactivatedByExpiry === true)}
+                            name="adStatus"
+                            onChange={this.onStatusFilterChange}
+                        />
+                        <Radio
+                            label="Alle"
+                            value="Alle"
+                            checked={(adStatus === undefined) && (deactivatedByExpiry === undefined)}
+                            name="adStatus"
+                            onChange={this.onStatusFilterChange}
+                        />
+                    </Fieldset>
+                </SkjemaGruppe>
+                <SkjemaGruppe className="blokk-l">
+                    <Fieldset
+                        legend="Publisert"
+                    >
+                        <Radio
+                            label="Alle"
+                            value="Alle"
+                            checked={privacy === undefined}
                             name="privacyStatus"
-                            checked={privacy === key}
                             onChange={this.onPrivacyFilterChange}
                         />
-                    ))}
+                        {Object.keys(PrivacyStatusEnum).map((key) => (
+                            <Radio
+                                key={key}
+                                label={getPrivacyStatusLabel( PrivacyStatusEnum[key])}
+                                value={key}
+                                name="privacyStatus"
+                                checked={privacy === key}
+                                onChange={this.onPrivacyFilterChange}
+                            />
+                        ))}
+                    </Fieldset>
                 </SkjemaGruppe>
-                <SkjemaGruppe title="Kilde" className="blokk-l">
-                    <Radio
-                        label="Alle"
-                        value="Alle"
-                        checked={source === undefined}
-                        name="source"
-                        onChange={this.onSourceFilterChange}
-                    />
-                    <Radio
-                        label="Direktemeldt stilling"
-                        value="DIR"
-                        checked={source === 'DIR'}
-                        name="source"
-                        onChange={this.onSourceFilterChange}
-                    />
+                <SkjemaGruppe className="blokk-l">
+                    <Fieldset
+                        legend="Kilde"
+                    >
+                        <Radio
+                            label="Alle"
+                            value="Alle"
+                            checked={source === undefined}
+                            name="source"
+                            onChange={this.onSourceFilterChange}
+                        />
+                        <Radio
+                            label="Direktemeldt stilling"
+                            value="DIR"
+                            checked={source === 'DIR'}
+                            name="source"
+                            onChange={this.onSourceFilterChange}
+                        />
+                    </Fieldset>
                 </SkjemaGruppe>
                 <FilterLocation />
             </form>

@@ -11,9 +11,6 @@ import capitalizeLocation from '../location/capitalizeLocation';
 
 
 class EmployerName extends React.Component {
-    componentDidMount() {
-        this.props.fetchEmployerSuggestions();
-    }
 
     onTypeAheadValueChange = (value) => {
         this.props.setEmployerTypeaheadValue(value);
