@@ -29,6 +29,7 @@ class SearchPage extends React.Component {
         const adsFound = !isSearching && ads && ads.length > 0;
         return (
             <div className="SearchPage">
+                <h1 className="visually-hidden">Søk etter stilling</h1>
                 <div className="SearchPage__SearchBox__wrapper">
                     <div className="SearchPage__SearchBox">
                         <SearchBox />
