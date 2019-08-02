@@ -8,7 +8,7 @@ import './LeggTilKandidatAlertStripe.less';
 const LeggTilKandidatAlertStripe = ({ showAlertStripe, alertStripeMode, kandidat, fodselsnummer }) => {
     if (showAlertStripe && alertStripeMode === KandidatAlertStripeMode.SAVED) {
         return (
-            <AlertStripeSuksess solid className="LeggTilKandidatAlertStripe">
+            <AlertStripeSuksess solid="true" className="LeggTilKandidatAlertStripe">
                 {`${kandidat.fornavn} ${kandidat.etternavn} (${fodselsnummer}) er lagt til i kandidatlisten`}
             </AlertStripeSuksess>
         );
