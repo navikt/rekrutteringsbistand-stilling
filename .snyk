@@ -304,3 +304,15 @@ patch:
         patched: '2019-07-04T08:46:23.988Z'
     - snyk > snyk-php-plugin > @snyk/composer-lockfile-parser > lodash:
         patched: '2019-07-04T08:46:23.988Z'
+    - nav-datovelger > @babel/core > lodash:
+        patched: '2019-08-02T12:32:54.877Z'
+    - nav-datovelger > @babel/core > @babel/types > lodash:
+        patched: '2019-08-02T12:32:54.877Z'
+    - nav-datovelger > @babel/core > @babel/traverse > @babel/types > lodash:
+        patched: '2019-08-02T12:32:54.877Z'
+    - nav-datovelger > @babel/core > @babel/traverse > @babel/helper-function-name > @babel/types > lodash:
+        patched: '2019-08-02T12:32:54.877Z'
+    - nav-datovelger > @babel/core > @babel/helpers > @babel/traverse > @babel/helper-function-name > @babel/types > lodash:
+        patched: '2019-08-02T12:32:54.877Z'
+    - nav-datovelger > @babel/core > @babel/helpers > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2019-08-02T12:32:54.877Z'
