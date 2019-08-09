@@ -13,19 +13,19 @@ const SavedAdAlertStripe = ({ showAlertStripe, alertStripeMode, isSavingAd, publ
     }
     if (showAlertStripe && alertStripeMode === AdAlertStripeEnum.SAVED) {
         return (
-            <AlertStripe type="suksess" solid className="SavedAdAlertStripe">
+            <AlertStripe type="suksess" solid="true" className="SavedAdAlertStripe">
                 Stillingen er lagret i mine stillinger
             </AlertStripe>
         );
     } else if (showAlertStripe && alertStripeMode === AdAlertStripeEnum.WILL_PUBLISH_CHANGES) {
         return (
-            <AlertStripe type="info" solid className="SavedAdAlertStripe">
+            <AlertStripe type="info" solid="true" className="SavedAdAlertStripe">
                 Endringene blir publisert {formatISOString(published)}
             </AlertStripe>
         );
     } else if (showAlertStripe && alertStripeMode === AdAlertStripeEnum.PUBLISHED_CHANGES) {
         return (
-            <AlertStripe type="suksess" solid className="SavedAdAlertStripe">
+            <AlertStripe type="suksess" solid="true" className="SavedAdAlertStripe">
                 Endringene har blitt publisert
             </AlertStripe>
         );

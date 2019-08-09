@@ -12,36 +12,36 @@ function AdStatus(props) {
     return isSavingAd ? null : (
         <div className="AdStatusPreview">
             {adStatus === AdStatusEnum.INACTIVE && deactivatedByExpiry && (
-                <Alertstripe className="AdStatusPreview__Alertstripe" type="info" solid>
+                <Alertstripe className="AdStatusPreview__Alertstripe" type="info" solid="true">
                     Stillingen er utløpt
                 </Alertstripe>
             )}
             {adStatus === AdStatusEnum.INACTIVE && activationOnPublishingDate && (
-                <Alertstripe className="AdStatusPreview__Alertstripe" type="info" solid>
+                <Alertstripe className="AdStatusPreview__Alertstripe" type="info" solid="true">
                     Stillingen blir publisert {formatISOString(originalData.published)}
                 </Alertstripe>
             )}
             {adStatus === AdStatusEnum.INACTIVE && !deactivatedByExpiry && !activationOnPublishingDate && (
-                <Alertstripe className="AdStatusPreview__Alertstripe" type="info" solid>
+                <Alertstripe className="AdStatusPreview__Alertstripe" type="info" solid="true">
                     Stillingen er ikke publisert
                 </Alertstripe>
             )}
             {adStatus === AdStatusEnum.ACTIVE && originalData.privacy === PrivacyStatusEnum.INTERNAL_NOT_SHOWN && (
-                <Alertstripe className="AdStatusPreview__Alertstripe" type="suksess" solid>
+                <Alertstripe className="AdStatusPreview__Alertstripe" type="suksess" solid="true">
                     Stillingen er publisert internt i NAV
                     {isEditingAd ? ' | ' : ' '}
                     {originalData.published ? formatISOString(originalData.published) : ''}
                 </Alertstripe>
             )}
             {adStatus === AdStatusEnum.ACTIVE && originalData.privacy === PrivacyStatusEnum.SHOW_ALL && (
-                <Alertstripe className="AdStatusPreview__Alertstripe" type="suksess" solid>
+                <Alertstripe className="AdStatusPreview__Alertstripe" type="suksess" solid="true">
                     Stillingen er publisert på nav.no
                     {isEditingAd ? ' | ' : ' '}
                     {originalData.published ? formatISOString(originalData.published) : ''}
                 </Alertstripe>
             )}
             {adStatus === AdStatusEnum.STOPPED && (
-                <Alertstripe className="AdStatusPreview__Alertstripe" type="advarsel" solid>
+                <Alertstripe className="AdStatusPreview__Alertstripe" type="advarsel" solid="true">
                     Stillingen er stoppet
                 </Alertstripe>
             )}

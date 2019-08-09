@@ -58,7 +58,7 @@ class MyAds extends React.Component {
                     <StopAdModal fromMyAds />
                     <DeleteAdModal />
                     {error && (
-                        <AlertStripe className="AlertStripe__fullpage" type="advarsel" solid>
+                        <AlertStripe className="AlertStripe__fullpage" type="advarsel" solid="true">
                             Det oppsto en feil. Forsøk å laste siden på nytt
                         </AlertStripe>
                     )}

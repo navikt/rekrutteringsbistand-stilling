@@ -1,3 +1,6 @@
+## RELEASE - 0.44.206-c1be7b2
+#### New in this release: 
++ 2019-08-02 [refactor] updated nav-frontend libraries * the solid property in AlertStripe has to be a string, so fixed that
 ## RELEASE - 0.43.202-4707a14
 #### New in this release: 
 + 2019-07-15 [PAM-2743]: endrer farge på visited links i søkeresultatet
