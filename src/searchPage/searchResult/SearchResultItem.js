@@ -11,13 +11,13 @@ import PrivacyStatusEnum from '../../common/enums/PrivacyStatusEnum';
 import AWithIcon from '../../common/aWithIcon/AWithIcon';
 
 const SearchResultItem = ({ ad }) => (
-    <Row className="SearchResultItem">
-        <Column md="1">
+    <tr className="SearchResultItem">
+        <td>
             <Normaltekst className="SearchResultItem__column">
                 {ad.published ? formatISOString(ad.published) : ''}
             </Normaltekst>
-        </Column>
-        <Column md="3">
+        </td>
+        <td>
             <div className="SearchResultItem__column">
                 <Link
                     className="AdTitle_link typo-normal lenke"
@@ -26,31 +26,31 @@ const SearchResultItem = ({ ad }) => (
                     {ad.title ? ad.title : ''}
                 </Link>
             </div>
-        </Column>
-        <Column md="3">
+        </td>
+        <td>
             <Normaltekst className="SearchResultItem__column">
                 {getEmployerName(ad)}
             </Normaltekst>
-        </Column>
-        <Column md="1">
+        </td>
+        <td>
             <Normaltekst className="SearchResultItem__column">
                 {getTruncatedWorkLocation(ad.locationList) || ''}
             </Normaltekst>
-        </Column>
-        <Column md="1">
+        </td>
+        <td>
             {ad.privacy && (
                 <Normaltekst className="SearchResultItem__column">
                     {ad.privacy === PrivacyStatusEnum.SHOW_ALL
                         ? 'Nav.no' : 'Internt'}
                 </Normaltekst>
             )}
-        </Column>
-        <Column md="1">
+        </td>
+        <td>
             <Normaltekst className="SearchResultItem__column">
                 {ad.expires ? formatISOString(ad.expires) : ''}
             </Normaltekst>
-        </Column>
-        <Column md="2">
+        </td>
+        <td>
             {ad.source === 'DIR' && (
                 <div className="SearchResultItem__column">
                     <AWithIcon
@@ -61,8 +61,8 @@ const SearchResultItem = ({ ad }) => (
                     />
                 </div>
             )}
-        </Column>
-    </Row>
+        </td>
+    </tr>
 );
 
 SearchResultItem.propTypes = {

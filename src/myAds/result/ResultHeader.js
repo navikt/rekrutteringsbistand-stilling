@@ -1,63 +1,61 @@
-import React, { useEffect, useMemo } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Chevron from 'nav-frontend-chevron';
-
 import { CHANGE_MY_ADS_SORTING } from '../myAdsReducer';
 import useSorting from '../../common/sort/useSorting';
-import '../../common/sort/Sort.less';
 import './Result.less';
 
 function ResultHeader({ changeSorting, sortDir, sortField }) {
-    const [sort, toggleSorting] = useSorting({ field: sortField, dir: sortDir });
-
-    useEffect(() => {
-        changeSorting(sort.field, sort.dir);
-    }, [sort]);
-
-    const sortClassName = useMemo(() => (sort.dir === 'asc' ? 'Sort__Icon-asc' : 'Sort__Icon-desc'), [sort])
-
-    const chevronTypeActive = useMemo(() => (sort.dir === 'asc' ? 'ned' : 'opp'), [sort]);
-
-    const chevronTypeActiveHover = useMemo(() => (sort.dir === 'asc' ? 'opp' : 'ned'), [sort]);
-
+    const [sort, toggleSorting, className] = useSorting({ field: sortField, dir: sortDir }, changeSorting);
 
     return (
         <thead className="ResultHeader typo-element">
             <tr>
-                <th className="Col-updated">Sist endret</th>
-                <th
-                    className={`Col-title ${sort.field === 'title' ? sortClassName : 'Sort__Icon-unsorted'}`}
-                    onClick={() => toggleSorting('title')}
-                >
-                    Stillingstittel
-                    <Chevron
-                        className={` ${sort.field === 'title' ? 'Chevron' : 'Chevron__unsorted'}`}
-                        type={`${sort.field === 'title' ? chevronTypeActive : chevronTypeActiveHover}`}
-                    />
+                <th className="Col-updated">
+                    <button
+                        className={`Sort__button ${sort.field === 'updated' ? className : 'Sort-unsorted'}`}
+                        onClick={() => toggleSorting('updated')}
+                    >
+                        <span className="Sort__text">Sist endret</span>
+
+                    </button>
+                </th>
+                <th className="Col-title ">
+                    <button
+                        className={`Sort__button ${sort.field === 'title' ? className : 'Sort-unsorted'}`}
+                        onClick={() => toggleSorting('title')}
+                    >
+                        <span className="Sort__text">Stillingstittel</span>
+                    </button>
                 </th>
                 <th className="Col-id">
                     Annonse-
                     <br />
                     nummer
                 </th>
-                <th
-                    className={`Col-employer  ${sort.field === 'employer' ? sortClassName : 'Sort__Icon-unsorted'}`}
-                    onClick={() => toggleSorting('employer')}
-                >
-                    Arbeidsgiver
+                <th className="Col-employer">
+                    <button
+                        className={`Sort__button ${sort.field === 'employerName' ? className : 'Sort-unsorted'}`}
+                        onClick={() => toggleSorting('employerName')}
+                    >
+                        <span className="Sort__text">Arbeidsgiver</span>
+                    </button>
                 </th>
-                <th
-                    className={`Col-expires  ${sort.field === 'expires' ? sortClassName : 'Sort__Icon-unsorted'}`}
-                    onClick={() => toggleSorting('expires')}
-                >
-                    Utløpsdato
+                <th className="Col-expires">
+                    <button
+                        className={`Sort__button ${sort.field === 'expires' ? className : 'Sort-unsorted'}`}
+                        onClick={() => toggleSorting('expires')}
+                    >
+                        <span className="Sort__text">Utløpsdato</span>
+                    </button>
                 </th>
-                <th
-                    className={`Col-privacy  ${sort.field === 'privacy' ? sortClassName : 'Sort__Icon-unsorted'}`}
-                    onClick={() => toggleSorting('privacy')}
-                >
-                    Publisert
+                <th className="Col-privacy">
+                    <button
+                        className={`Sort__button ${sort.field === 'privacy' ? className : 'Sort-unsorted'}`}
+                        onClick={() => toggleSorting('privacy')}
+                    >
+                        <span className="Sort__text">Publisert</span>
+                    </button>
                 </th>
                 <th className="Col-status">Status</th>
                 <th className="Col-candidate">Kandidatliste</th>
