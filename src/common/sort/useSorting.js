@@ -16,8 +16,17 @@ function useSorting(initialState, changeSorting) {
     }, [sort]);
 
     const toggleSorting = (field) => {
-        // change to desc if field already sorted on asc. Otherwise, sort on asc.
-        const dir = (sort.field === field) && sort.dir === 'asc' ? 'desc' : 'asc';
+        // If field already sorted, change opposite direction
+        // If field is a date, sort on desc
+        // otherwise, sort on asc.
+        let dir;
+        if (sort.field === field) {
+            dir = sort.dir === 'asc' ? 'desc' : 'asc';
+        } else if (field === 'published' || field === 'updated' || field === 'expires') {
+            dir = 'desc';
+        } else {
+            dir = 'asc';
+        }
 
         setSort({
             ...sort,
