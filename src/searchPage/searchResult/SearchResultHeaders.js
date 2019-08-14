@@ -2,77 +2,82 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Element } from 'nav-frontend-typografi';
-import { Column, Row } from 'nav-frontend-grid';
 import { CHANGE_SORTING } from '../searchReducer';
-
+import useSorting from '../../common/sort/useSorting';
 import './SearchResult.less';
 
-class SearchResultHeaders extends React.Component {
-    onSortClick = (field) => {
-        const { sortField, sortDir, changeSorting } = this.props;
-        let order = 'asc';
-        if ((sortField === field) && sortDir === 'asc') {
-            order = 'desc'; // change to desc if field already sorted on asc. Otherwise, sort on asc.
-        }
-        changeSorting(field, order);
-    };
+function SearchResultHeaders({ changeSorting, sortDir, sortField }) {
+    const [sort, toggleSorting, className] = useSorting({ field: sortField, dir: sortDir }, changeSorting);
 
-    render() {
-        const { sortField, sortDir } = this.props;
-
-        let className = 'SearchResultHeader--unsorted';
-        if (sortDir === 'asc') {
-            className = 'SearchResultHeader--sorted-asc';
-        } else if (sortDir === 'desc') {
-            className = 'SearchResultHeader--sorted-desc';
-        }
-
-        return (
-            <Row className="SearchResultHeaders">
-                <Column md="1" onClick={() => this.onSortClick('published')}>
-                    <Element>
-                        Publisert <br />
-                        dato
-                        <i className={sortField === 'published' ? className : 'SearchResultHeader--unsorted'} />
-                    </Element>
-                </Column>
-                <Column md="3" onClick={() => this.onSortClick('title')}>
-                    <Element>
-                        Annonseoverskrift
-                        <i className={sortField === 'title' ? className : 'SearchResultHeader--unsorted'} />
-                    </Element>
-                </Column>
-                <Column md="3" onClick={() => this.onSortClick('employerName')}>
-                    <Element>
-                        Arbeidsgiver
-                        <i className={sortField === 'employerName' ? className : 'SearchResultHeader--unsorted'} />
-                    </Element>
-                </Column>
-                <Column md="1">
+    return (
+        <thead className="SearchResultHeaders">
+            <tr>
+                <th>
+                    <button
+                        className={`Sort__button ${sort.field === 'published' ? className : 'Sort-unsorted'}`}
+                        onClick={() => toggleSorting('published')}
+                    >
+                        <span className="Sort__text">
+                            Publisert <br />
+                            dato
+                        </span>
+                    </button>
+                </th>
+                <th>
+                    <button
+                        className={`Sort__button ${sort.field === 'title' ? className : 'Sort-unsorted'}`}
+                        onClick={() => toggleSorting('title')}
+                    >
+                        <span className="Sort__text">
+                            Annonseoverskrift
+                        </span>
+                    </button>
+                </th>
+                <th>
+                    <button
+                        className={`Sort__button ${sort.field === 'employerName' ? className : 'Sort-unsorted'}`}
+                        onClick={() => toggleSorting('employerName')}
+                    >
+                        <span className="Sort__text">
+                            Arbeidsgiver
+                        </span>
+                    </button>
+                </th>
+                <th>
                     <Element>
                         Sted
                     </Element>
-                </Column>
-                <Column md="1" onClick={() => this.onSortClick('privacy')}>
-                    <Element>
-                        Publisert
-                        <i className={sortField === 'privacy' ? className : 'SearchResultHeader--unsorted'} />
-                    </Element>
-                </Column>
-                <Column md="1" onClick={() => this.onSortClick('expires')}>
-                    <Element>
-                        Utløpsdato
-                        <i className={sortField === 'expires' ? className : 'SearchResultHeader--unsorted'} />
-                    </Element>
-                </Column>
-                <Column md="2">
+                </th>
+                <th >
+                    <button
+                        className={`Sort__button ${sort.field === 'privacy' ? className : 'Sort-unsorted'}`}
+                        onClick={() => toggleSorting('privacy')}
+                    >
+                        <span className="Sort__text">
+                            Publisert
+                        </span>
+                    </button>
+                </th>
+                <th>
+                    <button
+                        className={`Sort__button ${sort.field === 'expires' ? className : 'Sort-unsorted'}`}
+                        onClick={() => toggleSorting('expires')}
+                    >
+                        <span className="Sort__text">
+                            Utløpsdato
+                        </span>
+                    </button>
+                </th>
+                <th>
                     <Element>
                         Kandidatliste
                     </Element>
-                </Column>
-            </Row>
-        );
-    }
+                </th>
+
+            </tr>
+        </thead>
+    );
+
 }
 
 SearchResultHeaders.propTypes = {

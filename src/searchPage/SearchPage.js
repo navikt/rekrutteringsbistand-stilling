@@ -65,16 +65,20 @@ class SearchPage extends React.Component {
                                 <div className="SearchPage__ResultCount blokk-s">
                                     <SearchResultCount />
                                 </div>
-                                <SearchResultHeaders />
+                                <table className="SearchResult__table">
+                                    <SearchResultHeaders />
+                                    <tbody>
+                                        {adsFound && ads.map((ad) => (
+                                            <SearchResultItem key={ad.uuid} ad={ad} />
+                                        ))}
+                                    </tbody>
+                                </table>
                                 {isSearching && (
                                     <Loading />
                                 )}
                                 {!isSearching && ads && ads.length === 0 && (
                                     <NoResults />
                                 )}
-                                {adsFound && ads.map((ad) => (
-                                    <SearchResultItem key={ad.uuid} ad={ad} />
-                                ))}
                                 {adsFound && (
                                     <Pagination />
                                 )}

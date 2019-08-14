@@ -1,8 +1,66 @@
 @import "../../variables";
 
-@triangleUp: url(data:image/png;base64,R0lGODlhCwALAJEAAAAAAP///xUVFf///yH5BAEAAAMALAAAAAALAAsAAAIRnC2nKLnT4or00Puy3rx7VQAAOw==) no-repeat center right;
-@triangleDown: url(data:image/gif;base64,R0lGODlhCwALAJEAAAAAAP///xUVFf///yH5BAEAAAMALAAAAAALAAsAAAIPnI+py+0/hJzz0IruwjsVADs=) no-repeat center right;
-@triangleUpDown: url(data:image/gif;base64,R0lGODlhCwALAJEAAAAAAP///xUVFf///yH5BAEAAAMALAAAAAALAAsAAAIUnC2nKLnT4or00PvyrQwrPzUZshQAOw==) no-repeat center right;
+.SearchResult__table {
+  max-width: 100%;
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+
+  th, td {
+    text-align: left;
+  }
+
+  td {
+    min-height: 3.5rem;
+    height: 3.5rem;
+
+    &:first-of-type {
+      padding-left: 0.5rem;
+    }
+  }
+
+  th {
+    min-height: 4rem;
+    height: 4rem;
+    &:first-of-type {
+      // publisert dato
+      padding-left: 0.5rem;
+      width: 120px;
+    }
+
+    &:nth-of-type(2) {
+      // annonseoverskrift
+      width: 270px;
+    }
+
+    &:nth-of-type(3) {
+      // arbeidsgiver
+      width: 230px;
+    }
+
+    &:nth-of-type(4) {
+      //Sted
+      width: 120px;
+    }
+
+    &:nth-of-type(5) {
+      //publisert
+      width: 105px;
+    }
+
+    &:nth-of-type(6) {
+      // utløpsdagto
+      width: 125px;
+    }
+
+    &:nth-of-type(7) {
+      //kandidatliste
+      width: 150px;
+    }
+  }
+
+}
+
 
 .SearchResultItem {
   padding: 1rem 0;
@@ -32,45 +90,9 @@
 }
 
 .SearchResultHeaders {
-  padding: 1.25rem 0;
   border-bottom: 1px solid #cecac4;
   border-top: 1px solid #cecac4;
   font-weight: bold;
-}
-
-.SearchResultHeader--sorted-asc {
-  min-width: 20px;
-  min-height: 12px;
-  display: inline-block;
-  background: @triangleUp;
-}
-
-.SearchResultHeader--sorted-desc {
-  min-width: 20px;
-  min-height: 12px;
-  display: inline-block;
-  background: @triangleDown
-}
-
-p:hover .SearchResultHeader--unsorted{
-  min-width: 20px;
-  min-height: 12px;
-  display: inline-block;
-  background: @triangleUpDown;
-}
-
-p:hover .SearchResultHeader--sorted-asc{
-  min-width: 20px;
-  min-height: 12px;
-  display: inline-block;
-  background: @triangleUpDown;
-}
-
-p:hover .SearchResultHeader--sorted-desc{
-  min-width: 20px;
-  min-height: 12px;
-  display: inline-block;
-  background: @triangleUpDown;
 }
 
 .SearchResultItem__column__unassign{

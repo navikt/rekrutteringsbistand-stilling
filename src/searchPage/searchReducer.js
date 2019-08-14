@@ -33,7 +33,7 @@ const initialState = {
     items: [],
     error: undefined,
     isSearching: false,
-    sortField: 'created',
+    sortField: 'published',
     sortDir: 'desc',
     totalElements: 0,
     totalPages: 0,
