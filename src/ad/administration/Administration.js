@@ -32,9 +32,7 @@ export default function Administration() {
                 </div>
                 <div className="Administration__flex__bottom">
                     <AdminStatusPreview />
-                    <div className="Administration__buttons">
-                        <AdStatusEdit />
-                    </div>
+                    <AdStatusEdit />
                 </div>
             </div>
         </div>

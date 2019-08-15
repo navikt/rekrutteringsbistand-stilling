@@ -12,7 +12,7 @@
 }
 
 .AdStatusEdit__buttons__button {
-  flex: 1;
+  flex: 0 1 auto;
   height: 3.25rem;
 }
 
@@ -26,17 +26,19 @@
 }
 
 .AdStatusEdit__PublishChanges__button {
-  padding: 0 2rem 0 2rem !important;
+  padding-right: 2rem !important;
+  padding-left: 2rem !important;
 }
 
 .AdStatusEdit__StopAd__button {
-  padding: 0 1rem 0 1rem !important;
+  padding-right: 1rem !important;
+  padding-left: 1rem !important;
 }
 
-@media (max-width: 1350px) {
+@media (max-width: 1400px) {
   .AdStatusEdit__buttons {
     flex-direction: column;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1.0rem;
     margin-right: 0;
     width: 100%;
   }
@@ -45,9 +47,6 @@
     margin-bottom: 0.5rem;
   }
 
-  .AdStatusEdit__buttons-mini {
-    margin-bottom: 2.5rem;
-  }
 
   .AdStatusEdit__buttons__button:not(:last-child) {
     margin-right: 0;

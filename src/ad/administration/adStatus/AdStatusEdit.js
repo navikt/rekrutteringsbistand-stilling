@@ -108,66 +108,64 @@ class AdStatusEdit extends React.PureComponent {
                 <StopAdModal />
                 <AdPublishedModal />
                 <SaveAdErrorModal />
-                <div>
-                    {buttonState === ButtonGroupEnum.NEW_AD && (
-                        <div className="AdStatusEdit__buttons">
-                            <Hovedknapp
-                                className="AdStatusEdit__buttons__button"
-                                onClick={this.onPublishClick}
-                                spinner={isPublishing}>
-                                Publisér
-                            </Hovedknapp>
-                            <Knapp className="AdStatusEdit__buttons__button" onClick={this.onCancelClick}>
-                                Avbryt
-                            </Knapp>
-                        </div>
-                    )}
-                    {buttonState === ButtonGroupEnum.PUBLISHED_BEFORE && (
-                        <div className="AdStatusEdit__buttons">
-                            <Hovedknapp
-                                className="AdStatusEdit__buttons__button"
-                                onClick={this.onRePublishClick}
-                                spinner={isRePublishing}
-                            >
-                                Republisér stilling
-                            </Hovedknapp>
-                            <Knapp className="AdStatusEdit__buttons__button" onClick={this.onCancelClick}>
-                                Avbryt
-                            </Knapp>
-                        </div>
-                    )}
-                    {buttonState === ButtonGroupEnum.IS_PUBLISHED_NOW && (
-                        <div>
-                            <div className="AdStatusEdit__buttons">
-                                <Hovedknapp
-                                    className="AdStatusEdit__buttons__button AdStatusEdit__PublishChanges__button"
-                                    onClick={this.onPublishAdChangesClick}
-                                    spinner={isPublishingChanges}
-                                >
-                                    Publisér endringer
-                                </Hovedknapp>
-                                <Knapp
-                                    className="AdStatusEdit__buttons__button AdStatusEdit__StopAd__button"
-                                    onClick={this.onStopClick}
-                                    spinner={isStopping}
-                                >
-                                    Stopp stilling
-                                </Knapp>
-                            </div>
-                            <div className="AdStatusEdit__buttons-mini">
-                                <Flatknapp mini onClick={this.onCancelClick}>
-                                    Avbryt
-                                </Flatknapp>
-                            </div>
-                        </div>
-                    )}
-                    <div className="AdStatusEdit__buttons-mini">
-                        {canSave && (
-                            <Flatknapp mini onClick={this.onSaveAdClick}>
-                                Lagre
-                            </Flatknapp>
-                        )}
+                {buttonState === ButtonGroupEnum.NEW_AD && (
+                    <div className="AdStatusEdit__buttons">
+                        <Hovedknapp
+                            className="AdStatusEdit__buttons__button"
+                            onClick={this.onPublishClick}
+                            spinner={isPublishing}>
+                            Publisér
+                        </Hovedknapp>
+                        <Knapp className="AdStatusEdit__buttons__button" onClick={this.onCancelClick}>
+                            Avbryt
+                        </Knapp>
                     </div>
+                )}
+                {buttonState === ButtonGroupEnum.PUBLISHED_BEFORE && (
+                    <div className="AdStatusEdit__buttons">
+                        <Hovedknapp
+                            className="AdStatusEdit__buttons__button"
+                            onClick={this.onRePublishClick}
+                            spinner={isRePublishing}
+                        >
+                            Republisér stilling
+                        </Hovedknapp>
+                        <Knapp className="AdStatusEdit__buttons__button" onClick={this.onCancelClick}>
+                            Avbryt
+                        </Knapp>
+                    </div>
+                )}
+                {buttonState === ButtonGroupEnum.IS_PUBLISHED_NOW && (
+                    <React.Fragment>
+                        <div className="AdStatusEdit__buttons">
+                            <Hovedknapp
+                                className="AdStatusEdit__buttons__button AdStatusEdit__PublishChanges__button"
+                                onClick={this.onPublishAdChangesClick}
+                                spinner={isPublishingChanges}
+                            >
+                                Publisér endringer
+                            </Hovedknapp>
+                            <Knapp
+                                className="AdStatusEdit__buttons__button AdStatusEdit__StopAd__button"
+                                onClick={this.onStopClick}
+                                spinner={isStopping}
+                            >
+                                Stopp stilling
+                            </Knapp>
+                        </div>
+                        <div className="AdStatusEdit__buttons-mini">
+                            <Flatknapp mini onClick={this.onCancelClick}>
+                                Avbryt
+                            </Flatknapp>
+                        </div>
+                    </React.Fragment>
+                )}
+                <div className="AdStatusEdit__buttons-mini">
+                    {canSave && (
+                        <Flatknapp mini onClick={this.onSaveAdClick}>
+                            Lagre
+                        </Flatknapp>
+                    )}
                 </div>
             </div>
         );
