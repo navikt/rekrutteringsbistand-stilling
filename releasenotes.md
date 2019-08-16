@@ -1,3 +1,6 @@
+## RELEASE - 0.45.208-d93be3d
+#### New in this release: 
++ 2019-07-17 [PAM-2711]: begynt på implementasjonn av sortering på mine stillinger
 ## RELEASE - 0.44.206-c1be7b2
 #### New in this release: 
 + 2019-08-02 [refactor] updated nav-frontend libraries * the solid property in AlertStripe has to be a string, so fixed that
