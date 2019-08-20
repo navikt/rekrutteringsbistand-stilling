@@ -17,7 +17,7 @@ class StartPage extends React.Component {
     }
 
     onSearch = () => {
-        this.props.history.push('/stillinger');
+        this.props.history.push('/stillinger', { searchFromStartPage: true });
     };
 
     render() {

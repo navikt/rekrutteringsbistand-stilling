@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import './SearchBox.less';
 import Typeahead from '../../common/typeahead/Typeahead';
-import { SET_SEARCH_FIELD, SET_SEARCH_VALUE, Fields } from '../searchReducer';
+import { SET_SEARCH_FIELD, SET_SEARCH_VALUE } from '../searchReducer';
 
 class SearchBox extends React.Component {
     onTypeAheadChange = (value) => {
