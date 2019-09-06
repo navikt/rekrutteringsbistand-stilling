@@ -17,9 +17,12 @@ import './SearchPage.less';
 
 class SearchPage extends React.Component {
     componentDidMount() {
-        const { getAds, restoreSearch } = this.props;
-        restoreSearch();
-        getAds();
+        const { getAds, restoreSearch, location } = this.props;
+        
+        if (!(location.state && location.state.searchFromStartPage)) {
+            restoreSearch();
+            getAds();
+        }
     }
 
     render() {
@@ -103,7 +106,12 @@ SearchPage.propTypes = {
     restoreSearch: PropTypes.func.isRequired,
     error: PropTypes.shape({
         statusCode: PropTypes.number
-    })
+    }),
+    location: PropTypes.shape({
+        state: PropTypes.shape({
+            searchFromStartPage: PropTypes.bool
+        })
+    }).isRequired
 };
 
 const mapStateToProps = (state) => ({
