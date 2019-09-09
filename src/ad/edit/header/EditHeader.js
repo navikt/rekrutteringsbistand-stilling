@@ -31,13 +31,15 @@ class EditHeader extends React.Component {
             <div>
                 <div className="Ad__actions">
                     <CandidateActions />
-                    <Knapp
-                        className="Ad__actions-button"
-                        onClick={onPreviewAdClick}
-                        mini
-                    >
-                        Forhåndsvis stillingen
-                    </Knapp>
+                    <div>
+                        <Knapp
+                            className="Ad__actions-button"
+                            onClick={onPreviewAdClick}
+                            mini
+                        >
+                            Forhåndsvis stillingen
+                        </Knapp>
+                    </div>
                 </div>
                 <Input
                     inputClassName="EditHeader__AdTitle"

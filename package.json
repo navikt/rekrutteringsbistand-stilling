@@ -60,6 +60,8 @@
     "nav-frontend-skjema-style": "^1.0.40",
     "nav-frontend-spinner": "^1.0.18",
     "nav-frontend-spinner-style": "^0.2.5",
+    "nav-frontend-tabs": "0.0.32",
+    "nav-frontend-tabs-style": "0.0.18",
     "nav-frontend-typografi": "^2.0.12",
     "nav-frontend-typografi-style": "^1.0.13",
     "pam-frontend-header": "^4.3.2",
@@ -72,12 +74,13 @@
     "react-html-parser": "^2.0.2",
     "react-modal": "^3.5.1",
     "react-motion": "^0.5.2",
+    "react-process-string": "^1.2.0",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.0",
     "redux-saga": "^0.16.0",
-    "whatwg-fetch": "^2.0.4",
-    "snyk": "^1.208.0"
+    "snyk": "^1.208.0",
+    "whatwg-fetch": "^2.0.4"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",

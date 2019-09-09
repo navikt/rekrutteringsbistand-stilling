@@ -329,7 +329,7 @@ function* createAd() {
                 navIdent: reportee.navIdent
             }
         });
-
+        
         yield put({ type: SET_AD_DATA, data: response });
         yield put({ type: SET_REPORTEE, reportee: reportee.displayName });
         yield put({ type: SET_NAV_IDENT, navIdent: reportee.navIdent });

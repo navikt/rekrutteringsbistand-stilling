@@ -12,7 +12,7 @@ function AdStatus(props) {
     return isSavingAd ? null : (
         <div className="AdStatusPreview">
             {adStatus === AdStatusEnum.INACTIVE && deactivatedByExpiry && (
-                <Alertstripe className="AdStatusPreview__Alertstripe" type="info" solid="true">
+                <Alertstripe className="AdStatusPreview__Alertstripe" type="advarsel" solid="true">
                     Stillingen er utløpt
                 </Alertstripe>
             )}
@@ -28,15 +28,13 @@ function AdStatus(props) {
             )}
             {adStatus === AdStatusEnum.ACTIVE && originalData.privacy === PrivacyStatusEnum.INTERNAL_NOT_SHOWN && (
                 <Alertstripe className="AdStatusPreview__Alertstripe" type="suksess" solid="true">
-                    Stillingen er publisert internt i NAV
-                    {isEditingAd ? ' | ' : ' '}
+                    Stillingen er publisert internt i NAV | {' '}
                     {originalData.published ? formatISOString(originalData.published) : ''}
                 </Alertstripe>
             )}
             {adStatus === AdStatusEnum.ACTIVE && originalData.privacy === PrivacyStatusEnum.SHOW_ALL && (
                 <Alertstripe className="AdStatusPreview__Alertstripe" type="suksess" solid="true">
-                    Stillingen er publisert på nav.no
-                    {isEditingAd ? ' | ' : ' '}
+                    Stillingen er publisert på nav.no | {' '}
                     {originalData.published ? formatISOString(originalData.published) : ''}
                 </Alertstripe>
             )}

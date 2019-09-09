@@ -7,10 +7,12 @@ import Faded from '../common/faded/Faded';
 import DelayedSpinner from '../common/DelayedSpinner';
 import { REMOVE_AD_DATA } from './adDataReducer';
 import { CREATE_AD, FETCH_AD, PREVIEW_EDIT_AD } from './adReducer';
+import { Column, Row } from 'nav-frontend-grid';
 import Edit from './edit/Edit';
 import Error from './error/Error';
 import Preview from './preview/Preview';
 import Administration from './administration/Administration';
+import AdministrationPreview from './preview/administration/AdministrationPreview';
 import SavedAdAlertStripe from './alertstripe/SavedAdAlertStripe';
 import PreviewHeader from './preview/header/PreviewHeader';
 import EditHeader from './edit/header/EditHeader';
@@ -99,11 +101,11 @@ class Ad extends React.Component {
                                             />
                                             <Edit isNew={isNew}/>
                                         </div>
-                                    ) : (
-                                        <div className="Ad__preview">
-                                            <PreviewHeader />
-                                            <Preview ad={stilling} />
-                                        </div>
+                                    ) : (                  
+                                    <div className="Ad__preview">
+                                        <PreviewHeader />
+                                        <Preview ad={stilling} />
+                                    </div>
                                     )}
                                 </div>
                             </div>
@@ -115,7 +117,11 @@ class Ad extends React.Component {
                                 </div>
                             </div>
                         ) : (
-                            <div />
+                            <div className="Ad__flex__right">
+                            <div className="Ad__flex__right__inner">
+                                <AdministrationPreview />
+                            </div>
+                        </div> 
                         )}
                     </div>
                 </Faded>

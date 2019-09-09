@@ -1,6 +1,7 @@
 import { put, select, takeLatest } from 'redux-saga/effects';
 import { ApiError, fetchAds } from '../api/api';
 import AdminStatusEnum from '../common/enums/AdminStatusEnum';
+import PrivacyStatusEnum from '../common/enums/PrivacyStatusEnum';
 
 export const FETCH_ADS = 'FETCH_ADS';
 export const FETCH_ADS_BEGIN = 'FETCH_ADS_BEGIN';
@@ -18,6 +19,8 @@ export const CHANGE_LOCATION_FILTER = 'CHANGE_LOCATION_FILTER';
 export const RESET_SEARCH = 'RESET_SEARCH';
 export const RESTORE_SEARCH = 'RESTORE_SEARCH';
 export const SET_SEARCH = 'SET_SEARCH';
+export const CHECK_TAG_SOK= 'CHECK_TAG_SOK';
+export const UNCHECK_TAG_SOK= 'UNCHECK_TAG_SOK';
 
 export const Fields = {
     EMPLOYER_NAME: 'employerName',
@@ -46,7 +49,8 @@ const initialState = {
     status: ACTIVE,
     deactivatedByExpiry: undefined,
     source: undefined,
-    locationName: undefined
+    locationName: undefined,
+    tags: []
 };
 
 export default function searchReducer(state = initialState, action) {
@@ -80,7 +84,8 @@ export default function searchReducer(state = initialState, action) {
             return {
                 ...state,
                 page: 0,
-                privacy: action.value
+                privacy: action.value,
+                tags: action.value != PrivacyStatusEnum.INTERNAL_NOT_SHOWN ? [] : state.tags
             };
         case CHANGE_STATUS_FILTER:
             return {
@@ -100,6 +105,18 @@ export default function searchReducer(state = initialState, action) {
                 ...state,
                 page: 0,
                 locationName: action.location
+            };
+        case CHECK_TAG_SOK:  
+            return {
+                ...state,
+                page: 0,
+                tags: [...state.tags, action.value]
+            };
+        case UNCHECK_TAG_SOK:
+            return {
+                ...state,
+                page: 0,
+                tags: state.tags.filter((u) => u !== action.value)
             };
         case FETCH_ADS_BEGIN:
             return {
@@ -159,7 +176,7 @@ function combineStatusQuery(status) {
 
 export function toQuery(search) {
     const {
-        sortField, sortDir, page, privacy, status, source, administrationStatus, locationName, deactivatedByExpiry
+        sortField, sortDir, page, privacy, status, source, administrationStatus, locationName, deactivatedByExpiry,tags
     } = search;
 
     const query = {
@@ -168,6 +185,7 @@ export function toQuery(search) {
         administrationStatus,
         source,
         privacy,
+        tags,
         locationName,
         deactivatedByExpiry,
         ...combineStatusQuery(status)
@@ -231,6 +249,8 @@ export const searchSaga = function* saga() {
         SET_SEARCH_FIELD,
         CHANGE_SORTING,
         CHANGE_PAGE,
-        FETCH_ADS
+        FETCH_ADS,
+        CHECK_TAG_SOK,
+        UNCHECK_TAG_SOK
     ], getAds);
 };

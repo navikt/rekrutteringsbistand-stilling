@@ -40,7 +40,7 @@ export const VALIDATE_CONTACTPERSON_PHONE = 'VALIDATE_CONTACTPERSON_PHONE';
 export const VALIDATE_LOCATION_AREA = 'VALIDATE_LOCATION_AREA';
 export const RESET_VALIDATION_ERROR = 'RESET_VALIDATION_ERROR';
 
-export const MAX_LENGTH_COMMENT = 400;
+export const MAX_LENGTH_COMMENT = 500;
 
 const valueIsNotSet = (value) => (value === undefined || value === null || value.length === 0);
 

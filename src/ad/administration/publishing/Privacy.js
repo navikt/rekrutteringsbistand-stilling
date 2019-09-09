@@ -16,22 +16,20 @@ class Privacy extends React.Component {
         const { privacy } = this.props;
         return (
             <div className="Privacy">
-                <Fieldset legend="Hvor skal stillingen publiseres?*">
-                    <Radio
-                        label="Kun internt i NAV"
-                        value={PrivacyStatusEnum.INTERNAL_NOT_SHOWN}
-                        name="privacy"
-                        checked={privacy === PrivacyStatusEnum.INTERNAL_NOT_SHOWN}
-                        onChange={this.onPrivacyChange}
-                    />
-                    <Radio
-                        label="Eksternt på nav.no"
-                        value={PrivacyStatusEnum.SHOW_ALL}
-                        name="privacy"
-                        checked={privacy === PrivacyStatusEnum.SHOW_ALL}
-                        onChange={this.onPrivacyChange}
-                    />
-                </Fieldset>
+                <Radio
+                    label="Kun internt i NAV"
+                    value={PrivacyStatusEnum.INTERNAL_NOT_SHOWN}
+                    name="privacy"
+                    checked={privacy === PrivacyStatusEnum.INTERNAL_NOT_SHOWN}
+                    onChange={this.onPrivacyChange}
+                />
+                <Radio
+                    label="Eksternt på nav.no"
+                    value={PrivacyStatusEnum.SHOW_ALL}
+                    name="privacy"
+                    checked={privacy === PrivacyStatusEnum.SHOW_ALL}
+                    onChange={this.onPrivacyChange}
+                />
             </div>
         );
     }

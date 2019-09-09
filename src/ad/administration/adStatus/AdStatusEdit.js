@@ -101,7 +101,7 @@ class AdStatusEdit extends React.PureComponent {
         } else if ((isPublished && !isPublishing) || isStopping || isPublishingChanges) {
             buttonState = ButtonGroupEnum.IS_PUBLISHED_NOW;
         }
-
+        
         return (
             <div className="AdStatusEdit">
                 <PublishErrorModal />
@@ -143,7 +143,7 @@ class AdStatusEdit extends React.PureComponent {
                                 onClick={this.onPublishAdChangesClick}
                                 spinner={isPublishingChanges}
                             >
-                                Publisér endringer
+                                Publiser endringer
                             </Hovedknapp>
                             <Knapp
                                 className="AdStatusEdit__buttons__button AdStatusEdit__StopAd__button"
@@ -160,10 +160,10 @@ class AdStatusEdit extends React.PureComponent {
                         </div>
                     </React.Fragment>
                 )}
-                <div className="AdStatusEdit__buttons-mini">
+                <div className="AdStatusEdit__buttons-mini AdStatusEdit__Lagre__button">
                     {canSave && (
                         <Flatknapp mini onClick={this.onSaveAdClick}>
-                            Lagre
+                            Lagre og fortsett senere
                         </Flatknapp>
                     )}
                 </div>

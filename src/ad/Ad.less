@@ -23,6 +23,7 @@
   background: #EBF3FB;
   overflow: hidden;
   max-height: @ad-height;
+  max-width: 580px;
 }
 
 .Ad__flex__center__inner {
@@ -51,12 +52,16 @@
     height: 100%;
     width: 100%;
   }
+  .Ad__flex__right {
+    display: none;
+  }
 }
 
 .Ad__actions {
   padding-bottom: 1.25rem;
   display: flex;
   align-items: center; //vertically
+  flex-wrap: wrap;
 }
 
 .Ad__actions-link {

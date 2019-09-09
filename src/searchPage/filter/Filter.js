@@ -11,6 +11,7 @@ import {
 import AdStatusEnum from '../../common/enums/AdStatusEnum';
 import PrivacyStatusEnum from '../../common/enums/PrivacyStatusEnum';
 import FilterLocation from './location/FilterLocation';
+import InkluderingPanel from './inkludering/InkluderingPanel';
 import {getAdStatusLabel, getPrivacyStatusLabel} from '../../common/enums/getEnumLabels';
 
 class Filter extends React.Component {
@@ -129,6 +130,7 @@ class Filter extends React.Component {
                     </Fieldset>
                 </SkjemaGruppe>
                 <FilterLocation />
+                <InkluderingPanel />
             </form>
         );
     }

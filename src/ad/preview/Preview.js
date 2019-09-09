@@ -7,8 +7,7 @@ import Application from './application/Application';
 import ContactPerson from './contactPerson/ContactPerson';
 import Employer from './employer/Employer';
 import Employment from './employment/Employment';
-import Summary from './summary/Summary';
-import AdStatus from '../administration/adStatus/AdStatus'
+import Summary from './summary/Summary'; 
 import './Preview.less';
 
 export default function Preview({ ad }) {
@@ -69,9 +68,6 @@ export default function Preview({ ad }) {
                     )}
                 </Column>
                 <Column xs="12" md="4">
-                    <div className="blokk-xs">
-                        <AdStatus/>
-                    </div>
                     <div className="AdText__details">
                         <Application
                             source={ad.source}

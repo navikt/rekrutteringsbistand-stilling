@@ -63,53 +63,55 @@ class FilterLocation extends React.Component {
 
         return (
             <React.Fragment>
-                <div className="FilterLocation">
-                    <Typeahead
-                        id="typeahead-location"
-                        className="FilterLocation__typeahead"
-                        onChange={this.onLocationChange}
-                        onSelect={this.onLocationSelect}
-                        onBlur={this.onBlur}
-                        label="Kommune eller fylke"
-                        suggestions={this.props.municipals.map((m) => ({
-                            value: m.code,
-                            label: capitalizeLocation(m.name)
-                        }))}
-                        optionalSuggestions={this.props.counties.map((c) => ({
-                            value: c.code,
-                            label: capitalizeLocation(c.name)
-                        }))}
-                        optionalSuggestionsLabel="Fylke"
-                        value={this.props.typeaheadValue}
-                        minLength={1}
-                        placeholder="F.eks: Drammen"
-                    />
-                    <Knapp
-                        aria-label="søk"
-                        className="FilterLocation__SearchButton"
-                        onClick={this.onSubmit}
-                    >
-                        <i className="FilterLocation__SearchButton__icon" />
-                    </Knapp>
-                </div>
-                {locationArray.length > 0 && (
-                    <div className="FilterLocation__tags">
-                        {locationArray.map((location) => {
-                            if (location) {
-                                return (
-                                    <Tag
-                                        key={location}
-                                        value={location}
-                                        label={capitalizeLocation(location)}
-                                        canRemove
-                                        onRemove={this.onRemoveLocation}
-                                    />
-                                );
-                            }
-                            return null;
-                        })}
+                <div className="FilterLocation__blokk">
+                    <div className="FilterLocation">
+                        <Typeahead
+                            id="typeahead-location"
+                            className="FilterLocation__typeahead"
+                            onChange={this.onLocationChange}
+                            onSelect={this.onLocationSelect}
+                            onBlur={this.onBlur}
+                            label="Kommune eller fylke"
+                            suggestions={this.props.municipals.map((m) => ({
+                                value: m.code,
+                                label: capitalizeLocation(m.name)
+                            }))}
+                            optionalSuggestions={this.props.counties.map((c) => ({
+                                value: c.code,
+                                label: capitalizeLocation(c.name)
+                            }))}
+                            optionalSuggestionsLabel="Fylke"
+                            value={this.props.typeaheadValue}
+                            minLength={1}
+                            placeholder="F.eks: Drammen"
+                        />
+                        <Knapp
+                            aria-label="søk"
+                            className="FilterLocation__SearchButton"
+                            onClick={this.onSubmit}
+                        >
+                            <i className="FilterLocation__SearchButton__icon" />
+                        </Knapp>
                     </div>
-                )}
+                    {locationArray.length > 0 && (
+                        <div className="FilterLocation__tags">
+                            {locationArray.map((location) => {
+                                if (location) {
+                                    return (
+                                        <Tag
+                                            key={location}
+                                            value={location}
+                                            label={capitalizeLocation(location)}
+                                            canRemove
+                                            onRemove={this.onRemoveLocation}
+                                        />
+                                    );
+                                }
+                                return null;
+                            })}
+                        </div>
+                    )}
+                </div>
             </React.Fragment>
         );
     }

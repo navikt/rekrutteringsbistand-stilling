@@ -59,6 +59,8 @@ export const SET_REPORTEE = 'SET_REPORTEE';
 export const SET_NAV_IDENT = 'SET_NAV_IDENT';
 export const SET_UPDATED_BY = 'SET_UPDATED_BY';
 export const SET_PRIVACY = 'SET_PRIVACY';
+export const CHECK_TAG= 'CHECK_TAG';
+export const UNCHECK_TAG= 'UNCHECK_TAG';
 export const SET_CONTACT_PERSON = 'SET_CONTACT_PERSON';
 
 const initialState = {
@@ -513,6 +515,22 @@ export default function adDataReducer(state = initialState, action) {
                 ...state,
                 privacy: action.privacy
             };
+        case CHECK_TAG: 
+            return {
+                ...state,
+                properties: {
+                    ...state.properties,
+                    tags: state.properties.tags  ? JSON.stringify([...(IsJson(state.properties.tags) ? JSON.parse(state.properties.tags) : ''), action.value]) : JSON.stringify([action.value])
+                }
+            };
+        case UNCHECK_TAG:
+                return {
+                    ...state,
+                    properties: {
+                        ...state.properties,
+                        tags: JSON.stringify(JSON.parse(state.properties.tags).filter((m) => (m !== action.value)))
+                    }
+                };
         case SET_CONTACT_PERSON:
             return {
                 ...state,

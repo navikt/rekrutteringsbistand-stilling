@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Textarea } from 'nav-frontend-skjema';
+import { Textarea, Fieldset } from 'nav-frontend-skjema';
 import { connect } from 'react-redux';
 import { SET_COMMENT } from '../../adDataReducer';
 import { MAX_LENGTH_COMMENT } from '../../adValidationReducer';
@@ -15,10 +15,10 @@ class Comment extends React.Component {
         };
     }
 
-    onChange = (e) => {
+    onChange = (e) => { 
         this.setState({
             hasChanged: true,
-            comments: e.target.value
+            comments: e.target.value,
         });
     };
 
@@ -40,21 +40,27 @@ class Comment extends React.Component {
         return null;
     }
 
+    
+    feil = () => {
+        const error = this.props.validation.comment;
+        return error ? { feilmelding: error } : undefined
+    }
 
     render() {
-        const error = this.props.validation.comment;
 
         return (
-            <Textarea
-                label="Kommentar (vises kun internt)"
-                maxLength={MAX_LENGTH_COMMENT}
-                onChange={this.onChange}
-                onBlur={this.onBlur}
-                value={this.state.comments || ''}
-                textareaClass="typo-normal Comment__textarea"
-                feil={error ? { feilmelding: error } : undefined}
-                placeholder={this.props.placeholder}
-            />
+            <div className="Comment">
+                <Textarea 
+                    label="Notatfelt (vises kun internt)"
+                    maxLength={MAX_LENGTH_COMMENT}
+                    onChange={this.onChange}
+                    onBlur={this.onBlur}
+                    value={this.state.comments || ''}
+                    textareaClass="typo-normal Comment__textarea"
+                    feil={this.feil()}
+                    placeholder={this.props.placeholder}
+                />
+            </div>
         );
     }
 }
@@ -70,12 +76,14 @@ Comment.propTypes = {
     placeholder: PropTypes.string,
     validation: PropTypes.shape({
         comment: PropTypes.string
-    }).isRequired
+    }).isRequired,
+    updatedBy: PropTypes.string
 };
 
 const mapStateToProps = (state) => ({
     comments: state.adData.administration.comments,
-    validation: state.adValidation.errors
+    validation: state.adValidation.errors,
+    updatedBy: state.adData.updatedBy
 });
 
 const mapDispatchToProps = (dispatch) => ({
