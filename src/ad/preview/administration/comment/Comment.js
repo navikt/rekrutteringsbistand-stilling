@@ -24,7 +24,7 @@ class Comment extends React.Component {
                                  </span>
         }];
         
-        return PrsocessString(config)(comments);
+        return ProcessString(config)(comments);
     }
     
 
