@@ -18,8 +18,10 @@ class Comment extends React.Component {
     onChange = (e) => { 
         this.setState({
             hasChanged: true,
-            comments: e.target.value,
+            comments: e.target.value
         });
+        this.props.setComment(e.target.value);
+     
     };
 
     onBlur = () => {
