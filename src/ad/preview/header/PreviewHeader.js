@@ -5,6 +5,7 @@ import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import { EDIT_AD } from '../../adReducer';
 import AdTitle from './AdTitle';
 import CandidateActions from '../../candidateActions/CandidateActions';
+import Alertstripe from 'nav-frontend-alertstriper';
 import './PreviewHeader.less';
 
 
@@ -20,6 +21,7 @@ class PreviewMenu extends React.Component {
 
     render() {
         const { stilling } = this.props;
+        const limitedAccess = stilling.updatedBy !== 'pam-rekrutteringsbistand';
 
         return (
             <div>
@@ -42,6 +44,13 @@ class PreviewMenu extends React.Component {
                         </Knapp>
                     </div>
                 </div>
+                {limitedAccess && 
+                    <div className="Ad__info">
+                        <Alertstripe className="AdStatusPreview__Alertstripe" type="info" solid="true">
+                            Dette er en eksternt utlyst stilling. Du kan <b>ikke</b> endre stillingen.
+                        </Alertstripe>
+                    </div>
+                }
                 <AdTitle
                     title={stilling.title}
                     employer={stilling.properties.employer}

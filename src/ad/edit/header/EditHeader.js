@@ -10,6 +10,7 @@ import { DEFAULT_TITLE_NEW_AD } from '../../adReducer';
 import { SET_AD_TITLE } from '../../adDataReducer';
 import { createErrorObject } from '../../../common/utils';
 import CandidateActions from '../../candidateActions/CandidateActions';
+import Alertstripe from 'nav-frontend-alertstriper';
 
 class EditHeader extends React.Component {
     onTitleChange = (e) => {
@@ -25,7 +26,8 @@ class EditHeader extends React.Component {
     };
 
     render() {
-        const { onPreviewAdClick, validation } = this.props;
+        const { onPreviewAdClick, validation, ad } = this.props;
+        const limitedAccess = ad.updatedBy !== 'pam-rekrutteringsbistand';
 
         return (
             <div>
@@ -41,6 +43,13 @@ class EditHeader extends React.Component {
                         </Knapp>
                     </div>
                 </div>
+                {limitedAccess && 
+                    <div className="Ad__info">
+                        <Alertstripe className="AdStatusPreview__Alertstripe" type="info" solid="true">
+                            Dette er en eksternt utlyst stilling. Du kan <b>ikke</b> endre stillingen.
+                        </Alertstripe>
+                    </div>
+                }
                 <Input
                     inputClassName="EditHeader__AdTitle"
                     label={<Element>Overskrift på annonsen* </Element>}
