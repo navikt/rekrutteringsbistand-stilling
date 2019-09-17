@@ -29,6 +29,7 @@ const ButtonGroupEnum = {
     NEW_AD: 'NEW_AD',
     PUBLISHED_BEFORE: 'PUBLISHED_BEFORE',
     IS_PUBLISHED_NOW: 'IS_PUBLISHED_NOW',
+    LIMITED_ACCESS: 'LIMITED_ACCESS' 
 };
 
 class AdStatusEdit extends React.PureComponent {
@@ -94,12 +95,17 @@ class AdStatusEdit extends React.PureComponent {
         const isRePublishing = (this.state.buttonClicked === ButtonEnum.REPUBLISH) && isSavingAd;
         const isPublishingChanges = (this.state.buttonClicked === ButtonEnum.PUBLISH_CHANGES) && isSavingAd;
         const canSave = !isPublished && !isExpired && !isSavingAd;
+        const publishingRights = this.props.updatedBy === 'pam-rekrutteringsbistand';
 
         let buttonState = ButtonGroupEnum.NEW_AD;
         if (isExpired || (adStatus === AdStatusEnum.STOPPED && !isStopping) || isRePublishing) {
             buttonState = ButtonGroupEnum.PUBLISHED_BEFORE;
         } else if ((isPublished && !isPublishing) || isStopping || isPublishingChanges) {
-            buttonState = ButtonGroupEnum.IS_PUBLISHED_NOW;
+            if(publishingRights) {
+                buttonState = ButtonGroupEnum.IS_PUBLISHED_NOW;
+            } else {
+                buttonState = ButtonGroupEnum.LIMITED_ACCESS;
+            }
         }
         
         return (
@@ -108,6 +114,20 @@ class AdStatusEdit extends React.PureComponent {
                 <StopAdModal />
                 <AdPublishedModal />
                 <SaveAdErrorModal />
+                {buttonState === ButtonGroupEnum.LIMITED_ACCESS && (
+                    <div className="AdStatusEdit__buttons">
+                        <Hovedknapp
+                            className="AdStatusEdit__buttons__button"
+                            onClick={this.onSaveAdClick}
+                            spinner={isSavingAd}
+                        >
+                            Lagre endringer
+                        </Hovedknapp>
+                        <Knapp className="AdStatusEdit__buttons__button" onClick={this.onCancelClick}>
+                            Avbryt
+                        </Knapp>
+                    </div>
+                )}
                 {buttonState === ButtonGroupEnum.NEW_AD && (
                     <div className="AdStatusEdit__buttons">
                         <Hovedknapp
@@ -181,11 +201,13 @@ AdStatusEdit.propTypes = {
     publishAdChanges: PropTypes.func.isRequired,
     activationOnPublishingDate: PropTypes.bool.isRequired,
     deactivatedByExpiry: PropTypes.bool.isRequired,
-    isSavingAd: PropTypes.bool.isRequired
+    isSavingAd: PropTypes.bool.isRequired,
+    updatedBy: PropTypes.string.isRequired
 };
 
 const mapStateToProps = (state) => ({
     adStatus: state.adData.status,
+    updatedBy: state.adData.updatedBy,
     activationOnPublishingDate: state.adData.activationOnPublishingDate,
     deactivatedByExpiry: state.adData.deactivatedByExpiry,
     isSavingAd: state.ad.isSavingAd

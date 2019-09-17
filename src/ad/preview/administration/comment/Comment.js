@@ -32,7 +32,7 @@ class Comment extends React.Component {
         const comment = this.process();
         return (
             <div>
-                <Element>Kommentar til stillingen</Element>
+                <Element>Notater</Element>
                 <p className="typo-normal Comment__text">{comment}</p>
             </div>
             )}

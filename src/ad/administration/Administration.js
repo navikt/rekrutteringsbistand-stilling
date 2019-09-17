@@ -20,7 +20,7 @@ class Administration extends React.Component {
 
     publisering() {
         return (
-            <div className="Tab__area">
+            <div className="Tab__area Administration__elements">
                 <div className="Administration__panel">
                     <Undertittel className="Administration__panel__title">Når skal stillingen vises?</Undertittel>
                     <Publishing />

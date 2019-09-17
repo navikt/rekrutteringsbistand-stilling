@@ -7,11 +7,11 @@ import Faded from '../common/faded/Faded';
 import DelayedSpinner from '../common/DelayedSpinner';
 import { REMOVE_AD_DATA } from './adDataReducer';
 import { CREATE_AD, FETCH_AD, PREVIEW_EDIT_AD } from './adReducer';
-import { Column, Row } from 'nav-frontend-grid';
 import Edit from './edit/Edit';
 import Error from './error/Error';
 import Preview from './preview/Preview';
 import Administration from './administration/Administration';
+import AdministrationLimited from './administration/limited/AdministrationLimited';
 import AdministrationPreview from './preview/administration/AdministrationPreview';
 import SavedAdAlertStripe from './alertstripe/SavedAdAlertStripe';
 import PreviewHeader from './preview/header/PreviewHeader';
@@ -55,6 +55,7 @@ class Ad extends React.Component {
     render() {
         const { stilling, isEditingAd, isLoadingAd, leavePageTrigger, hasChangesLeaveUrl } = this.props;
         const { isNew } = this.props.location.state || { isNew: false };
+        const limitedAccess = stilling.updatedBy !== 'pam-rekrutteringsbistand';
 
         if (leavePageTrigger) {
             window.location.pathname = hasChangesLeaveUrl;
@@ -99,7 +100,12 @@ class Ad extends React.Component {
                                                 isNew={isNew}
                                                 onPreviewAdClick={this.onPreviewAdClick}
                                             />
+                                        {limitedAccess ? (
+                                            <Preview ad={stilling} />
+                                        ) 
+                                        :
                                             <Edit isNew={isNew}/>
+                                        }
                                         </div>
                                     ) : (                  
                                     <div className="Ad__preview">
@@ -113,8 +119,14 @@ class Ad extends React.Component {
                         {isEditingAd ? (
                             <div className="Ad__flex__right">
                                 <div className="Ad__flex__right__inner">
+                                {limitedAccess ? (
+                                    <AdministrationLimited />
+                                ) 
+                                :
                                     <Administration />
+                                }
                                 </div>
+                                
                             </div>
                         ) : (
                             <div className="Ad__flex__right">
