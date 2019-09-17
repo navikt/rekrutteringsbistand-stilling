@@ -8,7 +8,8 @@ import {
     SAVE_AD,
     PUBLISH_AD_CHANGES,
     SHOW_STOP_AD_MODAL,
-    SHOW_HAS_CHANGES_MODAL
+    SHOW_HAS_CHANGES_MODAL,
+    PREVIEW_EDIT_AD
 } from '../../adReducer';
 import PublishErrorModal from './PublishErrorModal';
 import './AdStatusEdit.less';
@@ -81,7 +82,14 @@ class AdStatusEdit extends React.PureComponent {
             buttonClicked: undefined
         });
     };
-
+    
+    OnPreviewAdClick = () => {
+        this.props.previewAd();
+        this.setState({
+            buttonClicked: undefined
+        });
+    }
+    
     render() {
         const {
             adStatus, activationOnPublishingDate, deactivatedByExpiry, isSavingAd
@@ -123,7 +131,7 @@ class AdStatusEdit extends React.PureComponent {
                         >
                             Lagre endringer
                         </Hovedknapp>
-                        <Knapp className="AdStatusEdit__buttons__button" onClick={this.onCancelClick}>
+                        <Knapp className="AdStatusEdit__buttons__button" onClick={this.OnPreviewAdClick}>
                             Avbryt
                         </Knapp>
                     </div>
@@ -202,7 +210,8 @@ AdStatusEdit.propTypes = {
     activationOnPublishingDate: PropTypes.bool.isRequired,
     deactivatedByExpiry: PropTypes.bool.isRequired,
     isSavingAd: PropTypes.bool.isRequired,
-    updatedBy: PropTypes.string.isRequired
+    updatedBy: PropTypes.string.isRequired,
+    previewAd: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -218,7 +227,8 @@ const mapDispatchToProps = (dispatch) => ({
     stop: () => dispatch({ type: SHOW_STOP_AD_MODAL }),
     saveAd: () => dispatch({ type: SAVE_AD, showModal: true }),
     showHasChangesModal: () => dispatch({ type: SHOW_HAS_CHANGES_MODAL }),
-    publishAdChanges: () => dispatch({ type: PUBLISH_AD_CHANGES })
+    publishAdChanges: () => dispatch({ type: PUBLISH_AD_CHANGES }),
+    previewAd: () => dispatch({ type: PREVIEW_EDIT_AD })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdStatusEdit);

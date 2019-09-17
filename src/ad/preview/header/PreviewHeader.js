@@ -28,13 +28,15 @@ class PreviewMenu extends React.Component {
                 <div className="Ad__actions">
                     <CandidateActions />
                     <div>
-                        <Hovedknapp
-                            className="Ad__actions-button"
-                            onClick={this.onEditAdClick}
-                            mini
-                        >
-                            Rediger stillingen
-                        </Hovedknapp>
+                        {!limitedAccess &&
+                            <Hovedknapp
+                                className="Ad__actions-button"
+                                onClick={this.onEditAdClick}
+                                mini
+                            >
+                                Rediger stillingen
+                            </Hovedknapp>
+                        }
                         <Knapp
                             className="button-print"
                             onClick={this.onPrintClick}

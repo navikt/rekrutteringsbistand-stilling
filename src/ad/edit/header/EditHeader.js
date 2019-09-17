@@ -33,15 +33,17 @@ class EditHeader extends React.Component {
             <div>
                 <div className="Ad__actions">
                     <CandidateActions />
-                    <div>
-                        <Knapp
-                            className="Ad__actions-button"
-                            onClick={onPreviewAdClick}
-                            mini
-                        >
-                            Forhåndsvis stillingen
-                        </Knapp>
-                    </div>
+                    {!limitedAccess &&
+                        <div>
+                            <Knapp
+                                className="Ad__actions-button"
+                                onClick={onPreviewAdClick}
+                                mini
+                            >
+                                Forhåndsvis stillingen
+                            </Knapp>
+                        </div>
+                    }
                 </div>
                 {limitedAccess && 
                     <div className="Ad__info">

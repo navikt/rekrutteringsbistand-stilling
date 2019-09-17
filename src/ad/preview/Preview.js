@@ -8,6 +8,7 @@ import ContactPerson from './contactPerson/ContactPerson';
 import Employer from './employer/Employer';
 import Employment from './employment/Employment';
 import Summary from './summary/Summary'; 
+
 import './Preview.less';
 
 export default function Preview({ ad }) {
