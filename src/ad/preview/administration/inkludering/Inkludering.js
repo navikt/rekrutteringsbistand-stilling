@@ -11,7 +11,7 @@ class Inkludering extends React.Component {
       return null;
     }
     return (
-      <div>
+      <div className="Inkludering__preview">
         <Element>Inkludering</Element>
         <div>{this.props.tags
           .map(tagName => <EtikettInfo key={tagName} type="info" className="preview__tagname">{tagName}</EtikettInfo>)}</div>
