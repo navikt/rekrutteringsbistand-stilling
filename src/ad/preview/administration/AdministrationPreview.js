@@ -6,7 +6,7 @@ import AdStatus from '../../administration/adStatus/AdStatus';
 import { EDIT_AD } from '../../adReducer';
 import Inkludering from './inkludering/Inkludering';
 import Publishing from './publishing/Publishing';
-import ContactInfo from './ContactInfo/ContactInfo';
+import ContactInfo from './contact/ContactInfo';
 import Comment from './comment/Comment';
 
 import './AdministrationPreview.less';
