@@ -9,7 +9,11 @@ import { formatISOString } from '../../../utils';
 
 function AdStatus(props) {
     const { adStatus, deactivatedByExpiry, activationOnPublishingDate, originalData, isEditingAd, isSavingAd } = props;
-    return isSavingAd ? null : (
+    return isSavingAd ? 
+            <Alertstripe className="AdStatusPreview__Alertstripe" type="info" solid="true">
+                    Stillingen er lagres
+            </Alertstripe>
+        : (
         <div className="AdStatusPreview">
             {adStatus === AdStatusEnum.INACTIVE && deactivatedByExpiry && (
                 <Alertstripe className="AdStatusPreview__Alertstripe" type="advarsel" solid="true">

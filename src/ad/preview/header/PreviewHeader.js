@@ -21,7 +21,7 @@ class PreviewMenu extends React.Component {
 
     render() {
         const { stilling } = this.props;
-        const limitedAccess = stilling.updatedBy !== 'pam-rekrutteringsbistand';
+        const limitedAccess = stilling.createdBy !== 'pam-rekrutteringsbistand';
 
         return (
             <div>

@@ -79,13 +79,13 @@ Comment.propTypes = {
     validation: PropTypes.shape({
         comment: PropTypes.string
     }).isRequired,
-    updatedBy: PropTypes.string
+    createdBy: PropTypes.string
 };
 
 const mapStateToProps = (state) => ({
     comments: state.adData.administration.comments,
     validation: state.adValidation.errors,
-    updatedBy: state.adData.updatedBy
+    createdBy: state.adData.createdBy
 });
 
 const mapDispatchToProps = (dispatch) => ({

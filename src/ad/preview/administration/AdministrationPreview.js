@@ -13,8 +13,8 @@ import './AdministrationPreview.less';
 
 class AdministrationPreview extends React.Component {
     render() {
-        const { updatedBy } = this.props;
-        const limitedAccess = updatedBy !== 'pam-rekrutteringsbistand';
+        const { createdBy } = this.props;
+        const limitedAccess = createdBy!== 'pam-rekrutteringsbistand';
         return (
             <div className="Preview__Administration">
                 <div className="Administration__flex">
@@ -58,13 +58,13 @@ AdministrationPreview.defaultProps = {
 
 AdministrationPreview.propTypes = {
     stilling: PropTypes.shape({
-        updatedBy: PropTypes.string
+        createdBy: PropTypes.string
     }),
     editAd: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-    updatedBy: state.adData.updatedBy
+    createdBy: state.adData.createdBy
 });
 
 const mapDispatchToProps = dispatch => ({

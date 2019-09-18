@@ -27,7 +27,7 @@ class EditHeader extends React.Component {
 
     render() {
         const { onPreviewAdClick, validation, ad } = this.props;
-        const limitedAccess = ad.updatedBy !== 'pam-rekrutteringsbistand';
+        const limitedAccess = ad.createdBy !== 'pam-rekrutteringsbistand';
 
         return (
             <div>

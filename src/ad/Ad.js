@@ -55,7 +55,7 @@ class Ad extends React.Component {
     render() {
         const { stilling, isEditingAd, isLoadingAd, leavePageTrigger, hasChangesLeaveUrl } = this.props;
         const { isNew } = this.props.location.state || { isNew: false };
-        const limitedAccess = stilling.updatedBy !== 'pam-rekrutteringsbistand';
+        const limitedAccess = stilling.createdBy !== 'pam-rekrutteringsbistand';
 
         if (leavePageTrigger) {
             window.location.pathname = hasChangesLeaveUrl;
@@ -160,7 +160,8 @@ Ad.propTypes = {
         title: PropTypes.string,
         uuid: PropTypes.string,
         source: PropTypes.string,
-        status: PropTypes.string
+        status: PropTypes.string,
+        createdBy: PropTypes.string
     }),
     getStilling: PropTypes.func.isRequired,
     createAd: PropTypes.func.isRequired,

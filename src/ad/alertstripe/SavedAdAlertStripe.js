@@ -50,7 +50,7 @@ const mapStateToProps = (state) => ({
     alertStripeMode: state.savedAdAlertStripe.alertStripeMode,
     isSavingAd: state.ad.isSavingAd,
     published: state.adData.published,
-    limitedAccess: state.adData.updatedBy  !== 'pam-rekrutteringsbistand'
+    limitedAccess: state.adData.createdBy  !== 'pam-rekrutteringsbistand'
 });
 
 export default connect(mapStateToProps)(SavedAdAlertStripe);

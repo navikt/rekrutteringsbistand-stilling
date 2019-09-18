@@ -103,7 +103,7 @@ class AdStatusEdit extends React.PureComponent {
         const isRePublishing = (this.state.buttonClicked === ButtonEnum.REPUBLISH) && isSavingAd;
         const isPublishingChanges = (this.state.buttonClicked === ButtonEnum.PUBLISH_CHANGES) && isSavingAd;
         const canSave = !isPublished && !isExpired && !isSavingAd;
-        const publishingRights = this.props.updatedBy === 'pam-rekrutteringsbistand';
+        const publishingRights = this.props.createdBy === 'pam-rekrutteringsbistand';
 
         let buttonState = ButtonGroupEnum.NEW_AD;
         if (isExpired || (adStatus === AdStatusEnum.STOPPED && !isStopping) || isRePublishing) {
@@ -127,7 +127,6 @@ class AdStatusEdit extends React.PureComponent {
                         <Hovedknapp
                             className="AdStatusEdit__buttons__button"
                             onClick={this.onSaveAdClick}
-                            spinner={isSavingAd}
                         >
                             Lagre endringer
                         </Hovedknapp>
@@ -210,13 +209,13 @@ AdStatusEdit.propTypes = {
     activationOnPublishingDate: PropTypes.bool.isRequired,
     deactivatedByExpiry: PropTypes.bool.isRequired,
     isSavingAd: PropTypes.bool.isRequired,
-    updatedBy: PropTypes.string.isRequired,
+    createdBy: PropTypes.string.isRequired,
     previewAd: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
     adStatus: state.adData.status,
-    updatedBy: state.adData.updatedBy,
+    createdBy: state.adData.createdBy,
     activationOnPublishingDate: state.adData.activationOnPublishingDate,
     deactivatedByExpiry: state.adData.deactivatedByExpiry,
     isSavingAd: state.ad.isSavingAd
