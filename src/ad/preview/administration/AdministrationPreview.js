@@ -6,7 +6,7 @@ import AdStatus from '../../administration/adStatus/AdStatus';
 import { EDIT_AD } from '../../adReducer';
 import Inkludering from './inkludering/Inkludering';
 import Publishing from './publishing/Publishing';
-import Kontaktinformasjon from './Kontaktinformasjon/Kontaktinformasjon';
+import ContactInfo from './ContactInfo/ContactInfo';
 import Comment from './comment/Comment';
 
 import './AdministrationPreview.less';
@@ -29,7 +29,7 @@ class AdministrationPreview extends React.Component {
                             <Publishing />
                         </div>
                         <div className="Administration__panel">
-                            <Kontaktinformasjon />
+                            <ContactInfo />
                         </div>
                         <div className="Administration__panel">
                             <Comment />

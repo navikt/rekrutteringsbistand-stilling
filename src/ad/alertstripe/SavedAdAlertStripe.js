@@ -7,14 +7,18 @@ import { formatISOString } from '../../utils';
 import './SavedAdAlertStripe.less';
 
 
-const SavedAdAlertStripe = ({ showAlertStripe, alertStripeMode, isSavingAd, published }) => {
+const SavedAdAlertStripe = ({ showAlertStripe, alertStripeMode, isSavingAd, published, limitedAccess }) => {
     if (isSavingAd) {
         return <div />;
     }
     if (showAlertStripe && alertStripeMode === AdAlertStripeEnum.SAVED) {
         return (
             <AlertStripe type="suksess" solid="true" className="SavedAdAlertStripe">
-                Stillingen er lagret i mine stillinger
+                {
+                    limitedAccess 
+                    ? 'Endringene er lagret'
+                    : 'Stillingen er lagret i mine stillinger'
+                }
             </AlertStripe>
         );
     } else if (showAlertStripe && alertStripeMode === AdAlertStripeEnum.WILL_PUBLISH_CHANGES) {
@@ -37,14 +41,16 @@ const SavedAdAlertStripe = ({ showAlertStripe, alertStripeMode, isSavingAd, publ
 SavedAdAlertStripe.propTypes = {
     showAlertStripe: PropTypes.bool.isRequired,
     alertStripeMode: PropTypes.string.isRequired,
-    isSavingAd: PropTypes.bool.isRequired
+    isSavingAd: PropTypes.bool.isRequired,
+    limitedAccess: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state) => ({
     showAlertStripe: state.savedAdAlertStripe.showAlertStripe,
     alertStripeMode: state.savedAdAlertStripe.alertStripeMode,
     isSavingAd: state.ad.isSavingAd,
-    published: state.adData.published
+    published: state.adData.published,
+    limitedAccess: state.adData.updatedBy  !== 'pam-rekrutteringsbistand'
 });
 
 export default connect(mapStateToProps)(SavedAdAlertStripe);

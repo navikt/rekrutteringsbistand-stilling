@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
 import ProcessString from 'react-process-string';
+import './Comment.less';
 
 class Comment extends React.Component {
     constructor(props) {
@@ -31,7 +32,7 @@ class Comment extends React.Component {
 
         const comment = this.process();
         return (
-            <div>
+            <div className="Comments__preview">
                 <Element>Notater</Element>
                 <p className="typo-normal Comment__text">{comment}</p>
             </div>

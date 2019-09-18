@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
+import { formatISOString } from '../../../../utils';
+import './Publishing.less';
 
 class Publishing extends React.Component {
 
@@ -10,18 +12,18 @@ class Publishing extends React.Component {
 
     return(
       <div>
-              <div>
+              <div className="Publishing__preview">
                   {(published || expires) && (
                     <Element>Publisering</Element>
                   )}
                   { published && (
-                    <Normaltekst>
-                    Publiseringsdato: {published.substring(0,10)} 
+                    <Normaltekst >
+                    Publiseringsdato: {formatISOString(published)} 
                     </Normaltekst>
                    )}
                    { expires && (
                     <Normaltekst>
-                    Siste visningsdato: {expires.substring(0,10)} 
+                    Siste visningsdato: {formatISOString(expires)} 
                     </Normaltekst>
                    )}
               </div>

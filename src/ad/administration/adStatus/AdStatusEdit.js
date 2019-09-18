@@ -188,13 +188,13 @@ class AdStatusEdit extends React.PureComponent {
                         </div>
                     </React.Fragment>
                 )}
-                <div className="AdStatusEdit__buttons-mini AdStatusEdit__Lagre__button">
-                    {canSave && (
+                {canSave && (
+                    <div className="AdStatusEdit__buttons-mini AdStatusEdit__Lagre__button">
                         <Flatknapp mini onClick={this.onSaveAdClick}>
                             Lagre og fortsett senere
                         </Flatknapp>
-                    )}
-                </div>
+                    </div>
+                     )}
             </div>
         );
     }

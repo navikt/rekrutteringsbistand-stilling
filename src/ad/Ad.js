@@ -96,15 +96,19 @@ class Ad extends React.Component {
                                 <div>
                                     {isEditingAd ? (
                                         <div className="Ad__edit__inner">
-                                            <EditHeader
-                                                isNew={isNew}
-                                                onPreviewAdClick={this.onPreviewAdClick}
-                                            />
-                                        {limitedAccess ? (
-                                            <Preview ad={stilling} />
-                                        ) 
-                                        :
-                                            <Edit isNew={isNew}/>
+                                            {limitedAccess ? 
+                                            <div>
+                                                <PreviewHeader />
+                                                <Preview ad={stilling} />
+                                            </div>
+                                             :
+                                             <div>
+                                                <EditHeader
+                                                    isNew={isNew}
+                                                    onPreviewAdClick={this.onPreviewAdClick}
+                                                />
+                                                <Edit isNew={isNew}/>
+                                            </div>
                                         }
                                         </div>
                                     ) : (                  
