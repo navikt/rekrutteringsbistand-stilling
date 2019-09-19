@@ -9,7 +9,8 @@ import {
     PUBLISH_AD_CHANGES,
     SHOW_STOP_AD_MODAL,
     SHOW_HAS_CHANGES_MODAL,
-    PREVIEW_EDIT_AD
+    PREVIEW_EDIT_AD,
+    FETCH_AD
 } from '../../adReducer';
 import PublishErrorModal from './PublishErrorModal';
 import './AdStatusEdit.less';
@@ -89,6 +90,23 @@ class AdStatusEdit extends React.PureComponent {
             buttonClicked: undefined
         });
     }
+
+    onSavePreviewAdClick = () => {
+        this.props.saveAd();
+        this.props.previewAd();
+        
+        this.setState({
+            buttonClicked: undefined
+        });
+    };
+
+        
+    OnCancelPreviewAdClick = () => {
+        this.props.reload(this.props.uuid);
+        this.setState({
+            buttonClicked: undefined
+        });
+    }
     
     render() {
         const {
@@ -126,11 +144,11 @@ class AdStatusEdit extends React.PureComponent {
                     <div className="AdStatusEdit__buttons">
                         <Hovedknapp
                             className="AdStatusEdit__buttons__button"
-                            onClick={this.onSaveAdClick}
+                            onClick={this.onSavePreviewAdClick}
                         >
                             Lagre endringer
                         </Hovedknapp>
-                        <Knapp className="AdStatusEdit__buttons__button" onClick={this.OnPreviewAdClick}>
+                        <Knapp className="AdStatusEdit__buttons__button" onClick={this.OnCancelPreviewAdClick}>
                             Avbryt
                         </Knapp>
                     </div>
@@ -218,7 +236,8 @@ const mapStateToProps = (state) => ({
     createdBy: state.adData.createdBy,
     activationOnPublishingDate: state.adData.activationOnPublishingDate,
     deactivatedByExpiry: state.adData.deactivatedByExpiry,
-    isSavingAd: state.ad.isSavingAd
+    isSavingAd: state.ad.isSavingAd,
+    uuid: state.adData.uuid
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -227,7 +246,8 @@ const mapDispatchToProps = (dispatch) => ({
     saveAd: () => dispatch({ type: SAVE_AD, showModal: true }),
     showHasChangesModal: () => dispatch({ type: SHOW_HAS_CHANGES_MODAL }),
     publishAdChanges: () => dispatch({ type: PUBLISH_AD_CHANGES }),
-    previewAd: () => dispatch({ type: PREVIEW_EDIT_AD })
+    previewAd: () => dispatch({ type: PREVIEW_EDIT_AD }),
+    reload: (uuid) => dispatch({ type: FETCH_AD, uuid, edit:false }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdStatusEdit);
