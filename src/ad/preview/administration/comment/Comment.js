@@ -26,17 +26,17 @@ class Comment extends React.Component {
 
     render() {
         const { comments } = this.props;
-        if(!comments) {
-            return <div/>
-        }
 
         const comment = this.process();
         return (
             <div className="Comments__preview">
                 <Element>Notater</Element>
-                <p className="typo-normal Comment__text">{comment}</p>
-            </div>
-            )}
+                <p className="typo-normal Comment__text">
+                    {comment && comment.length && comment[0] ? comment : '-'}
+                </p>
+            </div>)
+    }
+
 }
 
 Comment.defaultProps = {

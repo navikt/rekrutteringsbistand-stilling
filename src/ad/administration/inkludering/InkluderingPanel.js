@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux'; 
 import { Fieldset, Checkbox } from 'nav-frontend-skjema';
 import { Tags } from '../../../common/tags';
+import { DirektemeldtTags } from './direktemeldtTags'; 
 import { CHECK_TAG, UNCHECK_TAG} from '../../adDataReducer';
 import IsJson from '../../edit/practicalInformation/IsJson';
 
 class InkluderingPanel extends React.Component {
     constructor(props) {
         super(props);
-        this.availableTags = Object.keys(Tags).map((key) => Tags[key]);
+        
     }
 
     onTagChange = (e) => {
@@ -21,10 +22,14 @@ class InkluderingPanel extends React.Component {
     };
 
     render() {
-        const { tags } = this.props;
+        const { tags, direktemeldt } = this.props;
+        const tagsToShow = direktemeldt ? DirektemeldtTags : Tags;
+        const availableTags = Object.keys(tagsToShow).map((key) => Tags[key]);
+
+
         return (
             <div className="Inkludering typo-normal">
-                {this.availableTags.map((availableTag) => (
+                {availableTags.map((availableTag) => (
                         <Checkbox
                             className="checkbox--tag skjemaelement--pink"
                             id={`tag-${availableTag.key.toLowerCase()}-checkbox`}
@@ -46,10 +51,10 @@ InkluderingPanel.propTypes = {
     tags: PropTypes.string
 };
 
-const mapStateToProps = (state) => {
-    return {
+const mapStateToProps = (state) => ({
     tags: state.adData.properties.tags || "[]",
-}};
+    direktemeldt: state.adData.source === 'DIR'
+});
 
 const mapDispatchToProps = (dispatch) => ({
     checkTag: (value) => dispatch({ type: CHECK_TAG, value }),
