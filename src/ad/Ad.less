@@ -23,8 +23,15 @@
   background: #EBF3FB;
   overflow: hidden;
   max-height: @ad-height;
-  max-width: 580px;
-  min-width: 580px;
+  @media (min-width: 1500px) {
+    max-width: 580px;
+    min-width: 580px;
+  }
+  @media (max-width: 1500px) {
+    max-width: 400px;
+    min-width: 400px;
+  }
+
 }
 
 .Ad__flex__center__inner {
