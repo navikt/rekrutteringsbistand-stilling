@@ -32,7 +32,7 @@ class Comment extends React.Component {
             <div className="Comments__preview">
                 <Element>Notater</Element>
                 <p className="typo-normal Comment__text">
-                    {comment && comment.length && comment[0] ? comment : 'Det er ikke lagt inn notater'}
+                    {comment && comment.length && comment[0] ? comment : 'Det er ikke lagt inn notater.'}
                 </p>
             </div>)
     }
