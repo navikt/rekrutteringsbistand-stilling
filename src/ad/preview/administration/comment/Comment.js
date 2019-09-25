@@ -26,13 +26,13 @@ class Comment extends React.Component {
 
     render() {
         const { comments } = this.props;
-
-        const comment = this.process();
+        
+        const comment = comments && comments.length ? this.process() : 'Det er ikke lagt inn notater.';
         return (
             <div className="Comments__preview">
                 <Element>Notater</Element>
                 <p className="typo-normal Comment__text">
-                    {comment && comment.length && comment[0] ? comment : 'Det er ikke lagt inn notater.'}
+                    {comment}
                 </p>
             </div>)
     }
