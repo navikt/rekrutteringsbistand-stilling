@@ -31,7 +31,7 @@ class Publishing extends React.Component {
         const { published, expires } = this.props;
         return (
             <div className="Publishing typo-normal">
-                <div className="Publishing__datepicker">
+                <div className="Publishing__datepicker Publishing__datepicker-publishing-date">
                     <Normaltekst className="Publishing__label">Publiseringsdato*</Normaltekst>
                     <Datovelger
                         id="published"
