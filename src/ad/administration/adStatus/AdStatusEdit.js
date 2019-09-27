@@ -124,15 +124,16 @@ class AdStatusEdit extends React.PureComponent {
         const publishingRights = this.props.createdBy === 'pam-rekrutteringsbistand';
 
         let buttonState = ButtonGroupEnum.NEW_AD;
-        if (isExpired || (adStatus === AdStatusEnum.STOPPED && !isStopping) || isRePublishing) {
-            buttonState = ButtonGroupEnum.PUBLISHED_BEFORE;
-        } else if ((isPublished && !isPublishing) || isStopping || isPublishingChanges) {
-            if(publishingRights) {
+        if(!publishingRights) {
+            buttonState = ButtonGroupEnum.LIMITED_ACCESS;
+        } else {
+            if (isExpired || (adStatus === AdStatusEnum.STOPPED && !isStopping) || isRePublishing) {
+                buttonState = ButtonGroupEnum.PUBLISHED_BEFORE;
+            } else if ((isPublished && !isPublishing) || isStopping || isPublishingChanges) {
                 buttonState = ButtonGroupEnum.IS_PUBLISHED_NOW;
-            } else {
-                buttonState = ButtonGroupEnum.LIMITED_ACCESS;
             }
         }
+    
         
         return (
             <div className="AdStatusEdit">
