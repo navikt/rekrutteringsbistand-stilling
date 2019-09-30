@@ -25,7 +25,7 @@
     "draft-convert": "^2.1.4",
     "draft-js": "^0.10.5",
     "express": "4.16.3",
-    "helmet": "^3.12.1",
+    "helmet": "^3.21.1",
     "history": "^4.7.2",
     "lodash.throttle": "^4.1.1",
     "mustache-express": "^1.2.6",
