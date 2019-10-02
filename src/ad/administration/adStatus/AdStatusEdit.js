@@ -93,7 +93,10 @@ class AdStatusEdit extends React.PureComponent {
 
     onSavePreviewAdClick = () => {
         this.props.saveAd();
-        this.props.previewAd();
+        const validation = this.props.validation;
+        if(!(validation && validation.comment)) {
+            this.props.previewAd();
+        }
         
         this.setState({
             buttonClicked: undefined
@@ -238,7 +241,8 @@ const mapStateToProps = (state) => ({
     activationOnPublishingDate: state.adData.activationOnPublishingDate,
     deactivatedByExpiry: state.adData.deactivatedByExpiry,
     isSavingAd: state.ad.isSavingAd,
-    uuid: state.adData.uuid
+    uuid: state.adData.uuid,
+    validation: state.adValidation.errors
 });
 
 const mapDispatchToProps = (dispatch) => ({

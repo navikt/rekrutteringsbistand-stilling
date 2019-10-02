@@ -8,7 +8,6 @@ import Inkludering from './inkludering/Inkludering';
 import Publishing from './publishing/Publishing';
 import ContactInfo from './contact/ContactInfo';
 import Comment from './comment/Comment';
-import SaveAdErrorModal from '../../../ad/administration/adStatus/SaveAdErrorModal';
 
 import './AdministrationPreview.less';
 
@@ -44,7 +43,6 @@ class AdministrationPreview extends React.Component {
                                 >
                                     Rediger
                                 </Hovedknapp>
-                                <SaveAdErrorModal />
                             </div>
                         )}
                     </div>
