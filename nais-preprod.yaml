@@ -34,7 +34,7 @@ spec:
   env:
     - name: LOGIN_URL
       value: https://loginservice.nais.preprod.local/login
-    - name: PAM_AD_API_BACKEND_REKRUTTERINGSBISTAND_URL
-      value: https://pam-ad-api.nais.preprod.local/rekrutteringsbistand/api/v1/
-    - name: PAMADAPIBACKENDSEARCH_URL
-      value: https://pam-ad-api.nais.preprod.local/search-api/
+    - name: REKRUTTERINGSBISTAND_API_URL
+      value: https://arbeidsgiver.nais.preprod.local/rekrutteringsbistand-api/rekrutteringsbistand/api/v1/
+    - name: REKRUTTERINGSBISTAND_API_SEARCH_URL
+      value: https://arbeidsgiver.nais.preprod.local/rekrutteringsbistand-api/search-api/

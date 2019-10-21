@@ -22,7 +22,7 @@ server.use(helmet.contentSecurityPolicy({
         styleSrc: ['\'self\''],
         fontSrc: ['\'self\'', 'data:'],
         imgSrc: ['\'self\'', 'data:'],
-        connectSrc: ['\'self\'', process.env.PAM_AD_API_BACKEND_REKRUTTERINGSBISTAND_URL, process.env.PAMADAPIBACKENDSEARCH_URL]
+        connectSrc: ['\'self\'', process.env.REKRUTTERINGSBISTAND_API_URL, process.env.REKRUTTERINGSBISTAND_API_SEARCH_URL]
     }
 }));
 
@@ -33,8 +33,8 @@ server.engine('html', mustacheExpress());
 
 
 const writeEnvironmentVariablesToFile = () => {
-    const fileContent = `window.__PAM_AD_API__="${process.env.PAM_AD_API_BACKEND_REKRUTTERINGSBISTAND_URL}";\n`
-        + `window.__PAM_SEARCH_API__="${process.env.PAMADAPIBACKENDSEARCH_URL}";\n`
+    const fileContent = `window.__PAM_AD_API__="${process.env.REKRUTTERINGSBISTAND_API_URL}";\n`
+        + `window.__PAM_SEARCH_API__="${process.env.REKRUTTERINGSBISTAND_API_SEARCH_URL}";\n`
         + `window.__PAM_CONTEXT_PATH__="";\n`
         + `window.__PAM_LOGIN_URL__="${process.env.LOGIN_URL}";\n`
         + `window.__PAM_KANDIDATLISTE_API_URL__="/kandidater/rest/veileder";\n`;

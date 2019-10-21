@@ -22,9 +22,9 @@ module.exports = merge(common, {
     plugins: [
         new webpack.DefinePlugin({
             __PAM_CONTEXT_PATH__: "''",
-            __PAM_AD_API__: "'http://localhost:9014/rekrutteringsbistand/api/v1/'",
-            __PAM_SEARCH_API__: "'http://localhost:9014/search-api/'",
-            __PAM_LOGIN_URL__: "'http://localhost:9014/local/cookie-isso'",
+            __PAM_AD_API__: "'http://localhost:9501/rekrutteringsbistand-api/rekrutteringsbistand/api/v1/'",
+            __PAM_SEARCH_API__: "'http://localhost:9501/rekrutteringsbistand-api/search-api/'",
+            __PAM_LOGIN_URL__: "'http://localhost:9501/rekrutteringsbistand-api/local/cookie-isso'",
             __PAM_KANDIDATLISTE_API_URL__: "'http://localhost:8766/kandidater/rest/veileder'"
         }),
         new HtmlWebpackPlugin({
