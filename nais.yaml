@@ -37,4 +37,4 @@ spec:
     - name: REKRUTTERINGSBISTAND_API_URL
       value: https://arbeidsgiver.nais.adeo.no/rekrutteringsbistand-api/rekrutteringsbistand/api/v1/
     - name: REKRUTTERINGSBISTAND_API_SEARCH_URL
-      value: https://arbeidsgiver.nais.preprod.local/rekrutteringsbistand-api/search-api/
+      value: https://arbeidsgiver.nais.adeo.no/rekrutteringsbistand-api/search-api/
