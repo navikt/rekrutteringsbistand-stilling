@@ -27,7 +27,7 @@ class SearchPage extends React.Component {
 
     render() {
         const {
-            ads, isSearching, error, resetSearch
+            ads, isSearching, error, resetSearch, reportee
         } = this.props;
         const adsFound = !isSearching && ads && ads.length > 0;
         return (
@@ -72,7 +72,10 @@ class SearchPage extends React.Component {
                                     <SearchResultHeaders />
                                     <tbody>
                                         {adsFound && ads.map((ad) => (
-                                            <SearchResultItem key={ad.uuid} ad={ad} />
+                                            <SearchResultItem 
+                                            key={ad.uuid} 
+                                            ad={ad}
+                                            reportee={reportee} />
                                         ))}
                                     </tbody>
                                 </table>
@@ -117,13 +120,14 @@ SearchPage.propTypes = {
 const mapStateToProps = (state) => ({
     ads: state.search.items,
     isSearching: state.search.isSearching,
-    error: state.search.error
+    error: state.search.error,
+    reportee: state.reportee.data
 });
 
 const mapDispatchToProps = (dispatch) => ({
     getAds: () => dispatch({ type: FETCH_ADS }),
     resetSearch: () => dispatch({ type: RESET_SEARCH }),
-    restoreSearch: () => dispatch({ type: RESTORE_SEARCH })
+    restoreSearch: () => dispatch({ type: RESTORE_SEARCH }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchPage);

@@ -91,14 +91,16 @@ export function toQuery(search) {
         reportee, status, page, source, deactivatedByExpiry, sortField, sortDir,
     } = search;
 
+
     const query = {
         sort: `${sortField},${sortDir}`,
         page,
-        source,
         reportee,
         deactivatedByExpiry,
         ...combineStatusQuery(status)
     };
+
+    console.log('q', query)
 
     return query;
 }
@@ -117,6 +119,8 @@ function* getMyAds(action) {
             ...state.myAds,
             reportee: reportee.displayName
         };
+
+        console.log('search', search)
 
         const query = toQuery(search);
         const response = yield fetchAds(query);

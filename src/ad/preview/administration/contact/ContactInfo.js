@@ -17,6 +17,10 @@ class ContactInfo extends React.Component {
         <Normaltekst>
           Kontaktperson hos NAV: {reportee} {navIdent ? ` (${navIdent})` : ''}
         </Normaltekst>
+        {stilling.props && stilling.pr.navidentrekruttering && 
+        <Normaltekst>
+          Kontaktperson rekruttering: {stilling.props.navidentrekruttering}
+        </Normaltekst>}
         {contact && contact.email && 
         <Normaltekst>
           E-post: {contact.email}
@@ -25,7 +29,16 @@ class ContactInfo extends React.Component {
         <Normaltekst>
           Telefon: {contact.phone}
         </Normaltekst>}
-      </div> : ''
+      </div> : 
+      <div className="ContactInfo__preview">
+        {stilling.properties &&
+                            stilling.properties.navidentrekruttering && (
+                                <Normaltekst>
+                                    Kontaktperson rekruttering:{' '}
+                                    {stilling.properties.navidentrekruttering}
+                                </Normaltekst>
+                            )}
+      </div>
   }
 }
 

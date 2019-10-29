@@ -1,6 +1,6 @@
 import AdminStatusEnum from '../common/enums/AdminStatusEnum';
 import toUrl from '../common/toUrl';
-import { AD_API, SEARCH_API } from '../fasitProperties';
+import { AD_API, SEARCH_API, REKRUTTERING_API } from '../fasitProperties';
 import { loginWithRedirectToCurrentLocation } from '../login';
 
 export class ApiError {
@@ -16,6 +16,10 @@ async function request(url, options) {
         response = await fetch(url, options);
     } catch (e) {
         throw new ApiError('Network Error', 0);
+    }
+
+    if(response.status === 204) {
+        return "";
     }
 
     if (response.status !== 200 && response.status !== 201) {
@@ -82,7 +86,7 @@ function fixMissingAdministration(ad) {
     return {
         ...ad,
         administration: {
-            comments: '',
+             s: '',
             status: AdminStatusEnum.RECEIVED,
             reportee: ''
         }
@@ -95,6 +99,11 @@ export async function fetchAd(uuid) {
         return fixMissingAdministration(ad);
     }
     return ad;
+}
+
+export async function fetchRecruitment(uuid) {
+    const rekruttering = await fetchGet(`${REKRUTTERING_API}/stilling/${uuid}`);
+    return rekruttering;
 }
 
 export async function fetchAds(query) {

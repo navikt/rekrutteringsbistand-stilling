@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
-import { EDIT_AD } from '../../adReducer';
+import { EDIT_AD, LEGG_TIL_I_MINE_STILLINGER } from '../../adReducer';
 import AdTitle from './AdTitle';
 import CandidateActions from '../../candidateActions/CandidateActions';
 import Alertstripe from 'nav-frontend-alertstriper';
@@ -19,9 +19,12 @@ class PreviewMenu extends React.Component {
         window.print();
     };
 
+    onLeggTilIMineStillingerClick = () => {
+        this.props.leggTilIMineStillinger();
+    }
+
     render() {
-        const { stilling } = this.props;
-        const limitedAccess = stilling.createdBy !== 'pam-rekrutteringsbistand';
+        const { stilling, limitedAccess } = this.props;
 
         return (
             <div>
@@ -37,6 +40,13 @@ class PreviewMenu extends React.Component {
                                 Rediger stillingen
                             </Hovedknapp>
                         }
+                        {limitedAccess && <Knapp
+                            className="button-legg-i-mine-stillinger"
+                            onClick={this.onLeggTilIMineStillingerClick}
+                            mini
+                        >
+                            Legg i "mine stillinger"
+                        </Knapp> }
                         <Knapp
                             className="button-print"
                             onClick={this.onPrintClick}
@@ -85,10 +95,12 @@ PreviewMenu.propTypes = {
 const mapStateToProps = (state) => ({
     stilling: state.adData,
     adminStatus: state.adData.administration.status,
+    limitedAccess: state.adData.createdBy  !== 'pam-rekrutteringsbistand'
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    editAd: () => dispatch({ type: EDIT_AD })
+    editAd: () => dispatch({ type: EDIT_AD }),
+    leggTilIMineStillinger: () => dispatch({type: LEGG_TIL_I_MINE_STILLINGER})
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PreviewMenu);

@@ -10,7 +10,11 @@ import './SearchResult.less';
 import PrivacyStatusEnum from '../../common/enums/PrivacyStatusEnum';
 import AWithIcon from '../../common/aWithIcon/AWithIcon';
 
-const SearchResultItem = ({ ad }) => (
+const SearchResultItem = ({ ad, reportee }) => {
+    console.log('ddd', ad, reportee)
+    console.log('ddd2', ad.properties.navidentrekruttering, reportee.navIdent)
+    const owner = reportee && reportee.navIdent && ad && ad.properties && (reportee.navIdent === ad.properties.navidentrekruttering);
+    return(
     <tr className="SearchResultItem">
         <td>
             <Normaltekst className="SearchResultItem__column">
@@ -51,7 +55,7 @@ const SearchResultItem = ({ ad }) => (
             </Normaltekst>
         </td>
         <td>
-            {ad.source === 'DIR' && (
+            {(ad.source === 'DIR' || owner) && (
                 <div className="SearchResultItem__column">
                     <AWithIcon
                         href={`/kandidater/lister/stilling/${ad.uuid}/detaljer`}
@@ -62,8 +66,8 @@ const SearchResultItem = ({ ad }) => (
                 </div>
             )}
         </td>
-    </tr>
-);
+    </tr>)
+};
 
 SearchResultItem.propTypes = {
     ad: PropTypes.shape({

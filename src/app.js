@@ -26,6 +26,8 @@ import myAdsReducer, { myAdsSaga } from './myAds/myAdsReducer';
 import history from './history';
 import { urlHasPath, redirectToUrlPath } from './login';
 import kandidatReducer, { kandidatSaga } from './ad/kandidatModal/kandidatReducer';
+import recruitmentDataReducer from './recruitment/recruitmentDataReducer';
+import recruitmentReducer, { recruitmentSaga } from './recruitment/recruitmentReducer';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -44,7 +46,9 @@ const store = createStore(combineReducers({
     reportee: reporteeReducer,
     savedAdAlertStripe: savedSearchAlertStripeReducer,
     search: searchReducer,
-    styrk: styrkReducer
+    styrk: styrkReducer,
+    recruitment: recruitmentReducer,
+    recruitmentData: recruitmentDataReducer
 }), composeEnhancers(applyMiddleware(sagaMiddleware)));
 
 sagaMiddleware.run(adSaga);
@@ -59,6 +63,7 @@ sagaMiddleware.run(myAdsSaga);
 sagaMiddleware.run(adDataSaga);
 sagaMiddleware.run(locationAreaSaga);
 sagaMiddleware.run(kandidatSaga);
+sagaMiddleware.run(recruitmentSaga);
 
 const Main = () => {
     if (urlHasPath()) {

@@ -28,6 +28,8 @@ import { showAlertStripe } from './alertstripe/SavedAdAlertStripeReducer';
 import AdAlertStripeEnum from './alertstripe/AdAlertStripeEnum';
 import { FETCH_MY_ADS } from '../myAds/myAdsReducer';
 import { loginWithRedirectToCurrentLocation } from '../login';
+import { FETCH_RECRUITMENT, SAVE_RECRUITMENT } from '../recruitment/recruitmentReducer';
+import { SET_NAV_IDENT_REKRUTTERING } from '../recruitment/recruitmentDataReducer';
 
 export const FETCH_AD = 'FETCH_AD';
 export const FETCH_AD_BEGIN = 'FETCH_AD_BEGIN';
@@ -86,6 +88,8 @@ export const ADD_COPIED_ADS = 'ADD_COPIED_ADS';
 export const CLEAR_COPIED_ADS = 'CLEAR_COPIED_ADS';
 
 export const DEFAULT_TITLE_NEW_AD = 'Ny stilling';
+
+export const LEGG_TIL_I_MINE_STILLINGER = 'LEGG_TIL_I_MINE_STILLINGER';
 
 const initialState = {
     error: undefined,
@@ -278,16 +282,19 @@ export default function adReducer(state = initialState, action) {
                 ...state,
                 leavePageTrigger: true
             };
+
         default:
             return state;
     }
 }
 
 function* getAd(action) {
+    console.log('getAd', action)
     yield put({ type: FETCH_AD_BEGIN });
     try {
         const response = yield fetchAd(action.uuid);
         yield put({ type: FETCH_AD_SUCCESS, response });
+        yield put({ type: FETCH_RECRUITMENT , uuid: action.uuid });
 
         if (action.edit) {
             yield put({ type: EDIT_AD });
@@ -355,7 +362,7 @@ function* save() {
         if (typeof state.ad.originalData === 'undefined' || needClassify(state.ad.originalData, state.adData)) {
             putUrl += '?classify=true';
         }
-
+        console.log('savestate', state.adData)
         const response = yield fetchPut(putUrl, state.adData);
         yield put({ type: SAVE_AD_SUCCESS, response });
     } catch (e) {
@@ -505,6 +512,13 @@ function* copyAdFromMyAds(action) {
     }
 }
 
+function * leggTilIMineStillinger(action) {
+   let state = yield select();
+    
+    const { navIdent } = state.reportee.data;
+    yield put({ type: SET_NAV_IDENT_REKRUTTERING, navIdent: navIdent });
+    yield put({ type: SAVE_RECRUITMENT} );
+}
 
 export const adSaga = function* saga() {
     yield takeLatest(PUBLISH_AD, publishAd);
@@ -520,4 +534,5 @@ export const adSaga = function* saga() {
     yield takeLatest(STOP_AD_FROM_MY_ADS, stopAdFromMyAds);
     yield takeLatest(DELETE_AD_FROM_MY_ADS, deleteAdFromMyAds);
     yield takeLatest(COPY_AD_FROM_MY_ADS, copyAdFromMyAds);
+    yield takeLatest(LEGG_TIL_I_MINE_STILLINGER, leggTilIMineStillinger)
 };
