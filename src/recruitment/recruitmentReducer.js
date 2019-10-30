@@ -1,9 +1,8 @@
 import { put, select, takeLatest } from 'redux-saga/effects';
-import {  ApiError, fetchDelete, fetchPost, fetchPut, fetchRecruitment } from '../api/api';
-import { AD_API, REKRUTTERING_API } from '../fasitProperties';
+import {  ApiError, fetchPost, fetchPut, fetchRecruitment } from '../api/api';
+import { REKRUTTERING_API } from '../fasitProperties';
 
 import {
-    SET_NAV_IDENT_REKRUTTERING,
     SET_REKRUTTERING_DATA
 } from './recruitmentDataReducer';
 
@@ -68,7 +67,6 @@ export default function recruitmentReducer(state = initialState, action) {
 
 
 function* getRecruitment(action) {
-    console.log('getRecruitment', action, action.uuid)
     yield put({ type: FETCH_RECRUITMENT_BEGIN });
     try {
         const response = yield fetchRecruitment(action.uuid);
@@ -79,8 +77,6 @@ function* getRecruitment(action) {
                 overfoertTil: undefined,
                 stillingUuid: action.uuid
             } 
-
-        console.log('response', saveResponse)
 
         yield put({ type: FETCH_RECRUITMENT_SUCCESS });
         yield put({ type: SET_REKRUTTERING_DATA, data:saveResponse })
@@ -101,10 +97,10 @@ function* saveRecruitment() {
         state = yield select();
 
         // Modified category list requires store/PUT with (re)classification
-        let postUrl = REKRUTTERING_API;
-        console.log('post', postUrl, state)
-        const response = yield fetchPost(postUrl, state.recruitmentData);
-        console.log('saveRecruitment response', response)
+        const response = state.recruitmentData.rekrutteringUuid
+            ? yield fetchPut(REKRUTTERING_API, state.recruitmentData)
+            : yield fetchPost(REKRUTTERING_API, state.recruitmentData);
+            
         yield put({ type: SAVE_RECRUITMENT_SUCCESS, response });
     } catch (e) {
         if (e instanceof ApiError) {

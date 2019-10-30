@@ -12,7 +12,6 @@ const initialState = {
 export default function recruitmentDataReducer(state = initialState, action) {
     switch (action.type) {
         case SET_REKRUTTERING_DATA:
-                console.log('SET_REKRUTTERING_DATA', action)
                 return action.data;
         case SET_NAV_IDENT_REKRUTTERING:
             return {

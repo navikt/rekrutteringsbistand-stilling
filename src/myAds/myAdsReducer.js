@@ -91,7 +91,6 @@ export function toQuery(search) {
         reportee, status, page, source, deactivatedByExpiry, sortField, sortDir,
     } = search;
 
-
     const query = {
         sort: `${sortField},${sortDir}`,
         page,

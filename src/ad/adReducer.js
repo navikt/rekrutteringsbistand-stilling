@@ -289,7 +289,6 @@ export default function adReducer(state = initialState, action) {
 }
 
 function* getAd(action) {
-    console.log('getAd', action)
     yield put({ type: FETCH_AD_BEGIN });
     try {
         const response = yield fetchAd(action.uuid);
@@ -362,7 +361,7 @@ function* save() {
         if (typeof state.ad.originalData === 'undefined' || needClassify(state.ad.originalData, state.adData)) {
             putUrl += '?classify=true';
         }
-        console.log('savestate', state.adData)
+
         const response = yield fetchPut(putUrl, state.adData);
         yield put({ type: SAVE_AD_SUCCESS, response });
     } catch (e) {

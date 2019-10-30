@@ -24,7 +24,11 @@ class PreviewMenu extends React.Component {
     }
 
     render() {
-        const { stilling, limitedAccess } = this.props;
+        const { stilling, limitedAccess, recruitment, reportee } = this.props;
+
+        const kanOverfoereStilling =
+            limitedAccess &&
+                (!recruitment.overfoertTil || (reportee && recruitment.overfoertTil != reportee.navIdent));
 
         return (
             <div>
@@ -40,7 +44,7 @@ class PreviewMenu extends React.Component {
                                 Rediger stillingen
                             </Hovedknapp>
                         }
-                        {limitedAccess && <Knapp
+                        {kanOverfoereStilling && <Knapp
                             className="button-legg-i-mine-stillinger"
                             onClick={this.onLeggTilIMineStillingerClick}
                             mini
@@ -90,12 +94,18 @@ PreviewMenu.propTypes = {
         })
     }),
     editAd: PropTypes.func.isRequired,
+    recruitment: PropTypes.shape({
+        stillingUuid: PropTypes.string,
+        overfoertTil: PropTypes.string
+    })
 };
 
 const mapStateToProps = (state) => ({
     stilling: state.adData,
     adminStatus: state.adData.administration.status,
-    limitedAccess: state.adData.createdBy  !== 'pam-rekrutteringsbistand'
+    limitedAccess: state.adData.createdBy  !== 'pam-rekrutteringsbistand',
+    recruitment: state.recruitmentData,
+    reportee: state.reportee.data
 });
 
 const mapDispatchToProps = (dispatch) => ({

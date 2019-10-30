@@ -11,8 +11,7 @@ import PrivacyStatusEnum from '../../common/enums/PrivacyStatusEnum';
 import AWithIcon from '../../common/aWithIcon/AWithIcon';
 
 const SearchResultItem = ({ ad, reportee }) => {
-    console.log('ddd', ad, reportee)
-    console.log('ddd2', ad.properties.navidentrekruttering, reportee.navIdent)
+
     const owner = reportee && reportee.navIdent && ad && ad.properties && (reportee.navIdent === ad.properties.navidentrekruttering);
     return(
     <tr className="SearchResultItem">
