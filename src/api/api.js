@@ -108,22 +108,26 @@ export async function fetchRecruitment(uuid) {
 
 export async function fetchAds(query) {
     const result = await fetchGet(`${AD_API}ads${toUrl(query)}`);
-    console.log('fetchAds', result)
-    if(result.content && result.content.length > 0) {
-        const adUuids = result.content.map((ad) => ad.uuid).join(',')
-        const recruitment = await fetchGet(`${REKRUTTERING_API}/stilling/?stillingUuider=${adUuids}`);
-        console.log('recruitment', recruitment)
-    }
+    const recruitments = await fetchRecruitments(result.content);
     
     return {
         ...result,
         content: result.content.map((ad) => {
+            ad.recruitment = recruitments.find(r => ad.uuid == r.stillingUuid);
             if (ad.administration === null) {
                 return fixMissingAdministration(ad);
             }
             return ad;
         })
     };
+}
+
+async function fetchRecruitments(ads) {
+    if(ads && ads.length > 0) {
+        const adUuids = ads.map((ad) => ad.uuid).join(',')
+        return await fetchGet(`${REKRUTTERING_API}/stilling/?stillingUuider=${adUuids}`);
+    }
+    return [];
 }
 
 const employerNameCompletionQueryTemplate = (match) => ({

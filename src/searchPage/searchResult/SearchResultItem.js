@@ -12,7 +12,7 @@ import AWithIcon from '../../common/aWithIcon/AWithIcon';
 
 const SearchResultItem = ({ ad, reportee }) => {
 
-    const owner = reportee && reportee.navIdent && ad && ad.properties && (reportee.navIdent === ad.properties.navidentrekruttering);
+    const overfoert = ad.recruitment && ad.recruitment.rekrutteringUuid;
     return(
     <tr className="SearchResultItem">
         <td>
@@ -54,7 +54,7 @@ const SearchResultItem = ({ ad, reportee }) => {
             </Normaltekst>
         </td>
         <td>
-            {(ad.source === 'DIR' || owner) && (
+            {(ad.source === 'DIR' || overfoert) && (
                 <div className="SearchResultItem__column">
                     <AWithIcon
                         href={`/kandidater/lister/stilling/${ad.uuid}/detaljer`}
