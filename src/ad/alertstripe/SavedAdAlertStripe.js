@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import AlertStripe from 'nav-frontend-alertstriper';
 import AdAlertStripeEnum from './AdAlertStripeEnum';
+import { Link } from 'react-router-dom';
 import { formatISOString } from '../../utils';
 import './SavedAdAlertStripe.less';
 
@@ -31,6 +32,18 @@ const SavedAdAlertStripe = ({ showAlertStripe, alertStripeMode, isSavingAd, publ
         return (
             <AlertStripe type="suksess" solid="true" className="SavedAdAlertStripe">
                 Endringene har blitt publisert
+            </AlertStripe>
+        );
+    } else if (showAlertStripe && alertStripeMode === AdAlertStripeEnum.TRANSFERRED) {
+        return (
+            <AlertStripe type="suksess" solid="true" className="SavedAdAlertStripe">
+                Stillingen og kandidatlisten er nå markert som din. Du kan finne den under 
+                <Link
+                        to="/minestillinger"
+                        className="typo-normal lenke"
+                    >
+                        "mine stillinger"
+                </Link>  
             </AlertStripe>
         );
     }

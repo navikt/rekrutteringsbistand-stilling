@@ -1,5 +1,5 @@
 import { put, select, takeLatest } from 'redux-saga/effects';
-import { ApiError, fetchAds } from '../api/api';
+import { ApiError, fetchMyAds,fetchRecruitmentsForVeileder } from '../api/api';
 import { getReportee } from '../reportee/reporteeReducer';
 
 export const FETCH_MY_ADS = 'FETCH_MY_ADS';
@@ -88,7 +88,7 @@ function combineStatusQuery(status) {
 
 export function toQuery(search) {
     const {
-        reportee, status, page, source, deactivatedByExpiry, sortField, sortDir,
+        reportee, status, page, source, deactivatedByExpiry, sortField, sortDir, uuid
     } = search;
 
     const query = {
@@ -96,10 +96,9 @@ export function toQuery(search) {
         page,
         reportee,
         deactivatedByExpiry,
+        uuid,
         ...combineStatusQuery(status)
     };
-
-    console.log('q', query)
 
     return query;
 }
@@ -114,15 +113,21 @@ function* getMyAds(action) {
 
         const state = yield select();
 
+        const recruitmentResponse = yield fetchRecruitmentsForVeileder(reportee.navIdent)
+
+        const stillingUuids = recruitmentResponse
+            .map(r => r.stillingUuid)
+            .join(",")
+
         const search = {
             ...state.myAds,
-            reportee: reportee.displayName
+            reportee: reportee.displayName,
+            uuid: stillingUuids
         };
 
-        console.log('search', search)
-
         const query = toQuery(search);
-        const response = yield fetchAds(query);
+        const response = yield fetchMyAds(query);
+
         yield put({ type: FETCH_MY_ADS_SUCCESS, response });
     } catch (e) {
         if (e instanceof ApiError) {

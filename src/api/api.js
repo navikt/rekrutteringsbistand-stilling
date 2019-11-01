@@ -102,12 +102,15 @@ export async function fetchAd(uuid) {
 }
 
 export async function fetchRecruitment(uuid) {
-    const rekruttering = await fetchGet(`${REKRUTTERING_API}/stilling/${uuid}`);
-    return rekruttering;
+    return await fetchGet(`${REKRUTTERING_API}/stilling/${uuid}`);
 }
 
-export async function fetchAds(query) {
-    const result = await fetchGet(`${AD_API}ads${toUrl(query)}`);
+export async function fetchRecruitmentsForVeileder(navIdent) {
+    return await fetchGet(`${REKRUTTERING_API}/ident/${navIdent}`);
+}
+
+async function fetchAdsCommon(query, baseurl) {
+    const result = await fetchGet(`${baseurl}${toUrl(query)}`);
     const recruitments = await fetchRecruitments(result.content);
     
     return {
@@ -120,6 +123,14 @@ export async function fetchAds(query) {
             return ad;
         })
     };
+}
+
+export async function fetchAds(query) {
+    return fetchAdsCommon(query, `${AD_API}ads`)
+}
+
+export async function fetchMyAds(query) {
+    return fetchAdsCommon(query, `${AD_API}ads/rekrutteringsbistand/minestillinger`)
 }
 
 async function fetchRecruitments(ads) {

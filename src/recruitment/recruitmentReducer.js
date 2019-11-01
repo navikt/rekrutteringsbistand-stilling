@@ -5,7 +5,8 @@ import { REKRUTTERING_API } from '../fasitProperties';
 import {
     SET_REKRUTTERING_DATA
 } from './recruitmentDataReducer';
-
+import { showAlertStripe } from '../ad/alertstripe/SavedAdAlertStripeReducer';
+import AdAlertStripeEnum from '../ad/alertstripe/AdAlertStripeEnum';
 export const FETCH_RECRUITMENT = 'FETCH_RECRUITMENT';
 export const FETCH_RECRUITMENT_BEGIN = 'FETCH_RECRUITMENT_BEGIN';
 export const FETCH_RECRUITMENT_SUCCESS = 'FETCH_RECRUITMENT_SUCCESS';
@@ -102,6 +103,7 @@ function* saveRecruitment() {
             : yield fetchPost(REKRUTTERING_API, state.recruitmentData);
             
         yield put({ type: SAVE_RECRUITMENT_SUCCESS, response });
+        yield showAlertStripe(AdAlertStripeEnum.TRANSFERRED);
     } catch (e) {
         if (e instanceof ApiError) {
             yield put({ type: SAVE_RECRUITMENT_FAILURE, error: e });
