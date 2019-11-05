@@ -76,6 +76,7 @@ function* getRecruitment(action) {
             ? response 
             : {
                 eierIdent: undefined,
+                eierNavn: undefined,
                 stillingUuid: action.uuid
             } 
 

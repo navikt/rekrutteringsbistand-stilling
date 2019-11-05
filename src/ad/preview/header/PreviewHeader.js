@@ -96,7 +96,8 @@ PreviewMenu.propTypes = {
     editAd: PropTypes.func.isRequired,
     recruitment: PropTypes.shape({
         stillingUuid: PropTypes.string,
-        eierIdent: PropTypes.string
+        eierIdent: PropTypes.string,
+        eierNavn: PropTypes.string
     })
 };
 

@@ -31,9 +31,9 @@ class CandidateActions extends React.Component {
 
     render() {
         const { uuid, source, publishedByAdmin, id } = this.props.ad;
-        const {eierIdent}  = this.props;
+        const {recruitment}  = this.props;
 
-        const showCandidateLinks = (publishedByAdmin && source === 'DIR' || eierIdent);
+        const showCandidateLinks = (publishedByAdmin && source === 'DIR' || recruitment.eierIdent);
 
         return (
             <div className="CandidateActions">
@@ -90,7 +90,7 @@ CandidateActions.propTypes = {
 const mapStateToProps = (state) => ({
     ad: state.adData,
     hasChanges: state.ad.hasChanges,
-    eierIdent: state.recruitmentData.eierIdent
+    recruitment: state.recruitmentData
 });
 
 const mapDispatchToProps = (dispatch) => ({

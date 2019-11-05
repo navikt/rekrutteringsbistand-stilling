@@ -31,7 +31,7 @@ class ContactInfo extends React.Component {
       <div className="ContactInfo__preview">
         {hasRecruitment && (
           <Normaltekst>
-            Kontaktperson hos NAV: todo {recruitment.eierIdent ? ` (${recruitment.eierIdent})` : ''}
+            Kontaktperson hos NAV: {recruitment.eierNavn} {recruitment.eierIdent ? ` (${recruitment.eierIdent})` : ''}
           </Normaltekst>
         )}
       </div>
@@ -53,7 +53,8 @@ ContactInfo.propTypes = {
   }),
   recruitment: PropTypes.shape({
     stillingUuid: PropTypes.string,
-    eierIdent: PropTypes.string
+    eierIdent: PropTypes.string,
+    eierNavn: PropTypes.string
   })
 }
 

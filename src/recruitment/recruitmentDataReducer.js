@@ -6,6 +6,7 @@ export const SET_REKRUTTERING_DATA = 'SET_REKRUTTERING_DATA';
 
 const initialState = {
     eierIdent: undefined,
+    eierNavn: undefined,
     stillingUuid: undefined
 }
 
@@ -16,7 +17,8 @@ export default function recruitmentDataReducer(state = initialState, action) {
         case SET_NAV_IDENT_REKRUTTERING:
             return {
                 ...state,
-                eierIdent: action.navIdent 
+                eierIdent: action.navIdent,
+                eierNavn: action.displayName,
             };
         default:
                 return state 
