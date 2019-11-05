@@ -75,7 +75,7 @@ function* getRecruitment(action) {
             response !== "" 
             ? response 
             : {
-                overfoertTil: undefined,
+                eierIdent: undefined,
                 stillingUuid: action.uuid
             } 
 

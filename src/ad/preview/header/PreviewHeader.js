@@ -28,7 +28,7 @@ class PreviewMenu extends React.Component {
 
         const kanOverfoereStilling =
             limitedAccess &&
-                (!recruitment.overfoertTil || (reportee && recruitment.overfoertTil != reportee.navIdent));
+                (!recruitment.eierIdent || (reportee && recruitment.eierIdent != reportee.navIdent));
 
         return (
             <div>
@@ -96,7 +96,7 @@ PreviewMenu.propTypes = {
     editAd: PropTypes.func.isRequired,
     recruitment: PropTypes.shape({
         stillingUuid: PropTypes.string,
-        overfoertTil: PropTypes.string
+        eierIdent: PropTypes.string
     })
 };
 

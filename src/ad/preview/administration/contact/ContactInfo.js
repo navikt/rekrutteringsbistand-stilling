@@ -9,7 +9,7 @@ class ContactInfo extends React.Component {
   render() {
     const { stilling, recruitment } = this.props;
     const isDir = (stilling && stilling.source === 'DIR');
-    const hasRecruitment = recruitment && recruitment.overfoertTil;
+    const hasRecruitment = recruitment && recruitment.eierIdent;
     const { reportee, navIdent } = stilling.administration;
     const contact = stilling.contactList && stilling.contactList.length ? stilling.contactList[0] : undefined;
 
@@ -31,7 +31,7 @@ class ContactInfo extends React.Component {
       <div className="ContactInfo__preview">
         {hasRecruitment && (
           <Normaltekst>
-            Kontaktperson hos NAV: todo {recruitment.overfoertTil ? ` (${recruitment.overfoertTil})` : ''}
+            Kontaktperson hos NAV: todo {recruitment.eierIdent ? ` (${recruitment.eierIdent})` : ''}
           </Normaltekst>
         )}
       </div>
@@ -53,7 +53,7 @@ ContactInfo.propTypes = {
   }),
   recruitment: PropTypes.shape({
     stillingUuid: PropTypes.string,
-    overfoertTil: PropTypes.string
+    eierIdent: PropTypes.string
   })
 }
 
