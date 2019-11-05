@@ -94,7 +94,8 @@ function fixMissingAdministration(ad) {
 }
 
 export async function fetchAd(uuid) {
-    const ad = await fetchGet(`${AD_API}ads/${uuid}`);
+    //const ad = await fetchGet(`${AD_API}ads/${uuid}`);
+    const ad = await fetchGet(`${AD_API}stilling/${uuid}`)
     if (ad.administration === null) {
         return fixMissingAdministration(ad);
     }
