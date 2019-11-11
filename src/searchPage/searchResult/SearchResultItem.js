@@ -10,9 +10,8 @@ import './SearchResult.less';
 import PrivacyStatusEnum from '../../common/enums/PrivacyStatusEnum';
 import AWithIcon from '../../common/aWithIcon/AWithIcon';
 
-const SearchResultItem = ({ ad, reportee }) => {
-
-    const overfoert = ad.recruitment && ad.recruitment.rekrutteringUuid;
+const SearchResultItem = ({ ad }) => {
+    const overfoert = ad.rekruttering && ad.rekruttering.rekrutteringUuid;
     return(
     <tr className="SearchResultItem">
         <td>

@@ -112,12 +112,10 @@ export async function fetchRecruitmentsForVeileder(navIdent) {
 
 async function fetchAdsCommon(query, baseurl) {
     const result = await fetchGet(`${baseurl}${toUrl(query)}`);
-    const recruitments = await fetchRecruitments(result.content);
     
     return {
         ...result,
         content: result.content.map((ad) => {
-            ad.recruitment = recruitments.find(r => ad.uuid == r.stillingUuid);
             if (ad.administration === null) {
                 return fixMissingAdministration(ad);
             }

@@ -70,9 +70,9 @@ export default function recruitmentReducer(state = initialState, action) {
 function* getRecruitment(action) {
     yield put({ type: FETCH_RECRUITMENT_BEGIN });
     try {
-        const response = yield fetchRecruitment(action.uuid);
+        const response = action.rekruttering;
         const saveResponse = 
-            response !== "" 
+            response !== null 
             ? response 
             : {
                 eierIdent: undefined,
@@ -102,7 +102,8 @@ function* saveRecruitment() {
         const response = state.recruitmentData.rekrutteringUuid
             ? yield fetchPut(REKRUTTERING_API, state.recruitmentData)
             : yield fetchPost(REKRUTTERING_API, state.recruitmentData);
-            
+        
+        yield put({ type: SET_REKRUTTERING_DATA, data:response })
         yield put({ type: SAVE_RECRUITMENT_SUCCESS, response });
         yield showAlertStripe(AdAlertStripeEnum.TRANSFERRED);
     } catch (e) {

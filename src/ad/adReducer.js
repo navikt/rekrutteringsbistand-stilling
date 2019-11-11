@@ -293,7 +293,7 @@ function* getAd(action) {
     try {
         const response = yield fetchAd(action.uuid);
         yield put({ type: FETCH_AD_SUCCESS, response });
-        yield put({ type: FETCH_RECRUITMENT , uuid: action.uuid });
+        yield put({ type: FETCH_RECRUITMENT, rekruttering:response.rekruttering, uuid: action.uuid});
 
         if (action.edit) {
             yield put({ type: EDIT_AD });
@@ -511,12 +511,13 @@ function* copyAdFromMyAds(action) {
     }
 }
 
-function * leggTilIMineStillinger(action) {
+function * leggTilIMineStillinger(action) { 
    let state = yield select();
     
     const { navIdent, displayName } = state.reportee.data;
     yield put({ type: SET_NAV_IDENT_REKRUTTERING, navIdent, displayName});
-    yield put({ type: SAVE_RECRUITMENT} );
+    yield put({ type: SAVE_RECRUITMENT, uuid: action.uuid} );
+    yield put({type: FETCH_AD, uuid: state.adData.uuid, edit: false})
 }
 
 export const adSaga = function* saga() {

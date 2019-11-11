@@ -24,11 +24,11 @@ class PreviewMenu extends React.Component {
     }
 
     render() {
-        const { stilling, limitedAccess, recruitment, reportee } = this.props;
+        const { stilling, limitedAccess, rekruttering, reportee } = this.props;
 
-        const kanOverfoereStilling =
-            limitedAccess &&
-                (!recruitment.eierIdent || (reportee && recruitment.eierIdent != reportee.navIdent));
+        const kanOverfoereStilling = 
+            rekruttering && limitedAccess && 
+            (!rekruttering.eierIdent || (reportee && rekruttering.eierIdent != reportee.navIdent));
 
         return (
             <div>
@@ -94,7 +94,7 @@ PreviewMenu.propTypes = {
         })
     }),
     editAd: PropTypes.func.isRequired,
-    recruitment: PropTypes.shape({
+    rekruttering: PropTypes.shape({
         stillingUuid: PropTypes.string,
         eierIdent: PropTypes.string,
         eierNavn: PropTypes.string
@@ -102,10 +102,10 @@ PreviewMenu.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
+    rekruttering: state.recruitmentData,
     stilling: state.adData,
     adminStatus: state.adData.administration.status,
     limitedAccess: state.adData.createdBy  !== 'pam-rekrutteringsbistand',
-    recruitment: state.recruitmentData,
     reportee: state.reportee.data
 });
 
