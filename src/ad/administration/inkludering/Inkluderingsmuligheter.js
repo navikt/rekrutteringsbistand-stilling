@@ -1,7 +1,9 @@
 import React, { Fragment } from 'react';
 import { Checkbox } from 'nav-frontend-skjema';
 import { Normaltekst } from 'nav-frontend-typografi';
+
 import isJson from '../../edit/practicalInformation/IsJson';
+import { TAG_HIERARCHY_SPACER } from '../../tagHelpers';
 
 const Inkluderingsmuligheter = ({ allTags, muligheter, onTagChange }) => {
     const { label, tags } = muligheter;
@@ -11,7 +13,7 @@ const Inkluderingsmuligheter = ({ allTags, muligheter, onTagChange }) => {
             <Normaltekst>{label}</Normaltekst>
             {Object.keys(tags).map((subTag) => {
                 const { key, label } = tags[subTag];
-                const actualKey = `INKLUDERING__${key}`;
+                const actualKey = `INKLUDERING${TAG_HIERARCHY_SPACER}${key}`;
 
                 return (
                     <Checkbox

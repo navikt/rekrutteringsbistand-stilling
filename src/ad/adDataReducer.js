@@ -6,6 +6,7 @@ import AdStatusEnum from '../common/enums/AdStatusEnum';
 import PrivacyStatusEnum from '../common/enums/PrivacyStatusEnum';
 import IsJson from './edit/practicalInformation/IsJson';
 import { isValidISOString } from '../utils';
+import { checkTagWithHierarchy, uncheckTagWithHierarchy } from './tagHelpers';
 
 export const SET_AD_DATA = 'SET_AD_DATA';
 export const REMOVE_AD_DATA = 'REMOVE_AD_DATA';
@@ -515,38 +516,31 @@ export default function adDataReducer(state = initialState, action) {
                 ...state,
                 privacy: action.privacy
             };
-        case CHECK_TAG:
-            const currentTags = IsJson(state.properties.tags) ? JSON.parse(state.properties.tags) : [];
-
-            if (action.value.includes('__')) {
-                const baseTag = action.value.split('__')[0];
-
-                if (!currentTags.includes(baseTag)) {
-                    currentTags.push(baseTag);
-                }
-            }
-
-            const tagsJson = [
-                ...currentTags,
+        case CHECK_TAG: {
+            const tags = checkTagWithHierarchy(
+                IsJson(state.properties.tags) ? JSON.parse(state.properties.tags) : [],
                 action.value
-            ]
+            )
 
             return {
                 ...state,
                 properties: {
                     ...state.properties,
-                    tags: JSON.stringify(tagsJson),
+                    tags: JSON.stringify(tags),
                 }
             };
+        }
         case UNCHECK_TAG:
-            const newTags = JSON.parse(state.properties.tags).filter(tag => tag !== action.value);
-            const withoutSubTags = newTags.filter(tag => !tag.startsWith(`${action.value}__`));
+            const tags = uncheckTagWithHierarchy(
+                JSON.parse(state.properties.tags),
+                action.value
+            );
 
             return {
                 ...state,
                 properties: {
                     ...state.properties,
-                    tags: JSON.stringify(withoutSubTags)
+                    tags: JSON.stringify(tags)
                 }
             };
         case SET_CONTACT_PERSON:
