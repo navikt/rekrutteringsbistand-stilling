@@ -1,16 +1,17 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux'; 
-import { Fieldset, Checkbox } from 'nav-frontend-skjema';
+import { connect } from 'react-redux';
+import { Checkbox } from 'nav-frontend-skjema';
+
 import { Tags } from '../../../common/tags';
-import { DirektemeldtTags } from './direktemeldtTags'; 
-import { CHECK_TAG, UNCHECK_TAG} from '../../adDataReducer';
+import { DirektemeldtTags } from './direktemeldtTags';
+import { CHECK_TAG, UNCHECK_TAG } from '../../adDataReducer';
 import IsJson from '../../edit/practicalInformation/IsJson';
+import Inkluderingsmuligheter from './Inkluderingsmuligheter';
 
 class InkluderingPanel extends React.Component {
     constructor(props) {
         super(props);
-        
     }
 
     onTagChange = (e) => {
@@ -26,20 +27,33 @@ class InkluderingPanel extends React.Component {
         const tagsToShow = direktemeldt ? DirektemeldtTags : Tags;
         const availableTags = Object.keys(tagsToShow).map((key) => Tags[key]);
 
-
         return (
             <div className="Inkludering typo-normal">
                 {availableTags.map((availableTag) => (
+                    <Fragment key={availableTag.key}>
                         <Checkbox
                             className="checkbox--tag skjemaelement--pink"
                             id={`tag-${availableTag.key.toLowerCase()}-checkbox`}
                             label={availableTag.label}
-                            key={availableTag.key}
                             value={availableTag.key}
-                            checked={tags ? (IsJson(tags) ? JSON.parse(tags).includes(availableTag.key) : false) : false}
+                            checked={
+                                tags
+                                    ? IsJson(tags)
+                                        ? JSON.parse(tags).includes(availableTag.key)
+                                        : false
+                                    : false
+                            }
                             onChange={this.onTagChange}
                         />
-                    ))}
+                        {availableTag.subTags && (
+                            <Inkluderingsmuligheter
+                                allTags={tags}
+                                muligheter={availableTag.subTags}
+                                onTagChange={this.onTagChange}
+                            />
+                        )}
+                    </Fragment>
+                ))}
             </div>
         );
     }
@@ -48,12 +62,12 @@ class InkluderingPanel extends React.Component {
 InkluderingPanel.propTypes = {
     checkTag: PropTypes.func.isRequired,
     uncheckTag: PropTypes.func.isRequired,
-    tags: PropTypes.string
+    tags: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({
-    tags: state.adData.properties.tags || "[]",
-    direktemeldt: state.adData.source === 'DIR'
+    tags: state.adData.properties.tags || '[]',
+    direktemeldt: state.adData.source === 'DIR',
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -61,4 +75,7 @@ const mapDispatchToProps = (dispatch) => ({
     uncheckTag: (value) => dispatch({ type: UNCHECK_TAG, value }),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(InkluderingPanel);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(InkluderingPanel);

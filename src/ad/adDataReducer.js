@@ -515,22 +515,40 @@ export default function adDataReducer(state = initialState, action) {
                 ...state,
                 privacy: action.privacy
             };
-        case CHECK_TAG: 
+        case CHECK_TAG:
+            const currentTags = IsJson(state.properties.tags) ? JSON.parse(state.properties.tags) : [];
+
+            if (action.value.includes('__')) {
+                const baseTag = action.value.split('__')[0];
+
+                if (!currentTags.includes(baseTag)) {
+                    currentTags.push(baseTag);
+                }
+            }
+
+            const tagsJson = [
+                ...currentTags,
+                action.value
+            ]
+
             return {
                 ...state,
                 properties: {
                     ...state.properties,
-                    tags: state.properties.tags  ? JSON.stringify([...(IsJson(state.properties.tags) ? JSON.parse(state.properties.tags) : ''), action.value]) : JSON.stringify([action.value])
+                    tags: JSON.stringify(tagsJson),
                 }
             };
         case UNCHECK_TAG:
-                return {
-                    ...state,
-                    properties: {
-                        ...state.properties,
-                        tags: JSON.stringify(JSON.parse(state.properties.tags).filter((m) => (m !== action.value)))
-                    }
-                };
+            const newTags = JSON.parse(state.properties.tags).filter(tag => tag !== action.value);
+            const withoutSubTags = newTags.filter(tag => !tag.startsWith(`${action.value}__`));
+
+            return {
+                ...state,
+                properties: {
+                    ...state.properties,
+                    tags: JSON.stringify(withoutSubTags)
+                }
+            };
         case SET_CONTACT_PERSON:
             return {
                 ...state,
