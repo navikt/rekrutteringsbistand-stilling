@@ -29,31 +29,32 @@ class InkluderingPanel extends React.Component {
 
         return (
             <div className="Inkludering typo-normal">
-                {availableTags.map((availableTag) => (
-                    <Fragment key={availableTag.key}>
-                        <Checkbox
-                            className="checkbox--tag skjemaelement--pink"
-                            id={`tag-${availableTag.key.toLowerCase()}-checkbox`}
-                            label={availableTag.label}
-                            value={availableTag.key}
-                            checked={
-                                tags
-                                    ? IsJson(tags)
-                                        ? JSON.parse(tags).includes(availableTag.key)
-                                        : false
-                                    : false
-                            }
-                            onChange={this.onTagChange}
-                        />
-                        {availableTag.subTags && (
-                            <Inkluderingsmuligheter
-                                allTags={tags}
-                                muligheter={availableTag.subTags}
-                                onTagChange={this.onTagChange}
+                {availableTags.map((availableTag) => {
+                    const isChecked = tags
+                        ? IsJson(tags) && JSON.parse(tags).includes(availableTag.key)
+                        : false;
+
+                    return (
+                        <Fragment key={availableTag.key}>
+                            <Checkbox
+                                className="checkbox--tag skjemaelement--pink"
+                                id={`tag-${availableTag.key.toLowerCase()}-checkbox`}
+                                label={availableTag.label}
+                                value={availableTag.key}
+                                checked={isChecked}
+                                onChange={this.onTagChange}
                             />
-                        )}
-                    </Fragment>
-                ))}
+                            {availableTag.subTags && (
+                                <Inkluderingsmuligheter
+                                    allTags={tags}
+                                    inkluderingIsChecked={isChecked}
+                                    muligheter={availableTag.subTags}
+                                    onTagChange={this.onTagChange}
+                                />
+                            )}
+                        </Fragment>
+                    );
+                })}
             </div>
         );
     }
