@@ -12,8 +12,7 @@ const Inkluderingsmuligheter = ({ inkluderingIsChecked, allTags, muligheter, onT
     return (
         <section className="Inkluderingsmuligheter">
             <Normaltekst className="Inkluderingsmuligheter__tittel">{label}</Normaltekst>
-            {Object.keys(tags).map((subTag) => {
-                const { key, label } = tags[subTag];
+            {tags.map(({ key, label }) => {
                 const keyInHierarchy = `INKLUDERING${TAG_HIERARCHY_SPACER}${key}`;
                 const isChecked = allTags
                     ? isJson(allTags) && JSON.parse(allTags).includes(keyInHierarchy)
