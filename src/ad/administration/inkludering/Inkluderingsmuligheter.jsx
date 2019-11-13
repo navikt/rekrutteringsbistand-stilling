@@ -1,33 +1,27 @@
 import React from 'react';
 import { Checkbox } from 'nav-frontend-skjema';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { Undertittel } from 'nav-frontend-typografi';
+import isJson from '../../edit/practicalInformation/IsJson';
 import './Inkluderingsmuligheter.less';
 
-import isJson from '../../edit/practicalInformation/IsJson';
-import { TAG_HIERARCHY_SPACER } from '../../tagHelpers';
-
-const Inkluderingsmuligheter = ({ inkluderingIsChecked, allTags, muligheter, onTagChange }) => {
-    const { label, tags } = muligheter;
+const Inkluderingsmuligheter = (props) => {
+    const { tags, tittel, inkluderingstags, onTagChange } = props;
 
     return (
         <section className="Inkluderingsmuligheter">
-            <Normaltekst className="Inkluderingsmuligheter__tittel">{label}</Normaltekst>
-            {tags.map(({ key, label }) => {
-                const keyInHierarchy = `INKLUDERING${TAG_HIERARCHY_SPACER}${key}`;
-                const isChecked = allTags
-                    ? isJson(allTags) && JSON.parse(allTags).includes(keyInHierarchy)
-                    : false;
+            <Undertittel className="Inkluderingsmuligheter__tittel">{tittel}</Undertittel>
+            {inkluderingstags.map((tag) => {
+                const isChecked = tags && isJson(tags) && JSON.parse(tags).includes(tag.key);
 
                 return (
                     <Checkbox
-                        disabled={!inkluderingIsChecked}
                         className="checkbox--tag skjemaelement--pink"
-                        id={`tag-${keyInHierarchy.toLowerCase()}-checkbox`}
-                        label={label}
-                        key={keyInHierarchy}
-                        value={keyInHierarchy}
+                        id={`tag.${tag.key.toLowerCase()}-checkbox`}
+                        label={tag.label}
+                        value={tag.key}
+                        key={tag.key}
                         checked={isChecked}
-                        onChange={(e) => onTagChange(e)}
+                        onChange={onTagChange}
                     />
                 );
             })}

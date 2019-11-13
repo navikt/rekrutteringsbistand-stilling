@@ -4,7 +4,6 @@ import { Element } from 'nav-frontend-typografi';
 import EtikettInfo from 'nav-frontend-etiketter';
 import { Tags } from '../../../../common/tags';
 import './inkludering.less';
-import { TAG_HIERARCHY_SPACER } from '../../../tagHelpers';
 
 class Inkludering extends React.Component {
   render () {
@@ -24,20 +23,7 @@ class Inkludering extends React.Component {
 const mapStateToProps = (state) => {
   const tagsString = state.adData.properties.tags;
   const tags = tagsString != undefined ? JSON.parse(tagsString) : [];
-
-  const tagNames =  tags.map(tagKey =>  {
-    const tag = Tags[tagKey];
-
-    if (tagKey.includes(TAG_HIERARCHY_SPACER)) {
-      const [baseTagKey, subTagKey] = tagKey.split(TAG_HIERARCHY_SPACER);
-      return Tags[baseTagKey].subTags.tags
-        .find(subTag => subTag.key === subTagKey).label;
-
-    } else {
-      return tag.label;
-    }    
-  });
-  
+  const tagNames =  tags.map(tagKey =>  Tags[tagKey]);
   return ({
     tags: tagNames
 })};

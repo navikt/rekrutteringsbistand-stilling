@@ -3,62 +3,68 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Checkbox } from 'nav-frontend-skjema';
 
-import { Tags } from '../../../common/tags';
+import { Tags, hierarki } from '../../../common/tags';
 import { DirektemeldtTags } from './direktemeldtTags';
 import { CHECK_TAG, UNCHECK_TAG } from '../../adDataReducer';
 import IsJson from '../../edit/practicalInformation/IsJson';
 import Inkluderingsmuligheter from './Inkluderingsmuligheter';
 
-class InkluderingPanel extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+const InkluderingPanel = (props) => {
+    const { tags, checkTag, uncheckTag, direktemeldt } = props;
 
-    onTagChange = (e) => {
-        if (e.target.checked) {
-            this.props.checkTag(e.target.value);
-        } else {
-            this.props.uncheckTag(e.target.value);
-        }
+    const tagsToShow = direktemeldt ? DirektemeldtTags : Tags;
+    const tagsToRender = Object.keys(hierarki).map((key) => {
+        const overordnetTag = hierarki[key];
+        const { harSubtags, subtittel, subtags } = overordnetTag;
+
+        return {
+            key,
+            label: tagsToShow[key],
+            harSubtags,
+            ...(harSubtags && {
+                subtittel,
+                subtags: subtags.map((subtag) => ({
+                    key: subtag,
+                    label: tagsToShow[subtag],
+                })),
+            }),
+        };
+    });
+
+    const onTagChange = (e) => {
+        e.target.checked ? checkTag(e.target.value) : uncheckTag(e.target.value);
     };
 
-    render() {
-        const { tags, direktemeldt } = this.props;
-        const tagsToShow = direktemeldt ? DirektemeldtTags : Tags;
-        const availableTags = Object.keys(tagsToShow).map((key) => Tags[key]);
+    return (
+        <div className="Inkludering typo-normal">
+            {tagsToRender.map((tagToRender) => {
+                const isChecked =
+                    tags && IsJson(tags) && JSON.parse(tags).includes(tagToRender.key);
 
-        return (
-            <div className="Inkludering typo-normal">
-                {availableTags.map((availableTag) => {
-                    const isChecked = tags
-                        ? IsJson(tags) && JSON.parse(tags).includes(availableTag.key)
-                        : false;
-
-                    return (
-                        <Fragment key={availableTag.key}>
-                            <Checkbox
-                                className="checkbox--tag skjemaelement--pink"
-                                id={`tag-${availableTag.key.toLowerCase()}-checkbox`}
-                                label={availableTag.label}
-                                value={availableTag.key}
-                                checked={isChecked}
-                                onChange={this.onTagChange}
+                return (
+                    <Fragment key={tagToRender.key}>
+                        <Checkbox
+                            className="checkbox--tag skjemaelement--pink"
+                            id={`tag-${tagToRender.key.toLowerCase()}-checkbox`}
+                            label={tagToRender.label}
+                            value={tagToRender.key}
+                            checked={isChecked}
+                            onChange={onTagChange}
+                        />
+                        {tagToRender.harSubtags && (
+                            <Inkluderingsmuligheter
+                                tags={tags}
+                                tittel={tagToRender.subtittel}
+                                inkluderingstags={tagToRender.subtags}
+                                onTagChange={onTagChange}
                             />
-                            {availableTag.subTags && (
-                                <Inkluderingsmuligheter
-                                    allTags={tags}
-                                    inkluderingIsChecked={isChecked}
-                                    muligheter={availableTag.subTags}
-                                    onTagChange={this.onTagChange}
-                                />
-                            )}
-                        </Fragment>
-                    );
-                })}
-            </div>
-        );
-    }
-}
+                        )}
+                    </Fragment>
+                );
+            })}
+        </div>
+    );
+};
 
 InkluderingPanel.propTypes = {
     checkTag: PropTypes.func.isRequired,
@@ -76,7 +82,4 @@ const mapDispatchToProps = (dispatch) => ({
     uncheckTag: (value) => dispatch({ type: UNCHECK_TAG, value }),
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(InkluderingPanel);
+export default connect(mapStateToProps, mapDispatchToProps)(InkluderingPanel);

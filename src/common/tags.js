@@ -1,23 +1,25 @@
 export const Tags = {
-    INKLUDERING: {
-        key: 'INKLUDERING',
-        label: 'Inkludering',
-        subTags: {
-            label: 'Hvilke inkluderingsmuligheter har arbeidsgiver?',
-            tags: [
-                { key: 'ARBEIDSTID', label: 'Kan tilby tilrettelagt arbeidstid' },
-                { key: 'ARBEIDSMILJØ', label: 'Kan tilrettelegge arbeidsmiljøet' },
-                { key: 'FYSISK', label: 'Kan tilby fysisk tilrettelegging' },
-                {
-                    key: 'GRUNNLEGGENDE',
-                    label:
-                        'Kan ta i mot kandidater som har utfordringer med grunnleggende ferdigheter',
-                },
-            ],
-        },
-    },
+    INKLUDERING: 'Inkludering',
+    INKLUDERING__ARBEIDSTID: 'Tilrettelagt arbeidstid',
+    INKLUDERING__FYSISK: 'Fysisk tilrettelegging av arbeidsplassen',
+    INKLUDERING__ARBEIDSMILJØ: 'Tilrettelegging av arbeidsmiljøet',
+    INKLUDERING__GRUNNLEGGENDE:
+        'Få krav til grunnleggende ferdigheter som språk, regning eller tallforståelse',
+    STATLIG_INKLUDERINGSDUGNAD: 'Statlig inkluderingsdugnad',
+};
+
+export const hierarki = {
     STATLIG_INKLUDERINGSDUGNAD: {
-        key: 'STATLIG_INKLUDERINGSDUGNAD',
-        label: 'Statlig inkluderingsdugnad',
+        harSubtags: false,
+    },
+    INKLUDERING: {
+        harSubtags: true,
+        subtittel: 'Hvilke inkluderingsmuligheter har arbeidsgiver?',
+        subtags: [
+            'INKLUDERING__ARBEIDSTID',
+            'INKLUDERING__ARBEIDSMILJØ',
+            'INKLUDERING__FYSISK',
+            'INKLUDERING__GRUNNLEGGENDE',
+        ],
     },
 };
