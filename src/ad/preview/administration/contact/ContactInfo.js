@@ -28,13 +28,17 @@ class ContactInfo extends React.Component {
           Telefon: {contact.phone}
         </Normaltekst>}
       </div> : 
-      <div className="ContactInfo__preview">
+      <div>
         {hasRecruitment && (
-          <Normaltekst>
-            Kontaktperson hos NAV: {recruitment.eierNavn} {recruitment.eierIdent ? ` (${recruitment.eierIdent})` : ''}
-          </Normaltekst>
+            <div className="ContactInfo__preview">
+              <Element>Spørsmål om stillingen?</Element>
+              <Normaltekst>
+                Kontaktperson hos NAV: {recruitment.eierNavn} {recruitment.eierIdent ? ` (${recruitment.eierIdent})` : ''}
+              </Normaltekst>
+            </div>
         )}
-      </div>
+        </div>
+
   }
 }
 
