@@ -1,8 +1,6 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
-import { inkluderingstags, kategorisering } from '../../../common/tags';
 import { CHECK_TAG_SOK, UNCHECK_TAG_SOK } from '../../searchReducer';
 import GruppeMedTags from './GruppeMedTags';
 import { hentKategorierMedNavn } from '../../../ad/tagHelpers';
@@ -12,7 +10,8 @@ const InkluderingPanel = ({ tags, checkTag, uncheckTag }) => {
         e.target.checked ? checkTag(e.target.value) : uncheckTag(e.target.value);
     };
 
-    const underkategorierAvInkludering = hentKategorierMedNavn().filter(
+    const kategorierMedNavn = hentKategorierMedNavn();
+    const underkategorierAvInkludering = kategorierMedNavn.filter(
         (kategori) => kategori.harUnderkategorier && tags.includes(kategori.tag)
     );
 
@@ -20,7 +19,7 @@ const InkluderingPanel = ({ tags, checkTag, uncheckTag }) => {
         <Fragment>
             <GruppeMedTags
                 tittel="Inkludering"
-                gruppeMedTags={kategorisering}
+                gruppeMedTags={kategorierMedNavn}
                 tags={tags}
                 className="FilterLocation__blokk"
                 onTagChange={onTagChange}

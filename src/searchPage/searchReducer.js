@@ -2,6 +2,7 @@ import { put, select, takeLatest } from 'redux-saga/effects';
 import { ApiError, fetchAds } from '../api/api';
 import AdminStatusEnum from '../common/enums/AdminStatusEnum';
 import PrivacyStatusEnum from '../common/enums/PrivacyStatusEnum';
+import { checkInkluderingstag, uncheckInkluderingstag } from '../ad/tagHelpers';
 
 export const FETCH_ADS = 'FETCH_ADS';
 export const FETCH_ADS_BEGIN = 'FETCH_ADS_BEGIN';
@@ -106,17 +107,17 @@ export default function searchReducer(state = initialState, action) {
                 page: 0,
                 locationName: action.location
             };
-        case CHECK_TAG_SOK:  
+        case CHECK_TAG_SOK:
             return {
                 ...state,
                 page: 0,
-                tags: [...state.tags, action.value]
+                tags: checkInkluderingstag(state.tags, action.value),
             };
         case UNCHECK_TAG_SOK:
             return {
                 ...state,
                 page: 0,
-                tags: state.tags.filter((u) => u !== action.value)
+                tags: uncheckInkluderingstag(state.tags, action.value),
             };
         case FETCH_ADS_BEGIN:
             return {

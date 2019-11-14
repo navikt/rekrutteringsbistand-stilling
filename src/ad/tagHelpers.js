@@ -6,7 +6,7 @@ import { inkluderingstags, kategorisering } from '../common/tags';
 
 export const TAG_HIERARCHY_SPACER = '__';
 
-export const checkTagWithHierarchy = (currentTags, newTag) => {
+export const checkInkluderingstag = (currentTags, newTag) => {
     if (newTag.includes(TAG_HIERARCHY_SPACER)) {
         const baseTag = newTag.split(TAG_HIERARCHY_SPACER)[0];
 
@@ -18,7 +18,7 @@ export const checkTagWithHierarchy = (currentTags, newTag) => {
     return [...currentTags, newTag];
 };
 
-export const uncheckTagWithHierarchy = (currentTags, tagToRemove) => {
+export const uncheckInkluderingstag = (currentTags, tagToRemove) => {
     const newTags = currentTags.filter((tag) => tag !== tagToRemove);
     const otherSubtags = `${tagToRemove}${TAG_HIERARCHY_SPACER}`;
 

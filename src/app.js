@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, Switch } from 'react-router-dom';
-import { applyMiddleware, createStore, combineReducers } from 'redux';
+import { applyMiddleware, createStore, combineReducers, compose } from 'redux';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 import employerReducer, { employerSaga } from './ad/edit/employer/employerReducer';
@@ -29,6 +29,8 @@ import kandidatReducer, { kandidatSaga } from './ad/kandidatModal/kandidatReduce
 
 const sagaMiddleware = createSagaMiddleware();
 
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 const store = createStore(combineReducers({
     ad: adReducer,
     adData: adDataReducer,
@@ -43,7 +45,7 @@ const store = createStore(combineReducers({
     savedAdAlertStripe: savedSearchAlertStripeReducer,
     search: searchReducer,
     styrk: styrkReducer
-}), applyMiddleware(sagaMiddleware));
+}), composeEnhancers(applyMiddleware(sagaMiddleware)));
 
 sagaMiddleware.run(adSaga);
 sagaMiddleware.run(validationSaga);

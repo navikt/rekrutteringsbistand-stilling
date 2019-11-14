@@ -6,7 +6,7 @@ import AdStatusEnum from '../common/enums/AdStatusEnum';
 import PrivacyStatusEnum from '../common/enums/PrivacyStatusEnum';
 import IsJson from './edit/practicalInformation/IsJson';
 import { isValidISOString } from '../utils';
-import { checkTagWithHierarchy, uncheckTagWithHierarchy } from './tagHelpers';
+import { checkInkluderingstag, uncheckInkluderingstag } from './tagHelpers';
 
 export const SET_AD_DATA = 'SET_AD_DATA';
 export const REMOVE_AD_DATA = 'REMOVE_AD_DATA';
@@ -517,7 +517,7 @@ export default function adDataReducer(state = initialState, action) {
                 privacy: action.privacy
             };
         case CHECK_TAG: {
-            const tags = checkTagWithHierarchy(
+            const tags = checkInkluderingstag(
                 IsJson(state.properties.tags) ? JSON.parse(state.properties.tags) : [],
                 action.value
             )
@@ -531,7 +531,7 @@ export default function adDataReducer(state = initialState, action) {
             };
         }
         case UNCHECK_TAG:
-            const tags = uncheckTagWithHierarchy(
+            const tags = uncheckInkluderingstag(
                 JSON.parse(state.properties.tags),
                 action.value
             );
