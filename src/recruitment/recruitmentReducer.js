@@ -17,6 +17,11 @@ export const SAVE_RECRUITMENT_BEGIN = 'SAVE_RECRUITMENT_BEGIN';
 export const SAVE_RECRUITMENT_SUCCESS = 'SAVE_RECRUITMENT_SUCCESS';
 export const SAVE_RECRUITMENT_FAILURE = 'SAVE_RECRUITMENT_FAILURE';
 
+export const UPDATE_RECRUITMENT = 'UPDATE__RECRUITMENT';
+export const UPDATE_RECRUITMENT_BEGIN = 'UPDATE__RECRUITMENT_BEGIN';
+export const UPDATE_RECRUITMENT_SUCCESS = 'UPDATE__RECRUITMENT_SUCCESS';
+export const UPDATE_RECRUITMENT_FAILURE = 'UPDATE__RECRUITMENT_FAILURE';
+
 const initialState = {
     isSavingRecruitment: false,
     hasSavedRecruitment: false,
@@ -43,12 +48,14 @@ export default function recruitmentReducer(state = initialState, action) {
                     isLoadingRecruitment: false
                 }
         case SAVE_RECRUITMENT_BEGIN:
+        case UPDATE_RECRUITMENT_BEGIN:
             return {
                 ...state,
                 isSavingRecruitment: true,
                 hasSavedRecruitment: false
             }
         case SAVE_RECRUITMENT_FAILURE:
+        case UPDATE_RECRUITMENT_FAILURE:
             return {
                 ...state,
                 isSavingRecruitment: false,
@@ -56,6 +63,7 @@ export default function recruitmentReducer(state = initialState, action) {
                 hasSavedRecruitment: false
             }
         case SAVE_RECRUITMENT_SUCCESS:
+        case UPDATE_RECRUITMENT_SUCCESS:
             return {
                 ...state,
                 isSavingRecruitment: false,
@@ -98,10 +106,10 @@ function* saveRecruitment() {
     try {
         state = yield select();
 
-        // Modified category list requires store/PUT with (re)classification
-        const response = state.recruitmentData.rekrutteringUuid
-            ? yield fetchPut(REKRUTTERING_API, state.recruitmentData)
-            : yield fetchPost(REKRUTTERING_API, state.recruitmentData);
+        if(state.recruitmentData.rekrutteringUuid) {
+            throw "Ny med eksisterende id";
+        }
+        const response =  yield fetchPost(REKRUTTERING_API, state.recruitmentData);
         
         yield put({ type: SET_REKRUTTERING_DATA, data:response })
         yield put({ type: SAVE_RECRUITMENT_SUCCESS, response });
@@ -115,7 +123,31 @@ function* saveRecruitment() {
     }
 }
 
+function* updateRecruitment() {
+    let state = yield select();
+    yield put({ type: UPDATE_RECRUITMENT_BEGIN });
+    try {
+        state = yield select();
+
+        if(!state.recruitmentData.rekrutteringUuid) {
+            throw "oppdaterer uten å ha id";
+        }
+        const response = yield fetchPut(REKRUTTERING_API, state.recruitmentData)
+        
+        yield put({ type: SET_REKRUTTERING_DATA, data:response })
+        yield put({ type: UPDATE_RECRUITMENT_SUCCESS, response });
+        yield showAlertStripe(AdAlertStripeEnum.MARKED);
+    } catch (e) {
+        if (e instanceof ApiError) {
+            yield put({ type: UPDATE_RECRUITMENT_FAILURE, error: e });
+        } else {
+            throw e;
+        }
+    }
+}
+
 export const recruitmentSaga = function* saga() {
     yield takeLatest(FETCH_RECRUITMENT, getRecruitment);
     yield takeLatest(SAVE_RECRUITMENT, saveRecruitment);
+    yield takeLatest(UPDATE_RECRUITMENT, updateRecruitment);
 }

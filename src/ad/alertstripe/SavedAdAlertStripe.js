@@ -42,7 +42,19 @@ const SavedAdAlertStripe = ({ showAlertStripe, alertStripeMode, isSavingAd, publ
                         to="/minestillinger"
                         className="typo-normal lenke"
                     >
-                        "mine stillinger"
+                        "mine stillinger".
+                </Link>  
+            </AlertStripe>
+        );
+    } else if (showAlertStripe && alertStripeMode === AdAlertStripeEnum.MARKED) {
+        return (
+            <AlertStripe type="suksess" solid="true" className="SavedAdAlertStripe">
+                Du er nå eier av stillingen og kandidatlisten. Du kan finne den under 
+                <Link
+                        to="/minestillinger"
+                        className="typo-normal lenke"
+                    >
+                        "mine stillinger".
                 </Link>  
             </AlertStripe>
         );

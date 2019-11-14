@@ -28,7 +28,7 @@ class PreviewMenu extends React.Component {
 
         const kanOverfoereStilling = 
             rekruttering && limitedAccess && 
-            (!rekruttering.eierIdent || (reportee && rekruttering.eierIdent != reportee.navIdent));
+            !rekruttering.eierIdent;
 
         return (
             <div>

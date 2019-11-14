@@ -2,12 +2,18 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
+import { Knapp } from 'nav-frontend-knapper';
+import { MARKER_SOM_MIN } from '../../../adReducer';
 import './ContactInfo.less';
 
 class ContactInfo extends React.Component {
 
+  onMarkerSomMinClick = () => {
+    this.props.markerSomMin();
+  };
+
   render() {
-    const { stilling, recruitment } = this.props;
+    const { stilling, recruitment, innlogget } = this.props;
     const isDir = (stilling && stilling.source === 'DIR');
     const hasRecruitment = recruitment && recruitment.eierIdent;
     const { reportee, navIdent } = stilling.administration;
@@ -35,6 +41,15 @@ class ContactInfo extends React.Component {
               <Normaltekst>
                 Kontaktperson hos NAV: {recruitment.eierNavn} {recruitment.eierIdent ? ` (${recruitment.eierIdent})` : ''}
               </Normaltekst>
+              { (!recruitment.eierIdent || (innlogget && recruitment.eierIdent != innlogget.navIdent)) &&
+                <Knapp
+                    className="button-marker_som_min"
+                    onClick={this.onMarkerSomMinClick}
+                    mini
+                >
+                    Marker som min
+                </Knapp>
+             }
             </div>
         )}
         </div>
@@ -64,7 +79,12 @@ ContactInfo.propTypes = {
 
 const mapStateToProps = (state) => ({
   stilling: state.adData,
-  recruitment: state.recruitmentData
+  recruitment: state.recruitmentData,
+  innlogget: state.reportee.data
 });
 
-export default connect(mapStateToProps)(ContactInfo); 
+const mapDispatchToProps = (dispatch) => ({
+  markerSomMin: () => dispatch({type: MARKER_SOM_MIN})
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContactInfo); 

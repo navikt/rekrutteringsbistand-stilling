@@ -48,7 +48,7 @@ const ResultItem = ({ ad, copiedAds, reportee }) => {
                 </td>
                 <td className="Col-id Col-transferred">
                         <Normaltekst className="ResultItem__column">
-                            Overført til annen veileder
+                            Overført til annen veileder.
                         </Normaltekst>
                 </td>
                 <td className="Col-employer">

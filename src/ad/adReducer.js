@@ -28,7 +28,7 @@ import { showAlertStripe } from './alertstripe/SavedAdAlertStripeReducer';
 import AdAlertStripeEnum from './alertstripe/AdAlertStripeEnum';
 import { FETCH_MY_ADS } from '../myAds/myAdsReducer';
 import { loginWithRedirectToCurrentLocation } from '../login';
-import { FETCH_RECRUITMENT, SAVE_RECRUITMENT } from '../recruitment/recruitmentReducer';
+import { FETCH_RECRUITMENT, SAVE_RECRUITMENT, UPDATE_RECRUITMENT } from '../recruitment/recruitmentReducer';
 import { SET_NAV_IDENT_REKRUTTERING } from '../recruitment/recruitmentDataReducer';
 
 export const FETCH_AD = 'FETCH_AD';
@@ -90,6 +90,7 @@ export const CLEAR_COPIED_ADS = 'CLEAR_COPIED_ADS';
 export const DEFAULT_TITLE_NEW_AD = 'Ny stilling';
 
 export const LEGG_TIL_I_MINE_STILLINGER = 'LEGG_TIL_I_MINE_STILLINGER';
+export const MARKER_SOM_MIN = 'MARKER_SOM_MIN';
 
 const initialState = {
     error: undefined,
@@ -520,6 +521,15 @@ function * leggTilIMineStillinger(action) {
     yield put({type: FETCH_AD, uuid: state.adData.uuid, edit: false})
 }
 
+function * markerSomMinStilling(action) {
+    let state = yield select();
+
+    const { navIdent, displayName } = state.reportee.data;
+    yield put({ type: SET_NAV_IDENT_REKRUTTERING, navIdent, displayName});
+    yield put({ type: UPDATE_RECRUITMENT, uuid: action.uuid} );
+    yield put({type: FETCH_AD, uuid: state.adData.uuid, edit: false})
+}
+
 export const adSaga = function* saga() {
     yield takeLatest(PUBLISH_AD, publishAd);
     yield takeLatest(STOP_AD, stopAd);
@@ -534,5 +544,6 @@ export const adSaga = function* saga() {
     yield takeLatest(STOP_AD_FROM_MY_ADS, stopAdFromMyAds);
     yield takeLatest(DELETE_AD_FROM_MY_ADS, deleteAdFromMyAds);
     yield takeLatest(COPY_AD_FROM_MY_ADS, copyAdFromMyAds);
-    yield takeLatest(LEGG_TIL_I_MINE_STILLINGER, leggTilIMineStillinger)
+    yield takeLatest(LEGG_TIL_I_MINE_STILLINGER, leggTilIMineStillinger);
+    yield takeLatest(MARKER_SOM_MIN, markerSomMinStilling);
 };
