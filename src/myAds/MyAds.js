@@ -38,7 +38,7 @@ class MyAds extends React.Component {
 
     render() {
         const {
-            ads, isSearching, error
+            ads, isSearching, error, reportee
         } = this.props;
         const adsFound = !isSearching && ads && ads.length > 0;
         return (
@@ -72,7 +72,7 @@ class MyAds extends React.Component {
                             <ResultHeader />
                             <tbody>
                                 {adsFound && ads.map((ad) => (
-                                    <ResultItem key={ad.uuid} ad={ad} />
+                                    <ResultItem key={ad.uuid} ad={ad} reportee={reportee}/>
                                 ))}
                             </tbody>
                         </table>
@@ -110,6 +110,7 @@ MyAds.propTypes = {
 
 const mapStateToProps = (state) => ({
     ads: state.myAds.items,
+    reportee: state.reportee.data,
     isSearching: state.myAds.isSearching,
     error: state.myAds.error
 });
@@ -118,7 +119,8 @@ const mapDispatchToProps = (dispatch) => ({
     getAds: () => dispatch({ type: FETCH_MY_ADS }),
     createAd: () => dispatch({ type: CREATE_AD }),
     clearCopiedAds: () => dispatch({ type: CLEAR_COPIED_ADS }),
-    resetSearch: () => dispatch({ type: RESET_SEARCH })
+    resetSearch: () => dispatch({ type: RESET_SEARCH }),
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyAds);

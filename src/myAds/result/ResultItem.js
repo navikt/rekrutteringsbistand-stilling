@@ -12,9 +12,62 @@ import './Result.less';
 import { getAdStatusLabel } from '../../common/enums/getEnumLabels';
 import ResultItemDropDown from './ResultItemDropDown';
 
-const ResultItem = ({ ad, copiedAds }) => {
+const ResultItem = ({ ad, copiedAds, reportee }) => {
     const [dropDownVisible, setDropDownVisible] = useState(false);
     const isCopy = copiedAds.includes(ad.uuid);
+    const isTransferredToOther = (ad.rekruttering && ad.rekruttering.eierIdent && ad.administration && ad.administration.navIdent)
+        && ad.rekruttering.eierIdent !== ad.administration.navIdent
+        && (reportee && ad.rekruttering.eierIdent != reportee.navIdent)
+
+    if(isTransferredToOther) {
+        return (
+            <tr className={`ResultItem${isCopy ? ' copied' : ''}`}>
+                <td className="Col-updated">
+                    {ad.updated && (
+                        <Normaltekst className="ResultItem__column">
+                            {formatISOString(ad.updated, 'DD.MM.YYYY')}
+                        </Normaltekst>
+                    )}
+                </td>
+                <td className="Col-title">
+                    <div className="ResultItem__column Col-title-inner">
+                        <Link
+                            className="typo-normal lenke"
+                            to={`/stilling/${ad.uuid}`}
+                        >
+                            {isCopy ? (
+                                <div>
+                                    <b>{ad.title.substr(0, 5)}</b>
+                                    {ad.title.substr(5)}
+                                </div> || ''
+                            ) : (
+                                ad.title || ''
+                            )}
+                        </Link>
+                    </div>
+                </td>
+                <td className="Col-id Col-transferred">
+                        <Normaltekst className="ResultItem__column">
+                            Overført til annen veileder
+                        </Normaltekst>
+                </td>
+                <td className="Col-employer">
+                </td>
+                <td className="Col-expires">
+                </td>
+                <td className="Col-privacy">
+                </td>
+                <td className="Col-status">
+                </td>
+                <td className="Col-candidate">
+                </td>
+                <td className="Col-edit center">
+                </td>
+                <td className="Col-menu">
+                </td>
+            </tr>
+        );
+    }
 
     return (
         <tr className={`ResultItem${isCopy ? ' copied' : ''}`}>
