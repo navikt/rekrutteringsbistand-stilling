@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Element } from 'nav-frontend-typografi';
 import EtikettInfo from 'nav-frontend-etiketter';
-import { Tags } from '../../../../common/tags';
+import { inkluderingstags } from '../../../../common/tags';
 import './inkludering.less';
 
 class Inkludering extends React.Component {
@@ -23,7 +23,7 @@ class Inkludering extends React.Component {
 const mapStateToProps = (state) => {
   const tagsString = state.adData.properties.tags;
   const tags = tagsString != undefined ? JSON.parse(tagsString) : [];
-  const tagNames =  tags.map(tagKey =>  Tags[tagKey]);
+  const tagNames =  tags.map(tagKey =>  inkluderingstags[tagKey]);
   return ({
     tags: tagNames
 })};

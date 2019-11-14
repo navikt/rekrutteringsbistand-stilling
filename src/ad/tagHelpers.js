@@ -1,3 +1,9 @@
+import {
+    direktemeldteInkluderingstags,
+    direktemeldtKategorisering,
+} from './administration/inkludering/direktemeldtTags';
+import { inkluderingstags, kategorisering } from '../common/tags';
+
 export const TAG_HIERARCHY_SPACER = '__';
 
 export const checkTagWithHierarchy = (currentTags, newTag) => {
@@ -17,4 +23,27 @@ export const uncheckTagWithHierarchy = (currentTags, tagToRemove) => {
     const otherSubtags = `${tagToRemove}${TAG_HIERARCHY_SPACER}`;
 
     return newTags.filter((tag) => !tag.startsWith(otherSubtags));
+};
+
+export const hentKategorierMedNavn = (direktemeldt = false) => {
+    const kategorier = direktemeldt ? direktemeldtKategorisering : kategorisering;
+
+    return kategorier.map((kategori) => {
+        const navn = direktemeldt
+            ? direktemeldteInkluderingstags[kategori.tag]
+            : inkluderingstags[kategori.tag];
+
+        return {
+            navn,
+            ...kategori,
+            underkategorier:
+                kategori.underkategorier &&
+                kategori.underkategorier.map((underkategori) => ({
+                    tag: underkategori,
+                    navn: direktemeldt
+                        ? direktemeldteInkluderingstags[underkategori]
+                        : inkluderingstags[underkategori],
+                })),
+        };
+    });
 };

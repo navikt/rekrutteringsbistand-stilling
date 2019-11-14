@@ -1,4 +1,4 @@
-export const Tags = {
+export const inkluderingstags = {
     INKLUDERING: 'Inkludering',
     INKLUDERING__ARBEIDSTID: 'Tilrettelagt arbeidstid',
     INKLUDERING__FYSISK: 'Fysisk tilrettelegging av arbeidsplassen',
@@ -8,18 +8,20 @@ export const Tags = {
     STATLIG_INKLUDERINGSDUGNAD: 'Statlig inkluderingsdugnad',
 };
 
-export const hierarki = {
-    STATLIG_INKLUDERINGSDUGNAD: {
-        harSubtags: false,
+export const kategorisering = [
+    {
+        tag: 'STATLIG_INKLUDERINGSDUGNAD',
+        harUnderkategorier: false,
     },
-    INKLUDERING: {
-        harSubtags: true,
-        subtittel: 'Hvilke inkluderingsmuligheter har arbeidsgiver?',
-        subtags: [
+    {
+        tag: 'INKLUDERING',
+        harUnderkategorier: true,
+        tittelTilUnderkategorier: 'Hvilke inkluderingsmuligheter har arbeidsgiver?',
+        underkategorier: [
             'INKLUDERING__ARBEIDSTID',
             'INKLUDERING__ARBEIDSMILJØ',
             'INKLUDERING__FYSISK',
             'INKLUDERING__GRUNNLEGGENDE',
         ],
     },
-};
+];

@@ -3,65 +3,61 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Checkbox } from 'nav-frontend-skjema';
 
-import { Tags, hierarki } from '../../../common/tags';
-import { DirektemeldtTags } from './direktemeldtTags';
 import { CHECK_TAG, UNCHECK_TAG } from '../../adDataReducer';
-import IsJson from '../../edit/practicalInformation/IsJson';
-import Inkluderingsmuligheter from './Inkluderingsmuligheter';
+import { Undertittel } from 'nav-frontend-typografi';
+import isJson from '../../edit/practicalInformation/IsJson';
+import { hentKategorierMedNavn } from '../../tagHelpers';
 
 const InkluderingPanel = (props) => {
     const { tags, checkTag, uncheckTag, direktemeldt } = props;
 
-    const tagsToShow = direktemeldt ? DirektemeldtTags : Tags;
-    const tagsToRender = Object.keys(hierarki).map((key) => {
-        const overordnetTag = hierarki[key];
-        const { harSubtags, subtittel, subtags } = overordnetTag;
-
-        return {
-            key,
-            label: tagsToShow[key],
-            harSubtags,
-            ...(harSubtags && {
-                subtittel,
-                subtags: subtags.map((subtag) => ({
-                    key: subtag,
-                    label: tagsToShow[subtag],
-                })),
-            }),
-        };
-    });
+    const kategorierMedNavn = hentKategorierMedNavn(direktemeldt);
+    const underkategorierAvInkludering = hentKategorierMedNavn().filter(
+        (kategori) => kategori.harUnderkategorier
+    );
 
     const onTagChange = (e) => {
         e.target.checked ? checkTag(e.target.value) : uncheckTag(e.target.value);
     };
 
+    const tagIsChecked = (tag) => tags && isJson(tags) && JSON.parse(tags).includes(tag);
+
     return (
         <div className="Inkludering typo-normal">
-            {tagsToRender.map((tagToRender) => {
-                const isChecked =
-                    tags && IsJson(tags) && JSON.parse(tags).includes(tagToRender.key);
-
-                return (
-                    <Fragment key={tagToRender.key}>
-                        <Checkbox
-                            className="checkbox--tag skjemaelement--pink"
-                            id={`tag-${tagToRender.key.toLowerCase()}-checkbox`}
-                            label={tagToRender.label}
-                            value={tagToRender.key}
-                            checked={isChecked}
-                            onChange={onTagChange}
-                        />
-                        {tagToRender.harSubtags && (
-                            <Inkluderingsmuligheter
-                                tags={tags}
-                                tittel={tagToRender.subtittel}
-                                inkluderingstags={tagToRender.subtags}
-                                onTagChange={onTagChange}
-                            />
-                        )}
-                    </Fragment>
-                );
-            })}
+            {kategorierMedNavn.map(({ tag, navn }) => (
+                <Checkbox
+                    key={tag}
+                    className="checkbox--tag skjemaelement--pink"
+                    id={`tag-${tag.toLowerCase()}-checkbox`}
+                    label={navn}
+                    value={tag}
+                    checked={tagIsChecked(tag)}
+                    onChange={onTagChange}
+                />
+            ))}
+            {underkategorierAvInkludering.length > 0 &&
+                underkategorierAvInkludering.map(
+                    ({ tag, tittelTilUnderkategorier, underkategorier }) => (
+                        <Fragment key={tag}>
+                            <Undertittel>{tittelTilUnderkategorier}</Undertittel>
+                            {underkategorier.map((underkategori) => (
+                                <Checkbox
+                                    className="checkbox--tag skjemaelement--pink"
+                                    id={`tag.${underkategori.tag}-checkbox`}
+                                    label={underkategori.navn}
+                                    value={underkategori.tag}
+                                    key={underkategori.tag}
+                                    checked={
+                                        tags &&
+                                        isJson(tags) &&
+                                        JSON.parse(tags).includes(underkategori.tag)
+                                    }
+                                    onChange={onTagChange}
+                                />
+                            ))}
+                        </Fragment>
+                    )
+                )}
         </div>
     );
 };

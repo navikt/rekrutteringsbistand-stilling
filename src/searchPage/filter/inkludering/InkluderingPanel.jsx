@@ -1,44 +1,43 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
-import { Tags, hierarki } from '../../../common/tags';
+import { inkluderingstags, kategorisering } from '../../../common/tags';
 import { CHECK_TAG_SOK, UNCHECK_TAG_SOK } from '../../searchReducer';
+import GruppeMedTags from './GruppeMedTags';
+import { hentKategorierMedNavn } from '../../../ad/tagHelpers';
 
 const InkluderingPanel = ({ tags, checkTag, uncheckTag }) => {
     const onTagChange = (e) => {
         e.target.checked ? checkTag(e.target.value) : uncheckTag(e.target.value);
     };
 
-    let allTheThings = [];
-    Object.entries(hierarki).forEach(([tagKey, tagValue]) => {
-        allTheThings.push(tagKey);
-
-        if (tagValue.harSubtags && tags.includes(tagKey)) {
-            tagValue.subtags.forEach((subtag) => {
-                allTheThings.push(subtag);
-            });
-        }
-    });
+    const underkategorierAvInkludering = hentKategorierMedNavn().filter(
+        (kategori) => kategori.harUnderkategorier && tags.includes(kategori.tag)
+    );
 
     return (
-        <SkjemaGruppe className="panel--tags--sok" title="Inkludering">
-            <div>
-                {allTheThings.map((availableTag) => {
-                    return (
-                        <Checkbox
-                            className="checkbox--tag--sok skjemaelement--pink"
-                            id={`tag-${availableTag.toLowerCase()}-checkbox`}
-                            label={Tags[availableTag]}
-                            key={availableTag}
-                            value={availableTag}
-                            checked={tags.includes(availableTag)}
-                            onChange={onTagChange}
+        <Fragment>
+            <GruppeMedTags
+                tittel="Inkludering"
+                gruppeMedTags={kategorisering}
+                tags={tags}
+                className="FilterLocation__blokk"
+                onTagChange={onTagChange}
+            />
+            {underkategorierAvInkludering.length > 0 &&
+                underkategorierAvInkludering.map(
+                    ({ tag, tittelTilUnderkategorier, underkategorier }) => (
+                        <GruppeMedTags
+                            key={tag}
+                            tittel={tittelTilUnderkategorier}
+                            gruppeMedTags={underkategorier}
+                            tags={tags}
+                            onTagChange={onTagChange}
                         />
-                    );
-                })}
-            </div>
-        </SkjemaGruppe>
+                    )
+                )}
+        </Fragment>
     );
 };
 
