@@ -10,10 +10,6 @@ export const inkluderingstags = {
 
 export const kategorisering = [
     {
-        tag: 'STATLIG_INKLUDERINGSDUGNAD',
-        harUnderkategorier: false,
-    },
-    {
         tag: 'INKLUDERING',
         harUnderkategorier: true,
         tittelTilUnderkategorier: 'Hvilke inkluderingsmuligheter har arbeidsgiver?',
@@ -23,5 +19,9 @@ export const kategorisering = [
             'INKLUDERING__FYSISK',
             'INKLUDERING__GRUNNLEGGENDE',
         ],
+    },
+    {
+        tag: 'STATLIG_INKLUDERINGSDUGNAD',
+        harUnderkategorier: false,
     },
 ];
