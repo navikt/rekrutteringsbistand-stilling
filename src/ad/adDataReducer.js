@@ -6,6 +6,7 @@ import AdStatusEnum from '../common/enums/AdStatusEnum';
 import PrivacyStatusEnum from '../common/enums/PrivacyStatusEnum';
 import IsJson from './edit/practicalInformation/IsJson';
 import { isValidISOString } from '../utils';
+import { checkInkluderingstag, uncheckInkluderingstag } from './tagHelpers';
 
 export const SET_AD_DATA = 'SET_AD_DATA';
 export const REMOVE_AD_DATA = 'REMOVE_AD_DATA';
@@ -515,22 +516,33 @@ export default function adDataReducer(state = initialState, action) {
                 ...state,
                 privacy: action.privacy
             };
-        case CHECK_TAG: 
+        case CHECK_TAG: {
+            const tags = checkInkluderingstag(
+                IsJson(state.properties.tags) ? JSON.parse(state.properties.tags) : [],
+                action.value
+            )
+
             return {
                 ...state,
                 properties: {
                     ...state.properties,
-                    tags: state.properties.tags  ? JSON.stringify([...(IsJson(state.properties.tags) ? JSON.parse(state.properties.tags) : ''), action.value]) : JSON.stringify([action.value])
+                    tags: JSON.stringify(tags),
                 }
             };
+        }
         case UNCHECK_TAG:
-                return {
-                    ...state,
-                    properties: {
-                        ...state.properties,
-                        tags: JSON.stringify(JSON.parse(state.properties.tags).filter((m) => (m !== action.value)))
-                    }
-                };
+            const tags = uncheckInkluderingstag(
+                JSON.parse(state.properties.tags),
+                action.value
+            );
+
+            return {
+                ...state,
+                properties: {
+                    ...state.properties,
+                    tags: JSON.stringify(tags)
+                }
+            };
         case SET_CONTACT_PERSON:
             return {
                 ...state,

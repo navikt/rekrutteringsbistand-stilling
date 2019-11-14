@@ -1,3 +1,22 @@
-export const DirektemeldtTags = {
-  INKLUDERING: { key: 'INKLUDERING', label: 'Inkludering' }
+export const direktemeldteInkluderingstags = {
+    INKLUDERING: 'Inkludering',
+    INKLUDERING__ARBEIDSTID: 'Tilrettelagt arbeidstid',
+    INKLUDERING__FYSISK: 'Fysisk tilrettelegging av arbeidsplassen',
+    INKLUDERING__ARBEIDSMILJØ: 'Tilrettelegging av arbeidsmiljøet',
+    INKLUDERING__GRUNNLEGGENDE:
+        'Få krav til grunnleggende ferdigheter som språk, regning eller tallforståelse',
 };
+
+export const direktemeldtKategorisering = [
+    {
+        tag: 'INKLUDERING',
+        harUnderkategorier: true,
+        tittelTilUnderkategorier: 'Hvilke inkluderingsmuligheter har arbeidsgiver?',
+        underkategorier: [
+            'INKLUDERING__ARBEIDSTID',
+            'INKLUDERING__ARBEIDSMILJØ',
+            'INKLUDERING__FYSISK',
+            'INKLUDERING__GRUNNLEGGENDE',
+        ],
+    },
+];
