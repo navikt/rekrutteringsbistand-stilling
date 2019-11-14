@@ -1,12 +1,12 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Checkbox } from 'nav-frontend-skjema';
 
 import { CHECK_TAG, UNCHECK_TAG } from '../../adDataReducer';
-import { Undertittel } from 'nav-frontend-typografi';
 import isJson from '../../edit/practicalInformation/IsJson';
 import { hentKategorierMedNavn } from '../../tagHelpers';
+import GruppeMedTags from './GruppeMedTags';
 
 const InkluderingPanel = (props) => {
     const { tags, checkTag, uncheckTag, direktemeldt } = props;
@@ -38,24 +38,13 @@ const InkluderingPanel = (props) => {
             {underkategorierAvInkludering.length > 0 &&
                 underkategorierAvInkludering.map(
                     ({ tag, tittelTilUnderkategorier, underkategorier }) => (
-                        <Fragment key={tag}>
-                            <Undertittel>{tittelTilUnderkategorier}</Undertittel>
-                            {underkategorier.map((underkategori) => (
-                                <Checkbox
-                                    className="checkbox--tag skjemaelement--pink"
-                                    id={`tag.${underkategori.tag}-checkbox`}
-                                    label={underkategori.navn}
-                                    value={underkategori.tag}
-                                    key={underkategori.tag}
-                                    checked={
-                                        tags &&
-                                        isJson(tags) &&
-                                        JSON.parse(tags).includes(underkategori.tag)
-                                    }
-                                    onChange={onTagChange}
-                                />
-                            ))}
-                        </Fragment>
+                        <GruppeMedTags
+                            key={tag}
+                            tittel={tittelTilUnderkategorier}
+                            gruppeMedTags={underkategorier}
+                            tagIsChecked={tagIsChecked}
+                            onTagChange={onTagChange}
+                        />
                     )
                 )}
         </div>

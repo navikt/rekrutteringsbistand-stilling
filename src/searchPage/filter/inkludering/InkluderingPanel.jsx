@@ -10,6 +10,8 @@ const InkluderingPanel = ({ tags, checkTag, uncheckTag }) => {
         e.target.checked ? checkTag(e.target.value) : uncheckTag(e.target.value);
     };
 
+    const tagIsChecked = (tag) => tags.includes(tag);
+
     const kategorierMedNavn = hentKategorierMedNavn();
     const underkategorierAvInkludering = kategorierMedNavn.filter(
         (kategori) => kategori.harUnderkategorier && tags.includes(kategori.tag)
@@ -20,7 +22,7 @@ const InkluderingPanel = ({ tags, checkTag, uncheckTag }) => {
             <GruppeMedTags
                 tittel="Inkludering"
                 gruppeMedTags={kategorierMedNavn}
-                tags={tags}
+                tagIsChecked={tagIsChecked}
                 className="FilterLocation__blokk"
                 onTagChange={onTagChange}
             />
@@ -31,7 +33,7 @@ const InkluderingPanel = ({ tags, checkTag, uncheckTag }) => {
                             key={tag}
                             tittel={tittelTilUnderkategorier}
                             gruppeMedTags={underkategorier}
-                            tags={tags}
+                            tagIsChecked={tagIsChecked}
                             onTagChange={onTagChange}
                         />
                     )
