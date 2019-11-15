@@ -12,7 +12,7 @@ const InkluderingPanel = (props) => {
     const { tags, checkTag, uncheckTag, direktemeldt } = props;
 
     const kategorierMedNavn = hentKategorierMedNavn(direktemeldt);
-    const underkategorierAvInkludering = hentKategorierMedNavn().filter(
+    const underkategorierAvInkludering = kategorierMedNavn.filter(
         (kategori) => kategori.harUnderkategorier
     );
 
