@@ -19,33 +19,39 @@ const ResultItem = ({ ad, copiedAds, reportee }) => {
         && ad.rekruttering.eierIdent !== ad.administration.navIdent
         && (reportee && ad.rekruttering.eierIdent != reportee.navIdent)
 
+    const colTitle =
+        <td className="Col-title">
+            <div className="ResultItem__column Col-title-inner">
+                <Link
+                    className="typo-normal lenke"
+                    to={`/stilling/${ad.uuid}`}
+                >
+                    {isCopy ? (
+                        <div>
+                            <b>{ad.title.substr(0, 5)}</b>
+                            {ad.title.substr(5)}
+                        </div> || ''
+                    ) : (
+                        ad.title || ''
+                    )}
+                </Link>
+            </div>
+        </td>
+
+    const colUpdated =
+        <td className="Col-updated">
+            {ad.updated && (
+                <Normaltekst className="ResultItem__column">
+                    {formatISOString(ad.updated, 'DD.MM.YYYY')}
+                </Normaltekst>
+            )}
+        </td>
+
     if(isTransferredToOther) {
         return (
             <tr className={`ResultItem${isCopy ? ' copied' : ''}`}>
-                <td className="Col-updated">
-                    {ad.updated && (
-                        <Normaltekst className="ResultItem__column">
-                            {formatISOString(ad.updated, 'DD.MM.YYYY')}
-                        </Normaltekst>
-                    )}
-                </td>
-                <td className="Col-title">
-                    <div className="ResultItem__column Col-title-inner">
-                        <Link
-                            className="typo-normal lenke"
-                            to={`/stilling/${ad.uuid}`}
-                        >
-                            {isCopy ? (
-                                <div>
-                                    <b>{ad.title.substr(0, 5)}</b>
-                                    {ad.title.substr(5)}
-                                </div> || ''
-                            ) : (
-                                ad.title || ''
-                            )}
-                        </Link>
-                    </div>
-                </td>
+                {colUpdated}
+                {colTitle}
                 <td className="Col-id Col-transferred">
                         <Normaltekst className="ResultItem__column">
                             Overført til annen veileder.
@@ -71,30 +77,8 @@ const ResultItem = ({ ad, copiedAds, reportee }) => {
 
     return (
         <tr className={`ResultItem${isCopy ? ' copied' : ''}`}>
-            <td className="Col-updated">
-                {ad.updated && (
-                    <Normaltekst className="ResultItem__column">
-                        {formatISOString(ad.updated, 'DD.MM.YYYY')}
-                    </Normaltekst>
-                )}
-            </td>
-            <td className="Col-title">
-                <div className="ResultItem__column Col-title-inner">
-                    <Link
-                        className="typo-normal lenke"
-                        to={`/stilling/${ad.uuid}`}
-                    >
-                        {isCopy ? (
-                            <div>
-                                <b>{ad.title.substr(0, 5)}</b>
-                                {ad.title.substr(5)}
-                            </div> || ''
-                        ) : (
-                            ad.title || ''
-                        )}
-                    </Link>
-                </div>
-            </td>
+                {colUpdated}
+                {colTitle}
             <td className="Col-id">
                 {ad.id && (
                     <Normaltekst className="ResultItem__column">
