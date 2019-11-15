@@ -131,14 +131,6 @@ export async function fetchMyAds(query) {
     return fetchAdsCommon(query, `${AD_API}ads/rekrutteringsbistand/minestillinger`)
 }
 
-async function fetchRecruitments(ads) {
-    if(ads && ads.length > 0) {
-        const adUuids = ads.map((ad) => ad.uuid).join(',')
-        return await fetchGet(`${REKRUTTERING_API}/stilling/?stillingUuider=${adUuids}`);
-    }
-    return [];
-}
-
 const employerNameCompletionQueryTemplate = (match) => ({
     query: {
         match_phrase: {
