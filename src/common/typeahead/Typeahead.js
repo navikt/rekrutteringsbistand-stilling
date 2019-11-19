@@ -2,6 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { Element } from 'nav-frontend-typografi';
 import TypeaheadSuggestion from './TypeaheadSuggestion';
 import './Typeahead.less';
 
@@ -273,11 +274,11 @@ export default class Typeahead extends React.Component {
                     >
                         {showSuggestions && this.props.suggestions.length > 0 && (
                             <li className="Typeahead__suggestions-label">
-                                <span className="Typeahead__suggestions-label2">
+                                <Element className="Typeahead__suggestions-label2">
                                     {this.props.suggestionsLabel
                                         ? this.props.suggestionsLabel
                                         : 'Kommune'}
-                                </span>
+                                </Element>
                             </li>
                         )}
                         {showSuggestions &&
@@ -298,11 +299,11 @@ export default class Typeahead extends React.Component {
                             ))}
                         {showOptionalSuggestions && this.props.optionalSuggestions.length > 0 && (
                             <li className="Typeahead__suggestions-label">
-                                <span className="Typeahead__suggestions-label2">
+                                <Element className="Typeahead__suggestions-label2">
                                     {this.props.optionalSuggestionsLabel
                                         ? this.props.optionalSuggestionsLabel
                                         : 'Land'}
-                                </span>
+                                </Element>
                             </li>
                         )}
                         {showOptionalSuggestions &&
