@@ -237,14 +237,6 @@ export default class Typeahead extends React.Component {
                 this.props.suggestions.length > 4 ? 5 : this.props.suggestions.length;
             return (
                 <div className={classNames('Typeahead', this.props.className)}>
-                    {this.props.label && (
-                        <label
-                            className="typo-normal skjemaelement__label blokk-xxs"
-                            htmlFor={this.props.id}
-                        >
-                            {this.props.label}
-                        </label>
-                    )}
                     <input
                         disabled={this.props.disabled}
                         id={this.props.id}
@@ -336,14 +328,6 @@ export default class Typeahead extends React.Component {
 
         return (
             <div className={classNames('Typeahead', this.props.className)}>
-                {this.props.label && (
-                    <label
-                        className="typo-normal skjemaelement__label blokk-xxs"
-                        htmlFor={this.props.id}
-                    >
-                        {this.props.label}
-                    </label>
-                )}
                 <input
                     disabled={this.props.disabled}
                     id={this.props.id}
