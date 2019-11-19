@@ -33,7 +33,7 @@ class CandidateActions extends React.Component {
         const { uuid, source, publishedByAdmin, id } = this.props.ad;
         const {recruitment}  = this.props;
 
-        const showCandidateLinks = (publishedByAdmin && source === 'DIR' || recruitment.eierIdent);
+        const showCandidateLinks = (publishedByAdmin && source === 'DIR' || recruitment.eierNavident);
 
         return (
             <div className="CandidateActions">

@@ -15,7 +15,7 @@ class ContactInfo extends React.Component {
   render() {
     const { stilling, recruitment, innlogget } = this.props;
     const isDir = (stilling && stilling.source === 'DIR');
-    const hasRecruitment = recruitment && recruitment.eierIdent;
+    const hasRecruitment = recruitment && recruitment.eierNavident;
     const { reportee, navIdent } = stilling.administration;
     const contact = stilling.contactList && stilling.contactList.length ? stilling.contactList[0] : undefined;
 
@@ -39,9 +39,9 @@ class ContactInfo extends React.Component {
             <div className="ContactInfo__preview">
               <Element>Spørsmål om stillingen?</Element>
               <Normaltekst>
-                Kontaktperson hos NAV: {recruitment.eierNavn} {recruitment.eierIdent ? ` (${recruitment.eierIdent})` : ''}
+                Kontaktperson hos NAV: {recruitment.eierNavn} {recruitment.eierNavident ? ` (${recruitment.eierNavident})` : ''}
               </Normaltekst>
-              { (!recruitment.eierIdent || (innlogget && recruitment.eierIdent != innlogget.navIdent)) &&
+              { (!recruitment.eierNavident || (innlogget && recruitment.eierNavident != innlogget.navIdent)) &&
                 <Knapp
                     className="button-marker_som_min"
                     onClick={this.onMarkerSomMinClick}
@@ -71,8 +71,8 @@ ContactInfo.propTypes = {
     })
   }),
   recruitment: PropTypes.shape({
-    stillingUuid: PropTypes.string,
-    eierIdent: PropTypes.string,
+    stillingsid: PropTypes.string,
+    eierNavident: PropTypes.string,
     eierNavn: PropTypes.string
   })
 }

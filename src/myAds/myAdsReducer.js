@@ -115,14 +115,14 @@ function* getMyAds(action) {
 
         const recruitmentResponse = yield fetchRecruitmentsForVeileder(reportee.navIdent)
 
-        const stillingUuids = recruitmentResponse
-            .map(r => r.stillingUuid)
+        const stillingsids = recruitmentResponse
+            .map(r => r.stillingsid)
             .join(",")
 
         const search = {
             ...state.myAds,
             reportee: reportee.displayName,
-            uuid: stillingUuids
+            uuid: stillingsids
         };
 
         const query = toQuery(search);

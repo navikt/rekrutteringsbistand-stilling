@@ -83,9 +83,9 @@ function* getRecruitment(action) {
             response !== null 
             ? response 
             : {
-                eierIdent: undefined,
+                eierNavident: undefined,
                 eierNavn: undefined,
-                stillingUuid: action.uuid
+                stillingsid: action.uuid
             } 
 
         yield put({ type: FETCH_RECRUITMENT_SUCCESS });
@@ -106,7 +106,7 @@ function* saveRecruitment() {
     try {
         state = yield select();
 
-        if(state.recruitmentData.rekrutteringUuid) {
+        if(state.recruitmentData.stillingsinfoid) {
             throw "Ny med eksisterende id";
         }
         const response =  yield fetchPost(REKRUTTERING_API, state.recruitmentData);
@@ -128,8 +128,9 @@ function* updateRecruitment() {
     yield put({ type: UPDATE_RECRUITMENT_BEGIN });
     try {
         state = yield select();
+        console.log('fff', state)
 
-        if(!state.recruitmentData.rekrutteringUuid) {
+        if(!state.recruitmentData.stillingsinfoid) {
             throw "oppdaterer uten å ha id";
         }
         const response = yield fetchPut(REKRUTTERING_API, state.recruitmentData)

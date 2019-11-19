@@ -11,7 +11,7 @@ import PrivacyStatusEnum from '../../common/enums/PrivacyStatusEnum';
 import AWithIcon from '../../common/aWithIcon/AWithIcon';
 
 const SearchResultItem = ({ ad }) => {
-    const overfoert = ad.rekruttering && ad.rekruttering.rekrutteringUuid;
+    const overfoert = ad.rekruttering && ad.rekruttering.stillingsinfoid;
     return(
     <tr className="SearchResultItem">
         <td>

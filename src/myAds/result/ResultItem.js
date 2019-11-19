@@ -15,9 +15,9 @@ import ResultItemDropDown from './ResultItemDropDown';
 const ResultItem = ({ ad, copiedAds, reportee }) => {
     const [dropDownVisible, setDropDownVisible] = useState(false);
     const isCopy = copiedAds.includes(ad.uuid);
-    const isTransferredToOther = (ad.rekruttering && ad.rekruttering.eierIdent && ad.administration && ad.administration.navIdent)
-        && ad.rekruttering.eierIdent !== ad.administration.navIdent
-        && (reportee && ad.rekruttering.eierIdent != reportee.navIdent)
+    const isTransferredToOther = (ad.rekruttering && ad.rekruttering.eierNavident && ad.administration && ad.administration.navIdent)
+        && ad.rekruttering.eierNavident !== ad.administration.navIdent
+        && (reportee && ad.rekruttering.eierNavident != reportee.navIdent)
 
     const colTitle =
         <td className="Col-title">
