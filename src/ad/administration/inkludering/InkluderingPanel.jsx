@@ -29,7 +29,7 @@ const InkluderingPanel = (props) => {
                         checked={tagIsChecked(tag)}
                         onChange={onTagChange}
                     />
-                    {harUnderkategorier && (
+                    {harUnderkategorier && tagIsChecked(tag) && (
                         <Fieldset legend={navn} className="Inkludering__subtags">
                             {underkategorier.map(({ tag, navn }) => (
                                 <Checkbox
