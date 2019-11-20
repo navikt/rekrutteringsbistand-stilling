@@ -35,11 +35,11 @@ const Inkludering = ({ tags }) => {
     return (
         <Fragment>
             <Etiketter tittel="Inkludering" tags={overordnedeTags} />
-            {underordnedeTags.map((kategori) => (
+            {underordnedeTags.map(({ tag, underkategorier, tittelTilUnderkategorier }) => (
                 <Etiketter
-                    key={kategori.tag}
-                    tittel={kategori.navn}
-                    tags={kategori.underkategorier}
+                    key={tag}
+                    tittel={tittelTilUnderkategorier}
+                    tags={underkategorier}
                 />
             ))}
         </Fragment>

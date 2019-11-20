@@ -11,6 +11,7 @@ export const direktemeldtKategorisering = [
     {
         tag: 'INKLUDERING',
         harUnderkategorier: true,
+        tittelTilUnderkategorier: 'Muligheter for tilrettelegging',
         underkategorier: [
             'INKLUDERING__ARBEIDSTID',
             'INKLUDERING__ARBEIDSMILJØ',
