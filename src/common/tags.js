@@ -1,5 +1,5 @@
 export const inkluderingstags = {
-    INKLUDERING: 'Inkludering',
+    INKLUDERING: 'Arbeidsgiver ønsker å tilrettelegge',
     INKLUDERING__ARBEIDSTID: 'Tilrettelagt arbeidstid',
     INKLUDERING__FYSISK: 'Fysisk tilrettelegging av arbeidsplassen',
     INKLUDERING__ARBEIDSMILJØ: 'Tilrettelegging av arbeidsmiljøet',
@@ -12,7 +12,6 @@ export const kategorisering = [
     {
         tag: 'INKLUDERING',
         harUnderkategorier: true,
-        tittelTilUnderkategorier: 'Muligheter for tilrettelegging',
         underkategorier: [
             'INKLUDERING__ARBEIDSTID',
             'INKLUDERING__ARBEIDSMILJØ',
