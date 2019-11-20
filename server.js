@@ -36,7 +36,7 @@ server.engine('html', mustacheExpress());
 
 
 const writeEnvironmentVariablesToFile = () => {
-    const fileContent = `window.__w__="${process.env.REKRUTTERINGSBISTAND_API_URL}";\n`
+    const fileContent = `window.__PAM_AD_API__="${process.env.REKRUTTERINGSBISTAND_API_URL}";\n`
         + `window.__REKRUTTERING_API__="${process.env.REKRUTTERING_API_URL}";\n`
         + `window.__PAM_SEARCH_API__="${process.env.REKRUTTERINGSBISTAND_API_SEARCH_URL}";\n`
         + `window.__PAM_CONTEXT_PATH__="";\n`
