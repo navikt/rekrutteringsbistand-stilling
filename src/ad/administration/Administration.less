@@ -46,13 +46,23 @@
 .Inkludering {
   .skjemaelement {
     line-height: 20px;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
   }
   .skjema__legend {
     font-size: 20px;
   }
   .typo-undertittel {
     margin: 2rem 0 1rem;
+  }
+}
+
+.Inkludering {
+  &__subtags.skjema__fieldset {
+    padding-left: 1.5rem;
+
+    legend {
+      display: none;
+    }
   }
 }
 
@@ -69,13 +79,6 @@
   }
   .nav-frontend-tabs__tab-label {
     font-weight: 400;
-  }
-}
-
-.Inkluderingpanel {
-
-  .Inkludering {
-    padding-top: 1rem;
   }
 }
 

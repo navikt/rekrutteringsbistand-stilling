@@ -1,5 +1,5 @@
 export const direktemeldteInkluderingstags = {
-    INKLUDERING: 'Inkludering',
+    INKLUDERING: 'Arbeidsgiver ønsker å tilrettelegge',
     INKLUDERING__ARBEIDSTID: 'Tilrettelagt arbeidstid',
     INKLUDERING__FYSISK: 'Fysisk tilrettelegging av arbeidsplassen',
     INKLUDERING__ARBEIDSMILJØ: 'Tilrettelegging av arbeidsmiljøet',
@@ -11,7 +11,6 @@ export const direktemeldtKategorisering = [
     {
         tag: 'INKLUDERING',
         harUnderkategorier: true,
-        tittelTilUnderkategorier: 'Muligheter for tilrettelegging',
         underkategorier: [
             'INKLUDERING__ARBEIDSTID',
             'INKLUDERING__ARBEIDSMILJØ',

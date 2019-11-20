@@ -38,7 +38,7 @@ const Inkludering = ({ tags }) => {
             {underordnedeTags.map((kategori) => (
                 <Etiketter
                     key={kategori.tag}
-                    tittel={kategori.tittelTilUnderkategorier}
+                    tittel={kategori.navn}
                     tags={kategori.underkategorier}
                 />
             ))}

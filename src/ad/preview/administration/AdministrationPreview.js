@@ -22,13 +22,13 @@ class AdministrationPreview extends React.Component {
                         <AdStatus />
                     </div>
                     <div className="Administration__flex__center">
-                        <Inkludering />
                         <div className="Administration__panel">
                             <Publishing />
                         </div>
                         <div className="Administration__panel">
                             <ContactInfo />
                         </div>
+                        <Inkludering />
                         <div className="Administration__panel">
                             <Comment />
                         </div>
