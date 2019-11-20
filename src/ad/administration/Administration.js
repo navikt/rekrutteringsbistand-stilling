@@ -41,6 +41,7 @@ class Administration extends React.Component {
        return (
             <div className="Tab__area">
                 <div className="Administration__panel">
+                    <Undertittel className="Administration__panel__title">Inkludering</Undertittel>
                     <InkluderingPanel />
                 </div> 
             </div>
