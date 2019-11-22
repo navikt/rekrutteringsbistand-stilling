@@ -1,6 +1,7 @@
 import React from 'react';
 import { EkspanderbartpanelBase } from 'nav-frontend-ekspanderbartpanel';
 import './Filterpanel.less';
+import { Fieldset } from 'nav-frontend-skjema';
 
 const Filterpanel = ({ label, children }) => {
     const accessibilityHeader = `${label}_label`;
@@ -16,9 +17,9 @@ const Filterpanel = ({ label, children }) => {
                 </label>
             }
         >
-            <div role="group" aria-labelledby={accessibilityHeader}>
+            <fieldset className="skjema__fieldset" aria-labelledby={accessibilityHeader}>
                 {children}
-            </div>
+            </fieldset>
         </EkspanderbartpanelBase>
     );
 };
