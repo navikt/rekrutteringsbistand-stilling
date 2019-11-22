@@ -1,9 +1,10 @@
 import React from 'react';
 import { EkspanderbartpanelBase } from 'nav-frontend-ekspanderbartpanel';
+import './Filterpanel.less';
 
 const Filterpanel = ({ label, htmlFor, children }) => (
     <EkspanderbartpanelBase
-        className="blokk-s"
+        className="Filterpanel blokk-s"
         border
         apen
         heading={
