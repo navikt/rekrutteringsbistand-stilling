@@ -21,7 +21,6 @@ export function getTruncatedWorkLocation(locationList) {
     return workLocation;
 }
 
-
 export function getWorkLocationsAsString(locationList) {
     const workLocations = [];
     if (!locationList) {

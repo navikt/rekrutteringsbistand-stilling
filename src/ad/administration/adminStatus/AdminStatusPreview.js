@@ -9,16 +9,11 @@ import { SAVE_AD } from '../../adReducer';
 
 class AdminStatusPreview extends React.Component {
     onMarkAsMineClick = () => {
-        const {
-            reportee,
-            setReportee,
-            setNavIdent,
-            saveAd
-        } = this.props;
+        const { reportee, setReportee, setNavIdent, saveAd } = this.props;
         setReportee(reportee.displayName);
         setNavIdent(reportee.navIdent);
         saveAd();
-    }
+    };
 
     render() {
         const { administration, reportee } = this.props;
@@ -33,10 +28,7 @@ class AdminStatusPreview extends React.Component {
                 </div>
                 {reportee && reportee.navIdent !== administration.navIdent && (
                     <div>
-                        <Flatknapp
-                            mini
-                            onClick={this.onMarkAsMineClick}
-                        >
+                        <Flatknapp mini onClick={this.onMarkAsMineClick}>
                             Marker som min
                         </Flatknapp>
                     </div>
@@ -47,32 +39,32 @@ class AdminStatusPreview extends React.Component {
 }
 
 AdminStatusPreview.defaultProps = {
-    administration: {}
+    administration: {},
 };
 
 AdminStatusPreview.propTypes = {
     administration: PropTypes.shape({
         reportee: PropTypes.string,
-        navIdent: PropTypes.string
+        navIdent: PropTypes.string,
     }),
     reportee: PropTypes.shape({
         navIdent: PropTypes.string,
-        displayName: PropTypes.string
+        displayName: PropTypes.string,
     }).isRequired,
     setReportee: PropTypes.func.isRequired,
     setNavIdent: PropTypes.func.isRequired,
-    saveAd: PropTypes.func.isRequired
+    saveAd: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = (dispatch) => ({
-    setReportee: (reportee) => dispatch({ type: SET_REPORTEE, reportee }),
-    setNavIdent: (navIdent) => dispatch({ type: SET_NAV_IDENT, navIdent }),
-    saveAd: () => dispatch({ type: SAVE_AD })
+const mapDispatchToProps = dispatch => ({
+    setReportee: reportee => dispatch({ type: SET_REPORTEE, reportee }),
+    setNavIdent: navIdent => dispatch({ type: SET_NAV_IDENT, navIdent }),
+    saveAd: () => dispatch({ type: SAVE_AD }),
 });
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     administration: state.adData.administration,
-    reportee: state.reportee.data
+    reportee: state.reportee.data,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminStatusPreview);

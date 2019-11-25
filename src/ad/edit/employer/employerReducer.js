@@ -6,7 +6,7 @@ import {
     FETCH_AD_BEGIN,
     FETCH_AD_SUCCESS,
     SAVE_AD_BEGIN,
-    SAVE_AD_SUCCESS
+    SAVE_AD_SUCCESS,
 } from '../../adReducer';
 import capitalizeEmployerName from './capitalizeEmployerName';
 
@@ -17,7 +17,7 @@ export const SET_EMPLOYER_TYPEAHEAD_VALUE = 'SET_EMPLOYER_TYPEAHEAD_VALUE';
 
 const initialState = {
     suggestions: [],
-    typeAheadValue: ''
+    typeAheadValue: '',
 };
 
 export default function employerReducer(state = initialState, action) {
@@ -27,37 +27,39 @@ export default function employerReducer(state = initialState, action) {
         case SAVE_AD_BEGIN:
             return {
                 ...state,
-                suggestions: []
+                suggestions: [],
             };
         case CREATE_AD_SUCCESS:
         case SAVE_AD_SUCCESS:
         case FETCH_AD_SUCCESS:
             return {
                 ...state,
-                typeAheadValue: action.response.employer && action.response.employer.name ?
-                    capitalizeEmployerName(action.response.employer.name) : ''
+                typeAheadValue:
+                    action.response.employer && action.response.employer.name
+                        ? capitalizeEmployerName(action.response.employer.name)
+                        : '',
             };
         case FETCH_EMPLOYER_SUGGESTIONS_SUCCESS:
             return {
                 ...state,
-                suggestions: action.suggestions
+                suggestions: action.suggestions,
             };
         case FETCH_EMPLOYER_SUGGESTIONS_FAILURE:
             return {
                 ...state,
-                suggestions: []
+                suggestions: [],
             };
         case SET_EMPLOYER_TYPEAHEAD_VALUE:
             return {
                 ...state,
-                typeAheadValue: action.value
+                typeAheadValue: action.value,
             };
         default:
             return state;
     }
 }
 
-const getTypeAheadValue = (state) => state.employer.typeAheadValue;
+const getTypeAheadValue = state => state.employer.typeAheadValue;
 
 function* getEmployerSuggestions() {
     const value = yield select(getTypeAheadValue);

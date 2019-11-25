@@ -7,8 +7,7 @@ import './Publishing.less';
 import PrivacyStatusEnum from '../../../common/enums/PrivacyStatusEnum';
 
 class Privacy extends React.Component {
-
-    onPrivacyChange = (e) => {
+    onPrivacyChange = e => {
         this.props.setPrivacy(e.target.value);
     };
 
@@ -36,15 +35,15 @@ class Privacy extends React.Component {
 }
 
 Privacy.propTypes = {
-    privacy: PropTypes.string.isRequired
+    privacy: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-    privacy: state.adData.privacy
+const mapStateToProps = state => ({
+    privacy: state.adData.privacy,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    setPrivacy: (privacy) => dispatch({ type: SET_PRIVACY, privacy }),
+const mapDispatchToProps = dispatch => ({
+    setPrivacy: privacy => dispatch({ type: SET_PRIVACY, privacy }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Privacy);

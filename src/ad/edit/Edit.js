@@ -15,7 +15,10 @@ import Application from './application/Application';
 import Location from './location/Location';
 import { formatISOString } from '../../utils';
 import { loginWithRedirectToCurrentLocation } from '../../login';
-import TokenExpirationChecker, { TOKEN_EXPIRES_SOON, TOKEN_HAS_EXPIRED } from './session/TokenExpirationChecker';
+import TokenExpirationChecker, {
+    TOKEN_EXPIRES_SOON,
+    TOKEN_HAS_EXPIRED,
+} from './session/TokenExpirationChecker';
 import SessionExpirationModal from './session/SessionExpirationModal';
 
 class Edit extends React.Component {
@@ -26,7 +29,7 @@ class Edit extends React.Component {
         this.tokenExpirationChecker.on(TOKEN_HAS_EXPIRED, this.showDidTimeoutModal);
         this.state = {
             willTimeout: false,
-            didTimeout: false
+            didTimeout: false,
         };
     }
 
@@ -46,7 +49,7 @@ class Edit extends React.Component {
     showDidTimeoutModal = () => {
         this.setState({
             willTimeout: false,
-            didTimeout: true
+            didTimeout: true,
         });
         this.tokenExpirationChecker.pause();
     };
@@ -65,26 +68,26 @@ class Edit extends React.Component {
 
         return (
             <div className="Edit">
-                {willTimeout &&
-                <SessionExpirationModal
-                    title={'Du blir snart logget ut'}
-                    bodyText={'Lagre nå for å unngå å miste endringene dine.'}
-                    mainButtonText={'Lagre'}
-                    mainOnClick={this.saveAndLogin}
-                    secondaryButtonText={'Avbryt'}
-                    secondaryOnClick={this.loginAndRedirect}
-                    isOpen={willTimeout}
-                />
-                }
-                {didTimeout &&
-                <SessionExpirationModal
-                    title={'Du har blitt logget ut'}
-                    bodyText={'Denne sesjonen har utløpt.'}
-                    mainButtonText={'Logg inn'}
-                    mainOnClick={this.loginAndRedirect}
-                    isOpen={didTimeout}
-                />
-                }
+                {willTimeout && (
+                    <SessionExpirationModal
+                        title={'Du blir snart logget ut'}
+                        bodyText={'Lagre nå for å unngå å miste endringene dine.'}
+                        mainButtonText={'Lagre'}
+                        mainOnClick={this.saveAndLogin}
+                        secondaryButtonText={'Avbryt'}
+                        secondaryOnClick={this.loginAndRedirect}
+                        isOpen={willTimeout}
+                    />
+                )}
+                {didTimeout && (
+                    <SessionExpirationModal
+                        title={'Du har blitt logget ut'}
+                        bodyText={'Denne sesjonen har utløpt.'}
+                        mainButtonText={'Logg inn'}
+                        mainOnClick={this.loginAndRedirect}
+                        isOpen={didTimeout}
+                    />
+                )}
                 <Row className="Edit__inner">
                     <Column xs="12" md="8">
                         <div className="Edit__left">
@@ -106,19 +109,15 @@ class Edit extends React.Component {
                         >
                             <Input
                                 label="Sist endret"
-                                value={ad.updated !== ad.created ? formatISOString(ad.updated, 'DD.MM.YYYY') : ''}
+                                value={
+                                    ad.updated !== ad.created
+                                        ? formatISOString(ad.updated, 'DD.MM.YYYY')
+                                        : ''
+                                }
                                 disabled
                             />
-                            <Input
-                                label="Hentet fra/kilde"
-                                value={ad.medium || ''}
-                                disabled
-                            />
-                            <Input
-                                label="Annonsenummer"
-                                value={ad.id || ''}
-                                disabled
-                            />
+                            <Input label="Hentet fra/kilde" value={ad.medium || ''} disabled />
+                            <Input label="Annonsenummer" value={ad.id || ''} disabled />
                         </Ekspanderbartpanel>
                     </Column>
                 </Row>
@@ -128,7 +127,7 @@ class Edit extends React.Component {
 }
 
 Edit.defaultProps = {
-    isNew: false
+    isNew: false,
 };
 
 Edit.propTypes = {
@@ -138,20 +137,20 @@ Edit.propTypes = {
         created: PropTypes.string,
         medium: PropTypes.string,
         uuid: PropTypes.string,
-        id: PropTypes.number
+        id: PropTypes.number,
     }).isRequired,
     resetValidation: PropTypes.func.isRequired,
     isNew: PropTypes.bool,
-    saveAndLogin: PropTypes.func.isRequired
+    saveAndLogin: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-    ad: state.adData
+const mapStateToProps = state => ({
+    ad: state.adData,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     saveAndLogin: () => dispatch({ type: SAVE_AD, login: true }),
-    resetValidation: () => dispatch({ type: RESET_VALIDATION_ERROR })
+    resetValidation: () => dispatch({ type: RESET_VALIDATION_ERROR }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Edit);

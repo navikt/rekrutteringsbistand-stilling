@@ -5,13 +5,13 @@ import {
     fetchKandidatMedFnr,
     KandidatSokError,
     postKandidatTilKandidatliste,
-    putKandidatliste
+    putKandidatliste,
 } from './kandidatApi';
 
 export const KandidatAlertStripeMode = {
     SAVED: 'SAVED',
     INACTIVE: 'INACTIVE',
-    FAILURE: 'FAILURE'
+    FAILURE: 'FAILURE',
 };
 
 export const Hentestatus = {
@@ -19,19 +19,19 @@ export const Hentestatus = {
     FINNES_IKKE: 'FINNES_IKKE',
     LOADING: 'LOADING',
     SUCCESS: 'SUCCESS',
-    FAILURE: 'FAILURE'
+    FAILURE: 'FAILURE',
 };
 
 export const Lagrestatus = {
     LOADING: 'LOADING',
     UNSAVED: 'UNSAVED',
-    SUCCESS: 'SUCCESS'
+    SUCCESS: 'SUCCESS',
 };
 
 const initialState = {
     detaljer: {
         fetching: false,
-        kandidatliste: undefined
+        kandidatliste: undefined,
     },
     error: undefined,
     fodselsnummer: undefined,
@@ -44,12 +44,12 @@ const initialState = {
         fodselsnummer: undefined,
         mestRelevanteYrkesErfaring: {
             styrkKodeStillingstittel: undefined,
-            yrkeserfaringManeder: undefined
-        }
+            yrkeserfaringManeder: undefined,
+        },
     },
     lagreStatus: Lagrestatus.UNSAVED,
     showAlertStripe: false,
-    alertStripeMode: KandidatAlertStripeMode.INACTIVE
+    alertStripeMode: KandidatAlertStripeMode.INACTIVE,
 };
 
 export const HENT_KANDIDAT_MED_FNR = 'HENT_KANDIDAT_MED_FNR';
@@ -75,37 +75,37 @@ export default function kandidatReducer(state = initialState, action) {
         case HENT_KANDIDAT_MED_FNR:
             return {
                 ...state,
-                henteStatus: Hentestatus.LOADING
+                henteStatus: Hentestatus.LOADING,
             };
         case HENT_KANDIDAT_MED_FNR_RESET:
             return {
                 ...state,
                 kandidatStatus: Hentestatus.IKKE_HENTET,
-                kandidat: initialState.kandidat
+                kandidat: initialState.kandidat,
             };
         case HENT_KANDIDAT_MED_FNR_SUCCESS:
             return {
                 ...state,
                 kandidatStatus: Hentestatus.SUCCESS,
-                kandidat: action.kandidat
+                kandidat: action.kandidat,
             };
         case HENT_KANDIDAT_MED_FNR_NOT_FOUND:
             return {
                 ...state,
-                kandidatStatus: Hentestatus.FINNES_IKKE
+                kandidatStatus: Hentestatus.FINNES_IKKE,
             };
         case HENT_KANDIDAT_MED_FNR_FAILURE:
             return {
                 ...state,
-                kandidatStatus: Hentestatus.FAILURE
+                kandidatStatus: Hentestatus.FAILURE,
             };
         case HENT_KANDIDATLISTE:
             return {
                 ...state,
                 detaljer: {
                     ...state.detaljer,
-                    fetching: true
-                }
+                    fetching: true,
+                },
             };
         case HENT_KANDIDATLISTE_FAILURE:
             return {
@@ -113,13 +113,13 @@ export default function kandidatReducer(state = initialState, action) {
                 kandidatlisteStatus: Hentestatus.FAILURE,
                 detaljer: {
                     ...state.detaljer,
-                    fetching: false
-                }
+                    fetching: false,
+                },
             };
         case HENT_KANDIDATLISTE_NOT_FOUND:
             return {
                 ...state,
-                kandidatlisteStatus: Hentestatus.FINNES_IKKE
+                kandidatlisteStatus: Hentestatus.FINNES_IKKE,
             };
         case HENT_KANDIDATLISTE_SUCCESS:
             return {
@@ -128,50 +128,50 @@ export default function kandidatReducer(state = initialState, action) {
                 detaljer: {
                     ...state.detaljer,
                     kandidatliste: action.kandidatliste,
-                    fetching: false
-                }
+                    fetching: false,
+                },
             };
         case KANDIDAT_ERROR:
             return {
                 ...state,
-                error: action.error
+                error: action.error,
             };
         case LEGG_TIL_KANDIDAT:
             return {
                 ...state,
-                lagreStatus: Lagrestatus.LOADING
+                lagreStatus: Lagrestatus.LOADING,
             };
         case LEGG_TIL_KANDIDAT_SUCCESS:
             return {
                 ...state,
-                lagreStatus: Lagrestatus.SUCCESS
+                lagreStatus: Lagrestatus.SUCCESS,
             };
         case LEGG_TIL_KANDIDAT_FAILURE:
             return {
                 ...state,
-                lagreStatus: Lagrestatus.FAILURE
+                lagreStatus: Lagrestatus.FAILURE,
             };
         case SET_FODSELSNUMMER:
             return {
                 ...state,
-                fodselsnummer: action.fodselsnummer
+                fodselsnummer: action.fodselsnummer,
             };
         case SHOW_SAVED_KANDIDAT_ALERT_STRIPE:
             return {
                 ...state,
                 showAlertStripe: true,
-                alertStripeMode: action.mode
+                alertStripeMode: action.mode,
             };
         case HIDE_SAVED_KANDIDAT_ALERT_STRIPE:
             return {
                 ...state,
                 showAlertStripe: false,
-                alertStripeMode: KandidatAlertStripeMode.INACTIVE
+                alertStripeMode: KandidatAlertStripeMode.INACTIVE,
             };
         default:
             return state;
     }
-};
+}
 
 function* hentKandidatliste({ stillingsnummer }) {
     try {
@@ -210,7 +210,7 @@ function* leggTilKandidat({ id, kandidat }) {
         yield showAlertStripe(KandidatAlertStripeMode.SAVED);
     } catch (e) {
         if (e instanceof KandidatSokError) {
-            yield put({ type: LEGG_TIL_KANDIDAT_FAILURE, error: e});
+            yield put({ type: LEGG_TIL_KANDIDAT_FAILURE, error: e });
         }
         yield showAlertStripe(KandidatAlertStripeMode.FAILURE);
     }
@@ -242,9 +242,8 @@ export function* kandidatSaga() {
     yield takeLatest(HENT_KANDIDATLISTE, hentKandidatliste);
     yield takeLatest(HENT_KANDIDAT_MED_FNR, hentKandidatMedFnr);
     yield takeLatest(LEGG_TIL_KANDIDAT, leggTilKandidat);
-    yield takeLatest([
-        HENT_KANDIDAT_MED_FNR_FAILURE,
-        HENT_KANDIDATLISTE_FAILURE,
-        LEGG_TIL_KANDIDAT_FAILURE
-    ], sjekkError);
+    yield takeLatest(
+        [HENT_KANDIDAT_MED_FNR_FAILURE, HENT_KANDIDATLISTE_FAILURE, LEGG_TIL_KANDIDAT_FAILURE],
+        sjekkError
+    );
 }

@@ -5,11 +5,7 @@ import { Systemtittel } from 'nav-frontend-typografi';
 
 function SearchResultCount({ count, isSearching }) {
     if (isSearching) {
-        return (
-            <Systemtittel>
-                &nbsp;
-            </Systemtittel>
-        );
+        return <Systemtittel>&nbsp;</Systemtittel>;
     }
     return (
         <div>
@@ -22,12 +18,12 @@ function SearchResultCount({ count, isSearching }) {
 
 SearchResultCount.propTypes = {
     count: PropTypes.number.isRequired,
-    isSearching: PropTypes.bool.isRequired
+    isSearching: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     count: state.search.totalElements,
-    isSearching: state.search.isSearching
+    isSearching: state.search.isSearching,
 });
 
 const mapDispatchToProps = () => ({});

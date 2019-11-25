@@ -13,7 +13,7 @@ import CandidateActions from '../../candidateActions/CandidateActions';
 import Alertstripe from 'nav-frontend-alertstriper';
 
 class EditHeader extends React.Component {
-    onTitleChange = (e) => {
+    onTitleChange = e => {
         this.props.setAdTitle(e.target.value.replace(/^\s+/g, '')); // Regex for å fjerne whitespace
     };
 
@@ -33,25 +33,26 @@ class EditHeader extends React.Component {
             <div>
                 <div className="Ad__actions">
                     <CandidateActions />
-                    {!limitedAccess &&
+                    {!limitedAccess && (
                         <div>
-                            <Knapp
-                                className="Ad__actions-button"
-                                onClick={onPreviewAdClick}
-                                mini
-                            >
+                            <Knapp className="Ad__actions-button" onClick={onPreviewAdClick} mini>
                                 Forhåndsvis stillingen
                             </Knapp>
                         </div>
-                    }
+                    )}
                 </div>
-                {limitedAccess && 
+                {limitedAccess && (
                     <div className="Ad__info">
-                        <Alertstripe className="AdStatusPreview__Alertstripe" type="info" solid="true">
-                            Dette er en eksternt utlyst stilling. Du kan <b>ikke</b> endre stillingen.
+                        <Alertstripe
+                            className="AdStatusPreview__Alertstripe"
+                            type="info"
+                            solid="true"
+                        >
+                            Dette er en eksternt utlyst stilling. Du kan <b>ikke</b> endre
+                            stillingen.
                         </Alertstripe>
                     </div>
-                }
+                )}
                 <Input
                     inputClassName="EditHeader__AdTitle"
                     label={<Element>Overskrift på annonsen* </Element>}
@@ -70,22 +71,22 @@ EditHeader.propTypes = {
     ad: PropTypes.shape({
         title: PropTypes.string,
         uuid: PropTypes.string,
-        source: PropTypes.string
+        source: PropTypes.string,
     }).isRequired,
     onPreviewAdClick: PropTypes.func.isRequired,
     setAdTitle: PropTypes.func.isRequired,
     validation: PropTypes.shape({
-        title: PropTypes.string
-    }).isRequired
+        title: PropTypes.string,
+    }).isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     ad: state.adData,
-    validation: state.adValidation.errors
+    validation: state.adValidation.errors,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    setAdTitle: (title) => dispatch({ type: SET_AD_TITLE, title })
+const mapDispatchToProps = dispatch => ({
+    setAdTitle: title => dispatch({ type: SET_AD_TITLE, title }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditHeader);

@@ -9,7 +9,7 @@ import { SET_PUBLISHED, SET_EXPIRATION_DATE } from '../../adDataReducer';
 import './Publishing.less';
 
 class Publishing extends React.Component {
-    onPublishedChange = (date) => {
+    onPublishedChange = date => {
         let published;
         if (date && !Number.isNaN(Date.parse(date))) {
             date.setHours(3);
@@ -18,7 +18,7 @@ class Publishing extends React.Component {
         this.props.setPublished(published);
     };
 
-    onExpiresChange = (date) => {
+    onExpiresChange = date => {
         let expires;
         if (date && !Number.isNaN(Date.parse(date))) {
             date.setHours(3);
@@ -43,12 +43,16 @@ class Publishing extends React.Component {
                         }}
                         dato={formatISOString(published, 'DD.MM.YYYY') || ''}
                         onChange={this.onPublishedChange}
-                        ref={(instance) => { this.refPublished = instance; }}
+                        ref={instance => {
+                            this.refPublished = instance;
+                        }}
                         avgrensninger={{ minDato: new Date(Date.now()) }}
                         inputProps={{ placeholder: 'dd.mm.åååå' }}
                     />
                     {this.props.validation.published && (
-                        <div className="Administration__error">{this.props.validation.published}</div>
+                        <div className="Administration__error">
+                            {this.props.validation.published}
+                        </div>
                     )}
                 </div>
                 <div className="Publishing__datepicker Publishing__datepicker-expires">
@@ -76,7 +80,7 @@ class Publishing extends React.Component {
 
 Publishing.defaultProps = {
     published: undefined,
-    expires: undefined
+    expires: undefined,
 };
 
 Publishing.propTypes = {
@@ -86,19 +90,19 @@ Publishing.propTypes = {
     setPublished: PropTypes.func.isRequired,
     validation: PropTypes.shape({
         expires: PropTypes.string,
-        published: PropTypes.string
-    }).isRequired
+        published: PropTypes.string,
+    }).isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     published: state.adData.published,
     expires: state.adData.expires,
-    validation: state.adValidation.errors
+    validation: state.adValidation.errors,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    setPublished: (published) => dispatch({ type: SET_PUBLISHED, published }),
-    setExpirationDate: (expires) => dispatch({ type: SET_EXPIRATION_DATE, expires })
+const mapDispatchToProps = dispatch => ({
+    setPublished: published => dispatch({ type: SET_PUBLISHED, published }),
+    setExpirationDate: expires => dispatch({ type: SET_EXPIRATION_DATE, expires }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Publishing);

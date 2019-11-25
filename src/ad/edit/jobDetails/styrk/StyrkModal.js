@@ -10,7 +10,7 @@ import StyrkThree from './StyrkThree';
 import './StyrkModal.less';
 
 class StyrkModal extends React.Component {
-    onInputChange = (e) => {
+    onInputChange = e => {
         this.props.setStyrkSearchString(e.target.value);
     };
 
@@ -38,7 +38,9 @@ class StyrkModal extends React.Component {
                             value={this.props.styrkSearchString}
                             onChange={this.onInputChange}
                         />
-                        <Flatknapp mini onClick={this.onResetStyrkThree}>Nullstill</Flatknapp>
+                        <Flatknapp mini onClick={this.onResetStyrkThree}>
+                            Nullstill
+                        </Flatknapp>
                     </div>
                 </div>
                 <div className="StyrkModal__body">
@@ -50,24 +52,24 @@ class StyrkModal extends React.Component {
 }
 
 StyrkModal.defaultProps = {
-    styrkSearchString: ''
+    styrkSearchString: '',
 };
 
 StyrkModal.propTypes = {
     setStyrkSearchString: PropTypes.func.isRequired,
     resetStyrkThree: PropTypes.func.isRequired,
     styrkSearchString: PropTypes.string,
-    toggleList: PropTypes.func.isRequired
+    toggleList: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-    styrkSearchString: state.styrk.styrkSearchString
+const mapStateToProps = state => ({
+    styrkSearchString: state.styrk.styrkSearchString,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    setStyrkSearchString: (value) => dispatch({ type: SET_STRYK_SEARCH_STRING, value }),
+const mapDispatchToProps = dispatch => ({
+    setStyrkSearchString: value => dispatch({ type: SET_STRYK_SEARCH_STRING, value }),
     resetStyrkThree: () => dispatch({ type: RESET_STYRK_THREE }),
-    toggleList: () => dispatch({ type: TOGGLE_STYRK_MODAL })
+    toggleList: () => dispatch({ type: TOGGLE_STYRK_MODAL }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(StyrkModal);

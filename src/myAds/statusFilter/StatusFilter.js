@@ -7,7 +7,7 @@ import AdStatusEnum from '../../common/enums/AdStatusEnum';
 import { getAdStatusLabel } from '../../common/enums/getEnumLabels';
 
 class StatusFilter extends React.Component {
-    onFilterChange = (e) => {
+    onFilterChange = e => {
         if (e.target.value === 'alle') {
             this.props.changeStatusFilter(undefined, undefined);
         } else if (e.target.value === 'utløpt') {
@@ -28,16 +28,21 @@ class StatusFilter extends React.Component {
                     aria-label="Filtrér på status"
                     className="typo-normal StatusFilter-select"
                 >
-                    <option key="alle" value="alle">Alle status</option>
+                    <option key="alle" value="alle">
+                        Alle status
+                    </option>
                     {Object.keys(AdStatusEnum)
-                        .filter((key) => key !== AdStatusEnum.REJECTED && key !== AdStatusEnum.DELETED)
-                        .map((key) => (
+                        .filter(
+                            key => key !== AdStatusEnum.REJECTED && key !== AdStatusEnum.DELETED
+                        )
+                        .map(key => (
                             <option key={key} value={key}>
                                 {getAdStatusLabel(AdStatusEnum[key])}
                             </option>
-                        ))
-                    }
-                    <option key="utløpt" value="utløpt">Utløpt</option>
+                        ))}
+                    <option key="utløpt" value="utløpt">
+                        Utløpt
+                    </option>
                 </Select>
             </div>
         );
@@ -45,21 +50,21 @@ class StatusFilter extends React.Component {
 }
 
 StatusFilter.defaultProps = {
-    status: undefined
+    status: undefined,
 };
-
 
 StatusFilter.propTypes = {
     status: PropTypes.string,
-    changeStatusFilter: PropTypes.func.isRequired
+    changeStatusFilter: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-    status: state.myAds.status
+const mapStateToProps = state => ({
+    status: state.myAds.status,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    changeStatusFilter: (status, deactivatedByExpiry) => dispatch({ type: CHANGE_MY_ADS_STATUS_FILTER, status, deactivatedByExpiry })
+const mapDispatchToProps = dispatch => ({
+    changeStatusFilter: (status, deactivatedByExpiry) =>
+        dispatch({ type: CHANGE_MY_ADS_STATUS_FILTER, status, deactivatedByExpiry }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(StatusFilter);

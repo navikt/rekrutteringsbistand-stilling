@@ -7,25 +7,22 @@ export class KandidatSokError {
     }
 }
 
-export const postKandidatTilKandidatliste = (kandidatlisteId, kandidat) => (
-    postKandidaterTilKandidatliste(kandidatlisteId, [kandidat])
-);
+export const postKandidatTilKandidatliste = (kandidatlisteId, kandidat) =>
+    postKandidaterTilKandidatliste(kandidatlisteId, [kandidat]);
 
-export const postKandidaterTilKandidatliste = (kandidatlisteId, kandidater) => (
-    postJson(`${KANDIDATLISTE_API}/kandidatlister/${kandidatlisteId}/kandidater`, JSON.stringify(kandidater))
-);
+export const postKandidaterTilKandidatliste = (kandidatlisteId, kandidater) =>
+    postJson(
+        `${KANDIDATLISTE_API}/kandidatlister/${kandidatlisteId}/kandidater`,
+        JSON.stringify(kandidater)
+    );
 
-export const fetchKandidatMedFnr = (fnr) => (
-    fetchJson(`${KANDIDATSOK_API}/fnrsok/${fnr}`)
-);
+export const fetchKandidatMedFnr = fnr => fetchJson(`${KANDIDATSOK_API}/fnrsok/${fnr}`);
 
-export const putKandidatliste = (stillingsId) => (
-    putRequest(`${KANDIDATLISTE_API}/stilling/${stillingsId}/kandidatliste/`)
-);
+export const putKandidatliste = stillingsId =>
+    putRequest(`${KANDIDATLISTE_API}/stilling/${stillingsId}/kandidatliste/`);
 
-export const fetchKandidatliste = (stillingsId) => (
-    fetchJson(`${KANDIDATLISTE_API}/stilling/${stillingsId}/kandidatliste`, true)
-);
+export const fetchKandidatliste = stillingsId =>
+    fetchJson(`${KANDIDATLISTE_API}/stilling/${stillingsId}/kandidatliste`, true);
 
 async function postJson(url, bodyString) {
     try {
@@ -36,9 +33,9 @@ async function postJson(url, bodyString) {
             headers: {
                 'Content-Type': 'application/json',
                 'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),
-                Accept: 'application/json'
+                Accept: 'application/json',
             },
-            mode: 'cors'
+            mode: 'cors',
         });
         if (response.status === 200 || response.status === 201) {
             return response.json();
@@ -73,9 +70,9 @@ async function putRequest(url) {
             credentials: 'include',
             method: 'PUT',
             headers: {
-                'X-XSRF-TOKEN': getCookie('XSRF-TOKEN')
+                'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),
             },
-            mode: 'cors'
+            mode: 'cors',
         });
         if (!(response.status >= 200 && response.status < 300)) {
             throwError(undefined, response.status);
@@ -86,10 +83,10 @@ async function putRequest(url) {
 }
 
 const throwError = (message, status) => {
-    throw new KandidatSokError({ message, status })
+    throw new KandidatSokError({ message, status });
 };
 
-const getCookie = (name) => {
+const getCookie = name => {
     const re = new RegExp(`${name}=([^;]+)`);
     const match = re.exec(document.cookie);
     return match !== null ? match[1] : '';

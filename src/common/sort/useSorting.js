@@ -5,7 +5,6 @@ function useSorting(initialState, changeSorting) {
     const [sort, setSort] = useState(initialState);
     const [className, setClassName] = useState('Sort__Icon-asc');
 
-
     useEffect(() => {
         changeSorting(sort.field, sort.dir);
         if (sort.dir === 'asc') {
@@ -15,7 +14,7 @@ function useSorting(initialState, changeSorting) {
         }
     }, [sort]);
 
-    const toggleSorting = (field) => {
+    const toggleSorting = field => {
         // If field already sorted, change opposite direction
         // If field is a date, sort on desc
         // otherwise, sort on asc.
@@ -31,7 +30,7 @@ function useSorting(initialState, changeSorting) {
         setSort({
             ...sort,
             field,
-            dir
+            dir,
         });
     };
 

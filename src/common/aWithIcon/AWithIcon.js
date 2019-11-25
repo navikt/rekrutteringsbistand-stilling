@@ -10,9 +10,7 @@ export default function AWithIcon({ iconName, classNameText, classNameLink, text
             onClick={onClick}
             className={classNames('AWithIcon', classNameLink, iconName)}
         >
-            <span className={classNames('AWithIcon__text lenke', classNameText)}>
-                {text}
-            </span>
+            <span className={classNames('AWithIcon__text lenke', classNameText)}>{text}</span>
         </a>
     );
 }
@@ -22,7 +20,7 @@ AWithIcon.defaultProps = {
     classNameText: undefined,
     classNameLink: undefined,
     text: '',
-    onClick: () => {}
+    onClick: () => {},
 };
 
 AWithIcon.propTypes = {
@@ -31,5 +29,5 @@ AWithIcon.propTypes = {
     classNameLink: PropTypes.string,
     text: PropTypes.string,
     href: PropTypes.string,
-    onClick: PropTypes.func
+    onClick: PropTypes.func,
 };

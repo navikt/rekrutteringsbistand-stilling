@@ -3,47 +3,43 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Input, Checkbox } from 'nav-frontend-skjema';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
-import {
-    SET_APPLICATIONURL,
-    SET_APPLICATIONEMAIL
-} from '../../adDataReducer';
+import { SET_APPLICATIONURL, SET_APPLICATIONEMAIL } from '../../adDataReducer';
 import { VALIDATE_APPLICATION_EMAIL } from '../../adValidationReducer';
 import { adjustUrl } from '../../../common/utils';
-import {Normaltekst} from 'nav-frontend-typografi';
-
+import { Normaltekst } from 'nav-frontend-typografi';
 
 class Application extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             emailChecked: false,
-            linkChecked: false
+            linkChecked: false,
         };
     }
 
-    onApplicationEmailChange = (e) => {
+    onApplicationEmailChange = e => {
         this.props.setApplicationEmail(e.target.value);
     };
 
-    onApplicationUrlChange = (e) => {
+    onApplicationUrlChange = e => {
         this.props.setApplicationUrl(e.target.value);
     };
 
-    onEmailChecked = (e) => {
+    onEmailChecked = e => {
         if (!e.target.checked) {
             this.props.setApplicationEmail('');
         }
         this.setState({
-            emailChecked: e.target.checked
+            emailChecked: e.target.checked,
         });
     };
 
-    onLinkChecked = (e) => {
+    onLinkChecked = e => {
         if (!e.target.checked) {
             this.props.setApplicationUrl('');
         }
         this.setState({
-            linkChecked: e.target.checked
+            linkChecked: e.target.checked,
         });
     };
 
@@ -74,11 +70,7 @@ class Application extends React.Component {
                 <Normaltekst className="Edit__panel__undertittel">
                     Gjelder kun eksternt utlyste stillinger
                 </Normaltekst>
-                <Checkbox
-                    checked={showEmail}
-                    onChange={this.onEmailChecked}
-                    label="Via e-post"
-                />
+                <Checkbox checked={showEmail} onChange={this.onEmailChecked} label="Via e-post" />
                 {showEmail && (
                     <Input
                         type="email"
@@ -86,8 +78,11 @@ class Application extends React.Component {
                         value={applicationEmail || ''}
                         onChange={this.onApplicationEmailChange}
                         onBlur={this.validateEmail}
-                        feil={this.props.validation.applicationEmail
-                            && { feilmelding: this.props.validation.applicationEmail }}
+                        feil={
+                            this.props.validation.applicationEmail && {
+                                feilmelding: this.props.validation.applicationEmail,
+                            }
+                        }
                         placeholder="For eksempel: ola.normann@firma.no"
                     />
                 )}
@@ -112,7 +107,7 @@ class Application extends React.Component {
 
 Application.defaultProps = {
     applicationEmail: undefined,
-    applicationUrl: undefined
+    applicationUrl: undefined,
 };
 
 Application.propTypes = {
@@ -122,19 +117,20 @@ Application.propTypes = {
     setApplicationUrl: PropTypes.func.isRequired,
     validateEmail: PropTypes.func.isRequired,
     validation: PropTypes.shape({
-        applicationEmail: PropTypes.string
-    }).isRequired
+        applicationEmail: PropTypes.string,
+    }).isRequired,
 };
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     applicationEmail: state.adData.properties.applicationemail,
     applicationUrl: state.adData.properties.applicationurl,
-    validation: state.adValidation.errors
+    validation: state.adValidation.errors,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    setApplicationEmail: (applicationemail) => dispatch({ type: SET_APPLICATIONEMAIL, applicationemail }),
-    setApplicationUrl: (applicationurl) => dispatch({ type: SET_APPLICATIONURL, applicationurl }),
-    validateEmail: () => dispatch({ type: VALIDATE_APPLICATION_EMAIL })
+const mapDispatchToProps = dispatch => ({
+    setApplicationEmail: applicationemail =>
+        dispatch({ type: SET_APPLICATIONEMAIL, applicationemail }),
+    setApplicationUrl: applicationurl => dispatch({ type: SET_APPLICATIONURL, applicationurl }),
+    validateEmail: () => dispatch({ type: VALIDATE_APPLICATION_EMAIL }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Application);

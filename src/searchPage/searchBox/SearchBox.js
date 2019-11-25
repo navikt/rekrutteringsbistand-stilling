@@ -6,11 +6,11 @@ import Typeahead from '../../common/typeahead/Typeahead';
 import { SET_SEARCH_FIELD, SET_SEARCH_VALUE } from '../searchReducer';
 
 class SearchBox extends React.Component {
-    onTypeAheadChange = (value) => {
+    onTypeAheadChange = value => {
         this.props.setSearchValue(value);
     };
 
-    onTypeAheadSelect = (selected) => {
+    onTypeAheadSelect = selected => {
         this.props.setSearchField(selected && selected.value ? selected.value : undefined);
         if (this.props.onSearch) {
             this.props.onSearch();
@@ -38,7 +38,7 @@ class SearchBox extends React.Component {
 }
 
 SearchBox.defaultProps = {
-    onSearch: undefined
+    onSearch: undefined,
 };
 
 SearchBox.propTypes = {
@@ -46,21 +46,22 @@ SearchBox.propTypes = {
     setSearchField: PropTypes.func.isRequired,
     setSearchValue: PropTypes.func.isRequired,
     onSearch: PropTypes.func,
-    suggestions: PropTypes.arrayOf(PropTypes.shape({
-        label: PropTypes.string,
-        value: PropTypes.string
-    })).isRequired
+    suggestions: PropTypes.arrayOf(
+        PropTypes.shape({
+            label: PropTypes.string,
+            value: PropTypes.string,
+        })
+    ).isRequired,
 };
 
-const mapDispatchToProps = (dispatch) => ({
-    setSearchValue: (value) => dispatch({ type: SET_SEARCH_VALUE, value }),
-    setSearchField: (field) => dispatch({ type: SET_SEARCH_FIELD, field })
+const mapDispatchToProps = dispatch => ({
+    setSearchValue: value => dispatch({ type: SET_SEARCH_VALUE, value }),
+    setSearchField: field => dispatch({ type: SET_SEARCH_FIELD, field }),
 });
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     value: state.search.value,
-    suggestions: state.search.suggestions
+    suggestions: state.search.suggestions,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBox);
-

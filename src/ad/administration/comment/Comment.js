@@ -11,23 +11,22 @@ class Comment extends React.Component {
         super(props);
         this.state = {
             hasChanged: false,
-            comments: props.comments
+            comments: props.comments,
         };
     }
 
-    onChange = (e) => { 
+    onChange = e => {
         this.setState({
             hasChanged: true,
-            comments: e.target.value
+            comments: e.target.value,
         });
         this.props.setComment(e.target.value);
-     
     };
 
     onBlur = () => {
         if (this.state.hasChanged) {
             this.setState({
-                hasChanged: false
+                hasChanged: false,
             });
             this.props.setComment(this.state.comments);
         }
@@ -36,23 +35,21 @@ class Comment extends React.Component {
     static getDerivedStateFromProps(nextProps, prevState) {
         if (prevState.comments !== nextProps.comments && prevState.hasChanged === false) {
             return {
-                comments: nextProps.comments
+                comments: nextProps.comments,
             };
         }
         return null;
     }
 
-    
     feil = () => {
         const error = this.props.validation.comment;
-        return error ? { feilmelding: error } : undefined
-    }
+        return error ? { feilmelding: error } : undefined;
+    };
 
     render() {
-
         return (
             <div className="Comment">
-                <Textarea 
+                <Textarea
                     label="Notatfelt (vises kun internt)"
                     maxLength={MAX_LENGTH_COMMENT}
                     onChange={this.onChange}
@@ -69,7 +66,7 @@ class Comment extends React.Component {
 
 Comment.defaultProps = {
     comments: '',
-    placeholder: ''
+    placeholder: '',
 };
 
 Comment.propTypes = {
@@ -77,19 +74,19 @@ Comment.propTypes = {
     comments: PropTypes.string,
     placeholder: PropTypes.string,
     validation: PropTypes.shape({
-        comment: PropTypes.string
+        comment: PropTypes.string,
     }).isRequired,
-    createdBy: PropTypes.string
+    createdBy: PropTypes.string,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     comments: state.adData.administration.comments,
     validation: state.adValidation.errors,
-    createdBy: state.adData.createdBy
+    createdBy: state.adData.createdBy,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    setComment: (comment) => dispatch({ type: SET_COMMENT, comment })
+const mapDispatchToProps = dispatch => ({
+    setComment: comment => dispatch({ type: SET_COMMENT, comment }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Comment);

@@ -7,7 +7,7 @@ const BlockStyleControls = ({ editorState, onToggle }) => {
     const BLOCK_TYPES = [
         { label: 'icon-quote', style: 'blockquote' },
         { label: 'icon-unorderedlist', style: 'unordered-list-item' },
-        { label: 'icon-orderedlist', style: 'ordered-list-item' }
+        { label: 'icon-orderedlist', style: 'ordered-list-item' },
     ];
     const selection = editorState.getSelection();
     const blockType = editorState
@@ -17,7 +17,7 @@ const BlockStyleControls = ({ editorState, onToggle }) => {
 
     return (
         <div className="RichTextEditor__controls">
-            {BLOCK_TYPES.map((type) => (
+            {BLOCK_TYPES.map(type => (
                 <StyleButton
                     key={type.label}
                     active={type.style === blockType}
@@ -33,9 +33,9 @@ const BlockStyleControls = ({ editorState, onToggle }) => {
 BlockStyleControls.propTypes = {
     editorState: PropTypes.shape({
         getSelection: PropTypes.func,
-        getCurrentContent: PropTypes.func
+        getCurrentContent: PropTypes.func,
     }).isRequired,
-    onToggle: PropTypes.func.isRequired
+    onToggle: PropTypes.func.isRequired,
 };
 
 export default BlockStyleControls;

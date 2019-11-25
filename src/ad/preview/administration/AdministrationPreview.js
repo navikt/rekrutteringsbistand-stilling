@@ -14,7 +14,7 @@ import './AdministrationPreview.less';
 class AdministrationPreview extends React.Component {
     render() {
         const { createdBy } = this.props;
-        const limitedAccess = createdBy!== 'pam-rekrutteringsbistand';
+        const limitedAccess = createdBy !== 'pam-rekrutteringsbistand';
         return (
             <div className="Preview__Administration">
                 <div className="Administration__flex">
@@ -51,25 +51,22 @@ class AdministrationPreview extends React.Component {
 }
 
 AdministrationPreview.defaultProps = {
-    stilling: undefined
+    stilling: undefined,
 };
 
 AdministrationPreview.propTypes = {
     stilling: PropTypes.shape({
-        createdBy: PropTypes.string
+        createdBy: PropTypes.string,
     }),
-    editAd: PropTypes.func.isRequired
+    editAd: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-    createdBy: state.adData.createdBy
+    createdBy: state.adData.createdBy,
 });
 
 const mapDispatchToProps = dispatch => ({
-    editAd: () => dispatch({ type: EDIT_AD })
+    editAd: () => dispatch({ type: EDIT_AD }),
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(AdministrationPreview);
+export default connect(mapStateToProps, mapDispatchToProps)(AdministrationPreview);

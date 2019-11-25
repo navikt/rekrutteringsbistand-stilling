@@ -4,7 +4,7 @@ import { Select } from 'nav-frontend-skjema';
 import './RichTextEditor.less';
 
 export default class HeaderStylesDropdown extends React.Component {
-    onSelect = (e) => {
+    onSelect = e => {
         this.props.onToggle(e.target.value);
     };
 
@@ -16,7 +16,7 @@ export default class HeaderStylesDropdown extends React.Component {
             { label: 'H3', style: 'header-three' },
             { label: 'H4', style: 'header-four' },
             { label: 'H5', style: 'header-five' },
-            { label: 'H6', style: 'header-six' }
+            { label: 'H6', style: 'header-six' },
         ];
 
         const selection = this.props.editorState.getSelection();
@@ -32,11 +32,10 @@ export default class HeaderStylesDropdown extends React.Component {
                 onChange={this.onSelect}
                 aria-label="Velg header element"
             >
-                {HEADERS.map((type) => (
-                    <option
-                        key={type.style}
-                        value={type.style}
-                    >{type.label}</option>
+                {HEADERS.map(type => (
+                    <option key={type.style} value={type.style}>
+                        {type.label}
+                    </option>
                 ))}
             </Select>
         );
@@ -47,6 +46,6 @@ HeaderStylesDropdown.propTypes = {
     onToggle: PropTypes.func.isRequired,
     editorState: PropTypes.shape({
         getSelection: PropTypes.func,
-        getCurrentContent: PropTypes.func
-    }).isRequired
+        getCurrentContent: PropTypes.func,
+    }).isRequired,
 };

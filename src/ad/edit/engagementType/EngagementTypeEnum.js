@@ -10,7 +10,7 @@ const EngagementTypeEnum = {
     LAERLING: 'Lærling',
     AAREMAAL: 'Åremål',
     SELVSTENDIG: 'Selvstendig næringsdrivende',
-    ANNET: 'Annet'
+    ANNET: 'Annet',
 };
 
 export default EngagementTypeEnum;

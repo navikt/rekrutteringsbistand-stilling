@@ -21,62 +21,70 @@ function categoryMatchesQuery(category, query) {
     const queryLc = query.toLowerCase();
     return (
         category.name.toLowerCase().indexOf(queryLc) !== -1 ||
-        category.alternativeNames.some((altName) => altName.toLowerCase().indexOf(queryLc) !== -1) ||
+        category.alternativeNames.some(altName => altName.toLowerCase().indexOf(queryLc) !== -1) ||
         category.code.startsWith(query) ||
-        category.code.split('.').join('').startsWith(query)
+        category.code
+            .split('.')
+            .join('')
+            .startsWith(query)
     );
 }
 
 function createDefaultStyrkThree(categories, parentId = null) {
-    return categories.filter((category) => (category.parentId === parentId)).map((c) => {
-        const children = createDefaultStyrkThree(categories, c.id);
-        if (children.length > 0) {
+    return categories
+        .filter(category => category.parentId === parentId)
+        .map(c => {
+            const children = createDefaultStyrkThree(categories, c.id);
+            if (children.length > 0) {
+                return {
+                    ...c,
+                    level: c.code.split('.').join().length,
+                    expanded: false,
+                    visible: true,
+                    children,
+                };
+            }
             return {
                 ...c,
                 level: c.code.split('.').join().length,
-                expanded: false,
                 visible: true,
-                children
+                expanded: false,
             };
-        }
-        return {
-            ...c,
-            level: c.code.split('.').join().length,
-            visible: true,
-            expanded: false
-        };
-    });
+        });
 }
 
 function filterStyrkThree(categories, query) {
-    return categories.map((category) => {
+    return categories.map(category => {
         if (category.children) {
             const ch = filterStyrkThree(category.children, query);
-            const match = categoryMatchesQuery(category, query) || ch.filter((c) => c.visible).length;
+            const match = categoryMatchesQuery(category, query) || ch.filter(c => c.visible).length;
             return {
                 ...category,
                 expanded: match,
                 visible: match,
-                children: ch
+                children: ch,
             };
         }
         const match = categoryMatchesQuery(category, query);
         return {
             ...category,
             visible: match,
-            alternativeNames: category.alternativeNames.filter((altName) => (
-                altName.toLowerCase().indexOf(query.toLowerCase()) !== -1))
+            alternativeNames: category.alternativeNames.filter(
+                altName => altName.toLowerCase().indexOf(query.toLowerCase()) !== -1
+            ),
         };
     });
 }
 
 function collapseStrykThreeBranch(categories, code) {
-    return categories.map((category) => {
+    return categories.map(category => {
         if (code.startsWith(category.code)) {
             return {
                 ...category,
                 expanded: !category.code.startsWith(code),
-                children: category.children ? collapseStrykThreeBranch(category.children, code) : undefined
+                children: category.children
+                    ? collapseStrykThreeBranch(category.children, code)
+                    : undefined,
             };
         }
         return category;
@@ -84,12 +92,14 @@ function collapseStrykThreeBranch(categories, code) {
 }
 
 function expandStyrkThreeBranch(categories, code) {
-    return categories.map((category) => {
+    return categories.map(category => {
         if (code.startsWith(category.code)) {
             return {
                 ...category,
                 expanded: category.children && code.startsWith(category.code),
-                children: category.children ? expandStyrkThreeBranch(category.children, code) : undefined
+                children: category.children
+                    ? expandStyrkThreeBranch(category.children, code)
+                    : undefined,
             };
         }
         return category;
@@ -97,17 +107,18 @@ function expandStyrkThreeBranch(categories, code) {
 }
 
 function filterTypeAheadSuggestions(categories, query) {
-    return categories.filter(((s) =>
-        s.code.length >= 6 && categoryMatchesQuery(s, query)
-    )).map((category) => ({
-        ...category,
-        alternativeNames: category.alternativeNames.filter((altName) => (
-            altName.toLowerCase().indexOf(query.toLowerCase()) !== -1))
-    }));
+    return categories
+        .filter(s => s.code.length >= 6 && categoryMatchesQuery(s, query))
+        .map(category => ({
+            ...category,
+            alternativeNames: category.alternativeNames.filter(
+                altName => altName.toLowerCase().indexOf(query.toLowerCase()) !== -1
+            ),
+        }));
 }
 
 export function lookUpStyrk(code, categories = originalData) {
-    return categories.find((s) => (s.code === code));
+    return categories.find(s => s.code === code);
 }
 
 const initialState = {
@@ -116,7 +127,7 @@ const initialState = {
     addedStyrkItems: [],
     styrkThree: [],
     showStyrkModal: false,
-    styrkSearchString: undefined
+    styrkSearchString: undefined,
 };
 
 export default function styrkReducer(state = initialState, action) {
@@ -125,57 +136,59 @@ export default function styrkReducer(state = initialState, action) {
             return {
                 ...state,
                 typeAheadSuggestions: [],
-                typeAheadValue: undefined
+                typeAheadValue: undefined,
             };
         case SET_STYRK_TYPEAHEAD_VALUE:
             return {
                 ...state,
                 typeAheadValue: action.value,
-                typeAheadSuggestions: action.value.length > 1 ?
-                    filterTypeAheadSuggestions(originalData, action.value) : []
+                typeAheadSuggestions:
+                    action.value.length > 1
+                        ? filterTypeAheadSuggestions(originalData, action.value)
+                        : [],
             };
         case FETCH_STYRK_SUCCESS:
             return {
                 ...state,
-                styrkThree: action.response
+                styrkThree: action.response,
             };
         case FETCH_STYRK_FAILURE:
             return {
                 ...state,
-                typeAheadSuggestions: []
+                typeAheadSuggestions: [],
             };
         case RESET_STYRK_THREE:
             return {
                 ...state,
                 styrkThree: originalStyrkThree,
-                styrkSearchString: undefined
+                styrkSearchString: undefined,
             };
         case EXPAND_STYRK_BRANCH:
             return {
                 ...state,
-                styrkThree: expandStyrkThreeBranch(state.styrkThree, action.code)
+                styrkThree: expandStyrkThreeBranch(state.styrkThree, action.code),
             };
         case COLLAPSE_STYRK_BRANCH:
             return {
                 ...state,
-                styrkThree: collapseStrykThreeBranch(state.styrkThree, action.code)
+                styrkThree: collapseStrykThreeBranch(state.styrkThree, action.code),
             };
         case TOGGLE_STYRK_MODAL:
             return {
                 ...state,
                 showStyrkModal: !state.showStyrkModal,
                 styrkThree: createDefaultStyrkThree(originalData),
-                styrkSearchString: ''
+                styrkSearchString: '',
             };
         case SET_STRYK_SEARCH_STRING:
             return {
                 ...state,
-                styrkSearchString: action.value
+                styrkSearchString: action.value,
             };
         case SET_STRYK_SEARCH_STRING_DONE:
             return {
                 ...state,
-                styrkThree: action.styrkThree
+                styrkThree: action.styrkThree,
             };
         default:
             return state;

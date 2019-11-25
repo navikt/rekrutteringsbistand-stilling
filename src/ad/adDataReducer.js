@@ -1,6 +1,12 @@
 import { put, take, takeLatest, select } from 'redux-saga/es/effects';
 import { lookUpStyrk } from './edit/jobDetails/styrk/styrkReducer';
-import { CREATE_AD_BEGIN, FETCH_AD_BEGIN, FETCH_AD_SUCCESS, SAVE_AD_SUCCESS, DELETE_AD_SUCCESS } from './adReducer';
+import {
+    CREATE_AD_BEGIN,
+    FETCH_AD_BEGIN,
+    FETCH_AD_SUCCESS,
+    SAVE_AD_SUCCESS,
+    DELETE_AD_SUCCESS,
+} from './adReducer';
 import { FETCH_LOCATIONS, FETCH_LOCATIONS_SUCCESS } from './edit/location/locationCodeReducer';
 import AdStatusEnum from '../common/enums/AdStatusEnum';
 import PrivacyStatusEnum from '../common/enums/PrivacyStatusEnum';
@@ -60,15 +66,15 @@ export const SET_REPORTEE = 'SET_REPORTEE';
 export const SET_NAV_IDENT = 'SET_NAV_IDENT';
 export const SET_UPDATED_BY = 'SET_UPDATED_BY';
 export const SET_PRIVACY = 'SET_PRIVACY';
-export const CHECK_TAG= 'CHECK_TAG';
-export const UNCHECK_TAG= 'UNCHECK_TAG';
+export const CHECK_TAG = 'CHECK_TAG';
+export const UNCHECK_TAG = 'UNCHECK_TAG';
 export const SET_CONTACT_PERSON = 'SET_CONTACT_PERSON';
 
 const initialState = {
     properties: {},
     status: AdStatusEnum.INACTIVE,
     administration: {},
-    privacy: PrivacyStatusEnum.INTERNAL_NOT_SHOWN
+    privacy: PrivacyStatusEnum.INTERNAL_NOT_SHOWN,
 };
 
 export function* findLocationByPostalCode(value) {
@@ -79,7 +85,7 @@ export function* findLocationByPostalCode(value) {
         state = yield select();
     }
     if (state.locationCode.locations) {
-        return state.locationCode.locations.find((location) => (location.postalCode === value));
+        return state.locationCode.locations.find(location => location.postalCode === value);
     }
     return undefined;
 }
@@ -97,17 +103,25 @@ function findStyrkAndSkipAlternativeNames(code) {
 function isLocationInList(location, locationList) {
     let isAlreadyAdded = false;
     if (location.country) {
-        isAlreadyAdded = locationList && locationList.find(
-            (item) => (( item.country === location.country) && !item.postalCode && !item.municipal && !item.county)
-        );
+        isAlreadyAdded =
+            locationList &&
+            locationList.find(
+                item =>
+                    item.country === location.country &&
+                    !item.postalCode &&
+                    !item.municipal &&
+                    !item.county
+            );
     } else if (location.county) {
-        isAlreadyAdded = locationList && locationList.find(
-            (item) => (( item.county === location.county) && !item.postalCode && !item.municipal)
-        );
+        isAlreadyAdded =
+            locationList &&
+            locationList.find(
+                item => item.county === location.county && !item.postalCode && !item.municipal
+            );
     } else if (location.municipal) {
-        isAlreadyAdded = locationList && locationList.find(
-            (item) => (( item.municipal === location.municipal) && !item.postalCode)
-        );
+        isAlreadyAdded =
+            locationList &&
+            locationList.find(item => item.municipal === location.municipal && !item.postalCode);
     }
     return isAlreadyAdded;
 }
@@ -122,9 +136,10 @@ export default function adDataReducer(state = initialState, action) {
         case DELETE_AD_SUCCESS:
             return {
                 ...action.response,
-                locationList: action.response.locationList.filter((loc) => (loc.postalCode || loc.municipal ||
-                    loc.county || (loc.country !== 'NORGE'))), // filtrer vekk object med kun Norge
-                location: null
+                locationList: action.response.locationList.filter(
+                    loc => loc.postalCode || loc.municipal || loc.county || loc.country !== 'NORGE'
+                ), // filtrer vekk object med kun Norge
+                location: null,
             };
         case SET_AD_DATA:
             return action.data;
@@ -133,19 +148,21 @@ export default function adDataReducer(state = initialState, action) {
                 ...state,
                 administration: {
                     ...state.administration,
-                    comments: action.comment
-                }
+                    comments: action.comment,
+                },
             };
         }
         case SET_STYRK:
             return {
                 ...state,
-                categoryList: action.code ? [findStyrkAndSkipAlternativeNames(action.code)] : undefined
+                categoryList: action.code
+                    ? [findStyrkAndSkipAlternativeNames(action.code)]
+                    : undefined,
             };
         case SET_AD_TITLE:
             return {
                 ...state,
-                title: action.title
+                title: action.title,
             };
         case ADD_LOCATION_AREA: {
             const isAlreadyAdded = isLocationInList(action.location, state.locationList);
@@ -155,12 +172,16 @@ export default function adDataReducer(state = initialState, action) {
             return {
                 ...state,
                 location: null, // for bakoverkompabilitet
-                locationList: state.locationList ? [...state.locationList, action.location] : [action.location]
+                locationList: state.locationList
+                    ? [...state.locationList, action.location]
+                    : [action.location],
             };
         }
         case ADD_POSTAL_CODE: {
             // Look for postalCode-location in first index in list. If it exists, replace it
-            const current = state.locationList && state.locationList.length &&
+            const current =
+                state.locationList &&
+                state.locationList.length &&
                 (state.locationList[0].postalCode || state.locationList[0].address);
 
             if (current) {
@@ -170,39 +191,52 @@ export default function adDataReducer(state = initialState, action) {
                 return {
                     ...state,
                     location: null,
-                    locationList: state.locationList ? [newLocation, ...state.locationList] : [newLocation]
+                    locationList: state.locationList
+                        ? [newLocation, ...state.locationList]
+                        : [newLocation],
                 };
             }
             // Else, insert postalCode at first index
             return {
                 ...state,
                 location: null, // for bakoverkompabilitet
-                locationList: state.locationList ? [action.location, ...state.locationList] : [action.location]
+                locationList: state.locationList
+                    ? [action.location, ...state.locationList]
+                    : [action.location],
             };
         }
         case REMOVE_MUNICIPAL:
             return {
                 ...state,
                 location: null,
-                locationList: state.locationList.filter((loc) => (loc.postalCode || (loc.municipal !== action.value)))
+                locationList: state.locationList.filter(
+                    loc => loc.postalCode || loc.municipal !== action.value
+                ),
             };
         case REMOVE_COUNTY:
             return {
                 ...state,
                 location: null,
-                locationList: state.locationList.filter((loc) => (loc.postalCode || loc.municipal
-                    || (loc.county !== action.value)))
+                locationList: state.locationList.filter(
+                    loc => loc.postalCode || loc.municipal || loc.county !== action.value
+                ),
             };
         case REMOVE_COUNTRY:
             return {
                 ...state,
                 location: null,
-                locationList: state.locationList.filter((loc) => (loc.postalCode || loc.municipal || loc.county
-                    || (loc.country !== action.value)))
+                locationList: state.locationList.filter(
+                    loc =>
+                        loc.postalCode ||
+                        loc.municipal ||
+                        loc.county ||
+                        loc.country !== action.value
+                ),
             };
         case REMOVE_POSTAL_CODE: {
             // Look for address in first index in list. If it exists, keep it
-            const current = state.locationList && state.locationList.length && state.locationList[0].address;
+            const current =
+                state.locationList && state.locationList.length && state.locationList[0].address;
             if (current) {
                 const newLocation = { address: state.locationList[0].address };
                 // Remove location and insert a new one without address, in order to trigger re-render
@@ -210,19 +244,22 @@ export default function adDataReducer(state = initialState, action) {
                 return {
                     ...state,
                     location: null,
-                    locationList: state.locationList ? [newLocation, ...state.locationList] : [newLocation]
+                    locationList: state.locationList
+                        ? [newLocation, ...state.locationList]
+                        : [newLocation],
                 };
             }
             // Else, remove object
             return {
                 ...state,
                 location: null,
-                locationList: state.locationList.filter((loc) => (!loc.postalCode))
+                locationList: state.locationList.filter(loc => !loc.postalCode),
             };
         }
         case REMOVE_POSTAL_CODE_ADDRESS: {
             // Look for postalCode in first index in list. If it exists, remove address only
-            const current = state.locationList && state.locationList.length && state.locationList[0].postalCode;
+            const current =
+                state.locationList && state.locationList.length && state.locationList[0].postalCode;
             if (current) {
                 const newLocation = { ...state.locationList[0], address: null };
                 // Remove first location and insert a new one without address, in order to trigger re-render
@@ -230,14 +267,16 @@ export default function adDataReducer(state = initialState, action) {
                 return {
                     ...state,
                     location: null,
-                    locationList: state.locationList ? [newLocation, ...state.locationList] : [newLocation]
+                    locationList: state.locationList
+                        ? [newLocation, ...state.locationList]
+                        : [newLocation],
                 };
             }
             // Else, remove object
             return {
                 ...state,
                 location: null,
-                locationList: state.locationList.filter((loc) => (!loc.address))
+                locationList: state.locationList.filter(loc => !loc.address),
             };
         }
         case SET_EMPLOYMENT_JOBTITLE:
@@ -245,48 +284,48 @@ export default function adDataReducer(state = initialState, action) {
                 ...state,
                 properties: {
                     ...state.properties,
-                    jobtitle: action.jobtitle
-                }
+                    jobtitle: action.jobtitle,
+                },
             };
         case SET_EMPLOYMENT_LOCATION:
             return {
                 ...state,
                 properties: {
                     ...state.properties,
-                    location: action.location
-                }
+                    location: action.location,
+                },
             };
         case SET_EMPLOYMENT_ENGAGEMENTTYPE:
             return {
                 ...state,
                 properties: {
                     ...state.properties,
-                    engagementtype: action.engagementType
-                }
+                    engagementtype: action.engagementType,
+                },
             };
         case SET_EMPLOYMENT_EXTENT:
             return {
                 ...state,
                 properties: {
                     ...state.properties,
-                    extent: action.extent
-                }
+                    extent: action.extent,
+                },
             };
         case SET_EMPLOYMENT_POSITIONCOUNT:
             return {
                 ...state,
                 properties: {
                     ...state.properties,
-                    positioncount: action.positioncount
-                }
+                    positioncount: action.positioncount,
+                },
             };
         case SET_EMPLOYMENT_SECTOR:
             return {
                 ...state,
                 properties: {
                     ...state.properties,
-                    sector: action.sector
-                }
+                    sector: action.sector,
+                },
             };
         case CHECK_EMPLOYMENT_WORKDAY:
             const { workday } = state.properties;
@@ -294,16 +333,23 @@ export default function adDataReducer(state = initialState, action) {
                 ...state,
                 properties: {
                     ...state.properties,
-                    workday: workday ? JSON.stringify([...(IsJson(workday) ? JSON.parse(workday) : ''), action.value]) : JSON.stringify([action.value])
-                }
+                    workday: workday
+                        ? JSON.stringify([
+                              ...(IsJson(workday) ? JSON.parse(workday) : ''),
+                              action.value,
+                          ])
+                        : JSON.stringify([action.value]),
+                },
             };
         case UNCHECK_EMPLOYMENT_WORKDAY:
             return {
                 ...state,
                 properties: {
                     ...state.properties,
-                    workday: JSON.stringify(JSON.parse(state.properties.workday).filter((m) => (m !== action.value)))
-                }
+                    workday: JSON.stringify(
+                        JSON.parse(state.properties.workday).filter(m => m !== action.value)
+                    ),
+                },
             };
         case CHECK_EMPLOYMENT_WORKHOURS:
             const { workhours } = state.properties;
@@ -311,66 +357,75 @@ export default function adDataReducer(state = initialState, action) {
                 ...state,
                 properties: {
                     ...state.properties,
-                    workhours: workhours ? JSON.stringify([...(IsJson(workhours) ? JSON.parse(workhours) : ''), action.value]) : JSON.stringify([action.value])
-                }
+                    workhours: workhours
+                        ? JSON.stringify([
+                              ...(IsJson(workhours) ? JSON.parse(workhours) : ''),
+                              action.value,
+                          ])
+                        : JSON.stringify([action.value]),
+                },
             };
         case UNCHECK_EMPLOYMENT_WORKHOURS:
             return {
                 ...state,
                 properties: {
                     ...state.properties,
-                    workhours: JSON.stringify(JSON.parse(state.properties.workhours).filter((m) => (m !== action.value)))
-                }
+                    workhours: JSON.stringify(
+                        JSON.parse(state.properties.workhours).filter(m => m !== action.value)
+                    ),
+                },
             };
         case SET_EMPLOYMENT_JOBARRANGEMENT:
             return {
                 ...state,
                 properties: {
                     ...state.properties,
-                    jobarrangement: action.jobarrangement
-                }
+                    jobarrangement: action.jobarrangement,
+                },
             };
         case SET_EMPLOYMENT_STARTTIME:
             return {
                 ...state,
                 properties: {
                     ...state.properties,
-                    starttime: action.starttime
-                }
+                    starttime: action.starttime,
+                },
             };
         case SET_APPLICATIONDUE:
             return {
                 ...state,
                 properties: {
                     ...state.properties,
-                    applicationdue: action.applicationdue
+                    applicationdue: action.applicationdue,
                 },
-                expires: isValidISOString(action.applicationdue) && (state.expires < action.applicationdue) ?
-                    action.applicationdue : state.expires
+                expires:
+                    isValidISOString(action.applicationdue) && state.expires < action.applicationdue
+                        ? action.applicationdue
+                        : state.expires,
             };
         case SET_APPLICATIONEMAIL:
             return {
                 ...state,
                 properties: {
                     ...state.properties,
-                    applicationemail: action.applicationemail
-                }
+                    applicationemail: action.applicationemail,
+                },
             };
         case SET_APPLICATIONURL:
             return {
                 ...state,
                 properties: {
                     ...state.properties,
-                    applicationurl: action.applicationurl
-                }
+                    applicationurl: action.applicationurl,
+                },
             };
         case SET_SOURCEURL:
             return {
                 ...state,
                 properties: {
                     ...state.properties,
-                    sourceurl: action.sourceurl
-                }
+                    sourceurl: action.sourceurl,
+                },
             };
         case SET_EMPLOYER:
             if (action.employer) {
@@ -380,159 +435,144 @@ export default function adDataReducer(state = initialState, action) {
                         ...state.employer,
                         name: action.employer.name,
                         orgnr: action.employer.orgnr,
-                        location: action.employer.location
-                    }
+                        location: action.employer.location,
+                    },
                 };
             }
             return {
                 ...state,
-                employer: null
+                employer: null,
             };
         case SET_EMPLOYERDESCRIPTION:
             return {
                 ...state,
                 properties: {
                     ...state.properties,
-                    employerdescription: action.employerdescription
-                }
+                    employerdescription: action.employerdescription,
+                },
             };
         case SET_EMPLOYER_NAME:
             return {
                 ...state,
-                businessName: action.employername
-
+                businessName: action.employername,
             };
         case SET_EMPLOYER_HOMEPAGE:
             return {
                 ...state,
                 properties: {
                     ...state.properties,
-                    employerhomepage: action.employerhomepage
-                }
+                    employerhomepage: action.employerhomepage,
+                },
             };
         case SET_FACEBOOK_PAGE:
             return {
                 ...state,
                 properties: {
                     ...state.properties,
-                    facebookpage: action.facebookpage
-                }
+                    facebookpage: action.facebookpage,
+                },
             };
         case SET_LINKEDIN_PAGE:
             return {
                 ...state,
                 properties: {
                     ...state.properties,
-                    linkedinpage: action.linkedinpage
-                }
+                    linkedinpage: action.linkedinpage,
+                },
             };
         case SET_TWITTER_ADDRESS:
             return {
                 ...state,
                 properties: {
                     ...state.properties,
-                    twitteraddress: action.twitteraddress
-                }
+                    twitteraddress: action.twitteraddress,
+                },
             };
         case SET_LAST_UPDATED:
             return {
                 ...state,
-                updated: action.updated
+                updated: action.updated,
             };
         case SET_PUBLISHED:
             return {
                 ...state,
-                published: action.published
+                published: action.published,
             };
         case SET_FIRST_PUBLISHED:
             return {
                 ...state,
-                firstPublished: true
+                firstPublished: true,
             };
         case SET_MEDIUM:
             return {
                 ...state,
-                medium: action.medium
+                medium: action.medium,
             };
         case SET_ID:
             return {
                 ...state,
-                id: action.id
+                id: action.id,
             };
         case SET_REFERENCE:
             return {
                 ...state,
-                reference: action.reference
+                reference: action.reference,
             };
         case SET_EXPIRATION_DATE:
             return {
                 ...state,
-                expires: action.expires
+                expires: action.expires,
             };
         case SET_AD_TEXT:
             return {
                 ...state,
                 properties: {
                     ...state.properties,
-                    adtext: action.adtext
-                }
+                    adtext: action.adtext,
+                },
             };
         case SET_AD_STATUS:
             return {
                 ...state,
-                status: action.status
+                status: action.status,
             };
         case SET_ADMIN_STATUS:
             return {
                 ...state,
                 administration: {
                     ...state.administration,
-                    status: action.status
-                }
+                    status: action.status,
+                },
             };
         case SET_REPORTEE:
             return {
                 ...state,
                 administration: {
                     ...state.administration,
-                    reportee: action.reportee
-                }
+                    reportee: action.reportee,
+                },
             };
         case SET_NAV_IDENT:
             return {
                 ...state,
                 administration: {
                     ...state.administration,
-                    navIdent: action.navIdent
-                }
+                    navIdent: action.navIdent,
+                },
             };
         case SET_UPDATED_BY:
             return {
                 ...state,
-                updatedBy: 'pam-rekrutteringsbistand'
+                updatedBy: 'pam-rekrutteringsbistand',
             };
         case SET_PRIVACY:
             return {
                 ...state,
-                privacy: action.privacy
+                privacy: action.privacy,
             };
         case CHECK_TAG: {
             const tags = checkInkluderingstag(
                 IsJson(state.properties.tags) ? JSON.parse(state.properties.tags) : [],
-                action.value
-            )
-
-            return {
-                ...state,
-                properties: {
-                    ...state.properties,
-                    tags: JSON.stringify(tags),
-                }
-            };
-        }
-        case UNCHECK_TAG:
-            const tags = uncheckInkluderingstag(
-                JSON.parse(state.properties.tags),
                 action.value
             );
 
@@ -540,16 +580,29 @@ export default function adDataReducer(state = initialState, action) {
                 ...state,
                 properties: {
                     ...state.properties,
-                    tags: JSON.stringify(tags)
-                }
+                    tags: JSON.stringify(tags),
+                },
+            };
+        }
+        case UNCHECK_TAG:
+            const tags = uncheckInkluderingstag(JSON.parse(state.properties.tags), action.value);
+
+            return {
+                ...state,
+                properties: {
+                    ...state.properties,
+                    tags: JSON.stringify(tags),
+                },
             };
         case SET_CONTACT_PERSON:
             return {
                 ...state,
-                contactList: [{
-                    ...state.contactList[0],
-                    ...action.contactPerson
-                }]
+                contactList: [
+                    {
+                        ...state.contactList[0],
+                        ...action.contactPerson,
+                    },
+                ],
             };
         case REMOVE_AD_DATA:
             return initialState;
@@ -568,12 +621,12 @@ function* addLocationPostalCode(action) {
                 county: location.county.name,
                 municipal: location.municipality.name,
                 municipalCode: location.municipality.code,
-                postalCode: location.postalCode
-            }
+                postalCode: location.postalCode,
+            },
         });
     } else {
         yield put({
-            type: REMOVE_POSTAL_CODE
+            type: REMOVE_POSTAL_CODE,
         });
     }
 }
@@ -582,8 +635,8 @@ function* setLocationAddress(action) {
     yield put({
         type: ADD_POSTAL_CODE,
         location: {
-            address: action.address
-        }
+            address: action.address,
+        },
     });
 }
 

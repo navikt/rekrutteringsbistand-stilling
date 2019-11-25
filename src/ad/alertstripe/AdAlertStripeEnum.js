@@ -3,7 +3,7 @@ const AdAlertStripeEnum = {
     PUBLISHED_CHANGES: 'PUBLISHED_CHANGES',
     WILL_PUBLISH_CHANGES: 'WILL_PUBLISH_CHANGES',
     TRANSFERRED: 'TRANSFERRED',
-    MARKED: 'MARKED'
+    MARKED: 'MARKED',
 };
 
 export default AdAlertStripeEnum;

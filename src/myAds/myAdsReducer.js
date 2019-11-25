@@ -1,5 +1,5 @@
 import { put, select, takeLatest } from 'redux-saga/effects';
-import { ApiError, fetchMyAds,fetchRecruitmentsForVeileder } from '../api/api';
+import { ApiError, fetchMyAds, fetchRecruitmentsForVeileder } from '../api/api';
 import { getReportee } from '../reportee/reporteeReducer';
 
 export const FETCH_MY_ADS = 'FETCH_MY_ADS';
@@ -10,7 +10,6 @@ export const CHANGE_MY_ADS_PAGE = 'CHANGE_MY_ADS_PAGE';
 export const RESET_MY_ADS_PAGE = 'RESET_MY_ADS_PAGE';
 export const CHANGE_MY_ADS_STATUS_FILTER = 'CHANGE_MY_ADS_STATUS_FILTER';
 export const CHANGE_MY_ADS_SORTING = 'CHANGE_MY_ADS_SORTING';
-
 
 const initialState = {
     items: [],
@@ -23,7 +22,7 @@ const initialState = {
     status: undefined,
     reportee: '',
     sortField: 'updated',
-    sortDir: 'desc'
+    sortDir: 'desc',
 };
 
 export default function myAdsReducer(state = initialState, action) {
@@ -32,7 +31,7 @@ export default function myAdsReducer(state = initialState, action) {
             return {
                 ...state,
                 isSearching: true,
-                error: undefined
+                error: undefined,
             };
         case FETCH_MY_ADS_SUCCESS:
             return {
@@ -40,47 +39,46 @@ export default function myAdsReducer(state = initialState, action) {
                 items: action.response.content,
                 isSearching: false,
                 totalElements: action.response.totalElements,
-                totalPages: action.response.totalPages
+                totalPages: action.response.totalPages,
             };
         case FETCH_MY_ADS_FAILURE:
             return {
                 ...state,
                 error: action.error,
-                isSearching: false
+                isSearching: false,
             };
         case CHANGE_MY_ADS_STATUS_FILTER:
             return {
                 ...state,
                 status: action.status,
-                deactivatedByExpiry: action.deactivatedByExpiry
+                deactivatedByExpiry: action.deactivatedByExpiry,
             };
         case CHANGE_MY_ADS_PAGE:
             return {
                 ...state,
-                page: action.page
+                page: action.page,
             };
         case RESET_MY_ADS_PAGE:
             return {
                 ...state,
-                page: 0
+                page: 0,
             };
         case CHANGE_MY_ADS_SORTING:
             return {
                 ...state,
                 page: 0,
                 sortField: action.field,
-                sortDir: action.dir
+                sortDir: action.dir,
             };
         default:
             return state;
     }
 }
 
-
 function combineStatusQuery(status) {
     if (status === undefined) {
         return {
-            status: '!REJECTED,DELETED'
+            status: '!REJECTED,DELETED',
         };
     }
     return { status };
@@ -88,7 +86,14 @@ function combineStatusQuery(status) {
 
 export function toQuery(search) {
     const {
-        reportee, status, page, source, deactivatedByExpiry, sortField, sortDir, uuid
+        reportee,
+        status,
+        page,
+        source,
+        deactivatedByExpiry,
+        sortField,
+        sortDir,
+        uuid,
     } = search;
 
     const query = {
@@ -97,7 +102,7 @@ export function toQuery(search) {
         reportee,
         deactivatedByExpiry,
         uuid,
-        ...combineStatusQuery(status)
+        ...combineStatusQuery(status),
     };
 
     return query;
@@ -113,16 +118,14 @@ function* getMyAds(action) {
 
         const state = yield select();
 
-        const recruitmentResponse = yield fetchRecruitmentsForVeileder(reportee.navIdent)
+        const recruitmentResponse = yield fetchRecruitmentsForVeileder(reportee.navIdent);
 
-        const stillingsids = recruitmentResponse
-            .map(r => r.stillingsid)
-            .join(",")
+        const stillingsids = recruitmentResponse.map(r => r.stillingsid).join(',');
 
         const search = {
             ...state.myAds,
             reportee: reportee.displayName,
-            uuid: stillingsids
+            uuid: stillingsids,
         };
 
         const query = toQuery(search);
@@ -138,12 +141,9 @@ function* getMyAds(action) {
     }
 }
 
-
 export const myAdsSaga = function* saga() {
-    yield takeLatest([
-        CHANGE_MY_ADS_STATUS_FILTER,
-        CHANGE_MY_ADS_PAGE,
-        FETCH_MY_ADS,
-        CHANGE_MY_ADS_SORTING
-    ], getMyAds);
+    yield takeLatest(
+        [CHANGE_MY_ADS_STATUS_FILTER, CHANGE_MY_ADS_PAGE, FETCH_MY_ADS, CHANGE_MY_ADS_SORTING],
+        getMyAds
+    );
 };

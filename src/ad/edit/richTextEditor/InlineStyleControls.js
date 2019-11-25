@@ -8,12 +8,12 @@ const InlineStyleControls = ({ editorState, onToggle }) => {
         { label: 'icon-bold', style: 'BOLD' },
         { label: 'icon-italic', style: 'ITALIC' },
         { label: 'icon-underline', style: 'UNDERLINE' },
-        { label: 'icon-code', style: 'CODE' }
+        { label: 'icon-code', style: 'CODE' },
     ];
     const currentStyle = editorState.getCurrentInlineStyle();
     return (
         <div className="RichTextEditor__controls">
-            {INLINE_STYLES.map((type) => (
+            {INLINE_STYLES.map(type => (
                 <StyleButton
                     key={type.label}
                     active={currentStyle.has(type.style)}
@@ -28,9 +28,9 @@ const InlineStyleControls = ({ editorState, onToggle }) => {
 
 InlineStyleControls.propTypes = {
     editorState: PropTypes.shape({
-        getCurrentInlineStyle: PropTypes.func
+        getCurrentInlineStyle: PropTypes.func,
     }).isRequired,
-    onToggle: PropTypes.func.isRequired
+    onToggle: PropTypes.func.isRequired,
 };
 
 export default InlineStyleControls;

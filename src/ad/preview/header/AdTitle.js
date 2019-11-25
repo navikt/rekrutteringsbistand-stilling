@@ -5,9 +5,7 @@ import './PreviewHeader.less';
 import capitalizeLocation from '../../edit/location/capitalizeLocation';
 
 export function commaSeparate(...strings) {
-    const onlyStrings = strings.filter((string) => (
-        (typeof string === 'string') && string !== ''
-    ));
+    const onlyStrings = strings.filter(string => typeof string === 'string' && string !== '');
     return onlyStrings.join(', ');
 }
 
@@ -26,11 +24,9 @@ export default function AdTitle({ title, employer, location }) {
     return (
         <div className="AdTitle">
             <Normaltekst>
-                {commaSeparate(employer, capitalizeLocation(locationInTitle)) }
+                {commaSeparate(employer, capitalizeLocation(locationInTitle))}
             </Normaltekst>
-            <Sidetittel>
-                {title}
-            </Sidetittel>
+            <Sidetittel>{title}</Sidetittel>
         </div>
     );
 }
@@ -38,7 +34,7 @@ export default function AdTitle({ title, employer, location }) {
 AdTitle.defaultProps = {
     title: '',
     employer: '',
-    location: undefined
+    location: undefined,
 };
 
 AdTitle.propTypes = {
@@ -47,6 +43,6 @@ AdTitle.propTypes = {
     location: PropTypes.shape({
         city: PropTypes.string,
         municipal: PropTypes.string,
-        country: PropTypes.string
-    })
+        country: PropTypes.string,
+    }),
 };

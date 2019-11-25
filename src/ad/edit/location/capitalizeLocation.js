@@ -2,11 +2,12 @@ export default function capitalizeLocation(text) {
     const separators = [
         ' ', // NORDRE LAND skal bli Nordre Land
         '-', // AUST-AGDER skal bli Aust-Agder
-        '(' // BØ (TELEMARK) skal bli Bø (Telemark)
+        '(', // BØ (TELEMARK) skal bli Bø (Telemark)
     ];
 
     const ignore = [
-        'i', 'og' // MØRE OG ROMSDAL skal bli Møre og Romsdal
+        'i',
+        'og', // MØRE OG ROMSDAL skal bli Møre og Romsdal
     ];
 
     if (text) {

@@ -23,7 +23,7 @@ class StartPage extends React.Component {
     render() {
         const newAdRoute = {
             pathname: '/stilling',
-            state: { isNew: true }
+            state: { isNew: true },
         };
         return (
             <div className="StartPage">
@@ -37,7 +37,7 @@ class StartPage extends React.Component {
                             <LenkepanelBase
                                 href="/minestillinger"
                                 border
-                                linkCreator={(props) => <Link to="/minestillinger" {...props} />}
+                                linkCreator={props => <Link to="/minestillinger" {...props} />}
                             >
                                 <div className="StartPage__panel-flex">
                                     <div className="StartPage__icon-copy" />
@@ -51,7 +51,7 @@ class StartPage extends React.Component {
                             <LenkepanelBase
                                 href="/stilling"
                                 border
-                                linkCreator={(props) => <Link to={newAdRoute} {...props} />}
+                                linkCreator={props => <Link to={newAdRoute} {...props} />}
                             >
                                 <div className="StartPage__panel-flex">
                                     <div className="StartPage__icon-pen" />
@@ -64,10 +64,7 @@ class StartPage extends React.Component {
                     </Row>
                     <Row>
                         <Column className="StartPage__panel" xs="12" md="6">
-                            <LenkepanelBase
-                                href="/kandidater"
-                                border
-                            >
+                            <LenkepanelBase href="/kandidater" border>
                                 <div className="StartPage__panel-flex">
                                     <div className="StartPage__icon-candidates" />
                                     <Systemtittel className="StartPage__systemtittel">
@@ -77,10 +74,7 @@ class StartPage extends React.Component {
                             </LenkepanelBase>
                         </Column>
                         <Column className="StartPage__panel" xs="12" md="6">
-                            <LenkepanelBase
-                                href="/kandidater/lister"
-                                border
-                            >
+                            <LenkepanelBase href="/kandidater/lister" border>
                                 <div className="StartPage__panel-flex">
                                     <div className="StartPage__icon-candidateList" />
                                     <Systemtittel className="StartPage__systemtittel">
@@ -99,14 +93,14 @@ class StartPage extends React.Component {
 StartPage.propTypes = {
     history: PropTypes.shape().isRequired,
     fetchReportee: PropTypes.func.isRequired,
-    resetSearch: PropTypes.func.isRequired
+    resetSearch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = () => ({});
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     fetchReportee: () => dispatch({ type: FETCH_REPORTEE }),
-    resetSearch: () => dispatch({ type: RESET_SEARCH })
+    resetSearch: () => dispatch({ type: RESET_SEARCH }),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(StartPage));

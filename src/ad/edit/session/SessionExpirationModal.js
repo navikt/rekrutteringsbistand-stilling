@@ -13,10 +13,10 @@ export default function SessionExpirationModal(props) {
         secondaryButtonText,
         secondaryOnClick,
         onClose,
-        isOpen
+        isOpen,
     } = props;
 
-    return(
+    return (
         <NavFrontendModal
             className="SessionExpirationModal"
             closeButton={onClose !== undefined}
@@ -31,21 +31,15 @@ export default function SessionExpirationModal(props) {
                 <Normaltekst>{bodyText}</Normaltekst>
             </div>
             <div className="knapperad">
-                <KnappBase
-                    onClick={mainOnClick}
-                    type="hoved"
-                >
+                <KnappBase onClick={mainOnClick} type="hoved">
                     {mainButtonText}
                 </KnappBase>
-                {secondaryButtonText &&
-                <KnappBase
-                    onClick={secondaryOnClick}
-                    type="flat"
-                >
-                    {secondaryButtonText}
-                </KnappBase>
-                }
+                {secondaryButtonText && (
+                    <KnappBase onClick={secondaryOnClick} type="flat">
+                        {secondaryButtonText}
+                    </KnappBase>
+                )}
             </div>
         </NavFrontendModal>
     );
-};
+}
