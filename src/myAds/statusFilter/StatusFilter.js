@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Select } from 'nav-frontend-skjema';
-import { FETCH_MY_ADS, CHANGE_MY_ADS_STATUS_FILTER } from '../myAdsReducer';
+import { CHANGE_MY_ADS_STATUS_FILTER } from '../myAdsReducer';
 import AdStatusEnum from '../../common/enums/AdStatusEnum';
 import { getAdStatusLabel } from '../../common/enums/getEnumLabels';
 

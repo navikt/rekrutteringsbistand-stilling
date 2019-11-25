@@ -1,4 +1,3 @@
-import { Column, Row } from 'nav-frontend-grid';
 import { Normaltekst } from 'nav-frontend-typografi';
 import PropTypes from 'prop-types';
 import React from 'react';

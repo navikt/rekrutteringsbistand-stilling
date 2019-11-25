@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import ReactHtmlParser from 'react-html-parser';
 import { Undertittel } from 'nav-frontend-typografi';
 import './Employer.less';

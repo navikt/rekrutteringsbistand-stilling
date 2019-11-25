@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Undertittel } from 'nav-frontend-typografi';
 import { formatISOString } from '../../../utils';
-import PrivacyStatusEnum from '../../../common/enums/PrivacyStatusEnum';
 
 export default function Summary({ ad }) {
     return (

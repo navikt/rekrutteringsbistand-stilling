@@ -13,9 +13,9 @@ function AdStatus(props) {
         deactivatedByExpiry,
         activationOnPublishingDate,
         originalData,
-        isEditingAd,
         isSavingAd,
     } = props;
+
     return isSavingAd ? (
         <Alertstripe className="AdStatusPreview__Alertstripe" type="info" solid="true">
             Stillingen er lagres

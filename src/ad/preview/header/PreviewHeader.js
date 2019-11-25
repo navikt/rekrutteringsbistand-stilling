@@ -22,7 +22,7 @@ class PreviewMenu extends React.Component {
     };
 
     render() {
-        const { stilling, limitedAccess, rekruttering, reportee } = this.props;
+        const { stilling, limitedAccess, rekruttering } = this.props;
 
         const kanOverfoereStilling = rekruttering && limitedAccess && !rekruttering.eierNavident;
 

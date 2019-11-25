@@ -1,5 +1,5 @@
 import { put, select, takeLatest } from 'redux-saga/effects';
-import { ApiError, fetchPost, fetchPut, fetchRecruitment } from '../api/api';
+import { ApiError, fetchPost, fetchPut } from '../api/api';
 import { REKRUTTERING_API } from '../fasitProperties';
 
 import { SET_REKRUTTERING_DATA } from './recruitmentDataReducer';

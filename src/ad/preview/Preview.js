@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Element } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
 import ReactHtmlParser from 'react-html-parser';

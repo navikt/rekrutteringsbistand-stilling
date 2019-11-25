@@ -1,6 +1,6 @@
 import React from 'react';
 import Tabs from 'nav-frontend-tabs';
-import { Undertittel, Systemtittel } from 'nav-frontend-typografi';
+import { Undertittel } from 'nav-frontend-typografi';
 import AdStatus from './adStatus/AdStatus';
 import AdStatusEdit from './adStatus/AdStatusEdit';
 import Publishing from './publishing/Publishing';

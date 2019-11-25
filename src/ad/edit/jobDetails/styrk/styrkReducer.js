@@ -1,4 +1,4 @@
-import { put, takeLatest, throttle, select } from 'redux-saga/effects';
+import { put, takeLatest, throttle } from 'redux-saga/effects';
 import { ApiError, fetchGet } from '../../../../api/api';
 import { AD_API } from '../../../../fasitProperties';
 import { SET_STYRK } from '../../../adDataReducer';

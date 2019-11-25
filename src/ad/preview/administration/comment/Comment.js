@@ -1,15 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Element, Normaltekst } from 'nav-frontend-typografi';
+import { Element } from 'nav-frontend-typografi';
 import ProcessString from 'react-process-string';
 import './Comment.less';
 
 class Comment extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     process = () => {
         const { comments } = this.props;
 
@@ -20,6 +16,7 @@ class Comment extends React.Component {
                     <span key={key} className="Comment__text__link">
                         <a
                             target="_blank"
+                            rel="noopener noreferrer"
                             href={`${result[1]}://${result[2]}.${result[3]}${result[4]}`}
                         >
                             {result[2]}.{result[3]}

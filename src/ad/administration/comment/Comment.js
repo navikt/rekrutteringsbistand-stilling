@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Textarea, Fieldset } from 'nav-frontend-skjema';
+import { Textarea } from 'nav-frontend-skjema';
 import { connect } from 'react-redux';
 import { SET_COMMENT } from '../../adDataReducer';
 import { MAX_LENGTH_COMMENT } from '../../adValidationReducer';

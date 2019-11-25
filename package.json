@@ -14,7 +14,8 @@
         "docker-rm": "docker rm pam-rekrutteringsbistand",
         "docker-stop": "docker stop pam-rekrutteringsbistand",
         "snyk-protect": "snyk protect",
-        "prepare": "npm run snyk-protect"
+        "prepare": "npm run snyk-protect",
+        "lint": "eslint \"src/**\""
     },
     "author": "",
     "license": "ISC",

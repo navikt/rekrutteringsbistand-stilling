@@ -85,16 +85,7 @@ function combineStatusQuery(status) {
 }
 
 export function toQuery(search) {
-    const {
-        reportee,
-        status,
-        page,
-        source,
-        deactivatedByExpiry,
-        sortField,
-        sortDir,
-        uuid,
-    } = search;
+    const { reportee, status, page, deactivatedByExpiry, sortField, sortDir, uuid } = search;
 
     const query = {
         sort: `${sortField},${sortDir}`,

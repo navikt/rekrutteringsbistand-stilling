@@ -1,5 +1,3 @@
-import { put, take, takeLatest, select } from 'redux-saga/es/effects';
-
 export const SET_NAV_IDENT_REKRUTTERING = 'SET_NAV_IDENT_REKRUTTERING';
 export const SET_REKRUTTERING_DATA = 'SET_REKRUTTERING_DATA';
 

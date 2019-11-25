@@ -1,4 +1,4 @@
-import { take, put, takeEvery, select } from 'redux-saga/effects';
+import { put, takeEvery, select } from 'redux-saga/effects';
 import { ApiError, fetchGet } from '../../../api/api';
 import { AD_API } from '../../../fasitProperties';
 import {
