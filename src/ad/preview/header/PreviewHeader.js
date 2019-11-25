@@ -9,7 +9,6 @@ import CandidateActions from '../../candidateActions/CandidateActions';
 import Alertstripe from 'nav-frontend-alertstriper';
 import { Lukknapp } from 'nav-frontend-ikonknapper';
 import './PreviewHeader.less';
-import { Link } from 'react-router-dom';
 
 class PreviewMenu extends React.Component {
     onEditAdClick = () => {
