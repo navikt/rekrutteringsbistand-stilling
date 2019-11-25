@@ -1,4 +1,4 @@
-@import "../../variables";
+@import '../../variables';
 
 @find-candidate: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='21' viewBox='0 0 22 21'%3E%3Cg fill='none' fill-rule='evenodd' stroke='%230067C5' stroke-linejoin='round' transform='translate(1 1)'%3E%3Cpath d='M10.417 12.083v-2.37m-4.167.04v2.33l-4.175 1.491a2.5 2.5 0 0 0-1.658 2.354v1.989h10'/%3E%3Cellipse cx='8.323' cy='5.417' rx='4.167' ry='5'/%3E%3Cpath d='M12.474 4.97l-.4.03c-1.419.274-2.33-.24-3.111-1.608C8.492 4.29 7.027 5 5.822 5a3.367 3.367 0 0 1-1.621-.396'/%3E%3Ccircle cx='15' cy='15' r='2.917'/%3E%3Cpath stroke-linecap='round' d='M19.583 19.583l-2.5-2.5'/%3E%3C/g%3E%3C/svg%3E";
 
@@ -7,74 +7,71 @@
 @edit: "data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Cdefs%3E%3Cpath d='M19.387 2.41L17.62.643c-.786-.786-2.16-.786-2.947 0l-.589.59-12.197 12.2c-.001 0-.003 0-.003.002l-.003.004-.207.206a.415.415 0 0 0-.11.2L.298 19.23a.417.417 0 0 0 .501.5l5.389-1.264a.415.415 0 0 0 .199-.11l.205-.205.005-.004.003-.005 11-10.997c.002-.003.008-.004.01-.008.004-.003.005-.008.008-.011l1.173-1.172c.002-.003.006-.003.01-.007l.007-.01.581-.581a2.09 2.09 0 0 0-.002-2.946zm-2.072 3.84l-3.528-3.544.59-.59 3.537 3.536-.599.599zM6.301 17.265L2.766 13.73 13.198 3.295l3.528 3.545L6.3 17.264zm-4.02-2.84l3.326 3.324-4.345 1.02 1.02-4.345zm16.517-9.656l-.295.295-3.536-3.536.295-.295c.47-.472 1.296-.473 1.768 0L18.798 3c.487.487.487 1.28 0 1.768z' id='a'/%3E%3C/defs%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cmask id='b' fill='%23fff'%3E%3Cuse xlink:href='%23a'/%3E%3C/mask%3E%3Cuse fill='%233E3832' fill-rule='nonzero' xlink:href='%23a'/%3E%3Cg mask='url(%23b)' fill='%230067C5'%3E%3Cpath d='M0 20h20V0H0z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E";
 
 .background (@opacity, @data) {
-  background: @opacity url(@data) bottom left no-repeat;
+    background: @opacity url(@data) bottom left no-repeat;
 }
 
-.FindCandidate{
-  .background(transparent, @find-candidate);
+.FindCandidate {
+    .background(transparent, @find-candidate);
 
-  &:focus {
-    .background(@orangeFocus, replace(@find-candidate, '%230067c5', '%23005b82'));
-  }
+    &:focus {
+        .background(@orangeFocus, replace(@find-candidate, '%230067c5', '%23005b82'));
+    }
 
-  &:active {
-    .background(inherit, replace(@find-candidate, '%230067c5', '%23005b82'));
-  }
+    &:active {
+        .background(inherit, replace(@find-candidate, '%230067c5', '%23005b82'));
+    }
 }
 
-.CandidateList{
-  .background(transparent, @candidate-list);
+.CandidateList {
+    .background(transparent, @candidate-list);
 
-  &:focus {
-    .background(@orangeFocus, replace(@candidate-list, '%230067c5', '%23005b82'));
-  }
+    &:focus {
+        .background(@orangeFocus, replace(@candidate-list, '%230067c5', '%23005b82'));
+    }
 
-  &:active {
-    .background(inherit, replace(@candidate-list, '%230067c5', '%23005b82'));
-  }
+    &:active {
+        .background(inherit, replace(@candidate-list, '%230067c5', '%23005b82'));
+    }
 }
 
+.EditAd {
+    .background(transparent, @edit);
 
-.EditAd{
-  .background(transparent, @edit);
+    &:focus {
+        .background(@orangeFocus, replace(@edit, '%230067c5', '%23005b82'));
+    }
 
-  &:focus {
-    .background(@orangeFocus, replace(@edit, '%230067c5', '%23005b82'));
-  }
-
-  &:active {
-    .background(inherit, replace(@edit, '%230067c5', '%23005b82'));
-  }
+    &:active {
+        .background(inherit, replace(@edit, '%230067c5', '%23005b82'));
+    }
 }
-
 
 .AWithIcon {
-  padding-left: 23px;
-  text-decoration: none;
-  display: flex;
-  align-items: center; //vertically
+    padding-left: 23px;
+    text-decoration: none;
+    display: flex;
+    align-items: center; //vertically
 
-  &:focus {
-    outline: none;
+    &:focus {
+        outline: none;
 
-    .AWithIcon__text {
-      outline: none;
-      color: @navDypBla;
-      background-color: @orangeFocus;
+        .AWithIcon__text {
+            outline: none;
+            color: @navDypBla;
+            background-color: @orangeFocus;
+        }
     }
-  }
 
-  &:hover {
-    .AWithIcon__text {
-      border-bottom-color: @navBla;
+    &:hover {
+        .AWithIcon__text {
+            border-bottom-color: @navBla;
+        }
     }
-  }
 
-  &:active {
-    .AWithIconk__text {
-      color: @navDypBla;
-      border-bottom-color: @navDypBla;
-
+    &:active {
+        .AWithIconk__text {
+            color: @navDypBla;
+            border-bottom-color: @navDypBla;
+        }
     }
-  }
 }
