@@ -49,7 +49,7 @@ export async function fetchPost(url, body) {
         method: 'POST',
         credentials: 'include',
         headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json;charset=UTF-8',
             'X-Requested-With': 'XMLHttpRequest'
         }
     });
@@ -61,7 +61,7 @@ export async function fetchPut(url, body) {
         method: 'PUT',
         credentials: 'include',
         headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json;charset=UTF-8',
             'X-Requested-With': 'XMLHttpRequest'
         }
     });
@@ -72,7 +72,7 @@ export async function fetchDelete(url) {
         method: 'DELETE',
         credentials: 'include',
         headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json;charset=UTF-8',
             'X-Requested-With': 'XMLHttpRequest'
         }
     });
