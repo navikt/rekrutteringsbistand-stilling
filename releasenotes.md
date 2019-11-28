@@ -1,3 +1,14 @@
+## RELEASE - 0.49.259-7a1b59b
+#### New in this release: 
++ 2019-11-11 [pam-1895] rekrutteringsdata i samme kall
++ 2019-11-05 [pam-1895] nytt stillingskall
++ 2019-11-05 [pam-1895] la til rekrutteringsnavn
++ 2019-11-01 [pam-1895] mine stillinger eksterne og alertstripe
++ 2019-10-31 [pam-1895]markering kandidatliste eksterne søk
++ 2019-10-30 [pam-1895]kandidatliste eksterne
++ 2019-10-30 [pam-3684]markere som min veileder
++ 2019-10-29 [pam-3684]markere som min veileder
++ 2019-10-29 [pam-3684]markere som min veileder
 ## RELEASE - 0.45.208-d93be3d
 #### New in this release: 
 + 2019-07-17 [PAM-2711]: begynt på implementasjonn av sortering på mine stillinger
