@@ -48,7 +48,6 @@ class PreviewMenu extends React.Component {
                             className="button-legg-i-mine-stillinger"
                             onClick={this.onLeggTilIMineStillingerClick}
                             mini
-                            disabled
                         >
                             Legg i "mine stillinger"
                         </Knapp> }
