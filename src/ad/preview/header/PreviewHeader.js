@@ -44,14 +44,14 @@ class PreviewMenu extends React.Component {
                                 Rediger stillingen
                             </Hovedknapp>
                         }
-                        {/*kanOverfoereStilling && <Knapp
+                        {kanOverfoereStilling && <Knapp
                             className="button-legg-i-mine-stillinger"
                             onClick={this.onLeggTilIMineStillingerClick}
                             mini
 
                         >
-                            Legg i "mine stillinger"
-                        </Knapp> */}
+                            Opprett kandidatliste
+                        </Knapp>}
                         <Knapp
                             className="button-print"
                             onClick={this.onPrintClick}
