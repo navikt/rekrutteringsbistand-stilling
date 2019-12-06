@@ -1,6 +1,6 @@
 import React from 'react';
 import Tabs from 'nav-frontend-tabs';
-import { Undertittel, Systemtittel } from 'nav-frontend-typografi';
+import { Undertittel } from 'nav-frontend-typografi';
 import AdStatus from './adStatus/AdStatus';
 import AdStatusEdit from './adStatus/AdStatusEdit';
 import Publishing from './publishing/Publishing';
@@ -14,7 +14,7 @@ class Administration extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            tabIndex: undefined
+            tabIndex: undefined,
         };
     }
 
@@ -22,11 +22,15 @@ class Administration extends React.Component {
         return (
             <div className="Tab__area Administration__elements">
                 <div className="Administration__panel">
-                    <Undertittel className="Administration__panel__title">Når skal stillingen vises?</Undertittel>
+                    <Undertittel className="Administration__panel__title">
+                        Når skal stillingen vises?
+                    </Undertittel>
                     <Publishing />
                 </div>
                 <div className="Administration__panel">
-                    <Undertittel className="Administration__panel__title">Hvor skal stillingen publiseres?*</Undertittel>
+                    <Undertittel className="Administration__panel__title">
+                        Hvor skal stillingen publiseres?*
+                    </Undertittel>
                     <Privacy />
                 </div>
                 <div className="Administration__panel">
@@ -34,18 +38,18 @@ class Administration extends React.Component {
                     <Comment placeholder="Legg inn notat" />
                 </div>
             </div>
-        )
+        );
     }
 
     inkludering() {
-       return (
+        return (
             <div className="Tab__area">
                 <div className="Administration__panel">
                     <Undertittel className="Administration__panel__title">Inkludering</Undertittel>
                     <InkluderingPanel />
-                </div> 
+                </div>
             </div>
-       )
+        );
     }
 
     render() {
@@ -55,18 +59,15 @@ class Administration extends React.Component {
                     <div className="Administration__flex__top">
                         <AdStatus />
                     </div>
-                    <Tabs className="Tabs"
-                            tabs={[
-                                {"label": "Publisering av stilling"},
-                                {"label": "Inkludering"}
-                            ]}
-                            onChange={(event, index) => {
-                                this.setState({
-                                    tabIndex: index
-                                })
-                            }}
-                            
-                        /> 
+                    <Tabs
+                        className="Tabs"
+                        tabs={[{ label: 'Publisering av stilling' }, { label: 'Inkludering' }]}
+                        onChange={(event, index) => {
+                            this.setState({
+                                tabIndex: index,
+                            });
+                        }}
+                    />
                     <div className="Administration__flex__center">
                         {this.state.tabIndex ? this.inkludering() : this.publisering()}
                     </div>
@@ -78,5 +79,5 @@ class Administration extends React.Component {
             </div>
         );
     }
-};
+}
 export default Administration;

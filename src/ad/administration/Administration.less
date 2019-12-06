@@ -1,107 +1,107 @@
-@import "../../variables";
-@import "../../../node_modules/nav-frontend-typografi-style/src/index";
-@import "../../../node_modules/nav-frontend-lenker-style/src/lenker-mixins";
-@import "../../../node_modules/nav-frontend-skjema-style/src/validering";
+@import '../../variables';
+@import '../../../node_modules/nav-frontend-typografi-style/src/index';
+@import '../../../node_modules/nav-frontend-lenker-style/src/lenker-mixins';
+@import '../../../node_modules/nav-frontend-skjema-style/src/validering';
 
 .Administration__flex {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 
-  height: @ad-height;
-  min-width: 320px;
+    height: @ad-height;
+    min-width: 320px;
 }
 
 .Administration__flex__center {
-  flex: auto;
-  flex-shrink: 2;
-  overflow-y: auto;
-  background: #EBF3FB;
+    flex: auto;
+    flex-shrink: 2;
+    overflow-y: auto;
+    background: #ebf3fb;
 }
 
 .Administration__flex__bottom {
-  background: #d9e8f7;
-  border-top: 1px solid #b7b1a9;
-  padding: 1.5rem 2.5rem 0;
+    background: #d9e8f7;
+    border-top: 1px solid #b7b1a9;
+    padding: 1.5rem 2.5rem 0;
 }
 
 .Administration__header {
-  margin: 2rem 2.5rem 0;
+    margin: 2rem 2.5rem 0;
 }
 
 .Administration__panel {
-  border: 1px solid #dddddd;
-  background: #fff;
-  margin: 2rem 2.5rem 0;
-  background: transparent;
-  border: none;
+    border: 1px solid #dddddd;
+    background: #fff;
+    margin: 2rem 2.5rem 0;
+    background: transparent;
+    border: none;
 }
 
 .Administration__panel__title {
-  padding: 0.5rem 0 0;
+    padding: 0.5rem 0 0;
 }
 
 .Location,
 .Publishing,
 .Comment,
 .Inkludering {
-  .skjemaelement {
-    line-height: 20px;
-    margin-bottom: 1rem;
-  }
+    .skjemaelement {
+        line-height: 20px;
+        margin-bottom: 1rem;
+    }
 
-  .skjema__legend {
-    font-size: 20px;
-  }
-  .typo-undertittel {
-    margin: 2rem 0 1rem;
-  }
+    .skjema__legend {
+        font-size: 20px;
+    }
+    .typo-undertittel {
+        margin: 2rem 0 1rem;
+    }
 }
 
 .Inkludering {
-  &.skjema__fieldset {
-    margin-top: 1rem;
-  }
+    &.skjema__fieldset {
+        margin-top: 1rem;
+    }
 
-  .skjema__legend {
-    display: none;
-  }
+    .skjema__legend {
+        display: none;
+    }
 
-  &__subtags.skjema__fieldset {
-    padding-left: 1.5rem;
-  }
+    &__subtags.skjema__fieldset {
+        padding-left: 1.5rem;
+    }
 }
 
-  .Comment {
+.Comment {
     padding-top: 1rem;
-  }
+}
 
 .Tabs {
-  padding: 2rem 0 0 2.5rem;
-  .nav-frontend-tabs__tab-inner--aktiv {
-    background: transparent;
-    font-weight: 100;
-    border-bottom-color: #EBF3FB;
-  }
-  .nav-frontend-tabs__tab-label {
-    font-weight: 400;
-  }
+    padding: 2rem 0 0 2.5rem;
+    .nav-frontend-tabs__tab-inner--aktiv {
+        background: transparent;
+        font-weight: 100;
+        border-bottom-color: #ebf3fb;
+    }
+    .nav-frontend-tabs__tab-label {
+        font-weight: 400;
+    }
 }
 
 .Employer {
-  border-bottom: 1px solid #dddddd;
+    border-bottom: 1px solid #dddddd;
 }
 
 .EmployerPreview,
 .LocationPreview {
-  padding: 1rem;
+    padding: 1rem;
 }
 
 .Administration__error {
-  .typo-normal;
-  .skjemaelement__feilmelding;
+    .typo-normal;
+    .skjemaelement__feilmelding;
 }
 
 .Administration__elements {
-  overflow: hidden;
-  margin-bottom: 2rem;
+    overflow: hidden;
+    margin-bottom: 2rem;
 }

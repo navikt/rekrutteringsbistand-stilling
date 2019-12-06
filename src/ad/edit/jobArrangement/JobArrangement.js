@@ -7,7 +7,7 @@ import JobArrangementEnum from './JobArrangementEnum';
 import './JobArrangement.less';
 
 class JobArrangement extends React.Component {
-    onJobArrangementChange = (e) => {
+    onJobArrangementChange = e => {
         this.props.setJobArrangement(e.target.value);
     };
 
@@ -39,20 +39,21 @@ class JobArrangement extends React.Component {
 }
 
 JobArrangement.defaultProps = {
-    jobArrangement: undefined
+    jobArrangement: undefined,
 };
 
 JobArrangement.propTypes = {
     jobArrangement: PropTypes.string,
-    setJobArrangement: PropTypes.func.isRequired
+    setJobArrangement: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-    jobArrangement: state.adData.properties.jobarrangement
+const mapStateToProps = state => ({
+    jobArrangement: state.adData.properties.jobarrangement,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    setJobArrangement: (jobarrangement) => dispatch({ type: SET_EMPLOYMENT_JOBARRANGEMENT, jobarrangement })
+const mapDispatchToProps = dispatch => ({
+    setJobArrangement: jobarrangement =>
+        dispatch({ type: SET_EMPLOYMENT_JOBARRANGEMENT, jobarrangement }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(JobArrangement);

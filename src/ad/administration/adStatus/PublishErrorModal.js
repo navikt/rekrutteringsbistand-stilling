@@ -14,34 +14,33 @@ class PublishErrorModal extends React.Component {
 
     render() {
         const { showPublishErrorModal, validation } = this.props;
-        return showPublishErrorModal && (
-            <NavFrontendModal
-                isOpen={showPublishErrorModal}
-                contentLabel="Fortsett"
-                onRequestClose={this.onClose}
-                closeButton
-                appElement={document.getElementById('app')}
-                className="PublishErrorModal"
-            >
-                <Undertittel className="blokk-s">
-                    Kan ikke publisere stillingen
-                </Undertittel>
-                <Normaltekst className="blokk-s">
-                    Stillingen kan ikke publiseres før følgende feil er rettet:
-                </Normaltekst>
-                <ul className="blokk-s">
-                    {Object.keys(validation).map((key) => (
-                        validation[key] && (
-                            <li className="skjemaelement__feilmelding" key={key}>
-                                {validation[key]}
-                            </li>
-                        )
-                    ))}
-                </ul>
-                <Hovedknapp onClick={this.onClose}>
-                    Lukk
-                </Hovedknapp>
-            </NavFrontendModal>
+        return (
+            showPublishErrorModal && (
+                <NavFrontendModal
+                    isOpen={showPublishErrorModal}
+                    contentLabel="Fortsett"
+                    onRequestClose={this.onClose}
+                    closeButton
+                    appElement={document.getElementById('app')}
+                    className="PublishErrorModal"
+                >
+                    <Undertittel className="blokk-s">Kan ikke publisere stillingen</Undertittel>
+                    <Normaltekst className="blokk-s">
+                        Stillingen kan ikke publiseres før følgende feil er rettet:
+                    </Normaltekst>
+                    <ul className="blokk-s">
+                        {Object.keys(validation).map(
+                            key =>
+                                validation[key] && (
+                                    <li className="skjemaelement__feilmelding" key={key}>
+                                        {validation[key]}
+                                    </li>
+                                )
+                        )}
+                    </ul>
+                    <Hovedknapp onClick={this.onClose}>Lukk</Hovedknapp>
+                </NavFrontendModal>
+            )
         );
     }
 }
@@ -56,19 +55,18 @@ PublishErrorModal.propTypes = {
         adText: PropTypes.string,
         published: PropTypes.string,
         expires: PropTypes.string,
-        postalCode: PropTypes.string
+        postalCode: PropTypes.string,
     }).isRequired,
-    closeModal: PropTypes.func.isRequired
+    closeModal: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     validation: state.adValidation.errors,
-    showPublishErrorModal: state.ad.showPublishErrorModal
+    showPublishErrorModal: state.ad.showPublishErrorModal,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    closeModal: () => dispatch({ type: HIDE_PUBLISH_ERROR_MODAL })
+const mapDispatchToProps = dispatch => ({
+    closeModal: () => dispatch({ type: HIDE_PUBLISH_ERROR_MODAL }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PublishErrorModal);
-

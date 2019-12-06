@@ -31,21 +31,28 @@ export default class TypeaheadSuggestion extends React.Component {
             >
                 {matchIndex !== -1 && this.props.match !== '' ? (
                     <span
-                        className={this.props.active ?
-                            'TypeaheadSuggestion__inner TypeaheadSuggestion--active' :
-                            'TypeaheadSuggestion__inner'}
+                        className={
+                            this.props.active
+                                ? 'TypeaheadSuggestion__inner TypeaheadSuggestion--active'
+                                : 'TypeaheadSuggestion__inner'
+                        }
                     >
                         {this.props.label.substring(0, matchIndex)}
                         <span className="TypeaheadSuggestion__substring">
-                            {this.props.label.substring(matchIndex, matchIndex + this.props.match.length)}
+                            {this.props.label.substring(
+                                matchIndex,
+                                matchIndex + this.props.match.length
+                            )}
                         </span>
                         {this.props.label.substring(matchIndex + this.props.match.length)}
                     </span>
                 ) : (
                     <span
-                        className={this.props.active ?
-                            'TypeaheadSuggestion__inner TypeaheadSuggestion--active' :
-                            'TypeaheadSuggestion__inner'}
+                        className={
+                            this.props.active
+                                ? 'TypeaheadSuggestion__inner TypeaheadSuggestion--active'
+                                : 'TypeaheadSuggestion__inner'
+                        }
                     >
                         {this.props.label}
                     </span>
@@ -67,6 +74,6 @@ TypeaheadSuggestion.propTypes = {
     label: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.node),
         PropTypes.node,
-        PropTypes.string
-    ]).isRequired
+        PropTypes.string,
+    ]).isRequired,
 };

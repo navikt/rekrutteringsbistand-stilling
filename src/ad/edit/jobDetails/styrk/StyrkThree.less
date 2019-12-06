@@ -1,49 +1,48 @@
-@import "../../../../../node_modules/nav-frontend-lenker-style/src/lenker-style";
-@import "../../../../../node_modules/nav-frontend-typografi-style/src/index";
-@import "../../../../variables";
-
+@import '../../../../../node_modules/nav-frontend-lenker-style/src/lenker-style';
+@import '../../../../../node_modules/nav-frontend-typografi-style/src/index';
+@import '../../../../variables';
 
 .StyrkThree {
-  padding: 1.25rem;
+    padding: 1.25rem;
 }
 
 .StyrkThreeItem > .StyrkThreeItem {
-  padding-left: 3rem;
-  width: 100%;
+    padding-left: 3rem;
+    width: 100%;
 }
 
 .StyrkThreeItem__branch,
 .StyrkThreeItem__sibling {
-  border: 3px solid transparent;
-  background: none;
-  margin: 0.25rem 0;
-  padding: 0;
-  cursor: pointer;
-  text-align: left;
+    border: 3px solid transparent;
+    background: none;
+    margin: 0.25rem 0;
+    padding: 0;
+    cursor: pointer;
+    text-align: left;
 }
 
 .StyrkThreeItem__sibling {
-  color: @navBla;
+    color: @navBla;
 }
 
 .StyrkThreeItem__sibling__alternativeNames {
-  color: @navGra80;
+    color: @navGra80;
 }
 
 .StyrkThreeItem__branch__chevron {
-  color: @navMorkGra;
-  margin-right: 0.125rem;
+    color: @navMorkGra;
+    margin-right: 0.125rem;
 }
 
 .StyrkThreeItem__branch:hover {
-  color: #000;
-
-  .StyrkThreeItem__branch__chevron {
     color: #000;
-  }
+
+    .StyrkThreeItem__branch__chevron {
+        color: #000;
+    }
 }
 
 .StyrkThreeItem__branch:focus {
-  outline: none;
-  border: 3px solid @navOransjeLighten40;
+    outline: none;
+    border: 3px solid @navOransjeLighten40;
 }

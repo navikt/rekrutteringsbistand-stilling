@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-    Input, SkjemaGruppe, Radio, Checkbox
-} from 'nav-frontend-skjema';
+import { Input, SkjemaGruppe, Radio, Checkbox } from 'nav-frontend-skjema';
 import { connect } from 'react-redux';
 import { Normaltekst } from 'nav-frontend-typografi';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
@@ -18,7 +16,7 @@ import {
     SET_EMPLOYMENT_SECTOR,
     SET_EMPLOYMENT_POSITIONCOUNT,
     SET_APPLICATIONDUE,
-    SET_EMPLOYMENT_STARTTIME
+    SET_EMPLOYMENT_STARTTIME,
 } from '../../adDataReducer';
 import EngagementType from '../engagementType/EngagementType';
 import JobArrangement from '../jobArrangement/JobArrangement';
@@ -27,7 +25,7 @@ import IsJson from './IsJson';
 import { createErrorObject } from '../../../common/utils';
 
 class PracticalInformation extends React.Component {
-    onWorkdayChange = (e) => {
+    onWorkdayChange = e => {
         const { value } = e.target;
         if (e.target.checked) {
             this.props.checkWorkday(value);
@@ -36,7 +34,7 @@ class PracticalInformation extends React.Component {
         }
     };
 
-    onWorkhoursChange = (e) => {
+    onWorkhoursChange = e => {
         const { value } = e.target;
         if (e.target.checked) {
             this.props.checkWorkhours(value);
@@ -45,19 +43,19 @@ class PracticalInformation extends React.Component {
         }
     };
 
-    onExtentChange = (e) => {
+    onExtentChange = e => {
         this.props.setExtent(e.target.value);
     };
 
-    onSectorChange = (e) => {
+    onSectorChange = e => {
         this.props.setSector(e.target.value);
     };
 
-    onPositioncountChange = (e) => {
+    onPositioncountChange = e => {
         this.props.setPositionCount(e.target.value);
     };
 
-    onApplicationDueChange = (date) => {
+    onApplicationDueChange = date => {
         let applicationDue;
         if (date && !Number.isNaN(Date.parse(date))) {
             date.setHours(12);
@@ -66,7 +64,7 @@ class PracticalInformation extends React.Component {
         this.props.setApplicationDue(applicationDue);
     };
 
-    onSnarestChange = (e) => {
+    onSnarestChange = e => {
         const { value } = e.target;
         if (e.target.checked) {
             this.props.setApplicationDue(value);
@@ -75,7 +73,7 @@ class PracticalInformation extends React.Component {
         }
     };
 
-    onStarttimeChange = (date) => {
+    onStarttimeChange = date => {
         let starttime;
         if (date && !Number.isNaN(Date.parse(date))) {
             date.setHours(12);
@@ -84,7 +82,7 @@ class PracticalInformation extends React.Component {
         this.props.setStartTime(starttime);
     };
 
-    onEtterAvtaleChange = (e) => {
+    onEtterAvtaleChange = e => {
         const { value } = e.target;
         if (e.target.checked) {
             this.props.setStartTime(value);
@@ -140,21 +138,39 @@ class PracticalInformation extends React.Component {
                         className="Edit__inline"
                         label="Ukedager"
                         value="Ukedager"
-                        checked={workday ? (IsJson(workday) ? JSON.parse(workday).includes("Ukedager") : false) : false}
+                        checked={
+                            workday
+                                ? IsJson(workday)
+                                    ? JSON.parse(workday).includes('Ukedager')
+                                    : false
+                                : false
+                        }
                         onChange={this.onWorkdayChange}
                     />
                     <Checkbox
                         className="Edit__inline"
                         label="Lørdag"
                         value="Lørdag"
-                        checked={workday ? (IsJson(workday) ? JSON.parse(workday).includes("Lørdag") : false) : false}
+                        checked={
+                            workday
+                                ? IsJson(workday)
+                                    ? JSON.parse(workday).includes('Lørdag')
+                                    : false
+                                : false
+                        }
                         onChange={this.onWorkdayChange}
                     />
                     <Checkbox
                         className="Edit__inline"
                         label="Søndag"
                         value="Søndag"
-                        checked={workday ? (IsJson(workday) ? JSON.parse(workday).includes("Søndag") : false) : false}
+                        checked={
+                            workday
+                                ? IsJson(workday)
+                                    ? JSON.parse(workday).includes('Søndag')
+                                    : false
+                                : false
+                        }
                         onChange={this.onWorkdayChange}
                     />
                 </SkjemaGruppe>
@@ -167,21 +183,39 @@ class PracticalInformation extends React.Component {
                         className="Edit__inline"
                         label="Dagtid"
                         value="Dagtid"
-                        checked={workhours ? (IsJson(workhours) ? JSON.parse(workhours).includes("Dagtid") : false) : false}
+                        checked={
+                            workhours
+                                ? IsJson(workhours)
+                                    ? JSON.parse(workhours).includes('Dagtid')
+                                    : false
+                                : false
+                        }
                         onChange={this.onWorkhoursChange}
                     />
                     <Checkbox
                         className="Edit__inline"
                         label="Kveld"
                         value="Kveld"
-                        checked={workhours ? (IsJson(workhours) ? JSON.parse(workhours).includes("Kveld") : false) : false}
+                        checked={
+                            workhours
+                                ? IsJson(workhours)
+                                    ? JSON.parse(workhours).includes('Kveld')
+                                    : false
+                                : false
+                        }
                         onChange={this.onWorkhoursChange}
                     />
                     <Checkbox
                         className="Edit__inline"
                         label="Natt"
                         value="Natt"
-                        checked={workhours ? (IsJson(workhours) ? JSON.parse(workhours).includes("Natt") : false) : false}
+                        checked={
+                            workhours
+                                ? IsJson(workhours)
+                                    ? JSON.parse(workhours).includes('Natt')
+                                    : false
+                                : false
+                        }
                         onChange={this.onWorkhoursChange}
                     />
                 </SkjemaGruppe>
@@ -227,11 +261,17 @@ class PracticalInformation extends React.Component {
                     feil={createErrorObject(this.props.validation.positioncount)}
                 />
                 <SkjemaGruppe
-                    className={createErrorObject(this.props.validation.applicationdue) ? "typo-normal blokk-xs" : "typo-normal"}
+                    className={
+                        createErrorObject(this.props.validation.applicationdue)
+                            ? 'typo-normal blokk-xs'
+                            : 'typo-normal'
+                    }
                     feil={createErrorObject(this.props.validation.applicationdue)}
                 >
                     <fieldset className="fieldset">
-                        <legend className="blokk-xxs" id="soknadsfrist">Søknadsfrist*</legend>
+                        <legend className="blokk-xxs" id="soknadsfrist">
+                            Søknadsfrist*
+                        </legend>
                         <div className="PracticalInformation">
                             <div className="PracticalInformation__datepicker">
                                 <Datovelger
@@ -248,9 +288,16 @@ class PracticalInformation extends React.Component {
                                         ariaLabel: 'Sett søknadsfrist',
                                     }}
                                     id="applicationDue"
-                                    dato={formatISOString(ad.properties.applicationdue, 'DD.MM.YYYY') || ''}
+                                    dato={
+                                        formatISOString(
+                                            ad.properties.applicationdue,
+                                            'DD.MM.YYYY'
+                                        ) || ''
+                                    }
                                     onChange={this.onApplicationDueChange}
-                                    ref={(instance) => { this.refapplicationDue = instance; }}
+                                    ref={instance => {
+                                        this.refapplicationDue = instance;
+                                    }}
                                     avgrensninger={{ minDato: new Date(Date.now()) }}
                                     disabled={ad.properties.applicationdue === 'Snarest'}
                                 />
@@ -269,7 +316,9 @@ class PracticalInformation extends React.Component {
                 </SkjemaGruppe>
                 <SkjemaGruppe className="typo-normal">
                     <fieldset className="fieldset">
-                        <legend className="blokk-xxs" id="oppstart">Oppstart</legend>
+                        <legend className="blokk-xxs" id="oppstart">
+                            Oppstart
+                        </legend>
                         <div className="PracticalInformation ">
                             <div className="PracticalInformation__datepicker">
                                 <Datovelger
@@ -280,7 +329,9 @@ class PracticalInformation extends React.Component {
                                         placeholder: 'dd.mm.åååå',
                                         ariaLabel: 'Sett oppstart',
                                     }}
-                                    dato={formatISOString(ad.properties.starttime, 'DD.MM.YYYY') || ''}
+                                    dato={
+                                        formatISOString(ad.properties.starttime, 'DD.MM.YYYY') || ''
+                                    }
                                     onChange={this.onStarttimeChange}
                                     avgrensninger={{ minDato: new Date(Date.now()) }}
                                     disabled={ad.properties.starttime === 'Etter avtale'}
@@ -311,7 +362,7 @@ PracticalInformation.propTypes = {
         sector: PropTypes.string,
         positioncount: PropTypes.string,
         applicationdue: PropTypes.string,
-        starttime: PropTypes.string
+        starttime: PropTypes.string,
     }),
     setExtent: PropTypes.func.isRequired,
     setPositionCount: PropTypes.func.isRequired,
@@ -323,26 +374,27 @@ PracticalInformation.propTypes = {
     setStartTime: PropTypes.func.isRequired,
     setApplicationDue: PropTypes.func.isRequired,
     validation: PropTypes.shape({
-        title: PropTypes.string
-    }).isRequired
+        title: PropTypes.string,
+    }).isRequired,
 };
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     ad: state.adData,
     workday: state.adData.properties.workday,
     workhours: state.adData.properties.workhours,
-    validation: state.adValidation.errors
+    validation: state.adValidation.errors,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    setExtent: (extent) => dispatch({ type: SET_EMPLOYMENT_EXTENT, extent }),
-    checkWorkday: (value) => dispatch({ type: CHECK_EMPLOYMENT_WORKDAY, value }),
-    uncheckWorkday: (value) => dispatch({ type: UNCHECK_EMPLOYMENT_WORKDAY, value }),
-    checkWorkhours: (value) => dispatch({ type: CHECK_EMPLOYMENT_WORKHOURS, value }),
-    uncheckWorkhours: (value) => dispatch({ type: UNCHECK_EMPLOYMENT_WORKHOURS, value }),
-    setSector: (sector) => dispatch({ type: SET_EMPLOYMENT_SECTOR, sector }),
-    setPositionCount: (positioncount) => dispatch({ type: SET_EMPLOYMENT_POSITIONCOUNT, positioncount }),
-    setApplicationDue: (applicationdue) => dispatch({ type: SET_APPLICATIONDUE, applicationdue }),
-    setStartTime: (starttime) => dispatch({ type: SET_EMPLOYMENT_STARTTIME, starttime })
+const mapDispatchToProps = dispatch => ({
+    setExtent: extent => dispatch({ type: SET_EMPLOYMENT_EXTENT, extent }),
+    checkWorkday: value => dispatch({ type: CHECK_EMPLOYMENT_WORKDAY, value }),
+    uncheckWorkday: value => dispatch({ type: UNCHECK_EMPLOYMENT_WORKDAY, value }),
+    checkWorkhours: value => dispatch({ type: CHECK_EMPLOYMENT_WORKHOURS, value }),
+    uncheckWorkhours: value => dispatch({ type: UNCHECK_EMPLOYMENT_WORKHOURS, value }),
+    setSector: sector => dispatch({ type: SET_EMPLOYMENT_SECTOR, sector }),
+    setPositionCount: positioncount =>
+        dispatch({ type: SET_EMPLOYMENT_POSITIONCOUNT, positioncount }),
+    setApplicationDue: applicationdue => dispatch({ type: SET_APPLICATIONDUE, applicationdue }),
+    setStartTime: starttime => dispatch({ type: SET_EMPLOYMENT_STARTTIME, starttime }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PracticalInformation);

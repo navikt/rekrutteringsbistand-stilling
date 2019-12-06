@@ -24,40 +24,39 @@ export default function Application({ source, properties }) {
                 {properties.applicationdue && [
                     <dt key="dt">Søknadsfrist:</dt>,
                     <dd key="dd">
-                        {isValidISOString(properties.applicationdue) ?
-                            formatISOString(properties.applicationdue, 'DD.MM.YYYY') :
-                            properties.applicationdue}
-                    </dd>
+                        {isValidISOString(properties.applicationdue)
+                            ? formatISOString(properties.applicationdue, 'DD.MM.YYYY')
+                            : properties.applicationdue}
+                    </dd>,
                 ]}
-                {!finn && properties.applicationemail && [
-                    <dt key="dt">Send søknad til:</dt>,
-                    <dd key="dd">
-                        {properties.applicationemail}
-                    </dd>
-                ]}
+                {!finn &&
+                    properties.applicationemail && [
+                        <dt key="dt">Send søknad til:</dt>,
+                        <dd key="dd">{properties.applicationemail}</dd>,
+                    ]}
 
-                {sokUrl && isValidUrl(sokUrl) && [
-                    <dt key="dt">Søknadslenke:</dt>,
-                    <dd key="dd">
-                        <a
-                            href={sokUrl}
-                            className="lenke"
-                            rel="noopener noreferrer"
-                            target="_blank"
-                        >
-                            {sokUrl}
-                        </a>
-                    </dd>
-                ]}
+                {sokUrl &&
+                    isValidUrl(sokUrl) && [
+                        <dt key="dt">Søknadslenke:</dt>,
+                        <dd key="dd">
+                            <a
+                                href={sokUrl}
+                                className="lenke"
+                                rel="noopener noreferrer"
+                                target="_blank"
+                            >
+                                {sokUrl}
+                            </a>
+                        </dd>,
+                    ]}
 
-                {sokUrl && !isValidUrl(sokUrl) && [
-                    <dt key="dt">Søknadslenke:</dt>,
-                    <dd key="dd">
-                        <span>
-                            {sokUrl}
-                        </span>
-                    </dd>
-                ]}
+                {sokUrl &&
+                    !isValidUrl(sokUrl) && [
+                        <dt key="dt">Søknadslenke:</dt>,
+                        <dd key="dd">
+                            <span>{sokUrl}</span>
+                        </dd>,
+                    ]}
             </dl>
         </div>
     );
@@ -68,7 +67,6 @@ Application.propTypes = {
         applicationdue: PropTypes.string,
         applicationemail: PropTypes.string,
         applicationurl: PropTypes.string,
-        sourceurl: PropTypes.string
-    }).isRequired
+        sourceurl: PropTypes.string,
+    }).isRequired,
 };
-

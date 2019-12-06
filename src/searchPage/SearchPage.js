@@ -18,7 +18,7 @@ import './SearchPage.less';
 class SearchPage extends React.Component {
     componentDidMount() {
         const { getAds, restoreSearch, location } = this.props;
-        
+
         if (!(location.state && location.state.searchFromStartPage)) {
             restoreSearch();
             getAds();
@@ -26,9 +26,7 @@ class SearchPage extends React.Component {
     }
 
     render() {
-        const {
-            ads, isSearching, error, resetSearch
-        } = this.props;
+        const { ads, isSearching, error, resetSearch } = this.props;
         const adsFound = !isSearching && ads && ads.length > 0;
         return (
             <div className="SearchPage">
@@ -38,23 +36,21 @@ class SearchPage extends React.Component {
                         <SearchBox />
                     </div>
                     <div className="SearchPage__SearchBox__resetButton">
-                        <Flatknapp
-                            mini
-                            onClick={resetSearch}
-                        >
+                        <Flatknapp mini onClick={resetSearch}>
                             Nullstill søk
                         </Flatknapp>
                     </div>
                 </div>
                 <Container className="SearchPage__container">
-                    {(error && error.statusCode === 412) && (
+                    {error && error.statusCode === 412 && (
                         <AlertStripe className="AlertStripe__fullpage" type="advarsel" solid="true">
-                        Noen andre har gjort endringer annonsen i mellomtiden. Forsøk å laste søket på nytt
+                            Noen andre har gjort endringer annonsen i mellomtiden. Forsøk å laste
+                            søket på nytt
                         </AlertStripe>
                     )}
-                    {(error && error.statusCode !== 412) && (
+                    {error && error.statusCode !== 412 && (
                         <AlertStripe className="AlertStripe__fullpage" type="advarsel" solid="true">
-                        Det oppsto en feil. Forsøk å laste siden på nytt
+                            Det oppsto en feil. Forsøk å laste siden på nytt
                         </AlertStripe>
                     )}
                     <div className="SearchPage__flex">
@@ -71,20 +67,15 @@ class SearchPage extends React.Component {
                                 <table className="SearchResult__table">
                                     <SearchResultHeaders />
                                     <tbody>
-                                        {adsFound && ads.map((ad) => (
-                                            <SearchResultItem key={ad.uuid} ad={ad}/>
-                                        ))}
+                                        {adsFound &&
+                                            ads.map(ad => (
+                                                <SearchResultItem key={ad.uuid} ad={ad} />
+                                            ))}
                                     </tbody>
                                 </table>
-                                {isSearching && (
-                                    <Loading />
-                                )}
-                                {!isSearching && ads && ads.length === 0 && (
-                                    <NoResults />
-                                )}
-                                {adsFound && (
-                                    <Pagination />
-                                )}
+                                {isSearching && <Loading />}
+                                {!isSearching && ads && ads.length === 0 && <NoResults />}
+                                {adsFound && <Pagination />}
                             </div>
                         </div>
                     </div>
@@ -95,7 +86,7 @@ class SearchPage extends React.Component {
 }
 
 SearchPage.defaultProps = {
-    error: undefined
+    error: undefined,
 };
 
 SearchPage.propTypes = {
@@ -105,22 +96,22 @@ SearchPage.propTypes = {
     resetSearch: PropTypes.func.isRequired,
     restoreSearch: PropTypes.func.isRequired,
     error: PropTypes.shape({
-        statusCode: PropTypes.number
+        statusCode: PropTypes.number,
     }),
     location: PropTypes.shape({
         state: PropTypes.shape({
-            searchFromStartPage: PropTypes.bool
-        })
-    }).isRequired
+            searchFromStartPage: PropTypes.bool,
+        }),
+    }).isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     ads: state.search.items,
     isSearching: state.search.isSearching,
-    error: state.search.error
+    error: state.search.error,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     getAds: () => dispatch({ type: FETCH_ADS }),
     resetSearch: () => dispatch({ type: RESET_SEARCH }),
     restoreSearch: () => dispatch({ type: RESTORE_SEARCH }),

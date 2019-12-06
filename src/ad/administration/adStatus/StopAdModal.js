@@ -8,7 +8,6 @@ import { HIDE_STOP_AD_MODAL, STOP_AD, STOP_AD_FROM_MY_ADS } from '../../adReduce
 import './StopAdModal.less';
 import Comment from '../comment/Comment';
 
-
 class StopAdModal extends React.Component {
     onClose = () => {
         this.props.closeModal();
@@ -37,9 +36,7 @@ class StopAdModal extends React.Component {
                 appElement={document.getElementById('app')}
                 className="StopAdModal"
             >
-                <Undertittel className="blokk-s">
-                    Stopp stillingen
-                </Undertittel>
+                <Undertittel className="blokk-s">Stopp stillingen</Undertittel>
                 <Normaltekst className="blokk-l">
                     {`Er du sikker på at du ønsker å stoppe "${title}"? Stopper du stillingen
                     vil den ikke lenger være tilgjengelig for søk.`}
@@ -58,7 +55,7 @@ class StopAdModal extends React.Component {
 
 StopAdModal.defaultProps = {
     fromMyAds: false,
-    title: undefined
+    title: undefined,
 };
 
 StopAdModal.propTypes = {
@@ -67,22 +64,22 @@ StopAdModal.propTypes = {
     stop: PropTypes.func.isRequired,
     stopAdFromMyAds: PropTypes.func.isRequired,
     validation: PropTypes.shape({
-        comment: PropTypes.string
+        comment: PropTypes.string,
     }).isRequired,
     fromMyAds: PropTypes.bool,
-    title: PropTypes.string
+    title: PropTypes.string,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     showStopAdModal: state.ad.showStopAdModal,
     validation: state.adValidation.errors,
-    title: state.adData.title
+    title: state.adData.title,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     closeModal: () => dispatch({ type: HIDE_STOP_AD_MODAL }),
     stop: () => dispatch({ type: STOP_AD }),
-    stopAdFromMyAds: () => dispatch({ type: STOP_AD_FROM_MY_ADS })
+    stopAdFromMyAds: () => dispatch({ type: STOP_AD_FROM_MY_ADS }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(StopAdModal);

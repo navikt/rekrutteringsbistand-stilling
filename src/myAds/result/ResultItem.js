@@ -15,30 +15,32 @@ import ResultItemDropDown from './ResultItemDropDown';
 const ResultItem = ({ ad, copiedAds, reportee }) => {
     const [dropDownVisible, setDropDownVisible] = useState(false);
     const isCopy = copiedAds.includes(ad.uuid);
-    const isTransferredToOther = (ad.rekruttering && ad.rekruttering.eierNavident && ad.administration && ad.administration.navIdent)
-        && ad.rekruttering.eierNavident !== ad.administration.navIdent
-        && (reportee && ad.rekruttering.eierNavident != reportee.navIdent)
+    const isTransferredToOther =
+        ad.rekruttering &&
+        ad.rekruttering.eierNavident &&
+        ad.administration &&
+        ad.administration.navIdent &&
+        ad.rekruttering.eierNavident !== ad.administration.navIdent &&
+        reportee && ad.rekruttering.eierNavident != reportee.navIdent;
 
-    const colTitle =
+    const colTitle = (
         <td className="Col-title">
             <div className="ResultItem__column Col-title-inner">
-                <Link
-                    className="typo-normal lenke"
-                    to={`/stilling/${ad.uuid}`}
-                >
-                    {isCopy ? (
-                        <div>
-                            <b>{ad.title.substr(0, 5)}</b>
-                            {ad.title.substr(5)}
-                        </div> || ''
-                    ) : (
-                        ad.title || ''
-                    )}
+                <Link className="typo-normal lenke" to={`/stilling/${ad.uuid}`}>
+                    {isCopy
+                        ? (
+                              <div>
+                                  <b>{ad.title.substr(0, 5)}</b>
+                                  {ad.title.substr(5)}
+                              </div>
+                          ) || ''
+                        : ad.title || ''}
                 </Link>
             </div>
         </td>
+    );
 
-    const colUpdated =
+    const colUpdated = (
         <td className="Col-updated">
             {ad.updated && (
                 <Normaltekst className="ResultItem__column">
@@ -46,45 +48,35 @@ const ResultItem = ({ ad, copiedAds, reportee }) => {
                 </Normaltekst>
             )}
         </td>
+    );
 
-    if(isTransferredToOther) {
+    if (isTransferredToOther) {
         return (
             <tr className={`ResultItem${isCopy ? ' copied' : ''}`}>
                 {colUpdated}
                 {colTitle}
                 <td className="Col-id Col-transferred">
-                        <Normaltekst className="ResultItem__column">
-                            Overført til annen veileder.
-                        </Normaltekst>
+                    <Normaltekst className="ResultItem__column">
+                        Overført til annen veileder.
+                    </Normaltekst>
                 </td>
-                <td className="Col-employer">
-                </td>
-                <td className="Col-expires">
-                </td>
-                <td className="Col-privacy">
-                </td>
-                <td className="Col-status">
-                </td>
-                <td className="Col-candidate">
-                </td>
-                <td className="Col-edit center">
-                </td>
-                <td className="Col-menu">
-                </td>
+                <td className="Col-employer"></td>
+                <td className="Col-expires"></td>
+                <td className="Col-privacy"></td>
+                <td className="Col-status"></td>
+                <td className="Col-candidate"></td>
+                <td className="Col-edit center"></td>
+                <td className="Col-menu"></td>
             </tr>
         );
     }
 
     return (
         <tr className={`ResultItem${isCopy ? ' copied' : ''}`}>
-                {colUpdated}
-                {colTitle}
+            {colUpdated}
+            {colTitle}
             <td className="Col-id">
-                {ad.id && (
-                    <Normaltekst className="ResultItem__column">
-                        {ad.id}
-                    </Normaltekst>
-                )}
+                {ad.id && <Normaltekst className="ResultItem__column">{ad.id}</Normaltekst>}
             </td>
             <td className="Col-employer">
                 <Normaltekst className="ResultItem__column Col-employer-inner">
@@ -101,8 +93,7 @@ const ResultItem = ({ ad, copiedAds, reportee }) => {
             <td className="Col-privacy">
                 {ad.privacy && (
                     <Normaltekst className="ResultItem__column">
-                        {ad.privacy === PrivacyStatusEnum.SHOW_ALL
-                            ? 'Arbeidsplassen' : 'Internt'}
+                        {ad.privacy === PrivacyStatusEnum.SHOW_ALL ? 'Arbeidsplassen' : 'Internt'}
                     </Normaltekst>
                 )}
             </td>
@@ -128,7 +119,7 @@ const ResultItem = ({ ad, copiedAds, reportee }) => {
                     title="rediger"
                     to={{
                         pathname: `/stilling/${ad.uuid}`,
-                        state: { openInEditMode: true }
+                        state: { openInEditMode: true },
                     }}
                 >
                     <i className="Edit__icon" />
@@ -161,14 +152,13 @@ ResultItem.propTypes = {
     ad: PropTypes.shape({
         uuid: PropTypes.string,
         title: PropTypes.string,
-        deactivatedByExpiry: PropTypes.bool
+        deactivatedByExpiry: PropTypes.bool,
     }).isRequired,
-    copiedAds: PropTypes.arrayOf(PropTypes.string).isRequired
+    copiedAds: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-
-const mapStateToProps = (state) => ({
-    copiedAds: state.ad.copiedAds
+const mapStateToProps = state => ({
+    copiedAds: state.ad.copiedAds,
 });
 
 export default connect(mapStateToProps)(ResultItem);

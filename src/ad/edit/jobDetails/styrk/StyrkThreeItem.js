@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import Chevron from 'nav-frontend-chevron';
 
 export default class StyrkThreeItem extends React.Component {
-    onClick = (e) => {
+    onClick = e => {
         e.stopPropagation();
         this.props.onClick(this.props.item);
     };
@@ -23,18 +23,18 @@ export default class StyrkThreeItem extends React.Component {
                             'StyrkThreeItem__branch',
                             `StyrkThreeItem__branch--level${item.level}`,
                             {
-                                'StyrkThreeItem__branch--expanded': item.expanded
+                                'StyrkThreeItem__branch--expanded': item.expanded,
                             }
                         )}
                     >
-                        <Chevron className="StyrkThreeItem__branch__chevron" type={item.expanded ? 'ned' : 'høyre'} />
+                        <Chevron
+                            className="StyrkThreeItem__branch__chevron"
+                            type={item.expanded ? 'ned' : 'høyre'}
+                        />
                         {item.code}: {item.name}
                     </button>
                 ) : (
-                    <button
-                        onClick={this.onClick}
-                        className="StyrkThreeItem__sibling"
-                    >
+                    <button onClick={this.onClick} className="StyrkThreeItem__sibling">
                         {item.code}: {item.name}
                         {item.alternativeNames && item.alternativeNames.length > 0 && (
                             <div className="StyrkThreeItem__sibling__alternativeNames typo-undertekst">
@@ -43,9 +43,11 @@ export default class StyrkThreeItem extends React.Component {
                         )}
                     </button>
                 )}
-                {item.expanded && item.children && item.children.map((child) => (
-                    <StyrkThreeItem key={child.id} item={child} onClick={this.props.onClick} />
-                ))}
+                {item.expanded &&
+                    item.children &&
+                    item.children.map(child => (
+                        <StyrkThreeItem key={child.id} item={child} onClick={this.props.onClick} />
+                    ))}
             </div>
         );
     }
@@ -54,8 +56,7 @@ export default class StyrkThreeItem extends React.Component {
 StyrkThreeItem.propTypes = {
     item: PropTypes.shape({
         name: PropTypes.string,
-        code: PropTypes.string
+        code: PropTypes.string,
     }).isRequired,
-    onClick: PropTypes.func.isRequired
+    onClick: PropTypes.func.isRequired,
 };
-

@@ -5,11 +5,7 @@ import { Systemtittel } from 'nav-frontend-typografi';
 
 function Count({ count, isSearching }) {
     if (isSearching) {
-        return (
-            <Systemtittel>
-                &nbsp;
-            </Systemtittel>
-        );
+        return <Systemtittel>&nbsp;</Systemtittel>;
     }
 
     let text = count.toLocaleString('nb');
@@ -19,24 +15,21 @@ function Count({ count, isSearching }) {
         text += ' stillinger';
     }
 
-
     return (
         <div>
-            <Systemtittel>
-                {text}
-            </Systemtittel>
+            <Systemtittel>{text}</Systemtittel>
         </div>
     );
 }
 
 Count.propTypes = {
     count: PropTypes.number.isRequired,
-    isSearching: PropTypes.bool.isRequired
+    isSearching: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     count: state.myAds.totalElements,
-    isSearching: state.myAds.isSearching
+    isSearching: state.myAds.isSearching,
 });
 
 const mapDispatchToProps = () => ({});

@@ -14,7 +14,13 @@ class HasChangesModal extends React.Component {
     };
 
     onLeaveClick = () => {
-        const { updated, created, closeModal, deleteAdAndRedirect, hasChangesLeaveUrl } = this.props;
+        const {
+            updated,
+            created,
+            closeModal,
+            deleteAdAndRedirect,
+            hasChangesLeaveUrl,
+        } = this.props;
         if (updated === created) {
             deleteAdAndRedirect();
         } else {
@@ -46,15 +52,11 @@ class HasChangesModal extends React.Component {
                 )}
                 <div>
                     <Normaltekst className="blokk-l">
-                        Hvis du navigerer bort fra denne siden uten å lagre så mister du informasjonen.
+                        Hvis du navigerer bort fra denne siden uten å lagre så mister du
+                        informasjonen.
                     </Normaltekst>
-                    <Hovedknapp onClick={this.onClose}>
-                        Bli på siden
-                    </Hovedknapp>
-                    <LinkButton
-                        className="lenke"
-                        onClick={this.onLeaveClick}
-                    >
+                    <Hovedknapp onClick={this.onClose}>Bli på siden</Hovedknapp>
+                    <LinkButton className="lenke" onClick={this.onLeaveClick}>
                         Forlat siden
                     </LinkButton>
                 </div>
@@ -66,7 +68,7 @@ class HasChangesModal extends React.Component {
 HasChangesModal.defaultProps = {
     updated: undefined,
     created: undefined,
-    hasChangesLeaveUrl: '/mineStillinger'
+    hasChangesLeaveUrl: '/mineStillinger',
 };
 
 HasChangesModal.propTypes = {
@@ -75,21 +77,21 @@ HasChangesModal.propTypes = {
     closeModal: PropTypes.func.isRequired,
     deleteAdAndRedirect: PropTypes.func.isRequired,
     updated: PropTypes.string,
-    created: PropTypes.string
+    created: PropTypes.string,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     showHasChangesModal: state.ad.showHasChangesModal,
     hasChangesLeaveUrl: state.ad.hasChangesLeaveUrl,
     leavePageTrigger: state.ad.leavePageTrigger,
     adStatus: state.adData.status,
     updated: state.adData.updated,
-    created: state.adData.created
+    created: state.adData.created,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     closeModal: () => dispatch({ type: HIDE_HAS_CHANGES_MODAL }),
-    deleteAdAndRedirect: () => dispatch({ type: DELETE_AD_AND_REDIRECT })
+    deleteAdAndRedirect: () => dispatch({ type: DELETE_AD_AND_REDIRECT }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HasChangesModal);

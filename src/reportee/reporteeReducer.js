@@ -11,7 +11,7 @@ const initialState = {
     data: undefined,
     error: undefined,
     isFetchingReportee: false,
-    numberOfPendingAds: undefined
+    numberOfPendingAds: undefined,
 };
 
 export default function reporteeReducer(state = initialState, action) {
@@ -21,19 +21,19 @@ export default function reporteeReducer(state = initialState, action) {
                 ...state,
                 data: undefined,
                 isFetchingReportee: true,
-                error: undefined
+                error: undefined,
             };
         case FETCH_REPORTEE_SUCCESS:
             return {
                 ...state,
                 data: action.response,
-                isFetchingReportee: false
+                isFetchingReportee: false,
             };
         case FETCH_REPORTEE_FAILURE:
             return {
                 ...state,
                 error: action.error,
-                isFetchingReportee: false
+                isFetchingReportee: false,
             };
         default:
             return state;

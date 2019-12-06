@@ -32,24 +32,19 @@ class MyAds extends React.Component {
     onCreateAd = () => {
         this.props.history.push({
             pathname: '/stilling',
-            state: { isNew: true }
+            state: { isNew: true },
         });
     };
 
     render() {
-        const {
-            ads, isSearching, error, reportee
-        } = this.props;
+        const { ads, isSearching, error, reportee } = this.props;
         const adsFound = !isSearching && ads && ads.length > 0;
         return (
             <div className="MyAds">
                 <div className="MyAds__header">
                     <Container className="MyAds__header-container">
                         <Sidetittel className="MyAds__header__title"> Mine stillinger </Sidetittel>
-                        <Hovedknapp
-                            onClick={this.onCreateAd}
-                            className="MyAds__header__button"
-                        >
+                        <Hovedknapp onClick={this.onCreateAd} className="MyAds__header__button">
                             Opprett ny
                         </Hovedknapp>
                     </Container>
@@ -71,21 +66,16 @@ class MyAds extends React.Component {
                         <table className="Result__table">
                             <ResultHeader />
                             <tbody>
-                                {adsFound && ads.map((ad) => (
-                                    <ResultItem key={ad.uuid} ad={ad} reportee={reportee}/>
-                                ))}
+                                {adsFound &&
+                                    ads.map(ad => (
+                                        <ResultItem key={ad.uuid} ad={ad} reportee={reportee} />
+                                    ))}
                             </tbody>
                         </table>
 
-                        {isSearching && (
-                            <Loading />
-                        )}
-                        {!isSearching && ads && ads.length === 0 && (
-                            <NoResults />
-                        )}
-                        {adsFound && (
-                            <Pagination />
-                        )}
+                        {isSearching && <Loading />}
+                        {!isSearching && ads && ads.length === 0 && <NoResults />}
+                        {adsFound && <Pagination />}
                     </div>
                 </Container>
             </div>
@@ -94,7 +84,7 @@ class MyAds extends React.Component {
 }
 
 MyAds.defaultProps = {
-    error: undefined
+    error: undefined,
 };
 
 MyAds.propTypes = {
@@ -103,24 +93,23 @@ MyAds.propTypes = {
     getAds: PropTypes.func.isRequired,
     resetSearch: PropTypes.func.isRequired,
     error: PropTypes.shape({
-        statusCode: PropTypes.number
+        statusCode: PropTypes.number,
     }),
-    clearCopiedAds: PropTypes.func.isRequired
+    clearCopiedAds: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     ads: state.myAds.items,
     reportee: state.reportee.data,
     isSearching: state.myAds.isSearching,
-    error: state.myAds.error
+    error: state.myAds.error,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     getAds: () => dispatch({ type: FETCH_MY_ADS }),
     createAd: () => dispatch({ type: CREATE_AD }),
     clearCopiedAds: () => dispatch({ type: CLEAR_COPIED_ADS }),
     resetSearch: () => dispatch({ type: RESET_SEARCH }),
-
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyAds);

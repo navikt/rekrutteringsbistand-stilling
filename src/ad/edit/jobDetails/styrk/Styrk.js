@@ -15,22 +15,23 @@ class Styrk extends React.Component {
         this.props.fetchStyrk();
     }
 
-
-    onTypeAheadValueChange = (value) => {
+    onTypeAheadValueChange = value => {
         this.props.setTypeAheadValue(value);
     };
 
-    onTypeAheadBlur = (value) => {
-        if(value === '') {
+    onTypeAheadBlur = value => {
+        if (value === '') {
             this.props.setStyrk(value);
         }
     };
 
-    onTypeAheadSuggestionSelected = (suggestion) => {
+    onTypeAheadSuggestionSelected = suggestion => {
         if (suggestion) {
             this.props.setStyrk(suggestion.value);
-            if (this.props.stilling.properties.jobtitle === undefined ||
-                this.props.stilling.properties.jobtitle === '') {
+            if (
+                this.props.stilling.properties.jobtitle === undefined ||
+                this.props.stilling.properties.jobtitle === ''
+            ) {
                 this.props.setJobTitle(suggestion.name);
             }
         }
@@ -40,9 +41,11 @@ class Styrk extends React.Component {
         this.props.toggleList();
     };
 
-    renderLabel = (styrk) => (
+    renderLabel = styrk => (
         <div className="Styrk__typeahead__item">
-            <Normaltekst>{styrk.code}: {styrk.name}</Normaltekst>
+            <Normaltekst>
+                {styrk.code}: {styrk.name}
+            </Normaltekst>
             {styrk.alternativeNames && styrk.alternativeNames.length > 0 && (
                 <Undertekst className="Styrk__typeahead__item__alternativeNames">
                     {styrk.alternativeNames.join(', ')}
@@ -55,7 +58,11 @@ class Styrk extends React.Component {
         let value;
         if (this.props.typeAheadValue !== undefined) {
             value = this.props.typeAheadValue;
-        } else if (this.props.stilling && this.props.stilling.categoryList && this.props.stilling.categoryList[0]) {
+        } else if (
+            this.props.stilling &&
+            this.props.stilling.categoryList &&
+            this.props.stilling.categoryList[0]
+        ) {
             value = `${this.props.stilling.categoryList[0].code} ${this.props.stilling.categoryList[0].name}`;
         } else {
             value = '';
@@ -78,61 +85,63 @@ class Styrk extends React.Component {
                     onSelect={this.onTypeAheadSuggestionSelected}
                     onChange={this.onTypeAheadValueChange}
                     onBlur={this.onTypeAheadBlur}
-                    suggestions={this.props.typeAheadSuggestions.map((styrk) => ({
+                    suggestions={this.props.typeAheadSuggestions.map(styrk => ({
                         value: styrk.code,
                         label: this.renderLabel(styrk),
-                        name: styrk.name
+                        name: styrk.name,
                     }))}
                     value={value}
-                    ref={(instance) => { this.inputRef = instance; }}
+                    ref={instance => {
+                        this.inputRef = instance;
+                    }}
                     error={this.props.validation.styrk !== undefined}
                 />
 
                 {this.props.validation.styrk && (
                     <div className="Administration__error">{this.props.validation.styrk}</div>
                 )}
-                {this.props.showStyrkModal && (
-                    <StyrkModal />
-                )}
+                {this.props.showStyrkModal && <StyrkModal />}
             </div>
         );
     }
 }
 
 Styrk.defaultProps = {
-    typeAheadValue: undefined
+    typeAheadValue: undefined,
 };
 
 Styrk.propTypes = {
     fetchStyrk: PropTypes.func.isRequired,
     setTypeAheadValue: PropTypes.func.isRequired,
     typeAheadValue: PropTypes.string,
-    typeAheadSuggestions: PropTypes.arrayOf(PropTypes.shape({
-        code: PropTypes.string,
-        name: PropTypes.string
-    })).isRequired,
+    typeAheadSuggestions: PropTypes.arrayOf(
+        PropTypes.shape({
+            code: PropTypes.string,
+            name: PropTypes.string,
+        })
+    ).isRequired,
     setStyrk: PropTypes.func.isRequired,
     showStyrkModal: PropTypes.bool.isRequired,
     toggleList: PropTypes.func.isRequired,
-    setJobTitle: PropTypes.func.isRequired
+    setJobTitle: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     typeAheadValue: state.styrk.typeAheadValue,
     typeAheadSuggestions: state.styrk.typeAheadSuggestions,
     addedStyrkItems: state.styrk.addedStyrkItems,
     styrkThree: state.styrk.styrkThree,
     showStyrkModal: state.styrk.showStyrkModal,
     stilling: state.adData,
-    validation: state.adValidation.errors
+    validation: state.adValidation.errors,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     fetchStyrk: () => dispatch({ type: FETCH_STYRK }),
-    setTypeAheadValue: (value) => dispatch({ type: SET_STYRK_TYPEAHEAD_VALUE, value }),
-    setStyrk: (code) => dispatch({ type: SET_STYRK, code }),
-    setJobTitle: (jobtitle) => dispatch({ type: SET_EMPLOYMENT_JOBTITLE, jobtitle }),
-    toggleList: () => dispatch({ type: TOGGLE_STYRK_MODAL })
+    setTypeAheadValue: value => dispatch({ type: SET_STYRK_TYPEAHEAD_VALUE, value }),
+    setStyrk: code => dispatch({ type: SET_STYRK, code }),
+    setJobTitle: jobtitle => dispatch({ type: SET_EMPLOYMENT_JOBTITLE, jobtitle }),
+    toggleList: () => dispatch({ type: TOGGLE_STYRK_MODAL }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Styrk);

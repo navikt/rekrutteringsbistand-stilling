@@ -15,60 +15,57 @@ server.use(compression());
 server.disable('x-powered-by');
 server.use(helmet());
 
-server.use(helmet.contentSecurityPolicy({
-    directives: {
-        defaultSrc: ['\'none\''],
-        scriptSrc: ['\'self\''],
-        styleSrc: ['\'self\''],
-        fontSrc: ['\'self\'', 'data:'],
-        imgSrc: ['\'self\'', 'data:'],
-        connectSrc: ['\'self\'', 
-            process.env.REKRUTTERINGSBISTAND_API_URL, 
-            process.env.REKRUTTERING_API_URL, 
-            process.env.REKRUTTERINGSBISTAND_API_SEARCH_URL]
-    }
-}));
-
+server.use(
+    helmet.contentSecurityPolicy({
+        directives: {
+            defaultSrc: ["'none'"],
+            scriptSrc: ["'self'"],
+            styleSrc: ["'self'"],
+            fontSrc: ["'self'", 'data:'],
+            imgSrc: ["'self'", 'data:'],
+            connectSrc: [
+                "'self'",
+                process.env.REKRUTTERINGSBISTAND_API_URL,
+                process.env.REKRUTTERING_API_URL,
+                process.env.REKRUTTERINGSBISTAND_API_SEARCH_URL,
+            ],
+        },
+    })
+);
 
 server.set('views', `${currentDirectory}`);
 server.set('view engine', 'mustache');
 server.engine('html', mustacheExpress());
 
-
 const writeEnvironmentVariablesToFile = () => {
-    const fileContent = `window.__PAM_AD_API__="${process.env.REKRUTTERINGSBISTAND_API_URL}";\n`
-        + `window.__REKRUTTERING_API__="${process.env.REKRUTTERING_API_URL}";\n`
-        + `window.__PAM_SEARCH_API__="${process.env.REKRUTTERINGSBISTAND_API_SEARCH_URL}";\n`
-        + `window.__PAM_CONTEXT_PATH__="";\n`
-        + `window.__PAM_LOGIN_URL__="${process.env.LOGIN_URL}";\n`
-        + `window.__PAM_KANDIDATLISTE_API_URL__="/kandidater/rest/veileder";\n`;
+    const fileContent =
+        `window.__PAM_AD_API__="${process.env.REKRUTTERINGSBISTAND_API_URL}";\n` +
+        `window.__REKRUTTERING_API__="${process.env.REKRUTTERING_API_URL}";\n` +
+        `window.__PAM_SEARCH_API__="${process.env.REKRUTTERINGSBISTAND_API_SEARCH_URL}";\n` +
+        `window.__PAM_CONTEXT_PATH__="";\n` +
+        `window.__PAM_LOGIN_URL__="${process.env.LOGIN_URL}";\n` +
+        `window.__PAM_KANDIDATLISTE_API_URL__="/kandidater/rest/veileder";\n`;
 
-    fs.writeFile(path.resolve(__dirname, 'dist/js/env.js'), fileContent, (err) => {
+    fs.writeFile(path.resolve(__dirname, 'dist/js/env.js'), fileContent, err => {
         if (err) throw err;
     });
 };
-const renderApp = (htmlPages) => (
+const renderApp = htmlPages =>
     new Promise((resolve, reject) => {
-        server.render(
-            './dist/index.html', htmlPages, (err, html) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(html);
-                }
+        server.render('./dist/index.html', htmlPages, (err, html) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(html);
             }
-        );
-    })
-);
+        });
+    });
 
-const startServer = (html) => {
+const startServer = html => {
     writeEnvironmentVariablesToFile();
 
     server.use('/js', express.static(path.resolve(__dirname, 'dist/js')));
-    server.use(
-        '/css',
-        express.static(path.resolve(__dirname, 'dist/css'))
-    );
+    server.use('/css', express.static(path.resolve(__dirname, 'dist/css')));
 
     server.get(/^\/(?!.*dist).*$/, (req, res) => {
         res.send(html);
@@ -80,10 +77,8 @@ const startServer = (html) => {
     server.listen(port, () => {
         console.log(`Express-server startet. Server filer fra ./dist/ til localhost:${port}/`);
     });
-
 };
 
 const logError = (errorMessage, details) => console.log(errorMessage, details);
 
-renderApp({})
-    .then(startServer, (error) => logError('Failed to render app', error));
+renderApp({}).then(startServer, error => logError('Failed to render app', error));

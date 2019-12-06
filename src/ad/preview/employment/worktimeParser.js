@@ -1,4 +1,4 @@
-const worktimeParser = (worktime) => {
+const worktimeParser = worktime => {
     // We need this check in case of old workhour/-day property values, formatted like 'Opt1 Opt2'
     let arrayString = '';
     try {

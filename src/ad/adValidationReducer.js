@@ -28,7 +28,7 @@ import {
     UNCHECK_EMPLOYMENT_WORKDAY,
     CHECK_EMPLOYMENT_WORKHOURS,
     UNCHECK_EMPLOYMENT_WORKHOURS,
-    findLocationByPostalCode
+    findLocationByPostalCode,
 } from './adDataReducer';
 
 const ADD_VALIDATION_ERROR = 'ADD_VALIDATION_ERROR';
@@ -42,7 +42,7 @@ export const RESET_VALIDATION_ERROR = 'RESET_VALIDATION_ERROR';
 
 export const MAX_LENGTH_COMMENT = 500;
 
-const valueIsNotSet = (value) => (value === undefined || value === null || value.length === 0);
+const valueIsNotSet = value => value === undefined || value === null || value.length === 0;
 
 function* validateLocation() {
     const state = yield select();
@@ -52,7 +52,7 @@ function* validateLocation() {
         yield put({
             type: ADD_VALIDATION_ERROR,
             field: 'location',
-            message: 'Arbeidssted mangler'
+            message: 'Arbeidssted mangler',
         });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'location' });
@@ -68,7 +68,7 @@ function* validatePostalCode() {
             yield put({
                 type: ADD_VALIDATION_ERROR,
                 field: 'postalCode',
-                message: 'Ukjent postnummer'
+                message: 'Ukjent postnummer',
             });
         } else {
             yield put({ type: REMOVE_VALIDATION_ERROR, field: 'postalCode' });
@@ -77,7 +77,7 @@ function* validatePostalCode() {
         yield put({
             type: ADD_VALIDATION_ERROR,
             field: 'postalCode',
-            message: 'Ugyldig postnummer'
+            message: 'Ugyldig postnummer',
         });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'postalCode' });
@@ -92,7 +92,7 @@ function* validateLocationArea() {
         yield put({
             type: ADD_VALIDATION_ERROR,
             field: 'locationArea',
-            message: 'Må være kommune, fylke eller land utenfor Norge'
+            message: 'Må være kommune, fylke eller land utenfor Norge',
         });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'locationArea' });
@@ -111,18 +111,26 @@ export function* validateStyrk() {
 }
 
 export function* validateTitle() {
-    const adTitle = yield select((state) => state.adData.title);
+    const adTitle = yield select(state => state.adData.title);
     if (valueIsNotSet(adTitle) || adTitle === DEFAULT_TITLE_NEW_AD) {
-        yield put({ type: ADD_VALIDATION_ERROR, field: 'title', message: 'Overskrift på stillingen mangler' });
+        yield put({
+            type: ADD_VALIDATION_ERROR,
+            field: 'title',
+            message: 'Overskrift på stillingen mangler',
+        });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'title' });
     }
 }
 
 function* validateAdtext() {
-    const adText = yield select((state) => state.adData.properties.adtext);
+    const adText = yield select(state => state.adData.properties.adtext);
     if (valueIsNotSet(adText)) {
-        yield put({ type: ADD_VALIDATION_ERROR, field: 'adText', message: 'Stillingstekst mangler' });
+        yield put({
+            type: ADD_VALIDATION_ERROR,
+            field: 'adText',
+            message: 'Stillingstekst mangler',
+        });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'adText' });
     }
@@ -132,24 +140,38 @@ function* validateEmployer() {
     const state = yield select();
     const { employer } = state.adData;
 
-    if (employer === null || employer === undefined
-        || valueIsNotSet(employer.name)
-        || valueIsNotSet(employer.orgnr)) {
-        yield put({ type: ADD_VALIDATION_ERROR, field: 'employer', message: 'Bedriftens navn mangler' });
+    if (
+        employer === null ||
+        employer === undefined ||
+        valueIsNotSet(employer.name) ||
+        valueIsNotSet(employer.orgnr)
+    ) {
+        yield put({
+            type: ADD_VALIDATION_ERROR,
+            field: 'employer',
+            message: 'Bedriftens navn mangler',
+        });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'employer' });
     }
 }
-
 
 function* validateExpireDate() {
     const state = yield select();
     const { expires } = state.adData;
 
     if (valueIsNotSet(expires)) {
-        yield put({ type: ADD_VALIDATION_ERROR, field: 'expires', message: 'Siste visningsdato mangler' });
+        yield put({
+            type: ADD_VALIDATION_ERROR,
+            field: 'expires',
+            message: 'Siste visningsdato mangler',
+        });
     } else if (!erDatoEtterMinDato(toDate(expires), new Date(Date.now()))) {
-        yield put({ type: ADD_VALIDATION_ERROR, field: 'expires', message: 'Siste visningsdato kan ikke være før dagens dato' });
+        yield put({
+            type: ADD_VALIDATION_ERROR,
+            field: 'expires',
+            message: 'Siste visningsdato kan ikke være før dagens dato',
+        });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'expires' });
     }
@@ -160,38 +182,48 @@ function* validatePublishDate() {
     const { published } = state.adData;
 
     if (valueIsNotSet(published)) {
-        yield put({ type: ADD_VALIDATION_ERROR, field: 'published', message: 'Publiseringsdato mangler' });
+        yield put({
+            type: ADD_VALIDATION_ERROR,
+            field: 'published',
+            message: 'Publiseringsdato mangler',
+        });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'published' });
     }
 }
 
 function* validateApplicationEmail() {
-    const email = yield select((state) => state.adData.properties.applicationemail);
+    const email = yield select(state => state.adData.properties.applicationemail);
 
     // E-postadressen må inneholde en '@' for å være gyldig
-    const error = email && (email.length > 0) && (email.indexOf('@') === -1);
+    const error = email && email.length > 0 && email.indexOf('@') === -1;
 
     if (error) {
-        yield put({ type: ADD_VALIDATION_ERROR, field: 'applicationEmail', message: 'E-postadressen er ugyldig. Den må minimum inneholde en «@»' });
+        yield put({
+            type: ADD_VALIDATION_ERROR,
+            field: 'applicationEmail',
+            message: 'E-postadressen er ugyldig. Den må minimum inneholde en «@»',
+        });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'applicationEmail' });
     }
 }
 
 function* validateContactpersonEmail() {
-    const contactperson = yield select((state) => state.adData.contactList[0]);
+    const contactperson = yield select(state => state.adData.contactList[0]);
 
     // E-postadressen må inneholde en '@' for å være gyldig
-    const error = contactperson && contactperson.email
-        && (contactperson.email.length > 0)
-        && (contactperson.email.indexOf('@') === -1);
+    const error =
+        contactperson &&
+        contactperson.email &&
+        contactperson.email.length > 0 &&
+        contactperson.email.indexOf('@') === -1;
 
     if (error) {
         yield put({
             type: ADD_VALIDATION_ERROR,
             field: 'contactpersonEmail',
-            message: 'E-postadressen er ugyldig. Den må minimum inneholde en «@»'
+            message: 'E-postadressen er ugyldig. Den må minimum inneholde en «@»',
         });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'contactpersonEmail' });
@@ -199,24 +231,34 @@ function* validateContactpersonEmail() {
 }
 
 function* validateContactpersonPhone() {
-    const contactperson = yield select((state) => state.adData.contactList[0]);
+    const contactperson = yield select(state => state.adData.contactList[0]);
 
-    const error = contactperson && contactperson.phone
-        && (contactperson.phone.length > 0)
-        && (!contactperson.phone.match(/^(\(?\+?[0-9]*\)?)?[0-9_\- \(\)]*$/));
+    const error =
+        contactperson &&
+        contactperson.phone &&
+        contactperson.phone.length > 0 &&
+        !contactperson.phone.match(/^(\(?\+?[0-9]*\)?)?[0-9_\- \(\)]*$/);
 
     if (error) {
-        yield put({ type: ADD_VALIDATION_ERROR, field: 'contactpersonPhone', message: 'Ugyldig telefonnummer' });
+        yield put({
+            type: ADD_VALIDATION_ERROR,
+            field: 'contactpersonPhone',
+            message: 'Ugyldig telefonnummer',
+        });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'contactpersonPhone' });
     }
 }
 
 export function* validateComment() {
-    const comments = yield select((state) => state.adData.administration.comments);
+    const comments = yield select(state => state.adData.administration.comments);
 
     if (comments && comments.length > MAX_LENGTH_COMMENT) {
-        yield put({ type: ADD_VALIDATION_ERROR, field: 'comment', message: 'Kommentaren inneholder for mange tegn' });
+        yield put({
+            type: ADD_VALIDATION_ERROR,
+            field: 'comment',
+            message: 'Kommentaren inneholder for mange tegn',
+        });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'comment' });
     }
@@ -227,7 +269,11 @@ function* validateApplicationdueDate() {
     const { applicationdue } = state.adData.properties;
 
     if (valueIsNotSet(applicationdue)) {
-        yield put({ type: ADD_VALIDATION_ERROR, field: 'applicationdue', message: 'Søknadsfrist mangler' });
+        yield put({
+            type: ADD_VALIDATION_ERROR,
+            field: 'applicationdue',
+            message: 'Søknadsfrist mangler',
+        });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'applicationdue' });
     }
@@ -238,7 +284,11 @@ function* validateEngagementType() {
     const { engagementtype } = state.adData.properties;
 
     if (valueIsNotSet(engagementtype)) {
-        yield put({ type: ADD_VALIDATION_ERROR, field: 'engagementtype', message: 'Ansettelsesform mangler' });
+        yield put({
+            type: ADD_VALIDATION_ERROR,
+            field: 'engagementtype',
+            message: 'Ansettelsesform mangler',
+        });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'engagementtype' });
     }
@@ -251,7 +301,11 @@ function* validatePositionCount() {
     const error = positioncount && !positioncount.match(/^[1-9]\d*$/);
 
     if (valueIsNotSet(positioncount) || error) {
-        yield put({ type: ADD_VALIDATION_ERROR, field: 'positioncount', message: 'Antall stillinger mangler' });
+        yield put({
+            type: ADD_VALIDATION_ERROR,
+            field: 'positioncount',
+            message: 'Antall stillinger mangler',
+        });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'positioncount' });
     }
@@ -284,7 +338,11 @@ function* validateWorkday() {
     const { workday } = state.adData.properties;
 
     if (valueIsNotSet(workday) || !IsJson(workday) || valueIsNotSet(JSON.parse(workday))) {
-        yield put({ type: ADD_VALIDATION_ERROR, field: 'workday', message: 'Arbeidsdager mangler' });
+        yield put({
+            type: ADD_VALIDATION_ERROR,
+            field: 'workday',
+            message: 'Arbeidsdager mangler',
+        });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'workday' });
     }
@@ -295,7 +353,11 @@ function* validateWorkhours() {
     const { workhours } = state.adData.properties;
 
     if (valueIsNotSet(workhours) || !IsJson(workhours) || valueIsNotSet(JSON.parse(workhours))) {
-        yield put({ type: ADD_VALIDATION_ERROR, field: 'workhours', message: 'Arbeidstid mangler' });
+        yield put({
+            type: ADD_VALIDATION_ERROR,
+            field: 'workhours',
+            message: 'Arbeidstid mangler',
+        });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'workhours' });
     }
@@ -326,24 +388,26 @@ export function* validateAll() {
 }
 
 export function hasValidationErrors(validation) {
-    return validation.styrk !== undefined
-           || validation.location !== undefined
-           || validation.employer !== undefined
-           || validation.expires !== undefined
-           || validation.title !== undefined
-           || validation.adText !== undefined
-           || validation.applicationEmail !== undefined
-           || validation.contactpersonEmail !== undefined
-           || validation.publish !== undefined
-           || validation.postalCode !== undefined
-           || validation.comment !== undefined
-           || validation.applicationdue !== undefined
-           || validation.engagementtype !== undefined
-           || validation.positioncount !== undefined
-           || validation.extent !== undefined
-           || validation.sector !== undefined
-           || validation.workday !== undefined
-           || validation.workhours !== undefined;
+    return (
+        validation.styrk !== undefined ||
+        validation.location !== undefined ||
+        validation.employer !== undefined ||
+        validation.expires !== undefined ||
+        validation.title !== undefined ||
+        validation.adText !== undefined ||
+        validation.applicationEmail !== undefined ||
+        validation.contactpersonEmail !== undefined ||
+        validation.publish !== undefined ||
+        validation.postalCode !== undefined ||
+        validation.comment !== undefined ||
+        validation.applicationdue !== undefined ||
+        validation.engagementtype !== undefined ||
+        validation.positioncount !== undefined ||
+        validation.extent !== undefined ||
+        validation.sector !== undefined ||
+        validation.workday !== undefined ||
+        validation.workhours !== undefined
+    );
 }
 
 export function* validateBeforeSave() {
@@ -360,17 +424,19 @@ export function* validateBeforeSave() {
 }
 
 export function hasValidationErrorsOnSave(validation) {
-    return validation.styrk !== undefined
-        || validation.title !== undefined
-        || validation.applicationEmail !== undefined
-        || validation.contactpersonEmail !== undefined
-        || validation.contactpersonPhone !== undefined
-        || validation.postalCode !== undefined
-        || validation.comment !== undefined;
+    return (
+        validation.styrk !== undefined ||
+        validation.title !== undefined ||
+        validation.applicationEmail !== undefined ||
+        validation.contactpersonEmail !== undefined ||
+        validation.contactpersonPhone !== undefined ||
+        validation.postalCode !== undefined ||
+        validation.comment !== undefined
+    );
 }
 
 const initialState = {
-    errors: {}
+    errors: {},
 };
 
 export default function adValidationReducer(state = initialState, action) {
@@ -380,15 +446,15 @@ export default function adValidationReducer(state = initialState, action) {
                 ...state,
                 errors: {
                     ...state.errors,
-                    [action.field]: action.message
-                }
+                    [action.field]: action.message,
+                },
             };
         case REMOVE_VALIDATION_ERROR:
             return {
                 errors: {
                     ...state.errors,
-                    [action.field]: undefined
-                }
+                    [action.field]: undefined,
+                },
             };
         case RESET_VALIDATION_ERROR:
             return initialState;
@@ -405,14 +471,17 @@ export const validationSaga = function* saga() {
     yield takeLatest(SET_PUBLISHED, validatePublishDate);
     yield takeLatest(ADD_POSTAL_CODE_BEGIN, validatePostalCode);
     yield takeLatest(VALIDATE_LOCATION_AREA, validateLocationArea);
-    yield takeLatest([
-        ADD_POSTAL_CODE,
-        REMOVE_POSTAL_CODE,
-        ADD_LOCATION_AREA,
-        REMOVE_MUNICIPAL,
-        REMOVE_COUNTY,
-        REMOVE_COUNTRY
-    ], validateLocation);
+    yield takeLatest(
+        [
+            ADD_POSTAL_CODE,
+            REMOVE_POSTAL_CODE,
+            ADD_LOCATION_AREA,
+            REMOVE_MUNICIPAL,
+            REMOVE_COUNTY,
+            REMOVE_COUNTRY,
+        ],
+        validateLocation
+    );
     yield takeLatest(SET_AD_TEXT, validateAdtext);
     yield takeLatest(SET_AD_TITLE, validateTitle);
     yield takeLatest(VALIDATE_APPLICATION_EMAIL, validateApplicationEmail);

@@ -1,42 +1,42 @@
-apiVersion: "nais.io/v1alpha1"
-kind: "Application"
+apiVersion: 'nais.io/v1alpha1'
+kind: 'Application'
 metadata:
-  name: pam-rekrutteringsbistand
-  namespace: default
-  labels:
-    team: teampam
+    name: pam-rekrutteringsbistand
+    namespace: default
+    labels:
+        team: teampam
 spec:
-  image: repo.adeo.no:5443/pam-rekrutteringsbistand
-  port: 8080
-  replicas:
-    min: 2
-    max: 3
-    cpuThresholdPercentage: 50
-  prometheus:
-    enabled: false
-    path: /metrics
-  liveness:
-    initialDelay: 60
-    path: /internal/isAlive
-  readiness:
-    initialDelay: 60
-    path: /internal/isReady
-  resources:
-    limits:
-      cpu: 500m
-      memory: 256Mi
-    requests:
-      cpu: 200m
-      memory: 128Mi
-  ingresses:
-    - https://rekrutteringsbistand.nais.preprod.local
-    - https://pam-rekrutteringsbistand.nais.preprod.local
-  env:
-    - name: LOGIN_URL
-      value: https://loginservice.nais.preprod.local/login
-    - name: REKRUTTERINGSBISTAND_API_URL
-      value: https://arbeidsgiver.nais.preprod.local/rekrutteringsbistand-api/rekrutteringsbistand/api/v1/
-    - name: REKRUTTERING_API_URL
-      value: https://arbeidsgiver.nais.preprod.local/rekrutteringsbistand-api/rekruttering/
-    - name: REKRUTTERINGSBISTAND_API_SEARCH_URL
-      value: https://arbeidsgiver.nais.preprod.local/rekrutteringsbistand-api/search-api/
+    image: repo.adeo.no:5443/pam-rekrutteringsbistand
+    port: 8080
+    replicas:
+        min: 2
+        max: 3
+        cpuThresholdPercentage: 50
+    prometheus:
+        enabled: false
+        path: /metrics
+    liveness:
+        initialDelay: 60
+        path: /internal/isAlive
+    readiness:
+        initialDelay: 60
+        path: /internal/isReady
+    resources:
+        limits:
+            cpu: 500m
+            memory: 256Mi
+        requests:
+            cpu: 200m
+            memory: 128Mi
+    ingresses:
+        - https://rekrutteringsbistand.nais.preprod.local
+        - https://pam-rekrutteringsbistand.nais.preprod.local
+    env:
+        - name: LOGIN_URL
+          value: https://loginservice.nais.preprod.local/login
+        - name: REKRUTTERINGSBISTAND_API_URL
+          value: https://arbeidsgiver.nais.preprod.local/rekrutteringsbistand-api/rekrutteringsbistand/api/v1/
+        - name: REKRUTTERING_API_URL
+          value: https://arbeidsgiver.nais.preprod.local/rekrutteringsbistand-api/rekruttering/
+        - name: REKRUTTERINGSBISTAND_API_SEARCH_URL
+          value: https://arbeidsgiver.nais.preprod.local/rekrutteringsbistand-api/search-api/

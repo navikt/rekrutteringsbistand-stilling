@@ -6,16 +6,16 @@ import {
     CHANGE_PRIVACY_FILTER,
     CHANGE_SOURCE_FILTER,
     CHANGE_STATUS_FILTER,
-    FETCH_ADS
+    FETCH_ADS,
 } from '../searchReducer';
 import AdStatusEnum from '../../common/enums/AdStatusEnum';
 import PrivacyStatusEnum from '../../common/enums/PrivacyStatusEnum';
 import FilterLocation from './location/FilterLocation';
 import InkluderingPanel from './inkludering/InkluderingPanel';
-import {getAdStatusLabel, getPrivacyStatusLabel} from '../../common/enums/getEnumLabels';
+import { getAdStatusLabel, getPrivacyStatusLabel } from '../../common/enums/getEnumLabels';
 
 class Filter extends React.Component {
-    onPrivacyFilterChange = (e) => {
+    onPrivacyFilterChange = e => {
         const { changePrivacyFilter } = this.props;
         if (e.target.value !== 'Alle') {
             changePrivacyFilter(e.target.value);
@@ -24,7 +24,7 @@ class Filter extends React.Component {
         }
     };
 
-    onStatusFilterChange = (e) => {
+    onStatusFilterChange = e => {
         const { changeStatusFilter } = this.props;
         if (e.target.value === 'Alle') {
             changeStatusFilter(undefined, undefined);
@@ -35,7 +35,7 @@ class Filter extends React.Component {
         }
     };
 
-    onSourceFilterChange = (e) => {
+    onSourceFilterChange = e => {
         const { changeSourceFilter } = this.props;
         if (e.target.value !== 'Alle') {
             changeSourceFilter(e.target.value);
@@ -44,7 +44,7 @@ class Filter extends React.Component {
         }
     };
 
-    onSubmit = (e) => {
+    onSubmit = e => {
         e.preventDefault();
         this.props.search();
     };
@@ -54,18 +54,20 @@ class Filter extends React.Component {
         return (
             <form onSubmit={this.onSubmit}>
                 <SkjemaGruppe className="blokk-l">
-                    <Fieldset
-                        legend="Status"
-                    >
+                    <Fieldset legend="Status">
                         {Object.keys(AdStatusEnum)
-                            .filter((key) => key !== AdStatusEnum.INACTIVE && key !== AdStatusEnum.REJECTED
-                                && key !== AdStatusEnum.DELETED)
-                            .map((key) => (
+                            .filter(
+                                key =>
+                                    key !== AdStatusEnum.INACTIVE &&
+                                    key !== AdStatusEnum.REJECTED &&
+                                    key !== AdStatusEnum.DELETED
+                            )
+                            .map(key => (
                                 <Radio
                                     key={key}
                                     label={getAdStatusLabel(AdStatusEnum[key])}
                                     value={key}
-                                    checked={(adStatus === key) && (deactivatedByExpiry !== true)}
+                                    checked={adStatus === key && deactivatedByExpiry !== true}
                                     name="adStatus"
                                     onChange={this.onStatusFilterChange}
                                 />
@@ -73,23 +75,21 @@ class Filter extends React.Component {
                         <Radio
                             label="Utløpt"
                             value="Utløpt"
-                            checked={(adStatus === undefined) && (deactivatedByExpiry === true)}
+                            checked={adStatus === undefined && deactivatedByExpiry === true}
                             name="adStatus"
                             onChange={this.onStatusFilterChange}
                         />
                         <Radio
                             label="Alle"
                             value="Alle"
-                            checked={(adStatus === undefined) && (deactivatedByExpiry === undefined)}
+                            checked={adStatus === undefined && deactivatedByExpiry === undefined}
                             name="adStatus"
                             onChange={this.onStatusFilterChange}
                         />
                     </Fieldset>
                 </SkjemaGruppe>
                 <SkjemaGruppe className="blokk-l">
-                    <Fieldset
-                        legend="Publisert"
-                    >
+                    <Fieldset legend="Publisert">
                         <Radio
                             label="Alle"
                             value="Alle"
@@ -97,10 +97,10 @@ class Filter extends React.Component {
                             name="privacyStatus"
                             onChange={this.onPrivacyFilterChange}
                         />
-                        {Object.keys(PrivacyStatusEnum).map((key) => (
+                        {Object.keys(PrivacyStatusEnum).map(key => (
                             <Radio
                                 key={key}
-                                label={getPrivacyStatusLabel( PrivacyStatusEnum[key])}
+                                label={getPrivacyStatusLabel(PrivacyStatusEnum[key])}
                                 value={key}
                                 name="privacyStatus"
                                 checked={privacy === key}
@@ -110,9 +110,7 @@ class Filter extends React.Component {
                     </Fieldset>
                 </SkjemaGruppe>
                 <SkjemaGruppe className="blokk-l">
-                    <Fieldset
-                        legend="Kilde"
-                    >
+                    <Fieldset legend="Kilde">
                         <Radio
                             label="Alle"
                             value="Alle"
@@ -140,7 +138,7 @@ Filter.defaultProps = {
     adStatus: undefined,
     source: undefined,
     privacy: undefined,
-    deactivatedByExpiry: undefined
+    deactivatedByExpiry: undefined,
 };
 
 Filter.propTypes = {
@@ -151,21 +149,22 @@ Filter.propTypes = {
     adStatus: PropTypes.string,
     source: PropTypes.string,
     privacy: PropTypes.string,
-    deactivatedByExpiry: PropTypes.bool
+    deactivatedByExpiry: PropTypes.bool,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     adStatus: state.search.status,
     source: state.search.source,
     privacy: state.search.privacy,
-    deactivatedByExpiry: state.search.deactivatedByExpiry
+    deactivatedByExpiry: state.search.deactivatedByExpiry,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     search: () => dispatch({ type: FETCH_ADS }),
-    changePrivacyFilter: (value) => dispatch({ type: CHANGE_PRIVACY_FILTER, value }),
-    changeStatusFilter: (status, deactivatedByExpiry) => dispatch({ type: CHANGE_STATUS_FILTER, status, deactivatedByExpiry }),
-    changeSourceFilter: (value) => dispatch({ type: CHANGE_SOURCE_FILTER, value })
+    changePrivacyFilter: value => dispatch({ type: CHANGE_PRIVACY_FILTER, value }),
+    changeStatusFilter: (status, deactivatedByExpiry) =>
+        dispatch({ type: CHANGE_STATUS_FILTER, status, deactivatedByExpiry }),
+    changeSourceFilter: value => dispatch({ type: CHANGE_SOURCE_FILTER, value }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Filter);

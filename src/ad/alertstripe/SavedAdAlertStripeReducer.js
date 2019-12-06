@@ -5,10 +5,9 @@ import AdAlertStripeEnum from './AdAlertStripeEnum';
 export const SHOW_SAVED_AD_ALERT_STRIPE = 'SHOW_SAVED_AD_ALERT_STRIPE';
 export const HIDE_SAVED_AD_ALERT_STRIPE = 'HIDE_SAVED_AD_ALERT_STRIPE';
 
-
 const initialState = {
     showAlertStripe: false,
-    alertStripeMode: AdAlertStripeEnum.SAVED
+    alertStripeMode: AdAlertStripeEnum.SAVED,
 };
 
 export default function savedSearchAlertStripeReducer(state = initialState, action) {
@@ -17,7 +16,7 @@ export default function savedSearchAlertStripeReducer(state = initialState, acti
             return {
                 ...state,
                 showAlertStripe: true,
-                alertStripeMode: action.mode
+                alertStripeMode: action.mode,
             };
         case HIDE_SAVED_AD_ALERT_STRIPE:
             return initialState;
@@ -28,7 +27,7 @@ export default function savedSearchAlertStripeReducer(state = initialState, acti
     }
 }
 
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 export function* showAlertStripe(mode) {
     yield put({ type: SHOW_SAVED_AD_ALERT_STRIPE, mode });

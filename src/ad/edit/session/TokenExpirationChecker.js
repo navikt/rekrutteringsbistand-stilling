@@ -5,7 +5,6 @@ export const TOKEN_EXPIRES_SOON = 'TOKEN_EXPIRES_SOON';
 export const TOKEN_HAS_EXPIRED = 'TOKEN_HAS_EXPIRED';
 
 export default class TokenExpirationChecker extends EventEmitter {
-
     timeoutId = undefined;
     isPaused = false;
     intervalInMilliseconds;
@@ -32,7 +31,7 @@ export default class TokenExpirationChecker extends EventEmitter {
         this.removeAllListeners();
     }
 
-    timeout = (ms) => new Promise((resolve) => this.timeoutId = setTimeout(resolve, ms));
+    timeout = ms => new Promise(resolve => (this.timeoutId = setTimeout(resolve, ms)));
 
     dispatchTokenExpired() {
         this.emit(TOKEN_HAS_EXPIRED);

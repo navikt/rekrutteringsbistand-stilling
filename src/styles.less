@@ -1,129 +1,137 @@
 @nodeModulesPath: './../../';
 @coreModulePath: './../../';
-@import "../node_modules/nav-frontend-core/less/core";
-@import "../node_modules/nav-frontend-lenker-style/src/lenker-style";
-@import "../node_modules/nav-frontend-paneler-style/src/index";
-@import "../node_modules/nav-frontend-knapper-style/src/index";
-@import "../node_modules/nav-frontend-skjema-style/src/index";
-@import "../node_modules/nav-frontend-grid-style/src/index";
-@import "../node_modules/nav-frontend-typografi-style/src/index";
-@import "variables";
+@import '../node_modules/nav-frontend-core/less/core';
+@import '../node_modules/nav-frontend-lenker-style/src/lenker-style';
+@import '../node_modules/nav-frontend-paneler-style/src/index';
+@import '../node_modules/nav-frontend-knapper-style/src/index';
+@import '../node_modules/nav-frontend-skjema-style/src/index';
+@import '../node_modules/nav-frontend-grid-style/src/index';
+@import '../node_modules/nav-frontend-typografi-style/src/index';
+@import 'variables';
 
 html {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 body {
-  margin: 0;
-  background: #fff;
-  color: @navMorkGra;
+    margin: 0;
+    background: #fff;
+    color: @navMorkGra;
 }
 
 #top {
-  background: #333;
-  height: 40px;
-  width: 100%;
+    background: #333;
+    height: 40px;
+    width: 100%;
 }
 
 .header {
-  padding: 15px 1.5rem 18px;
-  background: #fff;
-  border-bottom: 1px solid #d1d1d1;
-  text-align: center;
+    padding: 15px 1.5rem 18px;
+    background: #fff;
+    border-bottom: 1px solid #d1d1d1;
+    text-align: center;
 }
 
 @media (max-width: @screen-xs-max) {
-  .header {
-    padding: 0;
-  }
+    .header {
+        padding: 0;
+    }
 }
 
 .header__nav-logo {
-  display: inline-block;
-  text-decoration: none;
-  border: none;
+    display: inline-block;
+    text-decoration: none;
+    border: none;
 
-  &:focus {
-    outline: none;
-    background-color: #ffbd66;
-  }
+    &:focus {
+        outline: none;
+        background-color: #ffbd66;
+    }
 }
 
-input[type=search] {
-  -webkit-appearance: none;
+input[type='search'] {
+    -webkit-appearance: none;
 }
 
 input::-ms-clear {
-  display: none;
+    display: none;
 }
 
-
 .AlertStripe__fullpage {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  left: 0;
-  z-index: 999;
-  display: flex;
-  justify-content: center;
-  .alertstripe__tekst {
-    flex: 0 1 auto;
-    -ms-flex: 0 1 auto;
-    -webkit-flex: 0 1 auto;
-  }
-  .alertstripe__ikon {
-    margin-right: 0;
-    padding-right: 0;
-    width: 2.2rem;
-  }
+    position: fixed;
+    top: 0;
+    width: 100%;
+    left: 0;
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    .alertstripe__tekst {
+        flex: 0 1 auto;
+        -ms-flex: 0 1 auto;
+        -webkit-flex: 0 1 auto;
+    }
+    .alertstripe__ikon {
+        margin-right: 0;
+        padding-right: 0;
+        width: 2.2rem;
+    }
 }
 
 @media print {
-  .Ad__preview {
-    margin-top: 0;
-    padding-top: 0;
-  }
+    .Ad__preview {
+        margin-top: 0;
+        padding-top: 0;
+    }
 
-  .Ad__flex__center__inner {
-    display: block;
-    width: auto;
-    height: auto;
-    overflow: visible;
-  }
+    .Ad__flex__center__inner {
+        display: block;
+        width: auto;
+        height: auto;
+        overflow: visible;
+    }
 
-  .AdText__body, .detail-section, .HardRequirements,
-  .SoftRequirements, .PersonalAttributes {
-    border: none;
-    padding-left: 1rem;
-  }
+    .AdText__body,
+    .detail-section,
+    .HardRequirements,
+    .SoftRequirements,
+    .PersonalAttributes {
+        border: none;
+        padding-left: 1rem;
+    }
 
-  .HardRequirements__label, .SoftRequirements__label, .PersonalAttributes__label {
-    padding-left: 0;
-  }
+    .HardRequirements__label,
+    .SoftRequirements__label,
+    .PersonalAttributes__label {
+        padding-left: 0;
+    }
 
-  .AdText__details {
-    margin: 1rem 1rem 0 0;
-    border: none;
-  }
+    .AdText__details {
+        margin: 1rem 1rem 0 0;
+        border: none;
+    }
 
-  .TopMenu, .Ad__actions-button, .Ad__preview__menu, .button-print, .AdStatusPreview,
-  .Preview__Comment {
-    display: none!important;
-  }
+    .TopMenu,
+    .Ad__actions-button,
+    .Ad__preview__menu,
+    .button-print,
+    .AdStatusPreview,
+    .Preview__Comment {
+        display: none !important;
+    }
 
-  a[href]:after {
-    content: none !important;
-  }
+    a[href]:after {
+        content: none !important;
+    }
 }
 
 .visually-hidden {
-  display: block;
-  height: 1px;
-  width: 1px;
-  overflow: hidden;
-  clip: rect(1px 1px 1px 1px);
-  clip: rect(1px, 1px, 1px, 1px);
-  clip-path: inset(1px);
-  white-space: nowrap;
-  position: absolute;
+    display: block;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+    clip: rect(1px 1px 1px 1px);
+    clip: rect(1px, 1px, 1px, 1px);
+    clip-path: inset(1px);
+    white-space: nowrap;
+    position: absolute;
 }

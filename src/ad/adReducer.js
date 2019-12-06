@@ -1,8 +1,6 @@
 import deepEqual from 'deep-equal';
 import { put, select, takeLatest } from 'redux-saga/effects';
-import {
-    ApiError, fetchAd, fetchDelete, fetchPost, fetchPut
-} from '../api/api';
+import { ApiError, fetchAd, fetchDelete, fetchPost, fetchPut } from '../api/api';
 import { AD_API } from '../fasitProperties';
 import { getReportee } from '../reportee/reporteeReducer';
 import {
@@ -13,7 +11,7 @@ import {
     SET_REPORTEE,
     SET_UPDATED_BY,
     SET_FIRST_PUBLISHED,
-    REMOVE_AD_DATA
+    REMOVE_AD_DATA,
 } from './adDataReducer';
 import AdminStatusEnum from '../common/enums/AdminStatusEnum';
 import AdStatusEnum from '../common/enums/AdStatusEnum';
@@ -21,14 +19,18 @@ import {
     hasValidationErrors,
     hasValidationErrorsOnSave,
     validateAll,
-    validateBeforeSave
+    validateBeforeSave,
 } from './adValidationReducer';
 import PrivacyStatusEnum from '../common/enums/PrivacyStatusEnum';
 import { showAlertStripe } from './alertstripe/SavedAdAlertStripeReducer';
 import AdAlertStripeEnum from './alertstripe/AdAlertStripeEnum';
 import { FETCH_MY_ADS } from '../myAds/myAdsReducer';
 import { loginWithRedirectToCurrentLocation } from '../login';
-import { FETCH_RECRUITMENT, SAVE_RECRUITMENT, UPDATE_RECRUITMENT } from '../recruitment/recruitmentReducer';
+import {
+    FETCH_RECRUITMENT,
+    SAVE_RECRUITMENT,
+    UPDATE_RECRUITMENT,
+} from '../recruitment/recruitmentReducer';
 import { SET_NAV_IDENT_REKRUTTERING } from '../recruitment/recruitmentDataReducer';
 
 export const FETCH_AD = 'FETCH_AD';
@@ -108,14 +110,14 @@ const initialState = {
     showAdPublishedModal: false,
     showAdSavedErrorModal: false,
     hasChangesLeaveUrl: undefined,
-    leavePageTrigger: false
+    leavePageTrigger: false,
 };
 
 export default function adReducer(state = initialState, action) {
     switch (action.type) {
         case REMOVE_AD_DATA:
             return {
-                ...initialState
+                ...initialState,
             };
         case FETCH_AD_BEGIN:
             return {
@@ -124,27 +126,27 @@ export default function adReducer(state = initialState, action) {
                 isLoadingAd: true,
                 error: undefined,
                 originalData: undefined,
-                hasChanges: false
+                hasChanges: false,
             };
         case FETCH_AD_SUCCESS:
             return {
                 ...state,
                 isLoadingAd: false,
                 isEditingAd: false,
-                originalData: { ...action.response }
+                originalData: { ...action.response },
             };
         case FETCH_AD_FAILURE:
             return {
                 ...state,
                 error: action.error,
-                isLoadingAd: false
+                isLoadingAd: false,
             };
         case SAVE_AD_BEGIN:
             return {
                 ...state,
                 isSavingAd: true,
                 hasSavedChanges: false,
-                hasChanges: false
+                hasChanges: false,
             };
         case CREATE_AD_BEGIN:
         case DELETE_AD_BEGIN:
@@ -153,13 +155,13 @@ export default function adReducer(state = initialState, action) {
                 isLoadingAd: true,
                 isSavingAd: true,
                 hasSavedChanges: false,
-                hasChanges: false
+                hasChanges: false,
             };
         case DELETE_AD_SUCCESS:
             return {
                 ...state,
                 isSavingAd: false,
-                isLoadingAd: false
+                isLoadingAd: false,
             };
         case CREATE_AD_SUCCESS:
             return {
@@ -169,14 +171,14 @@ export default function adReducer(state = initialState, action) {
                 hasSavedChanges: true,
                 isEditingAd: true,
                 originalData: { ...action.response },
-                hasChanges: true
+                hasChanges: true,
             };
         case SAVE_AD_SUCCESS:
             return {
                 ...state,
                 isSavingAd: false,
                 hasSavedChanges: true,
-                originalData: { ...action.response }
+                originalData: { ...action.response },
             };
         case CREATE_AD_FAILURE:
         case SAVE_AD_FAILURE:
@@ -191,97 +193,94 @@ export default function adReducer(state = initialState, action) {
                 showStopAdModal: false,
                 showDeleteAdModal: false,
                 showAdPublishedModal: false,
-                showAdSavedErrorModal: false
+                showAdSavedErrorModal: false,
             };
         case EDIT_AD:
             return {
                 ...state,
                 isEditingAd: true,
-                hasChanges: true
+                hasChanges: true,
             };
         case PREVIEW_EDIT_AD:
             return {
                 ...state,
-                isEditingAd: false
+                isEditingAd: false,
             };
         case SHOW_PUBLISH_ERROR_MODAL:
             return {
                 ...state,
-                showPublishErrorModal: true
+                showPublishErrorModal: true,
             };
         case HIDE_PUBLISH_ERROR_MODAL:
             return {
                 ...state,
-                showPublishErrorModal: false
+                showPublishErrorModal: false,
             };
         case SHOW_HAS_CHANGES_MODAL:
             return {
                 ...state,
                 showHasChangesModal: true,
-                hasChangesLeaveUrl: action.leaveUrl
+                hasChangesLeaveUrl: action.leaveUrl,
             };
         case HIDE_HAS_CHANGES_MODAL:
             return {
                 ...state,
-                showHasChangesModal: false
+                showHasChangesModal: false,
             };
         case SHOW_STOP_AD_MODAL:
             return {
                 ...state,
-                showStopAdModal: true
+                showStopAdModal: true,
             };
         case HIDE_STOP_AD_MODAL:
             return {
                 ...state,
-                showStopAdModal: false
+                showStopAdModal: false,
             };
         case SHOW_DELETE_AD_MODAL:
             return {
                 ...state,
-                showDeleteAdModal: true
+                showDeleteAdModal: true,
             };
         case HIDE_DELETE_AD_MODAL:
             return {
                 ...state,
-                showDeleteAdModal: false
+                showDeleteAdModal: false,
             };
         case SHOW_AD_PUBLISHED_MODAL:
             return {
                 ...state,
-                showAdPublishedModal: true
+                showAdPublishedModal: true,
             };
         case HIDE_AD_PUBLISHED_MODAL:
             return {
                 ...state,
-                showAdPublishedModal: false
+                showAdPublishedModal: false,
             };
         case SHOW_AD_SAVED_ERROR_MODAL:
             return {
                 ...state,
-                showAdSavedErrorModal: true
+                showAdSavedErrorModal: true,
             };
         case HIDE_AD_SAVED_ERROR_MODAL:
             return {
                 ...state,
-                showAdSavedErrorModal: false
+                showAdSavedErrorModal: false,
             };
         case ADD_COPIED_ADS:
             return {
                 ...state,
-                copiedAds: [
-                    ...state.copiedAds,
-                    action.adUuid
-                ]
+                copiedAds: [...state.copiedAds, action.adUuid],
             };
         case CLEAR_COPIED_ADS:
             return {
                 ...state,
-                copiedAds: []
+                copiedAds: [],
             };
         case LEAVE_PAGE_TRIGGER:
             return {
                 ...state,
-                leavePageTrigger: true
+                leavePageTrigger: true,
             };
 
         default:
@@ -294,7 +293,11 @@ function* getAd(action) {
     try {
         const response = yield fetchAd(action.uuid);
         yield put({ type: FETCH_AD_SUCCESS, response });
-        yield put({ type: FETCH_RECRUITMENT, rekruttering:response.rekruttering, uuid: action.uuid});
+        yield put({
+            type: FETCH_RECRUITMENT,
+            rekruttering: response.rekruttering,
+            uuid: action.uuid,
+        });
 
         if (action.edit) {
             yield put({ type: EDIT_AD });
@@ -333,10 +336,10 @@ function* createAd() {
             administration: {
                 status: AdminStatusEnum.PENDING,
                 reportee: reportee.displayName,
-                navIdent: reportee.navIdent
-            }
+                navIdent: reportee.navIdent,
+            },
         });
-        
+
         yield put({ type: SET_AD_DATA, data: response });
         yield put({ type: SET_REPORTEE, reportee: reportee.displayName });
         yield put({ type: SET_NAV_IDENT, navIdent: reportee.navIdent });
@@ -359,7 +362,10 @@ function* save() {
 
         // Modified category list requires store/PUT with (re)classification
         let putUrl = `${AD_API}ads/${state.adData.uuid}`;
-        if (typeof state.ad.originalData === 'undefined' || needClassify(state.ad.originalData, state.adData)) {
+        if (
+            typeof state.ad.originalData === 'undefined' ||
+            needClassify(state.ad.originalData, state.adData)
+        ) {
             putUrl += '?classify=true';
         }
 
@@ -428,7 +434,10 @@ function* publishAdChanges() {
         yield put({ type: SET_AD_STATUS, status: AdStatusEnum.ACTIVE });
         yield save();
         state = yield select();
-        if (state.adData.activationOnPublishingDate && state.adData.status === AdStatusEnum.INACTIVE) {
+        if (
+            state.adData.activationOnPublishingDate &&
+            state.adData.status === AdStatusEnum.INACTIVE
+        ) {
             yield showAlertStripe(AdAlertStripeEnum.WILL_PUBLISH_CHANGES);
         } else {
             yield showAlertStripe(AdAlertStripeEnum.PUBLISHED_CHANGES);
@@ -487,7 +496,7 @@ function* copyAdFromMyAds(action) {
             administration: {
                 status: AdminStatusEnum.PENDING,
                 reportee: reportee.displayName,
-                navIdent: reportee.navIdent
+                navIdent: reportee.navIdent,
             },
             created: undefined,
             expires: undefined,
@@ -497,7 +506,7 @@ function* copyAdFromMyAds(action) {
             status: undefined,
             published: undefined,
             publishedByAdmin: undefined,
-            reference: undefined
+            reference: undefined,
         });
 
         // Mark copied ad in myAds
@@ -512,22 +521,22 @@ function* copyAdFromMyAds(action) {
     }
 }
 
-function * leggTilIMineStillinger(action) { 
-   let state = yield select();
-    
-    const { navIdent, displayName } = state.reportee.data;
-    yield put({ type: SET_NAV_IDENT_REKRUTTERING, navIdent, displayName});
-    yield put({ type: SAVE_RECRUITMENT, uuid: action.uuid} );
-    yield put({type: FETCH_AD, uuid: state.adData.uuid, edit: false})
-}
-
-function * markerSomMinStilling(action) {
+function* leggTilIMineStillinger(action) {
     let state = yield select();
 
     const { navIdent, displayName } = state.reportee.data;
-    yield put({ type: SET_NAV_IDENT_REKRUTTERING, navIdent, displayName});
-    yield put({ type: UPDATE_RECRUITMENT, uuid: action.uuid} );
-    yield put({type: FETCH_AD, uuid: state.adData.uuid, edit: false})
+    yield put({ type: SET_NAV_IDENT_REKRUTTERING, navIdent, displayName });
+    yield put({ type: SAVE_RECRUITMENT, uuid: action.uuid });
+    yield put({ type: FETCH_AD, uuid: state.adData.uuid, edit: false });
+}
+
+function* markerSomMinStilling(action) {
+    let state = yield select();
+
+    const { navIdent, displayName } = state.reportee.data;
+    yield put({ type: SET_NAV_IDENT_REKRUTTERING, navIdent, displayName });
+    yield put({ type: UPDATE_RECRUITMENT, uuid: action.uuid });
+    yield put({ type: FETCH_AD, uuid: state.adData.uuid, edit: false });
 }
 
 export const adSaga = function* saga() {

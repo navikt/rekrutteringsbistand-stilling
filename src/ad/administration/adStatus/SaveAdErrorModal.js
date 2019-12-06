@@ -14,62 +14,52 @@ class SaveAdErrorModal extends React.Component {
 
     render() {
         const { showAdSavedErrorModal, validation } = this.props;
-        return showAdSavedErrorModal && (
-            <NavFrontendModal
-                isOpen={showAdSavedErrorModal}
-                contentLabel="Fortsett"
-                onRequestClose={this.onClose}
-                closeButton
-                appElement={document.getElementById('app')}
-                className="SaveAdErrorModal"
-            >
-                <Undertittel className="blokk-s">
-                    Kan ikke lagre stillingen
-                </Undertittel>
-                <Normaltekst className="blokk-s">
-                    Stillingen kan ikke lagres før følgende feil er rettet:
-                </Normaltekst>
-                <ul className="blokk-l">
-                    {validation.title && (
-                        <li className="skjemaelement__feilmelding">
-                            {validation.title}
-                        </li>
-                    )}
-                    {validation.comment && (
-                        <li className="skjemaelement__feilmelding">
-                            {validation.comment}
-                        </li>
-                    )}
-                    {validation.styrk && (
-                        <li className="skjemaelement__feilmelding">
-                            {validation.styrk}
-                        </li>
-                    )}
-                    {validation.applicationEmail && (
-                        <li className="skjemaelement__feilmelding">
-                            {validation.applicationEmail}
-                        </li>
-                    )}
-                    {validation.contactpersonEmail && (
-                        <li className="skjemaelement__feilmelding">
-                            {validation.contactpersonEmail}
-                        </li>
-                    )}
-                    {validation.contactpersonPhone && (
-                        <li className="skjemaelement__feilmelding">
-                            {validation.contactpersonPhone}
-                        </li>
-                    )}
-                    {validation.postalCode && (
-                        <li className="skjemaelement__feilmelding">
-                            {validation.postalCode}
-                        </li>
-                    )}
-                </ul>
-                <Hovedknapp onClick={this.onClose}>
-                    Lukk
-                </Hovedknapp>
-            </NavFrontendModal>
+        return (
+            showAdSavedErrorModal && (
+                <NavFrontendModal
+                    isOpen={showAdSavedErrorModal}
+                    contentLabel="Fortsett"
+                    onRequestClose={this.onClose}
+                    closeButton
+                    appElement={document.getElementById('app')}
+                    className="SaveAdErrorModal"
+                >
+                    <Undertittel className="blokk-s">Kan ikke lagre stillingen</Undertittel>
+                    <Normaltekst className="blokk-s">
+                        Stillingen kan ikke lagres før følgende feil er rettet:
+                    </Normaltekst>
+                    <ul className="blokk-l">
+                        {validation.title && (
+                            <li className="skjemaelement__feilmelding">{validation.title}</li>
+                        )}
+                        {validation.comment && (
+                            <li className="skjemaelement__feilmelding">{validation.comment}</li>
+                        )}
+                        {validation.styrk && (
+                            <li className="skjemaelement__feilmelding">{validation.styrk}</li>
+                        )}
+                        {validation.applicationEmail && (
+                            <li className="skjemaelement__feilmelding">
+                                {validation.applicationEmail}
+                            </li>
+                        )}
+                        {validation.contactpersonEmail && (
+                            <li className="skjemaelement__feilmelding">
+                                {validation.contactpersonEmail}
+                            </li>
+                        )}
+                        {validation.contactpersonPhone && (
+                            <li className="skjemaelement__feilmelding">
+                                {validation.contactpersonPhone}
+                            </li>
+                        )}
+                        {validation.postalCode && (
+                            <li className="skjemaelement__feilmelding">{validation.postalCode}</li>
+                        )}
+                    </ul>
+                    <Hovedknapp onClick={this.onClose}>Lukk</Hovedknapp>
+                </NavFrontendModal>
+            )
         );
     }
 }
@@ -83,18 +73,18 @@ SaveAdErrorModal.propTypes = {
         applicationEmail: PropTypes.string,
         contactpersonEmail: PropTypes.string,
         contactpersonPhone: PropTypes.string,
-        postalCode: PropTypes.string
+        postalCode: PropTypes.string,
     }).isRequired,
-    closeModal: PropTypes.func.isRequired
+    closeModal: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     validation: state.adValidation.errors,
-    showAdSavedErrorModal: state.ad.showAdSavedErrorModal
+    showAdSavedErrorModal: state.ad.showAdSavedErrorModal,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    closeModal: () => dispatch({ type: HIDE_AD_SAVED_ERROR_MODAL })
+const mapDispatchToProps = dispatch => ({
+    closeModal: () => dispatch({ type: HIDE_AD_SAVED_ERROR_MODAL }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SaveAdErrorModal);

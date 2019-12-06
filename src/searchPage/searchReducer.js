@@ -20,13 +20,13 @@ export const CHANGE_LOCATION_FILTER = 'CHANGE_LOCATION_FILTER';
 export const RESET_SEARCH = 'RESET_SEARCH';
 export const RESTORE_SEARCH = 'RESTORE_SEARCH';
 export const SET_SEARCH = 'SET_SEARCH';
-export const CHECK_TAG_SOK= 'CHECK_TAG_SOK';
-export const UNCHECK_TAG_SOK= 'UNCHECK_TAG_SOK';
+export const CHECK_TAG_SOK = 'CHECK_TAG_SOK';
+export const UNCHECK_TAG_SOK = 'UNCHECK_TAG_SOK';
 
 export const Fields = {
     EMPLOYER_NAME: 'employerName',
     TITLE: 'title',
-    ID: 'id'
+    ID: 'id',
 };
 
 const ACTIVE = 'ACTIVE';
@@ -51,7 +51,7 @@ const initialState = {
     deactivatedByExpiry: undefined,
     source: undefined,
     locationName: undefined,
-    tags: []
+    tags: [],
 };
 
 export default function searchReducer(state = initialState, action) {
@@ -61,16 +61,25 @@ export default function searchReducer(state = initialState, action) {
             const isNumbersOnly = action.value.match(/^[ 0-9]+$/) !== null;
             const suggestions = [];
             if (action.value.length > 0) {
-                suggestions.push({ label: `Søk på "${action.value}" i annonseoverskrift`, value: Fields.TITLE });
-                suggestions.push({ label: `Søk på "${action.value}" i arbeidsgiver`, value: Fields.EMPLOYER_NAME });
+                suggestions.push({
+                    label: `Søk på "${action.value}" i annonseoverskrift`,
+                    value: Fields.TITLE,
+                });
+                suggestions.push({
+                    label: `Søk på "${action.value}" i arbeidsgiver`,
+                    value: Fields.EMPLOYER_NAME,
+                });
                 if (isNumbersOnly) {
-                    suggestions.push({ label: `Søk på "${action.value}" i annonsenummer`, value: Fields.ID });
+                    suggestions.push({
+                        label: `Søk på "${action.value}" i annonsenummer`,
+                        value: Fields.ID,
+                    });
                 }
             }
             return {
                 ...state,
                 value: action.value,
-                suggestions
+                suggestions,
             };
         }
         case RESET_SEARCH:
@@ -79,33 +88,33 @@ export default function searchReducer(state = initialState, action) {
             return {
                 ...state,
                 page: 0,
-                field: action.field
+                field: action.field,
             };
         case CHANGE_PRIVACY_FILTER:
             return {
                 ...state,
                 page: 0,
                 privacy: action.value,
-                tags: action.value != PrivacyStatusEnum.INTERNAL_NOT_SHOWN ? [] : state.tags
+                tags: action.value != PrivacyStatusEnum.INTERNAL_NOT_SHOWN ? [] : state.tags,
             };
         case CHANGE_STATUS_FILTER:
             return {
                 ...state,
                 status: action.status,
                 page: 0,
-                deactivatedByExpiry: action.deactivatedByExpiry
+                deactivatedByExpiry: action.deactivatedByExpiry,
             };
         case CHANGE_SOURCE_FILTER:
             return {
                 ...state,
                 page: 0,
-                source: action.value
+                source: action.value,
             };
         case CHANGE_LOCATION_FILTER:
             return {
                 ...state,
                 page: 0,
-                locationName: action.location
+                locationName: action.location,
             };
         case CHECK_TAG_SOK:
             return {
@@ -123,7 +132,7 @@ export default function searchReducer(state = initialState, action) {
             return {
                 ...state,
                 isSearching: true,
-                error: undefined
+                error: undefined,
             };
         case FETCH_ADS_SUCCESS:
             return {
@@ -131,45 +140,44 @@ export default function searchReducer(state = initialState, action) {
                 items: action.response.content,
                 isSearching: false,
                 totalElements: action.response.totalElements,
-                totalPages: action.response.totalPages
+                totalPages: action.response.totalPages,
             };
         case FETCH_ADS_FAILURE:
             return {
                 ...state,
                 error: action.error,
-                isSearching: false
+                isSearching: false,
             };
         case CHANGE_SORTING:
             return {
                 ...state,
                 page: 0,
                 sortField: action.field,
-                sortDir: action.dir
+                sortDir: action.dir,
             };
         case CHANGE_PAGE:
             return {
                 ...state,
-                page: action.page
+                page: action.page,
             };
         case RESET_PAGE:
             return {
                 ...state,
-                page: 0
+                page: 0,
             };
         case SET_SEARCH:
             return {
-                ...action.search
+                ...action.search,
             };
         default:
             return state;
     }
 }
 
-
 function combineStatusQuery(status) {
     if (status === undefined) {
         return {
-            status: '!REJECTED,DELETED'
+            status: '!REJECTED,DELETED',
         };
     }
     return { status };
@@ -177,7 +185,16 @@ function combineStatusQuery(status) {
 
 export function toQuery(search) {
     const {
-        sortField, sortDir, page, privacy, status, source, administrationStatus, locationName, deactivatedByExpiry,tags
+        sortField,
+        sortDir,
+        page,
+        privacy,
+        status,
+        source,
+        administrationStatus,
+        locationName,
+        deactivatedByExpiry,
+        tags,
     } = search;
 
     const query = {
@@ -189,7 +206,7 @@ export function toQuery(search) {
         tags,
         locationName,
         deactivatedByExpiry,
-        ...combineStatusQuery(status)
+        ...combineStatusQuery(status),
     };
 
     query[search.field] = search.value;
@@ -197,7 +214,7 @@ export function toQuery(search) {
 }
 
 function* saveSearchToLocalStorage() {
-    const search = yield select((state) => state.search);
+    const search = yield select(state => state.search);
     const searchTerm = { ...search, items: [] };
     try {
         localStorage.setItem(LOCAL_STORAGE_SEARCH_KEY, JSON.stringify(searchTerm));
@@ -241,17 +258,20 @@ function* restoreSearchFromLocalStorage() {
 
 export const searchSaga = function* saga() {
     yield takeLatest(RESTORE_SEARCH, restoreSearchFromLocalStorage);
-    yield takeLatest([
-        RESET_SEARCH,
-        CHANGE_STATUS_FILTER,
-        CHANGE_SOURCE_FILTER,
-        CHANGE_PRIVACY_FILTER,
-        CHANGE_LOCATION_FILTER,
-        SET_SEARCH_FIELD,
-        CHANGE_SORTING,
-        CHANGE_PAGE,
-        FETCH_ADS,
-        CHECK_TAG_SOK,
-        UNCHECK_TAG_SOK
-    ], getAds);
+    yield takeLatest(
+        [
+            RESET_SEARCH,
+            CHANGE_STATUS_FILTER,
+            CHANGE_SOURCE_FILTER,
+            CHANGE_PRIVACY_FILTER,
+            CHANGE_LOCATION_FILTER,
+            SET_SEARCH_FIELD,
+            CHANGE_SORTING,
+            CHANGE_PAGE,
+            FETCH_ADS,
+            CHECK_TAG_SOK,
+            UNCHECK_TAG_SOK,
+        ],
+        getAds
+    );
 };

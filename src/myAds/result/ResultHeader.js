@@ -6,23 +6,29 @@ import useSorting from '../../common/sort/useSorting';
 import './Result.less';
 
 function ResultHeader({ changeSorting, sortDir, sortField }) {
-    const [sort, toggleSorting, className] = useSorting({ field: sortField, dir: sortDir }, changeSorting);
+    const [sort, toggleSorting, className] = useSorting(
+        { field: sortField, dir: sortDir },
+        changeSorting
+    );
 
     return (
         <thead className="ResultHeader typo-element">
             <tr>
                 <th className="Col-updated">
                     <button
-                        className={`Sort__button ${sort.field === 'updated' ? className : 'Sort-unsorted'}`}
+                        className={`Sort__button ${
+                            sort.field === 'updated' ? className : 'Sort-unsorted'
+                        }`}
                         onClick={() => toggleSorting('updated')}
                     >
                         <span className="Sort__text">Sist endret</span>
-
                     </button>
                 </th>
                 <th className="Col-title ">
                     <button
-                        className={`Sort__button ${sort.field === 'title' ? className : 'Sort-unsorted'}`}
+                        className={`Sort__button ${
+                            sort.field === 'title' ? className : 'Sort-unsorted'
+                        }`}
                         onClick={() => toggleSorting('title')}
                     >
                         <span className="Sort__text">Stillingstittel</span>
@@ -35,7 +41,9 @@ function ResultHeader({ changeSorting, sortDir, sortField }) {
                 </th>
                 <th className="Col-employer">
                     <button
-                        className={`Sort__button ${sort.field === 'employerName' ? className : 'Sort-unsorted'}`}
+                        className={`Sort__button ${
+                            sort.field === 'employerName' ? className : 'Sort-unsorted'
+                        }`}
                         onClick={() => toggleSorting('employerName')}
                     >
                         <span className="Sort__text">Arbeidsgiver</span>
@@ -43,7 +51,9 @@ function ResultHeader({ changeSorting, sortDir, sortField }) {
                 </th>
                 <th className="Col-expires">
                     <button
-                        className={`Sort__button ${sort.field === 'expires' ? className : 'Sort-unsorted'}`}
+                        className={`Sort__button ${
+                            sort.field === 'expires' ? className : 'Sort-unsorted'
+                        }`}
                         onClick={() => toggleSorting('expires')}
                     >
                         <span className="Sort__text">Utløpsdato</span>
@@ -51,7 +61,9 @@ function ResultHeader({ changeSorting, sortDir, sortField }) {
                 </th>
                 <th className="Col-privacy">
                     <button
-                        className={`Sort__button ${sort.field === 'privacy' ? className : 'Sort-unsorted'}`}
+                        className={`Sort__button ${
+                            sort.field === 'privacy' ? className : 'Sort-unsorted'
+                        }`}
                         onClick={() => toggleSorting('privacy')}
                     >
                         <span className="Sort__text">Publisert</span>
@@ -69,16 +81,16 @@ function ResultHeader({ changeSorting, sortDir, sortField }) {
 ResultHeader.propTypes = {
     changeSorting: PropTypes.func.isRequired,
     sortDir: PropTypes.string.isRequired,
-    sortField: PropTypes.string.isRequired
+    sortField: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     sortDir: state.myAds.sortDir,
-    sortField: state.myAds.sortField
+    sortField: state.myAds.sortField,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    changeSorting: (field, dir) => dispatch({ type: CHANGE_MY_ADS_SORTING, field, dir })
+const mapDispatchToProps = dispatch => ({
+    changeSorting: (field, dir) => dispatch({ type: CHANGE_MY_ADS_SORTING, field, dir }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ResultHeader);

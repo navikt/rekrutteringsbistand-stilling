@@ -18,8 +18,8 @@ async function request(url, options) {
         throw new ApiError('Network Error', 0);
     }
 
-    if(response.status === 204) {
-        return "";
+    if (response.status === 204) {
+        return '';
     }
 
     if (response.status !== 200 && response.status !== 201) {
@@ -38,8 +38,8 @@ export async function fetchGet(url) {
         method: 'GET',
         credentials: 'include',
         headers: {
-            'X-Requested-With': 'XMLHttpRequest'
-        }
+            'X-Requested-With': 'XMLHttpRequest',
+        },
     });
 }
 
@@ -49,9 +49,9 @@ export async function fetchPost(url, body) {
         method: 'POST',
         credentials: 'include',
         headers: {
-            'Content-Type': 'application/json;charset=UTF-8',
-            'X-Requested-With': 'XMLHttpRequest'
-        }
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest',
+        },
     });
 }
 
@@ -61,9 +61,9 @@ export async function fetchPut(url, body) {
         method: 'PUT',
         credentials: 'include',
         headers: {
-            'Content-Type': 'application/json;charset=UTF-8',
-            'X-Requested-With': 'XMLHttpRequest'
-        }
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest',
+        },
     });
 }
 
@@ -72,9 +72,9 @@ export async function fetchDelete(url) {
         method: 'DELETE',
         credentials: 'include',
         headers: {
-            'Content-Type': 'application/json;charset=UTF-8',
-            'X-Requested-With': 'XMLHttpRequest'
-        }
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest',
+        },
     });
 }
 
@@ -88,13 +88,13 @@ function fixMissingAdministration(ad) {
         administration: {
             comments: '',
             status: AdminStatusEnum.RECEIVED,
-            reportee: ''
-        }
+            reportee: '',
+        },
     };
 }
 
 export async function fetchAd(uuid) {
-    const ad = await fetchGet(`${AD_API}stilling/${uuid}`)
+    const ad = await fetchGet(`${AD_API}stilling/${uuid}`);
     if (ad.administration === null) {
         return fixMissingAdministration(ad);
     }
@@ -111,75 +111,85 @@ export async function fetchRecruitmentsForVeileder(navIdent) {
 
 async function fetchAdsCommon(query, baseurl) {
     const result = await fetchGet(`${baseurl}${toUrl(query)}`);
-    
+
     return {
         ...result,
-        content: result.content.map((ad) => {
+        content: result.content.map(ad => {
             if (ad.administration === null) {
                 return fixMissingAdministration(ad);
             }
             return ad;
-        })
+        }),
     };
 }
 
 export async function fetchAds(query) {
-    return fetchAdsCommon(query, `${AD_API}ads`)
+    return fetchAdsCommon(query, `${AD_API}ads`);
 }
 
 export async function fetchMyAds(query) {
-    return fetchAdsCommon(query, `${AD_API}ads/rekrutteringsbistand/minestillinger`)
+    return fetchAdsCommon(query, `${AD_API}ads/rekrutteringsbistand/minestillinger`);
 }
 
-const employerNameCompletionQueryTemplate = (match) => ({
+const employerNameCompletionQueryTemplate = match => ({
     query: {
         match_phrase: {
             navn_ngram_completion: {
                 query: match,
-                slop: 5
-            }
-        }
+                slop: 5,
+            },
+        },
     },
-    size: 50
+    size: 50,
 });
 
 export async function fetchEmployerNameCompletionHits(match) {
-    const result = await fetchPost(`${SEARCH_API}underenhet/_search`, employerNameCompletionQueryTemplate(match));
+    const result = await fetchPost(
+        `${SEARCH_API}underenhet/_search`,
+        employerNameCompletionQueryTemplate(match)
+    );
 
     return {
         match,
         result: [
-            ...result.hits.hits.map((employer) => ({
+            ...result.hits.hits.map(employer => ({
                 name: employer._source.navn,
                 orgnr: employer._source.organisasjonsnummer,
-                location: (employer._source.adresse ? {
-                    address: employer._source.adresse.adresse,
-                    postalCode: employer._source.adresse.postnummer,
-                    city: employer._source.adresse.poststed
-                } : undefined)
-            }))
-        ]
+                location: employer._source.adresse
+                    ? {
+                          address: employer._source.adresse.adresse,
+                          postalCode: employer._source.adresse.postnummer,
+                          city: employer._source.adresse.poststed,
+                      }
+                    : undefined,
+            })),
+        ],
     };
 }
 
-
 export async function fetchOrgnrSuggestions(value) {
     const match = value.replace(/\s/g, '');
-    const result = await fetchGet(`${SEARCH_API}underenhet/_search?q=organisasjonsnummer:${match}*`);
+    const result = await fetchGet(
+        `${SEARCH_API}underenhet/_search?q=organisasjonsnummer:${match}*`
+    );
 
     return {
         match,
         result: [
-            ...result.hits.hits.map((employer) => ({
-                name: employer._source.navn,
-                orgnr: employer._source.organisasjonsnummer,
-                location: (employer._source.adresse ? {
-                    address: employer._source.adresse.adresse,
-                    postalCode: employer._source.adresse.postnummer,
-                    city: employer._source.adresse.poststed
-                } : undefined)
-            })).sort()
-        ]
+            ...result.hits.hits
+                .map(employer => ({
+                    name: employer._source.navn,
+                    orgnr: employer._source.organisasjonsnummer,
+                    location: employer._source.adresse
+                        ? {
+                              address: employer._source.adresse.adresse,
+                              postalCode: employer._source.adresse.postnummer,
+                              city: employer._source.adresse.poststed,
+                          }
+                        : undefined,
+                }))
+                .sort(),
+        ],
     };
 }
 

@@ -2,7 +2,6 @@ import AdStatusEnum from './AdStatusEnum';
 import AdminStatusEnum from './AdminStatusEnum';
 import PrivacyStatusEnum from './PrivacyStatusEnum';
 
-
 export function getAdStatusLabel(adStatus, deactivatedByExpiry = false) {
     if (adStatus === AdStatusEnum.ACTIVE) {
         return 'Publisert';

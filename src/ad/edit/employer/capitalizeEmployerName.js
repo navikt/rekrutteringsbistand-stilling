@@ -1,13 +1,9 @@
 export default function capitalizeEmployerName(text) {
     const separators = [' ', '-', '(', '/'];
 
-    const ignore = [
-        'i', 'og', 'for', 'på', 'avd', 'av'
-    ];
+    const ignore = ['i', 'og', 'for', 'på', 'avd', 'av'];
 
-    const keep = [
-        'as', 'ab', 'asa', 'ba', 'sa'
-    ];
+    const keep = ['as', 'ab', 'asa', 'ba', 'sa'];
 
     if (text) {
         let capitalized = text.toLowerCase();
