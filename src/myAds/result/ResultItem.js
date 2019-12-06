@@ -102,7 +102,7 @@ const ResultItem = ({ ad, copiedAds, reportee }) => {
                 {ad.privacy && (
                     <Normaltekst className="ResultItem__column">
                         {ad.privacy === PrivacyStatusEnum.SHOW_ALL
-                            ? 'Nav.no' : 'Internt'}
+                            ? 'Arbeidsplassen' : 'Internt'}
                     </Normaltekst>
                 )}
             </td>

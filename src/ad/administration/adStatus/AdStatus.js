@@ -38,7 +38,7 @@ function AdStatus(props) {
             )}
             {adStatus === AdStatusEnum.ACTIVE && originalData.privacy === PrivacyStatusEnum.SHOW_ALL && (
                 <Alertstripe className="AdStatusPreview__Alertstripe" type="suksess" solid="true">
-                    Stillingen er publisert på nav.no | {' '}
+                    Stillingen er publisert på Arbeidsplassen | {' '}
                     {originalData.published ? formatISOString(originalData.published) : ''}
                 </Alertstripe>
             )}
