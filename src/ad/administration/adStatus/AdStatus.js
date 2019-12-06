@@ -18,7 +18,7 @@ function AdStatus(props) {
 
     return isSavingAd ? (
         <Alertstripe className="AdStatusPreview__Alertstripe" type="info" solid="true">
-            Stillingen er lagres
+            Stillingen er lagret
         </Alertstripe>
     ) : (
         <div className="AdStatusPreview">
@@ -32,35 +32,23 @@ function AdStatus(props) {
                     Stillingen blir publisert {formatISOString(originalData.published)}
                 </Alertstripe>
             )}
-            {adStatus === AdStatusEnum.INACTIVE &&
-                !deactivatedByExpiry &&
-                !activationOnPublishingDate && (
-                    <Alertstripe className="AdStatusPreview__Alertstripe" type="info" solid="true">
-                        Stillingen er ikke publisert
-                    </Alertstripe>
-                )}
-            {adStatus === AdStatusEnum.ACTIVE &&
-                originalData.privacy === PrivacyStatusEnum.INTERNAL_NOT_SHOWN && (
-                    <Alertstripe
-                        className="AdStatusPreview__Alertstripe"
-                        type="suksess"
-                        solid="true"
-                    >
-                        Stillingen er publisert internt i NAV |{' '}
-                        {originalData.published ? formatISOString(originalData.published) : ''}
-                    </Alertstripe>
-                )}
-            {adStatus === AdStatusEnum.ACTIVE &&
-                originalData.privacy === PrivacyStatusEnum.SHOW_ALL && (
-                    <Alertstripe
-                        className="AdStatusPreview__Alertstripe"
-                        type="suksess"
-                        solid="true"
-                    >
-                        Stillingen er publisert på nav.no |{' '}
-                        {originalData.published ? formatISOString(originalData.published) : ''}
-                    </Alertstripe>
-                )}
+            {adStatus === AdStatusEnum.INACTIVE && !deactivatedByExpiry && !activationOnPublishingDate && (
+                <Alertstripe className="AdStatusPreview__Alertstripe" type="info" solid="true">
+                    Stillingen er ikke publisert
+                </Alertstripe>
+            )}
+            {adStatus === AdStatusEnum.ACTIVE && originalData.privacy === PrivacyStatusEnum.INTERNAL_NOT_SHOWN && (
+                <Alertstripe className="AdStatusPreview__Alertstripe" type="suksess" solid="true">
+                    Stillingen er publisert internt i NAV | {' '}
+                    {originalData.published ? formatISOString(originalData.published) : ''}
+                </Alertstripe>
+            )}
+            {adStatus === AdStatusEnum.ACTIVE && originalData.privacy === PrivacyStatusEnum.SHOW_ALL && (
+                <Alertstripe className="AdStatusPreview__Alertstripe" type="suksess" solid="true">
+                    Stillingen er publisert på Arbeidsplassen | {' '}
+                    {originalData.published ? formatISOString(originalData.published) : ''}
+                </Alertstripe>
+            )}
             {adStatus === AdStatusEnum.STOPPED && (
                 <Alertstripe className="AdStatusPreview__Alertstripe" type="advarsel" solid="true">
                     Stillingen er stoppet

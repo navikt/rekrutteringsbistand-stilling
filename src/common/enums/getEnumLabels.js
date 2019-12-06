@@ -42,7 +42,7 @@ export function getPrivacyStatusLabel(privacyStatus) {
         return 'Internt i NAV';
     }
     if (privacyStatus === PrivacyStatusEnum.SHOW_ALL) {
-        return 'Eksternt på nav.no';
+        return 'Arbeidsplassen';
     }
 
     return '';

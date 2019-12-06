@@ -15,7 +15,7 @@ const SearchResultItem = ({ ad }) => {
         <tr className="SearchResultItem">
             <td>
                 <Normaltekst className="SearchResultItem__column">
-                    {ad.published ? formatISOString(ad.published) : ''}
+                    {ad.privacy === PrivacyStatusEnum.SHOW_ALL ? 'Arbeidsplassen' : 'Internt'}
                 </Normaltekst>
             </td>
             <td>
