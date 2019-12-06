@@ -9,15 +9,16 @@ import { Normaltekst } from 'nav-frontend-typografi';
 import './Requirements.less';
 
 class Requirements extends React.Component {
-
-
     render() {
         const hardrequirements = this.props.hardrequirements
-            ? JSON.parse(this.props.hardrequirements) : undefined;
+            ? JSON.parse(this.props.hardrequirements)
+            : undefined;
         const softrequirements = this.props.softrequirements
-            ? JSON.parse(this.props.softrequirements) : undefined;
+            ? JSON.parse(this.props.softrequirements)
+            : undefined;
         const personalattributes = this.props.personalattributes
-            ? JSON.parse(this.props.personalattributes) : undefined;
+            ? JSON.parse(this.props.personalattributes)
+            : undefined;
 
         return (
             <div>
@@ -28,51 +29,40 @@ class Requirements extends React.Component {
                                 Krav til kompetanse (maks 5)
                             </Normaltekst>
                             <HjelpetekstAuto>
-                                Absolutte krav til den som søker på
-                                stillingen. Det kan for eksempel
-                                være utdanningsnivå, spesiell
-                                erfaring eller språkkunnskaper.
+                                Absolutte krav til den som søker på stillingen. Det kan for eksempel
+                                være utdanningsnivå, spesiell erfaring eller språkkunnskaper.
                             </HjelpetekstAuto>
                         </div>
                     }
                     onChange={this.onHardrequirementsChange}
                     placeholder="For eksempel: pedagogikk"
                 />
-                <Input
-                    label=""
-                    onChange={this.onHardrequirementsChange}
-                />
-                <Input
-                    label=""
-                    onChange={this.onHardrequirementsChange}
-                />
-                {(hardrequirements && hardrequirements.length > 3) && (
+                <Input label="" onChange={this.onHardrequirementsChange} />
+                <Input label="" onChange={this.onHardrequirementsChange} />
+                {hardrequirements && hardrequirements.length > 3 && (
                     <Input
                         label=""
                         onChange={this.onHardrequirementsChange}
-                        inputRef={(i) => {
+                        inputRef={i => {
                             this.focusField = i;
                         }}
                     />
                 )}
-                {(hardrequirements && hardrequirements.length > 4) && (
+                {hardrequirements && hardrequirements.length > 4 && (
                     <Input
                         label=""
                         onChange={this.onHardrequirementsChange}
-                        inputRef={(i) => {
+                        inputRef={i => {
                             this.focusField = i;
                         }}
                     />
                 )}
                 {(hardrequirements === undefined || hardrequirements.length < 5) && (
-                        <Flatknapp
-                            onClick={this.onNewHardrequirement}
-                            mini
-                        >
-                            + Legg til et krav
-                        </Flatknapp>
-                    ) }
-                <div className="Requirements__separator"/>
+                    <Flatknapp onClick={this.onNewHardrequirement} mini>
+                        + Legg til et krav
+                    </Flatknapp>
+                )}
+                <div className="Requirements__separator" />
 
                 <Input
                     label={
@@ -81,50 +71,40 @@ class Requirements extends React.Component {
                                 Ønsket kompetanse (maks 5)
                             </Normaltekst>
                             <HjelpetekstAuto>
-                                Kompetanse som kan være relevant for stillingen,
-                                men som ikke er et absolutt krav for å kunne søke.
+                                Kompetanse som kan være relevant for stillingen, men som ikke er et
+                                absolutt krav for å kunne søke.
                             </HjelpetekstAuto>
                         </div>
                     }
                     onChange={this.onSoftrequirementsChange}
                     placeholder="For eksempel: Førerkort klasse B"
                 />
-                <Input
-                    label=""
-                    onChange={this.onSoftrequirementsChange}
-                />
-                <Input
-                    id="boerkrav3"
-                    label=""
-                    onChange={this.endreBoerKrav3}
-                />
-                {(softrequirements && softrequirements.length > 3) && (
+                <Input label="" onChange={this.onSoftrequirementsChange} />
+                <Input id="boerkrav3" label="" onChange={this.endreBoerKrav3} />
+                {softrequirements && softrequirements.length > 3 && (
                     <Input
                         label=""
                         onChange={this.onSoftrequirementsChange}
-                        inputRef={(i) => {
+                        inputRef={i => {
                             this.focusField = i;
                         }}
                     />
                 )}
-                {(softrequirements && softrequirements.length > 4) && (
+                {softrequirements && softrequirements.length > 4 && (
                     <Input
                         label=""
                         onChange={this.onSoftrequirementsChange}
-                        inputRef={(i) => {
+                        inputRef={i => {
                             this.focusField = i;
                         }}
                     />
                 )}
-                {(softrequirements === undefined || softrequirements.length < 5) &&(
-                    <Flatknapp
-                        onClick={this.visNyInputBoerkrav}
-                        mini
-                    >
+                {(softrequirements === undefined || softrequirements.length < 5) && (
+                    <Flatknapp onClick={this.visNyInputBoerkrav} mini>
                         + Legg til ønsket kompetanse
                     </Flatknapp>
                 )}
-                <div className="Requirements__separator"/>
+                <div className="Requirements__separator" />
                 <Input
                     label={
                         <div>
@@ -132,46 +112,37 @@ class Requirements extends React.Component {
                                 Personlige egenskaper (maks 5)
                             </Normaltekst>
                             <HjelpetekstAuto>
-                                Er det noen personlige egenskaper som vektlegges
-                                spesielt for denne stillingen?
+                                Er det noen personlige egenskaper som vektlegges spesielt for denne
+                                stillingen?
                             </HjelpetekstAuto>
                         </div>
                     }
                     onChange={this.onPersonalAttributesChange}
                     placeholder="For eksempel: ansvarsbevisst"
                 />
-                <Input
-                    label=""
-                    onChange={this.endrePersonligeEgenskaper2}
-                />
-                <Input
-                    label=""
-                    onChange={this.endrePersonligeEgenskaper3}
-                />
-                {(personalattributes && personalattributes.length > 3) && (
+                <Input label="" onChange={this.endrePersonligeEgenskaper2} />
+                <Input label="" onChange={this.endrePersonligeEgenskaper3} />
+                {personalattributes && personalattributes.length > 3 && (
                     <Input
                         id="personligeEgenskaper4"
                         label=""
                         onChange={this.endrePersonligeEgenskaper4}
-                        inputRef={(i) => {
+                        inputRef={i => {
                             this.focusField = i;
                         }}
                     />
                 )}
-                {(personalattributes && personalattributes.length > 4) && (
+                {personalattributes && personalattributes.length > 4 && (
                     <Input
                         label=""
                         onChange={this.endrePersonligeEgenskaper5}
-                        inputRef={(i) => {
+                        inputRef={i => {
                             this.focusField = i;
                         }}
                     />
                 )}
                 {(personalattributes === undefined || personalattributes.length < 5) && (
-                    <Flatknapp
-                        onClick={this.visNyInputEgenskaper}
-                        mini
-                    >
+                    <Flatknapp onClick={this.visNyInputEgenskaper} mini>
                         + Legg til en personlig egenskap
                     </Flatknapp>
                 )}
@@ -183,22 +154,21 @@ class Requirements extends React.Component {
 Requirements.defaultProps = {
     hardrequirements: undefined,
     softrequirements: undefined,
-    personalattributes: undefined
+    personalattributes: undefined,
 };
 
 Requirements.propTypes = {
     hardrequirements: PropTypes.string,
     softrequirements: PropTypes.string,
-    personalattributes: PropTypes.string
+    personalattributes: PropTypes.string,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     hardrequirements: state.adData.properties.hardrequirements,
     softrequirements: state.adData.properties.softrequirements,
-    personalattributes: state.adData.properties.hardrequirements
+    personalattributes: state.adData.properties.hardrequirements,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-});
+const mapDispatchToProps = dispatch => ({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Requirements);

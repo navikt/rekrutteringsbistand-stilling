@@ -21,7 +21,7 @@ const initialState = {
     municipalsCounties: [],
     countriesCache: undefined,
     countries: [],
-    typeaheadValue: ''
+    typeaheadValue: '',
 };
 
 export default function reducer(state = initialState, action) {
@@ -31,36 +31,47 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 municipalsCounties: [],
                 countries: [],
-                typeaheadValue: ''
+                typeaheadValue: '',
             };
         case SET_LOCATION_AREA_TYPEAHEAD:
             return {
                 ...state,
                 typeaheadValue: action.value,
-                municipalsCounties: (state.municipalsCountiesCache === undefined || action.value.length === 0)
-                    ? [] : state.municipalsCountiesCache.filter((mc) => mc.name.toLowerCase().startsWith(
-                        action.value.toLowerCase())).slice(0, 5),
-                countries: (state.countriesCache === undefined || action.value.length === 0)
-                    ? [] : state.countriesCache.filter((country) => country.name.toLowerCase().startsWith(
-                        action.value.toLowerCase())).slice(0, 5)
+                municipalsCounties:
+                    state.municipalsCountiesCache === undefined || action.value.length === 0
+                        ? []
+                        : state.municipalsCountiesCache
+                              .filter(mc =>
+                                  mc.name.toLowerCase().startsWith(action.value.toLowerCase())
+                              )
+                              .slice(0, 5),
+                countries:
+                    state.countriesCache === undefined || action.value.length === 0
+                        ? []
+                        : state.countriesCache
+                              .filter(country =>
+                                  country.name.toLowerCase().startsWith(action.value.toLowerCase())
+                              )
+                              .slice(0, 5),
             };
         case FETCH_LOCATION_AREA_SUCCESS: {
             // Skal ikke være mulig å velge Norge, så fjerner Norge fra listen
-            const countries = action.response.countries.filter((l) => l.code !== 'NO');
+            const countries = action.response.countries.filter(l => l.code !== 'NO');
 
             // Fjerner fylker som også er i kommuner: Jan Mayen (22) + Oslo (03)
-            const municipalsCounties =
-                action.response.municipalsCounties.filter((c) => (c.code !== '22' && c.code !== '03'));
+            const municipalsCounties = action.response.municipalsCounties.filter(
+                c => c.code !== '22' && c.code !== '03'
+            );
 
             return {
                 ...state,
                 municipalsCountiesCache: municipalsCounties,
-                countriesCache: countries
+                countriesCache: countries,
             };
         }
         case FETCH_LOCATION_AREA_FAILURE:
             return {
-                ...state
+                ...state,
             };
         default:
             return state;
@@ -91,13 +102,13 @@ function* fetchLocationArea() {
 
         yield put({
             type: FETCH_LOCATION_AREA_SUCCESS,
-            response: { countries: sortedCountries, municipalsCounties: sortedMunicipalsCounties }
+            response: { countries: sortedCountries, municipalsCounties: sortedMunicipalsCounties },
         });
     } catch (e) {
         yield put({ type: FETCH_LOCATION_AREA_FAILURE });
     }
 }
 
-export const locationAreaSaga = function* () {
+export const locationAreaSaga = function*() {
     yield takeLatest(FETCH_LOCATION_AREA_BEGIN, fetchLocationArea);
 };

@@ -6,7 +6,7 @@ module.exports = {
     output: {
         path: path.join(__dirname, 'dist'),
         filename: 'js/bundle-[hash:7].js',
-        publicPath: '/'
+        publicPath: '/',
     },
     module: {
         loaders: [
@@ -14,29 +14,29 @@ module.exports = {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader',
-                query: { presets: ['es2015', 'react', 'stage-2'] }
-            }, {
+                query: { presets: ['es2015', 'react', 'stage-2'] },
+            },
+            {
                 test: /\.css$/,
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
-                    use: 'css-loader'
-                })
-            }, {
+                    use: 'css-loader',
+                }),
+            },
+            {
                 test: /\.less$/,
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
                     use: [
                         'css-loader',
-                        'less-loader?{"globalVars":{"nodeModulesPath":"\'./../../\'", "coreModulePath":"\'./../../\'"}}'
-                    ]
-                })
-            }
-        ]
+                        'less-loader?{"globalVars":{"nodeModulesPath":"\'./../../\'", "coreModulePath":"\'./../../\'"}}',
+                    ],
+                }),
+            },
+        ],
     },
     resolve: {
-        extensions: ['.js', '.jsx']
+        extensions: ['.js', '.jsx'],
     },
-    plugins: [
-        new ExtractTextPlugin('css/styles.css')
-    ]
+    plugins: [new ExtractTextPlugin('css/styles.css')],
 };

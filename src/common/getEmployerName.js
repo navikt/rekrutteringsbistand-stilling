@@ -12,4 +12,4 @@ export default function getEmployerName(ad) {
         return capitalizeEmployerName(ad.properties.employer);
     }
     return '';
-};
+}

@@ -15,7 +15,14 @@ class AdPublishedModal extends React.Component {
     };
 
     render() {
-        const { showAdPublishedModal, uuid, adStatus, activationOnPublishingDate, published, isSavingAd } = this.props;
+        const {
+            showAdPublishedModal,
+            uuid,
+            adStatus,
+            activationOnPublishingDate,
+            published,
+            isSavingAd,
+        } = this.props;
 
         return isSavingAd ? null : (
             <NavFrontendModal
@@ -31,9 +38,7 @@ class AdPublishedModal extends React.Component {
                         Stillingen blir publisert {formatISOString(published)}
                     </Undertittel>
                 ) : (
-                    <Undertittel className="blokk-s">
-                        Stillingen er publisert
-                    </Undertittel>
+                    <Undertittel className="blokk-s">Stillingen er publisert</Undertittel>
                 )}
                 <div>
                     <Normaltekst className="blokk-l">
@@ -45,13 +50,9 @@ class AdPublishedModal extends React.Component {
                             className="lenke"
                             onClick={this.onClose}
                         >
-                        Finn kandidater
+                            Finn kandidater
                         </a>
-                        <Link
-                            to="/minestillinger"
-                            className="lenke"
-                            onClick={this.onClose}
-                        >
+                        <Link to="/minestillinger" className="lenke" onClick={this.onClose}>
                             Til mine stillinger
                         </Link>
                     </div>
@@ -63,7 +64,7 @@ class AdPublishedModal extends React.Component {
 
 AdPublishedModal.defaultProps = {
     uuid: undefined,
-    activationOnPublishingDate: undefined
+    activationOnPublishingDate: undefined,
 };
 
 AdPublishedModal.propTypes = {
@@ -73,20 +74,20 @@ AdPublishedModal.propTypes = {
     uuid: PropTypes.string,
     adStatus: PropTypes.string.isRequired,
     activationOnPublishingDate: PropTypes.bool,
-    published: PropTypes.string.isRequired
+    published: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     showAdPublishedModal: state.ad.showAdPublishedModal,
     uuid: state.adData.uuid,
     adStatus: state.adData.status,
     activationOnPublishingDate: state.adData.activationOnPublishingDate,
     published: state.adData.published,
-    isSavingAd: state.ad.isSavingAd
+    isSavingAd: state.ad.isSavingAd,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    closeModal: () => dispatch({ type: HIDE_AD_PUBLISHED_MODAL })
+const mapDispatchToProps = dispatch => ({
+    closeModal: () => dispatch({ type: HIDE_AD_PUBLISHED_MODAL }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdPublishedModal);

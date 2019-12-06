@@ -3,7 +3,7 @@ const AdStatusEnum = {
     INACTIVE: 'INACTIVE',
     REJECTED: 'REJECTED',
     STOPPED: 'STOPPED',
-    DELETED: 'DELETED'
+    DELETED: 'DELETED',
 };
 
 export default AdStatusEnum;

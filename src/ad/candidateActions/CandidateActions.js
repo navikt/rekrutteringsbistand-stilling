@@ -7,16 +7,15 @@ import LeggTilKandidatModal from '../kandidatModal/LeggTilKandidatModal';
 import ButtonWithIcon from '../../common/buttonWithIcon/ButtonWithIcon';
 import './CandidateActions.less';
 
-
 class CandidateActions extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            showKandidatModal: false
+            showKandidatModal: false,
         };
     }
 
-    onNavigationClick = (url) => (e) => {
+    onNavigationClick = url => e => {
         if (this.props.hasChanges) {
             e.preventDefault();
             this.props.showHasChangesModal(url);
@@ -25,15 +24,16 @@ class CandidateActions extends React.Component {
 
     toggleKandidatModal = () => {
         this.setState({
-            showKandidatModal: !this.state.showKandidatModal
+            showKandidatModal: !this.state.showKandidatModal,
         });
     };
 
     render() {
         const { uuid, source, publishedByAdmin, id } = this.props.ad;
-        const {recruitment}  = this.props;
+        const { recruitment } = this.props;
 
-        const showCandidateLinks = (publishedByAdmin && source === 'DIR' || recruitment.eierNavident);
+        const showCandidateLinks =
+            (publishedByAdmin && source === 'DIR') || recruitment.eierNavident;
 
         return (
             <div className="CandidateActions">
@@ -64,7 +64,9 @@ class CandidateActions extends React.Component {
                 {showCandidateLinks && (
                     <AWithIcon
                         href={`/kandidater/lister/stilling/${uuid}/detaljer`}
-                        onClick={this.onNavigationClick(`/kandidater/lister/stilling/${uuid}/detaljer`)}
+                        onClick={this.onNavigationClick(
+                            `/kandidater/lister/stilling/${uuid}/detaljer`
+                        )}
                         classNameText="typo-element"
                         classNameLink="Ad__actions-link CandidateList"
                         text="Se kandidatliste"
@@ -75,26 +77,25 @@ class CandidateActions extends React.Component {
     }
 }
 
-
 CandidateActions.propTypes = {
     ad: PropTypes.shape({
         uuid: PropTypes.string,
         source: PropTypes.string,
         publishedByAdmin: PropTypes.string,
-        id: PropTypes.number
+        id: PropTypes.number,
     }).isRequired,
     hasChanges: PropTypes.bool.isRequired,
-    showHasChangesModal: PropTypes.func.isRequired
+    showHasChangesModal: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     ad: state.adData,
     hasChanges: state.ad.hasChanges,
-    recruitment: state.recruitmentData
+    recruitment: state.recruitmentData,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    showHasChangesModal: (leaveUrl) => dispatch({ type: SHOW_HAS_CHANGES_MODAL, leaveUrl })
+const mapDispatchToProps = dispatch => ({
+    showHasChangesModal: leaveUrl => dispatch({ type: SHOW_HAS_CHANGES_MODAL, leaveUrl }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CandidateActions);

@@ -7,14 +7,14 @@ export default class Faded extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            faded: true
+            faded: true,
         };
     }
 
     componentDidMount() {
         this.fadeTimeout = setTimeout(() => {
             this.setState({
-                faded: false
+                faded: false,
             });
         }, 50);
     }
@@ -34,9 +34,9 @@ export default class Faded extends React.Component {
 }
 
 Faded.defaultProps = {
-    children: undefined
+    children: undefined,
 };
 
 Faded.propTypes = {
-    children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node])
+    children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
 };

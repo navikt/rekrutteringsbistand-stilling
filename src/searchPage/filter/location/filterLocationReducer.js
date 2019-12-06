@@ -20,7 +20,7 @@ const initialState = {
     municipals: [],
     typeaheadValue: '',
     countiesCache: undefined,
-    counties: []
+    counties: [],
 };
 
 export default function filterLocationReducer(state = initialState, action) {
@@ -29,27 +29,39 @@ export default function filterLocationReducer(state = initialState, action) {
             return {
                 ...state,
                 typeaheadValue: action.value,
-                municipals: (state.municipalsCache === undefined || action.value.length === 0)
-                    ? [] : state.municipalsCache.filter(
-                        (municipal) => municipal.name.toLowerCase().startsWith(action.value.toLowerCase())
-                    ).slice(0, 5),
-                counties: (state.countiesCache === undefined || action.value.length === 0)
-                    ? [] : state.countiesCache.filter((county) => county.name.toLowerCase().startsWith(action.value.toLowerCase())).slice(0, 5)
+                municipals:
+                    state.municipalsCache === undefined || action.value.length === 0
+                        ? []
+                        : state.municipalsCache
+                              .filter(municipal =>
+                                  municipal.name
+                                      .toLowerCase()
+                                      .startsWith(action.value.toLowerCase())
+                              )
+                              .slice(0, 5),
+                counties:
+                    state.countiesCache === undefined || action.value.length === 0
+                        ? []
+                        : state.countiesCache
+                              .filter(county =>
+                                  county.name.toLowerCase().startsWith(action.value.toLowerCase())
+                              )
+                              .slice(0, 5),
             };
         case FETCH_FILTER_LOCATIONS:
             return {
                 ...state,
                 municipalsCache: action.response.municipals,
-                countiesCache: action.response.counties
+                countiesCache: action.response.counties,
             };
         case FETCH_FILTER_LOCATIONS_FAILURE:
             return {
-                ...state
+                ...state,
             };
         case RESET_SEARCH:
             return {
                 ...state,
-                typeaheadValue: ''
+                typeaheadValue: '',
             };
         default:
             return state;
@@ -69,6 +81,6 @@ function* fetchFilterLocations() {
     }
 }
 
-export const filterLocationSaga = function* () {
+export const filterLocationSaga = function*() {
     yield takeLatest(FETCH_FILTER_LOCATIONS_BEGIN, fetchFilterLocations);
 };

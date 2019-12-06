@@ -5,22 +5,18 @@ import { Input } from 'nav-frontend-skjema';
 import { Normaltekst } from 'nav-frontend-typografi';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import RichTextEditor from '../richTextEditor/RichTextEditor';
-import {
-    SET_AD_TEXT,
-    SET_EMPLOYMENT_JOBTITLE
-} from '../../adDataReducer';
+import { SET_AD_TEXT, SET_EMPLOYMENT_JOBTITLE } from '../../adDataReducer';
 import Styrk from './styrk/Styrk';
 
-
 class JobDetails extends React.Component {
-    onJobtitleChange = (e) => {
+    onJobtitleChange = e => {
         this.props.setJobTitle(e.target.value);
     };
 
-    onAdTextChange = (adText) => {
+    onAdTextChange = adText => {
         // This function is triggered first time adText is in focus before any letter is written.
         // In this case, just return to avoid the error message from showing before any edits are done.
-        if((this.props.ad.properties.adtext === undefined) && (adText === '')){
+        if (this.props.ad.properties.adtext === undefined && adText === '') {
             return;
         }
 
@@ -44,7 +40,9 @@ class JobDetails extends React.Component {
                     onChange={this.onJobtitleChange}
                     placeholder="Yrket som vises på stillingen"
                 />
-                <div className="blokk-xxs" id="stillingstekst"><Normaltekst>Stillingstekst*</Normaltekst></div>
+                <div className="blokk-xxs" id="stillingstekst">
+                    <Normaltekst>Stillingstekst*</Normaltekst>
+                </div>
                 <div className="Edit__JobDetails__rteEditor-content">
                     <RichTextEditor
                         text={ad.properties.adtext || ''}
@@ -58,26 +56,25 @@ class JobDetails extends React.Component {
     }
 }
 
-JobDetails.defaultProps = {
-};
+JobDetails.defaultProps = {};
 
 JobDetails.propTypes = {
     ad: PropTypes.shape({
-        title: PropTypes.string
+        title: PropTypes.string,
     }),
     setAdText: PropTypes.func.isRequired,
     setJobTitle: PropTypes.func.isRequired,
-    isSaved: PropTypes.bool
+    isSaved: PropTypes.bool,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     ad: state.adData,
-    validation: state.adValidation.errors
+    validation: state.adValidation.errors,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    setJobTitle: (jobtitle) => dispatch({ type: SET_EMPLOYMENT_JOBTITLE, jobtitle }),
-    setAdText: (adtext) => dispatch({ type: SET_AD_TEXT, adtext })
+const mapDispatchToProps = dispatch => ({
+    setJobTitle: jobtitle => dispatch({ type: SET_EMPLOYMENT_JOBTITLE, jobtitle }),
+    setAdText: adtext => dispatch({ type: SET_AD_TEXT, adtext }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(JobDetails);

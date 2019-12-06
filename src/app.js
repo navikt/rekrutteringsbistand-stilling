@@ -9,7 +9,9 @@ import locationCodeReducer, { locationCodeSaga } from './ad/edit/location/locati
 import styrkReducer, { styrkSaga } from './ad/edit/jobDetails/styrk/styrkReducer';
 import adReducer, { adSaga } from './ad/adReducer';
 import searchReducer, { searchSaga } from './searchPage/searchReducer';
-import filterLocationReducer, { filterLocationSaga } from './searchPage/filter/location/filterLocationReducer';
+import filterLocationReducer, {
+    filterLocationSaga,
+} from './searchPage/filter/location/filterLocationReducer';
 import locationAreaReducer, { locationAreaSaga } from './ad/edit/location/locationAreaReducer';
 import Ad from './ad/Ad';
 import { MinestillingerHeader, Rekrutteringsbisstand, StillingssokHeader } from './topmenu/TopMenu';
@@ -33,23 +35,26 @@ const sagaMiddleware = createSagaMiddleware();
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const store = createStore(combineReducers({
-    ad: adReducer,
-    adData: adDataReducer,
-    adValidation: adValidationReducer,
-    employer: employerReducer,
-    kandidat: kandidatReducer,
-    filterLocation: filterLocationReducer,
-    locationCode: locationCodeReducer,
-    locationArea: locationAreaReducer,
-    myAds: myAdsReducer,
-    reportee: reporteeReducer,
-    savedAdAlertStripe: savedSearchAlertStripeReducer,
-    search: searchReducer,
-    styrk: styrkReducer,
-    recruitment: recruitmentReducer,
-    recruitmentData: recruitmentDataReducer
-}), composeEnhancers(applyMiddleware(sagaMiddleware)));
+const store = createStore(
+    combineReducers({
+        ad: adReducer,
+        adData: adDataReducer,
+        adValidation: adValidationReducer,
+        employer: employerReducer,
+        kandidat: kandidatReducer,
+        filterLocation: filterLocationReducer,
+        locationCode: locationCodeReducer,
+        locationArea: locationAreaReducer,
+        myAds: myAdsReducer,
+        reportee: reporteeReducer,
+        savedAdAlertStripe: savedSearchAlertStripeReducer,
+        search: searchReducer,
+        styrk: styrkReducer,
+        recruitment: recruitmentReducer,
+        recruitmentData: recruitmentDataReducer,
+    }),
+    composeEnhancers(applyMiddleware(sagaMiddleware))
+);
 
 sagaMiddleware.run(adSaga);
 sagaMiddleware.run(validationSaga);
@@ -88,7 +93,7 @@ const Main = () => {
                 <Route exact path="*" component={StartPage} />
             </Switch>
         </main>
-    )
+    );
 };
 
 ReactDOM.render(

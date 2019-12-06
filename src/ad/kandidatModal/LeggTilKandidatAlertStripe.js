@@ -5,7 +5,12 @@ import { AlertStripeSuksess, AlertStripeAdvarselSolid } from 'nav-frontend-alert
 import { KandidatAlertStripeMode } from './kandidatReducer';
 import './LeggTilKandidatAlertStripe.less';
 
-const LeggTilKandidatAlertStripe = ({ showAlertStripe, alertStripeMode, kandidat, fodselsnummer }) => {
+const LeggTilKandidatAlertStripe = ({
+    showAlertStripe,
+    alertStripeMode,
+    kandidat,
+    fodselsnummer,
+}) => {
     if (showAlertStripe && alertStripeMode === KandidatAlertStripeMode.SAVED) {
         return (
             <AlertStripeSuksess solid="true" className="LeggTilKandidatAlertStripe">
@@ -27,16 +32,16 @@ LeggTilKandidatAlertStripe.propTypes = {
     alertStripeMode: PropTypes.string.isRequired,
     kandidat: PropTypes.shape({
         fornavn: PropTypes.string,
-        etternavn: PropTypes.string
+        etternavn: PropTypes.string,
     }),
-    fodselsnummer: PropTypes.string
+    fodselsnummer: PropTypes.string,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     showAlertStripe: state.kandidat.showAlertStripe,
     alertStripeMode: state.kandidat.alertStripeMode,
     kandidat: state.kandidat.kandidat,
-    fodselsnummer: state.kandidat.fodselsnummer
+    fodselsnummer: state.kandidat.fodselsnummer,
 });
 
 export default connect(mapStateToProps)(LeggTilKandidatAlertStripe);

@@ -1,100 +1,99 @@
-@import "../../variables";
+@import '../../variables';
 
 .SearchResult__table {
-  max-width: 100%;
-  width: 100%;
-  table-layout: fixed;
-  border-collapse: collapse;
+    max-width: 100%;
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
 
-  th, td {
-    text-align: left;
-  }
-
-  td {
-    min-height: 3.5rem;
-    height: 3.5rem;
-
-    &:first-of-type {
-      padding-left: 0.5rem;
-    }
-  }
-
-  th {
-    min-height: 4rem;
-    height: 4rem;
-    &:first-of-type {
-      // publisert dato
-      padding-left: 0.5rem;
-      width: 120px;
+    th,
+    td {
+        text-align: left;
     }
 
-    &:nth-of-type(2) {
-      // annonseoverskrift
-      width: 270px;
+    td {
+        min-height: 3.5rem;
+        height: 3.5rem;
+
+        &:first-of-type {
+            padding-left: 0.5rem;
+        }
     }
 
-    &:nth-of-type(3) {
-      // arbeidsgiver
-      width: 230px;
-    }
+    th {
+        min-height: 4rem;
+        height: 4rem;
+        &:first-of-type {
+            // publisert dato
+            padding-left: 0.5rem;
+            width: 120px;
+        }
 
-    &:nth-of-type(4) {
-      //Sted
-      width: 120px;
-    }
+        &:nth-of-type(2) {
+            // annonseoverskrift
+            width: 270px;
+        }
 
-    &:nth-of-type(5) {
-      //publisert
-      width: 105px;
-    }
+        &:nth-of-type(3) {
+            // arbeidsgiver
+            width: 230px;
+        }
 
-    &:nth-of-type(6) {
-      // utløpsdagto
-      width: 125px;
-    }
+        &:nth-of-type(4) {
+            //Sted
+            width: 120px;
+        }
 
-    &:nth-of-type(7) {
-      //kandidatliste
-      width: 150px;
-    }
-  }
+        &:nth-of-type(5) {
+            //publisert
+            width: 105px;
+        }
 
+        &:nth-of-type(6) {
+            // utløpsdagto
+            width: 125px;
+        }
+
+        &:nth-of-type(7) {
+            //kandidatliste
+            width: 150px;
+        }
+    }
 }
 
-
 .SearchResultItem {
-  padding: 1rem 0;
-  border-bottom: 1px solid #cecac4;
+    padding: 1rem 0;
+    border-bottom: 1px solid #cecac4;
 }
 
 .SearchResultItem__column {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  margin-right: 1rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin-right: 1rem;
 }
 
 .AdTitle_link:visited {
-  color: @navLilla;
+    color: @navLilla;
 }
 
 .SearchResultItem__column__flex {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .SearchResultItem__column__flex__ellipsis {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .SearchResultHeaders {
-  border-bottom: 1px solid #cecac4;
-  border-top: 1px solid #cecac4;
-  font-weight: bold;
+    border-bottom: 1px solid #cecac4;
+    border-top: 1px solid #cecac4;
+    font-weight: bold;
 }
 
-.SearchResultItem__column__unassign{
-  margin-left: 0.25rem;
+.SearchResultItem__column__unassign {
+    margin-left: 0.25rem;
 }

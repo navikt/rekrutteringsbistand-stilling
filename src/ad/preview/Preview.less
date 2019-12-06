@@ -1,138 +1,143 @@
-@import "../../../node_modules/nav-frontend-lenker-style/src/lenker-style";
-@import "../../variables";
+@import '../../../node_modules/nav-frontend-lenker-style/src/lenker-style';
+@import '../../variables';
 
 .AdText__title {
-  margin-bottom: 1rem!important;
+    margin-bottom: 1rem !important;
 }
 
 .AdText__body {
-  @media (min-width: @screen-md) {
-    margin-right: 1rem;
-  }
-  font-family: "Source Sans Pro", Arial, sans-serif;
-  font-size: 1rem;
-  line-height: 1.375rem;
-  font-weight: 400;
-  min-height: 60px;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  background: @white;
-  padding: 20px 32px;
-  border: 1px solid #cccccc;
-
-  a {
-    .lenke;
-  }
-
-  h1 {
-    margin: 0;
-    font-size: 1.5rem;
-    font-weight: 600;
-  }
-
-  h2 {
-    margin: 0;
-    font-size: 1.25rem;
-    line-height: 1.5625rem;
-    font-weight: 600;
-  }
-
-  h3 {
-    margin: 0;
-    font-size: 1.125rem;
-    line-height: 1.5rem;
+    @media (min-width: @screen-md) {
+        margin-right: 1rem;
+    }
+    font-family: 'Source Sans Pro', Arial, sans-serif;
+    font-size: 1rem;
+    line-height: 1.375rem;
     font-weight: 400;
-  }
+    min-height: 60px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    background: @white;
+    padding: 20px 32px;
+    border: 1px solid #cccccc;
+
+    a {
+        .lenke;
+    }
+
+    h1 {
+        margin: 0;
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+
+    h2 {
+        margin: 0;
+        font-size: 1.25rem;
+        line-height: 1.5625rem;
+        font-weight: 600;
+    }
+
+    h3 {
+        margin: 0;
+        font-size: 1.125rem;
+        line-height: 1.5rem;
+        font-weight: 400;
+    }
 }
 
 .highlight-word {
-  color: rgb(186, 58, 38);
-  background-color: rgb(243, 227, 227);
+    color: rgb(186, 58, 38);
+    background-color: rgb(243, 227, 227);
 }
 
 .detail-section {
-  padding: 20px;
-  margin-bottom: 1rem;
-  background: @white;
-  border: 1px solid #cccccc;
-
-  .detail-section__head {
+    padding: 20px;
     margin-bottom: 1rem;
-  }
+    background: @white;
+    border: 1px solid #cccccc;
+
+    .detail-section__head {
+        margin-bottom: 1rem;
+    }
 }
 
 .dl-flex {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
 
-  dt {
-    flex: 0 45%;
-    color: @navGra60;
-    overflow-wrap: break-word;
-    word-break: break-all;
-    overflow:hidden
-  }
+    dt {
+        flex: 0 45%;
+        color: @navGra60;
+        overflow-wrap: break-word;
+        word-break: break-all;
+        overflow: hidden;
+    }
 
-  dd:not(:last-of-type),
-  dt:not(:last-of-type) {
-    margin-bottom: 0.25rem;
-  }
+    dd:not(:last-of-type),
+    dt:not(:last-of-type) {
+        margin-bottom: 0.25rem;
+    }
 
-  dd {
-    flex: 0 55%;
-    max-width: 55%;
-    margin-left: 0;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    overflow:hidden
-  }
+    dd {
+        flex: 0 55%;
+        max-width: 55%;
+        margin-left: 0;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        overflow: hidden;
+    }
 }
 
 .EmployerDetails__description {
-  margin-top: 1rem;
-  font-family: "Source Sans Pro", Arial, sans-serif;
-  font-size: 1rem;
-  line-height: 1.375rem;
-  font-weight: 400;
-  min-height: 60px;
+    margin-top: 1rem;
+    font-family: 'Source Sans Pro', Arial, sans-serif;
+    font-size: 1rem;
+    line-height: 1.375rem;
+    font-weight: 400;
+    min-height: 60px;
 
-  a {
-    .lenke;
-  }
+    a {
+        .lenke;
+    }
 
-  p {
-    margin: 0;
-  }
+    p {
+        margin: 0;
+    }
 }
 
 .AdText__panel {
-  margin-right: 1rem;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  background: @white;
-  border: 1px solid #cccccc;
+    margin-right: 1rem;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    background: @white;
+    border: 1px solid #cccccc;
 }
 
-
-.HardRequirements, .SoftRequirements, .PersonalAttributes {
-  .AdText__panel;
-  margin-top: 1rem;
-  display: flex;
-  flex-direction: row;
+.HardRequirements,
+.SoftRequirements,
+.PersonalAttributes {
+    .AdText__panel;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: row;
 }
 
-.HardRequirements__points, .SoftRequirements__points, .PersonalAttributes__points {
-  padding: 20px 32px;
-  width: 70%;
+.HardRequirements__points,
+.SoftRequirements__points,
+.PersonalAttributes__points {
+    padding: 20px 32px;
+    width: 70%;
 
-  ul {
-    margin: 0;
-  }
+    ul {
+        margin: 0;
+    }
 }
 
-.SoftRequirements__label, .HardRequirements__label, .PersonalAttributes__label {
-  background: #e5f3eb;
-  width: 30%;
-  padding: 20px 32px;
+.SoftRequirements__label,
+.HardRequirements__label,
+.PersonalAttributes__label {
+    background: #e5f3eb;
+    width: 30%;
+    padding: 20px 32px;
 }

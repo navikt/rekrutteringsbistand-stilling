@@ -4,36 +4,38 @@ import { connect } from 'react-redux';
 import { Input } from 'nav-frontend-skjema';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { SET_CONTACT_PERSON } from '../../adDataReducer';
-import { VALIDATE_CONTACTPERSON_EMAIL, VALIDATE_CONTACTPERSON_PHONE } from '../../adValidationReducer';
+import {
+    VALIDATE_CONTACTPERSON_EMAIL,
+    VALIDATE_CONTACTPERSON_PHONE,
+} from '../../adValidationReducer';
 import { Normaltekst } from 'nav-frontend-typografi';
 
-
 class ContactPerson extends React.Component {
-    onNameChange = (e) => {
+    onNameChange = e => {
         const { setContactPerson } = this.props;
         setContactPerson({
-            name: e.target.value
+            name: e.target.value,
         });
     };
 
-    onTitleChange = (e) => {
+    onTitleChange = e => {
         const { setContactPerson } = this.props;
         setContactPerson({
-            title: e.target.value
+            title: e.target.value,
         });
     };
 
-    onPhoneChange = (e) => {
+    onPhoneChange = e => {
         const { setContactPerson } = this.props;
         setContactPerson({
-            phone: e.target.value
+            phone: e.target.value,
         });
     };
 
-    onEmailChange = (e) => {
+    onEmailChange = e => {
         const { setContactPerson } = this.props;
         setContactPerson({
-            email: e.target.value
+            email: e.target.value,
         });
     };
 
@@ -75,8 +77,11 @@ class ContactPerson extends React.Component {
                     value={contactList[0] && contactList[0].email ? contactList[0].email : ''}
                     onChange={this.onEmailChange}
                     onBlur={this.onEmailBlur}
-                    feil={this.props.validation.contactpersonEmail
-                        && { feilmelding: this.props.validation.contactpersonEmail }}
+                    feil={
+                        this.props.validation.contactpersonEmail && {
+                            feilmelding: this.props.validation.contactpersonEmail,
+                        }
+                    }
                     placeholder="ola.normann@firmanavn.no"
                 />
                 <Input
@@ -84,10 +89,12 @@ class ContactPerson extends React.Component {
                     label="Telefonnummer"
                     value={contactList[0] && contactList[0].phone ? contactList[0].phone : ''}
                     onBlur={this.onPhoneBlur}
-                    feil={this.props.validation.contactpersonPhone
-                        && { feilmelding: this.props.validation.contactpersonPhone }}
+                    feil={
+                        this.props.validation.contactpersonPhone && {
+                            feilmelding: this.props.validation.contactpersonPhone,
+                        }
+                    }
                     onChange={this.onPhoneChange}
-
                 />
             </Ekspanderbartpanel>
         );
@@ -95,33 +102,35 @@ class ContactPerson extends React.Component {
 }
 
 ContactPerson.defaultProps = {
-    contactList: []
+    contactList: [],
 };
 
 ContactPerson.propTypes = {
-    contactList: PropTypes.arrayOf(PropTypes.shape({
-        name: PropTypes.string,
-        title: PropTypes.string,
-        phone: PropTypes.string,
-        email: PropTypes.string
-    })),
+    contactList: PropTypes.arrayOf(
+        PropTypes.shape({
+            name: PropTypes.string,
+            title: PropTypes.string,
+            phone: PropTypes.string,
+            email: PropTypes.string,
+        })
+    ),
     setContactPerson: PropTypes.func.isRequired,
     validateEmail: PropTypes.func.isRequired,
     validatePhone: PropTypes.func.isRequired,
     validation: PropTypes.shape({
         contactpersonEmail: PropTypes.string,
-        contactpersonPhone: PropTypes.string
-    }).isRequired
+        contactpersonPhone: PropTypes.string,
+    }).isRequired,
 };
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     contactList: state.adData.contactList,
-    validation: state.adValidation.errors
+    validation: state.adValidation.errors,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    setContactPerson: (contactPerson) => dispatch({ type: SET_CONTACT_PERSON, contactPerson }),
+const mapDispatchToProps = dispatch => ({
+    setContactPerson: contactPerson => dispatch({ type: SET_CONTACT_PERSON, contactPerson }),
     validateEmail: () => dispatch({ type: VALIDATE_CONTACTPERSON_EMAIL }),
-    validatePhone: () => dispatch({ type: VALIDATE_CONTACTPERSON_PHONE })
+    validatePhone: () => dispatch({ type: VALIDATE_CONTACTPERSON_PHONE }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContactPerson);

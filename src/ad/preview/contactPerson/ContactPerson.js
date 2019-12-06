@@ -6,23 +6,25 @@ export default function ContactPerson({ contactList }) {
     if (contactList && contactList.length > 0) {
         return (
             <div className="detail-section">
-                <Undertittel className="detail-section__head">Kontaktperson for stillingen</Undertittel>
+                <Undertittel className="detail-section__head">
+                    Kontaktperson for stillingen
+                </Undertittel>
                 <dl className="dl-flex typo-normal">
                     {contactList[0].name && [
                         <dt key="dt">Kontaktperson:</dt>,
-                        <dd key="dd">{contactList[0].name}</dd>
+                        <dd key="dd">{contactList[0].name}</dd>,
                     ]}
                     {contactList[0].title && [
                         <dt key="dt">Stillingstittel:</dt>,
-                        <dd key="dd">{contactList[0].title}</dd>
+                        <dd key="dd">{contactList[0].title}</dd>,
                     ]}
                     {contactList[0].phone && [
                         <dt key="dt">Telefon:</dt>,
-                        <dd key="dd">{contactList[0].phone}</dd>
+                        <dd key="dd">{contactList[0].phone}</dd>,
                     ]}
                     {contactList[0].email && [
                         <dt key="dt">Epost:</dt>,
-                        <dd key="dd">{contactList[0].email}</dd>
+                        <dd key="dd">{contactList[0].email}</dd>,
                     ]}
                 </dl>
             </div>
@@ -32,14 +34,16 @@ export default function ContactPerson({ contactList }) {
 }
 
 ContactPerson.defaultProps = {
-    contactList: undefined
+    contactList: undefined,
 };
 
 ContactPerson.propTypes = {
-    contactList: PropTypes.arrayOf(PropTypes.shape({
-        person: PropTypes.string,
-        title: PropTypes.string,
-        phone: PropTypes.string,
-        email: PropTypes.string
-    }))
+    contactList: PropTypes.arrayOf(
+        PropTypes.shape({
+            person: PropTypes.string,
+            title: PropTypes.string,
+            phone: PropTypes.string,
+            email: PropTypes.string,
+        })
+    ),
 };

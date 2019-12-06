@@ -7,7 +7,6 @@ import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import './DeleteAdModal.less';
 import { DELETE_AD_FROM_MY_ADS, HIDE_DELETE_AD_MODAL } from '../../adReducer';
 
-
 class DeleteAdModal extends React.Component {
     onClose = () => {
         this.props.closeModal();
@@ -29,9 +28,7 @@ class DeleteAdModal extends React.Component {
                 appElement={document.getElementById('app')}
                 className="DeleteAdModal"
             >
-                <Undertittel className="blokk-s">
-                    Slett stilling og kandidatliste
-                </Undertittel>
+                <Undertittel className="blokk-s">Slett stilling og kandidatliste</Undertittel>
                 <Normaltekst className="blokk-l">
                     {`Er du sikker på at du ønsker å slette "${title}" og tilhørende kandidatliste?
                     Stillinger og kandidatlister som er slettet vises ikke i løsningen.`}
@@ -46,24 +43,24 @@ class DeleteAdModal extends React.Component {
 }
 
 DeleteAdModal.defaultProps = {
-    title: undefined
+    title: undefined,
 };
 
 DeleteAdModal.propTypes = {
     closeModal: PropTypes.func.isRequired,
     deleteAd: PropTypes.func.isRequired,
     showDeleteAdModal: PropTypes.bool.isRequired,
-    title: PropTypes.string
+    title: PropTypes.string,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     showDeleteAdModal: state.ad.showDeleteAdModal,
-    title: state.adData.title
+    title: state.adData.title,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     closeModal: () => dispatch({ type: HIDE_DELETE_AD_MODAL }),
-    deleteAd: () => dispatch({ type: DELETE_AD_FROM_MY_ADS })
+    deleteAd: () => dispatch({ type: DELETE_AD_FROM_MY_ADS }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DeleteAdModal);

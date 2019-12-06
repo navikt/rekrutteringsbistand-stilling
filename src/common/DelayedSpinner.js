@@ -5,14 +5,14 @@ export default class DelayedSpinner extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            showSpinner: false
+            showSpinner: false,
         };
     }
 
     componentDidMount() {
         this.spinnerTimeout = setTimeout(() => {
             this.setState({
-                showSpinner: true
+                showSpinner: true,
             });
         }, 300);
     }
@@ -23,7 +23,7 @@ export default class DelayedSpinner extends React.Component {
 
     render() {
         if (this.state.showSpinner) {
-            return <Spinner type="L" />
+            return <Spinner type="L" />;
         }
         return null;
     }

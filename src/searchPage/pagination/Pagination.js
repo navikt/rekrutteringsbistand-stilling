@@ -27,18 +27,14 @@ class Pagination extends React.Component {
                 </Normaltekst>
                 <div className="Pagination__buttons">
                     {this.props.page > 0 && (
-                        <Flatknapp
-                            onClick={this.onPreviousPage}
-                        >
+                        <Flatknapp onClick={this.onPreviousPage}>
                             <Chevron type="venstre" className="Pagination__chevron" />
                             Forrige
                         </Flatknapp>
                     )}
 
                     {this.props.page + 1 < this.props.totalPages && (
-                        <Flatknapp
-                            onClick={this.onNextPage}
-                        >
+                        <Flatknapp onClick={this.onNextPage}>
                             Neste
                             <Chevron type="høyre" className="Pagination__chevron" />
                         </Flatknapp>
@@ -49,20 +45,19 @@ class Pagination extends React.Component {
     }
 }
 
-
 Pagination.propTypes = {
     totalPages: PropTypes.number.isRequired,
     page: PropTypes.number.isRequired,
-    changePage: PropTypes.func.isRequired
+    changePage: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     totalPages: state.search.totalPages,
-    page: state.search.page
+    page: state.search.page,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    changePage: (page) => dispatch({ type: CHANGE_PAGE, page })
+const mapDispatchToProps = dispatch => ({
+    changePage: page => dispatch({ type: CHANGE_PAGE, page }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Pagination);

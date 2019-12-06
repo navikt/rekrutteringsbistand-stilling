@@ -10,7 +10,7 @@ import {
     SHOW_STOP_AD_MODAL,
     SHOW_HAS_CHANGES_MODAL,
     PREVIEW_EDIT_AD,
-    FETCH_AD
+    FETCH_AD,
 } from '../../adReducer';
 import PublishErrorModal from './PublishErrorModal';
 import './AdStatusEdit.less';
@@ -24,110 +24,114 @@ const ButtonEnum = {
     PUBLISH_CHANGES: 'PUBLISH_CHANGES',
     STOP: 'STOP',
     CANCEL: 'CANCEL',
-    SAVE: 'SAVE'
+    SAVE: 'SAVE',
 };
 
 const ButtonGroupEnum = {
     NEW_AD: 'NEW_AD',
     PUBLISHED_BEFORE: 'PUBLISHED_BEFORE',
     IS_PUBLISHED_NOW: 'IS_PUBLISHED_NOW',
-    LIMITED_ACCESS: 'LIMITED_ACCESS' 
+    LIMITED_ACCESS: 'LIMITED_ACCESS',
 };
 
 class AdStatusEdit extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            buttonClicked: undefined
+            buttonClicked: undefined,
         };
     }
 
     onPublishClick = () => {
         this.props.publish();
         this.setState({
-            buttonClicked: ButtonEnum.PUBLISH
+            buttonClicked: ButtonEnum.PUBLISH,
         });
     };
 
     onRePublishClick = () => {
         this.props.publish();
         this.setState({
-            buttonClicked: ButtonEnum.REPUBLISH
+            buttonClicked: ButtonEnum.REPUBLISH,
         });
     };
 
     onPublishAdChangesClick = () => {
         this.props.publishAdChanges();
         this.setState({
-            buttonClicked: ButtonEnum.PUBLISH_CHANGES
+            buttonClicked: ButtonEnum.PUBLISH_CHANGES,
         });
     };
 
     onCancelClick = () => {
         this.props.showHasChangesModal();
         this.setState({
-            buttonClicked: undefined
+            buttonClicked: undefined,
         });
     };
 
     onStopClick = () => {
         this.props.stop();
         this.setState({
-            buttonClicked: ButtonEnum.STOP
+            buttonClicked: ButtonEnum.STOP,
         });
     };
 
     onSaveAdClick = () => {
         this.props.saveAd();
         this.setState({
-            buttonClicked: undefined
+            buttonClicked: undefined,
         });
     };
-    
+
     OnPreviewAdClick = () => {
         this.props.previewAd();
         this.setState({
-            buttonClicked: undefined
+            buttonClicked: undefined,
         });
-    }
+    };
 
     onSavePreviewAdClick = () => {
         this.props.saveAd();
         const validation = this.props.validation;
-        if(!(validation && validation.comment)) {
+        if (!(validation && validation.comment)) {
             this.props.previewAd();
         }
-        
+
         this.setState({
-            buttonClicked: undefined
+            buttonClicked: undefined,
         });
     };
 
-        
     OnCancelPreviewAdClick = () => {
         this.props.reload(this.props.uuid);
         this.setState({
-            buttonClicked: undefined
+            buttonClicked: undefined,
         });
-    }
-    
+    };
+
     render() {
         const {
-            adStatus, activationOnPublishingDate, deactivatedByExpiry, isSavingAd
+            adStatus,
+            activationOnPublishingDate,
+            deactivatedByExpiry,
+            isSavingAd,
         } = this.props;
 
-        const isPublished = ((adStatus === AdStatusEnum.ACTIVE)
-            || ((adStatus === AdStatusEnum.INACTIVE) && activationOnPublishingDate));
-        const isExpired = (adStatus === AdStatusEnum.INACTIVE) && deactivatedByExpiry;
-        const isStopping = (this.state.buttonClicked === ButtonEnum.STOP) && isSavingAd;
-        const isPublishing = (this.state.buttonClicked === ButtonEnum.PUBLISH) && isSavingAd;
-        const isRePublishing = (this.state.buttonClicked === ButtonEnum.REPUBLISH) && isSavingAd;
-        const isPublishingChanges = (this.state.buttonClicked === ButtonEnum.PUBLISH_CHANGES) && isSavingAd;
+        const isPublished =
+            adStatus === AdStatusEnum.ACTIVE ||
+            (adStatus === AdStatusEnum.INACTIVE && activationOnPublishingDate);
+        const isExpired = adStatus === AdStatusEnum.INACTIVE && deactivatedByExpiry;
+        const isStopping = this.state.buttonClicked === ButtonEnum.STOP && isSavingAd;
+        const isPublishing = this.state.buttonClicked === ButtonEnum.PUBLISH && isSavingAd;
+        const isRePublishing = this.state.buttonClicked === ButtonEnum.REPUBLISH && isSavingAd;
+        const isPublishingChanges =
+            this.state.buttonClicked === ButtonEnum.PUBLISH_CHANGES && isSavingAd;
         const canSave = !isPublished && !isExpired && !isSavingAd;
         const publishingRights = this.props.createdBy === 'pam-rekrutteringsbistand';
 
         let buttonState = ButtonGroupEnum.NEW_AD;
-        if(!publishingRights) {
+        if (!publishingRights) {
             buttonState = ButtonGroupEnum.LIMITED_ACCESS;
         } else {
             if (isExpired || (adStatus === AdStatusEnum.STOPPED && !isStopping) || isRePublishing) {
@@ -136,8 +140,7 @@ class AdStatusEdit extends React.PureComponent {
                 buttonState = ButtonGroupEnum.IS_PUBLISHED_NOW;
             }
         }
-    
-        
+
         return (
             <div className="AdStatusEdit">
                 <PublishErrorModal />
@@ -152,7 +155,10 @@ class AdStatusEdit extends React.PureComponent {
                         >
                             Lagre endringer
                         </Hovedknapp>
-                        <Knapp className="AdStatusEdit__buttons__button" onClick={this.OnCancelPreviewAdClick}>
+                        <Knapp
+                            className="AdStatusEdit__buttons__button"
+                            onClick={this.OnCancelPreviewAdClick}
+                        >
                             Avbryt
                         </Knapp>
                     </div>
@@ -162,10 +168,14 @@ class AdStatusEdit extends React.PureComponent {
                         <Hovedknapp
                             className="AdStatusEdit__buttons__button"
                             onClick={this.onPublishClick}
-                            spinner={isPublishing}>
+                            spinner={isPublishing}
+                        >
                             Publisér
                         </Hovedknapp>
-                        <Knapp className="AdStatusEdit__buttons__button" onClick={this.onCancelClick}>
+                        <Knapp
+                            className="AdStatusEdit__buttons__button"
+                            onClick={this.onCancelClick}
+                        >
                             Avbryt
                         </Knapp>
                     </div>
@@ -179,7 +189,10 @@ class AdStatusEdit extends React.PureComponent {
                         >
                             Republisér stilling
                         </Hovedknapp>
-                        <Knapp className="AdStatusEdit__buttons__button" onClick={this.onCancelClick}>
+                        <Knapp
+                            className="AdStatusEdit__buttons__button"
+                            onClick={this.onCancelClick}
+                        >
                             Avbryt
                         </Knapp>
                     </div>
@@ -215,7 +228,7 @@ class AdStatusEdit extends React.PureComponent {
                             Lagre og fortsett senere
                         </Flatknapp>
                     </div>
-                     )}
+                )}
             </div>
         );
     }
@@ -235,24 +248,24 @@ AdStatusEdit.propTypes = {
     previewAd: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     adStatus: state.adData.status,
     createdBy: state.adData.createdBy,
     activationOnPublishingDate: state.adData.activationOnPublishingDate,
     deactivatedByExpiry: state.adData.deactivatedByExpiry,
     isSavingAd: state.ad.isSavingAd,
     uuid: state.adData.uuid,
-    validation: state.adValidation.errors
+    validation: state.adValidation.errors,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     publish: () => dispatch({ type: PUBLISH_AD }),
     stop: () => dispatch({ type: SHOW_STOP_AD_MODAL }),
     saveAd: () => dispatch({ type: SAVE_AD, showModal: true }),
     showHasChangesModal: () => dispatch({ type: SHOW_HAS_CHANGES_MODAL }),
     publishAdChanges: () => dispatch({ type: PUBLISH_AD_CHANGES }),
     previewAd: () => dispatch({ type: PREVIEW_EDIT_AD }),
-    reload: (uuid) => dispatch({ type: FETCH_AD, uuid, edit:false }),
+    reload: uuid => dispatch({ type: FETCH_AD, uuid, edit: false }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdStatusEdit);

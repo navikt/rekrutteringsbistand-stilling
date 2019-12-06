@@ -8,11 +8,15 @@ import PropTypes from 'prop-types';
 import './ResultItemDropDown.less';
 import { HjelpetekstVenstre } from 'nav-frontend-hjelpetekst';
 import AdStatusEnum from '../../common/enums/AdStatusEnum';
-import { COPY_AD_FROM_MY_ADS, SHOW_DELETE_MODAL_MY_ADS, SHOW_STOP_MODAL_MY_ADS } from '../../ad/adReducer';
+import {
+    COPY_AD_FROM_MY_ADS,
+    SHOW_DELETE_MODAL_MY_ADS,
+    SHOW_STOP_MODAL_MY_ADS,
+} from '../../ad/adReducer';
 import { getAdStatusLabel } from '../../common/enums/getEnumLabels';
 
 const DropDownItem = ({ label, onClick, active, helpText, refProp }) => {
-    const handleKeyDown = (event) => {
+    const handleKeyDown = event => {
         if ((event.keyCode === 13 || event.keyCode === 32) && active) {
             onClick();
         }
@@ -31,7 +35,9 @@ const DropDownItem = ({ label, onClick, active, helpText, refProp }) => {
         </div>
     );
 
-    return active ? item : (
+    return active ? (
+        item
+    ) : (
         <HjelpetekstVenstre
             id={label}
             anchor={() => item}
@@ -48,12 +54,12 @@ DropDownItem.propTypes = {
     active: PropTypes.bool.isRequired,
     onClick: PropTypes.func.isRequired,
     helpText: PropTypes.string,
-    refProp: PropTypes.object
+    refProp: PropTypes.object,
 };
 
 DropDownItem.defaultProps = {
     helpText: '',
-    refProp: undefined
+    refProp: undefined,
 };
 
 const ResultItemDropDown = ({ ad, copyAd, stopAd, deleteAd, setVisible }) => {
@@ -64,12 +70,14 @@ const ResultItemDropDown = ({ ad, copyAd, stopAd, deleteAd, setVisible }) => {
 
     const hasFocus = () => {
         const active = document.activeElement;
-        return listRef.current === active
-            || copyRef.current === active
-            || stopRef.current === active
-            || deleteRef.current === active
-            || active.className.includes('hjelpetekst')
-            || active.className.includes('lukknapp');
+        return (
+            listRef.current === active ||
+            copyRef.current === active ||
+            stopRef.current === active ||
+            deleteRef.current === active ||
+            active.className.includes('hjelpetekst') ||
+            active.className.includes('lukknapp')
+        );
     };
 
     const handleCloseMenu = () => {
@@ -87,18 +95,14 @@ const ResultItemDropDown = ({ ad, copyAd, stopAd, deleteAd, setVisible }) => {
 
     const willBePublished = ad.status === AdStatusEnum.INACTIVE && ad.activationOnPublishingDate;
 
-    const onItemClick = (action) => {
+    const onItemClick = action => {
         action(ad.uuid);
         setVisible(false);
     };
 
     return (
         <div>
-            <ul
-                className="ResultItemDropDown"
-                ref={listRef}
-                onBlur={handleCloseMenu}
-            >
+            <ul className="ResultItemDropDown" ref={listRef} onBlur={handleCloseMenu}>
                 <DropDownItem
                     label="Kopier"
                     onClick={() => onItemClick(copyAd)}
@@ -109,21 +113,22 @@ const ResultItemDropDown = ({ ad, copyAd, stopAd, deleteAd, setVisible }) => {
                     label="Stopp"
                     onClick={() => onItemClick(stopAd)}
                     active={
-                        ad.status === AdStatusEnum.ACTIVE || (ad.status === AdStatusEnum.INACTIVE && willBePublished)
+                        ad.status === AdStatusEnum.ACTIVE ||
+                        (ad.status === AdStatusEnum.INACTIVE && willBePublished)
                     }
-                    helpText={`Du kan ikke stoppe en stilling som har status: "${
-                        getAdStatusLabel(ad.status, ad.deactivatedByExpiry).toLowerCase()
-                    }"`}
+                    helpText={`Du kan ikke stoppe en stilling som har status: "${getAdStatusLabel(
+                        ad.status,
+                        ad.deactivatedByExpiry
+                    ).toLowerCase()}"`}
                     refProp={stopRef}
                 />
                 <DropDownItem
                     label="Slett"
                     onClick={() => onItemClick(deleteAd)}
                     active={!ad.publishedByAdmin}
-                    helpText={`Du kan ikke slette en stilling som har status: "${willBePublished
-                        ? 'blir publisert frem i tid'
-                        : 'publisert'}"`
-                    }
+                    helpText={`Du kan ikke slette en stilling som har status: "${
+                        willBePublished ? 'blir publisert frem i tid' : 'publisert'
+                    }"`}
                     refProp={deleteRef}
                 />
             </ul>
@@ -136,18 +141,18 @@ ResultItemDropDown.propTypes = {
     ad: PropTypes.shape({
         uuid: PropTypes.string,
         title: PropTypes.string,
-        deactivatedByExpiry: PropTypes.bool
+        deactivatedByExpiry: PropTypes.bool,
     }).isRequired,
     stopAd: PropTypes.func.isRequired,
     deleteAd: PropTypes.func.isRequired,
     copyAd: PropTypes.func.isRequired,
-    setVisible: PropTypes.func.isRequired
+    setVisible: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = (dispatch) => ({
-    stopAd: (uuid) => dispatch({ type: SHOW_STOP_MODAL_MY_ADS, uuid }),
-    deleteAd: (uuid) => dispatch({ type: SHOW_DELETE_MODAL_MY_ADS, uuid }),
-    copyAd: (uuid) => dispatch({ type: COPY_AD_FROM_MY_ADS, uuid })
+const mapDispatchToProps = dispatch => ({
+    stopAd: uuid => dispatch({ type: SHOW_STOP_MODAL_MY_ADS, uuid }),
+    deleteAd: uuid => dispatch({ type: SHOW_DELETE_MODAL_MY_ADS, uuid }),
+    copyAd: uuid => dispatch({ type: COPY_AD_FROM_MY_ADS, uuid }),
 });
 
 export default connect(null, mapDispatchToProps)(ResultItemDropDown);

@@ -11,11 +11,12 @@ import {
     SET_EMPLOYER_HOMEPAGE,
     SET_EMPLOYER_NAME,
     SET_EMPLOYERDESCRIPTION,
-    SET_FACEBOOK_PAGE, SET_LINKEDIN_PAGE, SET_TWITTER_ADDRESS
+    SET_FACEBOOK_PAGE,
+    SET_LINKEDIN_PAGE,
+    SET_TWITTER_ADDRESS,
 } from '../../adDataReducer';
 import EmployerName from './EmployerName';
 import { adjustUrl } from '../../../common/utils';
-
 
 function adjustTwitterLink(url) {
     if (url.startsWith('@')) {
@@ -27,27 +28,27 @@ function adjustTwitterLink(url) {
 }
 
 class Employer extends React.Component {
-    onEmployerNameChange = (e) => {
+    onEmployerNameChange = e => {
         this.props.setEmployerName(e.target.value);
     };
 
-    onEmployerDescriptionChange = (employerDescription) => {
+    onEmployerDescriptionChange = employerDescription => {
         this.props.setEmployerDescription(employerDescription);
     };
 
-    onEmployerHomepageChange = (e) => {
+    onEmployerHomepageChange = e => {
         this.props.setEmployerHomepage(e.target.value);
     };
 
-    onFacebookpageChange = (e) => {
+    onFacebookpageChange = e => {
         this.props.setFacebookpage(e.target.value);
     };
 
-    onLinkedinpageChange = (e) => {
+    onLinkedinpageChange = e => {
         this.props.setLinkedinpage(e.target.value);
     };
 
-    onTwitteraddressChange = (e) => {
+    onTwitteraddressChange = e => {
         this.props.setTwitteraddress(e.target.value);
     };
 
@@ -85,9 +86,10 @@ class Employer extends React.Component {
 
     render() {
         const { ad } = this.props;
-        const hideOnlineAddresses = ad.properties.facebookpage === undefined
-            && ad.properties.linkedinpage === undefined
-            && ad.properties.twitteraddress === undefined;
+        const hideOnlineAddresses =
+            ad.properties.facebookpage === undefined &&
+            ad.properties.linkedinpage === undefined &&
+            ad.properties.twitteraddress === undefined;
 
         return (
             <Ekspanderbartpanel
@@ -119,57 +121,48 @@ class Employer extends React.Component {
                     onBlur={this.completeHomepageLink}
                     placeholder="www.firmanavn.no"
                 />
-                {hideOnlineAddresses
-                    ? (
-                        <Row>
-                            <Column xs="12">
-                                <Flatknapp
-                                    onClick={this.onAddOnlineAddress}
-                                    mini
-                                >
+                {hideOnlineAddresses ? (
+                    <Row>
+                        <Column xs="12">
+                            <Flatknapp onClick={this.onAddOnlineAddress} mini>
                                 + Legg til adresser for Facebook, LinkedIn og Twitter
-                                </Flatknapp>
-                            </Column>
-                        </Row>
-                    ) : (
-                        <div>
-                            <Input
-                                label="Bedriftens side på Facebook"
-                                value={ad.properties.facebookpage
-                                    ? (ad.properties.facebookpage)
-                                    : ''}
-                                onChange={this.onFacebookpageChange}
-                                onBlur={this.completeFacebookLink}
-                                placeholder="For eksempel: facebook.com/firmanavn"
-                                inputRef={(i) => { this.focusField = i; }}
-                            />
-                            <Input
-                                label="Bedriftens side på LinkedIn"
-                                value={ad.properties.linkedinpage
-                                    ? (ad.properties.linkedinpage)
-                                    : ('')}
-                                onChange={this.onLinkedinpageChange}
-                                onBlur={this.completeLinkedinLink}
-                                placeholder="For eksempel: linkedin.com/company/firmanavn"
-                            />
-                            <Input
-                                label="Bedriftens Twitteradresse"
-                                value={ad.properties.twitteraddress
-                                    ? (ad.properties.twitteraddress)
-                                    : ('')}
-                                onChange={this.onTwitteraddressChange}
-                                onBlur={this.completeTwitterLink}
-                                placeholder="For eksempel: @firmanavn"
-                            />
-                        </div>
-                    )}
+                            </Flatknapp>
+                        </Column>
+                    </Row>
+                ) : (
+                    <div>
+                        <Input
+                            label="Bedriftens side på Facebook"
+                            value={ad.properties.facebookpage ? ad.properties.facebookpage : ''}
+                            onChange={this.onFacebookpageChange}
+                            onBlur={this.completeFacebookLink}
+                            placeholder="For eksempel: facebook.com/firmanavn"
+                            inputRef={i => {
+                                this.focusField = i;
+                            }}
+                        />
+                        <Input
+                            label="Bedriftens side på LinkedIn"
+                            value={ad.properties.linkedinpage ? ad.properties.linkedinpage : ''}
+                            onChange={this.onLinkedinpageChange}
+                            onBlur={this.completeLinkedinLink}
+                            placeholder="For eksempel: linkedin.com/company/firmanavn"
+                        />
+                        <Input
+                            label="Bedriftens Twitteradresse"
+                            value={ad.properties.twitteraddress ? ad.properties.twitteraddress : ''}
+                            onChange={this.onTwitteraddressChange}
+                            onBlur={this.completeTwitterLink}
+                            placeholder="For eksempel: @firmanavn"
+                        />
+                    </div>
+                )}
             </Ekspanderbartpanel>
         );
     }
 }
 
-Employer.defaultProps = {
-};
+Employer.defaultProps = {};
 
 Employer.propTypes = {
     ad: PropTypes.shape({
@@ -178,28 +171,30 @@ Employer.propTypes = {
             employerhomepage: PropTypes.string,
             facebookpage: PropTypes.string,
             linkedinpage: PropTypes.string,
-            twitteraddress: PropTypes.string
-        })
+            twitteraddress: PropTypes.string,
+        }),
     }),
     setEmployerName: PropTypes.func.isRequired,
     setEmployerHomepage: PropTypes.func.isRequired,
     setEmployerDescription: PropTypes.func.isRequired,
     setFacebookpage: PropTypes.func.isRequired,
     setLinkedinpage: PropTypes.func.isRequired,
-    setTwitteraddress: PropTypes.func.isRequired
+    setTwitteraddress: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-    ad: state.adData
+const mapStateToProps = state => ({
+    ad: state.adData,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    setEmployerName: (employername) => dispatch({ type: SET_EMPLOYER_NAME, employername }),
-    setEmployerHomepage: (employerhomepage) => dispatch({ type: SET_EMPLOYER_HOMEPAGE, employerhomepage }),
-    setEmployerDescription: (employerdescription) => dispatch({ type: SET_EMPLOYERDESCRIPTION, employerdescription }),
-    setFacebookpage: (facebookpage) => dispatch({ type: SET_FACEBOOK_PAGE, facebookpage }),
-    setLinkedinpage: (linkedinpage) => dispatch({ type: SET_LINKEDIN_PAGE, linkedinpage }),
-    setTwitteraddress: (twitteraddress) => dispatch({ type: SET_TWITTER_ADDRESS, twitteraddress })
+const mapDispatchToProps = dispatch => ({
+    setEmployerName: employername => dispatch({ type: SET_EMPLOYER_NAME, employername }),
+    setEmployerHomepage: employerhomepage =>
+        dispatch({ type: SET_EMPLOYER_HOMEPAGE, employerhomepage }),
+    setEmployerDescription: employerdescription =>
+        dispatch({ type: SET_EMPLOYERDESCRIPTION, employerdescription }),
+    setFacebookpage: facebookpage => dispatch({ type: SET_FACEBOOK_PAGE, facebookpage }),
+    setLinkedinpage: linkedinpage => dispatch({ type: SET_LINKEDIN_PAGE, linkedinpage }),
+    setTwitteraddress: twitteraddress => dispatch({ type: SET_TWITTER_ADDRESS, twitteraddress }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Employer);

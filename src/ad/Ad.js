@@ -39,7 +39,7 @@ class Ad extends React.Component {
             this.uuid = this.props.stilling.uuid;
             this.props.history.replace({
                 pathname: `/stilling/${this.uuid}`,
-                state: this.props.location.state
+                state: this.props.location.state,
             });
         }
     }
@@ -53,7 +53,13 @@ class Ad extends React.Component {
     };
 
     render() {
-        const { stilling, isEditingAd, isLoadingAd, leavePageTrigger, hasChangesLeaveUrl } = this.props;
+        const {
+            stilling,
+            isEditingAd,
+            isLoadingAd,
+            leavePageTrigger,
+            hasChangesLeaveUrl,
+        } = this.props;
         const { isNew } = this.props.location.state || { isNew: false };
         const limitedAccess = stilling.createdBy !== 'pam-rekrutteringsbistand';
 
@@ -73,10 +79,7 @@ class Ad extends React.Component {
             return (
                 <div className="Ad Ad__deleted">
                     <Normaltekst className="blokk-s">Stillingen er slettet</Normaltekst>
-                    <Link
-                        to="/stillinger"
-                        className="typo-normal lenke"
-                    >
+                    <Link to="/stillinger" className="typo-normal lenke">
                         Søk etter stillinger
                     </Link>
                 </div>
@@ -96,26 +99,26 @@ class Ad extends React.Component {
                                 <div>
                                     {isEditingAd ? (
                                         <div className="Ad__edit__inner">
-                                            {limitedAccess ? 
-                                            <div>
-                                                <PreviewHeader />
-                                                <Preview ad={stilling} />
-                                            </div>
-                                             :
-                                             <div>
-                                                <EditHeader
-                                                    isNew={isNew}
-                                                    onPreviewAdClick={this.onPreviewAdClick}
-                                                />
-                                                <Edit isNew={isNew}/>
-                                            </div>
-                                        }
+                                            {limitedAccess ? (
+                                                <div>
+                                                    <PreviewHeader />
+                                                    <Preview ad={stilling} />
+                                                </div>
+                                            ) : (
+                                                <div>
+                                                    <EditHeader
+                                                        isNew={isNew}
+                                                        onPreviewAdClick={this.onPreviewAdClick}
+                                                    />
+                                                    <Edit isNew={isNew} />
+                                                </div>
+                                            )}
                                         </div>
-                                    ) : (                  
-                                    <div className="Ad__preview">
-                                        <PreviewHeader />
-                                        <Preview ad={stilling} />
-                                    </div>
+                                    ) : (
+                                        <div className="Ad__preview">
+                                            <PreviewHeader />
+                                            <Preview ad={stilling} />
+                                        </div>
                                     )}
                                 </div>
                             </div>
@@ -123,21 +126,15 @@ class Ad extends React.Component {
                         {isEditingAd ? (
                             <div className="Ad__flex__right">
                                 <div className="Ad__flex__right__inner">
-                                {limitedAccess ? (
-                                    <AdministrationLimited />
-                                ) 
-                                :
-                                    <Administration />
-                                }
+                                    {limitedAccess ? <AdministrationLimited /> : <Administration />}
                                 </div>
-                                
                             </div>
                         ) : (
                             <div className="Ad__flex__right">
-                            <div className="Ad__flex__right__inner">
-                                <AdministrationPreview />
+                                <div className="Ad__flex__right__inner">
+                                    <AdministrationPreview />
+                                </div>
                             </div>
-                        </div> 
                         )}
                     </div>
                 </Faded>
@@ -147,12 +144,11 @@ class Ad extends React.Component {
     }
 }
 
-
 Ad.defaultProps = {
     stilling: undefined,
     isLoadingAd: false,
     leavePageTrigger: false,
-    hasChangesLeaveUrl: '/mineStillinger'
+    hasChangesLeaveUrl: '/mineStillinger',
 };
 
 Ad.propTypes = {
@@ -161,7 +157,7 @@ Ad.propTypes = {
         uuid: PropTypes.string,
         source: PropTypes.string,
         status: PropTypes.string,
-        createdBy: PropTypes.string
+        createdBy: PropTypes.string,
     }),
     getStilling: PropTypes.func.isRequired,
     createAd: PropTypes.func.isRequired,
@@ -170,23 +166,22 @@ Ad.propTypes = {
     removeAdData: PropTypes.func.isRequired,
     isLoadingAd: PropTypes.bool,
     leavePageTrigger: PropTypes.bool,
-    hasChangesLeaveUrl: PropTypes.string
+    hasChangesLeaveUrl: PropTypes.string,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     stilling: state.adData,
     isEditingAd: state.ad.isEditingAd,
     isLoadingAd: state.ad.isLoadingAd,
     leavePageTrigger: state.ad.leavePageTrigger,
-    hasChangesLeaveUrl: state.ad.hasChangesLeaveUrl
+    hasChangesLeaveUrl: state.ad.hasChangesLeaveUrl,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     getStilling: (uuid, edit) => dispatch({ type: FETCH_AD, uuid, edit }),
     createAd: () => dispatch({ type: CREATE_AD }),
     previewAd: () => dispatch({ type: PREVIEW_EDIT_AD }),
-    removeAdData: () => dispatch({ type: REMOVE_AD_DATA })
+    removeAdData: () => dispatch({ type: REMOVE_AD_DATA }),
 });
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(Ad);

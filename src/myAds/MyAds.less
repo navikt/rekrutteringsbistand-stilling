@@ -1,75 +1,72 @@
-@import "../variables";
+@import '../variables';
 
 .MyAds {
-  height: 100%;
-  min-height: 100vh;
-  width: 100%;
-  min-width: 1200px;
-  background: #e7e9e9;
+    height: 100%;
+    min-height: 100vh;
+    width: 100%;
+    min-width: 1200px;
+    background: #e7e9e9;
 
-  @media (max-width: @screen-lg){
-    .MyAds__content {
-      width: 100%;
+    @media (max-width: @screen-lg) {
+        .MyAds__content {
+            width: 100%;
+        }
     }
-  }
 
-  @media (min-width: @screen-lg) {
-    .MyAds__content {
-      width: 1400px;
+    @media (min-width: @screen-lg) {
+        .MyAds__content {
+            width: 1400px;
+        }
     }
-  }
 }
 
-
 .MyAds__header {
-  background-color: #e3edf8;
+    background-color: #e3edf8;
 
-  .MyAds__header-container {
-    display: flex;
-    flex-wrap: wrap;
-    height: 7.5rem;
-    align-items: center;
-    position: relative
-  }
-
-  .MyAds__header__title{
-    position: absolute;             /* new */
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  .MyAds__header__button{
-    margin-left: auto;
-  }
-
-  @media(max-width: 991px) {
-
-    height: 8.75rem;
+    .MyAds__header-container {
+        display: flex;
+        flex-wrap: wrap;
+        height: 7.5rem;
+        align-items: center;
+        position: relative;
+    }
 
     .MyAds__header__title {
-      flex-basis: 100%;
-      position: relative;
-      display: flex;
-      justify-content: center;
+        position: absolute; /* new */
+        left: 50%;
+        transform: translateX(-50%);
     }
 
     .MyAds__header__button {
-      margin: auto;
+        margin-left: auto;
     }
-  }
+
+    @media (max-width: 991px) {
+        height: 8.75rem;
+
+        .MyAds__header__title {
+            flex-basis: 100%;
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+
+        .MyAds__header__button {
+            margin: auto;
+        }
+    }
 }
 
-
 .StatusFilter {
-  margin-left: auto;
+    margin-left: auto;
 
-  label {
-    margin-bottom: 0;
-  }
+    label {
+        margin-bottom: 0;
+    }
 }
 
 .MyAds__status-row {
-  display: flex;
-  align-items: center;
-  margin-top: 2.5rem;
+    display: flex;
+    align-items: center;
+    margin-top: 2.5rem;
 }

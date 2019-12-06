@@ -8,7 +8,7 @@ import { createErrorObject } from '../../../common/utils';
 import './EngagementType.less';
 
 class EngagementType extends React.Component {
-    onEngagementTypeChange = (e) => {
+    onEngagementTypeChange = e => {
         this.props.setEngagementType(e.target.value);
     };
 
@@ -31,7 +31,10 @@ class EngagementType extends React.Component {
                     <option value={EngagementTypeEnum.VIKARIAT} key={EngagementTypeEnum.VIKARIAT}>
                         {EngagementTypeEnum.VIKARIAT}
                     </option>
-                    <option value={EngagementTypeEnum.ENGASJEMENT} key={EngagementTypeEnum.ENGASJEMENT}>
+                    <option
+                        value={EngagementTypeEnum.ENGASJEMENT}
+                        key={EngagementTypeEnum.ENGASJEMENT}
+                    >
                         {EngagementTypeEnum.ENGASJEMENT}
                     </option>
                     <option value={EngagementTypeEnum.PROSJEKT} key={EngagementTypeEnum.PROSJEKT}>
@@ -52,7 +55,10 @@ class EngagementType extends React.Component {
                     <option value={EngagementTypeEnum.LAERLING} key={EngagementTypeEnum.LAERLING}>
                         {EngagementTypeEnum.LAERLING}
                     </option>
-                    <option value={EngagementTypeEnum.SELVSTENDIG} key={EngagementTypeEnum.SELVSTENDIG}>
+                    <option
+                        value={EngagementTypeEnum.SELVSTENDIG}
+                        key={EngagementTypeEnum.SELVSTENDIG}
+                    >
                         {EngagementTypeEnum.SELVSTENDIG}
                     </option>
                     <option value={EngagementTypeEnum.ANNET} key={EngagementTypeEnum.ANNET}>
@@ -65,24 +71,25 @@ class EngagementType extends React.Component {
 }
 
 EngagementType.defaultProps = {
-    engagementType: undefined
+    engagementType: undefined,
 };
 
 EngagementType.propTypes = {
     setEngagementType: PropTypes.func.isRequired,
     engagementType: PropTypes.string,
     validation: PropTypes.shape({
-        title: PropTypes.string
-    }).isRequired
+        title: PropTypes.string,
+    }).isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     engagementType: state.adData.properties.engagementtype,
-    validation: state.adValidation.errors
+    validation: state.adValidation.errors,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    setEngagementType: (engagementType) => dispatch({ type: SET_EMPLOYMENT_ENGAGEMENTTYPE, engagementType }),
+const mapDispatchToProps = dispatch => ({
+    setEngagementType: engagementType =>
+        dispatch({ type: SET_EMPLOYMENT_ENGAGEMENTTYPE, engagementType }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EngagementType);

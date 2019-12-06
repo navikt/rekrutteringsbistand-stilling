@@ -8,7 +8,7 @@ export const Kandidat = {
     lagtTilTidspunkt: PropTypes.string,
     lagtTilAv: PropTypes.shape({
         ident: PropTypes.string,
-        navn: PropTypes.string
+        navn: PropTypes.string,
     }),
     fornavn: PropTypes.string,
     etternavn: PropTypes.string,
@@ -16,7 +16,7 @@ export const Kandidat = {
     telefon: PropTypes.string,
     fodselsdato: PropTypes.string,
     innsatsgruppe: PropTypes.string,
-    utfall: PropTypes.string
+    utfall: PropTypes.string,
 };
 
 export const Kandidatliste = {
@@ -28,8 +28,8 @@ export const Kandidatliste = {
     stillingId: PropTypes.string,
     opprettetAv: PropTypes.shape({
         ident: PropTypes.string,
-        navn: PropTypes.string
+        navn: PropTypes.string,
     }),
     opprettetTidspunkt: PropTypes.string,
-    kandidater: PropTypes.arrayOf(PropTypes.shape(Kandidat))
+    kandidater: PropTypes.arrayOf(PropTypes.shape(Kandidat)),
 };
