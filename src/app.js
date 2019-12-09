@@ -30,6 +30,7 @@ import { urlHasPath, redirectToUrlPath } from './login';
 import kandidatReducer, { kandidatSaga } from './ad/kandidatModal/kandidatReducer';
 import recruitmentDataReducer from './recruitment/recruitmentDataReducer';
 import recruitmentReducer, { recruitmentSaga } from './recruitment/recruitmentReducer';
+import featureTogglesReducer, { featureTogglesSaga } from './featureToggles/featureTogglesReducer';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -52,6 +53,7 @@ const store = createStore(
         styrk: styrkReducer,
         recruitment: recruitmentReducer,
         recruitmentData: recruitmentDataReducer,
+        featureToggles: featureTogglesReducer,
     }),
     composeEnhancers(applyMiddleware(sagaMiddleware))
 );
@@ -69,6 +71,7 @@ sagaMiddleware.run(adDataSaga);
 sagaMiddleware.run(locationAreaSaga);
 sagaMiddleware.run(kandidatSaga);
 sagaMiddleware.run(recruitmentSaga);
+sagaMiddleware.run(featureTogglesSaga);
 
 const Main = () => {
     if (urlHasPath()) {
