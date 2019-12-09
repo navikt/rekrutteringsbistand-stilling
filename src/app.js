@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, Switch } from 'react-router-dom';
 import { applyMiddleware, createStore, combineReducers, compose } from 'redux';
-import { Provider } from 'react-redux';
+import { Provider, useDispatch } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 import employerReducer, { employerSaga } from './ad/edit/employer/employerReducer';
 import locationCodeReducer, { locationCodeSaga } from './ad/edit/location/locationCodeReducer';
@@ -30,7 +30,10 @@ import { urlHasPath, redirectToUrlPath } from './login';
 import kandidatReducer, { kandidatSaga } from './ad/kandidatModal/kandidatReducer';
 import recruitmentDataReducer from './recruitment/recruitmentDataReducer';
 import recruitmentReducer, { recruitmentSaga } from './recruitment/recruitmentReducer';
-import featureTogglesReducer, { featureTogglesSaga } from './featureToggles/featureTogglesReducer';
+import featureTogglesReducer, {
+    featureTogglesSaga,
+    FETCH_FEATURE_TOGGLES,
+} from './featureToggles/featureTogglesReducer';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -74,6 +77,12 @@ sagaMiddleware.run(recruitmentSaga);
 sagaMiddleware.run(featureTogglesSaga);
 
 const Main = () => {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch({ type: FETCH_FEATURE_TOGGLES });
+    }, [dispatch]);
+
     if (urlHasPath()) {
         redirectToUrlPath();
         return null;

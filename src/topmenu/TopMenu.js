@@ -6,22 +6,14 @@ import { FETCH_REPORTEE } from '../reportee/reporteeReducer';
 import { SHOW_HAS_CHANGES_MODAL } from '../ad/adReducer';
 import 'pam-frontend-header/dist/style.css';
 import './TopMenu.less';
-import { FETCH_FEATURE_TOGGLES } from '../featureToggles/featureTogglesReducer';
 
 class HeaderMenu extends React.Component {
     componentDidMount() {
-        const {
-            displayName,
-            fetchDisplayName,
-            isFetchingDisplayName,
-            fetchFeatureToggles,
-        } = this.props;
+        const { displayName, fetchDisplayName, isFetchingDisplayName } = this.props;
 
         if (!displayName && !isFetchingDisplayName) {
             fetchDisplayName();
         }
-
-        fetchFeatureToggles();
     }
 
     render() {
@@ -43,7 +35,6 @@ HeaderMenu.propTypes = {
     tabId: PropTypes.string.isRequired,
     displayName: PropTypes.string.isRequired,
     fetchDisplayName: PropTypes.func.isRequired,
-    fetchFeatureToggles: PropTypes.func.isRequired,
     isFetchingDisplayName: PropTypes.bool.isRequired,
     showHasChangesModal: PropTypes.func.isRequired,
     hasChanges: PropTypes.bool.isRequired,
@@ -72,7 +63,6 @@ const rekrutteringsbistandProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     fetchDisplayName: () => dispatch({ type: FETCH_REPORTEE }),
-    fetchFeatureToggles: () => dispatch({ type: FETCH_FEATURE_TOGGLES }),
     showHasChangesModal: leaveUrl => dispatch({ type: SHOW_HAS_CHANGES_MODAL, leaveUrl }),
 });
 
