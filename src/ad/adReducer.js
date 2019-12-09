@@ -527,7 +527,7 @@ function* leggTilIMineStillinger(action) {
     const { navIdent, displayName } = state.reportee.data;
     yield put({ type: SET_NAV_IDENT_REKRUTTERING, navIdent, displayName });
     yield put({ type: SAVE_RECRUITMENT, uuid: action.uuid });
-    yield put({ type: FETCH_AD, uuid: state.adData.uuid, edit: false });
+    yield put({ type: SAVE_AD, showModal: false });
 }
 
 function* markerSomMinStilling(action) {
@@ -536,7 +536,7 @@ function* markerSomMinStilling(action) {
     const { navIdent, displayName } = state.reportee.data;
     yield put({ type: SET_NAV_IDENT_REKRUTTERING, navIdent, displayName });
     yield put({ type: UPDATE_RECRUITMENT, uuid: action.uuid });
-    yield put({ type: FETCH_AD, uuid: state.adData.uuid, edit: false });
+    yield put({ type: SAVE_AD, showModal: false });
 }
 
 export const adSaga = function* saga() {

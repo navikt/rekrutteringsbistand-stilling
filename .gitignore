@@ -13,6 +13,7 @@
 /api/_static/
 target
 .idea/
+.vscode/
 *.iml
 *.log
 reports/
