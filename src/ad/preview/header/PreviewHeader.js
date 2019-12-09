@@ -22,7 +22,12 @@ class PreviewMenu extends React.Component {
     };
 
     render() {
-        const { stilling, limitedAccess, rekruttering } = this.props;
+        const {
+            stilling,
+            limitedAccess,
+            rekruttering,
+            opprettKandidatlisteKnappIsEnabled,
+        } = this.props;
 
         const kanOverfoereStilling = rekruttering && limitedAccess && !rekruttering.eierNavident;
 
@@ -40,7 +45,7 @@ class PreviewMenu extends React.Component {
                                 Rediger stillingen
                             </Hovedknapp>
                         )}
-                        {kanOverfoereStilling && (
+                        {kanOverfoereStilling && opprettKandidatlisteKnappIsEnabled && (
                             <Knapp
                                 className="button-legg-i-mine-stillinger"
                                 onClick={this.onLeggTilIMineStillingerClick}
@@ -106,6 +111,7 @@ const mapStateToProps = state => ({
     adminStatus: state.adData.administration.status,
     limitedAccess: state.adData.createdBy !== 'pam-rekrutteringsbistand',
     reportee: state.reportee.data,
+    opprettKandidatlisteKnappIsEnabled: state.featureToggles.opprettKandidatlisteKnapp,
 });
 
 const mapDispatchToProps = dispatch => ({

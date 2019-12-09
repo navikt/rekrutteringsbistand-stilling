@@ -1,5 +1,5 @@
-apiVersion: 'nais.io/v1alpha1'
-kind: 'Application'
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
 metadata:
     name: pam-rekrutteringsbistand
     namespace: default
@@ -34,6 +34,8 @@ spec:
     env:
         - name: LOGIN_URL
           value: https://loginservice.nais.preprod.local/login
+        - name: REKRUTTERINGSBISTAND_BASE_URL
+          value: https://arbeidsgiver.nais.preprod.local/rekrutteringsbistand-api
         - name: REKRUTTERINGSBISTAND_API_URL
           value: https://arbeidsgiver.nais.preprod.local/rekrutteringsbistand-api/rekrutteringsbistand/api/v1/
         - name: REKRUTTERING_API_URL
