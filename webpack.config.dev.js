@@ -26,6 +26,7 @@ module.exports = merge(common, {
             __PAM_CONTEXT_PATH__: "''",
             __PAM_AD_API__:
                 "'http://localhost:9501/rekrutteringsbistand-api/rekrutteringsbistand/api/v1/'",
+            __REKRUTTERINGSBISTAND_BASE_URL__: "'http://localhost:9501/rekrutteringsbistand-api'",
             __REKRUTTERING_API__: "'http://localhost:9501/rekrutteringsbistand-api/rekruttering'",
             __PAM_SEARCH_API__: "'http://localhost:9501/rekrutteringsbistand-api/search-api/'",
             __PAM_LOGIN_URL__: "'http://localhost:9501/rekrutteringsbistand-api/local/cookie-isso'",

@@ -1,5 +1,5 @@
 import { fetchGet } from '../api/api';
-import { REKRUTTERING_API } from '../fasitProperties';
+import { REKRUTTERINGSBISTAND_BASE_URL } from '../fasitProperties';
 import { takeEvery, put } from 'redux-saga/effects';
 
 const FEATURE_OPPRETT_KANDIDATLISTE_KNAPP = 'rekrutteringsbistand.opprett-kandidatliste-knapp';
@@ -23,10 +23,8 @@ const featureTogglesReducer = (state = initialState, action) => {
 };
 
 function* hentFeatureToggles() {
-    const baseUrl = REKRUTTERING_API.substring(0, 46);
-
     const opprettKandidatlisteKnapp = yield fetchGet(
-        `${baseUrl}/features/${FEATURE_OPPRETT_KANDIDATLISTE_KNAPP}`
+        `${REKRUTTERINGSBISTAND_BASE_URL}/features/${FEATURE_OPPRETT_KANDIDATLISTE_KNAPP}`
     );
 
     const featureToggles = {
