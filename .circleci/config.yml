@@ -60,7 +60,7 @@ workflows:
   bygg_og_deploy:
     jobs:
       - build:
-          context: NAIS deployment
+          context: tag-ci
       - godkjenn-til-dev:
           type: approval
           requires:
