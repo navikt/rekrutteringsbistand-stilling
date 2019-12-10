@@ -35,24 +35,6 @@ const SavedAdAlertStripe = ({
                 Endringene har blitt publisert
             </AlertStripe>
         );
-    } else if (showAlertStripe && alertStripeMode === AdAlertStripeEnum.TRANSFERRED) {
-        return (
-            <AlertStripe type="suksess" solid="true" className="SavedAdAlertStripe">
-                Stillingen og kandidatlisten er nå markert som din. Du kan finne den under
-                <Link to="/minestillinger" className="typo-normal lenke">
-                    "mine stillinger".
-                </Link>
-            </AlertStripe>
-        );
-    } else if (showAlertStripe && alertStripeMode === AdAlertStripeEnum.MARKED) {
-        return (
-            <AlertStripe type="suksess" solid="true" className="SavedAdAlertStripe">
-                Du er nå eier av stillingen og kandidatlisten. Du kan finne den under
-                <Link to="/minestillinger" className="typo-normal lenke">
-                    "mine stillinger".
-                </Link>
-            </AlertStripe>
-        );
     }
     return <div />;
 };
