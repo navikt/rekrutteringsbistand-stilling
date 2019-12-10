@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import AlertStripe from 'nav-frontend-alertstriper';
 import AdAlertStripeEnum from './AdAlertStripeEnum';
-import { Link } from 'react-router-dom';
 import { formatISOString } from '../../utils';
 import './SavedAdAlertStripe.less';
 

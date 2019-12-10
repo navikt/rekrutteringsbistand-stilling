@@ -28,6 +28,10 @@ class PreviewMenu extends React.Component {
         this.props.closeAlertstripe();
     };
 
+    componentWillUnmount() {
+        this.props.closeAlertstripe();
+    }
+
     render() {
         const {
             stilling,
