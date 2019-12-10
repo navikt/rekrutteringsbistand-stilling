@@ -16,7 +16,7 @@ export default class Typeahead extends React.Component {
         this.shouldBlur = true;
     }
 
-    componentWillReceiveProps(props) {
+    UNSAFE_componentWillReceiveProps(props) {
         if (props.suggestions.length === 1) {
             this.setState({
                 activeSuggestionIndex: 0,

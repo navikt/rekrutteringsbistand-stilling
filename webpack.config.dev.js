@@ -7,9 +7,10 @@ module.exports = merge(common, {
     devtool: 'inline-source-map',
     devServer: {
         historyApiFallback: true,
+        host: '127.0.0.1',
     },
     module: {
-        loaders: [
+        rules: [
             {
                 test: /index\.html$/,
                 loader: 'mustache-loader',
