@@ -148,7 +148,7 @@ const mapStateToProps = state => ({
     rekruttering: state.recruitment,
     stilling: state.adData,
     adminStatus: state.adData.administration.status,
-    limitedAccess: state.adData.createdBy !== 'pam-rekrutteringDatasbistand',
+    limitedAccess: state.adData.createdBy !== 'pam-rekrutteringsbistand',
     reportee: state.reportee.data,
     opprettKandidatlisteKnappIsEnabled: state.featureToggles.opprettKandidatlisteKnapp,
 });
