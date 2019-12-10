@@ -51,18 +51,18 @@ workflows:
     jobs:
       - build:
           context: NAIS deployment
-      - deploy-til-dev:
-          context: tag-ci
-          requires:
-            - build
-          filters:
-            branches:
-              only:
-                - master
-      - godkjenn-til-prod:
+      - godkjenn-til-dev:
           type: approval
           requires:
             - build
+      - deploy-til-dev:
+          context: tag-ci
+          requires:
+            - godkjenn-til-dev
+      - godkjenn-til-prod:
+          type: approval
+          requires:
+            - deploy-til-dev
           filters:
             branches:
               only:
