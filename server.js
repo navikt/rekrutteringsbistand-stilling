@@ -25,7 +25,7 @@ server.use(
             imgSrc: ["'self'", 'data:'],
             connectSrc: [
                 "'self'",
-                process.env.REKRUTTERINGSBISTAND_BASE_URL,
+                `${process.env.REKRUTTERINGSBISTAND_BASE_URL}/features/`,
                 process.env.REKRUTTERINGSBISTAND_API_URL,
                 process.env.REKRUTTERING_API_URL,
                 process.env.REKRUTTERINGSBISTAND_API_SEARCH_URL,
