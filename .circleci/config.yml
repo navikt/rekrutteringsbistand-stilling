@@ -83,6 +83,8 @@ workflows:
                 - master
       - godkjenn-til-prod:
           type: approval
+          requires:
+            - deploy-til-dev
           filters:
             branches:
               only:
