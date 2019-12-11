@@ -70,7 +70,6 @@ const startServer = html => {
     server.use('/css', express.static(path.resolve(__dirname, 'dist/css')));
 
     server.get(/^\/(?!.*dist).*$/, (req, res) => {
-        console.info('> Treffer ikke /dist');
         res.send(html);
     });
 
