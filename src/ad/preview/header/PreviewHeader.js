@@ -82,12 +82,10 @@ class PreviewMenu extends React.Component {
                                     solid="true"
                                 >
                                     <div className="Adtransferred_text">
-                                        {showAdTransferredAlert
-                                            ? 'Stillingen og kandidatlisten er nå markert som din. Du kan finne den under'
-                                            : 'Du er nå eier av stillingen og kandidatlisten. Du kan finne den under'}
-                                        <Link to="/minestillinger" className="typo-normal lenke">
-                                            "mine stillinger".
-                                        </Link>
+                                        {(showAdTransferredAlert
+                                            ? 'Kandidatlisten er markert som din.'
+                                            : 'Kandidatlisten er opprettet.') +
+                                            ' Du er nå eier av stillingen og kandidatlisten.'}
                                     </div>
                                     <Lukknapp
                                         className="alertstripe-lukk-knapp"
