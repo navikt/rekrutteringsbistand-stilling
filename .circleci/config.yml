@@ -84,7 +84,7 @@ workflows:
       - godkjenn-til-prod:
           type: approval
           requires:
-            - deploy-til-dev
+            - build
           filters:
             branches:
               only:
