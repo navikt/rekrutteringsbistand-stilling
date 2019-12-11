@@ -1,0 +1,87 @@
+version: 2.1
+orbs:
+  nais: navikt/nais-deployment@dev:master
+
+jobs:
+  build:
+    docker:
+      - image: circleci/node
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
+            - node-v1-{{ .Branch }}-
+            - node-v1-
+      - run: npm install
+      - save_cache:
+          paths:
+            - ~/usr/local/lib/node_modules
+          key: node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
+      - run: npm run build
+      - nais/docker:
+          image: navikt/pam-rekrutteringsbistand/rekrutteringsbistand
+          registry: docker.pkg.github.com
+
+  deploy-til-dev:
+    docker:
+      - image: navikt/deployment-cli:0.4.2
+    steps:
+      - checkout
+      - run:
+          name: Unpack Private Key
+          command: echo $GITHUB_PRIVATE_KEY | base64 -d > .circleci/github.key.pem
+      - nais/deploy-with-gh-app:
+          repo: navikt/pam-rekrutteringsbistand
+          image: docker.pkg.github.com/navikt/pam-rekrutteringsbistand/rekrutteringsbistand
+          github-app-id: 43789
+          nais-template: nais-preprod.yaml
+          environment: dev-fss
+          team: teamtag
+
+  deploy-til-prod:
+    docker:
+      - image: navikt/deployment-cli:0.4.2
+    steps:
+      - checkout
+      - run:
+          name: Unpack Private Key
+          command: echo $GITHUB_PRIVATE_KEY | base64 -d > .circleci/github.key.pem
+      - nais/deploy-with-gh-app:
+          repo: navikt/pam-rekrutteringsbistand
+          image: docker.pkg.github.com/navikt/pam-rekrutteringsbistand/rekrutteringsbistand
+          github-app-id: 43789
+          nais-template: nais.yaml
+          environment: prod-fss
+          team: teamtag
+
+workflows:
+  version: 2.1
+  bygg_og_deploy:
+    jobs:
+      - build:
+          context: tag-ci
+      - godkjenn-til-dev:
+          type: approval
+          requires:
+            - build
+      - deploy-til-dev:
+          context: tag-ci
+          requires:
+            - godkjenn-til-dev
+      - godkjenn-til-prod:
+          type: approval
+          requires:
+            - deploy-til-dev
+          filters:
+            branches:
+              only:
+                - master
+      - deploy-til-prod:
+          context: tag-ci
+          requires:
+            - godkjenn-til-prod
+          filters:
+            branches:
+              only:
+                - master

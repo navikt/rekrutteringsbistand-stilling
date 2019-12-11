@@ -1,12 +1,12 @@
 apiVersion: "nais.io/v1alpha1"
 kind: "Application"
 metadata:
-    name: pam-rekrutteringsbistand
+    name: rekrutteringsbistand
     namespace: default
     labels:
-        team: teampam
+        team: {{team}}
 spec:
-    image: repo.adeo.no:5443/pam-rekrutteringsbistand
+    image: {{version}}
     port: 8080
     replicas:
         min: 2
