@@ -73,7 +73,7 @@ workflows:
           context: tag-ci
           requires:
             - godkjenn-til-dev
-      - auto-deploy-til-dev:
+      - deploy-til-dev:
           context: tag-ci
           requires:
             - build
