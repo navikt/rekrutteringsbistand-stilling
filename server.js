@@ -66,7 +66,7 @@ const renderApp = htmlPages =>
 const startServer = html => {
     writeEnvironmentVariablesToFile();
 
-    server.use('/js', console.info('> Treffer /js') && express.static(path.resolve(__dirname, 'dist/js')));
+    server.use('/js', express.static(path.resolve(__dirname, 'dist/js')));
     server.use('/css', express.static(path.resolve(__dirname, 'dist/css')));
 
     server.get(/^\/(?!.*dist).*$/, (req, res) => {
