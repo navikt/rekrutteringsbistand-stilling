@@ -65,14 +65,24 @@ workflows:
           type: approval
           requires:
             - build
+          filters:
+            branches:
+              ignore:
+                - master
       - deploy-til-dev:
           context: tag-ci
           requires:
             - godkjenn-til-dev
+      - deploy-til-dev:
+          context: tag-ci
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - master
       - godkjenn-til-prod:
           type: approval
-          requires:
-            - deploy-til-dev
           filters:
             branches:
               only:
