@@ -83,8 +83,8 @@ class PreviewMenu extends React.Component {
                                 >
                                     <div className="Adtransferred_text">
                                         {(showAdTransferredAlert
-                                            ? 'Kandidatlisten er markert som din.'
-                                            : 'Kandidatlisten er opprettet.') +
+                                            ? 'Kandidatlisten er opprettet.'
+                                            : 'Kandidatlisten er markert som din.') +
                                             ' Du er nå eier av stillingen og kandidatlisten.'}
                                     </div>
                                     <Lukknapp
