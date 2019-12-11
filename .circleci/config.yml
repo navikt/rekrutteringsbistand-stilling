@@ -81,7 +81,6 @@ workflows:
             branches:
               only:
                 - master
-                - deploy-til-dev-automatisk
       - godkjenn-til-prod:
           type: approval
           filters:
