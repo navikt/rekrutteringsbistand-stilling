@@ -20,10 +20,14 @@ export const UPDATE_RECRUITMENT_BEGIN = 'UPDATE__RECRUITMENT_BEGIN';
 export const UPDATE_RECRUITMENT_SUCCESS = 'UPDATE__RECRUITMENT_SUCCESS';
 export const UPDATE_RECRUITMENT_FAILURE = 'UPDATE__RECRUITMENT_FAILURE';
 
+export const CLOSE_TRANSFERRED_ALERT = 'CLOSE_TRANSFERRED_ALERT';
+
 const initialState = {
     isSavingRecruitment: false,
     hasSavedRecruitment: false,
     isLoadingRecruitment: false,
+    showAdTransferredAlert: false,
+    showAdMarkedAlert: false,
 };
 
 export default function recruitmentReducer(state = initialState, action) {
@@ -61,11 +65,26 @@ export default function recruitmentReducer(state = initialState, action) {
                 hasSavedRecruitment: false,
             };
         case SAVE_RECRUITMENT_SUCCESS:
+            return {
+                ...state,
+                isSavingRecruitment: false,
+                hasSavedRecruitment: true,
+                showAdTransferredAlert: true,
+                showAdMarkedAlert: false,
+            };
         case UPDATE_RECRUITMENT_SUCCESS:
             return {
                 ...state,
                 isSavingRecruitment: false,
                 hasSavedRecruitment: true,
+                showAdTransferredAlert: false,
+                showAdMarkedAlert: true,
+            };
+        case CLOSE_TRANSFERRED_ALERT:
+            return {
+                ...state,
+                showAdTransferredAlert: false,
+                showAdMarkedAlert: false,
             };
         default:
             return state;
@@ -109,7 +128,6 @@ function* saveRecruitment() {
 
         yield put({ type: SET_REKRUTTERING_DATA, data: response });
         yield put({ type: SAVE_RECRUITMENT_SUCCESS, response });
-        yield showAlertStripe(AdAlertStripeEnum.TRANSFERRED);
     } catch (e) {
         if (e instanceof ApiError) {
             yield put({ type: SAVE_RECRUITMENT_FAILURE, error: e });
@@ -133,7 +151,6 @@ function* updateRecruitment() {
 
         yield put({ type: SET_REKRUTTERING_DATA, data: response });
         yield put({ type: UPDATE_RECRUITMENT_SUCCESS, response });
-        yield showAlertStripe(AdAlertStripeEnum.MARKED);
     } catch (e) {
         if (e instanceof ApiError) {
             yield put({ type: UPDATE_RECRUITMENT_FAILURE, error: e });
