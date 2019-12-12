@@ -13,38 +13,34 @@ const InkluderingPanel = ({ tags, checkTag, uncheckTag }) => {
     const tagIsChecked = tag => tags.includes(tag);
     const kategorierMedNavn = hentKategorierMedNavn();
 
-    return (
-        <Fieldset legend="Inkludering">
-            {kategorierMedNavn.map(({ tag, navn, harUnderkategorier, underkategorier }) => (
-                <Fragment key={tag}>
-                    <Checkbox
-                        className="checkbox--tag--sok skjemaelement--pink"
-                        id={`tag-${tag.toLowerCase()}-checkbox`}
-                        label={navn}
-                        key={tag}
-                        value={tag}
-                        checked={tagIsChecked(tag)}
-                        onChange={onTagChange}
-                    />
-                    {harUnderkategorier && tagIsChecked(tag) && (
-                        <Fieldset legend={navn} className="SearchPage__subtags">
-                            {underkategorier.map(({ tag, navn }) => (
-                                <Checkbox
-                                    className="checkbox--tag--sok skjemaelement--pink"
-                                    id={`tag-${tag.toLowerCase()}-checkbox`}
-                                    label={navn}
-                                    key={tag}
-                                    value={tag}
-                                    checked={tagIsChecked(tag)}
-                                    onChange={onTagChange}
-                                />
-                            ))}
-                        </Fieldset>
-                    )}
-                </Fragment>
-            ))}
-        </Fieldset>
-    );
+    return kategorierMedNavn.map(({ tag, navn, harUnderkategorier, underkategorier }) => (
+        <Fragment key={tag}>
+            <Checkbox
+                className="checkbox--tag--sok skjemaelement--pink"
+                id={`tag-${tag.toLowerCase()}-checkbox`}
+                label={navn}
+                key={tag}
+                value={tag}
+                checked={tagIsChecked(tag)}
+                onChange={onTagChange}
+            />
+            {harUnderkategorier && tagIsChecked(tag) && (
+                <Fieldset legend={navn} className="SearchPage__subtags">
+                    {underkategorier.map(({ tag, navn }) => (
+                        <Checkbox
+                            className="checkbox--tag--sok skjemaelement--pink"
+                            id={`tag-${tag.toLowerCase()}-checkbox`}
+                            label={navn}
+                            key={tag}
+                            value={tag}
+                            checked={tagIsChecked(tag)}
+                            onChange={onTagChange}
+                        />
+                    ))}
+                </Fieldset>
+            )}
+        </Fragment>
+    ));
 };
 
 InkluderingPanel.propTypes = {

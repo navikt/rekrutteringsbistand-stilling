@@ -13,10 +13,19 @@ import PrivacyStatusEnum from '../../common/enums/PrivacyStatusEnum';
 import FilterLocation from './location/FilterLocation';
 import InkluderingPanel from './inkludering/InkluderingPanel';
 import { getAdStatusLabel, getPrivacyStatusLabel } from '../../common/enums/getEnumLabels';
+import Filterpanel from './Filterpanel';
 
-class Filter extends React.Component {
-    onPrivacyFilterChange = e => {
-        const { changePrivacyFilter } = this.props;
+const Filter = ({
+    search,
+    source,
+    adStatus,
+    privacy,
+    deactivatedByExpiry,
+    changePrivacyFilter,
+    changeStatusFilter,
+    changeSourceFilter,
+}) => {
+    const onPrivacyFilterChange = e => {
         if (e.target.value !== 'Alle') {
             changePrivacyFilter(e.target.value);
         } else {
@@ -24,8 +33,7 @@ class Filter extends React.Component {
         }
     };
 
-    onStatusFilterChange = e => {
-        const { changeStatusFilter } = this.props;
+    const onStatusFilterChange = e => {
         if (e.target.value === 'Alle') {
             changeStatusFilter(undefined, undefined);
         } else if (e.target.value === 'Utløpt') {
@@ -35,8 +43,7 @@ class Filter extends React.Component {
         }
     };
 
-    onSourceFilterChange = e => {
-        const { changeSourceFilter } = this.props;
+    const onSourceFilterChange = e => {
         if (e.target.value !== 'Alle') {
             changeSourceFilter(e.target.value);
         } else {
@@ -44,95 +51,88 @@ class Filter extends React.Component {
         }
     };
 
-    onSubmit = e => {
+    const onSubmit = e => {
         e.preventDefault();
-        this.props.search();
+        search();
     };
 
-    render() {
-        const { adStatus, privacy, source, deactivatedByExpiry } = this.props;
-        return (
-            <form onSubmit={this.onSubmit}>
-                <SkjemaGruppe className="blokk-l">
-                    <Fieldset legend="Status">
-                        {Object.keys(AdStatusEnum)
-                            .filter(
-                                key =>
-                                    key !== AdStatusEnum.INACTIVE &&
-                                    key !== AdStatusEnum.REJECTED &&
-                                    key !== AdStatusEnum.DELETED
-                            )
-                            .map(key => (
-                                <Radio
-                                    key={key}
-                                    label={getAdStatusLabel(AdStatusEnum[key])}
-                                    value={key}
-                                    checked={adStatus === key && deactivatedByExpiry !== true}
-                                    name="adStatus"
-                                    onChange={this.onStatusFilterChange}
-                                />
-                            ))}
+    return (
+        <form onSubmit={onSubmit}>
+            <Filterpanel label="Status">
+                {Object.keys(AdStatusEnum)
+                    .filter(
+                        key =>
+                            key !== AdStatusEnum.INACTIVE &&
+                            key !== AdStatusEnum.REJECTED &&
+                            key !== AdStatusEnum.DELETED
+                    )
+                    .map(key => (
                         <Radio
-                            label="Utløpt"
-                            value="Utløpt"
-                            checked={adStatus === undefined && deactivatedByExpiry === true}
+                            key={key}
+                            label={getAdStatusLabel(AdStatusEnum[key])}
+                            value={key}
+                            checked={adStatus === key && deactivatedByExpiry !== true}
                             name="adStatus"
-                            onChange={this.onStatusFilterChange}
+                            onChange={onStatusFilterChange}
                         />
-                        <Radio
-                            label="Alle"
-                            value="Alle"
-                            checked={adStatus === undefined && deactivatedByExpiry === undefined}
-                            name="adStatus"
-                            onChange={this.onStatusFilterChange}
-                        />
-                    </Fieldset>
-                </SkjemaGruppe>
-                <SkjemaGruppe className="blokk-l">
-                    <Fieldset legend="Publisert">
-                        <Radio
-                            label="Alle"
-                            value="Alle"
-                            checked={privacy === undefined}
-                            name="privacyStatus"
-                            onChange={this.onPrivacyFilterChange}
-                        />
-                        {Object.keys(PrivacyStatusEnum).map(key => (
-                            <Radio
-                                key={key}
-                                label={getPrivacyStatusLabel(PrivacyStatusEnum[key])}
-                                value={key}
-                                name="privacyStatus"
-                                checked={privacy === key}
-                                onChange={this.onPrivacyFilterChange}
-                            />
-                        ))}
-                    </Fieldset>
-                </SkjemaGruppe>
-                <SkjemaGruppe className="blokk-l">
-                    <Fieldset legend="Kilde">
-                        <Radio
-                            label="Alle"
-                            value="Alle"
-                            checked={source === undefined}
-                            name="source"
-                            onChange={this.onSourceFilterChange}
-                        />
-                        <Radio
-                            label="Direktemeldt stilling"
-                            value="DIR"
-                            checked={source === 'DIR'}
-                            name="source"
-                            onChange={this.onSourceFilterChange}
-                        />
-                    </Fieldset>
-                </SkjemaGruppe>
-                <FilterLocation />
+                    ))}
+                <Radio
+                    label="Utløpt"
+                    value="Utløpt"
+                    checked={adStatus === undefined && deactivatedByExpiry === true}
+                    name="adStatus"
+                    onChange={onStatusFilterChange}
+                />
+                <Radio
+                    label="Alle"
+                    value="Alle"
+                    checked={adStatus === undefined && deactivatedByExpiry === undefined}
+                    name="adStatus"
+                    onChange={onStatusFilterChange}
+                />
+            </Filterpanel>
+            <Filterpanel label="Publisert">
+                <Radio
+                    label="Alle"
+                    value="Alle"
+                    checked={privacy === undefined}
+                    name="privacyStatus"
+                    onChange={onPrivacyFilterChange}
+                />
+                {Object.keys(PrivacyStatusEnum).map(key => (
+                    <Radio
+                        key={key}
+                        label={getPrivacyStatusLabel(PrivacyStatusEnum[key])}
+                        value={key}
+                        name="privacyStatus"
+                        checked={privacy === key}
+                        onChange={onPrivacyFilterChange}
+                    />
+                ))}
+            </Filterpanel>
+            <Filterpanel label="Kilde">
+                <Radio
+                    label="Alle"
+                    value="Alle"
+                    checked={source === undefined}
+                    name="source"
+                    onChange={onSourceFilterChange}
+                />
+                <Radio
+                    label="Direktemeldt stilling"
+                    value="DIR"
+                    checked={source === 'DIR'}
+                    name="source"
+                    onChange={onSourceFilterChange}
+                />
+            </Filterpanel>
+            <FilterLocation />
+            <Filterpanel label="Inkludering">
                 <InkluderingPanel />
-            </form>
-        );
-    }
-}
+            </Filterpanel>
+        </form>
+    );
+};
 
 Filter.defaultProps = {
     adStatus: undefined,
