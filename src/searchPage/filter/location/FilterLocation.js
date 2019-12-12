@@ -11,6 +11,7 @@ import {
 import capitalizeLocation from '../../../ad/edit/location/capitalizeLocation';
 import { CHANGE_LOCATION_FILTER } from '../../searchReducer';
 import './FilterLocation.less';
+import Filterpanel from '../Filterpanel';
 
 class FilterLocation extends React.Component {
     componentDidMount() {
@@ -72,57 +73,54 @@ class FilterLocation extends React.Component {
         const locationArray = this.getLocationAsArray(this.props.locationName);
 
         return (
-            <React.Fragment>
-                <div className="FilterLocation__blokk">
-                    <div className="FilterLocation">
-                        <Typeahead
-                            id="typeahead-location"
-                            className="FilterLocation__typeahead"
-                            onChange={this.onLocationChange}
-                            onSelect={this.onLocationSelect}
-                            onBlur={this.onBlur}
-                            label="Kommune eller fylke"
-                            suggestions={this.props.municipals.map(m => ({
-                                value: m.code,
-                                label: capitalizeLocation(m.name),
-                            }))}
-                            optionalSuggestions={this.props.counties.map(c => ({
-                                value: c.code,
-                                label: capitalizeLocation(c.name),
-                            }))}
-                            optionalSuggestionsLabel="Fylke"
-                            value={this.props.typeaheadValue}
-                            minLength={1}
-                            placeholder="F.eks: Drammen"
-                        />
-                        <Knapp
-                            aria-label="søk"
-                            className="FilterLocation__SearchButton"
-                            onClick={this.onSubmit}
-                        >
-                            <i className="FilterLocation__SearchButton__icon" />
-                        </Knapp>
-                    </div>
-                    {locationArray.length > 0 && (
-                        <div className="FilterLocation__tags">
-                            {locationArray.map(location => {
-                                if (location) {
-                                    return (
-                                        <Tag
-                                            key={location}
-                                            value={location}
-                                            label={capitalizeLocation(location)}
-                                            canRemove
-                                            onRemove={this.onRemoveLocation}
-                                        />
-                                    );
-                                }
-                                return null;
-                            })}
-                        </div>
-                    )}
+            <Filterpanel label="Kommune eller fylke" htmlFor="typeahead-location">
+                <div className="FilterLocation">
+                    <Typeahead
+                        id="typeahead-location"
+                        className="FilterLocation__typeahead"
+                        onChange={this.onLocationChange}
+                        onSelect={this.onLocationSelect}
+                        onBlur={this.onBlur}
+                        suggestions={this.props.municipals.map(m => ({
+                            value: m.code,
+                            label: capitalizeLocation(m.name),
+                        }))}
+                        optionalSuggestions={this.props.counties.map(c => ({
+                            value: c.code,
+                            label: capitalizeLocation(c.name),
+                        }))}
+                        optionalSuggestionsLabel="Fylke"
+                        value={this.props.typeaheadValue}
+                        minLength={1}
+                        placeholder="F.eks: Drammen"
+                    />
+                    <Knapp
+                        aria-label="søk"
+                        className="FilterLocation__SearchButton"
+                        onClick={this.onSubmit}
+                    >
+                        <i className="FilterLocation__SearchButton__icon" />
+                    </Knapp>
                 </div>
-            </React.Fragment>
+                {locationArray.length > 0 && (
+                    <div className="FilterLocation__tags">
+                        {locationArray.map(location => {
+                            if (location) {
+                                return (
+                                    <Tag
+                                        key={location}
+                                        value={location}
+                                        label={capitalizeLocation(location)}
+                                        canRemove
+                                        onRemove={this.onRemoveLocation}
+                                    />
+                                );
+                            }
+                            return null;
+                        })}
+                    </div>
+                )}
+            </Filterpanel>
         );
     }
 }
