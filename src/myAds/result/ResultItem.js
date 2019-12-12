@@ -21,8 +21,7 @@ const ResultItem = ({ ad, copiedAds, reportee }) => {
         ad.administration &&
         ad.administration.navIdent &&
         ad.rekruttering.eierNavident !== ad.administration.navIdent &&
-        reportee &&
-        ad.rekruttering.eierNavident != reportee.navIdent;
+        reportee && ad.rekruttering.eierNavident != reportee.navIdent;
 
     const colTitle = (
         <td className="Col-title">
