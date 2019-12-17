@@ -3,6 +3,11 @@ import toUrl from '../common/toUrl';
 import { AD_API, SEARCH_API, REKRUTTERING_API } from '../fasitProperties';
 import { loginWithRedirectToCurrentLocation } from '../login';
 
+if (true) {
+    // TODO: Toggle med env-variabel
+    require('../mock/api');
+}
+
 export class ApiError {
     constructor(message, statusCode) {
         this.message = message;

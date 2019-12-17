@@ -1,0 +1,2676 @@
+{
+    "content": [
+        {
+            "id": 213634,
+            "uuid": "b78f35ad-80f0-4359-9f11-edf037055f2b",
+            "created": "2019-12-17T07:08:10.614393",
+            "createdBy": "pam-ad",
+            "updated": "2019-12-17T09:52:25.839946",
+            "updatedBy": "nss-admin",
+            "mediaList": [],
+            "contactList": [
+                {
+                    "email": "permorten@vbemanning.no",
+                    "phone": "+47 400 20 033",
+                    "role": null,
+                    "title": "Seniorrådgiver"
+                }
+            ],
+            "title": "Site Engineer EIT (Electro, Instrument & Telecom)",
+            "status": "ACTIVE",
+            "privacy": "SHOW_ALL",
+            "source": "FINN",
+            "medium": "FINN",
+            "reference": "165669563",
+            "published": "2019-12-17T09:29:38.033848",
+            "expires": "2020-01-16T00:00:00",
+            "employer": {
+                "id": 201473,
+                "uuid": "f97044af-cb17-41a0-917d-92c69cb58a4d",
+                "created": "2019-11-13T07:05:28.56618",
+                "createdBy": "pam-ad",
+                "updated": "2019-12-16T01:31:15.095272",
+                "updatedBy": "pam-ad",
+                "mediaList": [],
+                "contactList": [],
+                "location": {
+                    "address": "Fjordgata 21",
+                    "postalCode": "7010",
+                    "county": "TRØNDELAG",
+                    "municipal": "TRONDHEIM",
+                    "municipalCode": "5001",
+                    "city": "TRONDHEIM",
+                    "country": "NORGE",
+                    "latitude": "63.434458430209986",
+                    "longitude": "10.398928007196066"
+                },
+                "locationList": [
+                    {
+                        "address": "Fjordgata 21",
+                        "postalCode": "7010",
+                        "county": "TRØNDELAG",
+                        "municipal": "TRONDHEIM",
+                        "municipalCode": "5001",
+                        "city": "TRONDHEIM",
+                        "country": "NORGE",
+                        "latitude": "63.434458430209986",
+                        "longitude": "10.398928007196066"
+                    }
+                ],
+                "properties": {
+                    "nace2": "[{\"code\":\"78.200\",\"name\":\"Utleie av arbeidskraft\"}]"
+                },
+                "name": "VEKSTHUSET BEMANNING AS AVD TRONDHEIM",
+                "orgnr": "923472185",
+                "status": "ACTIVE",
+                "parentOrgnr": "994023624",
+                "publicName": "VEKSTHUSET BEMANNING AS AVD TRONDHEIM",
+                "deactivated": null,
+                "orgform": "BEDR",
+                "employees": 5
+            },
+            "administration": {
+                "id": 190829,
+                "status": "DONE",
+                "comments": null,
+                "reportee": "Ola Nordmann",
+                "remarks": [],
+                "navIdent": "B123456"
+            },
+            "location": {
+                "address": null,
+                "postalCode": "2016",
+                "county": "VIKEN",
+                "municipal": "LILLESTRØM",
+                "municipalCode": "3030",
+                "city": "FROGNER",
+                "country": "NORGE",
+                "latitude": null,
+                "longitude": null
+            },
+            "locationList": [
+                {
+                    "address": null,
+                    "postalCode": "2016",
+                    "county": "VIKEN",
+                    "municipal": "LILLESTRØM",
+                    "municipalCode": "3030",
+                    "city": "FROGNER",
+                    "country": "NORGE",
+                    "latitude": null,
+                    "longitude": null
+                }
+            ],
+            "categoryList": [
+                {
+                    "id": 1089,
+                    "code": "2142.15",
+                    "categoryType": "STYRK08NAV",
+                    "name": "Produktutvikler (bygg og anlegg)",
+                    "description": null,
+                    "parentId": 1074
+                }
+            ],
+            "properties": {
+                "logomain": "https://images.finncdn.no/mmo/logo/logo/3333526/20191104/e6ba2af1-4365-400f-950e-012911f76c45",
+                "extent": "Heltid",
+                "employerhomepage": "http://www.vbemanning.no",
+                "occupation": "Ingeniør;Konsulent",
+                "keywords": "Ingeniørfag,Electro Engineering,Mc ingeniør,Instrument/elektro ingeniør,Instrument engineer",
+                "positioncount": "2",
+                "engagementtype": "Prosjekt",
+                "industry": "Maritim og offshore;Olje og gass",
+                "employerdescription": "<p>Veksthuset Bemanning AS er et rekrutteringsselskap med spesialkunnskap på personalutleie og rekruttering innen olje og gass, salg, produksjon, håndverk, ledelse, økonomi/regnskap, samt administrative funksjoner i offentlig og privat sektor. Selskapet, med hovedkontor i Oslo og avdelingskontor i Elverum, Hamar, Brumunddal, Trondheim og Otta, samarbeider tett med attraktive bedrifter i disse områdene. Mer informasjon på www.vhr.no</p>\n",
+                "starttime": "10.02.2020",
+                "applicationurl": "https://apply.recman.no/job_post.php?id=114938&path=finn",
+                "employer": "Veksthuset Bemanning AS",
+                "sector": "Privat",
+                "applicationdue": "16.01.2020",
+                "address": "Fjordgata 21,7010 Trondheim",
+                "jobtitle": "Site Engineer EIT",
+                "author": "Veksthuset Bemanning AS",
+                "adtext": "<h2>***Ønsker du å jobbe for en av Norges største aktører innen olje og gass ?</h2>\n<p>Do you want to work for one of Norway&#39;s largest oil and gas companies?***</p>\n<p><strong>Position:</strong></p>\n<ul><li><strong>Site Engineer EIT</strong></li></ul>\n<p><strong>Location:</strong></p>\n<ul><li>Egersund</li></ul>\n<p><strong>Project period:</strong></p>\n<ul><li>10.02.2020 - 03.07.2020 (with possibility of extension)</li></ul>\n<p><strong>Work Schedule:</strong></p>\n<ul><li>Ordinary work week 37,5 hours (No rotation)</li></ul>\n<p><strong>Work description:</strong></p>\n<ul><li>Propose/ comment activities to Q-plan, audit and verification plan.</li><li>Carry out verifications and reviews on Contractors engineering and construction activities</li><li>Establish and maintain communication with home office to secure that drawings and work packages are delivered within the limit stated in the Contract.</li><li>Make sure the Contractor engineering personnel understand the work packages delivered.</li><li>Establish and operate a system for Technical Clarifications (TC) and respond to TC&#39;s from Contractor as agreed with home office.</li><li>Verify Contractor system including system for handling of revisions, their ability to implement revisions to the complete product.</li><li>Verify Contractor system for material traceability</li><li>Follow up required register information</li><li>Monitor performance on engineering, and propose corrective actions if required</li><li>Monitor necessary documentation upon delivery of scope of work from Contractor. Ship loose items, marking of items.</li><li>On a regular basis, follow up and inspect that multi discipline construction work is performed according to drawings, work packages and specification</li><li>Perform ITP inspections as required.</li><li>Clarify and approve technical issues between Contractor, Company and Client on site, sign Site Instructions.</li><li>Verify punch out before delivery</li><li>Prepare and regularly update an experience report for the discipline (P0133).</li></ul>\n<p><strong>Requested qualification/Competence:</strong></p>\n<ul><li>Bachelor / Technical College / Skilled workers. Lack of education can be compensated with relevant work experience.</li><li>Minimum 5 years&#39; experience in offshore Engineering</li><li>Be familiar with Engineering procedures, MIPS, 3D model and requirements.</li><li>Experience from project work at construction site.</li><li>FSE and first aid course.</li><li>Minimum 5-10 years of relevant experience</li></ul>\n<p><strong>Language:</strong></p>\n<ul><li><strong>English;</strong> written and spoken, is necessary</li><li><strong>Norwegian;</strong> written and spoken, is disirable</li></ul>\n<p><strong>We offer:</strong></p>\n<ul><li><strong>Project period: 10.02.2020 - 03.07.2020 (</strong> with possibility of extension)</li><li>Ordinary working week/5 days week (Mon - Fri)</li><li>Competitive conditions</li><li>Variety of project opportunities</li><li>Help with housing conditions</li></ul>\n<p><strong>Please present CV&#96;s in English.\nNB!\nWe need name and phonenumber of min. 2 references.</strong></p>\n<p><strong>Mark application:</strong></p>\n<ul><li>PM084</li></ul>\n<p><strong>To apply for the job; please use link on this page</strong></p>\n",
+                "externalref": "114938",
+                "logolisting": "https://images.finncdn.no/mmo/logo/logo/3333526/20191104/4495d605-6088-4c90-b16b-05ae0f466092",
+                "sourceurl": "https://www.finn.no/165669563",
+                "sourceupdated": "2019-12-16T08:54:00.000Z",
+                "searchtags": "[{\"label\":\"Arbeidsstudieingeniør, sivil bygg og anlegg\",\"score\":1.0},{\"label\":\"Arkitekt\",\"score\":0.20115845},{\"label\":\"Civil Planner Engineer\",\"score\":0.20079558}]",
+                "location": "Trondheim",
+                "classification_input_source": "categoryName"
+            },
+            "publishedByAdmin": "2019-12-17T09:29:38.033848",
+            "businessName": "Veksthuset Bemanning AS",
+            "firstPublished": true,
+            "deactivatedByExpiry": false,
+            "activationOnPublishingDate": false,
+            "rekruttering": null
+        },
+        {
+            "id": 213635,
+            "uuid": "46852fe0-b46a-43bd-a2c6-588fb20fffc7",
+            "created": "2019-12-17T07:08:10.625204",
+            "createdBy": "pam-ad",
+            "updated": "2019-12-17T09:29:10.533373",
+            "updatedBy": "nss-admin",
+            "mediaList": [],
+            "contactList": [
+                {
+                    "email": "Jenny.Nordsletten@studentconsulting.com",
+                    "phone": null,
+                    "role": null,
+                    "title": "Rekrutteringskonsulent"
+                },
+                {
+                    "email": "thea.sandholdt@studentconsulting.com",
+                    "phone": null,
+                    "role": null,
+                    "title": "Rekrutteringskonsulent"
+                }
+            ],
+            "title": "Interessert i produkter som gjør bedrifter mer rustet for å møte fremtiden?",
+            "status": "ACTIVE",
+            "privacy": "SHOW_ALL",
+            "source": "FINN",
+            "medium": "FINN",
+            "reference": "165685653",
+            "published": "2019-12-17T09:29:10.492979",
+            "expires": "2020-01-27T22:59:00",
+            "employer": {
+                "id": 213650,
+                "uuid": "3a80bf36-47fb-42c2-b9ca-7a43d6039e26",
+                "created": "2019-12-17T09:29:10.490998",
+                "createdBy": "pam-ad",
+                "updated": "2019-12-17T09:29:10.490998",
+                "updatedBy": "pam-ad",
+                "mediaList": [],
+                "contactList": [],
+                "location": {
+                    "address": "Sandakerveien 64",
+                    "postalCode": "0484",
+                    "county": "OSLO",
+                    "municipal": "OSLO",
+                    "municipalCode": "0301",
+                    "city": "OSLO",
+                    "country": "NORGE",
+                    "latitude": "59.941602172317296",
+                    "longitude": "10.7701144448113"
+                },
+                "locationList": [
+                    {
+                        "address": "Sandakerveien 64",
+                        "postalCode": "0484",
+                        "county": "OSLO",
+                        "municipal": "OSLO",
+                        "municipalCode": "0301",
+                        "city": "OSLO",
+                        "country": "NORGE",
+                        "latitude": "59.941602172317296",
+                        "longitude": "10.7701144448113"
+                    }
+                ],
+                "properties": {
+                    "nace2": "[{\"code\":\"62.010\",\"name\":\"Programmeringstjenester\"}]"
+                },
+                "name": "GSGROUP AS AVD OSLO",
+                "orgnr": "972027170",
+                "status": "ACTIVE",
+                "parentOrgnr": "963299850",
+                "publicName": "GSGROUP AS AVD OSLO",
+                "deactivated": null,
+                "orgform": "BEDR",
+                "employees": 30
+            },
+            "administration": {
+                "id": 190830,
+                "status": "DONE",
+                "comments": null,
+                "reportee": "Ola Nordmann",
+                "remarks": [],
+                "navIdent": "B123456"
+            },
+            "location": {
+                "address": "Lilleakerveien 2c",
+                "postalCode": "0283",
+                "county": "OSLO",
+                "municipal": "OSLO",
+                "municipalCode": "0301",
+                "city": "OSLO",
+                "country": "NORGE",
+                "latitude": "59.91472244262695",
+                "longitude": "10.638928413391113"
+            },
+            "locationList": [
+                {
+                    "address": "Lilleakerveien 2c",
+                    "postalCode": "0283",
+                    "county": "OSLO",
+                    "municipal": "OSLO",
+                    "municipalCode": "0301",
+                    "city": "OSLO",
+                    "country": "NORGE",
+                    "latitude": "59.91472244262695",
+                    "longitude": "10.638928413391113"
+                }
+            ],
+            "categoryList": [
+                {
+                    "id": 3432,
+                    "code": "4110.19",
+                    "categoryType": "STYRK08NAV",
+                    "name": "Kundeservicemedarbeider",
+                    "description": null,
+                    "parentId": 3413
+                }
+            ],
+            "properties": {
+                "logomain": "https://images.finncdn.no/mmo/logo/logo/712849803/20190409/bda94787-e2c3-4975-9b50-1c7b4841bf79",
+                "extent": "Heltid",
+                "employerhomepage": "https://gsgroup.no/om-gsgroup/om-oss/",
+                "occupation": "Kundeservice;IT drift og vedlikehold",
+                "applicationdue": "Snarest",
+                "address": "Lilleakerveien 2c,0283 Oslo",
+                "keywords": "Oslo,Heltid,IT,Support,Fast",
+                "jobtitle": "Customer Support Representative - IT",
+                "author": "StudentConsulting Norge AS",
+                "engagementtype": "Fast",
+                "classification_styrk08_score": "0.7495749",
+                "industry": "IT;IT - programvare;IT - maskinvare",
+                "employerdescription": "<p>GSGroup er en ledende europeisk leverandør av tjenester og systemer for mobile datafangst- og field service-løsninger. Siden 1992 har de jobbet med sporing og gjenfinning, og er i dag en av Europas ledende leverandør av avansert sensorteknologi.</p>\n<p>Hovedkontoret deres ligger i Sandefjord. Totalt har de kontorer på 14 ulike lokasjoner i 9 forskjellige land. Foruten Sandefjord, finner du GSGroup-kontorer i Oslo, Stockholm, Göteborg, København, Esbjerg, Tallinn, Riga, Vilnius, Dortmund, Hamburg, Budapest, Tampere og Vantaa. GSGroup har også en rekke partnere rundt om i Europa. Deres produkt-portefølje består av merkevarene Handyman, Smartday, Guard Systems, Spotguard, Paikannin.com, Care4All og MyFleet.</p>\n",
+                "adtext": "<p><strong>Vi søker en kundeorientert og serviceinnstilt supportmedarbeider til kunden vår GSGroup i Oslo. Du vil inngå i et team som er kundens kontaktpunkt dersom de skulle trenge bistand i produktene de leverer.</strong></p>\n<p>GSGroup leverer løsninger innen feltservice og ressursstyring, og du vil være viktig for å sikre den gode kundeopplevelsen til deres kunder. GSGroup ser etter deg som er trygg i bruk av telefon og pc som arbeidsverktøy, fremoverlent, nysgjerrig, og løsningsorientert. Det er helt essensielt at du trives i et hektisk miljø. Innehar du evne til å forklare kompleks informasjon på en enkel og forståelig måte er det en viktig egenskap.</p>\n<p><strong>Kunden vår kan tilby:</strong><br />\n• Arbeid i et internasjonalt selskap med utstrakt bruk av ressurser på tvers<br />\n• Arbeid med markedsledende produkter innen sin nisje<br />\n• Stor påvirkningsmulighet på utvikling av løsningene<br />\n• Sterkt faglig og sosialt miljø</p>\n<p><strong>Noen av arbeidsoppgavene er som følger:</strong><br />\n• Analysere, diagnostisere og løse supporthenvendelser fra kunder og samarbeidspartnere<br />\n• Yte support via kommunikasjonskanalene de tilbyr (pt. telefon, mail, fjernstyring)<br />\n• Ansvarlig for å sikre leveranse iht SLA, og ivareta kundekommunikasjon fra start til slutt<br />\n• Loggføre og prioritere henvendelser i sakshåndteringssystem og eskalere til støttelinjer om nødvendig<br />\n• Etterleve operasjonelle rutiner og prosesser<br />\n• Assistere og bidra med vedlikehold av intern læringsportal og opplæring internt</p>\n<p>Dette er en fast stilling og du vil bli en del av et supportteam på 6 personer hvor 3 jobber på 1.linje og 3 på 2.linje. Du vil jobbe tett sammen med 2.linje teamet og samarbeidsevner er derfor svært viktig. Du vil jobbe mot det svenske markedet, men internspråket er engelsk. Videre er det viktig at du har stor interesse for data, har teknisk forståelse og kjennskap til Windows.</p>\n<p><strong>Kvalifikasjoner</strong><br />\n• Erfaring fra 1.linje support eller annen kundeservice<br />\n• God dataforståelse og kjent med tlf som arbeidsverktøy<br />\n• Høyere utdannelse innen IT er en fordel, erfaring kan kompensere for manglende utdanning<br />\n• Ønskelig med en svensktalende person, vi tar også imot norsktalende kandidater</p>\n<p><strong>Personlige egenskaper</strong><br />\n• Trives like godt å jobbe i team som selvstendig<br />\n• Evne til å jobbe strukturert og systematisk<br />\n• Svært god muntlig og skriftlig fremstillingsevne i svensk/norsk og engelsk</p>\n<p>Arbeidstider er kontortider. Oppstart er tiltenkt 01.03.20 og intervjuer tas fortløpende. Førstegangsintervju vil være hos oss i StudentConsulting og videre intervju vil være hos GSGroup. Søk i dag, vi ser frem til å behandle din søknad.</p>\n",
+                "externalref": "165685653",
+                "logolisting": "https://images.finncdn.no/mmo/logo/logo/712849803/20190409/f9aa5dd9-ce76-49fa-80e5-9fcde98e7e53",
+                "sourceurl": "https://www.finn.no/165685653",
+                "sourceupdated": "2019-12-16T13:07:00.000Z",
+                "searchtags": "[{\"label\":\"Kundebehandler\",\"score\":0.7495749},{\"label\":\"IT Support\",\"score\":0.26689214},{\"label\":\"Customer Support Representative Bilingual\",\"score\":0.26169908},{\"label\":\"Teknisk kundebehandler\",\"score\":0.26079792},{\"label\":\"Teknisk Support Operatør\",\"score\":0.25158945}]",
+                "applicationurl": "http://www.studentconsulting.com/no/jobs/oslo/interessert-i-produkter-som-gjor-bedrifter-mer-rustet-for-a-mote-fremtiden/51629",
+                "employer": "GSGroup AS",
+                "location": "Oslo",
+                "classification_input_source": "jobtitle",
+                "sector": "Privat"
+            },
+            "publishedByAdmin": "2019-12-17T09:29:10.492979",
+            "businessName": "GSGroup AS",
+            "firstPublished": true,
+            "deactivatedByExpiry": false,
+            "activationOnPublishingDate": false,
+            "rekruttering": null
+        },
+        {
+            "id": 213636,
+            "uuid": "71b52f0d-3126-42a3-a372-9721009abfa3",
+            "created": "2019-12-17T07:08:10.638518",
+            "createdBy": "pam-ad",
+            "updated": "2019-12-17T09:28:50.212616",
+            "updatedBy": "nss-admin",
+            "mediaList": [],
+            "contactList": [
+                {
+                    "email": "Mari.Helland@academicwork.no",
+                    "phone": null,
+                    "role": null,
+                    "title": "Consultant Manager"
+                }
+            ],
+            "title": "Er du en .Net/C# utvikler som ønsker å jobbe fullstack med fremtidsrettede digitale løsninger?",
+            "status": "ACTIVE",
+            "privacy": "SHOW_ALL",
+            "source": "FINN",
+            "medium": "FINN",
+            "reference": "165695341",
+            "published": "2019-12-17T09:28:50.175642",
+            "expires": "2020-01-12T00:00:00",
+            "employer": {
+                "id": 33592,
+                "uuid": "dc5ed35d-0417-4d5f-a48d-6c012978642e",
+                "created": "2018-12-22T07:43:19.508",
+                "createdBy": "pam-ad",
+                "updated": "2019-12-17T07:05:36.197536",
+                "updatedBy": "pam-ad",
+                "mediaList": [],
+                "contactList": [],
+                "location": {
+                    "address": "Leiv Eriksson senter",
+                    "postalCode": "7010",
+                    "county": "TRØNDELAG",
+                    "municipal": "TRONDHEIM",
+                    "municipalCode": "5001",
+                    "city": "TRONDHEIM",
+                    "country": "NORGE",
+                    "latitude": null,
+                    "longitude": null
+                },
+                "locationList": [
+                    {
+                        "address": "Leiv Eriksson senter",
+                        "postalCode": "7010",
+                        "county": "TRØNDELAG",
+                        "municipal": "TRONDHEIM",
+                        "municipalCode": "5001",
+                        "city": "TRONDHEIM",
+                        "country": "NORGE",
+                        "latitude": null,
+                        "longitude": null
+                    }
+                ],
+                "properties": {
+                    "nace2": "[{\"code\":\"62.020\",\"name\":\"Konsulentvirksomhet tilknyttet informasjonsteknologi\"}]"
+                },
+                "name": "INMETA CONSULTING AS AVD TRONDHEIM",
+                "orgnr": "984909772",
+                "status": "ACTIVE",
+                "parentOrgnr": "977302390",
+                "publicName": "INMETA CONSULTING AS AVD TRONDHEIM",
+                "deactivated": null,
+                "orgform": "BEDR",
+                "employees": 0
+            },
+            "administration": {
+                "id": 190831,
+                "status": "DONE",
+                "comments": null,
+                "reportee": "Ola Nordmann",
+                "remarks": [],
+                "navIdent": "B123456"
+            },
+            "location": {
+                "address": "HAVNEGATA 7",
+                "postalCode": "7010",
+                "county": "TRØNDELAG",
+                "municipal": "TRONDHEIM",
+                "municipalCode": "5001",
+                "city": "TRONDHEIM",
+                "country": "NORGE",
+                "latitude": "63.440574645996094",
+                "longitude": "10.403640747070312"
+            },
+            "locationList": [
+                {
+                    "address": "HAVNEGATA 7",
+                    "postalCode": "7010",
+                    "county": "TRØNDELAG",
+                    "municipal": "TRONDHEIM",
+                    "municipalCode": "5001",
+                    "city": "TRONDHEIM",
+                    "country": "NORGE",
+                    "latitude": "63.440574645996094",
+                    "longitude": "10.403640747070312"
+                }
+            ],
+            "categoryList": [
+                {
+                    "id": 1881,
+                    "code": "2514.01",
+                    "categoryType": "STYRK08NAV",
+                    "name": "Applikasjonsprogrammerer",
+                    "description": null,
+                    "parentId": 1880
+                }
+            ],
+            "properties": {
+                "logomain": "https://images.finncdn.no/mmo/logo/object/1710160461/iad_8939606225085404623aw_logo_main_version_rgb.png",
+                "extent": "Heltid",
+                "employerhomepage": "http://www.academicwork.no",
+                "occupation": "IT utvikling",
+                "keywords": "trondheim,konsulent,programmering,cloud,frontend",
+                "engagementtype": "Fast",
+                "industry": "IT;IT - programvare",
+                "employerdescription": "<p>Inmeta er et norsk IT- konsulentselskap som holder til i Trondheim, Oslo og Hamar. For våre kunder jobber vi med systemutvikling, datainnsikt, brukeropplevelse, skyintegrasjon og prosjektledelse. Vårt mål er å skape forretningsverdi ved å tilføre kunnskap, erfaring og kreativitet.</p>\n",
+                "starttime": "Etter avtale",
+                "applicationurl": "https://jobs.academicwork.no/annons/er-du-en-netc-utvikler-som-nsker-a-jobbe-fullstack-med-fremtidsrettede-digitale-lsninger/15032204",
+                "employer": "Inmeta",
+                "sector": "Privat",
+                "applicationdue": "12.01.2020",
+                "address": "HAVNEGATA 7,7010 Trondheim",
+                "jobtitle": "Utvikler .Net/C#",
+                "author": "Academic Work Norway AS – TRONDHEIM",
+                "classification_styrk08_score": "0.5007713",
+                "adtext": "<p>**Inmeta søker nå engasjerte utviklere som skriver kode som mennesker kan lese og er opptatt av detaljer, kvalitet og gode brukeropplevelser</p>\n<p>Hvorfor jobbe hos Inmeta?**</p>\n<p>Som Utvikler hos Inmeta vil du være en del av et stort fagmiljø hvor det er et sterkt fokus på kompetanseheving og kunnskapsdeling. Du vil få muligheten til å jobbe på spennende og utfordrende prosjekter ute hos våre kunder og delta i nyskapende produktutvikling.</p>\n<p>I tillegg til utviklingsaktiviteter, fra rene innovasjonsprosjekter til større etablerte løsninger hvor vi jobber for å automatisere og effektivisere, er vi involvert i prosjekter knyttet til bruk av IoT og maskinlæring/AI. Vi tar i bruk nyeste teknologi og mener at trivsel og kontinuerlig kompetanseheving er en forutsetning for å drive god systemutvikling.</p>\n<p>Vi er kjent for å ha et meget godt arbeidsmiljø. Hos oss kommer du til en uformell kultur og en godt sammensveiset gjeng. Du vil få muligheten til å delta på kurs, konferanser og events. Du vil jobbe i et sterkt faglig miljø med trivelige og behjelpelige kollegaer og vi kan tilby faste kompetansedager, konkurransedyktig lønn og ellers gode betingelser.</p>\n<p>Hos oss vil du få jobbe med alt fra estimering, kundeforespørsler, design, database og masse ulik teknologi som .NET/C#, MVC og Cloud-teknologi. Du får bruke dine skills i HTML, CSS og Javascript, i tillegg til rammeverk som React og Angular. Dette gir deg mulighet til å utvikle deg selv videre gjennom fagfordypninger, kurs og utfordrende prosjekter.</p>\n<p><strong>Vi søker deg som</strong></p>\n<ul><li>Har relevant høyere utdannelse</li><li>Har konsulenterfaring eller ønske om å jobbe som konsulent</li><li>Liker algoritmer, arkitektur og back-end utvikling</li><li>Har konkrete eksempler fra prosjekter som tydeliggjør din teknologiske nysgjerrighet</li><li>Har gode kommunikasjonsferdigheter i norsk og engelsk</li></ul>\n<p>Videre ser vi etter deg som er er nysgjerrig på et bredt spekter av teknologi. Du har et stort engasjement og lidenskap for objektorientert programmering. I tillegg ønsker vi deg som liker å utveksle teorier, problemstillinger, ideer og kunnskap med kollegaer. Du er derfor både iherdig, samarbeidsvillig og har gode kommunkasjonsevner.</p>\n<p><strong>Søknadsfrist: 12.01.2020</strong> Vi vil ta ned annonsen så snart vi har funnet riktig kandidat, vent derfor ikke med å søke, og send oss din søknad, CV og karakterutskrift i dag!</p>\n<p>Rekrutteringsprosessen utføres i samarbeid med Academic Work. Stillingen som tilbys er fast hos Inmeta. For spørsmål, ta kontakt med Mari Helland.</p>\n",
+                "externalref": "165695341",
+                "logolisting": "https://images.finncdn.no/mmo/logo/result/1710160461/iad_8308755811036535993aw_logo_main_version_rgb.png",
+                "sourceurl": "https://www.finn.no/165695341",
+                "sourceupdated": "2019-12-16T15:00:00.000Z",
+                "searchtags": "[{\"label\":\".Net Utvikler\",\"score\":0.50055677},{\"label\":\".Net og Java utvikler\",\"score\":0.076706745},{\"label\":\"C# utvikler\",\"score\":0.0069270576},{\"label\":\"C/C++ utvikler\",\"score\":0.006182257},{\"label\":\"C++ utvikler\",\"score\":0.005754989}]",
+                "location": "Trondheim",
+                "classification_input_source": "jobtitle"
+            },
+            "publishedByAdmin": "2019-12-17T09:28:50.175642",
+            "businessName": "Inmeta",
+            "firstPublished": true,
+            "deactivatedByExpiry": false,
+            "activationOnPublishingDate": false,
+            "rekruttering": null
+        },
+        {
+            "id": 213637,
+            "uuid": "8fe1a887-b9e3-48e0-8d83-769fadc38bc5",
+            "created": "2019-12-17T07:08:10.649594",
+            "createdBy": "pam-ad",
+            "updated": "2019-12-17T09:28:40.582891",
+            "updatedBy": "nss-admin",
+            "mediaList": [],
+            "contactList": [
+                { "email": "zchaherli@dxc.com", "phone": null, "role": null, "title": null }
+            ],
+            "title": "DevOps Analyst - Application operation (AO)",
+            "status": "ACTIVE",
+            "privacy": "SHOW_ALL",
+            "source": "FINN",
+            "medium": "FINN",
+            "reference": "165701499",
+            "published": "2019-12-17T09:28:40.543875",
+            "expires": "2020-01-10T00:00:00",
+            "employer": {
+                "id": 213261,
+                "uuid": "e7a1a058-b8eb-459f-b8eb-a6ff1a0f7ef2",
+                "created": "2019-12-17T07:05:36.303267",
+                "createdBy": "pam-ad",
+                "updated": "2019-12-17T07:05:36.303267",
+                "updatedBy": "pam-ad",
+                "mediaList": [],
+                "contactList": [],
+                "location": {
+                    "address": "Filipstad brygge 1",
+                    "postalCode": "0252",
+                    "county": "OSLO",
+                    "municipal": "OSLO",
+                    "municipalCode": "0301",
+                    "city": "OSLO",
+                    "country": "NORGE",
+                    "latitude": "59.91020100640534",
+                    "longitude": "10.722802252259779"
+                },
+                "locationList": [
+                    {
+                        "address": "Filipstad brygge 1",
+                        "postalCode": "0252",
+                        "county": "OSLO",
+                        "municipal": "OSLO",
+                        "municipalCode": "0301",
+                        "city": "OSLO",
+                        "country": "NORGE",
+                        "latitude": "59.91020100640534",
+                        "longitude": "10.722802252259779"
+                    }
+                ],
+                "properties": {
+                    "nace2": "[{\"code\":\"62.030\",\"name\":\"Forvaltning og drift av IT-systemer\"}]"
+                },
+                "name": "DXC TECHNOLOGY NORGE AS AVD OSLO",
+                "orgnr": "975874516",
+                "status": "ACTIVE",
+                "parentOrgnr": "958958455",
+                "publicName": "DXC TECHNOLOGY NORGE AS AVD OSLO",
+                "deactivated": null,
+                "orgform": "BEDR",
+                "employees": 129
+            },
+            "administration": {
+                "id": 190832,
+                "status": "DONE",
+                "comments": null,
+                "reportee": "Ola Nordmann",
+                "remarks": [],
+                "navIdent": "B123456"
+            },
+            "location": {
+                "address": "Filipstad Brygge 1",
+                "postalCode": "0252",
+                "county": "OSLO",
+                "municipal": "OSLO",
+                "municipalCode": "0301",
+                "city": "OSLO",
+                "country": "NORGE",
+                "latitude": "59.91020202636719",
+                "longitude": "10.722800254821777"
+            },
+            "locationList": [
+                {
+                    "address": "Filipstad Brygge 1",
+                    "postalCode": "0252",
+                    "county": "OSLO",
+                    "municipal": "OSLO",
+                    "municipalCode": "0301",
+                    "city": "OSLO",
+                    "country": "NORGE",
+                    "latitude": "59.91020202636719",
+                    "longitude": "10.722800254821777"
+                }
+            ],
+            "categoryList": [
+                {
+                    "id": 3357,
+                    "code": "3512.01",
+                    "categoryType": "STYRK08NAV",
+                    "name": "Brukerstøtte IKT",
+                    "description": null,
+                    "parentId": 3356
+                }
+            ],
+            "properties": {
+                "extent": "Heltid",
+                "employerhomepage": "http://www.dxc.technology/no",
+                "occupation": "IT utvikling",
+                "applicationdue": "10.01.2020",
+                "address": "Filipstad Brygge 1,0252 Oslo",
+                "jobtitle": "DevOps Analyst - Application operation (AO)",
+                "author": "DXC Technology",
+                "engagementtype": "Fast",
+                "classification_styrk08_score": "0.12604201",
+                "industry": "IT",
+                "employerdescription": "<p>About DXC Technology<br />\nAs the world&#39;s leading independent, end-to-end IT services company, DXC Technology (NYSE: DXC) leads digital transformations for clients by modernizing and integrating their mainstream IT, and by deploying digital solutions at scale to produce better business outcomes. The company&#39;s technology independence, global talent, and extensive partner network enable 6,000 private and public-sector clients in 70 countries to thrive on change. DXC is a recognized leader in corporate responsibility. For more information, visit dxc.technology and explore THRIVE, DXC&#39;s digital destination for changemakers and innovators.</p>\n",
+                "adtext": "<p>We are looking for DevOps Analyst to join one of our departments, working on enterprise solution for our one of our customers. You&#39;ll be part of a team developing a complex multi-tier product, involving client and server-side software, web application, web-services.</p>\n<p>Key Accountabilities and Responsibilities:</p>\n<p>Responsible for the deployment management.<br />\nContribute to the approach of all levels of test automation (API, UI, performance).<br />\nCoach teams in implementing effective deployment and configuration automation techniques.<br />\nInfluence technical direction and use of technologies after making necessary evaluations.<br />\nContribute to the definition and execution of large-scale solutions.<br />\nDevelopment, maintenance, and support of internal tools for debugging and analyses.<br />\nEnsure ongoing progress and deliveries according delivery plan.<br />\nExecute, track and report on machines and process states using scripts and monitoring tools.</p>\n<p>Essential Skills/Qualifications:</p>\n<p>Knowledge of one or more Web / Application Server Environments (e.g., JBoss, Apache Tomcat, WebLogic);<br />\nGood scripting skills -- Unix Shell;<br />\nDemonstrable capability of debugging problems from the command line, system logs<br />\nGood SQL knowledge (e.g., Oracle or MS SQL);<br />\nKnowledge in running batch processes and release deployment;<br />\nKnowledge in using batch scheduling tools;<br />\nExperience of Enterprise Management Platforms<br />\nAbility to work in shifts to support global Applications;<br />\nProven track of experience of global Production Support role;<br />\nExcellent problem-solving skills;<br />\nFluent in English.<br />\nAbility to work in shifts to support global Applications</p>\n<p>It would be an advantage if you have:<br />\nExperience of development support -- code release and code management;<br />\nExperience with application and infrastructure deployment;<br />\nKnowledge of reporting tools (e.g., Dynatrace)<br />\nKnowledge of Compute Grid Architectures<br />\nKnowledge of supporting Java Platforms and toolsets;<br />\nExperience of Managing Shared Services -- Web Farms, Virtual Environments.</p>\n",
+                "externalref": "165701499",
+                "sourceurl": "https://www.finn.no/165701499",
+                "sourceupdated": "2019-12-16T16:35:00.000Z",
+                "searchtags": "[{\"label\":\"Applications Systems Analyst\",\"score\":0.29843608},{\"label\":\"Senior Applications Systems Analyst\",\"score\":0.04340671},{\"label\":\"Forretningsapplikasjonsanalyst\",\"score\":0.04313517},{\"label\":\"Junior Applications System Analyst\",\"score\":0.042395532},{\"label\":\"Application Quality Assurance Analyst\",\"score\":0.042103693}]",
+                "applicationurl": "https://jobs.dxc.technology/ShowJob/JobId/783834/DevOpsAnalystApplicationoperation",
+                "employer": "DXC Technology",
+                "location": "Oslo",
+                "classification_input_source": "jobtitle",
+                "sector": "Privat"
+            },
+            "publishedByAdmin": "2019-12-17T09:28:40.543875",
+            "businessName": "DXC Technology",
+            "firstPublished": true,
+            "deactivatedByExpiry": false,
+            "activationOnPublishingDate": false,
+            "rekruttering": null
+        },
+        {
+            "id": 213638,
+            "uuid": "7648ddb6-d057-4c61-b9ca-6162cb049f32",
+            "created": "2019-12-17T07:08:10.660297",
+            "createdBy": "pam-ad",
+            "updated": "2019-12-17T09:28:28.695859",
+            "updatedBy": "nss-admin",
+            "mediaList": [],
+            "contactList": [
+                {
+                    "email": "cayce@halodi.com",
+                    "phone": null,
+                    "role": null,
+                    "title": "R&D Project Manager"
+                }
+            ],
+            "title": "Want to build humanoid robots?",
+            "status": "ACTIVE",
+            "privacy": "SHOW_ALL",
+            "source": "FINN",
+            "medium": "FINN",
+            "reference": "165664293",
+            "published": "2019-12-17T09:28:28.656434",
+            "expires": "2020-01-27T09:41:00",
+            "employer": {
+                "id": 213262,
+                "uuid": "bbed0375-0567-4009-a289-4f64332d99dd",
+                "created": "2019-12-17T07:05:36.422075",
+                "createdBy": "pam-ad",
+                "updated": "2019-12-17T07:05:36.422075",
+                "updatedBy": "pam-ad",
+                "mediaList": [],
+                "contactList": [],
+                "location": {
+                    "address": "Solgaard skog 139",
+                    "postalCode": "1599",
+                    "county": "ØSTFOLD",
+                    "municipal": "MOSS",
+                    "municipalCode": "0104",
+                    "city": "MOSS",
+                    "country": "NORGE",
+                    "latitude": "59.436764306386124",
+                    "longitude": "10.70105191432633"
+                },
+                "locationList": [
+                    {
+                        "address": "Solgaard skog 139",
+                        "postalCode": "1599",
+                        "county": "ØSTFOLD",
+                        "municipal": "MOSS",
+                        "municipalCode": "0104",
+                        "city": "MOSS",
+                        "country": "NORGE",
+                        "latitude": "59.436764306386124",
+                        "longitude": "10.70105191432633"
+                    }
+                ],
+                "properties": {
+                    "nace2": "[{\"code\":\"58.290\",\"name\":\"Utgivelse av annen programvare\"}]"
+                },
+                "name": "HALODI ROBOTICS AS",
+                "orgnr": "913711327",
+                "status": "ACTIVE",
+                "parentOrgnr": "913701909",
+                "publicName": "HALODI ROBOTICS AS",
+                "deactivated": null,
+                "orgform": "BEDR",
+                "employees": 17
+            },
+            "administration": {
+                "id": 190833,
+                "status": "DONE",
+                "comments": null,
+                "reportee": "Ola Nordmann",
+                "remarks": [],
+                "navIdent": "B123456"
+            },
+            "location": {
+                "address": "Solgaard Skog 139",
+                "postalCode": "1599",
+                "county": "VIKEN",
+                "municipal": "MOSS",
+                "municipalCode": "3002",
+                "city": "MOSS",
+                "country": "NORGE",
+                "latitude": "59.4367561340332",
+                "longitude": "10.701050758361816"
+            },
+            "locationList": [
+                {
+                    "address": "Solgaard Skog 139",
+                    "postalCode": "1599",
+                    "county": "VIKEN",
+                    "municipal": "MOSS",
+                    "municipalCode": "3002",
+                    "city": "MOSS",
+                    "country": "NORGE",
+                    "latitude": "59.4367561340332",
+                    "longitude": "10.701050758361816"
+                }
+            ],
+            "categoryList": [
+                {
+                    "id": 2307,
+                    "code": "3114.03",
+                    "categoryType": "STYRK08NAV",
+                    "name": "Tekniker (elektronikk)",
+                    "description": null,
+                    "parentId": 2304
+                }
+            ],
+            "properties": {
+                "extent": "Heltid",
+                "employerhomepage": "http://halodi.com",
+                "occupation": "Teknisk personell;Mekanikk og installasjon;Produksjon",
+                "applicationdue": "Snarest",
+                "address": "Solgaard Skog 139,1599 Moss",
+                "keywords": "Robotics,Hands-on Technical,Robotikk,Teknikker,Mekaniker",
+                "jobtitle": "Robotics Technician",
+                "author": "Privat",
+                "engagementtype": "Fast",
+                "classification_styrk08_score": "0.5620276",
+                "industry": "Elektronikk;Industri og produksjon;IT",
+                "starttime": "01.04.2020",
+                "employerdescription": "<p>Halodi Robotics has 21 highly qualified employees where many have been recruited from leading robotics institutions globally with experience from more than 20 robot projects. Our employee&#39;s robotics experience comes from projects including the DARPA Robotics Challenge, NASA&#39;s Valkyrie R5, Sandia National Laboratories&#39; WANDERER high-efficiency walkers, I-SUR, Mirai, Boston Dynamics&#39; Atlas, and more.</p>\n<p>We are headquartered in Moss, Norway, which is a coastal town 40 minutes south of Oslo. There are roughly 31,000 inhabitants, providing the small town life with access to a lot of nature, outside of the big city. Company activities are constantly planned, including celebrating national holidays, skiing, kayaking, camping, festivals and mountain trips! And, it wouldn&#39;t be a startup without a bean bag room and an endless supply of chocolate! We also have a U.S. office in Oakland, California, and have recently opened an office in China.</p>\n<p>Halodi Robotics&#39; mission is to build the first truly mass producible humanoid robot platform. We have just launched our humanoid robot EVE and now we need people like you to launch her officially into the market. See a link to a video of our robot from earlier this year below. She has even more capabilities now! The Company has recently announced its key initiative to pursue the home and healthcare market. Above all, we are looking for people who are passionate about robots and want to join our cutting edge R&amp;D robotics team!</p>\n",
+                "adtext": "<p><strong><strong>If you&#39;re the type of person who in their spare time likes to build or work on cars, or small mechanical devices, then you are a great fit for this job!</strong></strong></p>\n<p><strong>Job Description:</strong></p>\n<ul><li>Assemble the first robots for sale at Halodi Robotics</li><li>Service and Maintenance</li><li>Where applicable, provide valuable feedback for the next generations of robots</li></ul>\n<p><strong>Requirements:</strong></p>\n<ul><li>Technical background (not afraid of tools)</li><li>Self-motivated, proactive</li><li>Fluency in English with good communication skills</li></ul>\n<p><strong>Nice to Have:</strong></p>\n<ul><li>Mechanical engineering</li><li>Machining skills</li></ul>\n<p><strong>Benefits:</strong></p>\n<ul><li>Work on cutting edge humanoid robots</li><li>Collaborative international work environment</li><li>Permanent contract with a competitive salary</li><li>Stock options</li><li>Relocation Package</li></ul>\n<p><strong>The Basics:</strong></p>\n<ul><li>Passion for robotics!</li><li>Years of Experience: Technical background, formal degree not required.</li><li>Job Functions: Manufacturing, Assembly</li><li>Employment Type: Full-time</li><li>Industry: Robotics</li><li>Seniority Level: Entry Level</li><li>Expected Travel: Domestic travel 0%; International Travel 5%</li><li>Location: Moss, Norway</li><li>Application Deadline: Open until filled</li><li>Start Date: ASAP</li></ul>\n<p>Applying Instructions: Please send your CV in English if possible. You will be working in English. A cover letter is also desirable.</p>\n",
+                "externalref": "165664293",
+                "sourceurl": "https://www.finn.no/165664293",
+                "sourceupdated": "2019-12-16T09:41:00.000Z",
+                "applicationemail": "cayce@halodi.com",
+                "searchtags": "[{\"label\":\"Tekniker robotteknologi og automatisering\",\"score\":1.0},{\"label\":\"Robot fitter\",\"score\":0.2709996},{\"label\":\"Robotics Testing Technician\",\"score\":0.09830591},{\"label\":\"Robotutvikler\",\"score\":0.09651685}]",
+                "applicationurl": "https://www.finn.no/recruitment/hired/frontend/applynow/input.action?adId=165664293",
+                "employer": "Halodi Robotics AS",
+                "location": "Moss",
+                "classification_input_source": "jobtitle",
+                "sector": "Privat"
+            },
+            "publishedByAdmin": "2019-12-17T09:28:28.656434",
+            "businessName": "Halodi Robotics AS",
+            "firstPublished": true,
+            "deactivatedByExpiry": false,
+            "activationOnPublishingDate": false,
+            "rekruttering": null
+        },
+        {
+            "id": 213639,
+            "uuid": "b39d0858-8c56-49d8-a94b-0976db784de3",
+            "created": "2019-12-17T07:08:10.671576",
+            "createdBy": "pam-ad",
+            "updated": "2019-12-17T09:28:16.912178",
+            "updatedBy": "nss-admin",
+            "mediaList": [],
+            "contactList": [
+                { "email": null, "phone": "+47 481 53 414", "role": null, "title": null }
+            ],
+            "title": "Er du kommunens nye leder innenfor HR og utvikling?",
+            "status": "ACTIVE",
+            "privacy": "SHOW_ALL",
+            "source": "FINN",
+            "medium": "FINN",
+            "reference": "165675063",
+            "published": "2019-12-17T09:28:16.874399",
+            "expires": "2020-01-31T00:00:00",
+            "employer": {
+                "id": 213649,
+                "uuid": "d7c1e398-4704-4d1d-96de-cde9ee7c1e0e",
+                "created": "2019-12-17T09:28:16.872185",
+                "createdBy": "pam-ad",
+                "updated": "2019-12-17T09:28:16.872185",
+                "updatedBy": "pam-ad",
+                "mediaList": [],
+                "contactList": [],
+                "location": {
+                    "address": "Thor Dahls gate 1",
+                    "postalCode": "3210",
+                    "county": "VESTFOLD",
+                    "municipal": "SANDEFJORD",
+                    "municipalCode": "0710",
+                    "city": "SANDEFJORD",
+                    "country": "NORGE",
+                    "latitude": "59.127579177559724",
+                    "longitude": "10.22879464448204"
+                },
+                "locationList": [
+                    {
+                        "address": "Thor Dahls gate 1",
+                        "postalCode": "3210",
+                        "county": "VESTFOLD",
+                        "municipal": "SANDEFJORD",
+                        "municipalCode": "0710",
+                        "city": "SANDEFJORD",
+                        "country": "NORGE",
+                        "latitude": "59.127579177559724",
+                        "longitude": "10.22879464448204"
+                    }
+                ],
+                "properties": {
+                    "nace2": "[{\"code\":\"88.993\",\"name\":\"Arbeidstrening for ordinært arbeidsmarked\"}]"
+                },
+                "name": "SANDEFJORD KOMMUNE KVALIFISERINGSPROGRAMMET",
+                "orgnr": "918173684",
+                "status": "ACTIVE",
+                "parentOrgnr": "976662385",
+                "publicName": "SANDEFJORD KOMMUNE KVALIFISERINGSPROGRAMMET",
+                "deactivated": null,
+                "orgform": "BEDR",
+                "employees": 3
+            },
+            "administration": {
+                "id": 190834,
+                "status": "DONE",
+                "comments": null,
+                "reportee": "Ola Nordmann",
+                "remarks": [],
+                "navIdent": "B123456"
+            },
+            "location": {
+                "address": "Rådhuset Sandefjordsveien 3",
+                "postalCode": "3202",
+                "county": "VESTFOLD OG TELEMARK",
+                "municipal": "SANDEFJORD",
+                "municipalCode": "3804",
+                "city": "SANDEFJORD",
+                "country": "NORGE",
+                "latitude": "59.129302978515625",
+                "longitude": "10.224905967712402"
+            },
+            "locationList": [
+                {
+                    "address": "Rådhuset Sandefjordsveien 3",
+                    "postalCode": "3202",
+                    "county": "VESTFOLD OG TELEMARK",
+                    "municipal": "SANDEFJORD",
+                    "municipalCode": "3804",
+                    "city": "SANDEFJORD",
+                    "country": "NORGE",
+                    "latitude": "59.129302978515625",
+                    "longitude": "10.224905967712402"
+                }
+            ],
+            "categoryList": [
+                {
+                    "id": 362,
+                    "code": "1223.05",
+                    "categoryType": "STYRK08NAV",
+                    "name": "Instituttleder (forskning og utvikling)",
+                    "description": null,
+                    "parentId": 357
+                }
+            ],
+            "properties": {
+                "logomain": "https://images.finncdn.no/mmo/logo/object/2100945268/iad_1357219331058135479nytt_kommunev_pen.png",
+                "extent": "Heltid",
+                "employerhomepage": "http://www.sandefjord.kommune.no",
+                "occupation": "IT utvikling;Økonomi og regnskap;HR, personal og rekruttering",
+                "applicationdue": "31.01.2020",
+                "address": "Rådhuset Sandefjordsveien 3,3202 Sandefjord",
+                "jobtitle": "Kommunalsjef HR og utvikling",
+                "author": "Sandefjord Kommune",
+                "engagementtype": "Fast",
+                "classification_styrk08_score": "0.18980467",
+                "industry": "HR, organisasjonsutvikling og rekruttering;IT;Juridiske tjenester",
+                "starttime": "Etter avtale",
+                "employerdescription": "<p>Sandefjord er en kommune med stor tilflytting, rask ekspansjon og spennende utviklingsmuligheter. Sandefjord kommune er den største kommunen i regionen Vestfold og Telemark. Vi har nær 64 000 innbyggere og 5500 ansatte. Sandefjord ligger sentralt i Vestfold og kun en times tid fra Oslo. Det er særdeles gode forbindelser til inn- og utland via fly, tog, buss og båt. Kommunen har flott natur, et aktivt kulturliv og er et godt sted å bo. Se gjerne www.sandefjord.kommune.no for mer informasjon.</p>\n",
+                "adtext": "<p>Sandefjord kommune er den største kommunen i regionen Vestfold og Telemark. Vi har nær 64 000 innbyggere og 5500 ansatte. Kommunen har jobbet mye med digitalisering og er opptatt av effektiv drift og kvalitet. Kommunen skal nå sette en ny ledergruppe. Det foregår nå en omstillingsprosess som gjør at kommunalområdet for HR og utvikling fra 1. januar 2020 er et av seks kommunalområder og har ca 50 ansatte. Ansvarsområdet omfatter HR, IKT/digitalisering, eierskap, næringsutvikling, juridiske tjenester, politiske sekretærtjenester og kommunikasjon.</p>\n<p>Vi ser etter en engasjert og utviklingsorientert leder med ambisjoner om å utgjøre en forskjell. Kommunalsjefen spiller en sentral rolle i kommunens øverste ledergruppe og har stor påvirkningskraft på drift og utvikling innenfor sitt ansvarsområde. Samhandling med politikere, ledere og arbeidstakerorganisasjoner er en viktig del av jobben.</p>\n<p>Kommunalsjefen er kommunalområdets øverste leder, og har et helhetlig og overordnet ansvar for personalpolitikk, økonomi, utvikling og resultater. Kommunalsjefen må være opptatt av å drifte tjenestene godt og effektivt, men samtidig ha et våkent blikk for å utvikle virksomheten. Kunnskapsbaserte tilnærminger og løsninger er en selvfølge. Kommunalsjefen sitter i rådmannens ledergruppe og har medansvar for kommunens samlede tjenester. Det er viktig for oss å lykkes på tvers.</p>\n<p><strong><strong>Stillingsinformasjon</strong></strong></p>\n<p>Stillingsstørrelse: 100 %<br />\nStillingstype: Fast<br />\nTiltredelse: Etter avtale</p>\n<p><strong><strong>Arbeidsoppgaver</strong></strong></p>\n<ul><li>Lederansvaret for kommunalområdet</li><li>Resultatansvar i tråd med budsjett, planer og vedtak innenfor kommunalområdet</li><li>Drifte området innenfor gjeldene lov- og regelverk og politiske vedtak</li><li>Ansvar for å initiere og følge opp utviklingsprosjekter</li><li>Oppfølgingsansvar for administrasjonsutvalget</li><li>Samhandling i rådmannens ledergruppe</li><li>Sikre medvirkning og partssamarbeid</li><li>Sikre dialog og samarbeid</li></ul>\n<p><strong>Kvalifikasjoner</strong></p>\n<ul><li>Relevant universitets- og høgskoleutdannelse på bachelornivå</li><li>Fordel med erfaring fra offentlig sektor, gjerne kommune, men ikke en forutsetning</li><li>Erfaring fra utvikling- og endringsprosjekter</li><li>Erfaring fra stillinger i skjæringspunktet mellom politikk og administrasjon vil telle positivt</li><li>Ledererfaring fra en eller flere av kommunalområdets fagområder er en fordel</li><li>God skriftlig og muntlig fremstillingsevne</li></ul>\n<p><strong>Personlige egenskaper</strong></p>\n<ul><li>Evne til å arbeide både på strategisk og operativt nivå</li><li>Tydelighet i ledergjerningen</li><li>Gode samarbeidsevner/relasjonelle ferdigheter</li><li>Utviklingsorientert</li><li>Opptatt av tverrfaglighet</li></ul>\n<p>Personlig egnethet vil bli vektlagt.</p>\n<p><strong>Vi tilbyr</strong></p>\n<ul><li>En spennende og krevende topplederstilling med store muligheter til å påvirke utviklingen i Sandefjord kommune</li><li>Engasjerte kollegaer og en kommune med store ambisjoner</li><li>Personlig og faglig utvikling</li><li>Lederavtale som gjenspeiler stillingens ansvar</li><li>Lønn etter avtale</li><li>Gode forsikrings- og pensjonsordninger</li></ul>\n<p><strong>Andre opplysninger</strong></p>\n<ul><li>Stillingen er plassert i kommunens lønnsregulativ i henhold til gjeldende tariffavtale og i stillingskode 9440.</li><li>Som ansatt er du medlem av Sandefjord kommunale pensjonskasse. Den kommunale pensjonsordningen er meget god. Den ansatte trekkes 2 % i pensjonsinnskudd.</li><li>Gjensidig prøvetid er 6 måneder.</li><li>Kommunen følger offentlighetsloven § 25 ved eventuell offentliggjøring av søkerliste.</li></ul>\n<p>Du skal ikke sende inn vitnemål og attester. Ta med kopier av disse til et eventuelt intervju.</p>\n",
+                "externalref": "EC-EU-nyesandefjord-2433069-144577-no",
+                "logolisting": "https://images.finncdn.no/mmo/logo/result/2100945268/iad_570469737318019921nytt_kommunev_pen.png",
+                "sourceurl": "https://www.finn.no/165675063",
+                "sourceupdated": "2019-12-16T10:13:00.000Z",
+                "searchtags": "[{\"label\":\"Leder forskning og utvikling\",\"score\":0.17068495},{\"label\":\"Prosjektleder forskning og utvikling\",\"score\":0.1702509},{\"label\":\"Instituttsjef forskning og utvikling\",\"score\":0.16967288},{\"label\":\"IT Utviklingsleder\",\"score\":0.16946205},{\"label\":\"Arealplanlegger\",\"score\":0.16679512}]",
+                "applicationurl": "https://sandefjord.easycruit.com/vacancy/application/2433069/144577?channel=Finn&iso=no",
+                "employer": "Sandefjord kommune",
+                "location": "Sandefjord",
+                "classification_input_source": "jobtitle",
+                "sector": "Offentlig"
+            },
+            "publishedByAdmin": "2019-12-17T09:28:16.874399",
+            "businessName": "Sandefjord kommune",
+            "firstPublished": true,
+            "deactivatedByExpiry": false,
+            "activationOnPublishingDate": false,
+            "rekruttering": null
+        },
+        {
+            "id": 213640,
+            "uuid": "56f27ac4-6ba4-47b1-9ddc-240bc7ef868f",
+            "created": "2019-12-17T07:08:10.682072",
+            "createdBy": "pam-ad",
+            "updated": "2019-12-17T09:27:41.329609",
+            "updatedBy": "nss-admin",
+            "mediaList": [],
+            "contactList": [
+                {
+                    "email": "gard.severin.mek@personalhuset-sg.com",
+                    "phone": "+47 414 62 777",
+                    "role": null,
+                    "title": null
+                }
+            ],
+            "title": "Stuert",
+            "status": "ACTIVE",
+            "privacy": "SHOW_ALL",
+            "source": "FINN",
+            "medium": "FINN",
+            "reference": "165674638",
+            "published": "2019-12-17T09:27:41.293373",
+            "expires": "2020-01-27T22:59:00",
+            "employer": {
+                "id": 213648,
+                "uuid": "73055b7a-98cf-4d4d-a89c-a995c244812b",
+                "created": "2019-12-17T09:15:46.00092",
+                "createdBy": "pam-ad",
+                "updated": "2019-12-17T09:15:46.00092",
+                "updatedBy": "pam-ad",
+                "mediaList": [],
+                "contactList": [],
+                "location": {
+                    "address": "Storgata 2 -4 -6",
+                    "postalCode": "0155",
+                    "county": "OSLO",
+                    "municipal": "OSLO",
+                    "municipalCode": "0301",
+                    "city": "OSLO",
+                    "country": "NORGE",
+                    "latitude": null,
+                    "longitude": null
+                },
+                "locationList": [
+                    {
+                        "address": "Storgata 2 -4 -6",
+                        "postalCode": "0155",
+                        "county": "OSLO",
+                        "municipal": "OSLO",
+                        "municipalCode": "0301",
+                        "city": "OSLO",
+                        "country": "NORGE",
+                        "latitude": null,
+                        "longitude": null
+                    }
+                ],
+                "properties": {
+                    "nace2": "[{\"code\":\"72.200\",\"name\":\"Forskning og utviklingsarbeid innen samfunnsvitenskap og humanistiske fag\"}]"
+                },
+                "name": "NIBIO OSLO",
+                "orgnr": "974719436",
+                "status": "ACTIVE",
+                "parentOrgnr": "988983837",
+                "publicName": "NIBIO OSLO",
+                "deactivated": null,
+                "orgform": "BEDR",
+                "employees": 31
+            },
+            "administration": {
+                "id": 190835,
+                "status": "DONE",
+                "comments": null,
+                "reportee": "Ola Nordmann",
+                "remarks": [],
+                "navIdent": "B123456"
+            },
+            "location": {
+                "address": null,
+                "postalCode": "0155",
+                "county": "OSLO",
+                "municipal": "OSLO",
+                "municipalCode": "0301",
+                "city": "OSLO",
+                "country": "NORGE",
+                "latitude": null,
+                "longitude": null
+            },
+            "locationList": [
+                {
+                    "address": null,
+                    "postalCode": "0155",
+                    "county": "OSLO",
+                    "municipal": "OSLO",
+                    "municipalCode": "0301",
+                    "city": "OSLO",
+                    "country": "NORGE",
+                    "latitude": null,
+                    "longitude": null
+                },
+                {
+                    "address": null,
+                    "postalCode": null,
+                    "county": "TRØNDELAG",
+                    "municipal": "TRONDHEIM",
+                    "municipalCode": "5001",
+                    "city": null,
+                    "country": "NORGE",
+                    "latitude": null,
+                    "longitude": null
+                },
+                {
+                    "address": null,
+                    "postalCode": null,
+                    "county": "OSLO",
+                    "municipal": "OSLO",
+                    "municipalCode": "0301",
+                    "city": null,
+                    "country": "NORGE",
+                    "latitude": null,
+                    "longitude": null
+                }
+            ],
+            "categoryList": [
+                {
+                    "id": 3779,
+                    "code": "5120.01",
+                    "categoryType": "STYRK08NAV",
+                    "name": "Forpleiningssjef (stuert)",
+                    "description": null,
+                    "parentId": 3778
+                }
+            ],
+            "properties": {
+                "logomain": "https://images.finncdn.no/mmo/logo/object/1117069714/iad_1699059966769665498personalhuset_logo_gr_nn_2018.png",
+                "extent": "Heltid",
+                "employerhomepage": "http://www.personalhuset.no/hrc",
+                "occupation": "Sjøfart;Maskinfører og -operatør",
+                "address": "5542 Karmsund",
+                "jobtitle": "Stuert",
+                "author": "Personalhuset",
+                "engagementtype": "Vikariat",
+                "classification_styrk08_score": "1.0",
+                "industry": "Olje og gass",
+                "starttime": "18.12.2019",
+                "employerdescription": "<p>Personalhuset Staffing Group er et av Nordens ledende rekrutterings- og bemanningsselskaper. Vi tilbyr tjenester innen rekruttering, personalutleie og omstilling. Personalhuset Staffing Group har 35 lokasjoner, og den samme høye kvalitet og entusiasme preger våre tjenester over hele Norden. Vi skal bidra til våre kunders suksess.</p>\n<p>Personalhuset HRC Offshore er et segment i Personalhuset Staffing Group, som er spesialisert innenfor leveranser av personell til maritim- og offshore industri. HRC har vært en av de ledende aktørene i markedet siden 2002, innen bemanning av rigg og skip. Tjenesten leveres til kunder nasjonalt og internasjonalt, og kandidatene er norske og utenlandske.</p>\n",
+                "adtext": "<p>HRC Offshore søker for kunde stuert som er god på data, på klientbåt i nordsjøen. Utreise 18.12- 4 uker.</p>\n<h2>Arbeidstid</h2>\n<p>4 uker vikar.</p>\n<h2>Ønskede kvalifikasjoner</h2>\n<p>Maritim sikkerhetskurs<br />\nMaritim helseattest<br />\nSTCWDu kan søke stillingen direkte, eller kontakt Gard på gsm&#64;personalhuset-sg.com. Tlf 41 46 27 77</p>\n",
+                "externalref": "20003537001",
+                "logolisting": "https://images.finncdn.no/mmo/logo/result/1117069714/iad_548791157859928360personalhuset_logo_gr_nn_2018.png",
+                "sourceurl": "https://www.finn.no/165674638",
+                "sourceupdated": "2019-12-16T10:07:00.000Z",
+                "searchtags": "[{\"label\":\"Skipskokk\",\"score\":1.0},{\"label\":\"Ship's Chief steward\",\"score\":0.40019858},{\"label\":\"Kokk\",\"score\":0.18411727},{\"label\":\"Fiskebåtstuert\",\"score\":0.15663517}]",
+                "applicationurl": "http://www.personalhuset.no/webtemp-stillinger/?src=https://secure.webtemp.no/WebtempCVPortal/stillingsingle.aspx?k%3D41%26id_utleie%3D3040036",
+                "employer": "Personalhuset HRC Offshore",
+                "location": "Karmsund",
+                "classification_input_source": "jobtitle",
+                "sector": "Privat",
+                "applicationlabel": "35370"
+            },
+            "publishedByAdmin": "2019-12-17T09:27:41.293373",
+            "businessName": "Personalhuset HRC Offshore",
+            "firstPublished": true,
+            "deactivatedByExpiry": false,
+            "activationOnPublishingDate": false,
+            "rekruttering": null
+        },
+        {
+            "id": 6957,
+            "uuid": "5844d1c9-a150-4053-b190-979b48402a5c",
+            "created": "2018-11-20T12:53:29.871",
+            "createdBy": "pam-ad",
+            "updated": "2019-12-17T09:26:11.845812",
+            "updatedBy": "nss-admin",
+            "mediaList": [],
+            "contactList": [],
+            "title": "Område Aust søkjer sjukepleiar - fast 100% stilling",
+            "status": "ACTIVE",
+            "privacy": "SHOW_ALL",
+            "source": "DEXI",
+            "medium": "Kommuner-Visma-Vest",
+            "reference": "rekruttering.voss.kommune.no/recruitmentVK/opening?1933/18 IØS",
+            "published": "2019-12-17T09:26:11.793865",
+            "expires": "2020-01-11T02:00:00",
+            "employer": {
+                "id": 15363,
+                "uuid": "338320c4-218f-4f9e-93b5-4387fb1af434",
+                "created": "2018-12-01T07:14:05.805",
+                "createdBy": "pam-ad",
+                "updated": "2019-12-17T09:26:11.767331",
+                "updatedBy": "pam-ad",
+                "mediaList": [],
+                "contactList": [],
+                "location": {
+                    "address": "Uttrågata 9",
+                    "postalCode": "5700",
+                    "county": "HORDALAND",
+                    "municipal": "VOSS",
+                    "municipalCode": "1235",
+                    "city": "VOSS",
+                    "country": "NORGE",
+                    "latitude": "60.627838391880935",
+                    "longitude": "6.418377835035078"
+                },
+                "locationList": [
+                    {
+                        "address": "Uttrågata 9",
+                        "postalCode": "5700",
+                        "county": "HORDALAND",
+                        "municipal": "VOSS",
+                        "municipalCode": "1235",
+                        "city": "VOSS",
+                        "country": "NORGE",
+                        "latitude": "60.627838391880935",
+                        "longitude": "6.418377835035078"
+                    }
+                ],
+                "properties": {
+                    "nace2": "[{\"code\":\"42.110\",\"name\":\"Bygging av veier og motorveier\"}]"
+                },
+                "name": "VOSS KOMMUNE DRIFTSAVDELINGA",
+                "orgnr": "973951068",
+                "status": "ACTIVE",
+                "parentOrgnr": "974774356",
+                "publicName": "VOSS KOMMUNE DRIFTSAVDELINGA",
+                "deactivated": null,
+                "orgform": "BEDR",
+                "employees": 18
+            },
+            "administration": {
+                "id": 5793,
+                "status": "DONE",
+                "comments": null,
+                "reportee": "Ola Nordmann",
+                "remarks": [],
+                "navIdent": "B123456"
+            },
+            "location": {
+                "address": null,
+                "postalCode": null,
+                "county": "VESTLAND",
+                "municipal": "VOSS",
+                "municipalCode": "4621",
+                "city": null,
+                "country": "NORGE",
+                "latitude": null,
+                "longitude": null
+            },
+            "locationList": [
+                {
+                    "address": null,
+                    "postalCode": null,
+                    "county": "VESTLAND",
+                    "municipal": "VOSS",
+                    "municipalCode": "4621",
+                    "city": null,
+                    "country": "NORGE",
+                    "latitude": null,
+                    "longitude": null
+                }
+            ],
+            "categoryList": [
+                {
+                    "id": 1443,
+                    "code": "2223",
+                    "categoryType": "STYRK08NAV",
+                    "name": "Sykepleiere",
+                    "description": "Sykepleiere behandler, pleier og veileder syke, skadede og andre pleietrengende personer",
+                    "parentId": 1416
+                }
+            ],
+            "properties": {
+                "extent": "Heltid",
+                "applicationdue": "22.11.18",
+                "author": "Voss kommune",
+                "engagementtype": "Annet",
+                "classification_styrk08_score": "0.086402744",
+                "employerdescription": "<p>Voss - bygd for sterke opplevingar Du treng ikkje eta smalahove eller hoppa i fallskjerm for å bu og trivast på Voss, for me har mykje meir å by på! Kommunen har om lag 14.500 innbyggjarar, med Vossevangen som regionssenter. Bygda vår er senter for utdanning i regionen og har eit godt utbygd næringsliv. Voss er eit knutepunkt langs stamvegen aust - vest, og har godt togsamband til Bergen og Oslo. Voss kommune er den største arbeidsgjevaren i bygda, med om lag 1250 tilsette. Nynorsk er administrasjonsmålet i kommunen. Kan du identifisera deg med verdiar som profesjonell, påliteleg, skapande og inkluderande, kan du bli ein del av laget vårt. Som vossingar flest går me sjølvsagt for gull.</p>\n",
+                "adtext": "<h3><strong>Utlyst stilling</strong></h3>\n<p>100% fast stilling i institusjon, 2. etg. ved Vetleflaten Omsorgssenter, ledig frå snarast.</p>\n<h3><strong>Om arbeidsstaden</strong></h3>\n<p>Område Aust er samorganisert; Vetleflaten omsorgssenter som har 64 sjukeheimsplassar fordelt på fire<br />\navdelingar og heimetenester som tilbyr tenester til om lag 215 brukarar i eigen bustad. Vetleflaten ligg ved Voss sentrum, det er gode buss og togforbindelsar.</p>\n<h3><strong>Arbeidsoppgåver</strong></h3>\n<p>Du skal gjere sjukepleiefaglege oppgåver, både omsorgsoppgåver og aktiv behandling. Varierte oppgåver som krev kunnskap og fleksibilitet som sjukepleiar.<br />\nDu bidreg i eit tverrfagleg samarbeid<br />\nDu kan få 2-delt turnus med arbeid 3.kvar helg.</p>\n<h3><strong>Me søkjer</strong></h3>\n<p>Deg med norsk autorisasjon og gode norskkunnskapar. Me vil ha deg som er trygg i rolla og fagleg dyktig. Me vil ha deg som kan ivareta brukarane våre på ein god måte, og yte tenester av høg kvalitet. Du må ha gode samarbeidsevner, høg arbeidskapasitet, vere nytenkjande og løysingsorientert. Me vil ha deg som kjem med ein god dose godt humør!</p>\n<p>I tillegg må du ha stå på vilje, arbeidslyst, energi og ynskje om å vidareutvikle våre tenester og bidra i arbeidsmiljøet<br />\nvårt.</p>\n<h3><strong>Me tilbyr</strong></h3>\n<ul><li>gode vilkår for fagleg utvikling</li><li>eit godt tverrfagleg og sosialt miljø</li><li>gode forsikrings- og pensjonsordningar</li><li>løn høgare enn sentral ramme</li><li>og elles tilsetjing på vanlege kommunale vilkår</li></ul>\n<h3><strong>Søknad</strong></h3>\n<p>Voss kommune ynskjer eit større aldersmangfald mellom dei tilsette, og oppmodar difor yngre arbeidstakarar om å søkje. Kommunen har eit personalpolitisk mål om at arbeidsstaben skal gje eit bilete av folkesetnaden generelt, både når det gjeld kjønn og kulturelt mangfald.</p>\n<p>Søk på stillinga ved å klikke på knappen til høgre. Hugs å gje opp referansar. Attestar og vitnemål skal takast med til evt. intervju.<br />\nPolitiattest må leggast fram før tiltredelse i stillinga.</p>\n",
+                "externalref": "1933/18 IØS",
+                "sourceurl": "https://rekruttering.voss.kommune.no/recruitmentVK/opening?4",
+                "searchtags": "[{\"label\":\"Sykepleier\",\"score\":0.083552256},{\"label\":\"Fysioterapeut\",\"score\":0.043712508},{\"label\":\"Gerontologist\",\"score\":0.043712508},{\"label\":\"Care Professional\",\"score\":0.043712508},{\"label\":\"Ernæringsfysiolog\",\"score\":0.043712508}]",
+                "employer": "Voss kommune",
+                "location": "Område Aust",
+                "classification_input_source": "title",
+                "sector": "Offentlig"
+            },
+            "publishedByAdmin": "2019-12-17T09:26:11.793865",
+            "businessName": "VOSS KOMMUNE DRIFTSAVDELINGA",
+            "firstPublished": true,
+            "deactivatedByExpiry": false,
+            "activationOnPublishingDate": false,
+            "rekruttering": null
+        },
+        {
+            "id": 6955,
+            "uuid": "3fcccc7f-05ac-495b-8bc6-4cd5fd4cc95c",
+            "created": "2018-11-20T12:53:29.831",
+            "createdBy": "pam-ad",
+            "updated": "2019-12-17T09:22:54.242003",
+            "updatedBy": "nss-admin",
+            "mediaList": [],
+            "contactList": [],
+            "title": "Vernepleiar - 100% fast stilling",
+            "status": "ACTIVE",
+            "privacy": "SHOW_ALL",
+            "source": "DEXI",
+            "medium": "Kommuner-Visma-Vest",
+            "reference": "me-ansattportal.sing.no/recruitment/opening?0?89/18",
+            "published": "2019-12-17T09:22:54.210419",
+            "expires": "2019-12-18T02:00:00",
+            "employer": {
+                "id": 213648,
+                "uuid": "73055b7a-98cf-4d4d-a89c-a995c244812b",
+                "created": "2019-12-17T09:15:46.00092",
+                "createdBy": "pam-ad",
+                "updated": "2019-12-17T09:15:46.00092",
+                "updatedBy": "pam-ad",
+                "mediaList": [],
+                "contactList": [],
+                "location": {
+                    "address": "Storgata 2 -4 -6",
+                    "postalCode": "0155",
+                    "county": "OSLO",
+                    "municipal": "OSLO",
+                    "municipalCode": "0301",
+                    "city": "OSLO",
+                    "country": "NORGE",
+                    "latitude": null,
+                    "longitude": null
+                },
+                "locationList": [
+                    {
+                        "address": "Storgata 2 -4 -6",
+                        "postalCode": "0155",
+                        "county": "OSLO",
+                        "municipal": "OSLO",
+                        "municipalCode": "0301",
+                        "city": "OSLO",
+                        "country": "NORGE",
+                        "latitude": null,
+                        "longitude": null
+                    }
+                ],
+                "properties": {
+                    "nace2": "[{\"code\":\"72.200\",\"name\":\"Forskning og utviklingsarbeid innen samfunnsvitenskap og humanistiske fag\"}]"
+                },
+                "name": "NIBIO OSLO",
+                "orgnr": "974719436",
+                "status": "ACTIVE",
+                "parentOrgnr": "988983837",
+                "publicName": "NIBIO OSLO",
+                "deactivated": null,
+                "orgform": "BEDR",
+                "employees": 31
+            },
+            "administration": {
+                "id": 5791,
+                "status": "DONE",
+                "comments": null,
+                "reportee": "Kari Nordmann",
+                "remarks": [],
+                "navIdent": "C123456"
+            },
+            "location": {
+                "address": null,
+                "postalCode": "0155",
+                "county": "OSLO",
+                "municipal": "OSLO",
+                "municipalCode": "0301",
+                "city": "OSLO",
+                "country": "NORGE",
+                "latitude": null,
+                "longitude": null
+            },
+            "locationList": [
+                {
+                    "address": null,
+                    "postalCode": "0155",
+                    "county": "OSLO",
+                    "municipal": "OSLO",
+                    "municipalCode": "0301",
+                    "city": "OSLO",
+                    "country": "NORGE",
+                    "latitude": null,
+                    "longitude": null
+                },
+                {
+                    "address": null,
+                    "postalCode": null,
+                    "county": "OSLO",
+                    "municipal": "OSLO",
+                    "municipalCode": "0301",
+                    "city": null,
+                    "country": "NORGE",
+                    "latitude": null,
+                    "longitude": null
+                },
+                {
+                    "address": null,
+                    "postalCode": null,
+                    "county": "TRØNDELAG",
+                    "municipal": "TRONDHEIM",
+                    "municipalCode": "5001",
+                    "city": null,
+                    "country": "NORGE",
+                    "latitude": null,
+                    "longitude": null
+                }
+            ],
+            "categoryList": [
+                {
+                    "id": 1460,
+                    "code": "2224.02",
+                    "categoryType": "STYRK08NAV",
+                    "name": "Vernepleier",
+                    "description": null,
+                    "parentId": 1458
+                }
+            ],
+            "properties": {
+                "extent": "Heltid",
+                "applicationdue": "25.11.18",
+                "author": "Meland kommune",
+                "engagementtype": "Annet",
+                "classification_styrk08_score": "0.9739795",
+                "employerdescription": "<p>Meland kommune er ein del av Nordhordlandsregionen og nabokommune til Bergen. Kommunen opplever sterk folkevekst og har eit innbyggjartal på ca. 8.000. Det er god kollektivtransport til/frå Bergen med hurtigbåt eller ekspressbuss, og reisetida frå Bergen til kommunesenteret Frekhaug er under 1/2 time.For å løyse og utvikle alle dei ulike oppgåvene kommune er tillagt treng vi engasjerte og kompetente medarbeidarar - som vil oppleve at arbeidsoppgåvene og bidraget deira er meiningsfylt og del av eit viktig samfunnsoppdrag. Meland kommune har ei verdimessig forankring som kjem til uttrykk gjennom visjonen vår &#34;Eit samfunn for alle&#34;.</p>\n",
+                "adtext": "<h3><strong>Stillingsinformasjon</strong></h3>\n<p>Meland heimeteneste har ledig 100% fast stilling som vernepleiar.</p>\n<p>Stillinga gjeld tenesteyting til brukarar med nedsett funksjonsevne som bur i sine eigne leiligheiter.<br />\nKveldsvakter, dagvakter og med arbeid kvar tredje.</p>\n<p>Det er og aktuelt med oppgåver som koordinator for ansvarsgrupper, utarbeiding av individuell plan.</p>\n<h3><strong>Kvalifikasjonskrav</strong></h3>\n<p>Offentleg godkjent vernepleiar.</p>\n<p>Meland kommune treng deg som kan gi individuelt tilpassa teneste av høg fagleg kvalitet til brukarar med omfattande<br />\nbehov. Det vert lagt vekt på personlege eigenskapar som gode samarbeidsevner og lojalitet til aktuelle avtalar.</p>\n<p>Det er og svært viktig med relevant arbeidserfaring med menneske med nedsett funksjonsevne.</p>\n<h3><strong>Vi tilbyr</strong></h3>\n<p>Løn etter gjeldande tariff.<br />\nGodt arbeidsmiljø - gode kollegaer.<br />\nMange utfordrande, fagleg stimulerande oppgåver, jamleg møteverksemd og oppfylging frå spesialisthelsetenesta.<br />\nGod pensjonsordning.</p>\n<p>Vi har rekrutteringstillegg for vernepleiarar! Ved 100% stilling får du tilbod om kr. 50 000,-. Tilbodet vert utbetalt ved<br />\noppstart.</p>\n<h3><strong>Søknad skal sendast</strong></h3>\n<p>Søknad skal sendast via vårt elektroniske søknadssystem.</p>\n<p>Rettkjende kopiar av vitnemål og attestar skal takast med ved eventuelt intervju.</p>\n<h3><strong>Generell informasjon</strong></h3>\n<p>Godkjend politiattest som ikkje er eldre enn tre månader må framvisast ved tilsetting og seinast før arbeidstakar byrjar i stillinga.</p>\n",
+                "externalref": "89/18",
+                "sourceurl": "https://me-ansattportal.sing.no/recruitment/opening?4",
+                "searchtags": "[{\"label\":\"Vernepleier\",\"score\":0.9739148},{\"label\":\"Klinisk vernepleier\",\"score\":0.7034425},{\"label\":\"Ergoterapeut\",\"score\":0.6950791},{\"label\":\"Konsulent vernepleier\",\"score\":0.63508266},{\"label\":\"Distriktsleder vernepleier\",\"score\":0.63508266}]",
+                "employer": "Meland kommune",
+                "location": "Storgata 2-4-6, 0155 Oslo",
+                "classification_input_source": "title",
+                "sector": "Offentlig"
+            },
+            "publishedByAdmin": "2019-12-17T09:22:54.210419",
+            "businessName": "NIBIO OSLO",
+            "firstPublished": true,
+            "deactivatedByExpiry": false,
+            "activationOnPublishingDate": false,
+            "rekruttering": null
+        },
+        {
+            "id": 6953,
+            "uuid": "ccf85d89-f64b-40f3-a86f-851a27c00434",
+            "created": "2018-11-20T12:53:29.809",
+            "createdBy": "pam-ad",
+            "updated": "2019-12-17T08:37:16.600034",
+            "updatedBy": "nss-admin",
+            "mediaList": [],
+            "contactList": [],
+            "title": "Dansepedagog - 21,79% vikariat",
+            "status": "ACTIVE",
+            "privacy": "SHOW_ALL",
+            "source": "DEXI",
+            "medium": "Kommuner-Visma-Vest",
+            "reference": "me-ansattportal.sing.no/recruitment/opening?0?87/18",
+            "published": "2019-12-17T08:37:16.55836",
+            "expires": "2020-01-01T02:00:00",
+            "employer": {
+                "id": 213647,
+                "uuid": "d37fe2dd-5da0-4aab-b1f9-5d1ae04087ea",
+                "created": "2019-12-17T08:37:16.556432",
+                "createdBy": "pam-ad",
+                "updated": "2019-12-17T08:37:16.556432",
+                "updatedBy": "pam-ad",
+                "mediaList": [],
+                "contactList": [],
+                "location": {
+                    "address": "Havnevegen 43",
+                    "postalCode": "5918",
+                    "county": "HORDALAND",
+                    "municipal": "MELAND",
+                    "municipalCode": "1256",
+                    "city": "FREKHAUG",
+                    "country": "NORGE",
+                    "latitude": "60.51751382019216",
+                    "longitude": "5.241226191187237"
+                },
+                "locationList": [
+                    {
+                        "address": "Havnevegen 43",
+                        "postalCode": "5918",
+                        "county": "HORDALAND",
+                        "municipal": "MELAND",
+                        "municipalCode": "1256",
+                        "city": "FREKHAUG",
+                        "country": "NORGE",
+                        "latitude": "60.51751382019216",
+                        "longitude": "5.241226191187237"
+                    }
+                ],
+                "properties": {
+                    "nace2": "[{\"code\":\"84.120\",\"name\":\"Offentlig administrasjon tilknyttet helsestell, sosial virksomhet, undervisning, kirke, kultur og miljøvern\"}]"
+                },
+                "name": "MELAND KOMMUNE KULTURKONTOR",
+                "orgnr": "974586053",
+                "status": "ACTIVE",
+                "parentOrgnr": "951549770",
+                "publicName": "MELAND KOMMUNE KULTURKONTOR",
+                "deactivated": null,
+                "orgform": "BEDR",
+                "employees": 7
+            },
+            "administration": {
+                "id": 5789,
+                "status": "DONE",
+                "comments": null,
+                "reportee": "Ola Nordmann",
+                "remarks": [],
+                "navIdent": "B123456"
+            },
+            "location": {
+                "address": null,
+                "postalCode": null,
+                "county": "VESTLAND",
+                "municipal": "ALVER",
+                "municipalCode": "4631",
+                "city": null,
+                "country": "NORGE",
+                "latitude": null,
+                "longitude": null
+            },
+            "locationList": [
+                {
+                    "address": null,
+                    "postalCode": null,
+                    "county": "VESTLAND",
+                    "municipal": "ALVER",
+                    "municipalCode": "4631",
+                    "city": null,
+                    "country": "NORGE",
+                    "latitude": null,
+                    "longitude": null
+                }
+            ],
+            "categoryList": [
+                {
+                    "id": 2202,
+                    "code": "2653.03",
+                    "categoryType": "STYRK08NAV",
+                    "name": "Dansepedagog",
+                    "description": null,
+                    "parentId": 2199
+                }
+            ],
+            "properties": {
+                "extent": "Heltid",
+                "applicationdue": "25.11.18",
+                "author": "Meland kommune",
+                "engagementtype": "Annet",
+                "classification_styrk08_score": "0.4153929",
+                "employerdescription": "<p>Meland kommune er ein del av Nordhordlandsregionen og nabokommune til Bergen. Kommunen opplever sterk folkevekst og har eit innbyggjartal på ca. 8.000. Det er god kollektivtransport til/frå Bergen med hurtigbåt eller ekspressbuss, og reisetida frå Bergen til kommunesenteret Frekhaug er under 1/2 time.For å løyse og utvikle alle dei ulike oppgåvene kommune er tillagt treng vi engasjerte og kompetente medarbeidarar - som vil oppleve at arbeidsoppgåvene og bidraget deira er meiningsfylt og del av eit viktig samfunnsoppdrag. Meland kommune har ei verdimessig forankring som kjem til uttrykk gjennom visjonen vår &#34;Eit samfunn for alle&#34;.</p>\n",
+                "adtext": "<h3><strong>Stillingsinformasjon</strong></h3>\n<p>Eit vikariat som dansepedagog i 21,79% storleik frå 01.01.2019 - 30.06.2019.<br />\nSpanande arbeidsoppgåver med motiverte elevar i ulike aldersgrupper.<br />\nUndervisninga er lagt til torsdagar på ettermiddagen.</p>\n<h3><strong>Arbeidsplass</strong></h3>\n<p>Meland kulturskule er ein arbeidsplass med eit kollegium med høg kompetanse og eit svært godt arbeidsmiljø. Undervisinga finn stad i Meland Aktiv på Langeland/Frekhaug.</p>\n<h3><strong>Arbeidsoppgåver</strong></h3>\n<p>Ansvar for planlegging og gjennomføring av undervising og framsyningar innan dans. Undervisinga skjer i grupper delte etter alder og nivå for elevar frå 3 år til 7. klasse. (Småbarnsdans for 3 og 4-åringar vert gjennomført med deltakande føresette)</p>\n<p>Tverrfagleg samarbeid med resten av personalet i Meland kulturskule.</p>\n<h3><strong>Kvalifikasjonskrav</strong></h3>\n<p>Høgare dansepedagogisk utdanning. Søkjarar med lengre erfaringskompetanse kan og søkje. Vi har norsk som undervisningsspråk og er ein nynorskkommune. Personleg eignetheit for stillinga vil verte vurdert.</p>\n<h3><strong>Vi tilbyr</strong></h3>\n<p>Løn etter gjeldande tariffavtale.<br />\nGod pensjonsordning.</p>\n<h3><strong>Søknad skal sendast</strong></h3>\n<p>Søknad skal sendast via vårt elektroniske søknadssystem.</p>\n<p>Rettkjende kopiar av vitnemål og attestar skal takast med ved eventuelt intervju.</p>\n<h3><strong>Generell informasjon</strong></h3>\n<p>Godkjend politiattest som ikkje er eldre enn tre månader må framvisast ved tilsetting og seinast før arbeidstakar byrjar i stillinga.</p>\n",
+                "externalref": "87/18",
+                "sourceurl": "https://me-ansattportal.sing.no/recruitment/opening?2",
+                "searchtags": "[{\"label\":\"Dansepedagog\",\"score\":0.4153929},{\"label\":\"Aerobicinstruktør\",\"score\":0.043464035},{\"label\":\"Rock’n’Roll Coach\",\"score\":0.02225657}]",
+                "employer": "Meland kommune",
+                "location": "Tenesteområde Kultur",
+                "classification_input_source": "title",
+                "sector": "Offentlig"
+            },
+            "publishedByAdmin": "2019-12-17T08:37:16.55836",
+            "businessName": "MELAND KOMMUNE KULTURKONTOR",
+            "firstPublished": true,
+            "deactivatedByExpiry": false,
+            "activationOnPublishingDate": false,
+            "rekruttering": null
+        },
+        {
+            "id": 213641,
+            "uuid": "07c133cc-3c9c-407a-ae53-f33c1065f67e",
+            "created": "2019-12-17T07:08:10.69241",
+            "createdBy": "pam-ad",
+            "updated": "2019-12-17T08:34:52.344188",
+            "updatedBy": "nss-admin",
+            "mediaList": [],
+            "contactList": [
+                {
+                    "email": "torbjorn.selmer@headenergy.no",
+                    "phone": "+47 934 34 263",
+                    "role": null,
+                    "title": "Recruitment Consultant"
+                }
+            ],
+            "title": "Senior Maintenance Engineer",
+            "status": "ACTIVE",
+            "privacy": "SHOW_ALL",
+            "source": "FINN",
+            "medium": "FINN",
+            "reference": "165688326",
+            "published": "2019-12-17T08:34:51.952753",
+            "expires": "2019-12-23T00:00:00",
+            "employer": {
+                "id": 95633,
+                "uuid": "38ddcd7b-7336-4517-bca9-0bbd24a4a0a7",
+                "created": "2019-03-12T07:15:12.884",
+                "createdBy": "pam-ad",
+                "updated": "2019-12-17T08:34:51.950171",
+                "updatedBy": "pam-ad",
+                "mediaList": [],
+                "contactList": [],
+                "location": {
+                    "address": "Nordåsdalen 27",
+                    "postalCode": "5235",
+                    "county": "HORDALAND",
+                    "municipal": "BERGEN",
+                    "municipalCode": "1201",
+                    "city": "RÅDAL",
+                    "country": "NORGE",
+                    "latitude": "60.306983236107044",
+                    "longitude": "5.3265038865586645"
+                },
+                "locationList": [
+                    {
+                        "address": "Nordåsdalen 27",
+                        "postalCode": "5235",
+                        "county": "HORDALAND",
+                        "municipal": "BERGEN",
+                        "municipalCode": "1201",
+                        "city": "RÅDAL",
+                        "country": "NORGE",
+                        "latitude": "60.306983236107044",
+                        "longitude": "5.3265038865586645"
+                    }
+                ],
+                "properties": {
+                    "nace2": "[{\"code\":\"71.129\",\"name\":\"Annen teknisk konsulentvirksomhet\"},{\"code\":\"70.100\",\"name\":\"Hovedkontortjenester\"}]"
+                },
+                "name": "HEAD ENERGY AS",
+                "orgnr": "995186926",
+                "status": "ACTIVE",
+                "parentOrgnr": "995146126",
+                "publicName": "HEAD ENERGY AS",
+                "deactivated": null,
+                "orgform": "BEDR",
+                "employees": 12
+            },
+            "administration": {
+                "id": 190836,
+                "status": "DONE",
+                "comments": null,
+                "reportee": "Ola Nordmann",
+                "remarks": [],
+                "navIdent": "B123456"
+            },
+            "location": {
+                "address": null,
+                "postalCode": "4006",
+                "county": "ROGALAND",
+                "municipal": "STAVANGER",
+                "municipalCode": "1103",
+                "city": "STAVANGER",
+                "country": "NORGE",
+                "latitude": "58.97200012207031",
+                "longitude": "5.732898235321045"
+            },
+            "locationList": [
+                {
+                    "address": null,
+                    "postalCode": "4006",
+                    "county": "ROGALAND",
+                    "municipal": "STAVANGER",
+                    "municipalCode": "1103",
+                    "city": "STAVANGER",
+                    "country": "NORGE",
+                    "latitude": "58.97200012207031",
+                    "longitude": "5.732898235321045"
+                }
+            ],
+            "categoryList": [
+                {
+                    "id": 522,
+                    "code": "1323.23",
+                    "categoryType": "STYRK08NAV",
+                    "name": "Byingeniør",
+                    "description": null,
+                    "parentId": 499
+                }
+            ],
+            "properties": {
+                "logomain": "https://images.finncdn.no/mmo/logo/object/338298953/iad_8202648942635494621headenergy_logo_small.png",
+                "extent": "Heltid",
+                "employerhomepage": "http://www.headenergy.no",
+                "occupation": "Ingeniør;Konsulent",
+                "applicationdue": "23.12.2019",
+                "address": "4006 Stavanger",
+                "keywords": "Maintenance engineer,Risk Analysis,RAM analyse,SIL analysis",
+                "jobtitle": "Senior Maintenance Engineer",
+                "author": "Head Energy AS",
+                "engagementtype": "Prosjekt",
+                "industry": "Kraft og energi;Maritim og offshore;Olje og gass",
+                "employerdescription": "<p>Head Energy is an engineering and consulting company providing a wide range of services and products to civil engineering- and offshore industries within multiple sectors, hereunder Oil &amp; Gas, Renewables and Infrastructure. Head Energy has more than 400 employees working for highly rated clients and has offices in Bergen (HQ), Stavanger, Oslo, Esbjerg (DK) and Krakow (PL).</p>\n<p>We live by our core values: Responsible | Honest | Inclusive | Innovative. Our vision is to bring you one step ahead.</p>\n",
+                "adtext": "<p><strong>Head Energy is glad to offer the following contract position as Senior Maintenance Engineer</strong></p>\n<p><strong>Job Description:</strong></p>\n<ul><li>The role will be part of a growing team with various responsibilities within Reliability &amp; Maintenance management</li><li>The candidate will be responsible to ensure that the maintenance deliveries are of high quality and according to project specification, and are expected to continuously work to improve</li></ul>\n<p><strong>Education/Experience:</strong></p>\n<ul><li>Education: University degree within Engineering, Industrial Asset Management, Integrity Asset Management, Reliability and Maintenance Management, Operations Management or similar.</li><li>Experience within Maintenance and Operations management that includes:</li><li>Data collection from CMMS, technical documentation and analysis (SIL, RAM and Risk Analysis)</li><li>Criticality analysis (including functional hierarchy)</li><li>Maintenance analysis such as FMECA (Failure Mode Effect and Criticality Analysis), RCM (Reliability Centered Maintenance), RBI (Risk Based Inspection)</li><li>Development of preventive maintenance program (including writing of maintenance procedures)</li><li>Maintenance system implementation in CMMS</li><li>Good knowledge of governing procedures from the major operators in Norway</li><li>Experience from maintenance standardization and optimization projects</li><li>Experience within technical barrier management and maintenance</li><li>Experience within one or several areas listed below will be considered as an advantage:</li><li>Experience from working offshore or as a part of an operation team</li><li>SPIR evaluation</li><li>RAM analysis</li><li>SIL (Safety Integrity Level) analysis</li><li>LOPA (Layer of Protection analysis)</li><li>SAP, Workmate</li><li>Fluent in Norwegian and English</li></ul>\n<p><strong>Language:</strong></p>\n<ul><li>Norwegian</li><li>English</li></ul>\n<p><strong>In Head Energy you get:</strong></p>\n<ul><li>Permanent- or project employment with the best conditions.</li><li>Access to the industry´s most exciting job opportunities</li><li>Personal follow-up, mentoring and career guidance</li><li>A large variety of project opportunities</li><li>Good pension- and insurance schemes</li><li>A pleasant and positive work environment</li><li>Access to both specific and general courses.</li></ul>\n<p><em>To get notified when new jobs are posted on our website, please follow the link and subscribe to our job-alert service: https://headenergy.no/career/</em></p>\n<p><em>Head Energy uses a straightforward and user-friendly recruitment management system. By adding your CV or LinkedIn-profile, you will be able to apply for our open positions by the push of a single button. Keeping your profile updated increases the possibility of us matching your competence to suitable jobs.</em></p>\n",
+                "externalref": "115010",
+                "logolisting": "https://images.finncdn.no/mmo/logo/result/338298953/iad_1479409260149999201headenergy_logo_small.png",
+                "sourceurl": "https://www.finn.no/165688326",
+                "sourceupdated": "2019-12-16T13:17:00.000Z",
+                "searchtags": "[{\"label\":\"Byingeniør\",\"score\":1.0},{\"label\":\"Municipal Planning Engineer\",\"score\":0.47663727},{\"label\":\"Land planner\",\"score\":0.15123042}]",
+                "applicationurl": "https://apply.recman.no/job_post.php?id=115010&path=finn",
+                "employer": "Head Energy Consulting",
+                "location": "Stavanger",
+                "classification_input_source": "categoryName",
+                "sector": "Privat"
+            },
+            "publishedByAdmin": "2019-12-17T08:34:51.952753",
+            "businessName": "Head Energy Consulting",
+            "firstPublished": true,
+            "deactivatedByExpiry": false,
+            "activationOnPublishingDate": false,
+            "rekruttering": null
+        },
+        {
+            "id": 213642,
+            "uuid": "fb1f54ca-9f5c-4d72-8e04-952b5f0372b3",
+            "created": "2019-12-17T07:08:10.744824",
+            "createdBy": "pam-ad",
+            "updated": "2019-12-17T08:34:03.073535",
+            "updatedBy": "nss-admin",
+            "mediaList": [],
+            "contactList": [
+                {
+                    "email": "trond.berkana@entrack.no",
+                    "phone": "+47 948 28 200",
+                    "role": null,
+                    "title": "Daglig leder"
+                },
+                {
+                    "email": "bjornemil@entrack.no",
+                    "phone": "+47 482 28 297",
+                    "role": null,
+                    "title": "Personal"
+                }
+            ],
+            "title": "Entrack AS søker anleggsmekaniker til verksted på Heimdal",
+            "status": "ACTIVE",
+            "privacy": "SHOW_ALL",
+            "source": "FINN",
+            "medium": "FINN",
+            "reference": "165566158",
+            "published": "2019-12-17T08:34:03.037927",
+            "expires": "2020-01-27T19:51:00",
+            "employer": {
+                "id": 213263,
+                "uuid": "0d219527-28dc-48ad-a9bc-20c21378c26e",
+                "created": "2019-12-17T07:05:36.554033",
+                "createdBy": "pam-ad",
+                "updated": "2019-12-17T07:05:36.554033",
+                "updatedBy": "pam-ad",
+                "mediaList": [],
+                "contactList": [],
+                "location": {
+                    "address": "Heggstadmoen 1",
+                    "postalCode": "7080",
+                    "county": "TRØNDELAG",
+                    "municipal": "TRONDHEIM",
+                    "municipalCode": "5001",
+                    "city": "HEIMDAL",
+                    "country": "NORGE",
+                    "latitude": null,
+                    "longitude": null
+                },
+                "locationList": [
+                    {
+                        "address": "Heggstadmoen 1",
+                        "postalCode": "7080",
+                        "county": "TRØNDELAG",
+                        "municipal": "TRONDHEIM",
+                        "municipalCode": "5001",
+                        "city": "HEIMDAL",
+                        "country": "NORGE",
+                        "latitude": null,
+                        "longitude": null
+                    }
+                ],
+                "properties": {
+                    "nace2": "[{\"code\":\"46.630\",\"name\":\"Engroshandel med maskiner og utstyr til bergverksdrift, olje- og gassutvinning og bygge- og anleggsvirksomhet\"}]"
+                },
+                "name": "ENTRACK AS AVD TRONDHEIM",
+                "orgnr": "990880077",
+                "status": "ACTIVE",
+                "parentOrgnr": "998553199",
+                "publicName": "ENTRACK AS AVD TRONDHEIM",
+                "deactivated": null,
+                "orgform": "BEDR",
+                "employees": 21
+            },
+            "administration": {
+                "id": 190837,
+                "status": "DONE",
+                "comments": null,
+                "reportee": "Ola Nordmann",
+                "remarks": [],
+                "navIdent": "B123456"
+            },
+            "location": {
+                "address": null,
+                "postalCode": "7080",
+                "county": "TRØNDELAG",
+                "municipal": "TRONDHEIM",
+                "municipalCode": "5001",
+                "city": "HEIMDAL",
+                "country": "NORGE",
+                "latitude": "63.347694396972656",
+                "longitude": "10.353801727294922"
+            },
+            "locationList": [
+                {
+                    "address": null,
+                    "postalCode": "7080",
+                    "county": "TRØNDELAG",
+                    "municipal": "TRONDHEIM",
+                    "municipalCode": "5001",
+                    "city": "HEIMDAL",
+                    "country": "NORGE",
+                    "latitude": "63.347694396972656",
+                    "longitude": "10.353801727294922"
+                }
+            ],
+            "categoryList": [
+                {
+                    "id": 5355,
+                    "code": "8211.01",
+                    "categoryType": "STYRK08NAV",
+                    "name": "Montør (produksjon av transportmidler)",
+                    "description": null,
+                    "parentId": 5354
+                }
+            ],
+            "properties": {
+                "extent": "Heltid",
+                "employerhomepage": "http://www.entrack.no",
+                "occupation": "Teknisk service;Teknisk personell;Mekanikk og installasjon",
+                "applicationdue": "Snarest",
+                "address": "7080 Heimdal",
+                "keywords": "landbruksmekaniker,anleggsmaskiner,serviceinnstilt,produktiv,lærevillig",
+                "jobtitle": "Anleggsmekaniker",
+                "author": "Entrack AS",
+                "engagementtype": "Fast",
+                "classification_styrk08_score": "1.0",
+                "industry": "Bil, kjøretøy og verksted;Bygg og anlegg;Industri og produksjon",
+                "employerdescription": "<p>Entrack er importør av anleggsmaskiner samt forhandler av nye og brukte deler til anleggsbransjen, og kan levere et bredt spekter av deler og utstyr.<br />\nEntrack forhandler blant annet Kobelco, Ljungby, MB Crusher, ITR USCO, Banner batterier, SB skuffer, Intermecato-klyper, Lekang filtre, Powertilt, MB Crushers produkter, Swepac og Tokvam brøyte-utstyr. I 2019 omsetter Entrack for over 360 millioner kroner og har om lag 100 ansatte spredt over hele landet.</p>\n",
+                "adtext": "<p>Arbeidsoppgaver:</p>\n<p>Utføre vedlikehold og reparasjoner av maskiner og utstyr innenfor anlegg og lastebil/påbygg</p>\n<p>Entracks verksted på Heimdal søker en person som har:</p>\n<p>· Fagbrev som anleggs- eller landbruksmaskinmekaniker/tilsvarende eventuelt relevant erfaring kan kompensere</p>\n<p>· Minimum 2-5 års arbeidserfaring innen vedlikehold av anleggsmaskiner eller lignende</p>\n<p>· Må kunne reparasjonssveise</p>\n<p>· Minimum sertifikat kl. B</p>\n<p>· Sertifikat for kl. C1-C,E, lift, truck og varme arbeider er ønskelig</p>\n<p>· Maskinførerbevis på hjullaster og gravemaskin kan være en fordel</p>\n<p>· Fleksibel med stå-på-vilje, engasjert og serviceinnstilt</p>\n<p>· Pålitelig, nøyaktig, strukturert og samarbeidsvillig</p>\n<p>· Praktisk anlagt, teknisk interesse, løsningsorientert og nevenyttig</p>\n<p>· Gode HMS vaner</p>\n<p>· Må beherske norsk skriftlig og muntlig godt.</p>\n<p>Rett person er lojal, omgjengelig og bidrar til et positivt arbeidsmiljø</p>\n<p>Vi tilbyr:</p>\n<p>· En stilling i et solid firma med langsiktig mål og ambisjoner</p>\n<p>· Arbeid i en bransje i utvikling, som spiller en viktig rolle for miljøet</p>\n<p>· Uformelt, solid og godt arbeidsmiljø</p>\n<p>· Varierte oppgaver</p>\n<p>· Utviklingsmuligheter avhengig av prestasjoner og personlige egenskaper</p>\n<p>· Konkurransedyktige betingelser, personalforsikringer og pensjonsordninger</p>\n<p>Relevant fagbrev fra bil, anlegg el.l</p>\n<p><strong>Send inn din CV og søknad gjennom Finns søknadsportal til høyre, klikk &#34;søk her&#34;.</strong></p>\n<p><strong>For spørsmål om stillingen, ta gjerne kontakt med:</strong></p>\n<p><strong>Daglig leder: Trond Berkana på 94 82 82 00</strong></p>\n<p><strong>HR: Bjørn Emil H. Brattli på 48 22 82 97</strong></p>\n<p><strong>Verksmester avd. Heimdal: Jon Einar Løberg på 91 84 41 96</strong></p>\n",
+                "externalref": "165566158",
+                "sourceurl": "https://www.finn.no/165566158",
+                "sourceupdated": "2019-12-16T19:51:00.000Z",
+                "applicationemail": "bjornemil@entrack.no",
+                "searchtags": "[{\"label\":\"Anleggsmekaniker\",\"score\":1.0},{\"label\":\"Plant Mechanical Technician\",\"score\":0.34582782},{\"label\":\"Kranmekaniker\",\"score\":0.2238951},{\"label\":\"Landbruksmaskinmekaniker\",\"score\":0.10360965},{\"label\":\"Servicetekniker\",\"score\":0.08691063}]",
+                "applicationurl": "https://www.finn.no/recruitment/hired/frontend/applynow/input.action?adId=165566158",
+                "employer": "ENTRACK AS",
+                "location": "Heimdal",
+                "classification_input_source": "jobtitle",
+                "sector": "Privat"
+            },
+            "publishedByAdmin": "2019-12-17T08:34:03.037927",
+            "businessName": "ENTRACK AS",
+            "firstPublished": true,
+            "deactivatedByExpiry": false,
+            "activationOnPublishingDate": false,
+            "rekruttering": null
+        },
+        {
+            "id": 213643,
+            "uuid": "bac89141-338f-428f-8e30-88f6c2cc3433",
+            "created": "2019-12-17T07:08:10.755638",
+            "createdBy": "pam-ad",
+            "updated": "2019-12-17T08:33:39.253114",
+            "updatedBy": "nss-admin",
+            "mediaList": [],
+            "contactList": [
+                {
+                    "email": null,
+                    "phone": "+47 938 24 053",
+                    "role": null,
+                    "title": "Avdelingsleder"
+                }
+            ],
+            "title": "En sommerjobb utenom det vanlige",
+            "status": "ACTIVE",
+            "privacy": "SHOW_ALL",
+            "source": "FINN",
+            "medium": "FINN",
+            "reference": "165677678",
+            "published": "2019-12-17T08:33:39.217332",
+            "expires": "2020-02-16T00:00:00",
+            "employer": {
+                "id": 94789,
+                "uuid": "b32170c4-435d-4419-bde7-864875852bae",
+                "created": "2019-03-09T07:16:16.324",
+                "createdBy": "pam-ad",
+                "updated": "2019-12-17T08:33:39.214113",
+                "updatedBy": "pam-ad",
+                "mediaList": [],
+                "contactList": [],
+                "location": {
+                    "address": "Ingvald Ystgaards veg 3A",
+                    "postalCode": "7047",
+                    "county": "TRØNDELAG",
+                    "municipal": "TRONDHEIM",
+                    "municipalCode": "5001",
+                    "city": "TRONDHEIM",
+                    "country": "NORGE",
+                    "latitude": "63.42163766454788",
+                    "longitude": "10.468988458390706"
+                },
+                "locationList": [
+                    {
+                        "address": "Ingvald Ystgaards veg 3A",
+                        "postalCode": "7047",
+                        "county": "TRØNDELAG",
+                        "municipal": "TRONDHEIM",
+                        "municipalCode": "5001",
+                        "city": "TRONDHEIM",
+                        "country": "NORGE",
+                        "latitude": "63.42163766454788",
+                        "longitude": "10.468988458390706"
+                    }
+                ],
+                "properties": {
+                    "nace2": "[{\"code\":\"86.909\",\"name\":\"Andre helsetjenester\"}]"
+                },
+                "name": "STENDI SENIOR AS RESPIRATORTEAM MIDT",
+                "orgnr": "820578732",
+                "status": "ACTIVE",
+                "parentOrgnr": "982843790",
+                "publicName": "STENDI SENIOR AS RESPIRATORTEAM MIDT",
+                "deactivated": null,
+                "orgform": "BEDR",
+                "employees": 31
+            },
+            "administration": {
+                "id": 190838,
+                "status": "DONE",
+                "comments": null,
+                "reportee": "Ola Nordmann",
+                "remarks": [],
+                "navIdent": "B123456"
+            },
+            "location": {
+                "address": null,
+                "postalCode": "7047",
+                "county": "TRØNDELAG",
+                "municipal": "TRONDHEIM",
+                "municipalCode": "5001",
+                "city": "TRONDHEIM",
+                "country": "NORGE",
+                "latitude": "63.4193000793457",
+                "longitude": "10.474905967712402"
+            },
+            "locationList": [
+                {
+                    "address": null,
+                    "postalCode": "7047",
+                    "county": "TRØNDELAG",
+                    "municipal": "TRONDHEIM",
+                    "municipalCode": "5001",
+                    "city": "TRONDHEIM",
+                    "country": "NORGE",
+                    "latitude": "63.4193000793457",
+                    "longitude": "10.474905967712402"
+                }
+            ],
+            "categoryList": [
+                {
+                    "id": 1443,
+                    "code": "2223",
+                    "categoryType": "STYRK08NAV",
+                    "name": "Sykepleiere",
+                    "description": "Sykepleiere behandler, pleier og veileder syke, skadede og andre pleietrengende personer",
+                    "parentId": 1416
+                }
+            ],
+            "properties": {
+                "logomain": "https://images.finncdn.no/mmo/logo/object/1462442809/iad_5980925048621495706stendi.png",
+                "extent": "Heltid",
+                "employerhomepage": "https://karrierestart.no/stendi",
+                "occupation": "Sykepleier;Helsepersonell",
+                "applicationdue": "16.02.2020",
+                "address": "7047 Trondheim",
+                "positioncount": "6",
+                "author": "Stendi AS",
+                "engagementtype": "Sesong",
+                "classification_styrk08_score": "1.0",
+                "industry": "Helse og omsorg",
+                "starttime": "Etter avtale",
+                "employerdescription": "<p>Stendi er Norges største omsorgsaktør og driver landsdekkende virksomhet innen barnevern, bo- og omsorgstjenester, eldreomsorg, hjemmehjelp og personlig assistanse (BPA). Vi skal være kvalitetsledende i alt vi gjør og vår visjon er å gjøre verden litt bedre, ett menneske av gangen.</p>\n<p>Stendi har over 5000 medarbeidere, rundt 1000 brukere innen barnevern, psykisk omsorg og brukerstyrt personlig assistanse (BPA), sykehjem og omsorgsboliger med rundt 500 plasser, samt private seniorleiligheter.</p>\n<p>Stendi er siden 2019 en del av Ambea, som er Sveriges, Norges og Danmarks markedsledende private omsorgsselskap.</p>\n",
+                "adtext": "<p><strong>Stillingsbeskrivelse:</strong></p>\n<p>Stendi Midt Respiratorteam søker ferievikarer til våre team. Du liker å jobbe alene, men samtidig samarbeide med andre. Du er trygg i utfordrende og akutte situasjoner, men trives godt i å jobbe i hjemmet til klientene. Du har god kommunikasjonsevne, både med store og små. Du er en fleksibel person som ønsker å jobbe med barn og deres pårørende. Du er også fleksibel på arbeidssted og kan arbeide i de ulike avdelingerne til Stendi, så som psykisk omsorg. Dette er ikke et krav, men kan være en mulighet.</p>\n<p>Vi vil at Stendi sin visjon og verdier skal prege alt vårt arbeid for å gi best mulig tjenester.<br />\n<em>V</em> <em>i gjør verden litt bedre, ett menneske av gangen</em> .</p>\n<p><strong>Arbeidsoppgaver:</strong></p>\n<p>Dine arbeidsoppgaver vil bestå av praktisk og personlig helsehjelp til barn med ulike utfordringer som for eksempel behandlingsterapi og trakeostomi.</p>\n<p>· <strong>Yte omsorg slik at barn med ulike somatiske og psykososiale utfordringer og medisinsk teknisk utstyr kan bo hjemme med familien sin.</strong><br />\n· <strong>Kontinuerlig observasjon og vurdering av helsetilstand.</strong><br />\n· <strong>Legemiddelhåndtering.</strong><br />\n· <strong>Du får mulighet til å jobbe i et team med ett tverrfaglig miljø.</strong><br />\n· <strong>Kommunikasjon og veiledning av pårørende/ foreldre.</strong> <strong>Kvalifikasjoner:</strong><br />\n· <strong>Sykepleier, vernepleier, helsefagarbeider, eller annen relevant utdanning</strong><br />\n· <strong>Politiattest uten anmerkninger.</strong><br />\n· <strong>Fordel å ha arbeidserfaring med barn, men dette er ingen krav.</strong><br />\n· <strong>Er fleksibel, selvstendig, pålitelig, tålmodig og positiv som person.</strong><br />\n· <strong>Gode kommunikasjonsferdigheter</strong>\n· <strong>God forståelse for psykosomatiske utfordringer</strong>\n· <strong>Personlig egnethet vil bli vektlagt.</strong><br />\n· <strong>Basale IT kunnskaper.</strong><br />\n· <strong>Førerkort klasse B</strong></p>\n<p><strong>Vi kan tilby:</strong><br />\n· <strong>Ferievikariat, med mulighet for forlengelse.</strong><br />\n· <strong>Turnus med langvakter og arbeid hver 3. helg.</strong><br />\n· <strong>God opplæring.</strong><br />\n· <strong>Kurs og fagdager.</strong><br />\n· <strong>Personlig og faglig utvikling.</strong><br />\n· <strong>Tariffavtale.</strong></p>\n<p><strong>Søknadsinformasjon</strong></p>\n<p>Ved henvendelser ta kontakt med rekrutteringsansvarlig i Karrierestart.</p>\n",
+                "externalref": "1432995",
+                "logolisting": "https://images.finncdn.no/mmo/logo/result/1462442809/iad_4012439753335297067stendi.png",
+                "sourceurl": "https://www.finn.no/165677678",
+                "sourceupdated": "2019-12-16T12:37:00.000Z",
+                "searchtags": "[{\"label\":\"Sykepleier\",\"score\":1.0},{\"label\":\"Sosionom\",\"score\":0.28928006},{\"label\":\"Fysioterapeut\",\"score\":0.20608525},{\"label\":\"Ernæringsfysiolog\",\"score\":0.20103514},{\"label\":\"Ergoterapeut\",\"score\":0.20033596}]",
+                "applicationurl": "https://karrierestart.no/ledig-stilling/1432995",
+                "employer": "Respiratorteam Region Midt",
+                "location": "Trondheim",
+                "classification_input_source": "occupation",
+                "sector": "Privat"
+            },
+            "publishedByAdmin": "2019-12-17T08:33:39.217332",
+            "businessName": "Respiratorteam Region Midt",
+            "firstPublished": true,
+            "deactivatedByExpiry": false,
+            "activationOnPublishingDate": false,
+            "rekruttering": null
+        },
+        {
+            "id": 213644,
+            "uuid": "c43e8e4e-32a2-4a97-954e-4d3964d808c9",
+            "created": "2019-12-17T07:08:10.766246",
+            "createdBy": "pam-ad",
+            "updated": "2019-12-17T08:32:59.771412",
+            "updatedBy": "nss-admin",
+            "mediaList": [],
+            "contactList": [
+                {
+                    "email": "kine.renbjor@azets.com",
+                    "phone": "+47 906 98 119",
+                    "role": null,
+                    "title": "Recruitment Advisor"
+                }
+            ],
+            "title": "Mall Of Norway søker assisterende butikksjef",
+            "status": "ACTIVE",
+            "privacy": "SHOW_ALL",
+            "source": "FINN",
+            "medium": "FINN",
+            "reference": "165695741",
+            "published": "2019-12-17T08:32:59.730826",
+            "expires": "2020-01-27T22:59:00",
+            "employer": {
+                "id": 189815,
+                "uuid": "7364c653-8c48-47e3-93f9-08fdda7fbe38",
+                "created": "2019-10-13T07:02:01.430225",
+                "createdBy": "pam-ad",
+                "updated": "2019-11-23T07:05:28.258517",
+                "updatedBy": "pam-ad",
+                "mediaList": [],
+                "contactList": [],
+                "location": {
+                    "address": "Flåm",
+                    "postalCode": "5743",
+                    "county": "SOGN OG FJORDANE",
+                    "municipal": "AURLAND",
+                    "municipalCode": "1421",
+                    "city": "FLÅM",
+                    "country": "NORGE",
+                    "latitude": null,
+                    "longitude": null
+                },
+                "locationList": [
+                    {
+                        "address": "Flåm",
+                        "postalCode": "5743",
+                        "county": "SOGN OG FJORDANE",
+                        "municipal": "AURLAND",
+                        "municipalCode": "1421",
+                        "city": "FLÅM",
+                        "country": "NORGE",
+                        "latitude": null,
+                        "longitude": null
+                    }
+                ],
+                "properties": {
+                    "nace2": "[{\"code\":\"47.789\",\"name\":\"Butikkhandel ikke nevnt annet sted\"}]"
+                },
+                "name": "SAGA SOUVENIR AS",
+                "orgnr": "972299960",
+                "status": "ACTIVE",
+                "parentOrgnr": "969035138",
+                "publicName": "SAGA SOUVENIR AS",
+                "deactivated": null,
+                "orgform": "BEDR",
+                "employees": 26
+            },
+            "administration": {
+                "id": 190839,
+                "status": "DONE",
+                "comments": null,
+                "reportee": "Ola Nordmann",
+                "remarks": [],
+                "navIdent": "B123456"
+            },
+            "location": {
+                "address": "Stasjonsvegen 9",
+                "postalCode": "5743",
+                "county": "VESTLAND",
+                "municipal": "AURLAND",
+                "municipalCode": "4641",
+                "city": "FLÅM",
+                "country": "NORGE",
+                "latitude": "60.86289978027344",
+                "longitude": "7.113596439361572"
+            },
+            "locationList": [
+                {
+                    "address": "Stasjonsvegen 9",
+                    "postalCode": "5743",
+                    "county": "VESTLAND",
+                    "municipal": "AURLAND",
+                    "municipalCode": "4641",
+                    "city": "FLÅM",
+                    "country": "NORGE",
+                    "latitude": "60.86289978027344",
+                    "longitude": "7.113596439361572"
+                }
+            ],
+            "categoryList": [
+                {
+                    "id": 881,
+                    "code": "1420.04",
+                    "categoryType": "STYRK08NAV",
+                    "name": "Assisterende butikksjef",
+                    "description": null,
+                    "parentId": 877
+                }
+            ],
+            "properties": {
+                "logomain": "https://images.finncdn.no/mmo/logo/object/612528286/iad_1643256030903921986visma.png",
+                "extent": "Heltid",
+                "employerhomepage": "http://www.mallofnorway.com",
+                "occupation": "Kundeservice;Ledelse;Butikksjef",
+                "keywords": "Kundeservice,Butikk,Leder,Salg,Butikksjef",
+                "engagementtype": "Fast",
+                "industry": "Butikk og varehandel",
+                "employerdescription": "<p>Mall of Norways første butikk, Saga Souvenir, åpnet i Flåm, Norge i 1994. Wangen-brødrene, Steinar og Torstein, eide 50% av selskapet, og i 1998 kjøpte de de resterende 50%. Torstein, som fyller 82 år i år, jobber fortsatt her hver dag! I dag er det de to sønnene til Steinar, Siver og Kyrre, som driver det familieeide selskapet. I løpet av de travleste månedene i året kommer folk fra hele verden for å jobbe for Mall of Norway, i et fartsfylt, morsomt og virkelig internasjonalt team som jobber hardt for å betjene anslagsvis 1,4 millioner besøkende til Flåm hvert år.</p>\n<p>Virksomheten startet som en suvenirbutikk, men gjennom høye ambisjoner og hardt arbeid, vokste Saga Souvenir til en premium forhandler, og heter nå Mall of Norway. Vi er stolte av å ha noe for enhver smak. Det være alt fra en kjøleskapsmagnet med et Flåm-motiv trykt på, til lokale håndlagde ullskjerf, til norske designerklær. Noen av merkene du finner i våre butikker inkluderer Dale of Norway, Helly Hansen, ECCO, Fjällräven, Scandinavian Explorer, Røros Tweed, Blæst Rainwear og We Norwegians.</p>\n<p>Både i våre butikker og på mallofnorway.com, ønsker vi å tilby kundene våre produkter med høyeste verdi og utmerket service. Vi fokuserer på å skape en hyggelig kundeopplevelse, med minimalt bryderi og enkle valg, fordi shopping skal være morsomt og enkelt.</p>\n",
+                "applicationurl": "https://secure.webtemp.no/WebtempCVPortal/default.aspx?k=26&id_rekruttering=3004832",
+                "employer": "Saga Souvenir AS",
+                "sector": "Privat",
+                "applicationlabel": "7588",
+                "applicationdue": "Fortløpende",
+                "address": "Stasjonsvegen 9,5743 Flåm",
+                "jobtitle": "Assisterende butikksjef",
+                "author": "Azets People Management",
+                "classification_styrk08_score": "0.93842274",
+                "adtext": "<h3>Hvis du er opptatt av å skape gode relasjoner, levere gode resultater og ha det gøy, se her:</h3>\n<p>Vi søker deg som er ambisiøs og har et ønske om å lykkes som assisterende butikksjef. Du liker utfordringer, finner gode løsninger og er svært opptatt av å yte god kundeservice. Vi ser for oss at du er en person som er med på å skape gode opplevelser hvor selskapets ansatte, kunder, økonomi og vekst står i fokus.</p>\n<h3>En arbeidsdag består av disse oppgavene:</h3>\n<p>Du vil ha ansvar for opplæring av sesongarbeiderne, sette opp vaktlister og planlegge bemanningsbehov. Du må ta del i varepåfylling, kassearbeid og annet forefallende butikkarbeid. Videre skal du være med å planlegge og gjennomføre salgsaktiviteter og kampanjer, herunder ivareta konsept, ryddighet i avdelingene og sørge for god vareeksponering. Det er viktig at du deltar i budsjettarbeid og rapportering, samt bidra til oppnåelse av varehusets salgsmål, samt aktivt bidra til å videreutvikle prosesser, rutiner og effektiv bruk av IT verktøy.</p>\n<h3>Hva vi ser etter:</h3>\n<p>Du bør du har god forretningsforståelse, gjerne fullført høyere utdannelse. Du må ha noen års relevant arbeidserfaring innen salg og service. Vi ønsker at du er en person med god framstillings- og kommunikasjonsevne, da du jobber med mennesker fra hele verden. Du må kunne flytende engelsk for å kommunisere på en best mulig måte med ansatte og kunder. Det er en stor fordel om du har gode Excel-kunnskaper. Du bør ta initiativ, handle med selvtillit og kunne arbeide selvstendig.</p>\n<h3>Vi ser for oss at du:</h3>\n<ul><li>Er serviceinnstilt, positiv og har gode samarbeidsevner</li><li>Har god gjennomføringsevne og tillit til egne vurderinger</li><li>Er effektiv, ansvarsfull og nøyaktig</li><li>Har evne til å sette deg raskt inn i nye problemstillinger</li><li>Er teamorientert, viser interesse og engasjement</li><li>Liker å jobbe med mennesker fra flere kulturer</li><li>Ha interesse for- og er opptatt av moter og trender</li></ul>\n<h3>Hos oss får du:</h3>\n<ul><li>Mulighet for faglig utvikling</li><li>Utfordrende og varierte arbeidsoppgaver</li><li>Positivt og stabilt arbeidsmiljø med fokus på samarbeid og trivsel</li><li>God balanse mellom jobb, jobbreiser og fritid</li><li>Konkurransedyktige betingelser med fordelaktige ansattgoder</li><li>Lede en bedrift i vekst og være med på en spennende reise</li></ul>\n<h3>Arbeidstid</h3>\n<p>Kjernetiden er 08:00-16:00, men siden dette er en ledende stilling så er det unntak for ordinær arbeidstid. Butikkene er åpne 7 dager i uken fra 07:00 -22:00 i høysesong og 7 dager i uken fra 08:00 - 16:00/17:00 i lavsesong. Midtsesong fra 07:45 - 18:00/20:00.</p>\n<p>Ved å jobbe for Mall Of Norway får du være med på en spennende reise, i en bedrift som er i vekst og utvikling. Hvis du synes dette er noe for deg og føler deg komfortabel med kremmerånden, ikke nøl med å ta kontakt for mer informasjon om stillingen eller kunden. Vi vurderer søknader fortløpende.</p>\n",
+                "externalref": "10000758802",
+                "logolisting": "https://images.finncdn.no/mmo/logo/result/612528286/iad_3203216718298072706visma.png",
+                "sourceurl": "https://www.finn.no/165695741",
+                "sourceupdated": "2019-12-16T15:01:00.000Z",
+                "searchtags": "[{\"label\":\"Assisterende butikksjef\",\"score\":0.9376952},{\"label\":\"Assisterende butikksjef dagligvare\",\"score\":0.5429046},{\"label\":\"Assisterende butikksjef sportsbutikk\",\"score\":0.5429046},{\"label\":\"Butikksjef\",\"score\":0.06358271}]",
+                "location": "Flåm",
+                "classification_input_source": "jobtitle"
+            },
+            "publishedByAdmin": "2019-12-17T08:32:59.730826",
+            "businessName": "Saga Souvenir AS",
+            "firstPublished": true,
+            "deactivatedByExpiry": false,
+            "activationOnPublishingDate": false,
+            "rekruttering": null
+        },
+        {
+            "id": 211725,
+            "uuid": "20df570a-f367-4751-b2be-64c4e8f61987",
+            "created": "2019-12-11T11:39:52.821897",
+            "createdBy": "pam-rekrutteringsbistand",
+            "updated": "2019-12-11T11:40:57.700016",
+            "updatedBy": "pam-rekrutteringsbistand",
+            "mediaList": [],
+            "contactList": [],
+            "title": "skole",
+            "status": "ACTIVE",
+            "privacy": "INTERNAL_NOT_SHOWN",
+            "source": "DIR",
+            "medium": "DIR",
+            "reference": "20df570a-f367-4751-b2be-64c4e8f61987",
+            "published": "2019-12-11T11:40:57.219182",
+            "expires": "2019-12-19T02:00:00",
+            "employer": {
+                "id": 211726,
+                "uuid": "e1e08fc0-a322-4569-a051-b5a9a1f8ba1d",
+                "created": "2019-12-11T11:40:57.214159",
+                "createdBy": "pam-ad",
+                "updated": "2019-12-11T11:40:57.214159",
+                "updatedBy": "pam-ad",
+                "mediaList": [],
+                "contactList": [],
+                "location": {
+                    "address": "Holmlia Senter vei 8",
+                    "postalCode": "1255",
+                    "county": "OSLO",
+                    "municipal": "OSLO",
+                    "municipalCode": "0301",
+                    "city": "OSLO",
+                    "country": "NORGE",
+                    "latitude": "59.83537196982571",
+                    "longitude": "10.795056913674415"
+                },
+                "locationList": [
+                    {
+                        "address": "Holmlia Senter vei 8",
+                        "postalCode": "1255",
+                        "county": "OSLO",
+                        "municipal": "OSLO",
+                        "municipalCode": "0301",
+                        "city": "OSLO",
+                        "country": "NORGE",
+                        "latitude": "59.83537196982571",
+                        "longitude": "10.795056913674415"
+                    }
+                ],
+                "properties": {
+                    "nace2": "[{\"code\":\"49.320\",\"name\":\"Drosjebiltransport\"}]"
+                },
+                "name": "ARFAN ASGHAR",
+                "orgnr": "886918062",
+                "status": "ACTIVE",
+                "parentOrgnr": "986832793",
+                "publicName": "ARFAN ASGHAR",
+                "deactivated": null,
+                "orgform": "BEDR",
+                "employees": 0
+            },
+            "administration": {
+                "id": 189102,
+                "status": "DONE",
+                "comments": null,
+                "reportee": "Joralf Wunderkid",
+                "remarks": [],
+                "navIdent": "D123456"
+            },
+            "location": {
+                "address": null,
+                "postalCode": null,
+                "county": "OSLO",
+                "municipal": "OSLO",
+                "municipalCode": "0301",
+                "city": null,
+                "country": "NORGE",
+                "latitude": null,
+                "longitude": null
+            },
+            "locationList": [
+                {
+                    "address": null,
+                    "postalCode": null,
+                    "county": "OSLO",
+                    "municipal": "OSLO",
+                    "municipalCode": "0301",
+                    "city": null,
+                    "country": "NORGE",
+                    "latitude": null,
+                    "longitude": null
+                }
+            ],
+            "categoryList": [
+                {
+                    "id": 879,
+                    "code": "1420.02",
+                    "categoryType": "STYRK08NAV",
+                    "name": "Leder (varehandel)",
+                    "description": null,
+                    "parentId": 877
+                }
+            ],
+            "properties": {
+                "extent": "Heltid",
+                "workhours": "[\"Dagtid\"]",
+                "applicationdue": "Snarest",
+                "workday": "[\"Ukedager\"]",
+                "searchtags": "[{\"label\":\"Leder varehandel\",\"score\":0.9966743}]",
+                "jobtitle": "Leder (varehandel)",
+                "positioncount": "1",
+                "engagementtype": "Vikariat",
+                "starttime": "Etter avtale",
+                "classification_input_source": "categoryName",
+                "adtext": "<p>ser</p>",
+                "sector": "Privat"
+            },
+            "publishedByAdmin": "2019-12-11T11:40:57.219182",
+            "businessName": "ARFAN ASGHAR",
+            "firstPublished": true,
+            "deactivatedByExpiry": false,
+            "activationOnPublishingDate": false,
+            "rekruttering": null
+        },
+        {
+            "id": 6952,
+            "uuid": "4bc625a0-62d6-45cd-aaf7-3a7014b0a411",
+            "created": "2018-11-20T12:53:29.798",
+            "createdBy": "pam-ad",
+            "updated": "2019-12-11T11:15:49.788694",
+            "updatedBy": "nss-admin",
+            "mediaList": [],
+            "contactList": [],
+            "title": "Lærar - 100% vikariat",
+            "status": "ACTIVE",
+            "privacy": "SHOW_ALL",
+            "source": "DEXI",
+            "medium": "Kommuner-Visma-Vest",
+            "reference": "me-ansattportal.sing.no/recruitment/opening?0?86/18",
+            "published": "2019-12-04T13:16:02.994859",
+            "expires": "2020-02-07T02:00:00",
+            "employer": {
+                "id": 22852,
+                "uuid": "d304148c-1950-4a16-b5e6-ff348a1b5abd",
+                "created": "2018-12-11T07:13:16.087",
+                "createdBy": "pam-ad",
+                "updated": "2019-12-04T12:24:44.93725",
+                "updatedBy": "pam-ad",
+                "mediaList": [],
+                "contactList": [],
+                "location": {
+                    "address": "Sannergata 2",
+                    "postalCode": "0557",
+                    "county": "OSLO",
+                    "municipal": "OSLO",
+                    "municipalCode": "0301",
+                    "city": "OSLO",
+                    "country": "NORGE",
+                    "latitude": "59.92859596472823",
+                    "longitude": "10.757432400901147"
+                },
+                "locationList": [
+                    {
+                        "address": "Sannergata 2",
+                        "postalCode": "0557",
+                        "county": "OSLO",
+                        "municipal": "OSLO",
+                        "municipalCode": "0301",
+                        "city": "OSLO",
+                        "country": "NORGE",
+                        "latitude": "59.92859596472823",
+                        "longitude": "10.757432400901147"
+                    }
+                ],
+                "properties": {
+                    "nace2": "[{\"code\":\"84.120\",\"name\":\"Offentlig administrasjon tilknyttet helsestell, sosial virksomhet, undervisning, kirke, kultur og miljøvern\"}]"
+                },
+                "name": "ARBEIDS- OG VELFERDSDIREKTORATET AVD SANNERGATA",
+                "orgnr": "995298775",
+                "status": "ACTIVE",
+                "parentOrgnr": "889640782",
+                "publicName": "ARBEIDS- OG VELFERDSDIREKTORATET AVD SANNERGATA",
+                "deactivated": null,
+                "orgform": "BEDR",
+                "employees": 1010
+            },
+            "administration": {
+                "id": 5788,
+                "status": "DONE",
+                "comments": null,
+                "reportee": "Joralf Wunderkid",
+                "remarks": [],
+                "navIdent": "D123456"
+            },
+            "location": {
+                "address": null,
+                "postalCode": "0590",
+                "county": "OSLO",
+                "municipal": "OSLO",
+                "municipalCode": "0301",
+                "city": "OSLO",
+                "country": "NORGE",
+                "latitude": null,
+                "longitude": null
+            },
+            "locationList": [
+                {
+                    "address": null,
+                    "postalCode": "0590",
+                    "county": "OSLO",
+                    "municipal": "OSLO",
+                    "municipalCode": "0301",
+                    "city": "OSLO",
+                    "country": "NORGE",
+                    "latitude": null,
+                    "longitude": null
+                }
+            ],
+            "categoryList": [
+                {
+                    "id": 1607,
+                    "code": "2351.03",
+                    "categoryType": "STYRK08NAV",
+                    "name": "Pedagog",
+                    "description": null,
+                    "parentId": 1604
+                }
+            ],
+            "properties": {
+                "extent": "Heltid",
+                "applicationdue": "25.11.18",
+                "author": "Meland kommune",
+                "engagementtype": "Annet",
+                "classification_styrk08_score": "0.8359872",
+                "employerdescription": "<p>Meland kommune er ein del av Nordhordlandsregionen og nabokommune til Bergen. Kommunen opplever sterk folkevekst og har eit innbyggjartal på ca. 8.000. Det er god kollektivtransport til/frå Bergen med hurtigbåt eller ekspressbuss, og reisetida frå Bergen til kommunesenteret Frekhaug er under 1/2 time.For å løyse og utvikle alle dei ulike oppgåvene kommune er tillagt treng vi engasjerte og kompetente medarbeidarar - som vil oppleve at arbeidsoppgåvene og bidraget deira er meiningsfylt og del av eit viktig samfunnsoppdrag. Meland kommune har ei verdimessig forankring som kjem til uttrykk gjennom visjonen vår &#34;Eit samfunn for alle&#34;.</p>\n",
+                "adtext": "<h3><strong>Stillingsinformasjon</strong></h3>\n<p>Vestbygd skule har ledig vikariat i 100% stilling frå 21.01.2019 til 31.07.19, i hovudsak på småtrinnet.<br />\nDet er ønskjeleg med fordjuping i spesialpedagogikk og/ eller røynsle frå arbeid med elevar med særskilde behov.</p>\n<h3><strong>Arbeidsplass</strong></h3>\n<p>Vestbygd skule har ledig vikariat i 100% stilling frå 21.01.2019 til 31.07.19, i hovudsak på småtrinnet.<br />\nDet er ønskjeleg med fordjuping i spesialpedagogikk og/ eller røynsle frå arbeid med elevar med særskilde behov.</p>\n<h3><strong>Kvalifikasjonskrav</strong></h3>\n<p>Godkjent utdanning ihht kompetanseforskrifta.<br />\nUtdanning frå utlandet må vere godkjent av NOKUT.</p>\n<p>Vi søkjer lærar som:</p>\n<ul><li>Er fagleg bevisst og godt førebudd</li><li>Har god innsikt i lærarrolla og skulen som organisasjon</li><li>Er synleg i skulen sine ulike møteplassar</li><li>Bidrar til å utvikle skulane sitt positive arbeidsmiljø</li><li>Følgje opp og ha kontakt med den enkelte eleven og deira føresette</li><li>Har god kommunikasjon og tydeleg klasseleiing</li><li>Aktivt samarbeider med kolleger og skuleleiinga om utvikling av læringsmiljø og læringsutbytte</li></ul>\n<p>Meland kommune har nynorsk som målform.</p>\n<h3><strong>Vi tilbyr</strong></h3>\n<p>Utfordrande oppgåver innan heile saksområdet i eit breitt og engasjert fagmiljø.<br />\nLøn etter gjeldande tariffavtale.<br />\nGod pensjonsordning.<br />\nIA-bedrift</p>\n<h3><strong>Søknad skal sendast</strong></h3>\n<p>Søknad skal sendast via vårt elektroniske søknadssystem.</p>\n<p>Rettkjende kopiar av vitnemål og attestar skal takast med ved eventuelt intervju.</p>\n<h3><strong>Generell informasjon</strong></h3>\n<p>Godkjend politiattest som ikkje er eldre enn tre månader må framvisast ved tilsetting og seinast før arbeidstakar byrjar i stillinga.</p>\n",
+                "externalref": "86/18",
+                "sourceurl": "https://me-ansattportal.sing.no/recruitment/opening?1",
+                "searchtags": "[{\"label\":\"Lærer\",\"score\":0.81233907},{\"label\":\"Spansklærer\",\"score\":0.67746055},{\"label\":\"Opplæringssykepleier\",\"score\":0.67455536},{\"label\":\"Lærar i tysk og spansk\",\"score\":0.6191282},{\"label\":\"IKT-lærer\",\"score\":0.61178446}]",
+                "employer": "Meland kommune",
+                "location": "Tenesteområde Vestbygd skule",
+                "classification_input_source": "title",
+                "sector": "Offentlig"
+            },
+            "publishedByAdmin": "2019-12-04T13:16:02.994859",
+            "businessName": "ARBEIDS- OG VELFERDSDIREKTORATET AVD SANNERGATA",
+            "firstPublished": true,
+            "deactivatedByExpiry": false,
+            "activationOnPublishingDate": false,
+            "rekruttering": {
+                "stillingsinfoid": "d83c45d0-697c-4f62-94e5-3898876f49f5",
+                "stillingsid": "4bc625a0-62d6-45cd-aaf7-3a7014b0a411",
+                "eierNavident": "D123456",
+                "eierNavn": "Joralf Wunderkid"
+            }
+        },
+        {
+            "id": 209279,
+            "uuid": "127f6321-6dfd-46a1-b869-d4c1e304f7fc",
+            "created": "2019-12-04T12:32:48.726573",
+            "createdBy": "pam-rekrutteringsbistand",
+            "updated": "2019-12-04T12:34:21.90631",
+            "updatedBy": "pam-rekrutteringsbistand",
+            "mediaList": [],
+            "contactList": [],
+            "title": "stilling",
+            "status": "ACTIVE",
+            "privacy": "INTERNAL_NOT_SHOWN",
+            "source": "DIR",
+            "medium": "DIR",
+            "reference": "127f6321-6dfd-46a1-b869-d4c1e304f7fc",
+            "published": "2019-12-04T12:34:21.773677",
+            "expires": "2019-12-19T02:00:00",
+            "employer": {
+                "id": 209280,
+                "uuid": "8ddc4442-e94b-42cd-bfac-bc98b68f1365",
+                "created": "2019-12-04T12:34:21.750959",
+                "createdBy": "pam-ad",
+                "updated": "2019-12-04T12:34:21.750959",
+                "updatedBy": "pam-ad",
+                "mediaList": [],
+                "contactList": [],
+                "location": {
+                    "address": "Hamrevegen 124",
+                    "postalCode": "5243",
+                    "county": "HORDALAND",
+                    "municipal": "BERGEN",
+                    "municipalCode": "1201",
+                    "city": "FANA",
+                    "country": "NORGE",
+                    "latitude": "60.27685510739693",
+                    "longitude": "5.376200218710977"
+                },
+                "locationList": [
+                    {
+                        "address": "Hamrevegen 124",
+                        "postalCode": "5243",
+                        "county": "HORDALAND",
+                        "municipal": "BERGEN",
+                        "municipalCode": "1201",
+                        "city": "FANA",
+                        "country": "NORGE",
+                        "latitude": "60.27685510739693",
+                        "longitude": "5.376200218710977"
+                    }
+                ],
+                "properties": {
+                    "nace2": "[{\"code\":\"41.200\",\"name\":\"Oppføring av bygninger\"}]"
+                },
+                "name": "DKRUMHOLCS BYGG DZINTARS KRUMHOLCS",
+                "orgnr": "915915914",
+                "status": "ACTIVE",
+                "parentOrgnr": "915893384",
+                "publicName": "DKRUMHOLCS BYGG DZINTARS KRUMHOLCS",
+                "deactivated": null,
+                "orgform": "BEDR",
+                "employees": 0
+            },
+            "administration": {
+                "id": 186896,
+                "status": "DONE",
+                "comments": null,
+                "reportee": "Joralf Wunderkid",
+                "remarks": [],
+                "navIdent": "D123456"
+            },
+            "location": {
+                "address": null,
+                "postalCode": null,
+                "county": "VESTLAND",
+                "municipal": "MODALEN",
+                "municipalCode": "4629",
+                "city": null,
+                "country": "NORGE",
+                "latitude": null,
+                "longitude": null
+            },
+            "locationList": [
+                {
+                    "address": null,
+                    "postalCode": null,
+                    "county": "VESTLAND",
+                    "municipal": "MODALEN",
+                    "municipalCode": "4629",
+                    "city": null,
+                    "country": "NORGE",
+                    "latitude": null,
+                    "longitude": null
+                }
+            ],
+            "categoryList": [
+                {
+                    "id": 75,
+                    "code": "1111.23",
+                    "categoryType": "STYRK08NAV",
+                    "name": "Byrådssekretær (offentlig administrasjon)",
+                    "description": null,
+                    "parentId": 52
+                }
+            ],
+            "properties": {
+                "extent": "Deltid",
+                "workhours": "[\"Dagtid\"]",
+                "applicationdue": "Snarest",
+                "workday": "[\"Ukedager\"]",
+                "jobtitle": "Byrådssekretær (offentlig administrasjon)",
+                "positioncount": "1",
+                "engagementtype": "Vikariat",
+                "starttime": "Etter avtale",
+                "jobarrangement": "Turnus",
+                "adtext": "<p>slsklke</p>",
+                "sector": "Privat"
+            },
+            "publishedByAdmin": "2019-12-04T12:34:21.773677",
+            "businessName": "butikk",
+            "firstPublished": true,
+            "deactivatedByExpiry": false,
+            "activationOnPublishingDate": false,
+            "rekruttering": null
+        },
+        {
+            "id": 8448,
+            "uuid": "b6b08a5e-913a-4b53-9ac3-2d0b1e795cf0",
+            "created": "2018-11-21T07:26:48.898",
+            "createdBy": "pam-ad",
+            "updated": "2019-12-11T15:51:39.318497",
+            "updatedBy": "nss-admin",
+            "mediaList": [],
+            "contactList": [
+                {
+                    "email": "marianne@limap.no",
+                    "phone": "+47 454 72 499",
+                    "role": null,
+                    "title": "Rådgiver/partner"
+                }
+            ],
+            "title": "Planlegger",
+            "status": "ACTIVE",
+            "privacy": "SHOW_ALL",
+            "source": "FINN",
+            "medium": "FINN",
+            "reference": "134473760",
+            "published": "2019-12-04T12:24:44.984062",
+            "expires": "2020-01-17T02:00:00",
+            "employer": {
+                "id": 22852,
+                "uuid": "d304148c-1950-4a16-b5e6-ff348a1b5abd",
+                "created": "2018-12-11T07:13:16.087",
+                "createdBy": "pam-ad",
+                "updated": "2019-12-04T12:24:44.93725",
+                "updatedBy": "pam-ad",
+                "mediaList": [],
+                "contactList": [],
+                "location": {
+                    "address": "Sannergata 2",
+                    "postalCode": "0557",
+                    "county": "OSLO",
+                    "municipal": "OSLO",
+                    "municipalCode": "0301",
+                    "city": "OSLO",
+                    "country": "NORGE",
+                    "latitude": "59.92859596472823",
+                    "longitude": "10.757432400901147"
+                },
+                "locationList": [
+                    {
+                        "address": "Sannergata 2",
+                        "postalCode": "0557",
+                        "county": "OSLO",
+                        "municipal": "OSLO",
+                        "municipalCode": "0301",
+                        "city": "OSLO",
+                        "country": "NORGE",
+                        "latitude": "59.92859596472823",
+                        "longitude": "10.757432400901147"
+                    }
+                ],
+                "properties": {
+                    "nace2": "[{\"code\":\"84.120\",\"name\":\"Offentlig administrasjon tilknyttet helsestell, sosial virksomhet, undervisning, kirke, kultur og miljøvern\"}]"
+                },
+                "name": "ARBEIDS- OG VELFERDSDIREKTORATET AVD SANNERGATA",
+                "orgnr": "995298775",
+                "status": "ACTIVE",
+                "parentOrgnr": "889640782",
+                "publicName": "ARBEIDS- OG VELFERDSDIREKTORATET AVD SANNERGATA",
+                "deactivated": null,
+                "orgform": "BEDR",
+                "employees": 1010
+            },
+            "administration": {
+                "id": 7014,
+                "status": "DONE",
+                "comments": null,
+                "reportee": "Joralf Wunderkid",
+                "remarks": [],
+                "navIdent": "D123456"
+            },
+            "location": {
+                "address": null,
+                "postalCode": "5347",
+                "county": "VESTLAND",
+                "municipal": "ØYGARDEN",
+                "municipalCode": "4626",
+                "city": "ÅGOTNES",
+                "country": "NORGE",
+                "latitude": "60.407997131347656",
+                "longitude": "5.002406120300293"
+            },
+            "locationList": [
+                {
+                    "address": null,
+                    "postalCode": "5347",
+                    "county": "VESTLAND",
+                    "municipal": "ØYGARDEN",
+                    "municipalCode": "4626",
+                    "city": "ÅGOTNES",
+                    "country": "NORGE",
+                    "latitude": "60.407997131347656",
+                    "longitude": "5.002406120300293"
+                }
+            ],
+            "categoryList": [
+                {
+                    "id": 2562,
+                    "code": "3119.45",
+                    "categoryType": "STYRK08NAV",
+                    "name": "Kvalitetssjef",
+                    "description": null,
+                    "parentId": 2517
+                }
+            ],
+            "properties": {
+                "logomain": "https://images.finncdn.no/mmo/logo/object/1117317166/iad_8306326480414168457lima_web__3_.png",
+                "extent": "Heltid",
+                "occupation": "Kvalitetssikring",
+                "applicationdue": "30.11.2018",
+                "address": "5347 Ågotnes",
+                "author": "Lima Personell As",
+                "engagementtype": "Vikariat",
+                "classification_styrk08_score": "0.46259004",
+                "industry": "Verksindustri",
+                "starttime": "02.01.2019",
+                "employerdescription": "<p>Vi er spesialister innen rekruttering og bemanning med over 30 års erfaring fra bransjen.<br />\n&#34;Fornøyde samarbeidspartnere er vår viktigste drivkraft, gjennom rådgivning, entusiasme og kvalitet&#34;.</p>\n<p>Lima Personell AS - mennesker i arbeid .</p>\n",
+                "adtext": "<p>På vegne av en av våre kunder innen ISO søker vi etter en Planlegger. Dette er en nyopprettet stilling. Foreløpig er stillingen av midlertidig karakter. Viser det seg at forutsetningen endrer seg kan stillingen bli fast.</p>\n<h2>Arbeidsoppgaver</h2>\n<p>Sette seg inn i de tekniske sidene av kontrakten i samarbeid med tilbuds og driftsansvarlig<br />\nGjennomgå alle spesifikasjoner, tegninger og tekniske underlag<br />\nKomplettere jobbunderlag der dette er nødvendig (tegninger, bilder, spesifikasjoner etc).<br />\nUtarbeide jobbpakke for tildelt prosjekt<br />\nPlanlegge og utarbeide materialuttak, kvalitetsberegninger, underlag for materialinnkjøp og definisjon av endrings arbeid.<br />\nSørge for at alle spesifikasjoner og tegninger er implementert med siste revisjon i jobbpakkene<br />\nDelta i produksjons- og planmøter.<br />\nSørge for at alle spesifikasjoner og tegninger med siste revisjon er inkludert i jobb pakkene før de blir utlevert.<br />\nVedlikehold av data som danner grunnlag for endelig mengde<br />\nDelta i rekvirere nødvendig materiell og utstyr i samarbeid med prosjektleder<br />\nDelta i utarbeide teknisk avklaringer som oversendes kunde i samarbeid med prosjektleder<br />\nDelta i estimere og utarbeide endringsordre som oversendes kunde<br />\nBidra til oppdatere og vedlikeholde endrings-ordre log<br />\nVære en aktiv bidragsyter til å identifisere eventuelle endringsordrer som fraviker kontrakt</p>\n<h2>Ønskede kvalifikasjoner</h2>\n<p>Økonomiutdanning fra høyskole er et krav<br />\nTeknisk utdanning.<br />\nIngeniør er en fordel men kan kompenseres med relevant erfaring (ISO- fagene)<br />\nGode norsk og engelskkunnskaper</p>\n<h2>Personlige egenskaper</h2>\n<p>Strukturert<br />\nSamarbeidsvillig<br />\nFleksibelSyns du dette høres som noe for deg? Ta kontakt for å høre hva vi kan tilby!</p>\n",
+                "externalref": "20040050002",
+                "logolisting": "https://images.finncdn.no/mmo/logo/result/1117317166/iad_4188166685938659116lima_web__3_.png",
+                "sourceurl": "https://www.finn.no/134473760",
+                "sourceupdated": "2018-11-30T00:27:00.000Z",
+                "searchtags": "[{\"label\":\"Leder kvalitetssikring\",\"score\":0.46163547},{\"label\":\"Seniorleder Kvalitetssikring\",\"score\":0.46163547},{\"label\":\"Quality Assurance Supervisor (QA Supervisor)\",\"score\":0.27499926},{\"label\":\"Senior Quality Manager\",\"score\":0.2450916},{\"label\":\"Leder\",\"score\":0.119019754}]",
+                "applicationurl": "https://secure.webtemp.no/WebtempCVPortal/default.aspx?k=105&id_utleie=3000590",
+                "employer": "Lima Personell AS",
+                "location": "Ågotnes",
+                "classification_input_source": "occupation",
+                "sector": "Privat",
+                "applicationlabel": "400500"
+            },
+            "publishedByAdmin": "2019-12-04T12:24:44.984062",
+            "businessName": "ARBEIDS- OG VELFERDSDIREKTORATET AVD SANNERGATA",
+            "firstPublished": true,
+            "deactivatedByExpiry": false,
+            "activationOnPublishingDate": false,
+            "rekruttering": {
+                "stillingsinfoid": "e34632c3-5585-4571-a480-11ff629684bf",
+                "stillingsid": "b6b08a5e-913a-4b53-9ac3-2d0b1e795cf0",
+                "eierNavident": "D123456",
+                "eierNavn": "Joralf Wunderkid"
+            }
+        },
+        {
+            "id": 6936,
+            "uuid": "c6d9fe0d-3a06-4314-b772-730d50481a45",
+            "created": "2018-11-20T12:53:29.494",
+            "createdBy": "pam-ad",
+            "updated": "2019-12-02T17:52:14.977624",
+            "updatedBy": "nss-admin",
+            "mediaList": [],
+            "contactList": [],
+            "title": "Tilkallingsvikarar - Pleie- og omsorgstenesta",
+            "status": "ACTIVE",
+            "privacy": "SHOW_ALL",
+            "source": "DEXI",
+            "medium": "Kommuner-Visma-Vest",
+            "reference": "jobb.oskommune.no/recruitment/opening?0?2537/SVE",
+            "published": "2019-11-28T14:11:57.721476",
+            "expires": "2019-12-31T02:00:00",
+            "employer": {
+                "id": 207334,
+                "uuid": "d77f3466-b05d-4668-a808-b60952698534",
+                "created": "2019-11-28T14:11:57.69744",
+                "createdBy": "pam-ad",
+                "updated": "2019-11-28T14:11:57.69744",
+                "updatedBy": "pam-ad",
+                "mediaList": [],
+                "contactList": [],
+                "location": {
+                    "address": "Lensmannsbakken 15",
+                    "postalCode": "3267",
+                    "county": "VESTFOLD",
+                    "municipal": "LARVIK",
+                    "municipalCode": "0712",
+                    "city": "LARVIK",
+                    "country": "NORGE",
+                    "latitude": "59.028324331221015",
+                    "longitude": "9.959012186011677"
+                },
+                "locationList": [
+                    {
+                        "address": "Lensmannsbakken 15",
+                        "postalCode": "3267",
+                        "county": "VESTFOLD",
+                        "municipal": "LARVIK",
+                        "municipalCode": "0712",
+                        "city": "LARVIK",
+                        "country": "NORGE",
+                        "latitude": "59.028324331221015",
+                        "longitude": "9.959012186011677"
+                    }
+                ],
+                "properties": {
+                    "nace2": "[{\"code\":\"74.101\",\"name\":\"Industridesign, produktdesign og annen teknisk designvirksomhet\"}]"
+                },
+                "name": "KJOLEKOMPANIET",
+                "orgnr": "916277326",
+                "status": "ACTIVE",
+                "parentOrgnr": "916206704",
+                "publicName": "KJOLEKOMPANIET",
+                "deactivated": null,
+                "orgform": "BEDR",
+                "employees": 0
+            },
+            "administration": {
+                "id": 5772,
+                "status": "DONE",
+                "comments": "kommentar",
+                "reportee": "Ronny Johnny",
+                "remarks": [],
+                "navIdent": "E123456"
+            },
+            "location": {
+                "address": null,
+                "postalCode": "1423",
+                "county": "VIKEN",
+                "municipal": "NORDRE FOLLO",
+                "municipalCode": "3020",
+                "city": "SKI",
+                "country": "NORGE",
+                "latitude": null,
+                "longitude": null
+            },
+            "locationList": [
+                {
+                    "address": null,
+                    "postalCode": "1423",
+                    "county": "VIKEN",
+                    "municipal": "NORDRE FOLLO",
+                    "municipalCode": "3020",
+                    "city": "SKI",
+                    "country": "NORGE",
+                    "latitude": null,
+                    "longitude": null
+                }
+            ],
+            "categoryList": [
+                {
+                    "id": 4047,
+                    "code": "53",
+                    "categoryType": "STYRK08NAV",
+                    "name": "Pleie- og omsorgsarbeidere",
+                    "description": null,
+                    "parentId": 3734
+                }
+            ],
+            "properties": {
+                "extent": "Heltid",
+                "applicationdue": "31.12.18",
+                "author": "Os kommune",
+                "engagementtype": "Annet",
+                "classification_styrk08_score": "0.1785958",
+                "employerdescription": "<p>Os kommune ligg sør på Bergenshalvøya, der kyst- og fjordlandskapet møtest. Kommunen kan by på dei vakraste natur- og kulturopplevingar, og elles dei fleste tenester både fastbuande og tilreisande har bruk for. Os er ein inspirerande kommune med stor vekst og utvikling. Vi treng medarbeidarar som meiner entusiasme inspirerer, som lyttar med respekt, gjer det dei seier og skaper resultat.</p>\n",
+                "adtext": "<p>Pleie - og omsorgstenesta i Os kommune har behov for tilkallingsvikarar som kan arbeide dag-, kveld,- og nattskift.</p>\n<p>Som tilkallingsvikar kan vi tilby arbeid/vakter ved fråvær pga av sjukdom, ferie eller andre mellombels høve som fører til behov for midlertidig arbeidskraft. Tilkallingsvikarar har ikkje rett til å bli tilbudt arbeid eller plikt til å påta seg tilbudt arbeid.</p>\n<h3><strong>Arbeidsstad</strong></h3>\n<p>Pleie- og omsorgstenesta; Luranetunet /Heimebasert omsorg<br />\nLuranetunet har 2 korttidsavdelingar, 7 langtidsavdelingar, dagsenter, ressurssenter, base for heimetenester og<br />\nserviceavdelingar. Ønskjer du meir informasjon om Luranetunet, viser vi til heimesida vår på facebook.com eller oskommune.no</p>\n<h3><strong>Arbeidsoppgåver</strong></h3>\n<p>Arbeid i behandlings-, pleie- og omsorgsarbeid ved sengepostane og i heimebasert omsorg.<br />\nDet er også behov for vikarer i reinhalds- og vaskeriavdeling.</p>\n<h3><strong>Kvalifikasjonar</strong></h3>\n<p>Som tilkallingsvikar ønskjer vi at du har du har relevant utdanning eller er i eit utdanningsløp men dette er ikkje eit krav.<br />\nEr du ufaglært og har interesse for arbeid med menneske er du også velkomen til å søkja, og din relevante erfaring blir lagt vekt på.<br />\nDet blir og lagt vekt på personlege eigenskapar;</p>\n<ul><li>du har gode kommunikasjons- og samarbeidsevner</li><li>du er positiv og lærevillig</li><li>du er bevisst dine haldningar og prioriterer høgt verdiar som respekt, lojalitet og etikk.<br />\nUtanlandsk utdanning må vere NOKUT godkjent<br />\nSøkjarar utanfor Norden må legge fram dokumentasjon på gode norskkunsskapar og gjennomført norsktest på B1/B2 nivå</li></ul>\n<p>Vi gjer merksam på at du må leggja fram politiattest.</p>\n<h3><strong>Vi tilbyr</strong></h3>\n<p>Faglege og personlege utfordringar i eit godt og inspirerande arbeidsmiljø, og løn etter avtaleverk.<br />\nGode pensjons- og forsikringsordningar.<br />\nDet blir gjev tillegg i løn for arbeid på natt.</p>\n<h3><strong>Slik søkjer du</strong></h3>\n<p>Klikk på &#34;søk på stilling&#34; og følg vidare instruksjonar.</p>\n<p>Eksterne søkjarar må oppretta brukarnamn og passord før dei loggar seg på første gang.</p>\n<p>Tilsette i kommunen er allereie definert som brukar i systemet, og skal ikkje registere seg på nytt. Dersom du ikkje har internt brukarnamn og passord, kan du få dette tilsendt på e-post via funksjonen &#34;Glemt brukernamn/passord&#34; eller ta kontakt med personalkontoret.</p>\n",
+                "externalref": "2537/SVE",
+                "sourceurl": "https://jobb.oskommune.no/recruitment/opening?18",
+                "searchtags": "[{\"label\":\"Helsefagarbeider\",\"score\":0.17832856},{\"label\":\"Enhetsleder innen pleie- og omsorg\",\"score\":0.17828627},{\"label\":\"Oversykepleier\",\"score\":0.17694968},{\"label\":\"Avdelingsleder pleiehjem\",\"score\":0.17671339}]",
+                "employer": "Os kommune",
+                "location": "Luranetunet",
+                "classification_input_source": "title",
+                "sector": "Offentlig"
+            },
+            "publishedByAdmin": "2019-11-28T14:11:57.721476",
+            "businessName": "KJOLEKOMPANIET",
+            "firstPublished": true,
+            "deactivatedByExpiry": false,
+            "activationOnPublishingDate": false,
+            "rekruttering": {
+                "stillingsinfoid": "17dcf90c-871f-407d-8ff2-0997a8d90f63",
+                "stillingsid": "c6d9fe0d-3a06-4314-b772-730d50481a45",
+                "eierNavident": "D123456",
+                "eierNavn": "Joralf Wunderkid"
+            }
+        }
+    ],
+    "totalPages": 3,
+    "totalElements": 42
+}
