@@ -3,8 +3,8 @@ import toUrl from '../common/toUrl';
 import { AD_API, SEARCH_API, REKRUTTERING_API } from '../fasitProperties';
 import { loginWithRedirectToCurrentLocation } from '../login';
 
-if (true) {
-    // TODO: Toggle med env-variabel
+// Bruk mock-api hvis app kjører via "npm run mock"
+if (typeof MOCK_APP !== 'undefined' && MOCK_APP) {
     require('../mock/api');
 }
 
