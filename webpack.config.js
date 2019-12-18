@@ -23,6 +23,7 @@ module.exports = () => {
         plugins: [
             new webpack.DefinePlugin({
                 'process.env.NODE_ENV': JSON.stringify('production'),
+                MOCK_APP: false,
             }),
             new HtmlWebpackPlugin({
                 template: './src/index.html',
