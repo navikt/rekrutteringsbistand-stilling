@@ -34,12 +34,12 @@ const featuresUrl = `${baseUrl}/features/`;
 const med = begynnelseAvUrl => url => url.startsWith(begynnelseAvUrl);
 
 fetchMock
+    .get(med(mineStillingerUrl), mineStillinger)
     .get(med(adsUrl), ads)
     .post(med(adsUrl), postAds)
     .delete(med(adsUrl), 204)
     .get(reporteeUrl, reportee)
     .get(med(identUrl), ident)
-    .get(mineStillingerUrl, mineStillinger)
     .get(med(stillingUrl), stilling)
     .get(countiesUrl, counties)
     .get(countriesUrl, countries)
