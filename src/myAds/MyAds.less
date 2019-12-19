@@ -30,18 +30,43 @@
     }
 
     &__status-row {
+        grid-area: resultCount;
         display: flex;
         align-items: center;
         margin-top: 2.5rem;
     }
 
     &__content {
+        margin: 0 auto;
         width: 100%;
+        display: grid;
+        grid-template-columns: 200px auto;
+        grid-template-rows: auto auto;
+        grid-template-areas:
+            'aboveFilter resultCount'
+            'filter result';
+        grid-gap: 2rem;
+    }
+
+    &__filter {
+        grid-area: filter;
+
+        fieldset {
+            border: none;
+
+            legend {
+                margin-bottom: 0.5rem;
+            }
+        }
+    }
+
+    &__table {
+        grid-area: result;
     }
 
     @media (min-width: @screen-lg) {
         &__content {
-            width: 1400px;
+            max-width: 1800px;
         }
     }
 

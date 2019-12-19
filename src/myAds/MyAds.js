@@ -19,6 +19,7 @@ import { RESET_SEARCH } from '../searchPage/searchReducer';
 import './MyAds.less';
 import DeleteAdModal from '../ad/administration/adStatus/DeleteAdModal';
 import { useEffect } from 'react';
+import Filter from './filter/Filter';
 
 const MyAds = props => {
     const {
@@ -64,7 +65,7 @@ const MyAds = props => {
                     </Hovedknapp>
                 </Container>
             </div>
-            <Container className="MyAds__content">
+            <div className="MyAds__content">
                 <StopAdModal fromMyAds />
                 <DeleteAdModal />
                 {error && (
@@ -72,12 +73,13 @@ const MyAds = props => {
                         Det oppsto en feil. Forsøk å laste siden på nytt
                     </AlertStripe>
                 )}
-                <div className="">
-                    <div className="MyAds__status-row blokk-s">
-                        <Count />
-                        <Sorting />
-                    </div>
-
+                <div className="MyAds__status-row">
+                    <Count />
+                </div>
+                <aside className="MyAds__filter">
+                    <Filter />
+                </aside>
+                <div className="MyAds__table">
                     <table className="Result__table">
                         <ResultHeader />
                         <tbody>
@@ -92,7 +94,7 @@ const MyAds = props => {
                     {!isSearching && ads && ads.length === 0 && <NoResults />}
                     {adsFound && <Pagination />}
                 </div>
-            </Container>
+            </div>
         </div>
     );
 };
