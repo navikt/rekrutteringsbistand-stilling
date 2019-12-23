@@ -10,7 +10,7 @@ module.exports = env =>
             historyApiFallback: true,
         },
         module: {
-            loaders: [
+            rules: [
                 {
                     test: /index\.html$/,
                     loader: 'mustache-loader',

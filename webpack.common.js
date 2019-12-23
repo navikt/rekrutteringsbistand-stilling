@@ -1,5 +1,5 @@
 const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     entry: ['babel-polyfill', 'whatwg-fetch', './src/app.js'],
@@ -9,7 +9,7 @@ module.exports = {
         publicPath: '/',
     },
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
@@ -17,26 +17,25 @@ module.exports = {
                 query: { presets: ['es2015', 'react', 'stage-2'] },
             },
             {
-                test: /\.css$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: 'css-loader',
-                }),
+                test: /\.css$/i,
+                use: [MiniCssExtractPlugin.loader, 'css-loader'],
             },
             {
-                test: /\.less$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: [
-                        'css-loader',
-                        'less-loader?{"globalVars":{"nodeModulesPath":"\'./../../\'", "coreModulePath":"\'./../../\'"}}',
-                    ],
-                }),
-            },
+                test: /\.(less)$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    "css-loader",
+                    "less-loader"
+                ]
+            }
         ],
     },
     resolve: {
         extensions: ['.js', '.jsx'],
     },
-    plugins: [new ExtractTextPlugin('css/styles.css')],
+    plugins: [
+        new MiniCssExtractPlugin({
+            filename: "./css/styles.css"
+        })
+    ]
 };
