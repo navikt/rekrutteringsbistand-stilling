@@ -11,9 +11,11 @@ import { FETCH_REPORTEE } from '../reportee/reporteeReducer';
 import { RESET_SEARCH } from '../searchPage/searchReducer';
 
 class StartPage extends React.Component {
-    componentWillMount() {
-        this.props.resetSearch();
-        this.props.fetchReportee();
+
+    constructor(props) {
+        super(props);
+        props.resetSearch();
+        props.fetchReportee();
     }
 
     onSearch = () => {

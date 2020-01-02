@@ -17,12 +17,12 @@ export default class Typeahead extends React.Component {
         this.shouldBlur = true;
     }
 
-    componentWillReceiveProps(props) {
-        if (props.suggestions.length === 1) {
-            this.setState({
+    static getDerivedStateFromProps(props) {
+        return (props.suggestions.length === 1)
+            ? {
                 activeSuggestionIndex: 0,
-            });
-        }
+            }
+            : null
     }
 
     componentWillUnmount() {
@@ -69,7 +69,7 @@ export default class Typeahead extends React.Component {
                     ) {
                         this.setValue(
                             this.props.optionalSuggestions[
-                                activeSuggestionIndex - this.props.suggestions.length
+                            activeSuggestionIndex - this.props.suggestions.length
                             ]
                         );
                     } else {
@@ -119,10 +119,10 @@ export default class Typeahead extends React.Component {
                     if (this.props.optionalSuggestions !== undefined) {
                         activeSuggestionIndex =
                             activeSuggestionIndex + 1 ===
-                            this.props.suggestions.length + this.props.optionalSuggestions.length
+                                this.props.suggestions.length + this.props.optionalSuggestions.length
                                 ? this.props.suggestions.length +
-                                  this.props.optionalSuggestions.length -
-                                  1
+                                this.props.optionalSuggestions.length -
+                                1
                                 : activeSuggestionIndex + 1;
                     } else {
                         activeSuggestionIndex =
