@@ -35,7 +35,7 @@ const featuresUrl = `${baseUrl}/features/`;
 const med = begynnelseAvUrl => url => url.startsWith(begynnelseAvUrl);
 
 fetchMock
-    .get(med(adsUrl), adsReversed, { query: { sort: 'title,asc'} })
+    .get(med(adsUrl), adsReversed, { query: { sort: 'title,asc' } })
     .get(med(adsUrl), ads)
     .post(med(adsUrl), postAds)
     .delete(med(adsUrl), 204)
