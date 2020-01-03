@@ -8,7 +8,7 @@ module.exports = () => {
     return merge(common, {
         devtool: 'source-map',
         module: {
-            loaders: [
+            rules: [
                 {
                     test: /index\.html$/,
                     loader: 'mustache-loader',
