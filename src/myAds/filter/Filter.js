@@ -1,53 +1,80 @@
-import React, { Fragment } from 'react';
-import { connect, useSelector, useDispatch } from 'react-redux';
-import { CHANGE_MY_ADS_STATUS_FILTER } from '../myAdsReducer';
-import { Element } from 'nav-frontend-typografi';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { CHANGE_MY_ADS_STATUS_FILTER, CHANGE_MY_ADS_DEACTIVATED_FILTER } from '../myAdsReducer';
 import AdStatusEnum from '../../common/enums/AdStatusEnum';
-import { Checkbox } from 'nav-frontend-skjema';
+import { Checkbox, Radio } from 'nav-frontend-skjema';
 import { getAdStatusLabel } from '../../common/enums/getEnumLabels';
 
 const Filter = () => {
-    const { status, deactivatedByExpiry } = useSelector(state => state.myAds);
+    const { filter, deactivatedByExpiry } = useSelector(state => state.myAds);
     const dispatch = useDispatch();
+    const { status } = filter;
 
-    const changeStatusFilter = (status, deactivatedByExpiry) => {
+    const onStatusToggle = e => {
+        const statusToToggle = e.target.value;
+        const nyttFilter = status.includes(statusToToggle)
+            ? status.filter(status => status !== statusToToggle)
+            : [...status, statusToToggle];
+
         dispatch({
             type: CHANGE_MY_ADS_STATUS_FILTER,
-            status,
+            status: nyttFilter,
+        });
+    };
+
+    const onExpiredChange = e => {
+        const deactivatedByExpiry = e.target.value === '' ? undefined : e.target.value === 'true';
+
+        dispatch({
+            type: CHANGE_MY_ADS_DEACTIVATED_FILTER,
             deactivatedByExpiry,
         });
     };
 
-    const onStatusToggle = e => {
-        e.target.value === 'utløpt'
-            ? changeStatusFilter(undefined, true)
-            : changeStatusFilter(e.target.value, false);
-    };
-
     return (
-        <fieldset>
-            <legend className="typo-element">Annonsestatus</legend>
-            {Object.keys(AdStatusEnum).map(statusKey => {
-                const statusValue = AdStatusEnum[statusKey];
-                const statusLabel = getAdStatusLabel(statusValue);
+        <form>
+            <fieldset>
+                <legend className="typo-element">Status på stilling</legend>
+                {Object.keys(AdStatusEnum).map(statusKey => {
+                    const statusValue = AdStatusEnum[statusKey];
+                    const statusLabel = getAdStatusLabel(statusValue);
 
-                return (
-                    <Checkbox
-                        key={statusKey}
-                        label={statusLabel}
-                        value={statusValue}
-                        checked={Boolean(statusValue === status)}
-                        onChange={onStatusToggle}
-                    />
-                );
-            })}
-            <Checkbox
-                label="Utløpt"
-                value="utløpt"
-                checked={deactivatedByExpiry}
-                onChange={onStatusToggle}
-            />
-        </fieldset>
+                    return (
+                        <Checkbox
+                            key={statusKey}
+                            label={statusLabel}
+                            value={statusValue}
+                            checked={status.includes(statusValue)}
+                            onChange={onStatusToggle}
+                        />
+                    );
+                })}
+            </fieldset>
+            <fieldset>
+                <legend className="typo-element">Utløpte stillinger</legend>
+                <Radio
+                    label="Alle stillinger"
+                    name="deactivatedByExpiry"
+                    value=""
+                    checked={deactivatedByExpiry === undefined}
+                    onChange={onExpiredChange}
+                />
+                <Radio
+                    label="Utløpte stillinger"
+                    name="deactivatedByExpiry"
+                    value="true"
+                    checked={deactivatedByExpiry === true}
+                    onChange={onExpiredChange}
+                />
+                <Radio
+                    label="Åpne stillinger"
+                    name="deactivatedByExpiry"
+                    value="false"
+                    checked={deactivatedByExpiry === false}
+                    onChange={onExpiredChange}
+                />
+            </fieldset>
+        </form>
     );
 };
 

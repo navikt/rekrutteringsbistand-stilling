@@ -5,7 +5,6 @@ import AlertStripe from 'nav-frontend-alertstriper';
 import { Container } from 'nav-frontend-grid';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { Sidetittel } from 'nav-frontend-typografi';
-import Sorting from './statusFilter/StatusFilter';
 import Loading from '../common/loading/Loading';
 import ResultHeader from './result/ResultHeader';
 import ResultItem from './result/ResultItem';
