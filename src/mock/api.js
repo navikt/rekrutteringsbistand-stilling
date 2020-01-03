@@ -5,6 +5,7 @@ const baseUrl = REKRUTTERINGSBISTAND_BASE_URL;
 const apiUrl = `${baseUrl}/rekrutteringsbistand/api/v1`;
 
 const ads = require('./json/ads.json');
+const adsReversed = require('./json/ads-reversed.json');
 const postAds = require('./json/post-ads.json');
 const reportee = require('./json/reportee.json');
 const ident = require('./json/ident.json');
@@ -34,6 +35,7 @@ const featuresUrl = `${baseUrl}/features/`;
 const med = begynnelseAvUrl => url => url.startsWith(begynnelseAvUrl);
 
 fetchMock
+    .get(med(adsUrl), adsReversed, { query: { sort: 'title,asc' } })
     .get(med(adsUrl), ads)
     .post(med(adsUrl), postAds)
     .delete(med(adsUrl), 204)
