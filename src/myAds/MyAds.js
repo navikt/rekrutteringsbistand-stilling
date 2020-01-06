@@ -21,12 +21,12 @@ import DeleteAdModal from '../ad/administration/adStatus/DeleteAdModal';
 
 class MyAds extends React.Component {
     componentDidMount() {
-        this.props.resetSearch();
-        this.props.getAds();
-
         if (this.props.history.action === 'PUSH') {
             this.props.resetPage();
         }
+
+        this.props.resetSearch();
+        this.props.getAds();
     }
 
     componentWillUnmount() {
