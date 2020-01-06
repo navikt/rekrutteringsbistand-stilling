@@ -129,7 +129,7 @@ function* getMyAds() {
     }
 }
 
-function* resetPage() {
+function* resetMyAdsPage() {
     yield put({ type: RESET_MY_ADS_PAGE });
 }
 
@@ -138,5 +138,5 @@ export const myAdsSaga = function* saga() {
         [CHANGE_MY_ADS_STATUS_FILTER, CHANGE_MY_ADS_PAGE, FETCH_MY_ADS, CHANGE_MY_ADS_SORTING],
         getMyAds
     );
-    yield takeLatest([CHANGE_MY_ADS_STATUS_FILTER, CHANGE_MY_ADS_SORTING], resetPage);
+    yield takeLatest([CHANGE_MY_ADS_STATUS_FILTER, CHANGE_MY_ADS_SORTING], resetMyAdsPage);
 };

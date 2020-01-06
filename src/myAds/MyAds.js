@@ -13,7 +13,7 @@ import NoResults from './noResults/NoResults';
 import Pagination from './pagination/Pagination';
 import StopAdModal from '../ad/administration/adStatus/StopAdModal';
 import Count from './result/Count';
-import { FETCH_MY_ADS } from './myAdsReducer';
+import { FETCH_MY_ADS, RESET_MY_ADS_PAGE } from './myAdsReducer';
 import { CLEAR_COPIED_ADS, CREATE_AD } from '../ad/adReducer';
 import { RESET_SEARCH } from '../searchPage/searchReducer';
 import './MyAds.less';
@@ -21,6 +21,10 @@ import DeleteAdModal from '../ad/administration/adStatus/DeleteAdModal';
 
 class MyAds extends React.Component {
     componentDidMount() {
+        if (this.props.history.action === 'PUSH') {
+            this.props.resetMyAdsPage();
+        }
+
         this.props.resetSearch();
         this.props.getAds();
     }
@@ -91,6 +95,7 @@ MyAds.propTypes = {
     ads: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
     isSearching: PropTypes.bool.isRequired,
     getAds: PropTypes.func.isRequired,
+    resetMyAdsPage: PropTypes.func.isRequired,
     resetSearch: PropTypes.func.isRequired,
     error: PropTypes.shape({
         statusCode: PropTypes.number,
@@ -107,6 +112,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     getAds: () => dispatch({ type: FETCH_MY_ADS }),
+    resetMyAdsPage: () => dispatch({ type: RESET_MY_ADS_PAGE }),
     createAd: () => dispatch({ type: CREATE_AD }),
     clearCopiedAds: () => dispatch({ type: CLEAR_COPIED_ADS }),
     resetSearch: () => dispatch({ type: RESET_SEARCH }),

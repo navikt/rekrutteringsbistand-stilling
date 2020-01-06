@@ -22,12 +22,8 @@ module.exports = {
             },
             {
                 test: /\.(less)$/,
-                use: [
-                    MiniCssExtractPlugin.loader,
-                    "css-loader",
-                    "less-loader"
-                ]
-            }
+                use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader'],
+            },
         ],
     },
     resolve: {
@@ -35,7 +31,7 @@ module.exports = {
     },
     plugins: [
         new MiniCssExtractPlugin({
-            filename: "./css/styles.css"
-        })
-    ]
+            filename: './css/styles.css',
+        }),
+    ],
 };
