@@ -13,6 +13,8 @@ export const CHANGE_MY_ADS_STATUS_FILTER = 'CHANGE_MY_ADS_STATUS_FILTER';
 export const CHANGE_MY_ADS_DEACTIVATED_FILTER = 'CHANGE_MY_ADS_DEACTIVATED_FILTER';
 export const CHANGE_MY_ADS_SORTING = 'CHANGE_MY_ADS_SORTING';
 
+const FALLBACK_STATUS = '!REJECTED,DELETED';
+
 const initialState = {
     items: [],
     error: undefined,
@@ -53,15 +55,23 @@ export default function myAdsReducer(state = initialState, action) {
                 isSearching: false,
             };
         case CHANGE_MY_ADS_STATUS_FILTER:
+            const deactivatedByExpiry = action.status.length > 0 ? false : undefined;
+
             return {
                 ...state,
                 filter: {
                     status: action.status,
                 },
+                deactivatedByExpiry,
             };
         case CHANGE_MY_ADS_DEACTIVATED_FILTER:
+            const status = action.deactivatedByExpiry ? [] : state.filter.status;
+
             return {
                 ...state,
+                filter: {
+                    status,
+                },
                 deactivatedByExpiry: action.deactivatedByExpiry,
             };
         case CHANGE_MY_ADS_PAGE:
@@ -96,7 +106,8 @@ export function toQuery(search) {
         reportee,
         deactivatedByExpiry,
         uuid,
-        status,
+        // Hvis ingen annen status er valgt, utelat avviste og slettede stillinger
+        status: status.length === 0 ? FALLBACK_STATUS : status,
     };
 
     return query;

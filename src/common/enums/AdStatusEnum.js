@@ -1,8 +1,12 @@
-const AdStatusEnum = {
+export const FiltrerbarAdStatusEnum = {
     ACTIVE: 'ACTIVE',
     INACTIVE: 'INACTIVE',
-    REJECTED: 'REJECTED',
     STOPPED: 'STOPPED',
+};
+
+const AdStatusEnum = {
+    ...FiltrerbarAdStatusEnum,
+    REJECTED: 'REJECTED',
     DELETED: 'DELETED',
 };
 

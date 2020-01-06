@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { CHANGE_MY_ADS_STATUS_FILTER, CHANGE_MY_ADS_DEACTIVATED_FILTER } from '../myAdsReducer';
-import AdStatusEnum from '../../common/enums/AdStatusEnum';
+import AdStatusEnum, { FiltrerbarAdStatusEnum } from '../../common/enums/AdStatusEnum';
 import { Checkbox, Radio } from 'nav-frontend-skjema';
 import { getAdStatusLabel } from '../../common/enums/getEnumLabels';
 
@@ -34,29 +34,12 @@ const Filter = () => {
     return (
         <form>
             <fieldset>
-                <legend className="typo-element">Status på stilling</legend>
-                {Object.keys(AdStatusEnum).map(statusKey => {
-                    const statusValue = AdStatusEnum[statusKey];
-                    const statusLabel = getAdStatusLabel(statusValue);
-
-                    return (
-                        <Checkbox
-                            key={statusKey}
-                            label={statusLabel}
-                            value={statusValue}
-                            checked={status.includes(statusValue)}
-                            onChange={onStatusToggle}
-                        />
-                    );
-                })}
-            </fieldset>
-            <fieldset>
-                <legend className="typo-element">Utløpte stillinger</legend>
+                <legend className="typo-element">Gyldighet</legend>
                 <Radio
-                    label="Alle stillinger"
+                    label="Åpne stillinger"
                     name="deactivatedByExpiry"
-                    value=""
-                    checked={deactivatedByExpiry === undefined}
+                    value="false"
+                    checked={deactivatedByExpiry === false || deactivatedByExpiry === undefined}
                     onChange={onExpiredChange}
                 />
                 <Radio
@@ -66,13 +49,24 @@ const Filter = () => {
                     checked={deactivatedByExpiry === true}
                     onChange={onExpiredChange}
                 />
-                <Radio
-                    label="Åpne stillinger"
-                    name="deactivatedByExpiry"
-                    value="false"
-                    checked={deactivatedByExpiry === false}
-                    onChange={onExpiredChange}
-                />
+            </fieldset>
+            <fieldset>
+                <legend className="typo-element">Status på stilling</legend>
+                {Object.keys(FiltrerbarAdStatusEnum).map(statusKey => {
+                    const statusValue = AdStatusEnum[statusKey];
+                    const statusLabel = getAdStatusLabel(statusValue);
+
+                    return (
+                        <Checkbox
+                            key={statusKey}
+                            label={statusLabel}
+                            value={statusValue}
+                            disabled={deactivatedByExpiry === true}
+                            checked={status.includes(statusValue)}
+                            onChange={onStatusToggle}
+                        />
+                    );
+                })}
             </fieldset>
         </form>
     );
