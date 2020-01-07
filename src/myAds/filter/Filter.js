@@ -34,16 +34,16 @@ const Filter = () => {
     return (
         <form>
             <fieldset>
-                <legend className="typo-element">Gyldighet</legend>
+                <legend className="typo-element">Synlighet</legend>
                 <Radio
-                    label="Åpne stillinger"
+                    label="Aktive"
                     name="deactivatedByExpiry"
                     value="false"
                     checked={deactivatedByExpiry === false || deactivatedByExpiry === undefined}
                     onChange={onExpiredChange}
                 />
                 <Radio
-                    label="Utløpte stillinger"
+                    label="Utløpte"
                     name="deactivatedByExpiry"
                     value="true"
                     checked={deactivatedByExpiry === true}
