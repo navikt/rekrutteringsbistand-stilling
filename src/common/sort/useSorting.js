@@ -6,7 +6,10 @@ function useSorting(initialState, changeSorting) {
     const [className, setClassName] = useState('Sort__Icon-asc');
 
     useEffect(() => {
-        changeSorting(sort.field, sort.dir);
+        if (sort !== initialState) {
+            changeSorting(sort.field, sort.dir);
+        }
+
         if (sort.dir === 'asc') {
             setClassName('Sort-asc');
         } else {

@@ -113,11 +113,8 @@ export function toQuery(search) {
     return query;
 }
 
-function* getMyAds(action) {
+function* getMyAds() {
     try {
-        if (action.type !== CHANGE_MY_ADS_PAGE) {
-            yield put({ type: RESET_MY_ADS_PAGE });
-        }
         yield put({ type: FETCH_MY_ADS_BEGIN });
         const reportee = yield getReportee();
 
@@ -146,6 +143,10 @@ function* getMyAds(action) {
     }
 }
 
+function* resetMyAdsPage() {
+    yield put({ type: RESET_MY_ADS_PAGE });
+}
+
 export const myAdsSaga = function* saga() {
     yield takeLatest(
         [
@@ -157,4 +158,5 @@ export const myAdsSaga = function* saga() {
         ],
         getMyAds
     );
+    yield takeLatest([CHANGE_MY_ADS_STATUS_FILTER, CHANGE_MY_ADS_SORTING], resetMyAdsPage);
 };
