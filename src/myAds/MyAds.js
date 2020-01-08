@@ -5,7 +5,6 @@ import AlertStripe from 'nav-frontend-alertstriper';
 import { Container } from 'nav-frontend-grid';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { Sidetittel } from 'nav-frontend-typografi';
-import Sorting from './statusFilter/StatusFilter';
 import Loading from '../common/loading/Loading';
 import ResultHeader from './result/ResultHeader';
 import ResultItem from './result/ResultItem';
@@ -18,74 +17,91 @@ import { CLEAR_COPIED_ADS, CREATE_AD } from '../ad/adReducer';
 import { RESET_SEARCH } from '../searchPage/searchReducer';
 import './MyAds.less';
 import DeleteAdModal from '../ad/administration/adStatus/DeleteAdModal';
+import { useEffect } from 'react';
+import Filter from './filter/Filter';
 
-class MyAds extends React.Component {
-    componentDidMount() {
-        if (this.props.history.action === 'PUSH') {
-            this.props.resetMyAdsPage();
+const MyAds = props => {
+    const {
+        ads,
+        getAds,
+        clearCopiedAds,
+        resetMyAdsPage,
+        isSearching,
+        resetSearch,
+        error,
+        reportee,
+        history,
+    } = props;
+    const adsFound = !isSearching && ads && ads.length > 0;
+
+    const onMount = () => {
+        if (history.action === 'PUSH') {
+            resetMyAdsPage();
         }
 
-        this.props.resetSearch();
-        this.props.getAds();
-    }
+        resetSearch();
+        getAds();
+    };
 
-    componentWillUnmount() {
-        this.props.clearCopiedAds();
-    }
+    const onDismount = () => {
+        clearCopiedAds();
+    };
 
-    onCreateAd = () => {
-        this.props.history.push({
+    useEffect(() => {
+        onMount();
+        return onDismount;
+    }, []);
+
+    const onCreateAd = () => {
+        history.push({
             pathname: '/stilling',
             state: { isNew: true },
         });
     };
 
-    render() {
-        const { ads, isSearching, error, reportee } = this.props;
-        const adsFound = !isSearching && ads && ads.length > 0;
-        return (
-            <div className="MyAds">
-                <div className="MyAds__header">
-                    <Container className="MyAds__header-container">
-                        <Sidetittel className="MyAds__header__title"> Mine stillinger </Sidetittel>
-                        <Hovedknapp onClick={this.onCreateAd} className="MyAds__header__button">
-                            Opprett ny
-                        </Hovedknapp>
-                    </Container>
-                </div>
-                <Container className="MyAds__content">
-                    <StopAdModal fromMyAds />
-                    <DeleteAdModal />
-                    {error && (
-                        <AlertStripe className="AlertStripe__fullpage" type="advarsel" solid="true">
-                            Det oppsto en feil. Forsøk å laste siden på nytt
-                        </AlertStripe>
-                    )}
-                    <div className="">
-                        <div className="MyAds__status-row blokk-s">
-                            <Count />
-                            <Sorting />
-                        </div>
-
-                        <table className="Result__table">
-                            <ResultHeader />
-                            <tbody>
-                                {adsFound &&
-                                    ads.map(ad => (
-                                        <ResultItem key={ad.uuid} ad={ad} reportee={reportee} />
-                                    ))}
-                            </tbody>
-                        </table>
-
-                        {isSearching && <Loading />}
-                        {!isSearching && ads && ads.length === 0 && <NoResults />}
-                        {adsFound && <Pagination />}
-                    </div>
+    return (
+        <div className="MyAds">
+            <div className="MyAds__header">
+                <Container className="MyAds__header-container">
+                    <Sidetittel className="MyAds__header__title">Mine stillinger</Sidetittel>
+                    <Hovedknapp onClick={onCreateAd} className="MyAds__header__button">
+                        Opprett ny
+                    </Hovedknapp>
                 </Container>
             </div>
-        );
-    }
-}
+            <div className="MyAds__content">
+                <StopAdModal fromMyAds />
+                <DeleteAdModal />
+                {error && (
+                    <AlertStripe className="AlertStripe__fullpage" type="advarsel" solid="true">
+                        Det oppsto en feil. Forsøk å laste siden på nytt
+                    </AlertStripe>
+                )}
+                <div className="MyAds__status-row">
+                    <Count />
+                </div>
+                <aside className="MyAds__filter">
+                    <Filter />
+                </aside>
+                <div className="MyAds__table">
+                    <table className="Result__table">
+                        <ResultHeader />
+                        <tbody>
+                            {adsFound &&
+                                ads.map(ad => (
+                                    <ResultItem key={ad.uuid} ad={ad} reportee={reportee} />
+                                ))}
+                        </tbody>
+                    </table>
+
+                    {isSearching && <Loading />}
+                    {!isSearching && ads && ads.length === 0 && <NoResults />}
+                    {adsFound && <Pagination />}
+                </div>
+            </div>
+        </div>
+    );
+};
 
 MyAds.defaultProps = {
     error: undefined,

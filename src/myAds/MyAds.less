@@ -7,52 +7,83 @@
     min-width: 1200px;
     background: #e7e9e9;
 
-    @media (max-width: @screen-lg) {
-        .MyAds__content {
-            width: 100%;
+    &__header {
+        background-color: #e3edf8;
+
+        &-container {
+            display: flex;
+            flex-wrap: wrap;
+            height: 7.5rem;
+            align-items: center;
+            position: relative;
         }
+
+        &__title {
+            position: absolute; /* new */
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        &__button {
+            margin-left: auto;
+        }
+    }
+
+    &__status-row {
+        grid-area: resultCount;
+        display: flex;
+        align-items: center;
+        margin-top: 2.5rem;
+    }
+
+    &__content {
+        margin: 0 auto;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 200px auto;
+        grid-template-rows: auto auto;
+        grid-template-areas:
+            'aboveFilter resultCount'
+            'filter result';
+        grid-gap: 2rem;
+    }
+
+    &__filter {
+        grid-area: filter;
+
+        fieldset {
+            border: none;
+
+            legend {
+                margin-bottom: 0.5rem;
+            }
+        }
+    }
+
+    &__table {
+        grid-area: result;
     }
 
     @media (min-width: @screen-lg) {
-        .MyAds__content {
-            width: 1400px;
+        &__content {
+            max-width: 1800px;
         }
-    }
-}
-
-.MyAds__header {
-    background-color: #e3edf8;
-
-    .MyAds__header-container {
-        display: flex;
-        flex-wrap: wrap;
-        height: 7.5rem;
-        align-items: center;
-        position: relative;
-    }
-
-    .MyAds__header__title {
-        position: absolute; /* new */
-        left: 50%;
-        transform: translateX(-50%);
-    }
-
-    .MyAds__header__button {
-        margin-left: auto;
     }
 
     @media (max-width: 991px) {
-        height: 8.75rem;
+        &__header {
+            height: 8.75rem;
 
-        .MyAds__header__title {
-            flex-basis: 100%;
-            position: relative;
-            display: flex;
-            justify-content: center;
-        }
+            &__title {
+                flex-basis: 100%;
+                position: relative;
+                display: flex;
+                justify-content: center;
+            }
 
-        .MyAds__header__button {
-            margin: auto;
+            &__button {
+                margin: auto;
+            }
         }
     }
 }
@@ -63,10 +94,4 @@
     label {
         margin-bottom: 0;
     }
-}
-
-.MyAds__status-row {
-    display: flex;
-    align-items: center;
-    margin-top: 2.5rem;
 }

@@ -1,6 +1,7 @@
 import { put, select, takeLatest } from 'redux-saga/effects';
 import { ApiError, fetchMyAds, fetchRecruitmentsForVeileder } from '../api/api';
 import { getReportee } from '../reportee/reporteeReducer';
+import AdStatusEnum from '../common/enums/AdStatusEnum';
 
 export const FETCH_MY_ADS = 'FETCH_MY_ADS';
 export const FETCH_MY_ADS_BEGIN = 'FETCH_MY_ADS_BEGIN';
@@ -9,7 +10,10 @@ export const FETCH_MY_ADS_FAILURE = 'FETCH_MY_ADS_FAILURE';
 export const CHANGE_MY_ADS_PAGE = 'CHANGE_MY_ADS_PAGE';
 export const RESET_MY_ADS_PAGE = 'RESET_MY_ADS_PAGE';
 export const CHANGE_MY_ADS_STATUS_FILTER = 'CHANGE_MY_ADS_STATUS_FILTER';
+export const CHANGE_MY_ADS_DEACTIVATED_FILTER = 'CHANGE_MY_ADS_DEACTIVATED_FILTER';
 export const CHANGE_MY_ADS_SORTING = 'CHANGE_MY_ADS_SORTING';
+
+const FALLBACK_STATUS = '!REJECTED,DELETED';
 
 const initialState = {
     items: [],
@@ -19,10 +23,13 @@ const initialState = {
     totalPages: 0,
     page: 0,
     source: 'DIR',
-    status: undefined,
     reportee: '',
     sortField: 'updated',
     sortDir: 'desc',
+    filter: {
+        status: [AdStatusEnum.ACTIVE, AdStatusEnum.INACTIVE],
+    },
+    deactivatedByExpiry: false,
 };
 
 export default function myAdsReducer(state = initialState, action) {
@@ -48,9 +55,24 @@ export default function myAdsReducer(state = initialState, action) {
                 isSearching: false,
             };
         case CHANGE_MY_ADS_STATUS_FILTER:
+            const deactivatedByExpiry =
+                action.status.length > 0 ? false : state.deactivatedByExpiry;
+
             return {
                 ...state,
-                status: action.status,
+                filter: {
+                    status: action.status,
+                },
+                deactivatedByExpiry,
+            };
+        case CHANGE_MY_ADS_DEACTIVATED_FILTER:
+            const status = action.deactivatedByExpiry ? [] : state.filter.status;
+
+            return {
+                ...state,
+                filter: {
+                    status,
+                },
                 deactivatedByExpiry: action.deactivatedByExpiry,
             };
         case CHANGE_MY_ADS_PAGE:
@@ -75,17 +97,9 @@ export default function myAdsReducer(state = initialState, action) {
     }
 }
 
-function combineStatusQuery(status) {
-    if (status === undefined) {
-        return {
-            status: '!REJECTED,DELETED',
-        };
-    }
-    return { status };
-}
-
 export function toQuery(search) {
-    const { reportee, status, page, deactivatedByExpiry, sortField, sortDir, uuid } = search;
+    const { reportee, filter, page, deactivatedByExpiry, sortField, sortDir, uuid } = search;
+    const { status } = filter;
 
     const query = {
         sort: `${sortField},${sortDir}`,
@@ -93,7 +107,8 @@ export function toQuery(search) {
         reportee,
         deactivatedByExpiry,
         uuid,
-        ...combineStatusQuery(status),
+        // Hvis ingen annen status er valgt, utelat avviste og slettede stillinger
+        status: status.length === 0 ? FALLBACK_STATUS : status,
     };
 
     return query;
@@ -135,7 +150,13 @@ function* resetMyAdsPage() {
 
 export const myAdsSaga = function* saga() {
     yield takeLatest(
-        [CHANGE_MY_ADS_STATUS_FILTER, CHANGE_MY_ADS_PAGE, FETCH_MY_ADS, CHANGE_MY_ADS_SORTING],
+        [
+            CHANGE_MY_ADS_STATUS_FILTER,
+            CHANGE_MY_ADS_DEACTIVATED_FILTER,
+            CHANGE_MY_ADS_PAGE,
+            FETCH_MY_ADS,
+            CHANGE_MY_ADS_SORTING,
+        ],
         getMyAds
     );
     yield takeLatest([CHANGE_MY_ADS_STATUS_FILTER, CHANGE_MY_ADS_SORTING], resetMyAdsPage);

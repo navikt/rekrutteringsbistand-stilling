@@ -1,8 +1,12 @@
-const AdStatusEnum = {
+export const ActiveAdStatusEnum = {
     ACTIVE: 'ACTIVE',
     INACTIVE: 'INACTIVE',
-    REJECTED: 'REJECTED',
     STOPPED: 'STOPPED',
+};
+
+const AdStatusEnum = {
+    ...ActiveAdStatusEnum,
+    REJECTED: 'REJECTED',
     DELETED: 'DELETED',
 };
 
