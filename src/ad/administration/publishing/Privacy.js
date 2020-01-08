@@ -23,7 +23,7 @@ class Privacy extends React.Component {
                     onChange={this.onPrivacyChange}
                 />
                 <Radio
-                    label="Arbeidsplassen"
+                    label="Eksternt på Arbeidsplassen"
                     value={PrivacyStatusEnum.SHOW_ALL}
                     name="privacy"
                     checked={privacy === PrivacyStatusEnum.SHOW_ALL}
