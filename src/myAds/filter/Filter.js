@@ -8,7 +8,6 @@ import { getAdStatusLabel } from '../../common/enums/getEnumLabels';
 const Synlighet = {
     Aktive: false,
     Utløpte: true,
-    Alle: undefined,
 };
 
 const Filter = () => {
@@ -50,24 +49,25 @@ const Filter = () => {
                     />
                 ))}
             </fieldset>
-            <fieldset>
-                <legend className="typo-element">Aktiv status</legend>
-                {Object.keys(ActiveAdStatusEnum).map(statusKey => {
-                    const statusValue = AdStatusEnum[statusKey];
-                    const statusLabel = getAdStatusLabel(statusValue);
+            {!deactivatedByExpiry && (
+                <fieldset>
+                    <legend className="typo-element">Status</legend>
+                    {Object.keys(ActiveAdStatusEnum).map(statusKey => {
+                        const statusValue = AdStatusEnum[statusKey];
+                        const statusLabel = getAdStatusLabel(statusValue);
 
-                    return (
-                        <Checkbox
-                            key={statusKey}
-                            label={statusLabel}
-                            value={statusValue}
-                            disabled={deactivatedByExpiry !== false}
-                            checked={status.includes(statusValue)}
-                            onChange={onStatusToggle}
-                        />
-                    );
-                })}
-            </fieldset>
+                        return (
+                            <Checkbox
+                                key={statusKey}
+                                label={statusLabel}
+                                value={statusValue}
+                                checked={status.includes(statusValue)}
+                                onChange={onStatusToggle}
+                            />
+                        );
+                    })}
+                </fieldset>
+            )}
         </form>
     );
 };
