@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { CHANGE_MY_ADS_STATUS_FILTER, CHANGE_MY_ADS_DEACTIVATED_FILTER } from '../myAdsReducer';
-import AdStatusEnum, { FiltrerbarAdStatusEnum } from '../../common/enums/AdStatusEnum';
+import AdStatusEnum, { ActiveAdStatusEnum } from '../../common/enums/AdStatusEnum';
 import { Checkbox, Radio } from 'nav-frontend-skjema';
 import { getAdStatusLabel } from '../../common/enums/getEnumLabels';
 
@@ -52,7 +52,7 @@ const Filter = () => {
             </fieldset>
             <fieldset>
                 <legend className="typo-element">Status på stilling</legend>
-                {Object.keys(FiltrerbarAdStatusEnum).map(statusKey => {
+                {Object.keys(ActiveAdStatusEnum).map(statusKey => {
                     const statusValue = AdStatusEnum[statusKey];
                     const statusLabel = getAdStatusLabel(statusValue);
 
