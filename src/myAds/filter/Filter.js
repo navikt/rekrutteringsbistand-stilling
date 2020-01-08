@@ -5,6 +5,12 @@ import AdStatusEnum, { ActiveAdStatusEnum } from '../../common/enums/AdStatusEnu
 import { Checkbox, Radio } from 'nav-frontend-skjema';
 import { getAdStatusLabel } from '../../common/enums/getEnumLabels';
 
+const Synlighet = {
+    Aktive: false,
+    Utløpte: true,
+    Alle: undefined,
+};
+
 const Filter = () => {
     const { filter, deactivatedByExpiry } = useSelector(state => state.myAds);
     const dispatch = useDispatch();
@@ -23,11 +29,9 @@ const Filter = () => {
     };
 
     const onExpiredChange = e => {
-        const deactivatedByExpiry = e.target.value === '' ? undefined : e.target.value === 'true';
-
         dispatch({
             type: CHANGE_MY_ADS_DEACTIVATED_FILTER,
-            deactivatedByExpiry,
+            deactivatedByExpiry: Synlighet[e.target.value],
         });
     };
 
@@ -35,23 +39,19 @@ const Filter = () => {
         <form>
             <fieldset>
                 <legend className="typo-element">Synlighet</legend>
-                <Radio
-                    label="Aktive"
-                    name="deactivatedByExpiry"
-                    value="false"
-                    checked={deactivatedByExpiry === false || deactivatedByExpiry === undefined}
-                    onChange={onExpiredChange}
-                />
-                <Radio
-                    label="Utløpte"
-                    name="deactivatedByExpiry"
-                    value="true"
-                    checked={deactivatedByExpiry === true}
-                    onChange={onExpiredChange}
-                />
+                {Object.keys(Synlighet).map(key => (
+                    <Radio
+                        key={key}
+                        label={key}
+                        name="deactivatedByExpiry"
+                        value={key}
+                        checked={deactivatedByExpiry === Synlighet[key]}
+                        onChange={onExpiredChange}
+                    />
+                ))}
             </fieldset>
             <fieldset>
-                <legend className="typo-element">Status på stilling</legend>
+                <legend className="typo-element">Aktiv status</legend>
                 {Object.keys(ActiveAdStatusEnum).map(statusKey => {
                     const statusValue = AdStatusEnum[statusKey];
                     const statusLabel = getAdStatusLabel(statusValue);
@@ -61,7 +61,7 @@ const Filter = () => {
                             key={statusKey}
                             label={statusLabel}
                             value={statusValue}
-                            disabled={deactivatedByExpiry === true}
+                            disabled={deactivatedByExpiry !== false}
                             checked={status.includes(statusValue)}
                             onChange={onStatusToggle}
                         />

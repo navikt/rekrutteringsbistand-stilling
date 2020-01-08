@@ -29,7 +29,7 @@ const initialState = {
     filter: {
         status: [AdStatusEnum.ACTIVE, AdStatusEnum.INACTIVE],
     },
-    deactivatedByExpiry: undefined,
+    deactivatedByExpiry: false,
 };
 
 export default function myAdsReducer(state = initialState, action) {
@@ -55,7 +55,8 @@ export default function myAdsReducer(state = initialState, action) {
                 isSearching: false,
             };
         case CHANGE_MY_ADS_STATUS_FILTER:
-            const deactivatedByExpiry = action.status.length > 0 ? false : undefined;
+            const deactivatedByExpiry =
+                action.status.length > 0 ? false : state.deactivatedByExpiry;
 
             return {
                 ...state,
