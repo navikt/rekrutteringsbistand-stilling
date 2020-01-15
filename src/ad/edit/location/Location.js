@@ -86,6 +86,7 @@ class Location extends React.Component {
 
         return (
             <Ekspanderbartpanel
+                id="Arbeidssted_ekspanderbartpanel"
                 className="Edit__panel"
                 tittel="Arbeidssted*"
                 tittelProps="undertittel"
