@@ -8,6 +8,7 @@ const Filterpanel = ({ label, children }) => {
 
     return (
         <EkspanderbartpanelBase
+            id={`${label}_filterpanel`}
             className="Filterpanel blokk-s"
             border
             apen
