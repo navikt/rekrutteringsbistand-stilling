@@ -1,5 +1,5 @@
 {
-    "name": "pam-rekrutteringsbistand",
+    "name": "rekrutteringsbistand-stilling",
     "version": "0.54.0",
     "description": "",
     "main": "index.js",
@@ -9,11 +9,11 @@
         "clean-build": "rimraf ./dist",
         "build": "npm run clean-build && webpack -p",
         "start-express": "node ./server.js",
-        "docker-build": "npm run build && docker build . -t pam-rekrutteringsbistand",
-        "docker-start": "docker run --name pam-rekrutteringsbistand -p 8080:8080 -d pam-rekrutteringsbistand",
+        "docker-build": "npm run build && docker build . -t rekrutteringsbistand-stilling",
+        "docker-start": "docker run --name rekrutteringsbistand-stilling -p 8080:8080 -d rekrutteringsbistand-stilling",
         "docker-kill": "npm run docker-stop && npm run docker-rm",
-        "docker-rm": "docker rm pam-rekrutteringsbistand",
-        "docker-stop": "docker stop pam-rekrutteringsbistand",
+        "docker-rm": "docker rm rekrutteringsbistand-stilling",
+        "docker-stop": "docker stop rekrutteringsbistand-stilling",
         "snyk-protect": "snyk protect",
         "prepare": "npm run snyk-protect",
         "lint": "eslint \"src/**\""

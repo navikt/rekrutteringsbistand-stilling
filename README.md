@@ -1,4 +1,4 @@
-# pam-rekrutteringsbistand
+# rekrutteringsbistand-stilling
 
 Applikasjonsfrontend for rekrutteringsbistand.
 
