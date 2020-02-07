@@ -27,10 +27,10 @@ const countriesUrl = `${apiUrl}/geography/countries`;
 const municipalsUrl = `${apiUrl}/geography/municipals`;
 const categoriesWithAltnamesUrl = `${apiUrl}/categories-with-altnames/`;
 const postdataUrl = `${apiUrl}/postdata/`;
-const searchApiUrl = `${apiUrl}/search-api/`;
 
 const identUrl = `${baseUrl}/rekruttering/ident/`;
 const featuresUrl = `${baseUrl}/features/`;
+const searchApiUrl = `${baseUrl}/search-api/`;
 
 const med = begynnelseAvUrl => url => url.startsWith(begynnelseAvUrl);
 
@@ -49,4 +49,5 @@ fetchMock
     .get(categoriesWithAltnamesUrl, categoriesWithAltnames)
     .get(postdataUrl, postdata)
     .get(med(searchApiUrl), search)
+    .post(med(searchApiUrl), search)
     .get(med(featuresUrl), true);
