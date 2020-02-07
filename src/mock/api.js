@@ -6,7 +6,7 @@ const apiUrl = `${baseUrl}/rekrutteringsbistand/api/v1`;
 
 const ads = require('./json/ads.json');
 const adsReversed = require('./json/ads-reversed.json');
-const postAds = require('./json/post-ads.json');
+const putPostAds = require('./json/post-ads.json');
 const reportee = require('./json/reportee.json');
 const ident = require('./json/ident.json');
 const mineStillinger = require('./json/minestillinger.json');
@@ -38,7 +38,8 @@ fetchMock
     .get(med(mineStillingerUrl), mineStillinger)
     .get(med(adsUrl), adsReversed, { query: { sort: 'title,asc' } })
     .get(med(adsUrl), ads)
-    .post(med(adsUrl), postAds)
+    .post(med(adsUrl), putPostAds)
+    .put(med(adsUrl), putPostAds)
     .delete(med(adsUrl), 204)
     .get(reporteeUrl, reportee)
     .get(med(identUrl), ident)
