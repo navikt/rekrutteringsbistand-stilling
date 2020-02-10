@@ -10,6 +10,7 @@ import {
     REMOVE_POSTAL_CODE,
     ADD_POSTAL_CODE_ADDRESS_BEGIN,
     REMOVE_POSTAL_CODE_ADDRESS,
+    REMOVE_LOCATION_AREAS,
 } from '../../adDataReducer';
 import capitalizeLocation from './capitalizeLocation';
 import LocationArea from './LocationArea';
@@ -71,6 +72,10 @@ class Location extends React.Component {
     };
 
     onLocationAreaChecked = e => {
+        if (!e.target.checked) {
+            this.props.removeLocationAreas();
+        }
+
         this.setState({
             ...this.state,
             locationArea: e.target.checked,
@@ -198,6 +203,7 @@ const mapDispatchToProps = dispatch => ({
     addPostalCode: postalCode => dispatch({ type: ADD_POSTAL_CODE_BEGIN, postalCode }),
     removePostalCode: () => dispatch({ type: REMOVE_POSTAL_CODE }),
     removePostalCodeAddress: () => dispatch({ type: REMOVE_POSTAL_CODE_ADDRESS }),
+    removeLocationAreas: () => dispatch({ type: REMOVE_LOCATION_AREAS }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Location);

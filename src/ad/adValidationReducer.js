@@ -29,6 +29,7 @@ import {
     CHECK_EMPLOYMENT_WORKHOURS,
     UNCHECK_EMPLOYMENT_WORKHOURS,
     findLocationByPostalCode,
+    REMOVE_LOCATION_AREAS,
 } from './adDataReducer';
 
 const ADD_VALIDATION_ERROR = 'ADD_VALIDATION_ERROR';
@@ -479,6 +480,7 @@ export const validationSaga = function* saga() {
             REMOVE_MUNICIPAL,
             REMOVE_COUNTY,
             REMOVE_COUNTRY,
+            REMOVE_LOCATION_AREAS,
         ],
         validateLocation
     );

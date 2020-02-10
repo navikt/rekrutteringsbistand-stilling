@@ -26,6 +26,7 @@ export const ADD_POSTAL_CODE = 'ADD_POSTAL_CODE';
 export const REMOVE_MUNICIPAL = 'REMOVE_MUNICIPAL';
 export const REMOVE_COUNTRY = 'REMOVE_COUNTRY';
 export const REMOVE_COUNTY = 'REMOVE_COUNTY';
+export const REMOVE_LOCATION_AREAS = 'REMOVE_LOCATION_AREAS';
 export const REMOVE_POSTAL_CODE = 'REMOVE_POSTAL_CODE';
 export const REMOVE_POSTAL_CODE_ADDRESS = 'REMOVE_POSTAL_CODE_ADDRESS';
 export const SET_EMPLOYMENT_JOBTITLE = 'SET_EMPLOYMENT_JOBTITLE';
@@ -233,6 +234,13 @@ export default function adDataReducer(state = initialState, action) {
                         loc.country !== action.value
                 ),
             };
+        case REMOVE_LOCATION_AREAS: {
+            return {
+                ...state,
+                location: null,
+                locationList: [],
+            };
+        }
         case REMOVE_POSTAL_CODE: {
             // Look for address in first index in list. If it exists, keep it
             const current =
