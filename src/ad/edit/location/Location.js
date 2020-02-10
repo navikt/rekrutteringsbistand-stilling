@@ -59,6 +59,11 @@ class Location extends React.Component {
     };
 
     onPostCodeChecked = e => {
+        if (!e.target.checked) {
+            this.props.removePostalCode();
+            this.props.removePostalCodeAddress();
+        }
+
         this.setState({
             ...this.state,
             postCode: e.target.checked,
