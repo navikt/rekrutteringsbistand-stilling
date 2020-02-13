@@ -85,7 +85,7 @@
         "react-router-dom": "^5.1.2",
         "redux": "^4.0.4",
         "redux-saga": "^0.16.0",
-        "snyk": "^1.262.2",
+        "snyk": "^1.290.1",
         "whatwg-fetch": "^2.0.4"
     },
     "devDependencies": {
