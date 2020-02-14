@@ -6,8 +6,23 @@ Applikasjonsfrontend for rekrutteringsbistand.
 
 - Stillingsdatabase-api, [pam-ad-api](https://github.com/navikt/pam-ad-api)
 
+## Installasjon
 
-# Henvendelser
+```
+npm install
+```
+
+## Utvikling
+
+```
+npm start
+```
+
+Med mocket API:
+
+```
+npm run mock
+```
 
 ## For Nav-ansatte
 * Dette Git-repositoriet eies av [Team inkludering i Produktområde arbeidsgiver](https://navno.sharepoint.com/sites/intranett-prosjekter-og-utvikling/SitePages/Produktomr%C3%A5de-arbeidsgiver.aspx).

@@ -16,10 +16,6 @@ class ContactInfo extends React.Component {
         const isDir = stilling && stilling.source === 'DIR';
         const hasRecruitment = recruitment && recruitment.eierNavident;
         const { reportee, navIdent } = stilling.administration;
-        const contact =
-            stilling.contactList && stilling.contactList.length
-                ? stilling.contactList[0]
-                : undefined;
 
         return isDir ? (
             <div className="ContactInfo__preview">
@@ -27,8 +23,6 @@ class ContactInfo extends React.Component {
                 <Normaltekst>
                     Kontaktperson hos NAV: {reportee} {navIdent ? ` (${navIdent})` : ''}
                 </Normaltekst>
-                {contact && contact.email && <Normaltekst>E-post: {contact.email}</Normaltekst>}
-                {contact && contact.phone && <Normaltekst>Telefon: {contact.phone}</Normaltekst>}
             </div>
         ) : (
             <div>
