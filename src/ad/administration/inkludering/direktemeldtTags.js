@@ -1,10 +1,9 @@
 export const direktemeldteInkluderingstags = {
     INKLUDERING: 'Arbeidsgiver ønsker å tilrettelegge',
-    INKLUDERING__ARBEIDSTID: 'Tilrettelagt arbeidstid',
-    INKLUDERING__FYSISK: 'Fysisk tilrettelegging av arbeidsplassen',
-    INKLUDERING__ARBEIDSMILJØ: 'Tilrettelegging av arbeidsmiljøet',
-    INKLUDERING__GRUNNLEGGENDE:
-        'Få krav til grunnleggende ferdigheter som språk, regning eller tallforståelse',
+    INKLUDERING__ARBEIDSTID: 'Tilrettelegging av arbeidstid',
+    INKLUDERING__FYSISK: 'Fysisk tilrettelegging på arbeidsplassen',
+    INKLUDERING__ARBEIDSMILJØ: 'Tilpasninger i arbeidshverdagen',
+    INKLUDERING__GRUNNLEGGENDE: 'Utfordringer med norsk',
 };
 
 export const direktemeldtKategorisering = [
