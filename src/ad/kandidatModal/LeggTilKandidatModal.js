@@ -3,15 +3,17 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import NavFrontendModal from 'nav-frontend-modal';
 import { Systemtittel, Normaltekst, Element } from 'nav-frontend-typografi';
-import { Input } from 'nav-frontend-skjema';
+import { Input, Textarea } from 'nav-frontend-skjema';
 import { Flatknapp, Hovedknapp } from 'nav-frontend-knapper';
 import { Kandidatliste } from './kandidatTypes';
+import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import {
     Hentestatus,
     HENT_KANDIDAT_MED_FNR,
     HENT_KANDIDAT_MED_FNR_RESET,
     LEGG_TIL_KANDIDAT,
     SET_FODSELSNUMMER,
+    SET_NOTAT,
     HENT_KANDIDATLISTE,
 } from './kandidatReducer';
 import './LeggTilKandidatModal.less';
@@ -32,10 +34,12 @@ class LeggTilKandidatModal extends React.Component {
             resetHentKandidatMedFnr,
             setFodselsnummer,
             stillingsid,
+            setNotat,
         } = this.props;
 
         hentKandidatliste(stillingsid);
         setFodselsnummer(undefined);
+        setNotat('');
         resetHentKandidatMedFnr();
     }
 
@@ -71,6 +75,10 @@ class LeggTilKandidatModal extends React.Component {
         }
     };
 
+    onNotatChange = event => {
+        this.props.setNotat(event.target.value);
+    }
+
     resetKandidat = message => {
         const { resetHentKandidatMedFnr } = this.props;
         resetHentKandidatMedFnr();
@@ -89,11 +97,13 @@ class LeggTilKandidatModal extends React.Component {
             kandidatliste,
             leggTilKandidatMedFnr,
             onClose,
+            notat,
         } = this.props;
 
-        if (kandidatStatus === Hentestatus.SUCCESS && !this.kandidatenFinnesAllerede()) {
+        if (kandidatStatus === Hentestatus.SUCCESS && !this.kandidatenFinnesAllerede() && notat.length <= 2000) {
             const nyKandidat = {
                 kandidatnr: kandidat.arenaKandidatnr,
+                notat,
                 sisteArbeidserfaring: kandidat.mestRelevanteYrkeserfaring
                     ? kandidat.mestRelevanteYrkeserfaring.styrkKodeStillingstittel
                     : '',
@@ -107,17 +117,20 @@ class LeggTilKandidatModal extends React.Component {
                     showFodselsnummer: false,
                     errorMessage: 'Fødselsnummer må fylles inn',
                 });
+                this.input.focus();
             } else if (fodselsnummer.length < 11) {
                 this.setState({
                     showFodselsnummer: false,
                     errorMessage: 'Fødselsnummeret er for kort',
                 });
+                this.input.focus();
             } else if (this.kandidatenFinnesAllerede()) {
                 this.setState({
                     errorMessage: 'Kandidaten er allerede lagt til i listen',
                 });
+                this.input.focus();
             }
-            this.input.focus();
+            
         }
     };
 
@@ -145,7 +158,7 @@ class LeggTilKandidatModal extends React.Component {
     );
 
     render() {
-        const { vis, onClose, fodselsnummer, kandidat } = this.props;
+        const { vis, onClose, fodselsnummer, kandidat, notat } = this.props;
         return (
             <NavFrontendModal
                 contentLabel="Modal legg til kandidat"
@@ -155,7 +168,9 @@ class LeggTilKandidatModal extends React.Component {
                 appElement={document.getElementById('app')}
             >
                 <Systemtittel className="tittel">Legg til kandidat</Systemtittel>
+                <AlertStripeAdvarsel>Avklar kandidaten før du legger han eller hun til listen</AlertStripeAdvarsel>
                 <Input
+                    className="legg-til-kandidat__input__fodselsnummer"
                     onChange={this.onInputChange}
                     feil={this.state.errorMessage && { feilmelding: this.state.errorMessage }}
                     bredde="S"
@@ -175,6 +190,29 @@ class LeggTilKandidatModal extends React.Component {
                         </Element>
                     </div>
                 )}
+                
+                <Element className="legg-til-kandidat__input__overskrift">Notat om kandidaten</Element>
+                <div className="legg-til-kandidat__input">
+                    <Textarea
+                    id="legg-til-kandidat-notat-input"
+                    textareaClass="legg-til-kandidat__input__textarea skjemaelement--pink"
+                    label="Du skal ikke skrive sensitive opplysninger her. Notatet er synlig for alle veiledere."
+                    placeholder="Skriv inn en kort tekst om hvorfor kandidaten passer til stillingen"
+                    value={notat || ''}
+                    maxLength={2000}
+                    feil={
+                        notat &&
+                        notat.length > 2000
+                            ? { feilmelding: 'Notatet er for langt' }
+                            : undefined
+                    }
+                    onChange={this.onNotatChange}
+                    textareaRef={textArea => {
+                        this.textArea = textArea;
+                    }}
+                    />
+                </div>
+                
                 <div>
                     <Hovedknapp className="legg-til--knapp" onClick={this.leggTilKandidat}>
                         Legg til
@@ -222,6 +260,7 @@ const mapStateToProps = state => ({
     kandidat: state.kandidat.kandidat,
     kandidatliste: state.kandidat.detaljer.kandidatliste,
     stillingsid: state.ad.originalData.uuid,
+    notat: state.kandidat.notat,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -230,6 +269,7 @@ const mapDispatchToProps = dispatch => ({
     leggTilKandidatMedFnr: (kandidat, id) => dispatch({ type: LEGG_TIL_KANDIDAT, kandidat, id }),
     resetHentKandidatMedFnr: () => dispatch({ type: HENT_KANDIDAT_MED_FNR_RESET }),
     setFodselsnummer: fodselsnummer => dispatch({ type: SET_FODSELSNUMMER, fodselsnummer }),
+    setNotat: notat => dispatch({type: SET_NOTAT, notat })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LeggTilKandidatModal);
