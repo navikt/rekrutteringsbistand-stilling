@@ -13,6 +13,25 @@
         .nytt__knapp svg {
             filter: invert() brightness(120%);
         }
+
+        // Hack for luft mellom kant og popup
+        .popover {
+            background: none;
+
+            &:focus {
+                box-shadow: none;
+
+                .popover__content-inner {
+                    box-shadow: 0 0 0 3px #3e3832;
+                }
+            }
+
+            &__content-inner {
+                background-color: white;
+                border-radius: 0.6rem;
+                transform: translateX(-1rem);
+            }
+        }
     }
 
     @media print {

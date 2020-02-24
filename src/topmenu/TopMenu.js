@@ -19,7 +19,7 @@ class HeaderMenu extends React.Component {
     }
 
     render() {
-        const { tabId, displayName, showHasChangesModal, hasChanges } = this.props;
+        const { tabId, displayName, showHasChangesModal, hasChanges, visNyheter } = this.props;
         return (
             <div className="top-menu">
                 <VeilederHeaderMeny
@@ -30,9 +30,11 @@ class HeaderMenu extends React.Component {
                         redirectForhindretCallback: url => showHasChangesModal(url),
                     }}
                 />
-                <div className="top-menu__nyheter">
-                    <NyttIRekrutteringsbistand />
-                </div>
+                {visNyheter && (
+                    <div className="top-menu__nyheter">
+                        <NyttIRekrutteringsbistand />
+                    </div>
+                )}
             </div>
         );
     }
@@ -50,6 +52,7 @@ HeaderMenu.propTypes = {
 const mapStateToProps = state => ({
     displayName: state.reportee.data ? state.reportee.data.displayName : '',
     isFetchingDisplayName: state.reportee.isFetchingReportee,
+    visNyheter: state.featureToggles.visNyheter,
     hasChanges: state.ad.hasChanges,
 });
 

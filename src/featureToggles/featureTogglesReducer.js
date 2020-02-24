@@ -3,6 +3,7 @@ import { REKRUTTERINGSBISTAND_BASE_URL } from '../fasitProperties';
 import { takeEvery, put } from 'redux-saga/effects';
 
 const FEATURE_OPPRETT_KANDIDATLISTE_KNAPP = 'rekrutteringsbistand.opprett-kandidatliste-knapp';
+const FEATURE_VIS_NYHETER = 'rekrutteringsbistand.vis-nyheter';
 
 export const FETCH_FEATURE_TOGGLES = 'FETCH_FEATURE_TOGGLES';
 const FETCH_FEATURE_TOGGLES_COMPLETE = 'FETCH_FEATURE_TOGGLES_COMPLETE';
@@ -23,12 +24,15 @@ const featureTogglesReducer = (state = initialState, action) => {
 };
 
 function* hentFeatureToggles() {
-    const opprettKandidatlisteKnapp = yield fetchGet(
-        `${REKRUTTERINGSBISTAND_BASE_URL}/features/${FEATURE_OPPRETT_KANDIDATLISTE_KNAPP}`
+    const alleFeatures = yield Promise.all(
+        [FEATURE_OPPRETT_KANDIDATLISTE_KNAPP, FEATURE_VIS_NYHETER].map(feature =>
+            fetchGet(`${REKRUTTERINGSBISTAND_BASE_URL}/features/${feature}`)
+        )
     );
 
     const featureToggles = {
-        opprettKandidatlisteKnapp,
+        opprettKandidatlisteKnapp: alleFeatures[0],
+        visNyheter: alleFeatures[1],
     };
 
     yield put({ type: FETCH_FEATURE_TOGGLES_COMPLETE, featureToggles });
