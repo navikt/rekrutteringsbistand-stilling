@@ -1,5 +1,23 @@
-@media print {
+.top-menu {
+    position: relative;
+
     .VeilederHeaderMeny {
-        display: none !important;
+        width: 100%;
+    }
+
+    &__nyheter {
+        position: absolute;
+        bottom: 0.25rem;
+        right: 2rem;
+
+        .nytt__knapp svg {
+            filter: invert() brightness(120%);
+        }
+    }
+
+    @media print {
+        .VeilederHeaderMeny {
+            display: none !important;
+        }
     }
 }

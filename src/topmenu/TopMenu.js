@@ -5,6 +5,8 @@ import { VeilederHeaderMeny, VeilederTabId } from 'pam-frontend-header';
 import { FETCH_REPORTEE } from '../reportee/reporteeReducer';
 import { SHOW_HAS_CHANGES_MODAL } from '../ad/adReducer';
 import 'pam-frontend-header/dist/style.css';
+import NyttIRekrutteringsbistand from '@navikt/nytt-i-rekrutteringsbistand';
+import '../../node_modules/@navikt/nytt-i-rekrutteringsbistand/lib/nytt.css';
 import './TopMenu.less';
 
 class HeaderMenu extends React.Component {
@@ -19,14 +21,19 @@ class HeaderMenu extends React.Component {
     render() {
         const { tabId, displayName, showHasChangesModal, hasChanges } = this.props;
         return (
-            <VeilederHeaderMeny
-                activeTabID={tabId}
-                innloggetBruker={displayName}
-                validerNavigasjon={{
-                    redirectTillates: () => !hasChanges,
-                    redirectForhindretCallback: url => showHasChangesModal(url),
-                }}
-            />
+            <div className="top-menu">
+                <VeilederHeaderMeny
+                    activeTabID={tabId}
+                    innloggetBruker={displayName}
+                    validerNavigasjon={{
+                        redirectTillates: () => !hasChanges,
+                        redirectForhindretCallback: url => showHasChangesModal(url),
+                    }}
+                />
+                <div className="top-menu__nyheter">
+                    <NyttIRekrutteringsbistand />
+                </div>
+            </div>
         );
     }
 }
