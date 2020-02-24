@@ -18,6 +18,8 @@ import {
 } from './kandidatReducer';
 import './LeggTilKandidatModal.less';
 
+const NOTATLENGDE = 2000;
+
 class LeggTilKandidatModal extends React.Component {
     constructor(props) {
         super(props);
@@ -77,7 +79,7 @@ class LeggTilKandidatModal extends React.Component {
 
     onNotatChange = event => {
         this.props.setNotat(event.target.value);
-    }
+    };
 
     resetKandidat = message => {
         const { resetHentKandidatMedFnr } = this.props;
@@ -100,7 +102,11 @@ class LeggTilKandidatModal extends React.Component {
             notat,
         } = this.props;
 
-        if (kandidatStatus === Hentestatus.SUCCESS && !this.kandidatenFinnesAllerede() && notat.length <= 2000) {
+        if (
+            kandidatStatus === Hentestatus.SUCCESS &&
+            !this.kandidatenFinnesAllerede() &&
+            notat.length <= NOTATLENGDE
+        ) {
             const nyKandidat = {
                 kandidatnr: kandidat.arenaKandidatnr,
                 notat,
@@ -117,20 +123,19 @@ class LeggTilKandidatModal extends React.Component {
                     showFodselsnummer: false,
                     errorMessage: 'Fødselsnummer må fylles inn',
                 });
-                this.input.focus();
+                this.fnrinput.focus();
             } else if (fodselsnummer.length < 11) {
                 this.setState({
                     showFodselsnummer: false,
                     errorMessage: 'Fødselsnummeret er for kort',
                 });
-                this.input.focus();
+                this.fnrinput.focus();
             } else if (this.kandidatenFinnesAllerede()) {
                 this.setState({
                     errorMessage: 'Kandidaten er allerede lagt til i listen',
                 });
-                this.input.focus();
+                this.fnrinput.focus();
             }
-            
         }
     };
 
@@ -168,15 +173,17 @@ class LeggTilKandidatModal extends React.Component {
                 appElement={document.getElementById('app')}
             >
                 <Systemtittel className="tittel">Legg til kandidat</Systemtittel>
-                <AlertStripeAdvarsel>Avklar kandidaten før du legger han eller hun til listen</AlertStripeAdvarsel>
+                <AlertStripeAdvarsel>
+                    Avklar kandidaten før du legger han eller hun til listen
+                </AlertStripeAdvarsel>
                 <Input
-                    className="legg-til-kandidat__input__fodselsnummer"
+                    className="legg-til-kandidat__fodselsnummer"
                     onChange={this.onInputChange}
                     feil={this.state.errorMessage && { feilmelding: this.state.errorMessage }}
                     bredde="S"
                     label="Fødselsnummer på kandidaten (11 siffer)"
                     inputRef={input => {
-                        this.input = input;
+                        this.fnrinput = input;
                     }}
                 />
                 {this.state.showFodselsnummer && (
@@ -190,19 +197,19 @@ class LeggTilKandidatModal extends React.Component {
                         </Element>
                     </div>
                 )}
-                
-                <Element className="legg-til-kandidat__input__overskrift">Notat om kandidaten</Element>
-                <div className="legg-til-kandidat__input">
-                    <Textarea
+
+                <Element className="legg-til-kandidat__notatoverskrift">
+                    Notat om kandidaten
+                </Element>
+                <Textarea
                     id="legg-til-kandidat-notat-input"
-                    textareaClass="legg-til-kandidat__input__textarea skjemaelement--pink"
+                    textareaClass="legg-til-kandidat__notat skjemaelement--pink"
                     label="Du skal ikke skrive sensitive opplysninger her. Notatet er synlig for alle veiledere."
                     placeholder="Skriv inn en kort tekst om hvorfor kandidaten passer til stillingen"
                     value={notat || ''}
-                    maxLength={2000}
+                    maxLength={NOTATLENGDE}
                     feil={
-                        notat &&
-                        notat.length > 2000
+                        notat && notat.length > NOTATLENGDE
                             ? { feilmelding: 'Notatet er for langt' }
                             : undefined
                     }
@@ -210,9 +217,8 @@ class LeggTilKandidatModal extends React.Component {
                     textareaRef={textArea => {
                         this.textArea = textArea;
                     }}
-                    />
-                </div>
-                
+                />
+
                 <div>
                     <Hovedknapp className="legg-til--knapp" onClick={this.leggTilKandidat}>
                         Legg til
@@ -269,7 +275,7 @@ const mapDispatchToProps = dispatch => ({
     leggTilKandidatMedFnr: (kandidat, id) => dispatch({ type: LEGG_TIL_KANDIDAT, kandidat, id }),
     resetHentKandidatMedFnr: () => dispatch({ type: HENT_KANDIDAT_MED_FNR_RESET }),
     setFodselsnummer: fodselsnummer => dispatch({ type: SET_FODSELSNUMMER, fodselsnummer }),
-    setNotat: notat => dispatch({type: SET_NOTAT, notat })
+    setNotat: notat => dispatch({ type: SET_NOTAT, notat }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LeggTilKandidatModal);
