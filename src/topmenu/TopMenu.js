@@ -32,7 +32,7 @@ class HeaderMenu extends React.Component {
                 />
                 {visNyheter && (
                     <div className="top-menu__nyheter">
-                        <NyttIRekrutteringsbistand />
+                        <NyttIRekrutteringsbistand orientering="under-hoyre" />
                     </div>
                 )}
             </div>
