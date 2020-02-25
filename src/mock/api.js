@@ -51,4 +51,4 @@ fetchMock
     .get(postdataUrl, postdata)
     .get(med(searchApiUrl), search)
     .post(med(searchApiUrl), search)
-    .get(med(featuresUrl), true);
+    .get(med(featuresUrl), () => true);
