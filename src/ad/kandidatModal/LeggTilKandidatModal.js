@@ -174,7 +174,7 @@ class LeggTilKandidatModal extends React.Component {
             >
                 <Systemtittel className="tittel">Legg til kandidat</Systemtittel>
                 <AlertStripeAdvarsel>
-                    Avklar kandidaten før du legger han eller hun på kandidatlisten.
+                    Avklar kandidaten før du legger han eller henne på kandidatlisten.
                 </AlertStripeAdvarsel>
                 <Input
                     className="legg-til-kandidat__fodselsnummer"
