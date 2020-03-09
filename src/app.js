@@ -93,7 +93,21 @@ const Main = () => {
 
     return (
         <main>
-            <InternflateDecorator appName="Arbeidsrettet oppfølging" />
+            <InternflateDecorator
+                appName="Arbeidsrettet oppfølging"
+                toggles={{
+                    visEnhet: true,
+                    visEnhetVelger: true,
+                    visSokefelt: true,
+                    visVeilder: true,
+                }}
+                onSok={nyfnr => {
+                    console.warn('onSok', nyfnr);
+                }}
+                onEnhetChange={nyenhet => {
+                    console.warn('onEnhetChange', nyenhet);
+                }}
+            />
             <Switch>
                 <Route path="/minestillinger" component={MinestillingerHeader} />
                 <Route path="/stillinger" component={StillingssokHeader} />
