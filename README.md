@@ -1,5 +1,6 @@
 # rekrutteringsbistand-stilling
 
+
 Applikasjonsfrontend for rekrutteringsbistand.
 
 ## Avhengigheter
