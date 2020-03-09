@@ -108,7 +108,7 @@ const Main = () => {
                     console.warn('onEnhetChange', nyenhet);
                 }}
                 contextHolder={{
-                    url: 'https://modiacontextholder-q1.nais.preprod.local/modiacontextholder',
+                    url: 'https://modiacontextholder-q1.nais.preprod.local/modiacontextholder/',
                 }}
             />
             <Switch>
