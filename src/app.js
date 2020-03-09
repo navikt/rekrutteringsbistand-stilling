@@ -95,17 +95,22 @@ const Main = () => {
         <main>
             <InternflateDecorator
                 appName="Arbeidsrettet oppfølging"
+                fnr={{
+                    initialValue: null,
+                    display: 'SOKEFELT',
+                    onChange(fnr) {
+                        console.warn('FNR onChange', fnr);
+                    },
+                }}
+                enhet={{
+                    initialValue: null,
+                    display: 'ENHET_VALG',
+                    onChange(enhet) {
+                        console.warn('ENHET onChange', enhet);
+                    },
+                }}
                 toggles={{
-                    visEnhet: true,
-                    visEnhetVelger: true,
-                    visSokefelt: true,
-                    visVeilder: true,
-                }}
-                onSok={nyfnr => {
-                    console.warn('onSok', nyfnr);
-                }}
-                onEnhetChange={nyenhet => {
-                    console.warn('onEnhetChange', nyenhet);
+                    visVeileder: true,
                 }}
             />
             <Switch>
