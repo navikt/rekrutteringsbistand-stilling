@@ -4,6 +4,7 @@ import { Router, Route, Switch } from 'react-router-dom';
 import { applyMiddleware, createStore, combineReducers, compose } from 'redux';
 import { Provider, useDispatch } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
+import NAVSPA from '@navikt/navspa';
 import employerReducer, { employerSaga } from './ad/edit/employer/employerReducer';
 import locationCodeReducer, { locationCodeSaga } from './ad/edit/location/locationCodeReducer';
 import styrkReducer, { styrkSaga } from './ad/edit/jobDetails/styrk/styrkReducer';
@@ -76,6 +77,8 @@ sagaMiddleware.run(kandidatSaga);
 sagaMiddleware.run(recruitmentSaga);
 sagaMiddleware.run(featureTogglesSaga);
 
+const InternflateDecorator = NAVSPA.importer('internarbeidsflatefs');
+
 const Main = () => {
     const dispatch = useDispatch();
 
@@ -90,6 +93,7 @@ const Main = () => {
 
     return (
         <main>
+            <InternflateDecorator appName="Arbeidsrettet oppfølging" />
             <Switch>
                 <Route path="/minestillinger" component={MinestillingerHeader} />
                 <Route path="/stillinger" component={StillingssokHeader} />
