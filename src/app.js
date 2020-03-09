@@ -107,6 +107,9 @@ const Main = () => {
                 onEnhetChange={nyenhet => {
                     console.warn('onEnhetChange', nyenhet);
                 }}
+                contextHolder={{
+                    url: 'https://modiacontextholder-q1.nais.preprod.local/modiacontextholder',
+                }}
             />
             <Switch>
                 <Route path="/minestillinger" component={MinestillingerHeader} />
