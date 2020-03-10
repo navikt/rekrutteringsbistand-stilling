@@ -1,0 +1,39 @@
+@import '../../node_modules/nav-frontend-core/less/_variabler.less';
+
+.navigeringsmeny {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    box-shadow: 0px 5px 5px 5px rgba(100, 100, 100, 0.75);
+
+    &__forside {
+        align-self: flex-end;
+        line-height: 0;
+        font-size: 0;
+
+        svg {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+    }
+
+    &__tab {
+        text-decoration: none;
+        display: inline-block;
+        margin: 0 0.5rem;
+        padding: 0 1rem 0.25rem;
+        color: @navMorkGra;
+        border-bottom: 0.25rem solid transparent;
+
+        &--aktiv,
+        &:hover {
+            border-color: @navDypBla;
+        }
+    }
+
+    @media print {
+        .navigeringsmeny {
+            display: none !important;
+        }
+    }
+}
