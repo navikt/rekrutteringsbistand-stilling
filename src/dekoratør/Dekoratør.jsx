@@ -5,7 +5,7 @@ const InternflateDecorator = NAVSPA.importer('internarbeidsflatefs');
 
 const Dekoratør = () => (
     <InternflateDecorator
-        appname="Arbeidsrettet oppfølging"
+        appname="Rekrutteringsbistand"
         enhet={{
             initialValue: null,
             display: 'ENHET_VALG',
