@@ -15,25 +15,6 @@ server.use(compression());
 server.disable('x-powered-by');
 server.use(helmet());
 
-// server.use(
-//     helmet.contentSecurityPolicy({
-//         directives: {
-//             defaultSrc: ["'none'"],
-//             scriptSrc: ["'self'"],
-//             styleSrc: ["'self'"],
-//             fontSrc: ["'self'", 'data:'],
-//             imgSrc: ["'self'", 'data:'],
-//             connectSrc: [
-//                 "'self'",
-//                 `${process.env.REKRUTTERINGSBISTAND_BASE_URL}/features/`,
-//                 process.env.REKRUTTERINGSBISTAND_API_URL,
-//                 process.env.REKRUTTERING_API_URL,
-//                 process.env.REKRUTTERINGSBISTAND_API_SEARCH_URL,
-//             ],
-//         },
-//     })
-// );
-
 server.set('views', `${currentDirectory}`);
 server.set('view engine', 'mustache');
 server.engine('html', mustacheExpress());
