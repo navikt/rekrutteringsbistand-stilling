@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, Switch } from 'react-router-dom';
 import { applyMiddleware, createStore, combineReducers, compose } from 'redux';
-import { Provider, useDispatch } from 'react-redux';
+import { Provider, useDispatch, useSelector } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 import employerReducer, { employerSaga } from './ad/edit/employer/employerReducer';
 import locationCodeReducer, { locationCodeSaga } from './ad/edit/location/locationCodeReducer';
@@ -34,6 +34,7 @@ import featureTogglesReducer, {
     featureTogglesSaga,
     FETCH_FEATURE_TOGGLES,
 } from './featureToggles/featureTogglesReducer';
+import Dekoratør from './dekoratør/Dekoratør';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -78,6 +79,7 @@ sagaMiddleware.run(featureTogglesSaga);
 
 const Main = () => {
     const dispatch = useDispatch();
+    const { nyDekoratør } = useSelector(state => state.featureToggles);
 
     useEffect(() => {
         dispatch({ type: FETCH_FEATURE_TOGGLES });
@@ -90,6 +92,7 @@ const Main = () => {
 
     return (
         <main>
+            {nyDekoratør && <Dekoratør />}
             <Switch>
                 <Route path="/minestillinger" component={MinestillingerHeader} />
                 <Route path="/stillinger" component={StillingssokHeader} />

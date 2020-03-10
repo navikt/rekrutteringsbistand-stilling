@@ -16,10 +16,10 @@ spec:
         enabled: false
         path: /metrics
     liveness:
-        initialDelay: 60
+        initialDelay: 10
         path: /internal/isAlive
     readiness:
-        initialDelay: 60
+        initialDelay: 10
         path: /internal/isReady
     resources:
         limits:
