@@ -4,7 +4,6 @@ import { Router, Route, Switch } from 'react-router-dom';
 import { applyMiddleware, createStore, combineReducers, compose } from 'redux';
 import { Provider, useDispatch } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
-import NAVSPA from '@navikt/navspa';
 import employerReducer, { employerSaga } from './ad/edit/employer/employerReducer';
 import locationCodeReducer, { locationCodeSaga } from './ad/edit/location/locationCodeReducer';
 import styrkReducer, { styrkSaga } from './ad/edit/jobDetails/styrk/styrkReducer';
@@ -35,6 +34,7 @@ import featureTogglesReducer, {
     featureTogglesSaga,
     FETCH_FEATURE_TOGGLES,
 } from './featureToggles/featureTogglesReducer';
+import Dekoratør from './dekoratør/Dekoratør';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -77,8 +77,6 @@ sagaMiddleware.run(kandidatSaga);
 sagaMiddleware.run(recruitmentSaga);
 sagaMiddleware.run(featureTogglesSaga);
 
-const InternflateDecorator = NAVSPA.importer('internarbeidsflatefs');
-
 const Main = () => {
     const dispatch = useDispatch();
 
@@ -93,19 +91,7 @@ const Main = () => {
 
     return (
         <main>
-            <InternflateDecorator
-                appName="Arbeidsrettet oppfølging"
-                enhet={{
-                    initialValue: null,
-                    display: 'ENHET_VALG',
-                    onChange(enhet) {
-                        console.warn('ENHET onChange', enhet);
-                    },
-                }}
-                toggles={{
-                    visVeileder: true,
-                }}
-            />
+            <Dekoratør />
             <Switch>
                 <Route path="/minestillinger" component={MinestillingerHeader} />
                 <Route path="/stillinger" component={StillingssokHeader} />
