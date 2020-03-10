@@ -95,13 +95,6 @@ const Main = () => {
         <main>
             <InternflateDecorator
                 appName="Arbeidsrettet oppfølging"
-                fnr={{
-                    initialValue: null,
-                    display: 'SOKEFELT',
-                    onChange(fnr) {
-                        console.warn('FNR onChange', fnr);
-                    },
-                }}
                 enhet={{
                     initialValue: null,
                     display: 'ENHET_VALG',
