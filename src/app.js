@@ -34,7 +34,7 @@ import featureTogglesReducer, {
     featureTogglesSaga,
     FETCH_FEATURE_TOGGLES,
 } from './featureToggles/featureTogglesReducer';
-import Dekoratør from './dekoratør/Dekoratør';
+import Dekoratør from './dekoratør/Dekoratør.tsx';
 
 const sagaMiddleware = createSagaMiddleware();
 
