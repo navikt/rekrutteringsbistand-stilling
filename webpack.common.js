@@ -11,10 +11,10 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.jsx?$/,
+                test: /\.([tj])sx?$/,
                 exclude: /node_modules/,
-                loader: 'babel-loader',
-                query: { presets: ['es2015', 'react', 'stage-2'] },
+                use: ['cache-loader', { loader: 'awesome-typescript-loader' }],
+                // query: { presets: ['es2015', 'react', 'stage-2'] },
             },
             {
                 test: /\.css$/i,
@@ -27,7 +27,7 @@ module.exports = {
         ],
     },
     resolve: {
-        extensions: ['.js', '.jsx'],
+        extensions: ['.ts', '.tsx', '.js', '.jsx'],
     },
     plugins: [
         new MiniCssExtractPlugin({
