@@ -21,7 +21,7 @@ import './variables.less';
 import StartPage from './startPage/StartPage';
 import SearchPage from './searchPage/SearchPage';
 import MyAds from './myAds/MyAds';
-import reporteeReducer, { reporteeSaga } from './reportee/reporteeReducer';
+import reporteeReducer, { FETCH_REPORTEE, reporteeSaga } from './reportee/reporteeReducer';
 import adDataReducer, { adDataSaga } from './ad/adDataReducer';
 import adValidationReducer, { validationSaga } from './ad/adValidationReducer';
 import savedSearchAlertStripeReducer from './ad/alertstripe/SavedAdAlertStripeReducer';
@@ -84,7 +84,13 @@ const Main = () => {
 
     useEffect(() => {
         dispatch({ type: FETCH_FEATURE_TOGGLES });
-    }, [dispatch]);
+    }, []);
+
+    useEffect(() => {
+        if (nyDekoratør) {
+            dispatch({ type: FETCH_REPORTEE });
+        }
+    }, [nyDekoratør]);
 
     if (urlHasPath()) {
         redirectToUrlPath();
@@ -120,11 +126,9 @@ const Main = () => {
 
 ReactDOM.render(
     <Provider store={store}>
-        <div>
-            <Router history={history}>
-                <Main />
-            </Router>
-        </div>
+        <Router history={history}>
+            <Main />
+        </Router>
     </Provider>,
     document.getElementById('app')
 );
