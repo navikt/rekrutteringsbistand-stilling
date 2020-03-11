@@ -15,9 +15,12 @@ type Props = {
 
 const Tab: FunctionComponent<Props> = ({ config, erAktiv }) => {
     const { tittel, href, erSammeApp } = config;
-    const className = erAktiv
-        ? 'navigeringsmeny__tab navigeringsmeny__tab--aktiv'
-        : 'navigeringsmeny__tab';
+
+    let className = 'navigeringsmeny__tab';
+
+    if (erAktiv) {
+        className += ' navigeringsmeny__tab--aktiv';
+    }
 
     return erSammeApp ? (
         <Link className={className} to={href}>

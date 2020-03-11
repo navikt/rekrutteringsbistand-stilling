@@ -74,19 +74,17 @@ const Navigeringsmeny: FunctionComponent<Props> = props => {
     const { pathname }: Location = useLocation();
 
     return (
-        <nav className="navigeringsmeny">
-            <div className="navigeringsmeny__tabs">
-                <Link className="navigeringsmeny__forside" to="/">
-                    <Hus />
-                </Link>
+        <div className="navigeringsmeny">
+            <nav className="navigeringsmeny__tabs">
+                <Hus href="/" erAktiv={pathname === '/'} />
                 {tabs.map(tab => (
                     <Tab key={tab.href} config={tab} erAktiv={pathname === tab.href} />
                 ))}
-            </div>
+            </nav>
             <div className="navigeringsmeny__nyheter">
                 <NyttIRekrutteringsbistand orientering={'under-hoyre' as any} />
             </div>
-        </nav>
+        </div>
     );
 };
 
