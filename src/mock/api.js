@@ -17,6 +17,9 @@ const municipals = require('./json/municipals.json');
 const categoriesWithAltnames = require('./json/categories-with-altnames.json');
 const postdata = require('./json/postdata.json');
 const search = require('./json/search.json');
+const aktivEnhet = require('./json/dekoratør/aktivenhet.json');
+const aktivBruker = require('./json/dekoratør/aktivbruker.json');
+const decorator = require('./json/dekoratør/decorator.json');
 
 const adsUrl = `${apiUrl}/ads`;
 const reporteeUrl = `${apiUrl}/reportee/`;
@@ -31,6 +34,12 @@ const postdataUrl = `${apiUrl}/postdata/`;
 const identUrl = `${baseUrl}/rekruttering/ident/`;
 const featuresUrl = `${baseUrl}/features/`;
 const searchApiUrl = `${baseUrl}/search-api/`;
+
+const modiacontextholderApiUrl = '/modiacontextholder/api';
+const modiacontextholderAktivEnhetUrl = `${modiacontextholderApiUrl}/context/aktivenhet`;
+const modiacontextholderAktivBrukerUrl = `${modiacontextholderApiUrl}/context/aktivbruker`;
+const modiacontextholderContextUrl = `${modiacontextholderApiUrl}/context`;
+const modiacontextholderDecoratorUrl = `${modiacontextholderApiUrl}/decorator`;
 
 const med = begynnelseAvUrl => url => url.startsWith(begynnelseAvUrl);
 
@@ -51,5 +60,8 @@ fetchMock
     .get(postdataUrl, postdata)
     .get(med(searchApiUrl), search)
     .post(med(searchApiUrl), search)
-    .get(med(featuresUrl + 'rekrutteringsbistand.ny-dekorator'), () => true)
-    .get(med(featuresUrl), () => true);
+    .get(med(featuresUrl), () => true)
+    .get(modiacontextholderAktivEnhetUrl, aktivEnhet)
+    .get(modiacontextholderAktivBrukerUrl, aktivBruker)
+    .get(modiacontextholderDecoratorUrl, decorator)
+    .post(modiacontextholderContextUrl, 200);
