@@ -35,6 +35,7 @@ import featureTogglesReducer, {
     featureTogglesSaga,
     FETCH_FEATURE_TOGGLES,
 } from './featureToggles/featureTogglesReducer';
+import navKontorReducer from './navKontor/navKontorReducer.ts';
 import Dekoratør from './dekoratør/Dekoratør.tsx';
 
 const sagaMiddleware = createSagaMiddleware();
@@ -59,6 +60,7 @@ const store = createStore(
         recruitment: recruitmentReducer,
         recruitmentData: recruitmentDataReducer,
         featureToggles: featureTogglesReducer,
+        navKontor: navKontorReducer,
     }),
     composeEnhancers(applyMiddleware(sagaMiddleware))
 );
