@@ -11,6 +11,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import '../../node_modules/@navikt/nytt-i-rekrutteringsbistand/lib/nytt.css';
 import 'pam-frontend-header/dist/style.css';
 import './Navigeringsmeny.less';
+import State from '../State';
 
 const tabs: TabConfig[] = [
     {
@@ -37,7 +38,7 @@ const tabs: TabConfig[] = [
 
 const Navigeringsmeny: FunctionComponent = () => {
     const { pathname }: Location = useLocation();
-    const { hasChanges } = useSelector(state => state.ad);
+    const { hasChanges } = useSelector((state: State) => state.ad);
     const dispatch = useDispatch();
 
     const visForlatSidenModal = (leaveUrl: String) =>
