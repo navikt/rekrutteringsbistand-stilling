@@ -15,6 +15,7 @@ import filterLocationReducer, {
 import locationAreaReducer, { locationAreaSaga } from './ad/edit/location/locationAreaReducer';
 import Ad from './ad/Ad';
 import { MinestillingerHeader, Rekrutteringsbisstand, StillingssokHeader } from './topmenu/TopMenu';
+import Navigeringsmeny from './navigeringsmeny/Navigeringsmeny.tsx';
 import './styles.less';
 import './variables.less';
 import StartPage from './startPage/StartPage';
@@ -92,12 +93,18 @@ const Main = () => {
 
     return (
         <main>
-            {nyDekoratør && <Dekoratør />}
-            <Switch>
-                <Route path="/minestillinger" component={MinestillingerHeader} />
-                <Route path="/stillinger" component={StillingssokHeader} />
-                <Route path="/" component={Rekrutteringsbisstand} />
-            </Switch>
+            {nyDekoratør ? (
+                <>
+                    <Dekoratør />
+                    <Navigeringsmeny />
+                </>
+            ) : (
+                <Switch>
+                    <Route path="/minestillinger" component={MinestillingerHeader} />
+                    <Route path="/stillinger" component={StillingssokHeader} />
+                    <Route path="/" component={Rekrutteringsbisstand} />
+                </Switch>
+            )}
             <Switch>
                 <Route exact path="/" component={StartPage} />
                 <Route exact path="/minestillinger" component={MyAds} />
