@@ -4,6 +4,8 @@ import { Undertittel } from 'nav-frontend-typografi';
 import { formatISOString } from '../../../utils';
 
 export default function Summary({ ad }) {
+    const eksternStillingslenke = `https://www.nav.no/arbeid/stilling/${ad.uuid}`;
+
     return (
         <div className="detail-section">
             <Undertittel className="detail-section__head">Om annonsen</Undertittel>
@@ -15,6 +17,14 @@ export default function Summary({ ad }) {
                 {ad.medium && [<dt key="dt">Hentet fra:</dt>, <dd key="dd">{ad.medium}</dd>]}
                 {ad.reference && [<dt key="dt">Referanse:</dt>, <dd key="dd">{ad.reference}</dd>]}
                 {ad.id && [<dt key="dt">Annonsenummer:</dt>, <dd key="dd">{ad.id}</dd>]}
+                {ad.uuid && [
+                    <dt key="dt">Lenke til annonse:</dt>,
+                    <dd key="dd">
+                        <a className="lenke" href={eksternStillingslenke}>
+                            {eksternStillingslenke}
+                        </a>
+                    </dd>,
+                ]}
             </dl>
         </div>
     );
