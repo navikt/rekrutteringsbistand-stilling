@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import { Undertittel } from 'nav-frontend-typografi';
 import { formatISOString } from '../../../utils';
 import KopierTekst from '../../kopierTekst/KopierTekst';
+import { VIS_STILLING_URL } from '../../../fasitProperties';
 
 export default function Summary({ ad }) {
-    const eksternStillingslenke = `https://www.nav.no/arbeid/stilling/${ad.uuid}`;
+    const lenkeTilAnnonse = `${VIS_STILLING_URL}/${ad.uuid}`;
 
     return (
         <div className="detail-section">
@@ -22,12 +23,12 @@ export default function Summary({ ad }) {
                     ad.source === 'DIR' && [
                         <dt key="dt">Lenke til annonse:</dt>,
                         <dd key="dd">
-                            <a className="lenke" href={eksternStillingslenke}>
-                                {eksternStillingslenke}
+                            <a className="lenke" href={lenkeTilAnnonse}>
+                                {lenkeTilAnnonse}
                             </a>
                             <KopierTekst
                                 tooltipTekst="Kopier annonselenken"
-                                skalKopieres={eksternStillingslenke}
+                                skalKopieres={lenkeTilAnnonse}
                             />
                         </dd>,
                     ]}

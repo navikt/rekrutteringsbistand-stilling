@@ -1,13 +1,14 @@
-import React, { FunctionComponent, createRef } from 'react';
+import React, { FunctionComponent } from 'react';
 import './LenkeTilAnnonse.less';
 import KopierTekst from '../../kopierTekst/KopierTekst';
+import { VIS_STILLING_URL } from '../../../fasitProperties';
 
 interface Props {
     stillingId: string;
 }
 
 const LenkeTilAnnonse: FunctionComponent<Props> = ({ stillingId }) => {
-    const lenkeTilAnnonse = `https://www.nav.no/arbeid/stilling/${stillingId}`;
+    const lenkeTilAnnonse = `${VIS_STILLING_URL}/${stillingId}`;
 
     return (
         <>

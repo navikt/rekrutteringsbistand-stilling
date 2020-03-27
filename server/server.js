@@ -27,7 +27,8 @@ const writeEnvironmentVariablesToFile = () => {
         `window.__PAM_SEARCH_API__="${process.env.REKRUTTERINGSBISTAND_API_SEARCH_URL}";\n` +
         `window.__PAM_CONTEXT_PATH__="";\n` +
         `window.__PAM_LOGIN_URL__="${process.env.LOGIN_URL}";\n` +
-        `window.__PAM_KANDIDATLISTE_API_URL__="/kandidater/rest/veileder";\n`;
+        `window.__PAM_KANDIDATLISTE_API_URL__="/kandidater/rest/veileder";\n` +
+        `window.__VIS_STILLING_URL__"${process.env.VIS_STILLING_URL}";\n`;
 
     fs.writeFile(path.resolve(__dirname, 'dist/js/env.js'), fileContent, err => {
         if (err) throw err;
