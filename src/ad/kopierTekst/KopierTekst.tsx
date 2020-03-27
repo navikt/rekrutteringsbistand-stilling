@@ -8,8 +8,6 @@ interface Props {
     skalKopieres?: string;
 }
 
-const tidTil;
-
 const KopierTekst: FunctionComponent<Props> = ({ tooltipTekst, skalKopieres }) => {
     const buttonRef = useRef<HTMLButtonElement>(null);
     const [erKopiertPopup, toggleErKopiertPopup] = useState<HTMLButtonElement | undefined>(
