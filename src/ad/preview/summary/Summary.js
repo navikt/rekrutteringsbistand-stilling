@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Undertittel } from 'nav-frontend-typografi';
 import { formatISOString } from '../../../utils';
+import KopierTekst from '../../kopierTekst/KopierTekst';
 
 export default function Summary({ ad }) {
     const eksternStillingslenke = `https://www.nav.no/arbeid/stilling/${ad.uuid}`;
@@ -23,6 +24,10 @@ export default function Summary({ ad }) {
                         <a className="lenke" href={eksternStillingslenke}>
                             {eksternStillingslenke}
                         </a>
+                        <KopierTekst
+                            tooltipTekst="Kopier annonselenken"
+                            skalKopieres={eksternStillingslenke}
+                        />
                     </dd>,
                 ]}
             </dl>
