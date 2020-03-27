@@ -119,7 +119,7 @@ class Edit extends React.Component {
                             />
                             <Input label="Hentet fra/kilde" value={ad.medium || ''} disabled />
                             <Input label="Annonsenummer" value={ad.id || ''} disabled />
-                            <LenkeTilAnnonse stillingId={ad.uuid} />
+                            {ad.source === 'DIR' && <LenkeTilAnnonse stillingId={ad.uuid} />}
                         </Ekspanderbartpanel>
                     </Column>
                 </Row>

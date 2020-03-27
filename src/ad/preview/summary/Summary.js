@@ -18,18 +18,19 @@ export default function Summary({ ad }) {
                 {ad.medium && [<dt key="dt">Hentet fra:</dt>, <dd key="dd">{ad.medium}</dd>]}
                 {ad.reference && [<dt key="dt">Referanse:</dt>, <dd key="dd">{ad.reference}</dd>]}
                 {ad.id && [<dt key="dt">Annonsenummer:</dt>, <dd key="dd">{ad.id}</dd>]}
-                {ad.uuid && [
-                    <dt key="dt">Lenke til annonse:</dt>,
-                    <dd key="dd">
-                        <a className="lenke" href={eksternStillingslenke}>
-                            {eksternStillingslenke}
-                        </a>
-                        <KopierTekst
-                            tooltipTekst="Kopier annonselenken"
-                            skalKopieres={eksternStillingslenke}
-                        />
-                    </dd>,
-                ]}
+                {ad.uuid &&
+                    ad.source === 'DIR' && [
+                        <dt key="dt">Lenke til annonse:</dt>,
+                        <dd key="dd">
+                            <a className="lenke" href={eksternStillingslenke}>
+                                {eksternStillingslenke}
+                            </a>
+                            <KopierTekst
+                                tooltipTekst="Kopier annonselenken"
+                                skalKopieres={eksternStillingslenke}
+                            />
+                        </dd>,
+                    ]}
             </dl>
         </div>
     );
