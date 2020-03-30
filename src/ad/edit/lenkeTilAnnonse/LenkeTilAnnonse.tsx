@@ -1,14 +1,14 @@
 import React, { FunctionComponent } from 'react';
-import './LenkeTilAnnonse.less';
+import { hentAnnonselenke } from '../../adUtils';
 import KopierTekst from '../../kopierTekst/KopierTekst';
-import { VIS_STILLING_URL } from '../../../fasitProperties';
+import './LenkeTilAnnonse.less';
 
 interface Props {
     stillingId: string;
 }
 
 const LenkeTilAnnonse: FunctionComponent<Props> = ({ stillingId }) => {
-    const lenkeTilAnnonse = `${VIS_STILLING_URL}/${stillingId}`;
+    const lenke = hentAnnonselenke(stillingId);
 
     return (
         <>
@@ -21,9 +21,9 @@ const LenkeTilAnnonse: FunctionComponent<Props> = ({ stillingId }) => {
                     id="lenke-til-annonse-input"
                     type="text"
                     className="typo-normal skjemaelement__input input--fullbredde lenke-til-annonse__input"
-                    value={lenkeTilAnnonse}
+                    value={lenke}
                 />
-                <KopierTekst tooltipTekst="Kopier annonselenken" skalKopieres={lenkeTilAnnonse} />
+                <KopierTekst tooltipTekst="Kopier annonselenken" skalKopieres={lenke} />
             </div>
         </>
     );

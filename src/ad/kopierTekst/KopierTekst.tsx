@@ -42,9 +42,7 @@ const KopierTekst: FunctionComponent<Props> = ({ tooltipTekst, skalKopieres }) =
                 ankerEl={erKopiertPopup}
                 onRequestClose={() => toggleErKopiertPopup(undefined)}
             >
-                <Normaltekst className="kopier-tekst__popup">
-                    Annonselenken ble kopiert!
-                </Normaltekst>
+                <Normaltekst className="kopier-tekst__popup">Annonselenken ble kopiert</Normaltekst>
             </Popover>
         </>
     );
