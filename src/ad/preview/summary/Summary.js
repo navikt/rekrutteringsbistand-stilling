@@ -20,7 +20,7 @@ export default function Summary({ ad }) {
                 {ad.reference && [<dt key="dt">Referanse:</dt>, <dd key="dd">{ad.reference}</dd>]}
                 {ad.id && [<dt key="dt">Annonsenummer:</dt>, <dd key="dd">{ad.id}</dd>]}
                 {ad.uuid &&
-                    (ad.status !== 'INACTIVE' || ad.deactivatedByExpiry) && [
+                    (ad.status !== 'INACTIVE' || ad.deactivatedByExpiry !== false) && [
                         <dt key="dt">Lenke til annonse:</dt>,
                         <dd key="dd">
                             <a className="lenke" href={lenkeTilAnnonse}>

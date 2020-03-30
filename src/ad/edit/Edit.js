@@ -119,7 +119,7 @@ class Edit extends React.Component {
                             />
                             <Input label="Hentet fra/kilde" value={ad.medium || ''} disabled />
                             <Input label="Annonsenummer" value={ad.id || ''} disabled />
-                            {(ad.status !== 'INACTIVE' || ad.deactivatedByExpiry) && (
+                            {(ad.status !== 'INACTIVE' || ad.deactivatedByExpiry !== false) && (
                                 <LenkeTilAnnonse stillingId={ad.uuid} />
                             )}
                         </Ekspanderbartpanel>
