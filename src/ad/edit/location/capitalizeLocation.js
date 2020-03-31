@@ -17,7 +17,7 @@ export default function capitalizeLocation(text) {
             const fragments = capitalized.split(separators[i]);
             for (let j = 0, x = fragments.length; j < x; j += 1) {
                 if (!ignore.includes(fragments[j])) {
-                    fragments[j] = fragments[j][0].toUpperCase() + fragments[j].substr(1);
+                    fragments[j] = (fragments[j][0] || '').toUpperCase() + fragments[j].substr(1);
                 }
             }
             capitalized = fragments.join(separators[i]);
