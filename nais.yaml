@@ -42,3 +42,5 @@ spec:
           value: https://arbeidsgiver.nais.adeo.no/rekrutteringsbistand-api/rekruttering/
         - name: REKRUTTERINGSBISTAND_API_SEARCH_URL
           value: https://arbeidsgiver.nais.adeo.no/rekrutteringsbistand-api/search-api/
+        - name: VIS_STILLING_URL
+          value: https://www.nav.no/arbeid/stilling

@@ -35,6 +35,7 @@ module.exports = env =>
                 __PAM_LOGIN_URL__:
                     "'http://localhost:9501/rekrutteringsbistand-api/local/cookie-isso'",
                 __PAM_KANDIDATLISTE_API_URL__: "'http://localhost:8766/kandidater/rest/veileder'",
+                __VIS_STILLING_URL__: "'https://www-q0.nav.no/arbeid/stilling'",
                 MOCK_APP: env.MOCK_APP,
             }),
             new HtmlWebpackPlugin({

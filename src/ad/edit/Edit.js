@@ -20,6 +20,8 @@ import TokenExpirationChecker, {
     TOKEN_HAS_EXPIRED,
 } from './session/TokenExpirationChecker';
 import SessionExpirationModal from './session/SessionExpirationModal';
+import LenkeTilAnnonse from './lenkeTilAnnonse/LenkeTilAnnonse';
+import { stillingErPublisert } from '../adUtils';
 
 class Edit extends React.Component {
     constructor(props) {
@@ -118,6 +120,7 @@ class Edit extends React.Component {
                             />
                             <Input label="Hentet fra/kilde" value={ad.medium || ''} disabled />
                             <Input label="Annonsenummer" value={ad.id || ''} disabled />
+                            {stillingErPublisert(ad) && <LenkeTilAnnonse stillingId={ad.uuid} />}
                         </Ekspanderbartpanel>
                     </Column>
                 </Row>
