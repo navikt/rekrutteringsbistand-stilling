@@ -16,7 +16,7 @@ import {
 import { getAdStatusLabel } from '../../common/enums/getEnumLabels';
 
 const DropDownItem = ({ label, onClick, active, helpText, refProp }) => {
-    const handleKeyDown = event => {
+    const handleKeyDown = (event) => {
         if ((event.keyCode === 13 || event.keyCode === 32) && active) {
             onClick();
         }
@@ -95,7 +95,7 @@ const ResultItemDropDown = ({ ad, copyAd, stopAd, deleteAd, setVisible }) => {
 
     const willBePublished = ad.status === AdStatusEnum.INACTIVE && ad.activationOnPublishingDate;
 
-    const onItemClick = action => {
+    const onItemClick = (action) => {
         action(ad.uuid);
         setVisible(false);
     };
@@ -149,10 +149,10 @@ ResultItemDropDown.propTypes = {
     setVisible: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = dispatch => ({
-    stopAd: uuid => dispatch({ type: SHOW_STOP_MODAL_MY_ADS, uuid }),
-    deleteAd: uuid => dispatch({ type: SHOW_DELETE_MODAL_MY_ADS, uuid }),
-    copyAd: uuid => dispatch({ type: COPY_AD_FROM_MY_ADS, uuid }),
+const mapDispatchToProps = (dispatch) => ({
+    stopAd: (uuid) => dispatch({ type: SHOW_STOP_MODAL_MY_ADS, uuid }),
+    deleteAd: (uuid) => dispatch({ type: SHOW_DELETE_MODAL_MY_ADS, uuid }),
+    copyAd: (uuid) => dispatch({ type: COPY_AD_FROM_MY_ADS, uuid }),
 });
 
 export default connect(null, mapDispatchToProps)(ResultItemDropDown);

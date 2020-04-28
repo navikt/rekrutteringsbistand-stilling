@@ -10,18 +10,18 @@ import capitalizeEmployerName from './capitalizeEmployerName';
 import capitalizeLocation from '../location/capitalizeLocation';
 
 class EmployerName extends React.Component {
-    onTypeAheadValueChange = value => {
+    onTypeAheadValueChange = (value) => {
         this.props.setEmployerTypeaheadValue(value);
         this.props.fetchEmployerSuggestions();
     };
 
-    onTypeAheadValueBlur = value => {
+    onTypeAheadValueBlur = (value) => {
         if (value.length === 0) {
             this.props.setEmployer();
         }
     };
 
-    onTypeAheadSuggestionSelected = employer => {
+    onTypeAheadSuggestionSelected = (employer) => {
         if (employer) {
             const found = this.lookUpEmployer(employer.value);
             this.props.setEmployer(found);
@@ -31,7 +31,7 @@ class EmployerName extends React.Component {
         }
     };
 
-    getEmployerSuggestionLabel = suggestion => {
+    getEmployerSuggestionLabel = (suggestion) => {
         let commaSeparate = [];
         if (suggestion.location) {
             if (suggestion.location.address) {
@@ -56,9 +56,9 @@ class EmployerName extends React.Component {
         );
     };
 
-    lookUpEmployer = value =>
+    lookUpEmployer = (value) =>
         this.props.suggestions.find(
-            employer =>
+            (employer) =>
                 employer.name.toLowerCase() === value.toLowerCase() ||
                 employer.orgnr === value.replace(/\s/g, '')
         );
@@ -81,12 +81,12 @@ class EmployerName extends React.Component {
                         onBlur={this.onTypeAheadValueBlur}
                         onSelect={this.onTypeAheadSuggestionSelected}
                         onChange={this.onTypeAheadValueChange}
-                        suggestions={this.props.suggestions.map(suggestion => ({
+                        suggestions={this.props.suggestions.map((suggestion) => ({
                             value: suggestion.orgnr,
                             label: this.getEmployerSuggestionLabel(suggestion),
                         }))}
                         value={this.props.typeAheadValue}
-                        ref={instance => {
+                        ref={(instance) => {
                             this.inputRef = instance;
                         }}
                         error={this.props.validation.employer !== undefined}
@@ -131,7 +131,7 @@ EmployerName.propTypes = {
     typeAheadValue: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     suggestions: state.employer.suggestions,
     employer: state.adData.employer,
     typeAheadValue: state.employer.typeAheadValue,
@@ -139,9 +139,9 @@ const mapStateToProps = state => ({
     validation: state.adValidation.errors,
 });
 
-const mapDispatchToProps = dispatch => ({
-    setEmployer: employer => dispatch({ type: SET_EMPLOYER, employer }),
-    setEmployerTypeaheadValue: value => dispatch({ type: SET_EMPLOYER_TYPEAHEAD_VALUE, value }),
+const mapDispatchToProps = (dispatch) => ({
+    setEmployer: (employer) => dispatch({ type: SET_EMPLOYER, employer }),
+    setEmployerTypeaheadValue: (value) => dispatch({ type: SET_EMPLOYER_TYPEAHEAD_VALUE, value }),
     fetchEmployerSuggestions: () => dispatch({ type: FETCH_EMPLOYER_SUGGESTIONS }),
 });
 

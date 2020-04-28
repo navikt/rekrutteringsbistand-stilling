@@ -59,7 +59,7 @@ export default function employerReducer(state = initialState, action) {
     }
 }
 
-const getTypeAheadValue = state => state.employer.typeAheadValue;
+const getTypeAheadValue = (state) => state.employer.typeAheadValue;
 
 function* getEmployerSuggestions() {
     const value = yield select(getTypeAheadValue);

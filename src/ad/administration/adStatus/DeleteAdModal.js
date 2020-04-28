@@ -53,12 +53,12 @@ DeleteAdModal.propTypes = {
     title: PropTypes.string,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     showDeleteAdModal: state.ad.showDeleteAdModal,
     title: state.adData.title,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
     closeModal: () => dispatch({ type: HIDE_DELETE_AD_MODAL }),
     deleteAd: () => dispatch({ type: DELETE_AD_FROM_MY_ADS }),
 });

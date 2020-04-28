@@ -70,13 +70,13 @@ StopAdModal.propTypes = {
     title: PropTypes.string,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     showStopAdModal: state.ad.showStopAdModal,
     validation: state.adValidation.errors,
     title: state.adData.title,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
     closeModal: () => dispatch({ type: HIDE_STOP_AD_MODAL }),
     stop: () => dispatch({ type: STOP_AD }),
     stopAdFromMyAds: () => dispatch({ type: STOP_AD_FROM_MY_ADS }),

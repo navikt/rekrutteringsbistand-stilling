@@ -248,7 +248,7 @@ AdStatusEdit.propTypes = {
     previewAd: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     adStatus: state.adData.status,
     createdBy: state.adData.createdBy,
     activationOnPublishingDate: state.adData.activationOnPublishingDate,
@@ -258,14 +258,14 @@ const mapStateToProps = state => ({
     validation: state.adValidation.errors,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
     publish: () => dispatch({ type: PUBLISH_AD }),
     stop: () => dispatch({ type: SHOW_STOP_AD_MODAL }),
     saveAd: () => dispatch({ type: SAVE_AD, showModal: true }),
     showHasChangesModal: () => dispatch({ type: SHOW_HAS_CHANGES_MODAL }),
     publishAdChanges: () => dispatch({ type: PUBLISH_AD_CHANGES }),
     previewAd: () => dispatch({ type: PREVIEW_EDIT_AD }),
-    reload: uuid => dispatch({ type: FETCH_AD, uuid, edit: false }),
+    reload: (uuid) => dispatch({ type: FETCH_AD, uuid, edit: false }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdStatusEdit);

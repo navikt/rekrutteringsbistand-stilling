@@ -64,7 +64,7 @@ export default function locationCodeReducer(state = initialState, action) {
                     state.locations === undefined || action.value.length === 0
                         ? []
                         : state.locations.filter(
-                              location =>
+                              (location) =>
                                   location.city
                                       .toLowerCase()
                                       .startsWith(action.value.toLowerCase()) ||

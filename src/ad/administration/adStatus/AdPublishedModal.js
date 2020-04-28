@@ -77,7 +77,7 @@ AdPublishedModal.propTypes = {
     published: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     showAdPublishedModal: state.ad.showAdPublishedModal,
     uuid: state.adData.uuid,
     adStatus: state.adData.status,
@@ -86,7 +86,7 @@ const mapStateToProps = state => ({
     isSavingAd: state.ad.isSavingAd,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
     closeModal: () => dispatch({ type: HIDE_AD_PUBLISHED_MODAL }),
 });
 

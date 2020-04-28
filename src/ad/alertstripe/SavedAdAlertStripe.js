@@ -45,7 +45,7 @@ SavedAdAlertStripe.propTypes = {
     limitedAccess: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     showAlertStripe: state.savedAdAlertStripe.showAlertStripe,
     alertStripeMode: state.savedAdAlertStripe.alertStripeMode,
     isSavingAd: state.ad.isSavingAd,

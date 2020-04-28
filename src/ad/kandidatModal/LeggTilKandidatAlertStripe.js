@@ -37,7 +37,7 @@ LeggTilKandidatAlertStripe.propTypes = {
     fodselsnummer: PropTypes.string,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     showAlertStripe: state.kandidat.showAlertStripe,
     alertStripeMode: state.kandidat.alertStripeMode,
     kandidat: state.kandidat.kandidat,

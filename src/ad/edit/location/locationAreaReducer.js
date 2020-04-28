@@ -41,7 +41,7 @@ export default function reducer(state = initialState, action) {
                     state.municipalsCountiesCache === undefined || action.value.length === 0
                         ? []
                         : state.municipalsCountiesCache
-                              .filter(mc =>
+                              .filter((mc) =>
                                   mc.name.toLowerCase().startsWith(action.value.toLowerCase())
                               )
                               .slice(0, 5),
@@ -49,18 +49,18 @@ export default function reducer(state = initialState, action) {
                     state.countriesCache === undefined || action.value.length === 0
                         ? []
                         : state.countriesCache
-                              .filter(country =>
+                              .filter((country) =>
                                   country.name.toLowerCase().startsWith(action.value.toLowerCase())
                               )
                               .slice(0, 5),
             };
         case FETCH_LOCATION_AREA_SUCCESS: {
             // Skal ikke være mulig å velge Norge, så fjerner Norge fra listen
-            const countries = action.response.countries.filter(l => l.code !== 'NO');
+            const countries = action.response.countries.filter((l) => l.code !== 'NO');
 
             // Fjerner fylker som også er i kommuner: Jan Mayen (22) + Oslo (03)
             const municipalsCounties = action.response.municipalsCounties.filter(
-                c => c.code !== '22' && c.code !== '03'
+                (c) => c.code !== '22' && c.code !== '03'
             );
 
             return {
@@ -109,6 +109,6 @@ function* fetchLocationArea() {
     }
 }
 
-export const locationAreaSaga = function*() {
+export const locationAreaSaga = function* () {
     yield takeLatest(FETCH_LOCATION_AREA_BEGIN, fetchLocationArea);
 };

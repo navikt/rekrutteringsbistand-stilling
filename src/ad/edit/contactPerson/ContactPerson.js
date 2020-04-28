@@ -11,28 +11,28 @@ import {
 import { Normaltekst } from 'nav-frontend-typografi';
 
 class ContactPerson extends React.Component {
-    onNameChange = e => {
+    onNameChange = (e) => {
         const { setContactPerson } = this.props;
         setContactPerson({
             name: e.target.value,
         });
     };
 
-    onTitleChange = e => {
+    onTitleChange = (e) => {
         const { setContactPerson } = this.props;
         setContactPerson({
             title: e.target.value,
         });
     };
 
-    onPhoneChange = e => {
+    onPhoneChange = (e) => {
         const { setContactPerson } = this.props;
         setContactPerson({
             phone: e.target.value,
         });
     };
 
-    onEmailChange = e => {
+    onEmailChange = (e) => {
         const { setContactPerson } = this.props;
         setContactPerson({
             email: e.target.value,
@@ -122,13 +122,13 @@ ContactPerson.propTypes = {
         contactpersonPhone: PropTypes.string,
     }).isRequired,
 };
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     contactList: state.adData.contactList,
     validation: state.adValidation.errors,
 });
 
-const mapDispatchToProps = dispatch => ({
-    setContactPerson: contactPerson => dispatch({ type: SET_CONTACT_PERSON, contactPerson }),
+const mapDispatchToProps = (dispatch) => ({
+    setContactPerson: (contactPerson) => dispatch({ type: SET_CONTACT_PERSON, contactPerson }),
     validateEmail: () => dispatch({ type: VALIDATE_CONTACTPERSON_EMAIL }),
     validatePhone: () => dispatch({ type: VALIDATE_CONTACTPERSON_PHONE }),
 });

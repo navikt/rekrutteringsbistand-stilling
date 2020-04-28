@@ -17,15 +17,15 @@ class Application extends React.Component {
         };
     }
 
-    onApplicationEmailChange = e => {
+    onApplicationEmailChange = (e) => {
         this.props.setApplicationEmail(e.target.value);
     };
 
-    onApplicationUrlChange = e => {
+    onApplicationUrlChange = (e) => {
         this.props.setApplicationUrl(e.target.value);
     };
 
-    onEmailChecked = e => {
+    onEmailChecked = (e) => {
         if (!e.target.checked) {
             this.props.setApplicationEmail('');
         }
@@ -34,7 +34,7 @@ class Application extends React.Component {
         });
     };
 
-    onLinkChecked = e => {
+    onLinkChecked = (e) => {
         if (!e.target.checked) {
             this.props.setApplicationUrl('');
         }
@@ -120,16 +120,16 @@ Application.propTypes = {
         applicationEmail: PropTypes.string,
     }).isRequired,
 };
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     applicationEmail: state.adData.properties.applicationemail,
     applicationUrl: state.adData.properties.applicationurl,
     validation: state.adValidation.errors,
 });
 
-const mapDispatchToProps = dispatch => ({
-    setApplicationEmail: applicationemail =>
+const mapDispatchToProps = (dispatch) => ({
+    setApplicationEmail: (applicationemail) =>
         dispatch({ type: SET_APPLICATIONEMAIL, applicationemail }),
-    setApplicationUrl: applicationurl => dispatch({ type: SET_APPLICATIONURL, applicationurl }),
+    setApplicationUrl: (applicationurl) => dispatch({ type: SET_APPLICATIONURL, applicationurl }),
     validateEmail: () => dispatch({ type: VALIDATE_APPLICATION_EMAIL }),
 });
 

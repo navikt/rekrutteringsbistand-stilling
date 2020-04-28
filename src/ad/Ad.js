@@ -169,7 +169,7 @@ Ad.propTypes = {
     hasChangesLeaveUrl: PropTypes.string,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     stilling: state.adData,
     isEditingAd: state.ad.isEditingAd,
     isLoadingAd: state.ad.isLoadingAd,
@@ -177,7 +177,7 @@ const mapStateToProps = state => ({
     hasChangesLeaveUrl: state.ad.hasChangesLeaveUrl,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
     getStilling: (uuid, edit) => dispatch({ type: FETCH_AD, uuid, edit }),
     createAd: () => dispatch({ type: CREATE_AD }),
     previewAd: () => dispatch({ type: PREVIEW_EDIT_AD }),

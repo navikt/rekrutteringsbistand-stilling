@@ -119,7 +119,7 @@ async function fetchAdsCommon(query, baseurl) {
 
     return {
         ...result,
-        content: result.content.map(ad => {
+        content: result.content.map((ad) => {
             if (ad.administration === null) {
                 return fixMissingAdministration(ad);
             }
@@ -136,7 +136,7 @@ export async function fetchMyAds(query) {
     return fetchAdsCommon(query, `${AD_API}ads/rekrutteringsbistand/minestillinger`);
 }
 
-const employerNameCompletionQueryTemplate = match => ({
+const employerNameCompletionQueryTemplate = (match) => ({
     query: {
         match_phrase: {
             navn_ngram_completion: {
@@ -157,7 +157,7 @@ export async function fetchEmployerNameCompletionHits(match) {
     return {
         match,
         result: [
-            ...result.hits.hits.map(employer => ({
+            ...result.hits.hits.map((employer) => ({
                 name: employer._source.navn,
                 orgnr: employer._source.organisasjonsnummer,
                 location: employer._source.adresse
@@ -182,7 +182,7 @@ export async function fetchOrgnrSuggestions(value) {
         match,
         result: [
             ...result.hits.hits
-                .map(employer => ({
+                .map((employer) => ({
                     name: employer._source.navn,
                     orgnr: employer._source.organisasjonsnummer,
                     location: employer._source.adresse

@@ -33,7 +33,7 @@ export default function filterLocationReducer(state = initialState, action) {
                     state.municipalsCache === undefined || action.value.length === 0
                         ? []
                         : state.municipalsCache
-                              .filter(municipal =>
+                              .filter((municipal) =>
                                   municipal.name
                                       .toLowerCase()
                                       .startsWith(action.value.toLowerCase())
@@ -43,7 +43,7 @@ export default function filterLocationReducer(state = initialState, action) {
                     state.countiesCache === undefined || action.value.length === 0
                         ? []
                         : state.countiesCache
-                              .filter(county =>
+                              .filter((county) =>
                                   county.name.toLowerCase().startsWith(action.value.toLowerCase())
                               )
                               .slice(0, 5),
@@ -81,6 +81,6 @@ function* fetchFilterLocations() {
     }
 }
 
-export const filterLocationSaga = function*() {
+export const filterLocationSaga = function* () {
     yield takeLatest(FETCH_FILTER_LOCATIONS_BEGIN, fetchFilterLocations);
 };

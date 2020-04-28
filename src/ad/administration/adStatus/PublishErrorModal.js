@@ -30,7 +30,7 @@ class PublishErrorModal extends React.Component {
                     </Normaltekst>
                     <ul className="blokk-s">
                         {Object.keys(validation).map(
-                            key =>
+                            (key) =>
                                 validation[key] && (
                                     <li className="skjemaelement__feilmelding" key={key}>
                                         {validation[key]}
@@ -60,12 +60,12 @@ PublishErrorModal.propTypes = {
     closeModal: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     validation: state.adValidation.errors,
     showPublishErrorModal: state.ad.showPublishErrorModal,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
     closeModal: () => dispatch({ type: HIDE_PUBLISH_ERROR_MODAL }),
 });
 

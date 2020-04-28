@@ -20,7 +20,7 @@ import DeleteAdModal from '../ad/administration/adStatus/DeleteAdModal';
 import { useEffect } from 'react';
 import Filter from './filter/Filter';
 
-const MyAds = props => {
+const MyAds = (props) => {
     const {
         ads,
         getAds,
@@ -88,7 +88,7 @@ const MyAds = props => {
                         <ResultHeader />
                         <tbody>
                             {adsFound &&
-                                ads.map(ad => (
+                                ads.map((ad) => (
                                     <ResultItem key={ad.uuid} ad={ad} reportee={reportee} />
                                 ))}
                         </tbody>
@@ -119,14 +119,14 @@ MyAds.propTypes = {
     clearCopiedAds: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     ads: state.myAds.items,
     reportee: state.reportee.data,
     isSearching: state.myAds.isSearching,
     error: state.myAds.error,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
     getAds: () => dispatch({ type: FETCH_MY_ADS }),
     resetMyAdsPage: () => dispatch({ type: RESET_MY_ADS_PAGE }),
     createAd: () => dispatch({ type: CREATE_AD }),

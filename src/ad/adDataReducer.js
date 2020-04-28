@@ -86,7 +86,7 @@ export function* findLocationByPostalCode(value) {
         state = yield select();
     }
     if (state.locationCode.locations) {
-        return state.locationCode.locations.find(location => location.postalCode === value);
+        return state.locationCode.locations.find((location) => location.postalCode === value);
     }
     return undefined;
 }
@@ -107,7 +107,7 @@ function isLocationInList(location, locationList) {
         isAlreadyAdded =
             locationList &&
             locationList.find(
-                item =>
+                (item) =>
                     item.country === location.country &&
                     !item.postalCode &&
                     !item.municipal &&
@@ -117,12 +117,12 @@ function isLocationInList(location, locationList) {
         isAlreadyAdded =
             locationList &&
             locationList.find(
-                item => item.county === location.county && !item.postalCode && !item.municipal
+                (item) => item.county === location.county && !item.postalCode && !item.municipal
             );
     } else if (location.municipal) {
         isAlreadyAdded =
             locationList &&
-            locationList.find(item => item.municipal === location.municipal && !item.postalCode);
+            locationList.find((item) => item.municipal === location.municipal && !item.postalCode);
     }
     return isAlreadyAdded;
 }
@@ -138,7 +138,8 @@ export default function adDataReducer(state = initialState, action) {
             return {
                 ...action.response,
                 locationList: action.response.locationList.filter(
-                    loc => loc.postalCode || loc.municipal || loc.county || loc.country !== 'NORGE'
+                    (loc) =>
+                        loc.postalCode || loc.municipal || loc.county || loc.country !== 'NORGE'
                 ), // filtrer vekk object med kun Norge
                 location: null,
             };
@@ -211,7 +212,7 @@ export default function adDataReducer(state = initialState, action) {
                 ...state,
                 location: null,
                 locationList: state.locationList.filter(
-                    loc => loc.postalCode || loc.municipal !== action.value
+                    (loc) => loc.postalCode || loc.municipal !== action.value
                 ),
             };
         case REMOVE_COUNTY:
@@ -219,7 +220,7 @@ export default function adDataReducer(state = initialState, action) {
                 ...state,
                 location: null,
                 locationList: state.locationList.filter(
-                    loc => loc.postalCode || loc.municipal || loc.county !== action.value
+                    (loc) => loc.postalCode || loc.municipal || loc.county !== action.value
                 ),
             };
         case REMOVE_COUNTRY:
@@ -227,7 +228,7 @@ export default function adDataReducer(state = initialState, action) {
                 ...state,
                 location: null,
                 locationList: state.locationList.filter(
-                    loc =>
+                    (loc) =>
                         loc.postalCode ||
                         loc.municipal ||
                         loc.county ||
@@ -261,7 +262,7 @@ export default function adDataReducer(state = initialState, action) {
             return {
                 ...state,
                 location: null,
-                locationList: state.locationList.filter(loc => !loc.postalCode),
+                locationList: state.locationList.filter((loc) => !loc.postalCode),
             };
         }
         case REMOVE_POSTAL_CODE_ADDRESS: {
@@ -284,7 +285,7 @@ export default function adDataReducer(state = initialState, action) {
             return {
                 ...state,
                 location: null,
-                locationList: state.locationList.filter(loc => !loc.address),
+                locationList: state.locationList.filter((loc) => !loc.address),
             };
         }
         case SET_EMPLOYMENT_JOBTITLE:
@@ -355,7 +356,7 @@ export default function adDataReducer(state = initialState, action) {
                 properties: {
                     ...state.properties,
                     workday: JSON.stringify(
-                        JSON.parse(state.properties.workday).filter(m => m !== action.value)
+                        JSON.parse(state.properties.workday).filter((m) => m !== action.value)
                     ),
                 },
             };
@@ -379,7 +380,7 @@ export default function adDataReducer(state = initialState, action) {
                 properties: {
                     ...state.properties,
                     workhours: JSON.stringify(
-                        JSON.parse(state.properties.workhours).filter(m => m !== action.value)
+                        JSON.parse(state.properties.workhours).filter((m) => m !== action.value)
                     ),
                 },
             };

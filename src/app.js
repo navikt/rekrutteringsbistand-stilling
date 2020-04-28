@@ -82,7 +82,7 @@ sagaMiddleware.run(featureTogglesSaga);
 
 const Main = () => {
     const dispatch = useDispatch();
-    const { nyDekoratør } = useSelector(state => state.featureToggles);
+    const { nyDekoratør } = useSelector((state) => state.featureToggles);
 
     useEffect(() => {
         dispatch({ type: FETCH_FEATURE_TOGGLES });

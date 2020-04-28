@@ -145,7 +145,7 @@ PreviewMenu.propTypes = {
     }),
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     rekrutteringData: state.recruitmentData,
     rekruttering: state.recruitment,
     stilling: state.adData,
@@ -155,7 +155,7 @@ const mapStateToProps = state => ({
     opprettKandidatlisteKnappIsEnabled: state.featureToggles.opprettKandidatlisteKnapp,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
     editAd: () => dispatch({ type: EDIT_AD }),
     leggTilIMineStillinger: () => dispatch({ type: LEGG_TIL_I_MINE_STILLINGER }),
     closeAlertstripe: () => dispatch({ type: CLOSE_TRANSFERRED_ALERT }),

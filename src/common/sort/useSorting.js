@@ -17,7 +17,7 @@ function useSorting(initialState, changeSorting) {
         }
     }, [sort]);
 
-    const toggleSorting = field => {
+    const toggleSorting = (field) => {
         // If field already sorted, change opposite direction
         // If field is a date, sort on desc
         // otherwise, sort on asc.

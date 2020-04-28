@@ -84,12 +84,12 @@ ResultHeader.propTypes = {
     sortField: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     sortDir: state.myAds.sortDir,
     sortField: state.myAds.sortField,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
     changeSorting: (field, dir) => dispatch({ type: CHANGE_MY_ADS_SORTING, field, dir }),
 });
 

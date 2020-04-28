@@ -5,7 +5,7 @@ import './PreviewHeader.less';
 import capitalizeLocation from '../../edit/location/capitalizeLocation';
 
 export function commaSeparate(...strings) {
-    const onlyStrings = strings.filter(string => typeof string === 'string' && string !== '');
+    const onlyStrings = strings.filter((string) => typeof string === 'string' && string !== '');
     return onlyStrings.join(', ');
 }
 

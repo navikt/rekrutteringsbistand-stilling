@@ -31,7 +31,7 @@ function* hentFeatureToggles() {
             FEATURE_OPPRETT_KANDIDATLISTE_KNAPP,
             FEATURE_VIS_NYHETER,
             FEATURE_NY_DEKORATØR,
-        ].map(feature => fetchGet(`${REKRUTTERINGSBISTAND_BASE_URL}/features/${feature}`))
+        ].map((feature) => fetchGet(`${REKRUTTERINGSBISTAND_BASE_URL}/features/${feature}`))
     );
 
     const featureToggles = {

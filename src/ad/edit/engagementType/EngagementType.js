@@ -8,7 +8,7 @@ import { createErrorObject } from '../../../common/utils';
 import './EngagementType.less';
 
 class EngagementType extends React.Component {
-    onEngagementTypeChange = e => {
+    onEngagementTypeChange = (e) => {
         this.props.setEngagementType(e.target.value);
     };
 
@@ -82,13 +82,13 @@ EngagementType.propTypes = {
     }).isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     engagementType: state.adData.properties.engagementtype,
     validation: state.adValidation.errors,
 });
 
-const mapDispatchToProps = dispatch => ({
-    setEngagementType: engagementType =>
+const mapDispatchToProps = (dispatch) => ({
+    setEngagementType: (engagementType) =>
         dispatch({ type: SET_EMPLOYMENT_ENGAGEMENTTYPE, engagementType }),
 });
 

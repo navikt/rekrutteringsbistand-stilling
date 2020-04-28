@@ -15,7 +15,7 @@ class Comment extends React.Component {
         };
     }
 
-    onChange = e => {
+    onChange = (e) => {
         this.setState({
             hasChanged: true,
             comments: e.target.value,
@@ -79,14 +79,14 @@ Comment.propTypes = {
     createdBy: PropTypes.string,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     comments: state.adData.administration.comments,
     validation: state.adValidation.errors,
     createdBy: state.adData.createdBy,
 });
 
-const mapDispatchToProps = dispatch => ({
-    setComment: comment => dispatch({ type: SET_COMMENT, comment }),
+const mapDispatchToProps = (dispatch) => ({
+    setComment: (comment) => dispatch({ type: SET_COMMENT, comment }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Comment);

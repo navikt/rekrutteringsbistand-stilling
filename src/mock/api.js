@@ -41,7 +41,7 @@ const modiacontextholderAktivBrukerUrl = `${modiacontextholderApiUrl}/context/ak
 const modiacontextholderContextUrl = `${modiacontextholderApiUrl}/context`;
 const modiacontextholderDecoratorUrl = `${modiacontextholderApiUrl}/decorator`;
 
-const med = begynnelseAvUrl => url => url.startsWith(begynnelseAvUrl);
+const med = (begynnelseAvUrl) => (url) => url.startsWith(begynnelseAvUrl);
 
 fetchMock
     .get(med(mineStillingerUrl), mineStillinger)

@@ -55,7 +55,7 @@ const Navigeringsmeny: FunctionComponent = () => {
         <div className="navigeringsmeny">
             <nav className="navigeringsmeny__tabs">
                 <Hus href="/" erAktiv={pathname === '/'} onClick={onClickTab('/')} />
-                {tabs.map(tab => (
+                {tabs.map((tab) => (
                     <Tab
                         key={tab.href}
                         config={tab}

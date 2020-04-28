@@ -147,11 +147,11 @@ Edit.propTypes = {
     saveAndLogin: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     ad: state.adData,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
     saveAndLogin: () => dispatch({ type: SAVE_AD, login: true }),
     resetValidation: () => dispatch({ type: RESET_VALIDATION_ERROR }),
 });

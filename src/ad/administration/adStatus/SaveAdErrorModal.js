@@ -78,12 +78,12 @@ SaveAdErrorModal.propTypes = {
     closeModal: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     validation: state.adValidation.errors,
     showAdSavedErrorModal: state.ad.showAdSavedErrorModal,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
     closeModal: () => dispatch({ type: HIDE_AD_SAVED_ERROR_MODAL }),
 });
 

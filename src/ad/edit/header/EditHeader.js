@@ -13,7 +13,7 @@ import CandidateActions from '../../candidateActions/CandidateActions';
 import Alertstripe from 'nav-frontend-alertstriper';
 
 class EditHeader extends React.Component {
-    onTitleChange = e => {
+    onTitleChange = (e) => {
         this.props.setAdTitle(e.target.value.replace(/^\s+/g, '')); // Regex for å fjerne whitespace
     };
 
@@ -80,13 +80,13 @@ EditHeader.propTypes = {
     }).isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     ad: state.adData,
     validation: state.adValidation.errors,
 });
 
-const mapDispatchToProps = dispatch => ({
-    setAdTitle: title => dispatch({ type: SET_AD_TITLE, title }),
+const mapDispatchToProps = (dispatch) => ({
+    setAdTitle: (title) => dispatch({ type: SET_AD_TITLE, title }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditHeader);

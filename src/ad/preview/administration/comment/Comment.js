@@ -53,7 +53,7 @@ Comment.propTypes = {
     comments: PropTypes.string,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     comments: state.adData.administration.comments,
 });
 

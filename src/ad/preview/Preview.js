@@ -34,7 +34,7 @@ export default function Preview({ ad }) {
                             </div>
                             <div className="HardRequirements__points">
                                 <ul>
-                                    {hardrequirements.map(r => (
+                                    {hardrequirements.map((r) => (
                                         <li className="typo-normal" key={r.punkt}>
                                             {r.punkt}
                                         </li>
@@ -50,7 +50,7 @@ export default function Preview({ ad }) {
                             </div>
                             <div className="SoftRequirements__points">
                                 <ul>
-                                    {softrequirements.map(r => (
+                                    {softrequirements.map((r) => (
                                         <li className="typo-normal" key={r.punkt}>
                                             {r.punkt}
                                         </li>
@@ -66,7 +66,7 @@ export default function Preview({ ad }) {
                             </div>
                             <div className="PersonalAttributes__points">
                                 <ul>
-                                    {personalattributes.map(r => (
+                                    {personalattributes.map((r) => (
                                         <li className="typo-normal" key={r.punkt}>
                                             {r.punkt}
                                         </li>

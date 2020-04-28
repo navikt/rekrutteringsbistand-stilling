@@ -6,7 +6,7 @@
 export default function toUrl(query) {
     let result = {};
 
-    Object.keys(query).forEach(key => {
+    Object.keys(query).forEach((key) => {
         if (query[key] !== undefined) {
             if (query[key] !== '') {
                 result = {
@@ -18,7 +18,7 @@ export default function toUrl(query) {
     });
 
     const urlQuery = Object.keys(result)
-        .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(result[key])}`)
+        .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(result[key])}`)
         .join('&')
         .replace(/%20/g, '+')
         .replace(/%2C/g, ',');

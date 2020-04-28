@@ -30,11 +30,11 @@ const writeEnvironmentVariablesToFile = () => {
         `window.__PAM_KANDIDATLISTE_API_URL__="/kandidater/rest/veileder";\n` +
         `window.__VIS_STILLING_URL__="${process.env.VIS_STILLING_URL}";\n`;
 
-    fs.writeFile(path.resolve(__dirname, 'dist/js/env.js'), fileContent, err => {
+    fs.writeFile(path.resolve(__dirname, 'dist/js/env.js'), fileContent, (err) => {
         if (err) throw err;
     });
 };
-const renderApp = htmlPages =>
+const renderApp = (htmlPages) =>
     new Promise((resolve, reject) => {
         server.render('./dist/index.html', htmlPages, (err, html) => {
             if (err) {
@@ -45,7 +45,7 @@ const renderApp = htmlPages =>
         });
     });
 
-const startServer = html => {
+const startServer = (html) => {
     writeEnvironmentVariablesToFile();
 
     server.use('/js', express.static(path.resolve(__dirname, 'dist/js')));
@@ -65,4 +65,4 @@ const startServer = html => {
 
 const logError = (errorMessage, details) => console.log(errorMessage, details);
 
-renderApp({}).then(startServer, error => logError('Failed to render app', error));
+renderApp({}).then(startServer, (error) => logError('Failed to render app', error));

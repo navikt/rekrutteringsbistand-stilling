@@ -15,17 +15,17 @@ class Styrk extends React.Component {
         this.props.fetchStyrk();
     }
 
-    onTypeAheadValueChange = value => {
+    onTypeAheadValueChange = (value) => {
         this.props.setTypeAheadValue(value);
     };
 
-    onTypeAheadBlur = value => {
+    onTypeAheadBlur = (value) => {
         if (value === '') {
             this.props.setStyrk(value);
         }
     };
 
-    onTypeAheadSuggestionSelected = suggestion => {
+    onTypeAheadSuggestionSelected = (suggestion) => {
         if (suggestion) {
             this.props.setStyrk(suggestion.value);
             if (
@@ -41,7 +41,7 @@ class Styrk extends React.Component {
         this.props.toggleList();
     };
 
-    renderLabel = styrk => (
+    renderLabel = (styrk) => (
         <div className="Styrk__typeahead__item">
             <Normaltekst>
                 {styrk.code}: {styrk.name}
@@ -85,13 +85,13 @@ class Styrk extends React.Component {
                     onSelect={this.onTypeAheadSuggestionSelected}
                     onChange={this.onTypeAheadValueChange}
                     onBlur={this.onTypeAheadBlur}
-                    suggestions={this.props.typeAheadSuggestions.map(styrk => ({
+                    suggestions={this.props.typeAheadSuggestions.map((styrk) => ({
                         value: styrk.code,
                         label: this.renderLabel(styrk),
                         name: styrk.name,
                     }))}
                     value={value}
-                    ref={instance => {
+                    ref={(instance) => {
                         this.inputRef = instance;
                     }}
                     error={this.props.validation.styrk !== undefined}
@@ -126,7 +126,7 @@ Styrk.propTypes = {
     setJobTitle: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     typeAheadValue: state.styrk.typeAheadValue,
     typeAheadSuggestions: state.styrk.typeAheadSuggestions,
     addedStyrkItems: state.styrk.addedStyrkItems,
@@ -136,11 +136,11 @@ const mapStateToProps = state => ({
     validation: state.adValidation.errors,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
     fetchStyrk: () => dispatch({ type: FETCH_STYRK }),
-    setTypeAheadValue: value => dispatch({ type: SET_STYRK_TYPEAHEAD_VALUE, value }),
-    setStyrk: code => dispatch({ type: SET_STYRK, code }),
-    setJobTitle: jobtitle => dispatch({ type: SET_EMPLOYMENT_JOBTITLE, jobtitle }),
+    setTypeAheadValue: (value) => dispatch({ type: SET_STYRK_TYPEAHEAD_VALUE, value }),
+    setStyrk: (code) => dispatch({ type: SET_STYRK, code }),
+    setJobTitle: (jobtitle) => dispatch({ type: SET_EMPLOYMENT_JOBTITLE, jobtitle }),
     toggleList: () => dispatch({ type: TOGGLE_STYRK_MODAL }),
 });
 

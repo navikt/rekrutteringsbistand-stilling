@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import Chevron from 'nav-frontend-chevron';
 
 export default class StyrkThreeItem extends React.Component {
-    onClick = e => {
+    onClick = (e) => {
         e.stopPropagation();
         this.props.onClick(this.props.item);
     };
@@ -45,7 +45,7 @@ export default class StyrkThreeItem extends React.Component {
                 )}
                 {item.expanded &&
                     item.children &&
-                    item.children.map(child => (
+                    item.children.map((child) => (
                         <StyrkThreeItem key={child.id} item={child} onClick={this.props.onClick} />
                     ))}
             </div>

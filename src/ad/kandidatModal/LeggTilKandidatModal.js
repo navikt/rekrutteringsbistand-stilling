@@ -63,7 +63,7 @@ class LeggTilKandidatModal extends React.Component {
         }
     }
 
-    onInputChange = event => {
+    onInputChange = (event) => {
         const { hentKandidatMedFnr, setFodselsnummer } = this.props;
         const fodselsnummer = event.target.value;
 
@@ -77,11 +77,11 @@ class LeggTilKandidatModal extends React.Component {
         }
     };
 
-    onNotatChange = event => {
+    onNotatChange = (event) => {
         this.props.setNotat(event.target.value);
     };
 
-    resetKandidat = message => {
+    resetKandidat = (message) => {
         const { resetHentKandidatMedFnr } = this.props;
         resetHentKandidatMedFnr();
         this.setState({
@@ -141,7 +141,7 @@ class LeggTilKandidatModal extends React.Component {
 
     kandidatenFinnesAllerede = () => {
         const kandidat = this.props.kandidatliste.kandidater.filter(
-            k => this.props.kandidat.arenaKandidatnr === k.kandidatnr
+            (k) => this.props.kandidat.arenaKandidatnr === k.kandidatnr
         );
         return kandidat.length > 0;
     };
@@ -182,7 +182,7 @@ class LeggTilKandidatModal extends React.Component {
                     feil={this.state.errorMessage && { feilmelding: this.state.errorMessage }}
                     bredde="S"
                     label="Fødselsnummer på kandidaten (11 siffer)"
-                    inputRef={input => {
+                    inputRef={(input) => {
                         this.fnrinput = input;
                     }}
                 />
@@ -214,7 +214,7 @@ class LeggTilKandidatModal extends React.Component {
                             : undefined
                     }
                     onChange={this.onNotatChange}
-                    textareaRef={textArea => {
+                    textareaRef={(textArea) => {
                         this.textArea = textArea;
                     }}
                 />
@@ -260,7 +260,7 @@ LeggTilKandidatModal.propTypes = {
     stillingsid: PropTypes.string,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     fodselsnummer: state.kandidat.fodselsnummer,
     kandidatStatus: state.kandidat.kandidatStatus,
     kandidat: state.kandidat.kandidat,
@@ -269,13 +269,13 @@ const mapStateToProps = state => ({
     notat: state.kandidat.notat,
 });
 
-const mapDispatchToProps = dispatch => ({
-    hentKandidatliste: stillingsnummer => dispatch({ type: HENT_KANDIDATLISTE, stillingsnummer }),
-    hentKandidatMedFnr: fodselsnummer => dispatch({ type: HENT_KANDIDAT_MED_FNR, fodselsnummer }),
+const mapDispatchToProps = (dispatch) => ({
+    hentKandidatliste: (stillingsnummer) => dispatch({ type: HENT_KANDIDATLISTE, stillingsnummer }),
+    hentKandidatMedFnr: (fodselsnummer) => dispatch({ type: HENT_KANDIDAT_MED_FNR, fodselsnummer }),
     leggTilKandidatMedFnr: (kandidat, id) => dispatch({ type: LEGG_TIL_KANDIDAT, kandidat, id }),
     resetHentKandidatMedFnr: () => dispatch({ type: HENT_KANDIDAT_MED_FNR_RESET }),
-    setFodselsnummer: fodselsnummer => dispatch({ type: SET_FODSELSNUMMER, fodselsnummer }),
-    setNotat: notat => dispatch({ type: SET_NOTAT, notat }),
+    setFodselsnummer: (fodselsnummer) => dispatch({ type: SET_FODSELSNUMMER, fodselsnummer }),
+    setNotat: (notat) => dispatch({ type: SET_NOTAT, notat }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LeggTilKandidatModal);

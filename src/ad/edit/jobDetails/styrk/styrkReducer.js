@@ -21,19 +21,18 @@ function categoryMatchesQuery(category, query) {
     const queryLc = query.toLowerCase();
     return (
         category.name.toLowerCase().indexOf(queryLc) !== -1 ||
-        category.alternativeNames.some(altName => altName.toLowerCase().indexOf(queryLc) !== -1) ||
+        category.alternativeNames.some(
+            (altName) => altName.toLowerCase().indexOf(queryLc) !== -1
+        ) ||
         category.code.startsWith(query) ||
-        category.code
-            .split('.')
-            .join('')
-            .startsWith(query)
+        category.code.split('.').join('').startsWith(query)
     );
 }
 
 function createDefaultStyrkThree(categories, parentId = null) {
     return categories
-        .filter(category => category.parentId === parentId)
-        .map(c => {
+        .filter((category) => category.parentId === parentId)
+        .map((c) => {
             const children = createDefaultStyrkThree(categories, c.id);
             if (children.length > 0) {
                 return {
@@ -54,10 +53,11 @@ function createDefaultStyrkThree(categories, parentId = null) {
 }
 
 function filterStyrkThree(categories, query) {
-    return categories.map(category => {
+    return categories.map((category) => {
         if (category.children) {
             const ch = filterStyrkThree(category.children, query);
-            const match = categoryMatchesQuery(category, query) || ch.filter(c => c.visible).length;
+            const match =
+                categoryMatchesQuery(category, query) || ch.filter((c) => c.visible).length;
             return {
                 ...category,
                 expanded: match,
@@ -70,14 +70,14 @@ function filterStyrkThree(categories, query) {
             ...category,
             visible: match,
             alternativeNames: category.alternativeNames.filter(
-                altName => altName.toLowerCase().indexOf(query.toLowerCase()) !== -1
+                (altName) => altName.toLowerCase().indexOf(query.toLowerCase()) !== -1
             ),
         };
     });
 }
 
 function collapseStrykThreeBranch(categories, code) {
-    return categories.map(category => {
+    return categories.map((category) => {
         if (code.startsWith(category.code)) {
             return {
                 ...category,
@@ -92,7 +92,7 @@ function collapseStrykThreeBranch(categories, code) {
 }
 
 function expandStyrkThreeBranch(categories, code) {
-    return categories.map(category => {
+    return categories.map((category) => {
         if (code.startsWith(category.code)) {
             return {
                 ...category,
@@ -108,17 +108,17 @@ function expandStyrkThreeBranch(categories, code) {
 
 function filterTypeAheadSuggestions(categories, query) {
     return categories
-        .filter(s => s.code.length >= 6 && categoryMatchesQuery(s, query))
-        .map(category => ({
+        .filter((s) => s.code.length >= 6 && categoryMatchesQuery(s, query))
+        .map((category) => ({
             ...category,
             alternativeNames: category.alternativeNames.filter(
-                altName => altName.toLowerCase().indexOf(query.toLowerCase()) !== -1
+                (altName) => altName.toLowerCase().indexOf(query.toLowerCase()) !== -1
             ),
         }));
 }
 
 export function lookUpStyrk(code, categories = originalData) {
-    return categories.find(s => s.code === code);
+    return categories.find((s) => s.code === code);
 }
 
 const initialState = {

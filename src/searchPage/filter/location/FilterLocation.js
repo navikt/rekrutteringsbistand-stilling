@@ -18,12 +18,12 @@ class FilterLocation extends React.Component {
         this.props.fetchLocations();
     }
 
-    onLocationSelect = value => {
+    onLocationSelect = (value) => {
         const county = this.props.counties.find(
-            c => c.name.toLowerCase() === value.label.toLowerCase()
+            (c) => c.name.toLowerCase() === value.label.toLowerCase()
         );
         const municipal = this.props.municipals.find(
-            m => m.name.toLowerCase() === value.label.toLowerCase()
+            (m) => m.name.toLowerCase() === value.label.toLowerCase()
         );
 
         const locationArray = this.getLocationAsArray(this.props.locationName);
@@ -38,36 +38,36 @@ class FilterLocation extends React.Component {
         this.props.changeLocationFilter(locationArray.join(', '));
     };
 
-    onLocationChange = value => {
+    onLocationChange = (value) => {
         if (value !== undefined) {
             this.props.setTypeAheadValue(value);
         }
     };
 
-    onBlur = e => {
+    onBlur = (e) => {
         this.onLocationSelect({ label: e });
     };
 
-    onSubmit = e => {
+    onSubmit = (e) => {
         e.preventDefault();
         const locationArray = this.getLocationAsArray(this.props.locationName);
         this.props.changeLocationFilter(locationArray.join(', '));
     };
 
-    onRemoveLocation = location => {
+    onRemoveLocation = (location) => {
         const locationArray = this.getLocationAsArray(this.props.locationName);
         const newLocationArray = locationArray.filter(
-            item => item.toLowerCase() !== location.toLowerCase()
+            (item) => item.toLowerCase() !== location.toLowerCase()
         );
         this.props.changeLocationFilter(newLocationArray.join(', '));
     };
 
-    getLocationAsArray = locationName => {
+    getLocationAsArray = (locationName) => {
         return locationName ? locationName.split(', ') : [];
     };
 
     valueAlreadyInList = (value, list) =>
-        list && list.find(a => a.toLowerCase() === value.toLowerCase()) !== undefined;
+        list && list.find((a) => a.toLowerCase() === value.toLowerCase()) !== undefined;
 
     render() {
         const locationArray = this.getLocationAsArray(this.props.locationName);
@@ -81,11 +81,11 @@ class FilterLocation extends React.Component {
                         onChange={this.onLocationChange}
                         onSelect={this.onLocationSelect}
                         onBlur={this.onBlur}
-                        suggestions={this.props.municipals.map(m => ({
+                        suggestions={this.props.municipals.map((m) => ({
                             value: m.code,
                             label: capitalizeLocation(m.name),
                         }))}
-                        optionalSuggestions={this.props.counties.map(c => ({
+                        optionalSuggestions={this.props.counties.map((c) => ({
                             value: c.code,
                             label: capitalizeLocation(c.name),
                         }))}
@@ -104,7 +104,7 @@ class FilterLocation extends React.Component {
                 </div>
                 {locationArray.length > 0 && (
                     <div className="FilterLocation__tags">
-                        {locationArray.map(location => {
+                        {locationArray.map((location) => {
                             if (location) {
                                 return (
                                     <Tag
@@ -147,17 +147,17 @@ FilterLocation.propTypes = {
     changeLocationFilter: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     municipals: state.filterLocation.municipals,
     counties: state.filterLocation.counties,
     typeaheadValue: state.filterLocation.typeaheadValue,
     locationName: state.search.locationName,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
     fetchLocations: () => dispatch({ type: FETCH_FILTER_LOCATIONS_BEGIN }),
-    setTypeAheadValue: value => dispatch({ type: SET_FILTER_LOCATION_TYPE_AHEAD, value }),
-    changeLocationFilter: location => dispatch({ type: CHANGE_LOCATION_FILTER, location }),
+    setTypeAheadValue: (value) => dispatch({ type: SET_FILTER_LOCATION_TYPE_AHEAD, value }),
+    changeLocationFilter: (location) => dispatch({ type: CHANGE_LOCATION_FILTER, location }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FilterLocation);

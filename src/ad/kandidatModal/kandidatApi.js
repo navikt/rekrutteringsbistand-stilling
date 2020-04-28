@@ -16,12 +16,12 @@ export const postKandidaterTilKandidatliste = (kandidatlisteId, kandidater) =>
         JSON.stringify(kandidater)
     );
 
-export const fetchKandidatMedFnr = fnr => fetchJson(`${KANDIDATSOK_API}/fnrsok/${fnr}`);
+export const fetchKandidatMedFnr = (fnr) => fetchJson(`${KANDIDATSOK_API}/fnrsok/${fnr}`);
 
-export const putKandidatliste = stillingsId =>
+export const putKandidatliste = (stillingsId) =>
     putRequest(`${KANDIDATLISTE_API}/stilling/${stillingsId}/kandidatliste/`);
 
-export const fetchKandidatliste = stillingsId =>
+export const fetchKandidatliste = (stillingsId) =>
     fetchJson(`${KANDIDATLISTE_API}/stilling/${stillingsId}/kandidatliste`, true);
 
 async function postJson(url, bodyString) {
@@ -86,7 +86,7 @@ const throwError = (message, status) => {
     throw new KandidatSokError({ message, status });
 };
 
-const getCookie = name => {
+const getCookie = (name) => {
     const re = new RegExp(`${name}=([^;]+)`);
     const match = re.exec(document.cookie);
     return match !== null ? match[1] : '';

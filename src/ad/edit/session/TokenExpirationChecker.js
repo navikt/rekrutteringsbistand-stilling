@@ -31,7 +31,7 @@ export default class TokenExpirationChecker extends EventEmitter {
         this.removeAllListeners();
     }
 
-    timeout = ms => new Promise(resolve => (this.timeoutId = setTimeout(resolve, ms)));
+    timeout = (ms) => new Promise((resolve) => (this.timeoutId = setTimeout(resolve, ms)));
 
     dispatchTokenExpired() {
         this.emit(TOKEN_HAS_EXPIRED);

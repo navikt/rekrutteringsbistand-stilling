@@ -27,7 +27,7 @@ export default function savedSearchAlertStripeReducer(state = initialState, acti
     }
 }
 
-const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export function* showAlertStripe(mode) {
     yield put({ type: SHOW_SAVED_AD_ALERT_STRIPE, mode });

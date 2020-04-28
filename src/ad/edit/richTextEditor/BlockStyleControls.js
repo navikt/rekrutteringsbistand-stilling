@@ -17,7 +17,7 @@ const BlockStyleControls = ({ editorState, onToggle }) => {
 
     return (
         <div className="RichTextEditor__controls">
-            {BLOCK_TYPES.map(type => (
+            {BLOCK_TYPES.map((type) => (
                 <StyleButton
                     key={type.label}
                     active={type.style === blockType}
