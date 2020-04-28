@@ -56,13 +56,13 @@ AdminStatusPreview.propTypes = {
     saveAd: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = dispatch => ({
-    setReportee: reportee => dispatch({ type: SET_REPORTEE, reportee }),
-    setNavIdent: navIdent => dispatch({ type: SET_NAV_IDENT, navIdent }),
+const mapDispatchToProps = (dispatch) => ({
+    setReportee: (reportee) => dispatch({ type: SET_REPORTEE, reportee }),
+    setNavIdent: (navIdent) => dispatch({ type: SET_NAV_IDENT, navIdent }),
     saveAd: () => dispatch({ type: SAVE_AD }),
 });
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     administration: state.adData.administration,
     reportee: state.reportee.data,
 });

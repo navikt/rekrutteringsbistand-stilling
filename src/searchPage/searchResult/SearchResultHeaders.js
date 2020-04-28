@@ -85,12 +85,12 @@ SearchResultHeaders.propTypes = {
     sortField: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     sortDir: state.search.sortDir,
     sortField: state.search.sortField,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
     changeSorting: (field, dir) => dispatch({ type: CHANGE_SORTING, field, dir }),
 });
 

@@ -28,27 +28,27 @@ function adjustTwitterLink(url) {
 }
 
 class Employer extends React.Component {
-    onEmployerNameChange = e => {
+    onEmployerNameChange = (e) => {
         this.props.setEmployerName(e.target.value);
     };
 
-    onEmployerDescriptionChange = employerDescription => {
+    onEmployerDescriptionChange = (employerDescription) => {
         this.props.setEmployerDescription(employerDescription);
     };
 
-    onEmployerHomepageChange = e => {
+    onEmployerHomepageChange = (e) => {
         this.props.setEmployerHomepage(e.target.value);
     };
 
-    onFacebookpageChange = e => {
+    onFacebookpageChange = (e) => {
         this.props.setFacebookpage(e.target.value);
     };
 
-    onLinkedinpageChange = e => {
+    onLinkedinpageChange = (e) => {
         this.props.setLinkedinpage(e.target.value);
     };
 
-    onTwitteraddressChange = e => {
+    onTwitteraddressChange = (e) => {
         this.props.setTwitteraddress(e.target.value);
     };
 
@@ -137,7 +137,7 @@ class Employer extends React.Component {
                             onChange={this.onFacebookpageChange}
                             onBlur={this.completeFacebookLink}
                             placeholder="For eksempel: facebook.com/firmanavn"
-                            inputRef={i => {
+                            inputRef={(i) => {
                                 this.focusField = i;
                             }}
                         />
@@ -182,19 +182,19 @@ Employer.propTypes = {
     setTwitteraddress: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     ad: state.adData,
 });
 
-const mapDispatchToProps = dispatch => ({
-    setEmployerName: employername => dispatch({ type: SET_EMPLOYER_NAME, employername }),
-    setEmployerHomepage: employerhomepage =>
+const mapDispatchToProps = (dispatch) => ({
+    setEmployerName: (employername) => dispatch({ type: SET_EMPLOYER_NAME, employername }),
+    setEmployerHomepage: (employerhomepage) =>
         dispatch({ type: SET_EMPLOYER_HOMEPAGE, employerhomepage }),
-    setEmployerDescription: employerdescription =>
+    setEmployerDescription: (employerdescription) =>
         dispatch({ type: SET_EMPLOYERDESCRIPTION, employerdescription }),
-    setFacebookpage: facebookpage => dispatch({ type: SET_FACEBOOK_PAGE, facebookpage }),
-    setLinkedinpage: linkedinpage => dispatch({ type: SET_LINKEDIN_PAGE, linkedinpage }),
-    setTwitteraddress: twitteraddress => dispatch({ type: SET_TWITTER_ADDRESS, twitteraddress }),
+    setFacebookpage: (facebookpage) => dispatch({ type: SET_FACEBOOK_PAGE, facebookpage }),
+    setLinkedinpage: (linkedinpage) => dispatch({ type: SET_LINKEDIN_PAGE, linkedinpage }),
+    setTwitteraddress: (twitteraddress) => dispatch({ type: SET_TWITTER_ADDRESS, twitteraddress }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Employer);

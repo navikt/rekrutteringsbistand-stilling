@@ -7,7 +7,7 @@ import AdStatusEnum from '../../common/enums/AdStatusEnum';
 import { getAdStatusLabel } from '../../common/enums/getEnumLabels';
 
 class StatusFilter extends React.Component {
-    onFilterChange = e => {
+    onFilterChange = (e) => {
         if (e.target.value === 'alle') {
             this.props.changeStatusFilter(undefined, undefined);
         } else if (e.target.value === 'utløpt') {
@@ -33,9 +33,9 @@ class StatusFilter extends React.Component {
                     </option>
                     {Object.keys(AdStatusEnum)
                         .filter(
-                            key => key !== AdStatusEnum.REJECTED && key !== AdStatusEnum.DELETED
+                            (key) => key !== AdStatusEnum.REJECTED && key !== AdStatusEnum.DELETED
                         )
-                        .map(key => (
+                        .map((key) => (
                             <option key={key} value={key}>
                                 {getAdStatusLabel(AdStatusEnum[key])}
                             </option>
@@ -58,11 +58,11 @@ StatusFilter.propTypes = {
     changeStatusFilter: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     status: state.myAds.status,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
     changeStatusFilter: (status, deactivatedByExpiry) =>
         dispatch({ type: CHANGE_MY_ADS_STATUS_FILTER, status, deactivatedByExpiry }),
 });

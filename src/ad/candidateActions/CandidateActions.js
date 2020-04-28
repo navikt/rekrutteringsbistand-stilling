@@ -15,7 +15,7 @@ class CandidateActions extends React.Component {
         };
     }
 
-    onNavigationClick = url => e => {
+    onNavigationClick = (url) => (e) => {
         if (this.props.hasChanges) {
             e.preventDefault();
             this.props.showHasChangesModal(url);
@@ -88,14 +88,14 @@ CandidateActions.propTypes = {
     showHasChangesModal: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     ad: state.adData,
     hasChanges: state.ad.hasChanges,
     recruitment: state.recruitmentData,
 });
 
-const mapDispatchToProps = dispatch => ({
-    showHasChangesModal: leaveUrl => dispatch({ type: SHOW_HAS_CHANGES_MODAL, leaveUrl }),
+const mapDispatchToProps = (dispatch) => ({
+    showHasChangesModal: (leaveUrl) => dispatch({ type: SHOW_HAS_CHANGES_MODAL, leaveUrl }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CandidateActions);

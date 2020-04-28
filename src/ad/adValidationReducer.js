@@ -43,7 +43,7 @@ export const RESET_VALIDATION_ERROR = 'RESET_VALIDATION_ERROR';
 
 export const MAX_LENGTH_COMMENT = 500;
 
-const valueIsNotSet = value => value === undefined || value === null || value.length === 0;
+const valueIsNotSet = (value) => value === undefined || value === null || value.length === 0;
 
 function* validateLocation() {
     const state = yield select();
@@ -112,7 +112,7 @@ export function* validateStyrk() {
 }
 
 export function* validateTitle() {
-    const adTitle = yield select(state => state.adData.title);
+    const adTitle = yield select((state) => state.adData.title);
     if (valueIsNotSet(adTitle) || adTitle === DEFAULT_TITLE_NEW_AD) {
         yield put({
             type: ADD_VALIDATION_ERROR,
@@ -125,7 +125,7 @@ export function* validateTitle() {
 }
 
 function* validateAdtext() {
-    const adText = yield select(state => state.adData.properties.adtext);
+    const adText = yield select((state) => state.adData.properties.adtext);
     if (valueIsNotSet(adText)) {
         yield put({
             type: ADD_VALIDATION_ERROR,
@@ -194,7 +194,7 @@ function* validatePublishDate() {
 }
 
 function* validateApplicationEmail() {
-    const email = yield select(state => state.adData.properties.applicationemail);
+    const email = yield select((state) => state.adData.properties.applicationemail);
 
     // E-postadressen må inneholde en '@' for å være gyldig
     const error = email && email.length > 0 && email.indexOf('@') === -1;
@@ -211,7 +211,7 @@ function* validateApplicationEmail() {
 }
 
 function* validateContactpersonEmail() {
-    const contactperson = yield select(state => state.adData.contactList[0]);
+    const contactperson = yield select((state) => state.adData.contactList[0]);
 
     // E-postadressen må inneholde en '@' for å være gyldig
     const error =
@@ -232,7 +232,7 @@ function* validateContactpersonEmail() {
 }
 
 function* validateContactpersonPhone() {
-    const contactperson = yield select(state => state.adData.contactList[0]);
+    const contactperson = yield select((state) => state.adData.contactList[0]);
 
     const error =
         contactperson &&
@@ -252,7 +252,7 @@ function* validateContactpersonPhone() {
 }
 
 export function* validateComment() {
-    const comments = yield select(state => state.adData.administration.comments);
+    const comments = yield select((state) => state.adData.administration.comments);
 
     if (comments && comments.length > MAX_LENGTH_COMMENT) {
         yield put({

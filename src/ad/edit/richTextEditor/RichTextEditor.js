@@ -16,12 +16,12 @@ import HeaderStylesDropdown from './HeaderStylesDropdown';
 import UndoRedoButtons from './UndoRedoButtons';
 import './RichTextEditor.less';
 
-export const checkIfEmptyInput = value => {
+export const checkIfEmptyInput = (value) => {
     const emptySpaceOrNotWordRegex = /^(\s|\W)+$/g;
     return value.length === 0 || emptySpaceOrNotWordRegex.test(value);
 };
 
-export const isEmptyPTag = value => {
+export const isEmptyPTag = (value) => {
     // remove whitespaces
     let strippedValue = value.replace(/\s/g, '');
     // remove empty html tags
@@ -30,7 +30,7 @@ export const isEmptyPTag = value => {
 };
 
 const findLinkEntities = (contentBlock, callback, contentState) => {
-    contentBlock.findEntityRanges(character => {
+    contentBlock.findEntityRanges((character) => {
         const entityKey = character.getEntity();
         return entityKey !== null && contentState.getEntity(entityKey).getType() === 'LINK';
     }, callback);
@@ -46,7 +46,7 @@ const styles = {
     },
 };
 
-const Link = props => {
+const Link = (props) => {
     const { url } = props.contentState.getEntity(props.entityKey).getData();
     return (
         <a href={url} style={styles.link}>
@@ -55,7 +55,7 @@ const Link = props => {
     );
 };
 
-const blockStyleFunction = contentBlock => {
+const blockStyleFunction = (contentBlock) => {
     const type = contentBlock.getType();
     if (type === 'unstyled') {
         return 'RichTextEditor__paragraph';
@@ -90,7 +90,7 @@ export default class RichTextEditor extends React.Component {
         }
     }
 
-    onChange = editorState => {
+    onChange = (editorState) => {
         const redoDisabled = editorState.getRedoStack().count() === 0;
         const undoDisabled = editorState.getUndoStack().count() === 0;
         this.setState({
@@ -120,11 +120,11 @@ export default class RichTextEditor extends React.Component {
         }
     };
 
-    onToggleBlockType = blockType => {
+    onToggleBlockType = (blockType) => {
         this.onChange(RichUtils.toggleBlockType(this.state.editorState, blockType));
     };
 
-    onToggleInlineStyle = inlineStyle => {
+    onToggleInlineStyle = (inlineStyle) => {
         const { editorState } = this.state;
         const editorStateFocused = EditorState.forceSelection(
             editorState,

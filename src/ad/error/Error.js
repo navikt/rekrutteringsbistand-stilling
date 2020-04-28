@@ -57,7 +57,7 @@ Error.propTypes = {
     }),
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     error: state.ad.error,
 });
 

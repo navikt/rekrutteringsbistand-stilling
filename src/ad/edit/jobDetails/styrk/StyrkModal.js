@@ -10,7 +10,7 @@ import StyrkThree from './StyrkThree';
 import './StyrkModal.less';
 
 class StyrkModal extends React.Component {
-    onInputChange = e => {
+    onInputChange = (e) => {
         this.props.setStyrkSearchString(e.target.value);
     };
 
@@ -62,12 +62,12 @@ StyrkModal.propTypes = {
     toggleList: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     styrkSearchString: state.styrk.styrkSearchString,
 });
 
-const mapDispatchToProps = dispatch => ({
-    setStyrkSearchString: value => dispatch({ type: SET_STRYK_SEARCH_STRING, value }),
+const mapDispatchToProps = (dispatch) => ({
+    setStyrkSearchString: (value) => dispatch({ type: SET_STRYK_SEARCH_STRING, value }),
     resetStyrkThree: () => dispatch({ type: RESET_STYRK_THREE }),
     toggleList: () => dispatch({ type: TOGGLE_STYRK_MODAL }),
 });

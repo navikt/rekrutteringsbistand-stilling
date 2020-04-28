@@ -8,14 +8,14 @@ const Inkludering = ({ tags }) => {
     const harNoenTagsFraKategori = useCallback(
         ({ harUnderkategorier, underkategorier }) =>
             harUnderkategorier &&
-            underkategorier.some(underkategori => tags.includes(underkategori.tag)),
+            underkategorier.some((underkategori) => tags.includes(underkategori.tag)),
         [tags]
     );
 
     const fjernUbrukteTagsFraKategori = useCallback(
-        kategori => ({
+        (kategori) => ({
             ...kategori,
-            underkategorier: kategori.underkategorier.filter(underkategori =>
+            underkategorier: kategori.underkategorier.filter((underkategori) =>
                 tags.includes(underkategori.tag)
             ),
         }),
@@ -23,7 +23,7 @@ const Inkludering = ({ tags }) => {
     );
 
     const kategorierMedNavn = hentKategorierMedNavn();
-    const overordnedeTags = kategorierMedNavn.filter(kategori => tags.includes(kategori.tag));
+    const overordnedeTags = kategorierMedNavn.filter((kategori) => tags.includes(kategori.tag));
     const underordnedeTags = overordnedeTags
         .filter(harNoenTagsFraKategori)
         .map(fjernUbrukteTagsFraKategori);
@@ -42,7 +42,7 @@ const Inkludering = ({ tags }) => {
     );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
     const tagsString = state.adData.properties.tags;
     const tags = tagsString != undefined ? JSON.parse(tagsString) : [];
 
@@ -51,6 +51,6 @@ const mapStateToProps = state => {
     };
 };
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = (dispatch) => ({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Inkludering);

@@ -18,11 +18,11 @@ export default class Typeahead extends React.Component {
     }
 
     static getDerivedStateFromProps(props) {
-        return (props.suggestions.length === 1)
+        return props.suggestions.length === 1
             ? {
-                activeSuggestionIndex: 0,
-            }
-            : null
+                  activeSuggestionIndex: 0,
+              }
+            : null;
     }
 
     componentWillUnmount() {
@@ -35,7 +35,7 @@ export default class Typeahead extends React.Component {
     /**
      * Vil skje hver gang man legger til eller fjerner en bokstav fra inputfeltet
      */
-    onChange = e => {
+    onChange = (e) => {
         const { value } = e.target;
         this.setState({
             activeSuggestionIndex: 0, // Nullstill eventuelt markering av et forslag i listen
@@ -48,7 +48,7 @@ export default class Typeahead extends React.Component {
      * Behandler tastaturnavigasjon i forslagslisten.
      * @param e
      */
-    onKeyDown = e => {
+    onKeyDown = (e) => {
         let { activeSuggestionIndex } = this.state;
         const hasSelectedSuggestion = activeSuggestionIndex > -1;
 
@@ -69,7 +69,7 @@ export default class Typeahead extends React.Component {
                     ) {
                         this.setValue(
                             this.props.optionalSuggestions[
-                            activeSuggestionIndex - this.props.suggestions.length
+                                activeSuggestionIndex - this.props.suggestions.length
                             ]
                         );
                     } else {
@@ -119,10 +119,10 @@ export default class Typeahead extends React.Component {
                     if (this.props.optionalSuggestions !== undefined) {
                         activeSuggestionIndex =
                             activeSuggestionIndex + 1 ===
-                                this.props.suggestions.length + this.props.optionalSuggestions.length
+                            this.props.suggestions.length + this.props.optionalSuggestions.length
                                 ? this.props.suggestions.length +
-                                this.props.optionalSuggestions.length -
-                                1
+                                  this.props.optionalSuggestions.length -
+                                  1
                                 : activeSuggestionIndex + 1;
                     } else {
                         activeSuggestionIndex =
@@ -157,7 +157,7 @@ export default class Typeahead extends React.Component {
      * suggestions-listen. Men når man trykker med musen på et forslag, trenger vi
      * at forslagene ikke skjules, slik at setValue rekker å bli kjørt.
      */
-    onBlur = e => {
+    onBlur = (e) => {
         const value = e.target.value;
         this.blurDelay = setTimeout(() => {
             if (this.shouldBlur) {
@@ -176,7 +176,7 @@ export default class Typeahead extends React.Component {
      * eller når man man fører musen over et forslag.
      * @param index
      */
-    setSuggestionIndex = index => {
+    setSuggestionIndex = (index) => {
         this.setState({
             activeSuggestionIndex: index,
         });
@@ -187,7 +187,7 @@ export default class Typeahead extends React.Component {
      * Setter valgt forslag, og skjuler forslagslisten.
      * @param suggestion
      */
-    setValue = suggestion => {
+    setValue = (suggestion) => {
         this.setState(
             {
                 shouldShowSuggestions: false,
@@ -264,7 +264,7 @@ export default class Typeahead extends React.Component {
                         onBlur={this.onBlur}
                         onKeyDown={this.onKeyDown}
                         onFocus={this.onFocus}
-                        ref={input => {
+                        ref={(input) => {
                             this.input = input;
                         }}
                         className={classNames('Typeahead__input typo-normal', {
@@ -363,7 +363,7 @@ export default class Typeahead extends React.Component {
                     onBlur={this.onBlur}
                     onKeyDown={this.onKeyDown}
                     onFocus={this.onFocus}
-                    ref={input => {
+                    ref={(input) => {
                         this.input = input;
                     }}
                     className={classNames('Typeahead__input typo-normal', {

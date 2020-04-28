@@ -13,7 +13,7 @@ const InlineStyleControls = ({ editorState, onToggle }) => {
     const currentStyle = editorState.getCurrentInlineStyle();
     return (
         <div className="RichTextEditor__controls">
-            {INLINE_STYLES.map(type => (
+            {INLINE_STYLES.map((type) => (
                 <StyleButton
                     key={type.label}
                     active={currentStyle.has(type.style)}

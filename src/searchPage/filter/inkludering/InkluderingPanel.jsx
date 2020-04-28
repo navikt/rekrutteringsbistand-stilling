@@ -6,11 +6,11 @@ import { hentKategorierMedNavn } from '../../../ad/tagHelpers';
 import { Fieldset, Checkbox } from 'nav-frontend-skjema';
 
 const InkluderingPanel = ({ tags, checkTag, uncheckTag }) => {
-    const onTagChange = e => {
+    const onTagChange = (e) => {
         e.target.checked ? checkTag(e.target.value) : uncheckTag(e.target.value);
     };
 
-    const tagIsChecked = tag => tags.includes(tag);
+    const tagIsChecked = (tag) => tags.includes(tag);
     const kategorierMedNavn = hentKategorierMedNavn();
 
     return kategorierMedNavn.map(({ tag, navn, harUnderkategorier, underkategorier }) => (
@@ -53,15 +53,15 @@ InkluderingPanel.defaultProps = {
     tags: [],
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
     return {
         tags: state.search.tags,
     };
 };
 
-const mapDispatchToProps = dispatch => ({
-    checkTag: value => dispatch({ type: CHECK_TAG_SOK, value }),
-    uncheckTag: value => dispatch({ type: UNCHECK_TAG_SOK, value }),
+const mapDispatchToProps = (dispatch) => ({
+    checkTag: (value) => dispatch({ type: CHECK_TAG_SOK, value }),
+    uncheckTag: (value) => dispatch({ type: UNCHECK_TAG_SOK, value }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(InkluderingPanel);

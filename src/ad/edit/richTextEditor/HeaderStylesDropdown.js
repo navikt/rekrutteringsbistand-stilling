@@ -4,7 +4,7 @@ import { Select } from 'nav-frontend-skjema';
 import './RichTextEditor.less';
 
 export default class HeaderStylesDropdown extends React.Component {
-    onSelect = e => {
+    onSelect = (e) => {
         this.props.onToggle(e.target.value);
     };
 
@@ -32,7 +32,7 @@ export default class HeaderStylesDropdown extends React.Component {
                 onChange={this.onSelect}
                 aria-label="Velg header element"
             >
-                {HEADERS.map(type => (
+                {HEADERS.map((type) => (
                     <option key={type.style} value={type.style}>
                         {type.label}
                     </option>

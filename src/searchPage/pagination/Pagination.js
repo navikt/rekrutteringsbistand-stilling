@@ -51,13 +51,13 @@ Pagination.propTypes = {
     changePage: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     totalPages: state.search.totalPages,
     page: state.search.page,
 });
 
-const mapDispatchToProps = dispatch => ({
-    changePage: page => dispatch({ type: CHANGE_PAGE, page }),
+const mapDispatchToProps = (dispatch) => ({
+    changePage: (page) => dispatch({ type: CHANGE_PAGE, page }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Pagination);

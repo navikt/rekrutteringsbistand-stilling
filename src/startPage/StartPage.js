@@ -38,7 +38,7 @@ class StartPage extends React.Component {
                             <LenkepanelBase
                                 href="/minestillinger"
                                 border
-                                linkCreator={props => <Link to="/minestillinger" {...props} />}
+                                linkCreator={(props) => <Link to="/minestillinger" {...props} />}
                             >
                                 <div className="StartPage__panel-flex">
                                     <div className="StartPage__icon-copy" />
@@ -52,7 +52,7 @@ class StartPage extends React.Component {
                             <LenkepanelBase
                                 href="/stilling"
                                 border
-                                linkCreator={props => <Link to={newAdRoute} {...props} />}
+                                linkCreator={(props) => <Link to={newAdRoute} {...props} />}
                             >
                                 <div className="StartPage__panel-flex">
                                     <div className="StartPage__icon-pen" />
@@ -99,7 +99,7 @@ StartPage.propTypes = {
 
 const mapStateToProps = () => ({});
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
     fetchReportee: () => dispatch({ type: FETCH_REPORTEE }),
     resetSearch: () => dispatch({ type: RESET_SEARCH }),
 });

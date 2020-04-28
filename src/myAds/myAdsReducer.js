@@ -123,7 +123,7 @@ function* getMyAds() {
 
         const recruitmentResponse = yield fetchRecruitmentsForVeileder(reportee.navIdent);
 
-        const stillingsids = recruitmentResponse.map(r => r.stillingsid).join(',');
+        const stillingsids = recruitmentResponse.map((r) => r.stillingsid).join(',');
 
         const search = {
             ...state.myAds,

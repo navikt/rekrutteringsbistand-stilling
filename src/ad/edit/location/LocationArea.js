@@ -19,15 +19,15 @@ class LocationArea extends React.Component {
         this.props.fetchLocationArea();
     }
 
-    onLocationAreaSelect = value => {
+    onLocationAreaSelect = (value) => {
         const { municipalsCounties, countries, addLocationArea, validateLocationArea } = this.props;
 
-        const country = countries.find(c => c.name.toLowerCase() === value.label.toLowerCase());
+        const country = countries.find((c) => c.name.toLowerCase() === value.label.toLowerCase());
         const county = municipalsCounties.find(
-            c => !c.countyCode && c.name.toLowerCase() === value.label.toLowerCase()
+            (c) => !c.countyCode && c.name.toLowerCase() === value.label.toLowerCase()
         );
         const municipal = municipalsCounties.find(
-            m => m.countyCode && m.name.toLowerCase() === value.label.toLowerCase()
+            (m) => m.countyCode && m.name.toLowerCase() === value.label.toLowerCase()
         );
 
         if (municipal) {
@@ -47,38 +47,38 @@ class LocationArea extends React.Component {
         validateLocationArea();
     };
 
-    onLocationAreaChange = value => {
+    onLocationAreaChange = (value) => {
         if (value !== undefined) {
             this.props.setTypeAheadValue(value);
         }
     };
 
-    onBlur = e => {
+    onBlur = (e) => {
         this.onLocationAreaSelect({ label: e });
     };
 
-    onRemoveMunicipal = municipal => {
+    onRemoveMunicipal = (municipal) => {
         this.props.removeMunicipal(municipal);
     };
 
-    onRemoveCountry = country => {
+    onRemoveCountry = (country) => {
         this.props.removeCountry(country);
     };
 
-    onRemoveCounty = county => {
+    onRemoveCounty = (county) => {
         this.props.removeCounty(county);
     };
 
-    locationIsMunicipal = location => location && location.municipal && !location.postalCode;
+    locationIsMunicipal = (location) => location && location.municipal && !location.postalCode;
 
-    locationIsCountry = location =>
+    locationIsCountry = (location) =>
         location &&
         location.country &&
         !location.postalCode &&
         !location.municipal &&
         !location.county;
 
-    locationIsCounty = location => location && location.county && !location.postalCode;
+    locationIsCounty = (location) => location && location.county && !location.postalCode;
 
     render() {
         const {
@@ -98,11 +98,11 @@ class LocationArea extends React.Component {
                     onBlur={this.onBlur}
                     label="Skriv inn kommune, fylke eller land"
                     suggestionsLabel="Kommune eller fylke"
-                    suggestions={municipalsCounties.map(mc => ({
+                    suggestions={municipalsCounties.map((mc) => ({
                         value: mc.code,
                         label: capitalizeLocation(mc.name),
                     }))}
-                    optionalSuggestions={countries.map(c => ({
+                    optionalSuggestions={countries.map((c) => ({
                         value: c.code,
                         label: capitalizeLocation(c.name),
                     }))}
@@ -116,7 +116,7 @@ class LocationArea extends React.Component {
                 )}
                 {locationList && locationList.length > 0 && (
                     <div className="LocationArea__tags">
-                        {locationList.map(location => {
+                        {locationList.map((location) => {
                             if (this.locationIsMunicipal(location)) {
                                 return (
                                     <Tag
@@ -191,7 +191,7 @@ LocationArea.propTypes = {
     validateLocationArea: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     municipalsCounties: state.locationArea.municipalsCounties,
     countries: state.locationArea.countries,
     typeaheadValue: state.locationArea.typeaheadValue,
@@ -199,13 +199,13 @@ const mapStateToProps = state => ({
     validation: state.adValidation.errors,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
     fetchLocationArea: () => dispatch({ type: FETCH_LOCATION_AREA_BEGIN }),
-    setTypeAheadValue: value => dispatch({ type: SET_LOCATION_AREA_TYPEAHEAD, value }),
-    addLocationArea: location => dispatch({ type: ADD_LOCATION_AREA, location }),
-    removeMunicipal: value => dispatch({ type: REMOVE_MUNICIPAL, value }),
-    removeCountry: value => dispatch({ type: REMOVE_COUNTRY, value }),
-    removeCounty: value => dispatch({ type: REMOVE_COUNTY, value }),
+    setTypeAheadValue: (value) => dispatch({ type: SET_LOCATION_AREA_TYPEAHEAD, value }),
+    addLocationArea: (location) => dispatch({ type: ADD_LOCATION_AREA, location }),
+    removeMunicipal: (value) => dispatch({ type: REMOVE_MUNICIPAL, value }),
+    removeCountry: (value) => dispatch({ type: REMOVE_COUNTRY, value }),
+    removeCounty: (value) => dispatch({ type: REMOVE_COUNTY, value }),
     validateLocationArea: () => dispatch({ type: VALIDATE_LOCATION_AREA }),
 });
 

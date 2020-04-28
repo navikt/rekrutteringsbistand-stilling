@@ -7,7 +7,7 @@ function StyrkPreview({ categoryList }) {
         <div className="StyrkPreview">
             <Element>Yrke</Element>
             {categoryList && categoryList.length > 0 ? (
-                categoryList.map(styrk => (
+                categoryList.map((styrk) => (
                     <Normaltekst key={styrk.code}>
                         {styrk.code}: {styrk.name}
                     </Normaltekst>
@@ -19,7 +19,7 @@ function StyrkPreview({ categoryList }) {
     );
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     categoryList: state.adData.categoryList,
 });
 

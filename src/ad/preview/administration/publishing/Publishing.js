@@ -35,7 +35,7 @@ Publishing.propTypes = {
     expires: PropTypes.string,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     published: state.adData.published,
     expires: state.adData.expires,
 });

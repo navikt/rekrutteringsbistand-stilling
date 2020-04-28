@@ -80,7 +80,7 @@ HasChangesModal.propTypes = {
     created: PropTypes.string,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     showHasChangesModal: state.ad.showHasChangesModal,
     hasChangesLeaveUrl: state.ad.hasChangesLeaveUrl,
     leavePageTrigger: state.ad.leavePageTrigger,
@@ -89,7 +89,7 @@ const mapStateToProps = state => ({
     created: state.adData.created,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
     closeModal: () => dispatch({ type: HIDE_HAS_CHANGES_MODAL }),
     deleteAdAndRedirect: () => dispatch({ type: DELETE_AD_AND_REDIRECT }),
 });

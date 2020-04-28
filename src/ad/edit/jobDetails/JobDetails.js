@@ -9,11 +9,11 @@ import { SET_AD_TEXT, SET_EMPLOYMENT_JOBTITLE } from '../../adDataReducer';
 import Styrk from './styrk/Styrk';
 
 class JobDetails extends React.Component {
-    onJobtitleChange = e => {
+    onJobtitleChange = (e) => {
         this.props.setJobTitle(e.target.value);
     };
 
-    onAdTextChange = adText => {
+    onAdTextChange = (adText) => {
         // This function is triggered first time adText is in focus before any letter is written.
         // In this case, just return to avoid the error message from showing before any edits are done.
         if (this.props.ad.properties.adtext === undefined && adText === '') {
@@ -67,14 +67,14 @@ JobDetails.propTypes = {
     isSaved: PropTypes.bool,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     ad: state.adData,
     validation: state.adValidation.errors,
 });
 
-const mapDispatchToProps = dispatch => ({
-    setJobTitle: jobtitle => dispatch({ type: SET_EMPLOYMENT_JOBTITLE, jobtitle }),
-    setAdText: adtext => dispatch({ type: SET_AD_TEXT, adtext }),
+const mapDispatchToProps = (dispatch) => ({
+    setJobTitle: (jobtitle) => dispatch({ type: SET_EMPLOYMENT_JOBTITLE, jobtitle }),
+    setAdText: (adtext) => dispatch({ type: SET_AD_TEXT, adtext }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(JobDetails);

@@ -158,7 +158,7 @@ ResultItem.propTypes = {
     copiedAds: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     copiedAds: state.ad.copiedAds,
 });
 

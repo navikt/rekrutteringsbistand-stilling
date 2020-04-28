@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './RichTextEditor.less';
 
 export default class StyleButton extends React.Component {
-    onToggle = e => {
+    onToggle = (e) => {
         e.preventDefault();
         this.props.onToggle(this.props.style);
     };

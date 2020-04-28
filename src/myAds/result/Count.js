@@ -27,7 +27,7 @@ Count.propTypes = {
     isSearching: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     count: state.myAds.totalElements,
     isSearching: state.myAds.isSearching,
 });

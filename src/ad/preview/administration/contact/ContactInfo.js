@@ -70,13 +70,13 @@ ContactInfo.propTypes = {
     }),
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     stilling: state.adData,
     recruitment: state.recruitmentData,
     innlogget: state.reportee.data,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
     markerSomMin: () => dispatch({ type: MARKER_SOM_MIN }),
 });
 

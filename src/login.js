@@ -15,7 +15,7 @@ export const redirectToUrlPath = () => {
 export const urlHasPath = () => {
     return (
         window.location.search &&
-        validUrlPaths.some(path => window.location.search.startsWith(path))
+        validUrlPaths.some((path) => window.location.search.startsWith(path))
     );
 };
 

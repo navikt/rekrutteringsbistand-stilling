@@ -11,14 +11,14 @@ const Synlighet = {
 };
 
 const Filter = () => {
-    const { filter, deactivatedByExpiry } = useSelector(state => state.myAds);
+    const { filter, deactivatedByExpiry } = useSelector((state) => state.myAds);
     const dispatch = useDispatch();
     const { status } = filter;
 
-    const onStatusToggle = e => {
+    const onStatusToggle = (e) => {
         const statusToToggle = e.target.value;
         const nyttFilter = status.includes(statusToToggle)
-            ? status.filter(status => status !== statusToToggle)
+            ? status.filter((status) => status !== statusToToggle)
             : [...status, statusToToggle];
 
         dispatch({
@@ -27,7 +27,7 @@ const Filter = () => {
         });
     };
 
-    const onExpiredChange = e => {
+    const onExpiredChange = (e) => {
         dispatch({
             type: CHANGE_MY_ADS_DEACTIVATED_FILTER,
             deactivatedByExpiry: Synlighet[e.target.value],
@@ -38,7 +38,7 @@ const Filter = () => {
         <form>
             <fieldset>
                 <legend className="typo-element">Synlighet</legend>
-                {Object.keys(Synlighet).map(key => (
+                {Object.keys(Synlighet).map((key) => (
                     <Radio
                         key={key}
                         label={key}
@@ -52,7 +52,7 @@ const Filter = () => {
             {!deactivatedByExpiry && (
                 <fieldset>
                     <legend className="typo-element">Status</legend>
-                    {Object.keys(ActiveAdStatusEnum).map(statusKey => {
+                    {Object.keys(ActiveAdStatusEnum).map((statusKey) => {
                         const statusValue = AdStatusEnum[statusKey];
                         const statusLabel = getAdStatusLabel(statusValue);
 

@@ -43,7 +43,7 @@ class Requirements extends React.Component {
                     <Input
                         label=""
                         onChange={this.onHardrequirementsChange}
-                        inputRef={i => {
+                        inputRef={(i) => {
                             this.focusField = i;
                         }}
                     />
@@ -52,7 +52,7 @@ class Requirements extends React.Component {
                     <Input
                         label=""
                         onChange={this.onHardrequirementsChange}
-                        inputRef={i => {
+                        inputRef={(i) => {
                             this.focusField = i;
                         }}
                     />
@@ -85,7 +85,7 @@ class Requirements extends React.Component {
                     <Input
                         label=""
                         onChange={this.onSoftrequirementsChange}
-                        inputRef={i => {
+                        inputRef={(i) => {
                             this.focusField = i;
                         }}
                     />
@@ -94,7 +94,7 @@ class Requirements extends React.Component {
                     <Input
                         label=""
                         onChange={this.onSoftrequirementsChange}
-                        inputRef={i => {
+                        inputRef={(i) => {
                             this.focusField = i;
                         }}
                     />
@@ -127,7 +127,7 @@ class Requirements extends React.Component {
                         id="personligeEgenskaper4"
                         label=""
                         onChange={this.endrePersonligeEgenskaper4}
-                        inputRef={i => {
+                        inputRef={(i) => {
                             this.focusField = i;
                         }}
                     />
@@ -136,7 +136,7 @@ class Requirements extends React.Component {
                     <Input
                         label=""
                         onChange={this.endrePersonligeEgenskaper5}
-                        inputRef={i => {
+                        inputRef={(i) => {
                             this.focusField = i;
                         }}
                     />
@@ -163,12 +163,12 @@ Requirements.propTypes = {
     personalattributes: PropTypes.string,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     hardrequirements: state.adData.properties.hardrequirements,
     softrequirements: state.adData.properties.softrequirements,
     personalattributes: state.adData.properties.hardrequirements,
 });
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = (dispatch) => ({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Requirements);

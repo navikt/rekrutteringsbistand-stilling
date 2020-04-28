@@ -61,11 +61,11 @@ AdministrationPreview.propTypes = {
     editAd: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     createdBy: state.adData.createdBy,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
     editAd: () => dispatch({ type: EDIT_AD }),
 });
 

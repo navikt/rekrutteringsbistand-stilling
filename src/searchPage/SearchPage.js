@@ -68,7 +68,7 @@ class SearchPage extends React.Component {
                                     <SearchResultHeaders />
                                     <tbody>
                                         {adsFound &&
-                                            ads.map(ad => (
+                                            ads.map((ad) => (
                                                 <SearchResultItem key={ad.uuid} ad={ad} />
                                             ))}
                                     </tbody>
@@ -105,13 +105,13 @@ SearchPage.propTypes = {
     }).isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     ads: state.search.items,
     isSearching: state.search.isSearching,
     error: state.search.error,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
     getAds: () => dispatch({ type: FETCH_ADS }),
     resetSearch: () => dispatch({ type: RESET_SEARCH }),
     restoreSearch: () => dispatch({ type: RESTORE_SEARCH }),

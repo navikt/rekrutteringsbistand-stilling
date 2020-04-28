@@ -25,7 +25,7 @@ const Filter = ({
     changeStatusFilter,
     changeSourceFilter,
 }) => {
-    const onPrivacyFilterChange = e => {
+    const onPrivacyFilterChange = (e) => {
         if (e.target.value !== 'Alle') {
             changePrivacyFilter(e.target.value);
         } else {
@@ -33,7 +33,7 @@ const Filter = ({
         }
     };
 
-    const onStatusFilterChange = e => {
+    const onStatusFilterChange = (e) => {
         if (e.target.value === 'Alle') {
             changeStatusFilter(undefined, undefined);
         } else if (e.target.value === 'Utløpt') {
@@ -43,7 +43,7 @@ const Filter = ({
         }
     };
 
-    const onSourceFilterChange = e => {
+    const onSourceFilterChange = (e) => {
         if (e.target.value !== 'Alle') {
             changeSourceFilter(e.target.value);
         } else {
@@ -51,7 +51,7 @@ const Filter = ({
         }
     };
 
-    const onSubmit = e => {
+    const onSubmit = (e) => {
         e.preventDefault();
         search();
     };
@@ -61,12 +61,12 @@ const Filter = ({
             <Filterpanel label="Status">
                 {Object.keys(AdStatusEnum)
                     .filter(
-                        key =>
+                        (key) =>
                             key !== AdStatusEnum.INACTIVE &&
                             key !== AdStatusEnum.REJECTED &&
                             key !== AdStatusEnum.DELETED
                     )
-                    .map(key => (
+                    .map((key) => (
                         <Radio
                             key={key}
                             label={getAdStatusLabel(AdStatusEnum[key])}
@@ -99,7 +99,7 @@ const Filter = ({
                     name="privacyStatus"
                     onChange={onPrivacyFilterChange}
                 />
-                {Object.keys(PrivacyStatusEnum).map(key => (
+                {Object.keys(PrivacyStatusEnum).map((key) => (
                     <Radio
                         key={key}
                         label={getPrivacyStatusLabel(PrivacyStatusEnum[key])}
@@ -152,19 +152,19 @@ Filter.propTypes = {
     deactivatedByExpiry: PropTypes.bool,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     adStatus: state.search.status,
     source: state.search.source,
     privacy: state.search.privacy,
     deactivatedByExpiry: state.search.deactivatedByExpiry,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
     search: () => dispatch({ type: FETCH_ADS }),
-    changePrivacyFilter: value => dispatch({ type: CHANGE_PRIVACY_FILTER, value }),
+    changePrivacyFilter: (value) => dispatch({ type: CHANGE_PRIVACY_FILTER, value }),
     changeStatusFilter: (status, deactivatedByExpiry) =>
         dispatch({ type: CHANGE_STATUS_FILTER, status, deactivatedByExpiry }),
-    changeSourceFilter: value => dispatch({ type: CHANGE_SOURCE_FILTER, value }),
+    changeSourceFilter: (value) => dispatch({ type: CHANGE_SOURCE_FILTER, value }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Filter);

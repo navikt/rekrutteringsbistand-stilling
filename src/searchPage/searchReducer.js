@@ -214,7 +214,7 @@ export function toQuery(search) {
 }
 
 function* saveSearchToLocalStorage() {
-    const search = yield select(state => state.search);
+    const search = yield select((state) => state.search);
     const searchTerm = { ...search, items: [] };
     try {
         localStorage.setItem(LOCAL_STORAGE_SEARCH_KEY, JSON.stringify(searchTerm));

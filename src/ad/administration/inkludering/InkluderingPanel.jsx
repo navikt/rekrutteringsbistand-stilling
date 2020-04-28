@@ -7,14 +7,14 @@ import { CHECK_TAG, UNCHECK_TAG } from '../../adDataReducer';
 import isJson from '../../edit/practicalInformation/IsJson';
 import { hentKategorierMedNavn } from '../../tagHelpers';
 
-const InkluderingPanel = props => {
+const InkluderingPanel = (props) => {
     const { tags, checkTag, uncheckTag, direktemeldt } = props;
 
-    const onTagChange = e => {
+    const onTagChange = (e) => {
         e.target.checked ? checkTag(e.target.value) : uncheckTag(e.target.value);
     };
 
-    const tagIsChecked = tag => tags && isJson(tags) && JSON.parse(tags).includes(tag);
+    const tagIsChecked = (tag) => tags && isJson(tags) && JSON.parse(tags).includes(tag);
     const kategorierMedNavn = hentKategorierMedNavn(direktemeldt);
 
     return (
@@ -56,14 +56,14 @@ InkluderingPanel.propTypes = {
     tags: PropTypes.string,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     tags: state.adData.properties.tags || '[]',
     direktemeldt: state.adData.source === 'DIR',
 });
 
-const mapDispatchToProps = dispatch => ({
-    checkTag: value => dispatch({ type: CHECK_TAG, value }),
-    uncheckTag: value => dispatch({ type: UNCHECK_TAG, value }),
+const mapDispatchToProps = (dispatch) => ({
+    checkTag: (value) => dispatch({ type: CHECK_TAG, value }),
+    uncheckTag: (value) => dispatch({ type: UNCHECK_TAG, value }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(InkluderingPanel);

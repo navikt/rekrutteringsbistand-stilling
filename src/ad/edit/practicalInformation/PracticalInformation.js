@@ -25,7 +25,7 @@ import IsJson from './IsJson';
 import { createErrorObject } from '../../../common/utils';
 
 class PracticalInformation extends React.Component {
-    onWorkdayChange = e => {
+    onWorkdayChange = (e) => {
         const { value } = e.target;
         if (e.target.checked) {
             this.props.checkWorkday(value);
@@ -34,7 +34,7 @@ class PracticalInformation extends React.Component {
         }
     };
 
-    onWorkhoursChange = e => {
+    onWorkhoursChange = (e) => {
         const { value } = e.target;
         if (e.target.checked) {
             this.props.checkWorkhours(value);
@@ -43,19 +43,19 @@ class PracticalInformation extends React.Component {
         }
     };
 
-    onExtentChange = e => {
+    onExtentChange = (e) => {
         this.props.setExtent(e.target.value);
     };
 
-    onSectorChange = e => {
+    onSectorChange = (e) => {
         this.props.setSector(e.target.value);
     };
 
-    onPositioncountChange = e => {
+    onPositioncountChange = (e) => {
         this.props.setPositionCount(e.target.value);
     };
 
-    onApplicationDueChange = date => {
+    onApplicationDueChange = (date) => {
         let applicationDue;
         if (date && !Number.isNaN(Date.parse(date))) {
             date.setHours(12);
@@ -64,7 +64,7 @@ class PracticalInformation extends React.Component {
         this.props.setApplicationDue(applicationDue);
     };
 
-    onSnarestChange = e => {
+    onSnarestChange = (e) => {
         const { value } = e.target;
         if (e.target.checked) {
             this.props.setApplicationDue(value);
@@ -73,7 +73,7 @@ class PracticalInformation extends React.Component {
         }
     };
 
-    onStarttimeChange = date => {
+    onStarttimeChange = (date) => {
         let starttime;
         if (date && !Number.isNaN(Date.parse(date))) {
             date.setHours(12);
@@ -82,7 +82,7 @@ class PracticalInformation extends React.Component {
         this.props.setStartTime(starttime);
     };
 
-    onEtterAvtaleChange = e => {
+    onEtterAvtaleChange = (e) => {
         const { value } = e.target;
         if (e.target.checked) {
             this.props.setStartTime(value);
@@ -295,7 +295,7 @@ class PracticalInformation extends React.Component {
                                         ) || ''
                                     }
                                     onChange={this.onApplicationDueChange}
-                                    ref={instance => {
+                                    ref={(instance) => {
                                         this.refapplicationDue = instance;
                                     }}
                                     avgrensninger={{ minDato: new Date(Date.now()) }}
@@ -377,24 +377,24 @@ PracticalInformation.propTypes = {
         title: PropTypes.string,
     }).isRequired,
 };
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     ad: state.adData,
     workday: state.adData.properties.workday,
     workhours: state.adData.properties.workhours,
     validation: state.adValidation.errors,
 });
 
-const mapDispatchToProps = dispatch => ({
-    setExtent: extent => dispatch({ type: SET_EMPLOYMENT_EXTENT, extent }),
-    checkWorkday: value => dispatch({ type: CHECK_EMPLOYMENT_WORKDAY, value }),
-    uncheckWorkday: value => dispatch({ type: UNCHECK_EMPLOYMENT_WORKDAY, value }),
-    checkWorkhours: value => dispatch({ type: CHECK_EMPLOYMENT_WORKHOURS, value }),
-    uncheckWorkhours: value => dispatch({ type: UNCHECK_EMPLOYMENT_WORKHOURS, value }),
-    setSector: sector => dispatch({ type: SET_EMPLOYMENT_SECTOR, sector }),
-    setPositionCount: positioncount =>
+const mapDispatchToProps = (dispatch) => ({
+    setExtent: (extent) => dispatch({ type: SET_EMPLOYMENT_EXTENT, extent }),
+    checkWorkday: (value) => dispatch({ type: CHECK_EMPLOYMENT_WORKDAY, value }),
+    uncheckWorkday: (value) => dispatch({ type: UNCHECK_EMPLOYMENT_WORKDAY, value }),
+    checkWorkhours: (value) => dispatch({ type: CHECK_EMPLOYMENT_WORKHOURS, value }),
+    uncheckWorkhours: (value) => dispatch({ type: UNCHECK_EMPLOYMENT_WORKHOURS, value }),
+    setSector: (sector) => dispatch({ type: SET_EMPLOYMENT_SECTOR, sector }),
+    setPositionCount: (positioncount) =>
         dispatch({ type: SET_EMPLOYMENT_POSITIONCOUNT, positioncount }),
-    setApplicationDue: applicationdue => dispatch({ type: SET_APPLICATIONDUE, applicationdue }),
-    setStartTime: starttime => dispatch({ type: SET_EMPLOYMENT_STARTTIME, starttime }),
+    setApplicationDue: (applicationdue) => dispatch({ type: SET_APPLICATIONDUE, applicationdue }),
+    setStartTime: (starttime) => dispatch({ type: SET_EMPLOYMENT_STARTTIME, starttime }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PracticalInformation);
