@@ -4,11 +4,12 @@ import { Normaltekst } from 'nav-frontend-typografi';
 import './KopierTekst.less';
 
 interface Props {
+    className: string;
     tooltipTekst: string;
     skalKopieres?: string;
 }
 
-const KopierTekst: FunctionComponent<Props> = ({ tooltipTekst, skalKopieres }) => {
+const KopierTekst: FunctionComponent<Props> = ({ className, tooltipTekst, skalKopieres }) => {
     const buttonRef = useRef<HTMLButtonElement>(null);
     const [erKopiertPopup, toggleErKopiertPopup] = useState<HTMLButtonElement | undefined>(
         undefined
@@ -29,12 +30,11 @@ const KopierTekst: FunctionComponent<Props> = ({ tooltipTekst, skalKopieres }) =
         <>
             <button
                 ref={buttonRef}
-                title={tooltipTekst}
-                className="kopier-tekst"
+                className={className + ' knapp knapp--mini'}
                 type="button"
                 onClick={kopier}
             >
-                <div className="kopier-tekst__ikon" />
+                {tooltipTekst}
             </button>
             <Popover
                 orientering={PopoverOrientering.UnderHoyre}

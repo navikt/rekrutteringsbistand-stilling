@@ -11,6 +11,8 @@ import { SET_AD_TITLE } from '../../adDataReducer';
 import { createErrorObject } from '../../../common/utils';
 import CandidateActions from '../../candidateActions/CandidateActions';
 import Alertstripe from 'nav-frontend-alertstriper';
+import { hentAnnonselenke, stillingErPublisert } from '../../adUtils';
+import KopierTekst from '../../kopierTekst/KopierTekst';
 
 class EditHeader extends React.Component {
     onTitleChange = (e) => {
@@ -28,6 +30,7 @@ class EditHeader extends React.Component {
     render() {
         const { onPreviewAdClick, validation, ad } = this.props;
         const limitedAccess = ad.createdBy !== 'pam-rekrutteringsbistand';
+        const stillingsLenke = hentAnnonselenke(ad.uuid);
 
         return (
             <div>
@@ -39,6 +42,13 @@ class EditHeader extends React.Component {
                                 Forhåndsvis stillingen
                             </Knapp>
                         </div>
+                    )}
+                    {stillingErPublisert(ad) && (
+                        <KopierTekst
+                            className="EditHeader__kopier-lenke-knapp"
+                            tooltipTekst="Kopier stillingslenke"
+                            skalKopieres={stillingsLenke}
+                        />
                     )}
                 </div>
                 {limitedAccess && (

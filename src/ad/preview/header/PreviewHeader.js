@@ -10,6 +10,8 @@ import Alertstripe from 'nav-frontend-alertstriper';
 import { Lukknapp } from 'nav-frontend-ikonknapper';
 import './PreviewHeader.less';
 import { Link } from 'react-router-dom';
+import KopierTekst from '../../kopierTekst/KopierTekst';
+import { hentAnnonselenke, stillingErPublisert } from '../../adUtils';
 
 class PreviewMenu extends React.Component {
     onEditAdClick = () => {
@@ -44,6 +46,8 @@ class PreviewMenu extends React.Component {
         const kanOverfoereStilling =
             rekrutteringData && limitedAccess && !rekrutteringData.eierNavident;
 
+        const stillingsLenke = hentAnnonselenke(stilling.uuid);
+
         return (
             <div>
                 <div className="Ad__actions">
@@ -57,6 +61,13 @@ class PreviewMenu extends React.Component {
                             >
                                 Rediger stillingen
                             </Hovedknapp>
+                        )}
+                        {stillingErPublisert(stilling) && (
+                            <KopierTekst
+                                className="PreviewHeader__kopier-lenke-knapp"
+                                tooltipTekst="Kopier stillingslenke"
+                                skalKopieres={stillingsLenke}
+                            />
                         )}
                         {kanOverfoereStilling && opprettKandidatlisteKnappIsEnabled && (
                             <Knapp
