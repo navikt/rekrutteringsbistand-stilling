@@ -5,40 +5,52 @@
     display: flex;
     flex-wrap: wrap;
     margin-top: -1rem;
-}
 
-.Publishing__label {
-    margin-bottom: 0.5rem !important;
-}
+    &__label {
+        margin-bottom: 0.5rem !important;
+    }
 
-.Privacy legend {
-    .typo-undertittel;
-    margin-bottom: 1rem;
-}
+    &__datepicker {
+        margin: 1rem 1rem 0 0;
 
-.Publishing__datepicker {
-    margin: 1rem 1rem 0 0;
-    .Administration__error {
-        max-width: 176px;
+        .Administration__error {
+            max-width: 176px;
+        }
+
+        .nav-datovelger__inputContainer {
+            width: 9rem;
+        }
+    }
+
+    .nav-datovelger__kalenderPortal__content {
+        position: fixed;
+        right: 1rem;
+        bottom: 1rem;
+    }
+
+    @media (min-width: 1400px) {
+        .nav-datovelger {
+            &__inputContainer {
+                width: unset;
+            }
+
+            &__kalenderPortal {
+                margin-left: unset;
+
+                &__content {
+                    right: unset;
+                    bottom: unset;
+                }
+            }
+        }
     }
 }
 
 .Privacy {
     padding-top: 20px;
-}
 
-.Publishing {
-    .nav-datovelger__kalenderPortal__content {
-        @media (max-height: 930px) {
-            position: fixed;
-        }
-    }
-}
-
-.Publishing__datepicker-expires {
-    .nav-datovelger__kalenderPortal {
-        @media (min-width: 1260px) {
-            margin-left: -30px;
-        }
+    legend {
+        .typo-undertittel;
+        margin-bottom: 1rem;
     }
 }
