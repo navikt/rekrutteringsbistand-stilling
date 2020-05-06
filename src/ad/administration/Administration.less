@@ -3,45 +3,77 @@
 @import '../../../node_modules/nav-frontend-lenker-style/src/lenker-mixins';
 @import '../../../node_modules/nav-frontend-skjema-style/src/validering';
 
-.Administration__flex {
-    display: flex;
-    flex-direction: column;
+.Administration {
+    &__flex {
+        display: flex;
+        flex-direction: column;
 
-    height: @ad-height;
-    min-width: 320px;
-}
-
-.Administration__flex__center {
-    flex: auto;
-    flex-shrink: 2;
-    overflow-y: auto;
-    background: #ebf3fb;
-}
-
-.Administration__flex__bottom {
-    background: #d9e8f7;
-    border-top: 1px solid #b7b1a9;
-    padding: 1rem;
-
-    @media (min-height: 721px) {
-        padding: 1.5rem 2.5rem 1.5rem;
+        height: @ad-height;
+        min-width: 320px;
     }
-}
 
-.Administration__header {
-    margin: 2rem 2.5rem 0;
-}
+    &__flex__center {
+        flex: auto;
+        flex-shrink: 2;
+        overflow-y: auto;
+        background: #ebf3fb;
+    }
 
-.Administration__panel {
-    border: 1px solid #dddddd;
-    background: #fff;
-    margin: 2rem 2.5rem 0;
-    background: transparent;
-    border: none;
-}
+    &__flex__bottom {
+        background: #d9e8f7;
+        border-top: 1px solid #b7b1a9;
+        padding: 1rem;
+    }
 
-.Administration__panel__title {
-    padding: 0.5rem 0 0;
+    &__header {
+        margin: 2rem 2.5rem 0;
+    }
+
+    &__preview-panel {
+        margin: 1rem;
+    }
+
+    &__panel {
+        &:not(:last-child) {
+            margin-bottom: 2rem;
+        }
+    }
+
+    &__preview-panel,
+    &__panel {
+        border: 1px solid #dddddd;
+        background: #fff;
+        background: transparent;
+        border: none;
+    }
+
+    &__panel__title {
+        padding: 0.5rem 0 0;
+    }
+
+    &__error {
+        .typo-normal;
+        .skjemaelement__feilmelding;
+    }
+
+    &__elements {
+        overflow: hidden;
+        margin: 1rem;
+    }
+
+    @media (min-width: 1367px) {
+        &__flex__bottom {
+            padding: 1.5rem 2.5rem 1.5rem;
+        }
+
+        &__preview-panel {
+            margin: 2rem 2.5rem 0;
+        }
+
+        &__elements {
+            margin: 2rem 2.5rem;
+        }
+    }
 }
 
 .Location,
@@ -98,14 +130,4 @@
 .EmployerPreview,
 .LocationPreview {
     padding: 1rem;
-}
-
-.Administration__error {
-    .typo-normal;
-    .skjemaelement__feilmelding;
-}
-
-.Administration__elements {
-    overflow: hidden;
-    margin-bottom: 2rem;
 }
