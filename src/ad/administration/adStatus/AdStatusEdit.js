@@ -150,12 +150,14 @@ class AdStatusEdit extends React.PureComponent {
                 {buttonState === ButtonGroupEnum.LIMITED_ACCESS && (
                     <div className="AdStatusEdit__buttons">
                         <Hovedknapp
+                            mini
                             className="AdStatusEdit__buttons__button"
                             onClick={this.onSavePreviewAdClick}
                         >
                             Lagre endringer
                         </Hovedknapp>
                         <Knapp
+                            mini
                             className="AdStatusEdit__buttons__button"
                             onClick={this.OnCancelPreviewAdClick}
                         >
@@ -166,13 +168,15 @@ class AdStatusEdit extends React.PureComponent {
                 {buttonState === ButtonGroupEnum.NEW_AD && (
                     <div className="AdStatusEdit__buttons">
                         <Hovedknapp
+                            mini
                             className="AdStatusEdit__buttons__button"
                             onClick={this.onPublishClick}
                             spinner={isPublishing}
                         >
-                            Publisér
+                            Publiser
                         </Hovedknapp>
                         <Knapp
+                            mini
                             className="AdStatusEdit__buttons__button"
                             onClick={this.onCancelClick}
                         >
@@ -183,13 +187,15 @@ class AdStatusEdit extends React.PureComponent {
                 {buttonState === ButtonGroupEnum.PUBLISHED_BEFORE && (
                     <div className="AdStatusEdit__buttons">
                         <Hovedknapp
+                            mini
                             className="AdStatusEdit__buttons__button"
                             onClick={this.onRePublishClick}
                             spinner={isRePublishing}
                         >
-                            Republisér stilling
+                            Republiser stilling
                         </Hovedknapp>
                         <Knapp
+                            mini
                             className="AdStatusEdit__buttons__button"
                             onClick={this.onCancelClick}
                         >
@@ -201,6 +207,7 @@ class AdStatusEdit extends React.PureComponent {
                     <React.Fragment>
                         <div className="AdStatusEdit__buttons">
                             <Hovedknapp
+                                mini
                                 className="AdStatusEdit__buttons__button AdStatusEdit__PublishChanges__button"
                                 onClick={this.onPublishAdChangesClick}
                                 spinner={isPublishingChanges}
@@ -208,6 +215,7 @@ class AdStatusEdit extends React.PureComponent {
                                 Publiser endringer
                             </Hovedknapp>
                             <Knapp
+                                mini
                                 className="AdStatusEdit__buttons__button AdStatusEdit__StopAd__button"
                                 onClick={this.onStopClick}
                                 spinner={isStopping}
