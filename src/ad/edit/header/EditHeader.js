@@ -36,20 +36,20 @@ class EditHeader extends React.Component {
             <div>
                 <div className="Ad__actions">
                     <CandidateActions />
-                    {!limitedAccess && (
-                        <div>
+                    <div>
+                        {!limitedAccess && (
                             <Knapp className="Ad__actions-button" onClick={onPreviewAdClick} mini>
                                 Forhåndsvis stillingen
                             </Knapp>
-                        </div>
-                    )}
-                    {stillingErPublisert(ad) && (
-                        <KopierTekst
-                            className="EditHeader__kopier-lenke-knapp"
-                            tooltipTekst="Kopier stillingslenke"
-                            skalKopieres={stillingsLenke}
-                        />
-                    )}
+                        )}
+                        {stillingErPublisert(ad) && (
+                            <KopierTekst
+                                className=""
+                                tooltipTekst="Kopier stillingslenke"
+                                skalKopieres={stillingsLenke}
+                            />
+                        )}
+                    </div>
                 </div>
                 {limitedAccess && (
                     <div className="Ad__info">
