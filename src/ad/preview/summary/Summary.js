@@ -1,14 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Undertittel } from 'nav-frontend-typografi';
-
-import KopierTekst from '../../kopierTekst/KopierTekst';
-import { stillingErPublisert, hentAnnonselenke } from '../../adUtils';
 import { formatISOString } from '../../../utils';
 
 export default function Summary({ ad }) {
-    const lenke = hentAnnonselenke(ad.uuid);
-
     return (
         <div className="detail-section">
             <Undertittel className="detail-section__head">Om annonsen</Undertittel>
@@ -35,17 +30,6 @@ export default function Summary({ ad }) {
                     <>
                         <dt key="dt">Annonsenummer:</dt>
                         <dd key="dd">{ad.id}</dd>
-                    </>
-                )}
-                {stillingErPublisert(ad) && (
-                    <>
-                        <dt key="dt">Lenke til annonse:</dt>
-                        <dd key="dd">
-                            <a className="lenke" href={lenke}>
-                                {lenke}
-                            </a>
-                            <KopierTekst tooltipTekst="Kopier annonselenken" skalKopieres={lenke} />
-                        </dd>
                     </>
                 )}
             </dl>
