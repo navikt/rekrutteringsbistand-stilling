@@ -44,7 +44,7 @@ class Administration extends React.Component {
     inkludering() {
         return (
             <div className="Tab__area">
-                <div className="Administration__panel">
+                <div className="Administration__elements Administration__panel">
                     <Undertittel className="Administration__panel__title">Inkludering</Undertittel>
                     <InkluderingPanel />
                 </div>

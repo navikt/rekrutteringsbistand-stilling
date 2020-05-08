@@ -4,7 +4,7 @@ import { Element } from 'nav-frontend-typografi';
 import { EtikettInfo } from 'nav-frontend-etiketter';
 
 const Etiketter = ({ tittel, tags }) => (
-    <div className="Administration__panel Inkludering__preview">
+    <div className="Administration__preview-panel Inkludering__preview">
         <Element>{tittel}</Element>
         {tags.map(({ tag, navn }) => (
             <EtikettInfo key={tag} type="info" className="preview__tagname">

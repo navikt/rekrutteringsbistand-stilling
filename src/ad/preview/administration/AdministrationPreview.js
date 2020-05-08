@@ -22,18 +22,18 @@ class AdministrationPreview extends React.Component {
                         <AdStatus />
                     </div>
                     <div className="Administration__flex__center">
-                        <div className="Administration__panel">
+                        <div className="Administration__preview-panel">
                             <Publishing />
                         </div>
-                        <div className="Administration__panel">
+                        <div className="Administration__preview-panel">
                             <ContactInfo />
                         </div>
                         <Inkludering />
-                        <div className="Administration__panel">
+                        <div className="Administration__preview-panel">
                             <Comment />
                         </div>
                         {limitedAccess && (
-                            <div className="Administration__panel">
+                            <div className="Administration__preview-panel">
                                 <Hovedknapp
                                     className="Ad__actions-button"
                                     onClick={this.props.editAd}
