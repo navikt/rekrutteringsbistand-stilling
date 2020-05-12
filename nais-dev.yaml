@@ -4,9 +4,9 @@ metadata:
     name: rekrutteringsbistand-stilling
     namespace: default
     labels:
-        team: {{team}}
+        team: arbeidsgiver
 spec:
-    image: {{version}}
+    image: {{ image }}
     port: 8080
     replicas:
         min: 2
