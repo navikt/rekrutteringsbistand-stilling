@@ -84,13 +84,6 @@ class AdStatusEdit extends React.PureComponent {
         });
     };
 
-    OnPreviewAdClick = () => {
-        this.props.previewAd();
-        this.setState({
-            buttonClicked: undefined,
-        });
-    };
-
     onSavePreviewAdClick = () => {
         this.props.saveAd();
         const validation = this.props.validation;

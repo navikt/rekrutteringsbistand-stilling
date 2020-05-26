@@ -21,13 +21,17 @@ import LeggTilKandidatAlertStripe from './kandidatModal/LeggTilKandidatAlertStri
 import HasChangesModal from './navigation/HasChangesModal';
 import './Ad.less';
 
+export const REDIGERINGSMODUS_QUERY_PARAM = 'redigeringsmodus';
+
 class Ad extends React.Component {
     componentDidMount() {
         window.scrollTo(0, 0);
         if (this.props.match.params.uuid) {
             this.uuid = this.props.match.params.uuid;
-            const edit = this.props.location.state && this.props.location.state.openInEditMode;
-            this.props.getStilling(this.uuid, edit);
+
+            const queryParams = new URLSearchParams(this.props.location.search);
+            const redigeringsmodus = queryParams.get(REDIGERINGSMODUS_QUERY_PARAM) === 'true';
+            this.props.getStilling(this.uuid, redigeringsmodus);
         } else {
             this.props.createAd();
         }
@@ -49,7 +53,17 @@ class Ad extends React.Component {
     }
 
     onPreviewAdClick = () => {
+        this.fjernRedigeringsmodusFraUrl();
         this.props.previewAd();
+    };
+
+    fjernRedigeringsmodusFraUrl = () => {
+        const queryParams = new URLSearchParams(this.props.location.search);
+        queryParams.delete(REDIGERINGSMODUS_QUERY_PARAM);
+        this.props.history.replace({
+            pathname: this.props.location.pathname,
+            search: queryParams.toString(),
+        });
     };
 
     render() {
