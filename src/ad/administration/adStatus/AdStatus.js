@@ -78,7 +78,6 @@ AdStatus.defaultProps = {
 
 AdStatus.propTypes = {
     adStatus: PropTypes.string.isRequired,
-    isEditingAd: PropTypes.bool.isRequired,
     originalData: PropTypes.shape({
         privacy: PropTypes.string,
         published: PropTypes.string,
@@ -91,7 +90,6 @@ AdStatus.propTypes = {
 const mapStateToProps = (state) => ({
     adStatus: state.adData.status,
     originalData: state.ad.originalData,
-    isEditingAd: state.ad.isEditingAd,
     deactivatedByExpiry: state.adData.deactivatedByExpiry,
     activationOnPublishingDate: state.adData.activationOnPublishingDate,
     isSavingAd: state.ad.isSavingAd,
