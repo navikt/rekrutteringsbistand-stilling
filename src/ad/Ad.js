@@ -53,9 +53,17 @@ class Ad extends React.Component {
     }
 
     onPreviewAdClick = () => {
-        // Fjerner 'redigeringsmodus=true' fra URL
-        this.props.history.replace(this.props.location.pathname);
+        this.fjernRedigeringsmodusFraUrl();
         this.props.previewAd();
+    };
+
+    fjernRedigeringsmodusFraUrl = () => {
+        const queryParams = new URLSearchParams(this.props.location.search);
+        queryParams.delete(REDIGERINGSMODUS_QUERY_PARAM);
+        this.props.history.replace({
+            pathname: this.props.location.pathname,
+            search: queryParams.toString(),
+        });
     };
 
     render() {
