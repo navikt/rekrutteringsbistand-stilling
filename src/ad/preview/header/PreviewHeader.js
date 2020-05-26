@@ -9,7 +9,6 @@ import CandidateActions from '../../candidateActions/CandidateActions';
 import Alertstripe from 'nav-frontend-alertstriper';
 import { Lukknapp } from 'nav-frontend-ikonknapper';
 import './PreviewHeader.less';
-import { Link } from 'react-router-dom';
 import KopierTekst from '../../kopierTekst/KopierTekst';
 import { hentAnnonselenke, stillingErPublisert } from '../../adUtils';
 
@@ -38,7 +37,6 @@ class PreviewMenu extends React.Component {
         const {
             stilling,
             limitedAccess,
-            opprettKandidatlisteKnappIsEnabled,
             rekrutteringData,
             rekruttering: { showAdTransferredAlert, showAdMarkedAlert },
         } = this.props;
@@ -69,7 +67,7 @@ class PreviewMenu extends React.Component {
                                 skalKopieres={stillingsLenke}
                             />
                         )}
-                        {kanOverfoereStilling && opprettKandidatlisteKnappIsEnabled && (
+                        {kanOverfoereStilling && (
                             <Knapp
                                 className="button-legg-i-mine-stillinger"
                                 onClick={this.onLeggTilIMineStillingerClick}
@@ -160,10 +158,7 @@ const mapStateToProps = (state) => ({
     rekrutteringData: state.recruitmentData,
     rekruttering: state.recruitment,
     stilling: state.adData,
-    adminStatus: state.adData.administration.status,
     limitedAccess: state.adData.createdBy !== 'pam-rekrutteringsbistand',
-    reportee: state.reportee.data,
-    opprettKandidatlisteKnappIsEnabled: state.featureToggles.opprettKandidatlisteKnapp,
 });
 
 const mapDispatchToProps = (dispatch) => ({
