@@ -158,9 +158,7 @@ const mapStateToProps = (state) => ({
     rekrutteringData: state.recruitmentData,
     rekruttering: state.recruitment,
     stilling: state.adData,
-    adminStatus: state.adData.administration.status,
     limitedAccess: state.adData.createdBy !== 'pam-rekrutteringsbistand',
-    reportee: state.reportee.data,
 });
 
 const mapDispatchToProps = (dispatch) => ({
