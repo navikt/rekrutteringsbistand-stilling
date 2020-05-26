@@ -14,7 +14,6 @@ import filterLocationReducer, {
 } from './searchPage/filter/location/filterLocationReducer';
 import locationAreaReducer, { locationAreaSaga } from './ad/edit/location/locationAreaReducer';
 import Ad from './ad/Ad';
-import { MinestillingerHeader, Rekrutteringsbisstand, StillingssokHeader } from './topmenu/TopMenu';
 import Navigeringsmeny from './navigeringsmeny/Navigeringsmeny.tsx';
 import './styles.less';
 import './variables.less';
@@ -82,17 +81,11 @@ sagaMiddleware.run(featureTogglesSaga);
 
 const Main = () => {
     const dispatch = useDispatch();
-    const { nyDekoratør } = useSelector((state) => state.featureToggles);
 
     useEffect(() => {
         dispatch({ type: FETCH_FEATURE_TOGGLES });
+        dispatch({ type: FETCH_REPORTEE });
     }, []);
-
-    useEffect(() => {
-        if (nyDekoratør) {
-            dispatch({ type: FETCH_REPORTEE });
-        }
-    }, [nyDekoratør]);
 
     if (urlHasPath()) {
         redirectToUrlPath();
@@ -101,18 +94,8 @@ const Main = () => {
 
     return (
         <main>
-            {nyDekoratør ? (
-                <>
-                    <Dekoratør />
-                    <Navigeringsmeny />
-                </>
-            ) : (
-                <Switch>
-                    <Route path="/minestillinger" component={MinestillingerHeader} />
-                    <Route path="/stillinger" component={StillingssokHeader} />
-                    <Route path="/" component={Rekrutteringsbisstand} />
-                </Switch>
-            )}
+            <Dekoratør />
+            <Navigeringsmeny />
             <Switch>
                 <Route exact path="/" component={StartPage} />
                 <Route exact path="/minestillinger" component={MyAds} />

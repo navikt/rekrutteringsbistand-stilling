@@ -9,7 +9,6 @@ import Hus from './Hus';
 import { useSelector, useDispatch } from 'react-redux';
 
 import '../../node_modules/@navikt/nytt-i-rekrutteringsbistand/lib/nytt.css';
-import 'pam-frontend-header/dist/style.css';
 import './Navigeringsmeny.less';
 import State from '../State';
 
