@@ -11,6 +11,7 @@ import './Icons.less';
 import './Result.less';
 import { getAdStatusLabel } from '../../common/enums/getEnumLabels';
 import ResultItemDropDown from './ResultItemDropDown';
+import { REDIGERINGSMODUS_QUERY_PARAM } from '../../ad/Ad';
 
 const ResultItem = ({ ad, copiedAds, reportee }) => {
     const [dropDownVisible, setDropDownVisible] = useState(false);
@@ -118,10 +119,7 @@ const ResultItem = ({ ad, copiedAds, reportee }) => {
                     className="Icon__button Inner__button"
                     aria-label="Rediger"
                     title="rediger"
-                    to={{
-                        pathname: `/stilling/${ad.uuid}`,
-                        state: { openInEditMode: true },
-                    }}
+                    to={`/stilling/${ad.uuid}?${REDIGERINGSMODUS_QUERY_PARAM}=true`}
                 >
                     <i className="Edit__icon" />
                 </Link>
