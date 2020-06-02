@@ -406,8 +406,6 @@ function* saveRekrutteringsbistandStilling() {
 
         const response = yield fetchPut(putUrl, data);
 
-        console.log('upd', data);
-
         yield put({ type: SAVE_AD_SUCCESS, response: response.stilling });
     } catch (e) {
         if (e instanceof ApiError) {
