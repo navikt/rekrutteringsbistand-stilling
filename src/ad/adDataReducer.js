@@ -16,8 +16,6 @@ import { checkInkluderingstag, uncheckInkluderingstag } from './tagHelpers';
 
 export const SET_AD_DATA = 'SET_AD_DATA';
 export const REMOVE_AD_DATA = 'REMOVE_AD_DATA';
-
-export const SET_COMMENT = 'SET_COMMENT';
 export const SET_STYRK = 'SET_STYRK';
 export const ADD_LOCATION_AREA = 'ADD_LOCATION_AREA';
 export const ADD_POSTAL_CODE_BEGIN = 'ADD_POSTAL_CODE_BEGIN';
@@ -145,15 +143,6 @@ export default function adDataReducer(state = initialState, action) {
             };
         case SET_AD_DATA:
             return action.data;
-        case SET_COMMENT: {
-            return {
-                ...state,
-                administration: {
-                    ...state.administration,
-                    comments: action.comment,
-                },
-            };
-        }
         case SET_STYRK:
             return {
                 ...state,

@@ -1,7 +1,14 @@
 import deepEqual from 'deep-equal';
 import { put, select, takeLatest } from 'redux-saga/effects';
-import { ApiError, fetchAd, fetchDelete, fetchPost, fetchPut } from '../api/api';
-import { AD_API } from '../fasitProperties';
+import {
+    ApiError,
+    fetchAd,
+    fetchRekrutteringsbistandstilling,
+    fetchDelete,
+    fetchPost,
+    fetchPut,
+} from '../api/api';
+import { AD_API, REKRUTTERINGSBISTAND_BASE_URL } from '../fasitProperties';
 import { getReportee } from '../reportee/reporteeReducer';
 import {
     SET_AD_DATA,
@@ -31,7 +38,10 @@ import {
     SAVE_RECRUITMENT,
     UPDATE_RECRUITMENT,
 } from '../recruitment/recruitmentReducer';
-import { SET_NAV_IDENT_REKRUTTERING } from '../recruitment/recruitmentDataReducer';
+import {
+    SET_NAV_IDENT_REKRUTTERING,
+    SET_REKRUTTERING_DATA,
+} from '../recruitment/recruitmentDataReducer';
 
 export const FETCH_AD = 'FETCH_AD';
 export const FETCH_AD_BEGIN = 'FETCH_AD_BEGIN';
@@ -288,17 +298,29 @@ export default function adReducer(state = initialState, action) {
     }
 }
 
-function* getAd(action) {
+function* getRekrutteringsbistandstilling(action) {
     yield put({ type: FETCH_AD_BEGIN });
     try {
-        const response = yield fetchAd(action.uuid);
-        yield put({ type: FETCH_AD_SUCCESS, response });
-        yield put({
-            type: FETCH_RECRUITMENT,
-            rekruttering: response.rekruttering,
-            uuid: action.uuid,
-        });
+        const response = yield fetchRekrutteringsbistandstilling(action.uuid);
+        yield put({ type: FETCH_AD_SUCCESS, response: response.stilling });
+        const stillingsinfo = response.stillingsinfo || {
+            eierNavident: undefined,
+            eierNavn: undefined,
+            stillingsid: response.stilling.uuid,
+        };
 
+        const kommentarFraAd =
+            response.stilling.administration && response.stilling.administration.comments
+                ? response.stilling.administration.comments
+                : undefined;
+        const stillingsinfoNotatfix = {
+            ...stillingsinfo,
+            notat: hentNotatFraRekrutteringsbistandEllerAd(stillingsinfo.notat, kommentarFraAd),
+        };
+        yield put({
+            type: SET_REKRUTTERING_DATA,
+            data: stillingsinfoNotatfix,
+        });
         if (action.edit) {
             yield put({ type: EDIT_AD });
         }
@@ -311,8 +333,13 @@ function* getAd(action) {
     }
 }
 
+function hentNotatFraRekrutteringsbistandEllerAd(stillingsinfoNotat, kommentarFraAd) {
+    // Notat undefined betyr at kommentar ikke er konvertert og skal hentes fra pam-ad. Om den er tom er den konvertert men slettet.
+    return stillingsinfoNotat != undefined ? stillingsinfoNotat : kommentarFraAd;
+}
+
 function* showStopModalMyAds(action) {
-    yield getAd(action);
+    yield getRekrutteringsbistandstilling(action);
     yield put({ type: SHOW_STOP_AD_MODAL });
 }
 
@@ -349,6 +376,45 @@ function* createAd() {
             yield put({ type: CREATE_AD_FAILURE, error: e });
         }
         throw e;
+    }
+}
+
+function* saveRekrutteringsbistandStilling() {
+    let state = yield select();
+    yield put({ type: SAVE_AD_BEGIN });
+    try {
+        yield put({ type: SET_UPDATED_BY });
+
+        state = yield select();
+
+        // Modified category list requires store/PUT with (re)classification
+        let putUrl = `${REKRUTTERINGSBISTAND_BASE_URL}/rekrutteringsbistandstilling`;
+        if (
+            typeof state.ad.originalData === 'undefined' ||
+            needClassify(state.ad.originalData, state.adData)
+        ) {
+            putUrl += '?classify=true';
+        }
+
+        const data = {
+            stilling: state.adData,
+            stillingsinfoid: state.recruitmentData
+                ? state.recruitmentData.stillingsinfoid
+                : undefined,
+            notat: state.recruitmentData != undefined ? state.recruitmentData.notat : '',
+        };
+
+        const response = yield fetchPut(putUrl, data);
+
+        console.log('upd', data);
+
+        yield put({ type: SAVE_AD_SUCCESS, response: response.stilling });
+    } catch (e) {
+        if (e instanceof ApiError) {
+            yield put({ type: SAVE_AD_FAILURE, error: e });
+        } else {
+            throw e;
+        }
     }
 }
 
@@ -392,14 +458,14 @@ function* publishAd() {
             yield put({ type: SET_FIRST_PUBLISHED });
         }
         yield put({ type: SHOW_AD_PUBLISHED_MODAL });
-        yield save();
+        yield saveRekrutteringsbistandStilling();
     }
 }
 
 function* stopAd() {
     yield put({ type: SET_ADMIN_STATUS, status: AdminStatusEnum.DONE });
     yield put({ type: SET_AD_STATUS, status: AdStatusEnum.STOPPED });
-    yield save();
+    yield saveRekrutteringsbistandStilling();
 }
 
 function* stopAdFromMyAds() {
@@ -414,7 +480,7 @@ function* saveAd(action) {
     if (hasValidationErrorsOnSave(state.adValidation.errors)) {
         yield put({ type: SHOW_AD_SAVED_ERROR_MODAL });
     } else {
-        yield save();
+        yield saveRekrutteringsbistandStilling();
         if (action.login) {
             loginWithRedirectToCurrentLocation();
         }
@@ -432,7 +498,7 @@ function* publishAdChanges() {
     } else {
         yield put({ type: SET_ADMIN_STATUS, status: AdminStatusEnum.DONE });
         yield put({ type: SET_AD_STATUS, status: AdStatusEnum.ACTIVE });
-        yield save();
+        yield saveRekrutteringsbistandStilling();
         state = yield select();
         if (
             state.adData.activationOnPublishingDate &&
@@ -475,7 +541,7 @@ function* deleteAdFromMyAds() {
 }
 
 function* showDeleteModalMyAds(action) {
-    yield getAd(action);
+    yield getRekrutteringsbistandstilling(action);
     yield put({ type: SHOW_DELETE_AD_MODAL });
 }
 
@@ -542,7 +608,7 @@ function* markerSomMinStilling(action) {
 export const adSaga = function* saga() {
     yield takeLatest(PUBLISH_AD, publishAd);
     yield takeLatest(STOP_AD, stopAd);
-    yield takeLatest(FETCH_AD, getAd);
+    yield takeLatest(FETCH_AD, getRekrutteringsbistandstilling);
     yield takeLatest(SAVE_AD, saveAd);
     yield takeLatest(CREATE_AD, createAd);
     yield takeLatest(PUBLISH_AD_CHANGES, publishAdChanges);

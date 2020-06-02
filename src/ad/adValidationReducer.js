@@ -18,7 +18,6 @@ import {
     SET_PUBLISHED,
     SET_AD_TEXT,
     SET_AD_TITLE,
-    SET_COMMENT,
     SET_APPLICATIONDUE,
     SET_EMPLOYMENT_ENGAGEMENTTYPE,
     SET_EMPLOYMENT_POSITIONCOUNT,
@@ -31,6 +30,8 @@ import {
     findLocationByPostalCode,
     REMOVE_LOCATION_AREAS,
 } from './adDataReducer';
+
+import { SET_COMMENT } from '../recruitment/recruitmentDataReducer';
 
 const ADD_VALIDATION_ERROR = 'ADD_VALIDATION_ERROR';
 const REMOVE_VALIDATION_ERROR = 'REMOVE_VALIDATION_ERROR';
@@ -252,7 +253,7 @@ function* validateContactpersonPhone() {
 }
 
 export function* validateComment() {
-    const comments = yield select((state) => state.adData.administration.comments);
+    const comments = yield select((state) => state.recruitmentData.notat);
 
     if (comments && comments.length > MAX_LENGTH_COMMENT) {
         yield put({

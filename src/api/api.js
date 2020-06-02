@@ -1,6 +1,6 @@
 import AdminStatusEnum from '../common/enums/AdminStatusEnum';
 import toUrl from '../common/toUrl';
-import { AD_API, SEARCH_API, REKRUTTERING_API } from '../fasitProperties';
+import { AD_API, SEARCH_API, REKRUTTERING_API, REKRUTTERINGSBISTAND_BASE_URL } from '../fasitProperties';
 import { loginWithRedirectToCurrentLocation } from '../login';
 
 // Bruk mock-api hvis app kjører via "npm run mock"
@@ -108,6 +108,10 @@ export async function fetchAd(uuid) {
 
 export async function fetchRecruitment(uuid) {
     return await fetchGet(`${REKRUTTERING_API}/stilling/${uuid}`);
+}
+
+export async function fetchRekrutteringsbistandstilling(uuid) {
+    return await fetchGet(`${REKRUTTERINGSBISTAND_BASE_URL}/rekrutteringsbistandstilling/${uuid}`);
 }
 
 export async function fetchRecruitmentsForVeileder(navIdent) {

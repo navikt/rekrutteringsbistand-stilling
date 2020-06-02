@@ -142,7 +142,6 @@ function* updateRecruitment() {
     yield put({ type: UPDATE_RECRUITMENT_BEGIN });
     try {
         state = yield select();
-        console.log('fff', state);
 
         if (!state.recruitmentData.stillingsinfoid) {
             throw 'oppdaterer uten å ha id';
