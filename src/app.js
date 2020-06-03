@@ -29,7 +29,7 @@ import history from './history';
 import { urlHasPath, redirectToUrlPath } from './login';
 import kandidatReducer, { kandidatSaga } from './ad/kandidatModal/kandidatReducer';
 import stillingsinfoDataReducer from './stillingsinfo/stillingsinfoDataReducer';
-import stillingsinfoReducer, { stillingsinfoSaga } from './stillingsinfo/stillingsinfo';
+import stillingsinfoReducer, { stillingsinfoSaga } from './stillingsinfo/stillingsinfoReducer';
 import featureTogglesReducer, {
     featureTogglesSaga,
     FETCH_FEATURE_TOGGLES,

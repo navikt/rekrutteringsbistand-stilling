@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import { EDIT_AD, LEGG_TIL_I_MINE_STILLINGER } from '../../adReducer';
-import { CLOSE_TRANSFERRED_ALERT } from '../../../stillingsinfo/stillingsinfo';
+import { CLOSE_TRANSFERRED_ALERT } from '../../../stillingsinfo/stillingsinfoReducer';
 import AdTitle from './AdTitle';
 import CandidateActions from '../../candidateActions/CandidateActions';
 import Alertstripe from 'nav-frontend-alertstriper';
@@ -38,7 +38,7 @@ class PreviewMenu extends React.Component {
             stilling,
             limitedAccess,
             stillingsinfoData,
-            stillinginfo: { showAdTransferredAlert, showAdMarkedAlert },
+            stillingsinfo: { showAdTransferredAlert, showAdMarkedAlert },
         } = this.props;
 
         const kanOverfoereStilling =

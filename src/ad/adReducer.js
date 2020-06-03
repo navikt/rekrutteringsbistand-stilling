@@ -37,7 +37,7 @@ import {
     FETCH_STILLINGSINFO,
     SAVE_STILLINGSINFO,
     UPDATE_STILLINGSINFO,
-} from '../stillingsinfo/stillingsinfo';
+} from '../stillingsinfo/stillingsinfoReducer';
 import {
     SET_NAV_IDENT_STILLINGSINFO,
     SET_STILLINGSINFO_DATA,
