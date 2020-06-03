@@ -121,10 +121,13 @@ function* saveRecruitment() {
     try {
         state = yield select();
 
+        const response;
         if (state.recruitmentData.stillingsinfoid) {
-            throw 'Ny med eksisterende id';
+            response = yield fetchPut(REKRUTTERING_API, state.recruitmentData);
+        } else {
+            response = yield fetchPost(REKRUTTERING_API, state.recruitmentData);
         }
-        const response = yield fetchPost(REKRUTTERING_API, state.recruitmentData);
+        
 
         yield put({ type: SET_REKRUTTERING_DATA, data: response });
         yield put({ type: SAVE_RECRUITMENT_SUCCESS, response });
@@ -142,7 +145,6 @@ function* updateRecruitment() {
     yield put({ type: UPDATE_RECRUITMENT_BEGIN });
     try {
         state = yield select();
-        console.log('fff', state);
 
         if (!state.recruitmentData.stillingsinfoid) {
             throw 'oppdaterer uten å ha id';

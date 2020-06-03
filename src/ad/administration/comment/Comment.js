@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Textarea } from 'nav-frontend-skjema';
 import { connect } from 'react-redux';
-import { SET_COMMENT } from '../../adDataReducer';
+import { SET_COMMENT } from '../../../recruitment/recruitmentDataReducer';
 import { MAX_LENGTH_COMMENT } from '../../adValidationReducer';
 import './Comment.less';
 
@@ -79,8 +79,8 @@ Comment.propTypes = {
     createdBy: PropTypes.string,
 };
 
-const mapStateToProps = (state) => ({
-    comments: state.adData.administration.comments,
+const mapStateToProps = (state) => ({  
+    comments: state.recruitmentData.notat,
     validation: state.adValidation.errors,
     createdBy: state.adData.createdBy,
 });

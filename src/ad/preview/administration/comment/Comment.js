@@ -54,7 +54,7 @@ Comment.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    comments: state.adData.administration.comments,
+    comments: state.recruitmentData.notat,
 });
 
 export default connect(mapStateToProps)(Comment);
