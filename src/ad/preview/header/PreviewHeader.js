@@ -37,12 +37,12 @@ class PreviewMenu extends React.Component {
         const {
             stilling,
             limitedAccess,
-            rekrutteringData,
-            rekruttering: { showAdTransferredAlert, showAdMarkedAlert },
+            stillingsinfoData,
+            stillinginfo: { showAdTransferredAlert, showAdMarkedAlert },
         } = this.props;
 
         const kanOverfoereStilling =
-            rekrutteringData && limitedAccess && !rekrutteringData.eierNavident;
+            stillingsinfoData && limitedAccess && !stillingsinfoData.eierNavident;
 
         const stillingsLenke = hentAnnonselenke(stilling.uuid);
 
@@ -143,20 +143,20 @@ PreviewMenu.propTypes = {
         }),
     }),
     editAd: PropTypes.func.isRequired,
-    rekrutteringData: PropTypes.shape({
+    stillingsinfoData: PropTypes.shape({
         stillingsid: PropTypes.string,
         eierNavident: PropTypes.string,
         eierNavn: PropTypes.string,
     }),
-    rekruttering: PropTypes.shape({
+    stilingsinfo: PropTypes.shape({
         showAdTransferredAlert: PropTypes.bool,
         showAdMarkedAlert: PropTypes.bool,
     }),
 };
 
 const mapStateToProps = (state) => ({
-    rekrutteringData: state.stillingsinfoData,
-    rekruttering: state.stillingsinfo,
+    stillingsinfoData: state.stillingsinfoData,
+    stillingsinfo: state.stillingsinfo,
     stilling: state.adData,
     limitedAccess: state.adData.createdBy !== 'pam-rekrutteringsbistand',
 });
