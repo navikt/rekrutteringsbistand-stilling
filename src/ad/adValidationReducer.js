@@ -31,7 +31,7 @@ import {
     REMOVE_LOCATION_AREAS,
 } from './adDataReducer';
 
-import { SET_COMMENT } from '../recruitment/recruitmentDataReducer';
+import { SET_NOTAT } from '../recruitment/recruitmentDataReducer';
 
 const ADD_VALIDATION_ERROR = 'ADD_VALIDATION_ERROR';
 const REMOVE_VALIDATION_ERROR = 'REMOVE_VALIDATION_ERROR';
@@ -42,7 +42,7 @@ export const VALIDATE_CONTACTPERSON_PHONE = 'VALIDATE_CONTACTPERSON_PHONE';
 export const VALIDATE_LOCATION_AREA = 'VALIDATE_LOCATION_AREA';
 export const RESET_VALIDATION_ERROR = 'RESET_VALIDATION_ERROR';
 
-export const MAX_LENGTH_COMMENT = 500;
+export const MAX_LENGTH_NOTAT = 500;
 
 const valueIsNotSet = (value) => value === undefined || value === null || value.length === 0;
 
@@ -252,17 +252,17 @@ function* validateContactpersonPhone() {
     }
 }
 
-export function* validateComment() {
-    const comments = yield select((state) => state.recruitmentData.notat);
+export function* validateNotat() {
+    const notat = yield select((state) => state.recruitmentData.notat);
 
-    if (comments && comments.length > MAX_LENGTH_COMMENT) {
+    if (notat && notat.length > MAX_LENGTH_NOTAT) {
         yield put({
             type: ADD_VALIDATION_ERROR,
-            field: 'comment',
+            field: 'notat',
             message: 'Kommentaren inneholder for mange tegn',
         });
     } else {
-        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'comment' });
+        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'notat' });
     }
 }
 
@@ -378,7 +378,7 @@ export function* validateAll() {
         yield validateApplicationEmail();
         yield validateContactpersonEmail();
         yield validatePostalCode();
-        yield validateComment();
+        yield validateNotat();
         yield validateApplicationdueDate();
         yield validateEngagementType();
         yield validatePositionCount();
@@ -401,7 +401,7 @@ export function hasValidationErrors(validation) {
         validation.contactpersonEmail !== undefined ||
         validation.publish !== undefined ||
         validation.postalCode !== undefined ||
-        validation.comment !== undefined ||
+        validation.notat !== undefined ||
         validation.applicationdue !== undefined ||
         validation.engagementtype !== undefined ||
         validation.positioncount !== undefined ||
@@ -419,7 +419,7 @@ export function* validateBeforeSave() {
         yield validateStyrk();
         yield validateApplicationEmail();
         yield validateContactpersonEmail();
-        yield validateComment();
+        yield validateNotat();
         yield validatePostalCode();
         yield validateContactpersonPhone();
     }
@@ -433,7 +433,7 @@ export function hasValidationErrorsOnSave(validation) {
         validation.contactpersonEmail !== undefined ||
         validation.contactpersonPhone !== undefined ||
         validation.postalCode !== undefined ||
-        validation.comment !== undefined
+        validation.notat !== undefined
     );
 }
 
@@ -490,7 +490,7 @@ export const validationSaga = function* saga() {
     yield takeLatest(VALIDATE_APPLICATION_EMAIL, validateApplicationEmail);
     yield takeLatest(VALIDATE_CONTACTPERSON_EMAIL, validateContactpersonEmail);
     yield takeLatest(VALIDATE_CONTACTPERSON_PHONE, validateContactpersonPhone);
-    yield takeLatest(SET_COMMENT, validateComment);
+    yield takeLatest(SET_NOTAT, validateNotat);
     yield takeLatest(SET_APPLICATIONDUE, validateApplicationdueDate);
     yield takeLatest(SET_EMPLOYMENT_ENGAGEMENTTYPE, validateEngagementType);
     yield takeLatest(SET_EMPLOYMENT_POSITIONCOUNT, validatePositionCount);

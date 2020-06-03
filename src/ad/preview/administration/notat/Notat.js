@@ -3,17 +3,17 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Element } from 'nav-frontend-typografi';
 import ProcessString from 'react-process-string';
-import './Comment.less';
+import './Notat.less';
 
-class Comment extends React.Component {
+class Notat extends React.Component {
     process = () => {
-        const { comments } = this.props;
+        const { notat } = this.props;
 
         const config = [
             {
                 regex: /(http|https):\/\/(\S+)\.([a-z]{2,}?)(.*?)( |\,|$|\.)/gim,
                 fn: (key, result) => (
-                    <span key={key} className="Comment__text__link">
+                    <span key={key} className="Notat__text__link">
                         <a
                             target="_blank"
                             rel="noopener noreferrer"
@@ -28,33 +28,33 @@ class Comment extends React.Component {
             },
         ];
 
-        return ProcessString(config)(comments);
+        return ProcessString(config)(notat);
     };
 
     render() {
-        const { comments } = this.props;
+        const { notat } = this.props;
 
-        const comment =
-            comments && comments.length ? this.process() : 'Det er ikke lagt inn notater.';
+        const notat =
+            notat && notat.length ? this.process() : 'Det er ikke lagt inn notater.';
         return (
-            <div className="Comments__preview">
+            <div className="Notat__preview">
                 <Element>Notater</Element>
-                <p className="typo-normal Comment__text">{comment}</p>
+                <p className="typo-normal Notat__text">{notat}</p>
             </div>
         );
     }
 }
 
-Comment.defaultProps = {
-    comments: undefined,
+Notat.defaultProps = {
+    notat: undefined,
 };
 
-Comment.propTypes = {
-    comments: PropTypes.string,
+Notat.propTypes = {
+    notat: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({
-    comments: state.recruitmentData.notat,
+    notat: state.recruitmentData.notat,
 });
 
-export default connect(mapStateToProps)(Comment);
+export default connect(mapStateToProps)(Notat);

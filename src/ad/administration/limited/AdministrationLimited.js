@@ -3,7 +3,7 @@ import { Undertittel } from 'nav-frontend-typografi';
 import AdStatus from '../adStatus/AdStatus';
 import AdStatusEdit from '../adStatus/AdStatusEdit';
 import InkluderingPanel from '../inkludering/InkluderingPanel';
-import Comment from '../comment/Comment';
+import Notat from '../notat/Notat';
 import '../Administration.less';
 
 function AdministrationLimited(props) {
@@ -16,7 +16,7 @@ function AdministrationLimited(props) {
                 </div>
                 <div className="Administration__panel">
                     <Undertittel className="Administration__panel__title">Notater</Undertittel>
-                    <Comment placeholder="Legg inn notat" />
+                    <Notat placeholder="Legg inn notat" />
                 </div>
             </div>
         );

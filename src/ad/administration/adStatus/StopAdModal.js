@@ -6,7 +6,7 @@ import { Flatknapp, Hovedknapp } from 'nav-frontend-knapper';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import { HIDE_STOP_AD_MODAL, STOP_AD, STOP_AD_FROM_MY_ADS } from '../../adReducer';
 import './StopAdModal.less';
-import Comment from '../comment/Comment';
+import Notat from '../notat/Notat';
 
 class StopAdModal extends React.Component {
     onClose = () => {
@@ -14,7 +14,7 @@ class StopAdModal extends React.Component {
     };
 
     onStopAdClick = () => {
-        if (this.props.validation.comment === undefined) {
+        if (this.props.validation.notat === undefined) {
             this.props.closeModal();
 
             if (this.props.fromMyAds) {
@@ -41,8 +41,8 @@ class StopAdModal extends React.Component {
                     {`Er du sikker på at du ønsker å stoppe "${title}"? Stopper du stillingen
                     vil den ikke lenger være tilgjengelig for søk.`}
                 </Normaltekst>
-                <div className="StopAdModal__Comment">
-                    <Comment />
+                <div className="StopAdModal__Notat">
+                    <Notat />
                 </div>
                 <div className="StopAdModal__buttons">
                     <Hovedknapp onClick={this.onStopAdClick}>Stopp stillingen</Hovedknapp>
@@ -64,7 +64,7 @@ StopAdModal.propTypes = {
     stop: PropTypes.func.isRequired,
     stopAdFromMyAds: PropTypes.func.isRequired,
     validation: PropTypes.shape({
-        comment: PropTypes.string,
+        notat: PropTypes.string,
     }).isRequired,
     fromMyAds: PropTypes.bool,
     title: PropTypes.string,

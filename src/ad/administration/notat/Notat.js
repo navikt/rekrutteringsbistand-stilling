@@ -2,25 +2,25 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Textarea } from 'nav-frontend-skjema';
 import { connect } from 'react-redux';
-import { SET_COMMENT } from '../../../recruitment/recruitmentDataReducer';
-import { MAX_LENGTH_COMMENT } from '../../adValidationReducer';
-import './Comment.less';
+import { SET_NOTAT } from '../../../recruitment/recruitmentDataReducer';
+import { MAX_LENGTH_NOTAT } from '../../adValidationReducer';
+import './Notat.less';
 
-class Comment extends React.Component {
+class Notat extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             hasChanged: false,
-            comments: props.comments,
+            notat: props.notat,
         };
     }
 
     onChange = (e) => {
         this.setState({
             hasChanged: true,
-            comments: e.target.value,
+            notat: e.target.value,
         });
-        this.props.setComment(e.target.value);
+        this.props.setNotat(e.target.value);
     };
 
     onBlur = () => {
@@ -28,34 +28,34 @@ class Comment extends React.Component {
             this.setState({
                 hasChanged: false,
             });
-            this.props.setComment(this.state.comments);
+            this.props.setNotat(this.state.notat);
         }
     };
 
     static getDerivedStateFromProps(nextProps, prevState) {
-        if (prevState.comments !== nextProps.comments && prevState.hasChanged === false) {
+        if (prevState.notat !== nextProps.notat && prevState.hasChanged === false) {
             return {
-                comments: nextProps.comments,
+                notat: nextProps.notat,
             };
         }
         return null;
     }
 
     feil = () => {
-        const error = this.props.validation.comment;
+        const error = this.props.validation.notat;
         return error ? { feilmelding: error } : undefined;
     };
 
     render() {
         return (
-            <div className="Comment">
+            <div className="Notat">
                 <Textarea
                     label="Notatfelt (vises kun internt)"
-                    maxLength={MAX_LENGTH_COMMENT}
+                    maxLength={MAX_LENGTH_NOTAT}
                     onChange={this.onChange}
                     onBlur={this.onBlur}
-                    value={this.state.comments || ''}
-                    textareaClass="typo-normal Comment__textarea"
+                    value={this.state.notat || ''}
+                    textareaClass="typo-normal Notat__textarea"
                     feil={this.feil()}
                     placeholder={this.props.placeholder}
                 />
@@ -64,29 +64,29 @@ class Comment extends React.Component {
     }
 }
 
-Comment.defaultProps = {
-    comments: '',
+Notat.defaultProps = {
+    notat: '',
     placeholder: '',
 };
 
-Comment.propTypes = {
-    setComment: PropTypes.func.isRequired,
-    comments: PropTypes.string,
+Notat.propTypes = {
+    setNotat: PropTypes.func.isRequired,
+    notat: PropTypes.string,
     placeholder: PropTypes.string,
     validation: PropTypes.shape({
-        comment: PropTypes.string,
+        notat: PropTypes.string,
     }).isRequired,
     createdBy: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({  
-    comments: state.recruitmentData.notat,
+    notat: state.recruitmentData.notat,
     validation: state.adValidation.errors,
     createdBy: state.adData.createdBy,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    setComment: (comment) => dispatch({ type: SET_COMMENT, comment }),
+    setNotat: (notat) => dispatch({ type: SET_NOTAT, notat }),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Comment);
+export default connect(mapStateToProps, mapDispatchToProps)(Notat);

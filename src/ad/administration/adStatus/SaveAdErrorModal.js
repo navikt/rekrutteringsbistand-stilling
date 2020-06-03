@@ -32,8 +32,8 @@ class SaveAdErrorModal extends React.Component {
                         {validation.title && (
                             <li className="skjemaelement__feilmelding">{validation.title}</li>
                         )}
-                        {validation.comment && (
-                            <li className="skjemaelement__feilmelding">{validation.comment}</li>
+                        {validation.notat && (
+                            <li className="skjemaelement__feilmelding">{validation.notat}</li>
                         )}
                         {validation.styrk && (
                             <li className="skjemaelement__feilmelding">{validation.styrk}</li>
@@ -68,7 +68,7 @@ SaveAdErrorModal.propTypes = {
     showAdSavedErrorModal: PropTypes.bool.isRequired,
     validation: PropTypes.shape({
         title: PropTypes.string,
-        comments: PropTypes.string,
+        notat: PropTypes.string,
         styrk: PropTypes.string,
         applicationEmail: PropTypes.string,
         contactpersonEmail: PropTypes.string,

@@ -7,7 +7,7 @@ import { EDIT_AD } from '../../adReducer';
 import Inkludering from './inkludering/Inkludering';
 import Publishing from './publishing/Publishing';
 import ContactInfo from './contact/ContactInfo';
-import Comment from './comment/Comment';
+import Notat from './notat/Notat';
 
 import './AdministrationPreview.less';
 
@@ -30,7 +30,7 @@ class AdministrationPreview extends React.Component {
                         </div>
                         <Inkludering />
                         <div className="Administration__preview-panel">
-                            <Comment />
+                            <Notat />
                         </div>
                         {limitedAccess && (
                             <div className="Administration__preview-panel">
