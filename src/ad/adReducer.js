@@ -306,6 +306,7 @@ function* getRekrutteringsbistandstilling(action) {
         const stillingsinfo = response.stillingsinfo || {
             eierNavident: undefined,
             eierNavn: undefined,
+            notat: undefined,
             stillingsid: response.stilling.uuid,
         };
 
