@@ -587,7 +587,7 @@ function* leggTilIMineStillinger(action) {
     let state = yield select();
 
     const { navIdent, displayName } = state.reportee.data;
-    yield put({ type: SET_NAV_IDENT_REKRUTTERING, navIdent, displayName });
+    yield put({ type: SET_NAV_IDENT_STILLINGSINFO, navIdent, displayName });
     yield put({ type: SAVE_STILLINGSINFO, uuid: action.uuid });
     yield put({ type: SAVE_AD, showModal: false });
 }
