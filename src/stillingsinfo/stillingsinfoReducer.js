@@ -129,7 +129,7 @@ function* saveStillingsinfo() {
         }
         
 
-        yield put({ type: SET_STILLINGSINFO_DATA, data: response });
+        //yield put({ type: SET_STILLINGSINFO_DATA, data: response });
         yield put({ type: SAVE_STILLINGSINFO_SUCCESS, response });
     } catch (e) {
         if (e instanceof ApiError) {
@@ -151,7 +151,7 @@ function* updateStillingsinfo() {
         }
         const response = yield fetchPut(REKRUTTERING_API, state.stillingsinfoData);
 
-        yield put({ type: SET_STILLINGSINFO_DATA, data: response });
+        //yield put({ type: SET_STILLINGSINFO_DATA, data: response });
         yield put({ type: UPDATE_STILLINGSINFO_SUCCESS, response });
     } catch (e) {
         if (e instanceof ApiError) {
