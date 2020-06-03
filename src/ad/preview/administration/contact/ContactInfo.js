@@ -72,7 +72,7 @@ ContactInfo.propTypes = {
 
 const mapStateToProps = (state) => ({
     stilling: state.adData,
-    stillingsinfo: state.stillingsinfo,
+    stillingsinfo: state.stillingsinfoData,
     innlogget: state.reportee.data,
 });
 
