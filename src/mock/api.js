@@ -11,6 +11,7 @@ const reportee = require('./json/reportee.json');
 const ident = require('./json/ident.json');
 const mineStillinger = require('./json/minestillinger.json');
 const stilling = require('./json/stilling.json');
+const rekrutteringsbistandstilling = require('./json/rekrutteringsbistandstilling.json');
 const counties = require('./json/counties.json');
 const countries = require('./json/countries.json');
 const municipals = require('./json/municipals.json');
@@ -25,6 +26,7 @@ const adsUrl = `${apiUrl}/ads`;
 const reporteeUrl = `${apiUrl}/reportee/`;
 const mineStillingerUrl = `${apiUrl}/ads/rekrutteringsbistand/minestillinger`;
 const stillingUrl = `${apiUrl}/stilling/`;
+const rekrutteringsbistandstillingUrl = `${baseUrl}/rekrutteringsbistandstilling/`;
 const countiesUrl = `${apiUrl}/geography/counties`;
 const countriesUrl = `${apiUrl}/geography/countries`;
 const municipalsUrl = `${apiUrl}/geography/municipals`;
@@ -53,6 +55,7 @@ fetchMock
     .get(reporteeUrl, reportee)
     .get(med(identUrl), ident)
     .get(med(stillingUrl), stilling)
+    .get(med(rekrutteringsbistandstillingUrl), rekrutteringsbistandstilling)
     .get(countiesUrl, counties)
     .get(countriesUrl, countries)
     .get(municipalsUrl, municipals)
