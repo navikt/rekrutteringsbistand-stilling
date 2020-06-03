@@ -7,7 +7,7 @@ import Publishing from './publishing/Publishing';
 import Privacy from './publishing/Privacy';
 import InkluderingPanel from './inkludering/InkluderingPanel';
 import AdminStatusPreview from './adminStatus/AdminStatusPreview';
-import Comment from './comment/Comment';
+import Notat from './notat/Notat';
 import './Administration.less';
 
 class Administration extends React.Component {
@@ -35,7 +35,7 @@ class Administration extends React.Component {
                 </div>
                 <div className="Administration__panel">
                     <Undertittel className="Administration__panel__title">Notater</Undertittel>
-                    <Comment placeholder="Legg inn notat" />
+                    <Notat placeholder="Legg inn notat" />
                 </div>
             </div>
         );

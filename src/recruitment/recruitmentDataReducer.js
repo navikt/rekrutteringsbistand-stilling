@@ -1,6 +1,6 @@
 export const SET_NAV_IDENT_REKRUTTERING = 'SET_NAV_IDENT_REKRUTTERING';
 export const SET_REKRUTTERING_DATA = 'SET_REKRUTTERING_DATA';
-export const SET_COMMENT = 'SET_COMMENT';
+export const SET_NOTAT = 'SET_NOTAT';
 
 const initialState = {
     eierNavident: undefined,
@@ -18,10 +18,10 @@ export default function recruitmentDataReducer(state = initialState, action) {
                 eierNavident: action.navIdent,
                 eierNavn: action.displayName,
             };
-        case SET_COMMENT:
+        case SET_NOTAT:
             return {
                 ...state,
-                notat: action.comment,
+                notat: action.notat,
             };
         default:
             return state;

@@ -87,7 +87,7 @@ class AdStatusEdit extends React.PureComponent {
     onSavePreviewAdClick = () => {
         this.props.saveAd();
         const validation = this.props.validation;
-        if (!(validation && validation.comment)) {
+        if (!(validation && validation.notat)) {
             this.props.previewAd();
         }
 
