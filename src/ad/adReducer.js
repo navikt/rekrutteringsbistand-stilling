@@ -310,10 +310,7 @@ function* getRekrutteringsbistandstilling(action) {
             stillingsid: response.stilling.uuid,
         };
 
-        const kommentarFraAd =
-            response.stilling.administration && response.stilling.administration.comments
-                ? response.stilling.administration.comments
-                : undefined;
+        const kommentarFraAd = response.stilling.administration?.comments;
         const stillingsinfoNotatfix = {
             ...stillingsinfo,
             notat: hentNotatFraRekrutteringsbistandEllerAd(stillingsinfo.notat, kommentarFraAd),
@@ -336,7 +333,7 @@ function* getRekrutteringsbistandstilling(action) {
 
 function hentNotatFraRekrutteringsbistandEllerAd(stillingsinfoNotat, kommentarFraAd) {
     // Notat undefined betyr at kommentar ikke er konvertert og skal hentes fra pam-ad. Om den er tom er den konvertert men slettet.
-    return stillingsinfoNotat != undefined ? stillingsinfoNotat : kommentarFraAd;
+    return stillingsinfoNotat ?? kommentarFraAd;
 }
 
 function* showStopModalMyAds(action) {
