@@ -34,14 +34,14 @@ import AdAlertStripeEnum from './alertstripe/AdAlertStripeEnum';
 import { FETCH_MY_ADS } from '../myAds/myAdsReducer';
 import { loginWithRedirectToCurrentLocation } from '../login';
 import {
-    FETCH_RECRUITMENT,
-    SAVE_RECRUITMENT,
-    UPDATE_RECRUITMENT,
-} from '../recruitment/recruitmentReducer';
+    FETCH_STILLINGSINFO,
+    SAVE_STILLINGSINFO,
+    UPDATE_STILLINGSINFO,
+} from '../stillingsinfo/stillingsinfo';
 import {
-    SET_NAV_IDENT_REKRUTTERING,
-    SET_REKRUTTERING_DATA,
-} from '../recruitment/recruitmentDataReducer';
+    SET_NAV_IDENT_STILLINGSINFO,
+    SET_STILLINGSINFO_DATA,
+} from '../stillingsinfo/stillingsinfoDataReducer';
 
 export const FETCH_AD = 'FETCH_AD';
 export const FETCH_AD_BEGIN = 'FETCH_AD_BEGIN';
@@ -316,7 +316,7 @@ function* getRekrutteringsbistandstilling(action) {
             notat: hentNotatFraRekrutteringsbistandEllerAd(stillingsinfo.notat, kommentarFraAd),
         };
         yield put({
-            type: SET_REKRUTTERING_DATA,
+            type: SET_STILLINGSINFO_DATA,
             data: stillingsinfoNotatfix,
         });
         if (action.edit) {
@@ -396,10 +396,10 @@ function* saveRekrutteringsbistandStilling() {
 
         const data = {
             stilling: state.adData,
-            stillingsinfoid: state.recruitmentData
-                ? state.recruitmentData.stillingsinfoid
+            stillingsinfoid: state.stillingsinfoData
+                ? state.stillingsinfoData.stillingsinfoid
                 : undefined,
-            notat: state.recruitmentData != undefined ? state.recruitmentData.notat : '',
+            notat: state.stillingsinfoData != undefined ? state.stillingsinfoData.notat : '',
         };
 
         const response = yield fetchPut(putUrl, data);
@@ -588,7 +588,7 @@ function* leggTilIMineStillinger(action) {
 
     const { navIdent, displayName } = state.reportee.data;
     yield put({ type: SET_NAV_IDENT_REKRUTTERING, navIdent, displayName });
-    yield put({ type: SAVE_RECRUITMENT, uuid: action.uuid });
+    yield put({ type: SAVE_STILLINGSINFO, uuid: action.uuid });
     yield put({ type: SAVE_AD, showModal: false });
 }
 
@@ -596,8 +596,8 @@ function* markerSomMinStilling(action) {
     let state = yield select();
 
     const { navIdent, displayName } = state.reportee.data;
-    yield put({ type: SET_NAV_IDENT_REKRUTTERING, navIdent, displayName });
-    yield put({ type: UPDATE_RECRUITMENT, uuid: action.uuid });
+    yield put({ type: SET_NAV_IDENT_STILLINGSINFO, navIdent, displayName });
+    yield put({ type: UPDATE_STILLINGSINFO, uuid: action.uuid });
     yield put({ type: SAVE_AD, showModal: false });
 }
 

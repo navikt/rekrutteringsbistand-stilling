@@ -54,7 +54,7 @@ Notat.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    notat: state.recruitmentData.notat,
+    notat: state.stillingsinfoData.notat,
 });
 
 export default connect(mapStateToProps)(Notat);

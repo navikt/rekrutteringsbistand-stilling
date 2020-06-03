@@ -1,5 +1,5 @@
-export const SET_NAV_IDENT_REKRUTTERING = 'SET_NAV_IDENT_REKRUTTERING';
-export const SET_REKRUTTERING_DATA = 'SET_REKRUTTERING_DATA';
+export const SET_NAV_IDENT_STILLINGSINFO = 'SET_NAV_IDENT_STILLINGSINFO';
+export const SET_STILLINGSINFO_DATA = 'SET_STILLINGSINFO_DATA';
 export const SET_NOTAT = 'SET_NOTAT';
 
 const initialState = {
@@ -8,11 +8,11 @@ const initialState = {
     stillingsid: undefined,
 };
 
-export default function recruitmentDataReducer(state = initialState, action) {
+export default function stillingsinfoDataReducer(state = initialState, action) {
     switch (action.type) {
-        case SET_REKRUTTERING_DATA:
+        case SET_STILLINGSINFO_DATA:
             return action.data;
-        case SET_NAV_IDENT_REKRUTTERING:
+        case SET_NAV_IDENT_STILLINGSINFO:
             return {
                 ...state,
                 eierNavident: action.navIdent,

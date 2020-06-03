@@ -106,7 +106,7 @@ export async function fetchAd(uuid) {
     return ad;
 }
 
-export async function fetchRecruitment(uuid) {
+export async function fetchStillingsinfo(uuid) {
     return await fetchGet(`${REKRUTTERING_API}/stilling/${uuid}`);
 }
 
@@ -114,7 +114,7 @@ export async function fetchRekrutteringsbistandstilling(uuid) {
     return await fetchGet(`${REKRUTTERINGSBISTAND_BASE_URL}/rekrutteringsbistandstilling/${uuid}`);
 }
 
-export async function fetchRecruitmentsForVeileder(navIdent) {
+export async function fetchStillingsinfoForVeileder(navIdent) {
     return await fetchGet(`${REKRUTTERING_API}/ident/${navIdent}`);
 }
 

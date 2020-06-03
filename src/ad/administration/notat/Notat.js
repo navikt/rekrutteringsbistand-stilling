@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Textarea } from 'nav-frontend-skjema';
 import { connect } from 'react-redux';
-import { SET_NOTAT } from '../../../recruitment/recruitmentDataReducer';
+import { SET_NOTAT } from '../../../stillingsinfo/stillingsinfoDataReducer';
 import { MAX_LENGTH_NOTAT } from '../../adValidationReducer';
 import './Notat.less';
 
@@ -80,7 +80,7 @@ Notat.propTypes = {
 };
 
 const mapStateToProps = (state) => ({  
-    notat: state.recruitmentData.notat,
+    notat: state.stillingsinfoData.notat,
     validation: state.adValidation.errors,
     createdBy: state.adData.createdBy,
 });

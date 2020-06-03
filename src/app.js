@@ -28,8 +28,8 @@ import myAdsReducer, { myAdsSaga } from './myAds/myAdsReducer';
 import history from './history';
 import { urlHasPath, redirectToUrlPath } from './login';
 import kandidatReducer, { kandidatSaga } from './ad/kandidatModal/kandidatReducer';
-import recruitmentDataReducer from './recruitment/recruitmentDataReducer';
-import recruitmentReducer, { recruitmentSaga } from './recruitment/recruitmentReducer';
+import stillingsinfoDataReducer from './stillingsinfo/stillingsinfoDataReducer';
+import stillingsinfoReducer, { stillingsinfoSaga } from './stillingsinfo/stillingsinfo';
 import featureTogglesReducer, {
     featureTogglesSaga,
     FETCH_FEATURE_TOGGLES,
@@ -56,8 +56,8 @@ const store = createStore(
         savedAdAlertStripe: savedSearchAlertStripeReducer,
         search: searchReducer,
         styrk: styrkReducer,
-        recruitment: recruitmentReducer,
-        recruitmentData: recruitmentDataReducer,
+        stillingsinfo: stillingsinfoReducer,
+        stillingsinfoData: stillingsinfoDataReducer,
         featureToggles: featureTogglesReducer,
         navKontor: navKontorReducer,
     }),
@@ -76,7 +76,7 @@ sagaMiddleware.run(myAdsSaga);
 sagaMiddleware.run(adDataSaga);
 sagaMiddleware.run(locationAreaSaga);
 sagaMiddleware.run(kandidatSaga);
-sagaMiddleware.run(recruitmentSaga);
+sagaMiddleware.run(stillingsinfoSaga);
 sagaMiddleware.run(featureTogglesSaga);
 
 const Main = () => {

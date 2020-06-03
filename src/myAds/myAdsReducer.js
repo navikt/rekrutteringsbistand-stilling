@@ -1,5 +1,5 @@
 import { put, select, takeLatest } from 'redux-saga/effects';
-import { ApiError, fetchMyAds, fetchRecruitmentsForVeileder } from '../api/api';
+import { ApiError, fetchMyAds, fetchStillingsinfoForVeileder } from '../api/api';
 import { getReportee } from '../reportee/reporteeReducer';
 import AdStatusEnum from '../common/enums/AdStatusEnum';
 
@@ -121,9 +121,9 @@ function* getMyAds() {
 
         const state = yield select();
 
-        const recruitmentResponse = yield fetchRecruitmentsForVeileder(reportee.navIdent);
+        const stillingsinfoResponse = yield fetchStillingsinfoForVeileder(reportee.navIdent);
 
-        const stillingsids = recruitmentResponse.map((r) => r.stillingsid).join(',');
+        const stillingsids = stillingsinfoResponse.map((r) => r.stillingsid).join(',');
 
         const search = {
             ...state.myAds,
