@@ -31,7 +31,7 @@ import {
     REMOVE_LOCATION_AREAS,
 } from './adDataReducer';
 
-import { SET_NOTAT } from '../recruitment/recruitmentDataReducer';
+import { SET_NOTAT } from '../stillingsinfo/stillingsinfoDataReducer';
 
 const ADD_VALIDATION_ERROR = 'ADD_VALIDATION_ERROR';
 const REMOVE_VALIDATION_ERROR = 'REMOVE_VALIDATION_ERROR';
@@ -253,7 +253,7 @@ function* validateContactpersonPhone() {
 }
 
 export function* validateNotat() {
-    const notat = yield select((state) => state.recruitmentData.notat);
+    const notat = yield select((state) => state.stillingsinfoData.notat);
 
     if (notat && notat.length > MAX_LENGTH_NOTAT) {
         yield put({

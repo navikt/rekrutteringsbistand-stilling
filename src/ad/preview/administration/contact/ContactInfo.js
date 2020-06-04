@@ -12,9 +12,9 @@ class ContactInfo extends React.Component {
     };
 
     render() {
-        const { stilling, recruitment, innlogget } = this.props;
+        const { stilling, stillingsinfo, innlogget } = this.props;
         const isDir = stilling && stilling.source === 'DIR';
-        const hasRecruitment = recruitment && recruitment.eierNavident;
+        const hasStillingsinfo = stillingsinfo && stillingsinfo.eierNavident;
         const { reportee, navIdent } = stilling.administration;
 
         return isDir ? (
@@ -26,15 +26,15 @@ class ContactInfo extends React.Component {
             </div>
         ) : (
             <div>
-                {hasRecruitment && (
+                {hasStillingsinfo && (
                     <div className="ContactInfo__preview">
                         <Element>Spørsmål om stillingen?</Element>
                         <Normaltekst>
-                            Kontaktperson hos NAV: {recruitment.eierNavn}{' '}
-                            {recruitment.eierNavident ? ` (${recruitment.eierNavident})` : ''}
+                            Kontaktperson hos NAV: {stillingsinfo.eierNavn}{' '}
+                            {stillingsinfo.eierNavident ? ` (${stillingsinfo.eierNavident})` : ''}
                         </Normaltekst>
-                        {(!recruitment.eierNavident ||
-                            (innlogget && recruitment.eierNavident != innlogget.navIdent)) && (
+                        {(!stillingsinfo.eierNavident ||
+                            (innlogget && stillingsinfo.eierNavident != innlogget.navIdent)) && (
                             <Knapp
                                 className="button-marker_som_min"
                                 onClick={this.onMarkerSomMinClick}
@@ -52,7 +52,7 @@ class ContactInfo extends React.Component {
 
 ContactInfo.defaultProps = {
     stilling: undefined,
-    recruitment: undefined,
+    stillingsinfo: undefined,
 };
 
 ContactInfo.propTypes = {
@@ -63,7 +63,7 @@ ContactInfo.propTypes = {
             navIdent: PropTypes.string,
         }),
     }),
-    recruitment: PropTypes.shape({
+    stillingsinfo: PropTypes.shape({
         stillingsid: PropTypes.string,
         eierNavident: PropTypes.string,
         eierNavn: PropTypes.string,
@@ -72,7 +72,7 @@ ContactInfo.propTypes = {
 
 const mapStateToProps = (state) => ({
     stilling: state.adData,
-    recruitment: state.recruitmentData,
+    stillingsinfo: state.stillingsinfoData,
     innlogget: state.reportee.data,
 });
 

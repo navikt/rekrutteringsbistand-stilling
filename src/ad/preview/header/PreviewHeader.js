@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import { EDIT_AD, LEGG_TIL_I_MINE_STILLINGER } from '../../adReducer';
-import { CLOSE_TRANSFERRED_ALERT } from '../../../recruitment/recruitmentReducer';
+import { CLOSE_TRANSFERRED_ALERT } from '../../../stillingsinfo/stillingsinfoReducer';
 import AdTitle from './AdTitle';
 import CandidateActions from '../../candidateActions/CandidateActions';
 import Alertstripe from 'nav-frontend-alertstriper';
@@ -37,12 +37,12 @@ class PreviewMenu extends React.Component {
         const {
             stilling,
             limitedAccess,
-            rekrutteringData,
-            rekruttering: { showAdTransferredAlert, showAdMarkedAlert },
+            stillingsinfoData,
+            stillingsinfo: { showAdTransferredAlert, showAdMarkedAlert },
         } = this.props;
 
         const kanOverfoereStilling =
-            rekrutteringData && limitedAccess && !rekrutteringData.eierNavident;
+            stillingsinfoData && limitedAccess && !stillingsinfoData.eierNavident;
 
         const stillingsLenke = hentAnnonselenke(stilling.uuid);
 
@@ -143,20 +143,20 @@ PreviewMenu.propTypes = {
         }),
     }),
     editAd: PropTypes.func.isRequired,
-    rekrutteringData: PropTypes.shape({
+    stillingsinfoData: PropTypes.shape({
         stillingsid: PropTypes.string,
         eierNavident: PropTypes.string,
         eierNavn: PropTypes.string,
     }),
-    rekruttering: PropTypes.shape({
+    stilingsinfo: PropTypes.shape({
         showAdTransferredAlert: PropTypes.bool,
         showAdMarkedAlert: PropTypes.bool,
     }),
 };
 
 const mapStateToProps = (state) => ({
-    rekrutteringData: state.recruitmentData,
-    rekruttering: state.recruitment,
+    stillingsinfoData: state.stillingsinfoData,
+    stillingsinfo: state.stillingsinfo,
     stilling: state.adData,
     limitedAccess: state.adData.createdBy !== 'pam-rekrutteringsbistand',
 });
