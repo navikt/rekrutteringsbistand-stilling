@@ -44,6 +44,7 @@ export async function fetchGet(url) {
         credentials: 'include',
         headers: {
             'X-Requested-With': 'XMLHttpRequest',
+            'Cache-Control': 'no-cache, no-store' 
         },
     });
 }
