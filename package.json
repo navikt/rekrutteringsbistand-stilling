@@ -16,7 +16,8 @@
         "docker-stop": "docker stop rekrutteringsbistand-stilling",
         "snyk-protect": "snyk protect",
         "prepare": "npm run snyk-protect",
-        "lint": "eslint \"src/**\""
+        "lint": "eslint \"src/**\"",
+        "test": "snyk test"
     },
     "author": "",
     "license": "ISC",
@@ -82,7 +83,7 @@
         "react-router-dom": "^5.1.2",
         "redux": "^4.0.4",
         "redux-saga": "^0.16.0",
-        "snyk": "^1.290.1",
+        "snyk": "^1.366.2",
         "whatwg-fetch": "^2.0.4"
     },
     "devDependencies": {
