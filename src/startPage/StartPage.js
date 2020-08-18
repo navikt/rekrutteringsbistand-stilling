@@ -5,7 +5,6 @@ import { Link, withRouter } from 'react-router-dom';
 import { Column, Row } from 'nav-frontend-grid';
 import { LenkepanelBase } from 'nav-frontend-lenkepanel';
 import { Systemtittel } from 'nav-frontend-typografi';
-import Alertstripe from 'nav-frontend-alertstriper';
 import './StartPage.less';
 import SearchBox from '../searchPage/searchBox/SearchBox';
 import { FETCH_REPORTEE } from '../reportee/reporteeReducer';
@@ -34,17 +33,6 @@ class StartPage extends React.Component {
                     <SearchBox onSearch={this.onSearch} />
                 </div>
                 <div className="StartPage__panels">
-                    <Alertstripe
-                        type="advarsel"
-                        style={{
-                            margin: '0 0.5rem 2rem',
-                        }}
-                    >
-                        <b>Nedetid kl. 16:00</b>
-                        <br />
-                        På grunn av planlagt vedlikehold av Rekrutteringsbistand vil ikke
-                        applikasjonen være tilgjengelig etter kl. 16:00 i dag.
-                    </Alertstripe>
                     <Row>
                         <Column className="StartPage__panel blokk-s" xs="12" md="6">
                             <LenkepanelBase
