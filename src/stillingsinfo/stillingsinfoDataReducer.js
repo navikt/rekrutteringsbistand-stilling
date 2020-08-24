@@ -6,6 +6,7 @@ const initialState = {
     eierNavident: undefined,
     eierNavn: undefined,
     stillingsid: undefined,
+    notat: undefined,
 };
 
 export default function stillingsinfoDataReducer(state = initialState, action) {

@@ -121,13 +121,12 @@ function* saveStillingsinfo() {
     try {
         state = yield select();
 
-        const response;
+        let response;
         if (state.stillingsinfoData.stillingsinfoid) {
             response = yield fetchPut(REKRUTTERING_API, state.stillingsinfoData);
         } else {
             response = yield fetchPost(REKRUTTERING_API, state.stillingsinfoData);
         }
-        
 
         yield put({ type: SAVE_STILLINGSINFO_SUCCESS, response });
     } catch (e) {
