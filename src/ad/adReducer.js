@@ -348,6 +348,8 @@ function needClassify(originalAdData, adData) {
 
 function* createAd() {
     yield put({ type: CREATE_AD_BEGIN });
+    yield put({ type: SET_NOTAT, notat: undefined });
+
     try {
         const reportee = yield getReportee();
 
@@ -405,7 +407,6 @@ function* saveRekrutteringsbistandStilling() {
 
         const response = yield fetchPut(putUrl, data);
 
-        yield put({ type: SET_NOTAT, notat: undefined });
         yield put({ type: SAVE_AD_SUCCESS, response: response.stilling });
     } catch (e) {
         if (e instanceof ApiError) {
