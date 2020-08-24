@@ -79,7 +79,7 @@ Notat.propTypes = {
     createdBy: PropTypes.string,
 };
 
-const mapStateToProps = (state) => ({  
+const mapStateToProps = (state) => ({
     notat: state.stillingsinfoData.notat,
     validation: state.adValidation.errors,
     createdBy: state.adData.createdBy,

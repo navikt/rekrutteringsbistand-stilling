@@ -40,6 +40,7 @@ import {
 } from '../stillingsinfo/stillingsinfoReducer';
 import {
     SET_NAV_IDENT_STILLINGSINFO,
+    SET_NOTAT,
     SET_STILLINGSINFO_DATA,
 } from '../stillingsinfo/stillingsinfoDataReducer';
 
@@ -404,6 +405,7 @@ function* saveRekrutteringsbistandStilling() {
 
         const response = yield fetchPut(putUrl, data);
 
+        yield put({ type: SET_NOTAT, notat: undefined });
         yield put({ type: SAVE_AD_SUCCESS, response: response.stilling });
     } catch (e) {
         if (e instanceof ApiError) {
