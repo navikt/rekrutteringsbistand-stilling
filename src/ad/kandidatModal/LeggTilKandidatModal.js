@@ -17,6 +17,7 @@ import {
     HENT_KANDIDATLISTE,
 } from './kandidatReducer';
 import './LeggTilKandidatModal.less';
+import { sendEvent } from '../../amplitude';
 
 const NOTATLENGDE = 2000;
 
@@ -116,6 +117,10 @@ class LeggTilKandidatModal extends React.Component {
             };
 
             leggTilKandidatMedFnr(nyKandidat, kandidatliste.kandidatlisteId);
+            sendEvent('legg_til_kandidat', 'klikk', {
+                app: 'stilling',
+            });
+
             onClose();
         } else {
             if (!fodselsnummer) {
