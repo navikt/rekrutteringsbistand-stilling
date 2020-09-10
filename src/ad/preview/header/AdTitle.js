@@ -22,7 +22,7 @@ export default function AdTitle({ title, employer, location }) {
     }
 
     return (
-        <div className="AdTitle">
+        <div className="StillingsTittel">
             <Normaltekst>
                 {commaSeparate(employer, capitalizeLocation(locationInTitle))}
             </Normaltekst>
