@@ -31,7 +31,7 @@ class ContactInfo extends React.Component {
                 <Normaltekst>
                     Kontaktperson hos NAV: {reportee} {navIdent ? ` (${navIdent})` : ''}
                 </Normaltekst>
-                {innlogget.navIdent !== stilling.administration.navIdent && (
+                {innlogget && innlogget.navIdent !== stilling.administration.navIdent && (
                     <Knapp
                         className="button-marker_som_min"
                         onClick={this.onMarkerSomMinKlikkInternStilling}
