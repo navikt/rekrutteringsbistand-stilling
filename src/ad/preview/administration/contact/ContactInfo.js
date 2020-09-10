@@ -2,13 +2,21 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
-import { Knapp } from 'nav-frontend-knapper';
-import { MARKER_SOM_MIN } from '../../../adReducer';
+import Flatknapp, { Knapp } from 'nav-frontend-knapper';
+import { MARKER_SOM_MIN, SAVE_AD } from '../../../adReducer';
 import './ContactInfo.less';
+import { SET_NAV_IDENT, SET_REPORTEE } from '../../../adDataReducer';
 
 class ContactInfo extends React.Component {
-    onMarkerSomMinClick = () => {
+    onMarkerSomMinKlikkEksternStilling = () => {
         this.props.markerSomMin();
+    };
+
+    onMarkerSomMinKlikkInternStilling = () => {
+        const { setReportee, setNavIdent, saveAd, innlogget } = this.props;
+        setReportee(innlogget.displayName);
+        setNavIdent(innlogget.navIdent);
+        saveAd();
     };
 
     render() {
@@ -23,9 +31,18 @@ class ContactInfo extends React.Component {
                 <Normaltekst>
                     Kontaktperson hos NAV: {reportee} {navIdent ? ` (${navIdent})` : ''}
                 </Normaltekst>
+                {innlogget && innlogget.navIdent !== stilling.administration.navIdent && (
+                    <Knapp
+                        className="button-marker_som_min"
+                        onClick={this.onMarkerSomMinKlikkInternStilling}
+                        mini
+                    >
+                        Marker som min
+                    </Knapp>
+                )}
             </div>
         ) : (
-            <div>
+            <>
                 {hasStillingsinfo && (
                     <div className="ContactInfo__preview">
                         <Element>Spørsmål om stillingen?</Element>
@@ -34,10 +51,10 @@ class ContactInfo extends React.Component {
                             {stillingsinfo.eierNavident ? ` (${stillingsinfo.eierNavident})` : ''}
                         </Normaltekst>
                         {(!stillingsinfo.eierNavident ||
-                            (innlogget && stillingsinfo.eierNavident != innlogget.navIdent)) && (
+                            (innlogget && stillingsinfo.eierNavident !== innlogget.navIdent)) && (
                             <Knapp
                                 className="button-marker_som_min"
-                                onClick={this.onMarkerSomMinClick}
+                                onClick={this.onMarkerSomMinKlikkEksternStilling}
                                 mini
                             >
                                 Marker som min
@@ -45,7 +62,7 @@ class ContactInfo extends React.Component {
                         )}
                     </div>
                 )}
-            </div>
+            </>
         );
     }
 }
@@ -78,6 +95,9 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     markerSomMin: () => dispatch({ type: MARKER_SOM_MIN }),
+    setReportee: (reportee) => dispatch({ type: SET_REPORTEE, reportee }),
+    setNavIdent: (navIdent) => dispatch({ type: SET_NAV_IDENT, navIdent }),
+    saveAd: () => dispatch({ type: SAVE_AD }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContactInfo);
