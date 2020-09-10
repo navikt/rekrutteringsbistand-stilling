@@ -4,6 +4,8 @@ import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import { Hovedknapp, Flatknapp } from 'nav-frontend-knapper';
 import './OpprettKandidatlisteModal.less';
 
+Modal.setAppElement(document.getElementById('app'));
+
 type Props = {
     åpen: boolean;
     onClose: () => void;
@@ -12,7 +14,6 @@ type Props = {
 
 const OpprettKandidatlisteModal: FunctionComponent<Props> = ({ åpen, onClose, onBekreft }) => (
     <Modal
-        appElement={document.getElementById('app')}
         className="opprett-kandidatliste-modal"
         isOpen={åpen}
         contentLabel="Opprett kandidatliste"
