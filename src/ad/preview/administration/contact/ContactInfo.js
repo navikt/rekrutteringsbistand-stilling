@@ -13,9 +13,9 @@ class ContactInfo extends React.Component {
     };
 
     onMarkerSomMinKlikkInternStilling = () => {
-        const { stilling, setReportee, setNavIdent, saveAd } = this.props;
-        setReportee(stilling.administration.reportee);
-        setNavIdent(stilling.administration.navIdent);
+        const { setReportee, setNavIdent, saveAd, innlogget } = this.props;
+        setReportee(innlogget.displayName);
+        setNavIdent(innlogget.navIdent);
         saveAd();
     };
 
