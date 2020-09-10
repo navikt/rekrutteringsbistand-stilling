@@ -8,11 +8,18 @@ import AdTitle from './AdTitle';
 import CandidateActions from '../../candidateActions/CandidateActions';
 import Alertstripe from 'nav-frontend-alertstriper';
 import { Lukknapp } from 'nav-frontend-ikonknapper';
-import './PreviewHeader.less';
 import KopierTekst from '../../kopierTekst/KopierTekst';
 import { hentAnnonselenke, stillingErPublisert } from '../../adUtils';
+import OpprettKandidatlisteModal from './OpprettKandidatlisteModal';
+import './PreviewHeader.less';
 
 class PreviewMenu extends React.Component {
+    constructor() {
+        this.state = {
+            opprettKandidatlisteModalÅpen: false,
+        };
+    }
+
     onEditAdClick = () => {
         this.props.editAd();
     };
@@ -22,6 +29,18 @@ class PreviewMenu extends React.Component {
     };
 
     onLeggTilIMineStillingerClick = () => {
+        this.setState({
+            opprettKandidatlisteModalÅpen: true,
+        });
+    };
+
+    lukkOpprettKandidatlisteModal = () => {
+        this.setState({
+            opprettKandidatlisteModalÅpen: false,
+        });
+    };
+
+    bekreftOpprettKandidatliste = () => {
         this.props.leggTilIMineStillinger();
     };
 
@@ -121,6 +140,11 @@ class PreviewMenu extends React.Component {
                     employer={stilling.properties.employer}
                     location={stilling.location}
                 />
+                <OpprettKandidatlisteModal
+                    åpen={this.state.opprettKandidatlisteModalÅpen}
+                    onClose={this.lukkOpprettKandidatlisteModal}
+                    onBekreft={this.bekreftOpprettKandidatliste}
+                ></OpprettKandidatlisteModal>
             </div>
         );
     }
