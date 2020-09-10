@@ -14,8 +14,8 @@ class ContactInfo extends React.Component {
 
     onMarkerSomMinKlikkInternStilling = () => {
         const { stilling, setReportee, setNavIdent, saveAd } = this.props;
-        setReportee(stilling.administration.reportee.displayName);
-        setNavIdent(stilling.administration.reportee.navIdent);
+        setReportee(stilling.administration.reportee);
+        setNavIdent(stilling.administration.navIdent);
         saveAd();
     };
 
@@ -31,16 +31,14 @@ class ContactInfo extends React.Component {
                 <Normaltekst>
                     Kontaktperson hos NAV: {reportee} {navIdent ? ` (${navIdent})` : ''}
                 </Normaltekst>
-                {reportee && reportee.navIdent !== stilling.administration.navIdent && (
-                    <div>
-                        <Knapp
-                            className="button-marker_som_min"
-                            onClick={this.onMarkerSomMinKlikkInternStilling}
-                            mini
-                        >
-                            Marker som min
-                        </Knapp>
-                    </div>
+                {innlogget.navIdent !== stilling.administration.navIdent && (
+                    <Knapp
+                        className="button-marker_som_min"
+                        onClick={this.onMarkerSomMinKlikkInternStilling}
+                        mini
+                    >
+                        Marker som min
+                    </Knapp>
                 )}
             </div>
         ) : (
