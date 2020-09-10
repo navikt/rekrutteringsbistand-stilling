@@ -144,7 +144,7 @@ class PreviewMenu extends React.Component {
                     åpen={this.state.opprettKandidatlisteModalÅpen}
                     onClose={this.lukkOpprettKandidatlisteModal}
                     onBekreft={this.bekreftOpprettKandidatliste}
-                ></OpprettKandidatlisteModal>
+                />
             </div>
         );
     }
