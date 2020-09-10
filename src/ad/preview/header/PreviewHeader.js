@@ -42,6 +42,7 @@ class PreviewMenu extends React.Component {
 
     bekreftOpprettKandidatliste = () => {
         this.props.leggTilIMineStillinger();
+        this.lukkOpprettKandidatlisteModal();
     };
 
     onCloseAlertstripe = () => {
