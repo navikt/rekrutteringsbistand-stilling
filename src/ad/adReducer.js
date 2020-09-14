@@ -409,10 +409,8 @@ function* saveRekrutteringsbistandStilling(loggPubliseringAvStillingMedTilrettel
 
         const response = yield fetchPut(putUrl, data);
 
-        yield put({ type: SAVE_AD_SUCCESS, response: response.stilling });
-
         const stillingHarTilretteleggingsmuligheter = state.adData.properties.tags.includes(
-            inkluderingstags.INKLUDERING
+            'INKLUDERING'
         );
 
         if (
@@ -423,6 +421,8 @@ function* saveRekrutteringsbistandStilling(loggPubliseringAvStillingMedTilrettel
                 stillingsId: state.adData.uuid,
             });
         }
+
+        yield put({ type: SAVE_AD_SUCCESS, response: response.stilling });
     } catch (e) {
         if (e instanceof ApiError) {
             yield put({ type: SAVE_AD_FAILURE, error: e });
