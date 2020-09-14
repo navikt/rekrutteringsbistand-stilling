@@ -43,6 +43,8 @@ import {
     SET_NOTAT,
     SET_STILLINGSINFO_DATA,
 } from '../stillingsinfo/stillingsinfoDataReducer';
+import { sendEvent } from '../amplitude';
+import { inkluderingstags } from '../common/tags';
 
 export const FETCH_AD = 'FETCH_AD';
 export const FETCH_AD_BEGIN = 'FETCH_AD_BEGIN';
@@ -380,7 +382,7 @@ function* createAd() {
     }
 }
 
-function* saveRekrutteringsbistandStilling() {
+function* saveRekrutteringsbistandStilling(loggPubliseringAvStillingMedTilretteleggingsmuligheter) {
     let state = yield select();
     yield put({ type: SAVE_AD_BEGIN });
     try {
@@ -406,6 +408,19 @@ function* saveRekrutteringsbistandStilling() {
         };
 
         const response = yield fetchPut(putUrl, data);
+
+        const stillingHarTilretteleggingsmuligheter = state.adData.properties.tags.includes(
+            'INKLUDERING'
+        );
+
+        if (
+            stillingHarTilretteleggingsmuligheter &&
+            loggPubliseringAvStillingMedTilretteleggingsmuligheter
+        ) {
+            sendEvent('stilling', 'publiser_stilling_med_tilretteleggingsmuligheter', {
+                stillingsId: state.adData.uuid,
+            });
+        }
 
         yield put({ type: SAVE_AD_SUCCESS, response: response.stilling });
     } catch (e) {
@@ -457,7 +472,7 @@ function* publishAd() {
             yield put({ type: SET_FIRST_PUBLISHED });
         }
         yield put({ type: SHOW_AD_PUBLISHED_MODAL });
-        yield saveRekrutteringsbistandStilling();
+        yield saveRekrutteringsbistandStilling(true);
     }
 }
 
@@ -497,7 +512,7 @@ function* publishAdChanges() {
     } else {
         yield put({ type: SET_ADMIN_STATUS, status: AdminStatusEnum.DONE });
         yield put({ type: SET_AD_STATUS, status: AdStatusEnum.ACTIVE });
-        yield saveRekrutteringsbistandStilling();
+        yield saveRekrutteringsbistandStilling(true);
         state = yield select();
         if (
             state.adData.activationOnPublishingDate &&

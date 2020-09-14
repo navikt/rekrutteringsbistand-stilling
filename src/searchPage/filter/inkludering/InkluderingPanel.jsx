@@ -4,9 +4,14 @@ import { connect } from 'react-redux';
 import { CHECK_TAG_SOK, UNCHECK_TAG_SOK } from '../../searchReducer';
 import { hentKategorierMedNavn } from '../../../ad/tagHelpers';
 import { Fieldset, Checkbox } from 'nav-frontend-skjema';
+import { sendEvent } from '../../../amplitude';
 
 const InkluderingPanel = ({ tags, checkTag, uncheckTag }) => {
     const onTagChange = (e) => {
+        if (e.target.checked && e.target.value === 'INKLUDERING') {
+            sendEvent('stillingssøk', 'filtrer_på_tilretteleggingsmuligheter');
+        }
+
         e.target.checked ? checkTag(e.target.value) : uncheckTag(e.target.value);
     };
 
