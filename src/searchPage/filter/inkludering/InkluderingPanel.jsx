@@ -6,10 +6,16 @@ import { hentKategorierMedNavn } from '../../../ad/tagHelpers';
 import { Fieldset, Checkbox } from 'nav-frontend-skjema';
 import { sendEvent } from '../../../amplitude';
 
+const loggFiltreringPåTilretteleggingsmuligheter = (tilretteleggingsmuligheter) => {
+    sendEvent('stillingssøk', 'filtrer_på_tilretteleggingsmuligheter', {
+        tilretteleggingsmuligheter,
+    });
+};
+
 const InkluderingPanel = ({ tags, checkTag, uncheckTag }) => {
     const onTagChange = (e) => {
-        if (e.target.checked && e.target.value === 'INKLUDERING') {
-            sendEvent('stillingssøk', 'filtrer_på_tilretteleggingsmuligheter');
+        if (e.target.checked && e.target.value.startsWith('INKLUDERING')) {
+            loggFiltreringPåTilretteleggingsmuligheter([...tags, e.target.value]);
         }
 
         e.target.checked ? checkTag(e.target.value) : uncheckTag(e.target.value);
