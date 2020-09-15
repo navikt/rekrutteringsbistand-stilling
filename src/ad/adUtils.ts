@@ -13,19 +13,23 @@ export const hentAnnonselenke = (uuid: string) => `${VIS_STILLING_URL}/${uuid}`;
 
 export const loggPubliseringAvStillingMedTilretteleggingsmuligheter = (
     stillingsId: string,
-    alleTagsPåStilling: string[]
+    alleTags: string
 ) => {
-    const tilretteleggingsmuligheter = alleTagsPåStilling.filter((tag) =>
-        tag.startsWith('INKLUDERING')
-    );
+    const tagsSomArray = JSON.parse(alleTags);
 
-    if (
-        tilretteleggingsmuligheter.length > 0 &&
-        loggPubliseringAvStillingMedTilretteleggingsmuligheter
-    ) {
-        sendEvent('stilling', 'publiser_stilling_med_tilretteleggingsmuligheter', {
-            stillingsId,
-            tilretteleggingsmuligheter,
-        });
+    if (Array.isArray(tagsSomArray)) {
+        const tilretteleggingsmuligheter = tagsSomArray.filter((tag) =>
+            tag.startsWith('INKLUDERING')
+        );
+
+        if (
+            tilretteleggingsmuligheter.length > 0 &&
+            loggPubliseringAvStillingMedTilretteleggingsmuligheter
+        ) {
+            sendEvent('stilling', 'publiser_stilling_med_tilretteleggingsmuligheter', {
+                stillingsId,
+                tilretteleggingsmuligheter,
+            });
+        }
     }
 };

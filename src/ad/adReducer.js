@@ -33,18 +33,12 @@ import { showAlertStripe } from './alertstripe/SavedAdAlertStripeReducer';
 import AdAlertStripeEnum from './alertstripe/AdAlertStripeEnum';
 import { FETCH_MY_ADS } from '../myAds/myAdsReducer';
 import { loginWithRedirectToCurrentLocation } from '../login';
-import {
-    FETCH_STILLINGSINFO,
-    SAVE_STILLINGSINFO,
-    UPDATE_STILLINGSINFO,
-} from '../stillingsinfo/stillingsinfoReducer';
+import { SAVE_STILLINGSINFO, UPDATE_STILLINGSINFO } from '../stillingsinfo/stillingsinfoReducer';
 import {
     SET_NAV_IDENT_STILLINGSINFO,
     SET_NOTAT,
     SET_STILLINGSINFO_DATA,
 } from '../stillingsinfo/stillingsinfoDataReducer';
-import { sendEvent } from '../amplitude';
-import { inkluderingstags } from '../common/tags';
 import { loggPubliseringAvStillingMedTilretteleggingsmuligheter } from './adUtils';
 
 export const FETCH_AD = 'FETCH_AD';
