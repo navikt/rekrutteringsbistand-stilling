@@ -33,18 +33,13 @@ import { showAlertStripe } from './alertstripe/SavedAdAlertStripeReducer';
 import AdAlertStripeEnum from './alertstripe/AdAlertStripeEnum';
 import { FETCH_MY_ADS } from '../myAds/myAdsReducer';
 import { loginWithRedirectToCurrentLocation } from '../login';
-import {
-    FETCH_STILLINGSINFO,
-    SAVE_STILLINGSINFO,
-    UPDATE_STILLINGSINFO,
-} from '../stillingsinfo/stillingsinfoReducer';
+import { SAVE_STILLINGSINFO, UPDATE_STILLINGSINFO } from '../stillingsinfo/stillingsinfoReducer';
 import {
     SET_NAV_IDENT_STILLINGSINFO,
     SET_NOTAT,
     SET_STILLINGSINFO_DATA,
 } from '../stillingsinfo/stillingsinfoDataReducer';
-import { sendEvent } from '../amplitude';
-import { inkluderingstags } from '../common/tags';
+import { loggPubliseringAvStillingMedTilretteleggingsmuligheter } from './adUtils';
 
 export const FETCH_AD = 'FETCH_AD';
 export const FETCH_AD_BEGIN = 'FETCH_AD_BEGIN';
@@ -382,7 +377,7 @@ function* createAd() {
     }
 }
 
-function* saveRekrutteringsbistandStilling(loggPubliseringAvStillingMedTilretteleggingsmuligheter) {
+function* saveRekrutteringsbistandStilling(loggPublisering) {
     let state = yield select();
     yield put({ type: SAVE_AD_BEGIN });
     try {
@@ -408,18 +403,11 @@ function* saveRekrutteringsbistandStilling(loggPubliseringAvStillingMedTilrettel
         };
 
         const response = yield fetchPut(putUrl, data);
-
-        const stillingHarTilretteleggingsmuligheter = state.adData.properties.tags.includes(
-            'INKLUDERING'
-        );
-
-        if (
-            stillingHarTilretteleggingsmuligheter &&
-            loggPubliseringAvStillingMedTilretteleggingsmuligheter
-        ) {
-            sendEvent('stilling', 'publiser_stilling_med_tilretteleggingsmuligheter', {
-                stillingsId: state.adData.uuid,
-            });
+        if (loggPublisering) {
+            loggPubliseringAvStillingMedTilretteleggingsmuligheter(
+                state.adData.uuid,
+                state.adData.properties.tags
+            );
         }
 
         yield put({ type: SAVE_AD_SUCCESS, response: response.stilling });
