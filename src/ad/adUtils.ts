@@ -16,12 +16,10 @@ export const loggPubliseringAvStillingMedInkluderingstags = (
     alleTags: string
 ) => {
     const tags = JSON.parse(alleTags);
-    if (Array.isArray(tags)) {
-        if (tags.length > 0 && loggPubliseringAvStillingMedInkluderingstags) {
-            sendEvent('stilling', 'publiser_stilling_med_inkluderingstags', {
-                stillingsId,
-                tags,
-            });
-        }
+    if (Array.isArray(tags) && tags.length > 0) {
+        sendEvent('stilling', 'publiser_stilling_med_inkluderingstags', {
+            stillingsId,
+            tags,
+        });
     }
 };
