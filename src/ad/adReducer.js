@@ -39,7 +39,7 @@ import {
     SET_NOTAT,
     SET_STILLINGSINFO_DATA,
 } from '../stillingsinfo/stillingsinfoDataReducer';
-import { loggPubliseringAvStillingMedTilretteleggingsmuligheter } from './adUtils';
+import { loggPubliseringAvStillingMedInkluderingstags } from './adUtils';
 
 export const FETCH_AD = 'FETCH_AD';
 export const FETCH_AD_BEGIN = 'FETCH_AD_BEGIN';
@@ -404,7 +404,7 @@ function* saveRekrutteringsbistandStilling(loggPublisering) {
 
         const response = yield fetchPut(putUrl, data);
         if (loggPublisering) {
-            loggPubliseringAvStillingMedTilretteleggingsmuligheter(
+            loggPubliseringAvStillingMedInkluderingstags(
                 state.adData.uuid,
                 state.adData.properties.tags
             );
