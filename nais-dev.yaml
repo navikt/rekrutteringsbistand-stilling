@@ -34,7 +34,7 @@ spec:
         - https://rekrutteringsbistand.dev.adeo.no
     env:
         - name: LOGIN_URL
-          value: https://loginservice.nais.preprod.local/login
+          value: https://loginservice.dev.nav.no/login
         - name: REKRUTTERINGSBISTAND_BASE_URL
           value: https://arbeidsgiver.nais.preprod.local/rekrutteringsbistand-api
         - name: REKRUTTERINGSBISTAND_API_URL
