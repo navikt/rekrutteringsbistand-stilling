@@ -33,16 +33,13 @@ import { showAlertStripe } from './alertstripe/SavedAdAlertStripeReducer';
 import AdAlertStripeEnum from './alertstripe/AdAlertStripeEnum';
 import { FETCH_MY_ADS } from '../myAds/myAdsReducer';
 import { loginWithRedirectToCurrentLocation } from '../login';
-import {
-    FETCH_STILLINGSINFO,
-    SAVE_STILLINGSINFO,
-    UPDATE_STILLINGSINFO,
-} from '../stillingsinfo/stillingsinfoReducer';
+import { SAVE_STILLINGSINFO, UPDATE_STILLINGSINFO } from '../stillingsinfo/stillingsinfoReducer';
 import {
     SET_NAV_IDENT_STILLINGSINFO,
     SET_NOTAT,
     SET_STILLINGSINFO_DATA,
 } from '../stillingsinfo/stillingsinfoDataReducer';
+import { loggPubliseringAvStillingMedInkluderingstags } from './adUtils';
 
 export const FETCH_AD = 'FETCH_AD';
 export const FETCH_AD_BEGIN = 'FETCH_AD_BEGIN';
@@ -380,7 +377,7 @@ function* createAd() {
     }
 }
 
-function* saveRekrutteringsbistandStilling() {
+function* saveRekrutteringsbistandStilling(loggPublisering) {
     let state = yield select();
     yield put({ type: SAVE_AD_BEGIN });
     try {
@@ -406,6 +403,12 @@ function* saveRekrutteringsbistandStilling() {
         };
 
         const response = yield fetchPut(putUrl, data);
+        if (loggPublisering) {
+            loggPubliseringAvStillingMedInkluderingstags(
+                state.adData.uuid,
+                state.adData.properties.tags
+            );
+        }
 
         yield put({ type: SAVE_AD_SUCCESS, response: response.stilling });
     } catch (e) {
@@ -457,7 +460,7 @@ function* publishAd() {
             yield put({ type: SET_FIRST_PUBLISHED });
         }
         yield put({ type: SHOW_AD_PUBLISHED_MODAL });
-        yield saveRekrutteringsbistandStilling();
+        yield saveRekrutteringsbistandStilling(true);
     }
 }
 
@@ -497,7 +500,7 @@ function* publishAdChanges() {
     } else {
         yield put({ type: SET_ADMIN_STATUS, status: AdminStatusEnum.DONE });
         yield put({ type: SET_AD_STATUS, status: AdStatusEnum.ACTIVE });
-        yield saveRekrutteringsbistandStilling();
+        yield saveRekrutteringsbistandStilling(true);
         state = yield select();
         if (
             state.adData.activationOnPublishingDate &&

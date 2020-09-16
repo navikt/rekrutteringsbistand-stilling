@@ -4,9 +4,20 @@ import { connect } from 'react-redux';
 import { CHECK_TAG_SOK, UNCHECK_TAG_SOK } from '../../searchReducer';
 import { hentKategorierMedNavn } from '../../../ad/tagHelpers';
 import { Fieldset, Checkbox } from 'nav-frontend-skjema';
+import { sendEvent } from '../../../amplitude';
+
+const loggFiltreringPåInkluderingstags = (tags) => {
+    sendEvent('stillingssøk', 'filtrer_på_inkluderingstags', {
+        tags,
+    });
+};
 
 const InkluderingPanel = ({ tags, checkTag, uncheckTag }) => {
     const onTagChange = (e) => {
+        if (e.target.checked) {
+            loggFiltreringPåInkluderingstags([...tags, e.target.value]);
+        }
+
         e.target.checked ? checkTag(e.target.value) : uncheckTag(e.target.value);
     };
 

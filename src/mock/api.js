@@ -26,7 +26,8 @@ const adsUrl = `${apiUrl}/ads`;
 const reporteeUrl = `${apiUrl}/reportee/`;
 const mineStillingerUrl = `${apiUrl}/ads/rekrutteringsbistand/minestillinger`;
 const stillingUrl = `${apiUrl}/stilling/`;
-const rekrutteringsbistandstillingUrl = `${baseUrl}/rekrutteringsbistandstilling/`;
+const rekrutteringsbistandstillingUrl = `express:/rekrutteringsbistand-api/rekrutteringsbistandstilling/:stillingsId`;
+const putRekrutteringsbistandstillingUrl = `express:/rekrutteringsbistand-api/rekrutteringsbistandstilling`;
 const countiesUrl = `${apiUrl}/geography/counties`;
 const countriesUrl = `${apiUrl}/geography/countries`;
 const municipalsUrl = `${apiUrl}/geography/municipals`;
@@ -55,7 +56,8 @@ fetchMock
     .get(reporteeUrl, reportee)
     .get(med(identUrl), ident)
     .get(med(stillingUrl), stilling)
-    .get(med(rekrutteringsbistandstillingUrl), rekrutteringsbistandstilling)
+    .get(rekrutteringsbistandstillingUrl, rekrutteringsbistandstilling)
+    .put(putRekrutteringsbistandstillingUrl, rekrutteringsbistandstilling)
     .get(countiesUrl, counties)
     .get(countriesUrl, countries)
     .get(municipalsUrl, municipals)
