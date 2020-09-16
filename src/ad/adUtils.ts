@@ -11,24 +11,16 @@ export const stillingErPublisert = (ad: any) => {
 
 export const hentAnnonselenke = (uuid: string) => `${VIS_STILLING_URL}/${uuid}`;
 
-export const loggPubliseringAvStillingMedTilretteleggingsmuligheter = (
+export const loggPubliseringAvStillingMedInkluderingstags = (
     stillingsId: string,
     alleTags: string
 ) => {
-    const tagsSomArray = JSON.parse(alleTags);
-
-    if (Array.isArray(tagsSomArray)) {
-        const tilretteleggingsmuligheter = tagsSomArray.filter((tag) =>
-            tag.startsWith('INKLUDERING')
-        );
-
-        if (
-            tilretteleggingsmuligheter.length > 0 &&
-            loggPubliseringAvStillingMedTilretteleggingsmuligheter
-        ) {
-            sendEvent('stilling', 'publiser_stilling_med_tilretteleggingsmuligheter', {
+    const tags = JSON.parse(alleTags);
+    if (Array.isArray(tags)) {
+        if (tags.length > 0 && loggPubliseringAvStillingMedInkluderingstags) {
+            sendEvent('stilling', 'publiser_stilling_med_inkluderingstags', {
                 stillingsId,
-                tilretteleggingsmuligheter,
+                tags,
             });
         }
     }
