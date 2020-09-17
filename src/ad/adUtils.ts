@@ -15,11 +15,15 @@ export const loggPubliseringAvStillingMedInkluderingstags = (
     stillingsId: string,
     alleTags: string
 ) => {
-    const tags = JSON.parse(alleTags);
-    if (Array.isArray(tags) && tags.length > 0) {
-        sendEvent('stilling', 'publiser_stilling_med_inkluderingstags', {
-            stillingsId,
-            tags,
-        });
+    try {
+        const tags = JSON.parse(alleTags);
+        if (Array.isArray(tags) && tags.length > 0) {
+            sendEvent('stilling', 'publiser_stilling_med_inkluderingstags', {
+                stillingsId,
+                tags,
+            });
+        }
+    } catch (e) {
+        return null;
     }
 };

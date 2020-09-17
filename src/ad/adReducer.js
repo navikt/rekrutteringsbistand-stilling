@@ -403,14 +403,15 @@ function* saveRekrutteringsbistandStilling(loggPublisering) {
         };
 
         const response = yield fetchPut(putUrl, data);
+
+        yield put({ type: SAVE_AD_SUCCESS, response: response.stilling });
+
         if (loggPublisering) {
             loggPubliseringAvStillingMedInkluderingstags(
                 state.adData.uuid,
                 state.adData.properties.tags
             );
         }
-
-        yield put({ type: SAVE_AD_SUCCESS, response: response.stilling });
     } catch (e) {
         if (e instanceof ApiError) {
             yield put({ type: SAVE_AD_FAILURE, error: e });
