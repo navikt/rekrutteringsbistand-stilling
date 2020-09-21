@@ -36,6 +36,7 @@ import featureTogglesReducer, {
 } from './featureToggles/featureTogglesReducer';
 import navKontorReducer from './navKontor/navKontorReducer.ts';
 import Dekoratør from './dekoratør/Dekoratør.tsx';
+import useLoggNavigering from './useLoggNavigering';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -81,6 +82,7 @@ sagaMiddleware.run(featureTogglesSaga);
 
 const Main = () => {
     const dispatch = useDispatch();
+    useLoggNavigering();
 
     useEffect(() => {
         dispatch({ type: FETCH_FEATURE_TOGGLES });
