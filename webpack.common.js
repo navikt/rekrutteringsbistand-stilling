@@ -5,7 +5,7 @@ module.exports = {
     entry: ['babel-polyfill', 'whatwg-fetch', './src/app.js'],
     output: {
         path: path.join(__dirname, 'dist'),
-        filename: 'js/[name].[hash:7].js',
+        filename: 'js/[name].[contenthash:7].js',
         publicPath: '/',
     },
     module: {
