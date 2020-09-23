@@ -1,7 +1,8 @@
 {
     "name": "rekrutteringsbistand-stilling",
     "version": "0.54.0",
-    "description": "",
+    "description": "Applikasjon for å søke opp stillinger og opprette direktemeldte stillinger for veiledere i NAV.",
+    "repository": "https://github.com/navikt/rekrutteringsbistand-stilling",
     "main": "index.js",
     "scripts": {
         "start": "webpack-dev-server --port 8090 --inline --env.dev --config webpack.config.dev.js",
