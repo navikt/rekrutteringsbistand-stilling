@@ -6,6 +6,17 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = () => {
     return merge(common, {
         mode: 'production',
+        optimization: {
+            splitChunks: {
+                cacheGroups: {
+                    commons: {
+                        test: /[\\/]node_modules[\\/]/,
+                        name: 'vendors',
+                        chunks: 'all',
+                    },
+                },
+            },
+        },
         devtool: 'source-map',
         module: {
             rules: [
