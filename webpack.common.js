@@ -13,8 +13,7 @@ module.exports = {
             {
                 test: /\.([tj])sx?$/,
                 exclude: /node_modules/,
-                use: ['cache-loader', { loader: 'awesome-typescript-loader' }],
-                // query: { presets: ['es2015', 'react', 'stage-2'] },
+                use: ['cache-loader', { loader: 'ts-loader' }],
             },
             {
                 test: /\.css$/i,
