@@ -6,6 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = (env) =>
     merge(common, {
         mode: 'development',
+        devtool: 'eval-cheap-source-map',
         devServer: {
             historyApiFallback: true,
         },
