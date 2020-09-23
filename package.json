@@ -70,7 +70,6 @@
         "nav-frontend-tabs-style": "0.0.27",
         "nav-frontend-typografi": "^2.0.26",
         "nav-frontend-typografi-style": "^1.0.22",
-        "prom-client": "^11.5.3",
         "prop-types": "^15.7.2",
         "react": "^16.13.1",
         "react-collapse": "^5.0.1",
