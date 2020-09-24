@@ -15,8 +15,7 @@
         "docker-kill": "npm run docker-stop && npm run docker-rm",
         "docker-rm": "docker rm rekrutteringsbistand-stilling",
         "docker-stop": "docker stop rekrutteringsbistand-stilling",
-        "snyk-protect": "snyk protect",
-        "prepare": "npm run snyk-protect",
+        "protect": "npm run snyk-protect",
         "lint": "eslint \"src/**\"",
         "test": "snyk test"
     },
