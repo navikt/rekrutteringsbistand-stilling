@@ -1,11 +1,12 @@
 @import 'Result';
+@import '../../variables.less';
 
 @drop-down-width: 160px;
 @drop-down-x-offset: calc(@edit-width + 4px - @drop-down-width);
 @hjelpetekst-x-offset: calc(@edit-width / 2 - @drop-down-width);
 
 .ResultItemDropDown {
-    background: #e3edf8;
+    background: @arbeidsgiverBla;
     border: 1px solid @navGra20;
     border-radius: 4px;
     list-style: none;
@@ -39,7 +40,7 @@
     transform: rotate(45deg) translate(165%, -240%);
     width: 10px;
     height: 10px;
-    background: #e3edf8;
+    background: @arbeidsgiverBla;
     border-left: 1px solid @navGra20;
     border-top: 1px solid @navGra20;
 }

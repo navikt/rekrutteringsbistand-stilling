@@ -10,7 +10,7 @@ import { CREATE_AD, FETCH_AD, PREVIEW_EDIT_AD } from './adReducer';
 import Edit from './edit/Edit';
 import Error from './error/Error';
 import Preview from './preview/Preview';
-import Administration from './administration/Administration';
+import Administration from './administration/Administration.tsx';
 import AdministrationLimited from './administration/limited/AdministrationLimited';
 import AdministrationPreview from './preview/administration/AdministrationPreview';
 import SavedAdAlertStripe from './alertstripe/SavedAdAlertStripe';

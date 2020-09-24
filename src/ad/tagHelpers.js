@@ -1,7 +1,7 @@
 import {
     direktemeldteInkluderingstags,
     direktemeldtKategorisering,
-} from './administration/inkludering/direktemeldtTags';
+} from './edit/inkludering/direktemeldtTags';
 import { inkluderingstags, kategorisering } from '../common/tags';
 
 export const TAG_HIERARCHY_SPACER = '__';

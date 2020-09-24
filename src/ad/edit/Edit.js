@@ -20,6 +20,7 @@ import TokenExpirationChecker, {
     TOKEN_HAS_EXPIRED,
 } from './session/TokenExpirationChecker';
 import SessionExpirationModal from './session/SessionExpirationModal';
+import InkluderingPanel from './inkludering/MuligheterForÅInkludere.tsx';
 
 class Edit extends React.Component {
     constructor(props) {
@@ -92,6 +93,7 @@ class Edit extends React.Component {
                     <Column xs="12" md="8">
                         <div className="Edit__left">
                             <Employer />
+                            <InkluderingPanel />
                             <JobDetails isNew={isNew} />
                         </div>
                     </Column>

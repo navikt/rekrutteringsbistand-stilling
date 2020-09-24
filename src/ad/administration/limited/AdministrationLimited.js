@@ -2,7 +2,7 @@ import React from 'react';
 import { Undertittel } from 'nav-frontend-typografi';
 import AdStatus from '../adStatus/AdStatus';
 import AdStatusEdit from '../adStatus/AdStatusEdit';
-import InkluderingPanel from '../inkludering/InkluderingPanel';
+import InkluderingPanel from '../../edit/inkludering/MuligheterForÅInkludere';
 import Notat from '../notat/Notat';
 import '../Administration.less';
 
