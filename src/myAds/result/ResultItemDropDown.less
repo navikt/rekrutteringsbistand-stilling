@@ -1,53 +1,21 @@
 @import 'Result';
 
-@drop-down-width: 160px;
-@drop-down-x-offset: calc(@edit-width + 4px - @drop-down-width);
-@hjelpetekst-x-offset: calc(@edit-width / 2 - @drop-down-width);
+@drop-down-width: 140px;
 
 .ResultItemDropDown {
-    background: #e3edf8;
-    border: 1px solid @navGra20;
-    border-radius: 4px;
     list-style: none;
+    padding-left: 0;
     margin: 0;
-    padding: 0.5rem;
-    position: absolute;
-    transform: translateX(@drop-down-x-offset);
     width: @drop-down-width;
 
-    > div {
-        color: #0067c5;
-        padding: 0.25rem;
+    &__item {
         display: list-item;
+        &:not(:last-child) {
+            margin-bottom: 0.5rem;
+        }
 
-        &:hover {
-            cursor: pointer;
-            text-decoration: underline;
+        &--disabled {
+            color: @navGra60;
         }
     }
-
-    > .hjelpetekst {
-        background: transparent;
-        border: none;
-        padding: 0.25rem;
-        display: list-item;
-    }
-}
-
-.arrow-up {
-    position: absolute;
-    transform: rotate(45deg) translate(165%, -240%);
-    width: 10px;
-    height: 10px;
-    background: #e3edf8;
-    border-left: 1px solid @navGra20;
-    border-top: 1px solid @navGra20;
-}
-
-.typo-normal.disabled {
-    color: @navGra80;
-}
-
-.hjelpetekst__meny {
-    transform: translateX(@hjelpetekst-x-offset);
 }

@@ -1,12 +1,7 @@
-/* eslint-disable object-curly-newline */
-/* eslint-disable react/forbid-prop-types */
-/* eslint-disable jsx-a11y/no-noninteractive-element-to-interactive-role */
-
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import './ResultItemDropDown.less';
-import { HjelpetekstVenstre } from 'nav-frontend-hjelpetekst';
+
 import AdStatusEnum from '../../common/enums/AdStatusEnum';
 import {
     COPY_AD_FROM_MY_ADS,
@@ -14,38 +9,31 @@ import {
     SHOW_STOP_MODAL_MY_ADS,
 } from '../../ad/adReducer';
 import { getAdStatusLabel } from '../../common/enums/getEnumLabels';
+import './ResultItemDropDown.less';
 
-const DropDownItem = ({ label, onClick, active, helpText, refProp }) => {
-    const handleKeyDown = (event) => {
-        if ((event.keyCode === 13 || event.keyCode === 32) && active) {
-            onClick();
-        }
+const DropDownItem = ({ label, onClick, active, helpText, setHjelpetekst }) => {
+    const onHjelpetekstClick = (event) => {
+        setHjelpetekst({ anker: event.currentTarget, tekst: helpText });
+        event.stopPropagation();
     };
 
-    const item = (
+    return active ? (
         <div
-            className={`typo-normal${active ? '' : ' disabled'}`}
-            onClick={active ? onClick : null}
-            onKeyDown={handleKeyDown}
             role="button"
-            tabIndex={active ? 0 : -1}
-            ref={refProp}
+            className="ResultItemDropDown__item lenke"
+            onClick={active ? onClick : null}
         >
             {label}
         </div>
-    );
-
-    return active ? (
-        item
     ) : (
-        <HjelpetekstVenstre
-            id={label}
-            anchor={() => item}
-            tittel={label}
-            className="hjelpetekst__meny"
-        >
-            {helpText}
-        </HjelpetekstVenstre>
+        <>
+            <div
+                className="ResultItemDropDown__item ResultItemDropDown__item--disabled"
+                onClick={onHjelpetekstClick}
+            >
+                {label}
+            </div>
+        </>
     );
 };
 
@@ -62,52 +50,21 @@ DropDownItem.defaultProps = {
     refProp: undefined,
 };
 
-const ResultItemDropDown = ({ ad, copyAd, stopAd, deleteAd, setVisible }) => {
-    const listRef = useRef(null);
-    const copyRef = useRef(null);
-    const stopRef = useRef(null);
-    const deleteRef = useRef(null);
-
-    const hasFocus = () => {
-        const active = document.activeElement;
-        return (
-            listRef.current === active ||
-            copyRef.current === active ||
-            stopRef.current === active ||
-            deleteRef.current === active ||
-            active.className.includes('hjelpetekst') ||
-            active.className.includes('lukknapp')
-        );
-    };
-
-    const handleCloseMenu = () => {
-        window.setTimeout(() => {
-            if (!hasFocus()) {
-                setVisible(false);
-            }
-        }, 0);
-    };
-
-    useEffect(() => {
-        document.addEventListener('click', handleCloseMenu);
-        return () => document.removeEventListener('click', handleCloseMenu);
-    }, []);
-
+const ResultItemDropDown = ({ ad, copyAd, stopAd, deleteAd, setHjelpetekst }) => {
     const willBePublished = ad.status === AdStatusEnum.INACTIVE && ad.activationOnPublishingDate;
 
     const onItemClick = (action) => {
         action(ad.uuid);
-        setVisible(false);
     };
 
     return (
         <div>
-            <ul className="ResultItemDropDown" ref={listRef} onBlur={handleCloseMenu}>
+            <ul className="ResultItemDropDown">
                 <DropDownItem
                     label="Kopier"
                     onClick={() => onItemClick(copyAd)}
-                    refProp={copyRef}
                     active
+                    setHjelpetekst={setHjelpetekst}
                 />
                 <DropDownItem
                     label="Stopp"
@@ -120,7 +77,7 @@ const ResultItemDropDown = ({ ad, copyAd, stopAd, deleteAd, setVisible }) => {
                         ad.status,
                         ad.deactivatedByExpiry
                     ).toLowerCase()}"`}
-                    refProp={stopRef}
+                    setHjelpetekst={setHjelpetekst}
                 />
                 <DropDownItem
                     label="Slett"
@@ -129,10 +86,9 @@ const ResultItemDropDown = ({ ad, copyAd, stopAd, deleteAd, setVisible }) => {
                     helpText={`Du kan ikke slette en stilling som har status: "${
                         willBePublished ? 'blir publisert frem i tid' : 'publisert'
                     }"`}
-                    refProp={deleteRef}
+                    setHjelpetekst={setHjelpetekst}
                 />
             </ul>
-            <div className="arrow-up" />
         </div>
     );
 };
@@ -143,10 +99,10 @@ ResultItemDropDown.propTypes = {
         title: PropTypes.string,
         deactivatedByExpiry: PropTypes.bool,
     }).isRequired,
+    setHjelpetekst: PropTypes.func.isRequired,
     stopAd: PropTypes.func.isRequired,
     deleteAd: PropTypes.func.isRequired,
     copyAd: PropTypes.func.isRequired,
-    setVisible: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({

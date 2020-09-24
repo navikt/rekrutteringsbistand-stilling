@@ -12,9 +12,36 @@ import './Result.less';
 import { getAdStatusLabel } from '../../common/enums/getEnumLabels';
 import ResultItemDropDown from './ResultItemDropDown';
 import { REDIGERINGSMODUS_QUERY_PARAM } from '../../ad/Ad';
+import MedPopover from '../../common/med-popover/MedPopover';
+import { Hamburgerknapp } from 'nav-frontend-ikonknapper';
+import Popover, { PopoverOrientering } from 'nav-frontend-popover';
 
 const ResultItem = ({ ad, copiedAds, reportee }) => {
     const [dropDownVisible, setDropDownVisible] = useState(false);
+    const [hjelpetekst, setHjelpetekst] = useState({
+        tekst: '',
+        anker: undefined,
+    });
+
+    const visHjelpetekst = (hjelpetekst) => {
+        lukkHjelpetekst();
+        setTimeout(() => {
+            setHjelpetekst(hjelpetekst);
+        }, 0);
+    };
+
+    const lukkHjelpetekst = () => {
+        setHjelpetekst({
+            tekst: '',
+            anker: undefined,
+        });
+    };
+
+    const onDropdownClick = () => {
+        lukkHjelpetekst();
+        setDropDownVisible(!dropDownVisible);
+    };
+
     const isCopy = copiedAds.includes(ad.uuid);
     const isTransferredToOther =
         ad.rekruttering &&
@@ -125,24 +152,21 @@ const ResultItem = ({ ad, copiedAds, reportee }) => {
                 </Link>
             </td>
             <td className="Col-menu">
-                <button
-                    className="Inner__button Icon__button"
-                    aria-label="Meny"
-                    type="button"
-                    title="meny"
-                    tabIndex={0}
-                    onClick={() => setDropDownVisible(!dropDownVisible)}
+                <MedPopover
+                    onPopoverClick={onDropdownClick}
+                    hjelpetekst={<ResultItemDropDown ad={ad} setHjelpetekst={visHjelpetekst} />}
+                    onRequestClose={() => setDropDownVisible(undefined)}
                 >
-                    <i className="Menu__icon" />
-                </button>
-                {dropDownVisible && (
-                    <ResultItemDropDown
-                        ad={ad}
-                        visible={dropDownVisible}
-                        setVisible={setDropDownVisible}
-                    />
-                )}
+                    <Hamburgerknapp className="Col-menu__button" aria-label="Meny for stilling" />
+                </MedPopover>
             </td>
+            <Popover
+                ankerEl={hjelpetekst.anker}
+                orientering={PopoverOrientering.Venstre}
+                onRequestClose={lukkHjelpetekst}
+            >
+                <Normaltekst className="ResultItem__hjelpetekst">{hjelpetekst.tekst}</Normaltekst>
+            </Popover>
         </tr>
     );
 };
