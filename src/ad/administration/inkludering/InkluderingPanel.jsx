@@ -18,7 +18,7 @@ const InkluderingPanel = (props) => {
     const kategorierMedNavn = hentKategorierMedNavn(direktemeldt);
 
     return (
-        <SkjemaGruppe legend="Inkludering" className="Inkludering typo-normal">
+        <SkjemaGruppe className="Inkludering typo-normal">
             {kategorierMedNavn.map(({ tag, navn, harUnderkategorier, underkategorier }) => (
                 <Fragment key={tag}>
                     <Checkbox
@@ -30,7 +30,7 @@ const InkluderingPanel = (props) => {
                         onChange={onTagChange}
                     />
                     {harUnderkategorier && tagIsChecked(tag) && (
-                        <SkjemaGruppe legend={navn} className="Inkludering__subtags">
+                        <SkjemaGruppe className="Inkludering__subtags">
                             {underkategorier.map(({ tag, navn }) => (
                                 <Checkbox
                                     className="checkbox--tag skjemaelement--pink"
