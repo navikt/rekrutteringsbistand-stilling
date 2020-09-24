@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Radio, SkjemaGruppe, Fieldset } from 'nav-frontend-skjema';
+import { Radio } from 'nav-frontend-skjema';
 import {
     CHANGE_PRIVACY_FILTER,
     CHANGE_SOURCE_FILTER,

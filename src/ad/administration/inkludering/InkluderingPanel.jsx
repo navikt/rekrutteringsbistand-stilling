@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Checkbox, Fieldset } from 'nav-frontend-skjema';
+import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
 
 import { CHECK_TAG, UNCHECK_TAG } from '../../adDataReducer';
 import isJson from '../../edit/practicalInformation/IsJson';
@@ -18,7 +18,7 @@ const InkluderingPanel = (props) => {
     const kategorierMedNavn = hentKategorierMedNavn(direktemeldt);
 
     return (
-        <Fieldset legend="Inkludering" className="Inkludering typo-normal">
+        <SkjemaGruppe legend="Inkludering" className="Inkludering typo-normal">
             {kategorierMedNavn.map(({ tag, navn, harUnderkategorier, underkategorier }) => (
                 <Fragment key={tag}>
                     <Checkbox
@@ -30,7 +30,7 @@ const InkluderingPanel = (props) => {
                         onChange={onTagChange}
                     />
                     {harUnderkategorier && tagIsChecked(tag) && (
-                        <Fieldset legend={navn} className="Inkludering__subtags">
+                        <SkjemaGruppe legend={navn} className="Inkludering__subtags">
                             {underkategorier.map(({ tag, navn }) => (
                                 <Checkbox
                                     className="checkbox--tag skjemaelement--pink"
@@ -42,11 +42,11 @@ const InkluderingPanel = (props) => {
                                     onChange={onTagChange}
                                 />
                             ))}
-                        </Fieldset>
+                        </SkjemaGruppe>
                     )}
                 </Fragment>
             ))}
-        </Fieldset>
+        </SkjemaGruppe>
     );
 };
 

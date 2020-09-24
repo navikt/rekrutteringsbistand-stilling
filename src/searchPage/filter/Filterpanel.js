@@ -1,26 +1,26 @@
 import React from 'react';
-import { EkspanderbartpanelBase } from 'nav-frontend-ekspanderbartpanel';
+import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
+import { SkjemaGruppe } from 'nav-frontend-skjema';
 import './Filterpanel.less';
-import { Fieldset } from 'nav-frontend-skjema';
 
 const Filterpanel = ({ label, children }) => {
     const accessibilityHeader = `${label}_label`;
 
     return (
-        <EkspanderbartpanelBase
+        <Ekspanderbartpanel
             className="Filterpanel blokk-s"
             border
             apen
-            heading={
+            tittel={
                 <label id={accessibilityHeader} className="typo-element skjemaelement__label">
                     {label}
                 </label>
             }
         >
-            <fieldset className="skjema__fieldset" aria-labelledby={accessibilityHeader}>
+            <SkjemaGruppe className="skjema__fieldset" aria-labelledby={accessibilityHeader}>
                 {children}
-            </fieldset>
-        </EkspanderbartpanelBase>
+            </SkjemaGruppe>
+        </Ekspanderbartpanel>
     );
 };
 

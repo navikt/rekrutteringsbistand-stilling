@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { CHECK_TAG_SOK, UNCHECK_TAG_SOK } from '../../searchReducer';
 import { hentKategorierMedNavn } from '../../../ad/tagHelpers';
-import { Fieldset, Checkbox } from 'nav-frontend-skjema';
+import { SkjemaGruppe, Checkbox } from 'nav-frontend-skjema';
 import { sendEvent } from '../../../amplitude';
 
 const loggFiltreringPåInkluderingstags = (tags) => {
@@ -36,7 +36,7 @@ const InkluderingPanel = ({ tags, checkTag, uncheckTag }) => {
                 onChange={onTagChange}
             />
             {harUnderkategorier && tagIsChecked(tag) && (
-                <Fieldset legend={navn} className="SearchPage__subtags">
+                <SkjemaGruppe legend={navn} className="SearchPage__subtags">
                     {underkategorier.map(({ tag, navn }) => (
                         <Checkbox
                             className="checkbox--tag--sok skjemaelement--pink"
@@ -48,7 +48,7 @@ const InkluderingPanel = ({ tags, checkTag, uncheckTag }) => {
                             onChange={onTagChange}
                         />
                     ))}
-                </Fieldset>
+                </SkjemaGruppe>
             )}
         </Fragment>
     ));

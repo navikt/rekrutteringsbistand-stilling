@@ -3,51 +3,51 @@
 .SearchPage {
     background: #fff;
     min-height: 100vh;
-}
 
-.SearchPage__flex {
-    display: flex;
-}
+    &__flex {
+        display: flex;
+    }
 
-.SearchPage__flex__left {
-    flex: 0 0 20rem;
-    margin-top: 5.5rem;
-    padding: 0 2rem 0 1rem;
-}
+    &__flex__left {
+        flex: 0 0 20rem;
+        margin-top: 5.5rem;
+        padding: 0 2rem 0 1rem;
+    }
 
-.SearchPage__flex__right {
-    flex: auto;
-    margin-right: 2rem;
-}
+    &__flex__right {
+        flex: auto;
+        margin-right: 2rem;
+    }
 
-.SearchPage__SearchBox__wrapper {
-    background: #e3edf8;
-    display: flex;
-    border-bottom: 1px solid #d8d8d8;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-}
+    &__SearchBox {
+        flex: auto;
+        max-width: 40rem;
+        margin: 2rem 1rem 2rem 0;
 
-.SearchPage__SearchBox {
-    flex: auto;
-    max-width: 40rem;
-    margin: 2rem 1rem 2rem 0;
-}
+        &__wrapper {
+            background: #e3edf8;
+            display: flex;
+            border-bottom: 1px solid #d8d8d8;
+            width: 100%;
+            align-items: center;
+            justify-content: center;
+        }
+    }
 
-.SearchPage__ResultCount {
-    margin-top: 2.5rem;
-}
+    &__ResultCount {
+        margin-top: 2.5rem;
+    }
 
-.SearchPage__container {
-    width: 100%;
-    max-width: 100%;
-}
+    &__container {
+        width: 100%;
+        max-width: 100%;
+    }
 
-.SearchPage__subtags {
-    padding-left: 1.5rem;
+    &__subtags.skjemagruppe {
+        padding-left: 1.5rem;
 
-    legend {
-        display: none;
+        legend {
+            display: none;
+        }
     }
 }
