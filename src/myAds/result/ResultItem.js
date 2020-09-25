@@ -23,11 +23,14 @@ const ResultItem = ({ ad, copiedAds, reportee }) => {
         anker: undefined,
     });
 
-    const visHjelpetekst = (hjelpetekst) => {
+    const visHjelpetekst = (nyHjelpetekst) => {
         lukkHjelpetekst();
-        setTimeout(() => {
-            setHjelpetekst(hjelpetekst);
-        }, 0);
+
+        if (hjelpetekst.anker !== nyHjelpetekst.anker) {
+            setTimeout(() => {
+                setHjelpetekst(nyHjelpetekst);
+            }, 0);
+        }
     };
 
     const lukkHjelpetekst = () => {
@@ -153,11 +156,12 @@ const ResultItem = ({ ad, copiedAds, reportee }) => {
             </td>
             <td className="Col-menu">
                 <MedPopover
+                    className="Inner__button"
                     onPopoverClick={onDropdownClick}
                     hjelpetekst={<ResultItemDropDown ad={ad} setHjelpetekst={visHjelpetekst} />}
                     onRequestClose={() => setDropDownVisible(undefined)}
                 >
-                    <Hamburgerknapp className="Col-menu__button" aria-label="Meny for stilling" />
+                    <Hamburgerknapp aria-label="Meny for stilling" />
                 </MedPopover>
             </td>
             <Popover

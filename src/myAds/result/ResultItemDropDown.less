@@ -9,13 +9,18 @@
     width: @drop-down-width;
 
     &__item {
-        display: list-item;
-        &:not(:last-child) {
-            margin-bottom: 0.5rem;
+        text-decoration: none;
+
+        &:hover:not(&--disabled) {
+            text-decoration: underline;
         }
 
         &--disabled {
             color: @navGra60;
+        }
+
+        &:not(:last-child) {
+            margin-bottom: 0.5rem;
         }
     }
 }
