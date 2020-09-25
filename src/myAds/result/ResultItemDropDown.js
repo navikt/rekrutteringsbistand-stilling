@@ -11,9 +11,9 @@ import {
 import { getAdStatusLabel } from '../../common/enums/getEnumLabels';
 import './ResultItemDropDown.less';
 
-const DropDownItem = ({ label, onClick, active, helpText, setHjelpetekst }) => {
+const DropDownItem = ({ label, onClick, active, helpText, onToggleHjelpetekst }) => {
     const onHjelpetekstClick = (event) => {
-        setHjelpetekst({ anker: event.currentTarget, tekst: helpText });
+        onToggleHjelpetekst({ anker: event.currentTarget, tekst: helpText });
         event.stopPropagation();
     };
 
@@ -50,7 +50,7 @@ DropDownItem.defaultProps = {
     refProp: undefined,
 };
 
-const ResultItemDropDown = ({ ad, copyAd, stopAd, deleteAd, setHjelpetekst }) => {
+const ResultItemDropDown = ({ ad, copyAd, stopAd, deleteAd, onToggleHjelpetekst }) => {
     const willBePublished = ad.status === AdStatusEnum.INACTIVE && ad.activationOnPublishingDate;
 
     const onItemClick = (action) => {
@@ -64,7 +64,7 @@ const ResultItemDropDown = ({ ad, copyAd, stopAd, deleteAd, setHjelpetekst }) =>
                     label="Kopier"
                     onClick={() => onItemClick(copyAd)}
                     active
-                    setHjelpetekst={setHjelpetekst}
+                    onToggleHjelpetekst={onToggleHjelpetekst}
                 />
                 <DropDownItem
                     label="Stopp"
@@ -77,7 +77,7 @@ const ResultItemDropDown = ({ ad, copyAd, stopAd, deleteAd, setHjelpetekst }) =>
                         ad.status,
                         ad.deactivatedByExpiry
                     ).toLowerCase()}"`}
-                    setHjelpetekst={setHjelpetekst}
+                    onToggleHjelpetekst={onToggleHjelpetekst}
                 />
                 <DropDownItem
                     label="Slett"
@@ -86,7 +86,7 @@ const ResultItemDropDown = ({ ad, copyAd, stopAd, deleteAd, setHjelpetekst }) =>
                     helpText={`Du kan ikke slette en stilling som har status: "${
                         willBePublished ? 'blir publisert frem i tid' : 'publisert'
                     }"`}
-                    setHjelpetekst={setHjelpetekst}
+                    onToggleHjelpetekst={onToggleHjelpetekst}
                 />
             </ul>
         </div>
@@ -99,7 +99,7 @@ ResultItemDropDown.propTypes = {
         title: PropTypes.string,
         deactivatedByExpiry: PropTypes.bool,
     }).isRequired,
-    setHjelpetekst: PropTypes.func.isRequired,
+    onToggleHjelpetekst: PropTypes.func.isRequired,
     stopAd: PropTypes.func.isRequired,
     deleteAd: PropTypes.func.isRequired,
     copyAd: PropTypes.func.isRequired,

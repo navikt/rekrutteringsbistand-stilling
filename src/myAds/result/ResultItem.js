@@ -23,7 +23,7 @@ const ResultItem = ({ ad, copiedAds, reportee }) => {
         anker: undefined,
     });
 
-    const visHjelpetekst = (nyHjelpetekst) => {
+    const toggleHjelpetekst = (nyHjelpetekst) => {
         lukkHjelpetekst();
 
         if (hjelpetekst.anker !== nyHjelpetekst.anker) {
@@ -158,7 +158,9 @@ const ResultItem = ({ ad, copiedAds, reportee }) => {
                 <MedPopover
                     className="Inner__button"
                     onPopoverClick={onDropdownClick}
-                    hjelpetekst={<ResultItemDropDown ad={ad} setHjelpetekst={visHjelpetekst} />}
+                    hjelpetekst={
+                        <ResultItemDropDown ad={ad} onToggleHjelpetekst={toggleHjelpetekst} />
+                    }
                     onRequestClose={() => setDropDownVisible(undefined)}
                 >
                     <Hamburgerknapp aria-label="Meny for stilling" />
