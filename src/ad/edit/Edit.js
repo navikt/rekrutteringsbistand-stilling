@@ -20,6 +20,11 @@ import TokenExpirationChecker, {
     TOKEN_HAS_EXPIRED,
 } from './session/TokenExpirationChecker';
 import SessionExpirationModal from './session/SessionExpirationModal';
+import EditHeader from './header/EditHeader';
+import { hentAnnonselenke, stillingErPublisert } from '../adUtils';
+import CandidateActions from '../candidateActions/CandidateActions';
+import { Knapp } from 'nav-frontend-knapper';
+import KopierTekst from '../kopierTekst/KopierTekst';
 
 class Edit extends React.Component {
     constructor(props) {
@@ -63,8 +68,12 @@ class Edit extends React.Component {
     };
 
     render() {
-        const { ad, isNew } = this.props;
+        const { ad, isNew, onPreviewAdClick } = this.props;
         const { didTimeout, willTimeout } = this.state;
+
+        // Fra EditHeader
+        const limitedAccess = ad.createdBy !== 'pam-rekrutteringsbistand';
+        const stillingsLenke = hentAnnonselenke(ad.uuid);
 
         return (
             <div className="Edit">
@@ -89,8 +98,42 @@ class Edit extends React.Component {
                     />
                 )}
                 <Row className="Edit__inner">
+                    <div className="Edit__actions">
+                        <CandidateActions />
+                        <div>
+                            {!limitedAccess && (
+                                <Knapp
+                                    className="Ad__actions-button"
+                                    onClick={onPreviewAdClick}
+                                    mini
+                                >
+                                    Forhåndsvis stillingen
+                                </Knapp>
+                            )}
+                            {stillingErPublisert(ad) && (
+                                <KopierTekst
+                                    className=""
+                                    tooltipTekst="Kopier stillingslenke"
+                                    skalKopieres={stillingsLenke}
+                                />
+                            )}
+                        </div>
+                    </div>
+                    {limitedAccess && (
+                        <div className="Ad__info">
+                            <Alertstripe
+                                className="AdStatusPreview__Alertstripe"
+                                type="info"
+                                solid="true"
+                            >
+                                Dette er en eksternt utlyst stilling. Du kan <b>ikke</b> endre
+                                stillingen.
+                            </Alertstripe>
+                        </div>
+                    )}
                     <Column xs="12" md="8">
                         <div className="Edit__left">
+                            <EditHeader isNew={isNew} onPreviewAdClick={onPreviewAdClick} />
                             <Employer />
                             <JobDetails isNew={isNew} />
                         </div>
@@ -141,6 +184,7 @@ Edit.propTypes = {
     }).isRequired,
     resetValidation: PropTypes.func.isRequired,
     isNew: PropTypes.bool,
+    onPreviewAdClick: PropTypes.func.isRequired,
     saveAndLogin: PropTypes.func.isRequired,
 };
 
