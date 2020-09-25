@@ -8,6 +8,7 @@ import { SET_EMPLOYER } from '../../adDataReducer';
 import './EmployerName.less';
 import capitalizeEmployerName from './capitalizeEmployerName';
 import capitalizeLocation from '../location/capitalizeLocation';
+import Skjemaetikett from '../skjemaetikett/Skjemaetikett';
 
 class EmployerName extends React.Component {
     onTypeAheadValueChange = (value) => {
@@ -73,11 +74,19 @@ class EmployerName extends React.Component {
                     du registrerer stillingen på samsvare med arbeidsgivers virksomhetsnummer.
                 </Normaltekst>
                 <div className="blokk-xxs">
+                    <Skjemaetikett
+                        påkrevd
+                        inputId="endre-stilling-bedriftens-navn"
+                        beskrivelse="Skriv inn arbeidsgivernavn eller virksomhetsnummer"
+                        beskrivelse-id="endre-stilling-bedriftens-navn-hint"
+                    >
+                        Bedriftens navn hentet fra Enhetsregisteret
+                    </Skjemaetikett>
                     <Typeahead
-                        id="EmployerName__typeahead"
+                        id="endre-stilling-bedriftens-navn"
+                        aria-describedby="endre-stilling-bedriftens-navn-hint"
                         className="EmployerName__typeahead"
-                        label="Bedriftens navn hentet fra Enhetsregisteret*"
-                        placeholder="Skriv inn arbeidsgivernavn eller virksomhetsnummer"
+                        value={this.props.typeAheadValue}
                         onBlur={this.onTypeAheadValueBlur}
                         onSelect={this.onTypeAheadSuggestionSelected}
                         onChange={this.onTypeAheadValueChange}
@@ -85,7 +94,6 @@ class EmployerName extends React.Component {
                             value: suggestion.orgnr,
                             label: this.getEmployerSuggestionLabel(suggestion),
                         }))}
-                        value={this.props.typeAheadValue}
                         ref={(instance) => {
                             this.inputRef = instance;
                         }}

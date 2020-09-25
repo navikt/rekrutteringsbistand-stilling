@@ -17,6 +17,7 @@ import {
 } from '../../adDataReducer';
 import EmployerName from './EmployerName';
 import { adjustUrl } from '../../../common/utils';
+import Skjemaetikett from '../skjemaetikett/Skjemaetikett';
 
 function adjustTwitterLink(url) {
     if (url.startsWith('@')) {
@@ -100,18 +101,32 @@ class Employer extends React.Component {
                 apen
             >
                 <EmployerName />
+                <Skjemaetikett
+                    inputId="endre-stilling-navnet-bedriften-bruker"
+                    beskrivelse="Navnet bedriften bruker"
+                >
+                    Navn på bedrift
+                </Skjemaetikett>
                 <Input
-                    label="Navn på bedrift"
+                    className="blokk-s"
+                    id="endre-stilling-navnet-bedriften-bruker"
+                    aria-describedby="endre-stilling-navnet-bedriften-bruker-beskrivelse"
                     value={ad.properties.employer || ad.businessName || ''} // todo: remove ad.properties.employer when depricated
                     onChange={this.onEmployerNameChange}
-                    placeholder="Navnet bedriften bruker"
                 />
-                <Normaltekst className="blokk-xxs">Kort om bedriften</Normaltekst>
+
+                <Skjemaetikett
+                    inputId="endre-stilling-kort-om-bedriften"
+                    beskrivelse="Skriv noen linjer om bedriften"
+                >
+                    Kort om bedriften
+                </Skjemaetikett>
                 <div className="Edit__Employer__rteEditor-content">
                     <RichTextEditor
+                        id="endre-stilling-kort-om-bedriften"
+                        aria-describedby="endre-stilling-kort-om-bedriften-beskrivelse"
                         text={ad.properties.employerdescription || ''}
                         onChange={this.onEmployerDescriptionChange}
-                        placeholderText="Skriv noen linjer om bedriften"
                     />
                 </div>
                 <Input

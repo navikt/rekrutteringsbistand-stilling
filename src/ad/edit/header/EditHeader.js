@@ -31,7 +31,6 @@ class EditHeader extends React.Component {
                     påkrevd
                     inputId="endre-stilling-tittel"
                     beskrivelse={`For eksempel "engasjert barnehagelærer til Oslo-skole"`}
-                    beskrivelseId="endre-stilling-tittel-hint"
                 >
                     Overskrift på annonsen
                 </Skjemaetikett>
