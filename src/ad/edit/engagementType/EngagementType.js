@@ -6,6 +6,7 @@ import EngagementTypeEnum from './EngagementTypeEnum';
 import { SET_EMPLOYMENT_ENGAGEMENTTYPE } from '../../adDataReducer';
 import { createErrorObject } from '../../../common/utils';
 import './EngagementType.less';
+import Skjemaetikett from '../skjemaetikett/Skjemaetikett';
 
 class EngagementType extends React.Component {
     onEngagementTypeChange = (e) => {
@@ -15,9 +16,11 @@ class EngagementType extends React.Component {
     render() {
         return (
             <div className="EngagementType">
+                <Skjemaetikett påkrevd inputId="endre-stilling-ansettelsesform">
+                    Ansettelsesform
+                </Skjemaetikett>
                 <Select
                     id="EngagementType__input"
-                    label="Ansettelsesform*"
                     value={this.props.engagementType}
                     onChange={this.onEngagementTypeChange}
                     feil={createErrorObject(this.props.validation.engagementtype)}
