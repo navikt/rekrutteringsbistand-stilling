@@ -9,6 +9,7 @@ import {
     VALIDATE_CONTACTPERSON_PHONE,
 } from '../../adValidationReducer';
 import { Normaltekst } from 'nav-frontend-typografi';
+import Skjemalabel from '../skjemaetikett/Skjemalabel';
 
 class ContactPerson extends React.Component {
     onNameChange = (e) => {
@@ -61,17 +62,26 @@ class ContactPerson extends React.Component {
                     Din egen eller arbeidsgivers kontaktinformasjon
                 </Normaltekst>
                 <Input
+                    className="blokk-xs"
                     label="Navn på kontaktperson"
                     value={contactList[0] && contactList[0].name ? contactList[0].name : ''}
                     onChange={this.onNameChange}
                 />
+                <Skjemalabel
+                    inputId="endre-stilling-tittel-kontaktperson"
+                    beskrivelse="For eksempel: leder"
+                >
+                    Tittel på kontaktperson
+                </Skjemalabel>
                 <Input
-                    label="Tittel på kontaktperson"
-                    placeholder="For eksempel: leder"
+                    className="blokk-xs"
+                    id="endre-stilling-tittel-kontaktperson"
+                    aria-describedby="endre-stilling-tittel-kontaktperson-beskrivelse"
                     value={contactList[0] && contactList[0].title ? contactList[0].title : ''}
                     onChange={this.onTitleChange}
                 />
                 <Input
+                    className="blokk-xs"
                     type="email"
                     label="E-postadresse"
                     value={contactList[0] && contactList[0].email ? contactList[0].email : ''}
@@ -82,9 +92,9 @@ class ContactPerson extends React.Component {
                             feilmelding: this.props.validation.contactpersonEmail,
                         }
                     }
-                    placeholder="ola.normann@firmanavn.no"
                 />
                 <Input
+                    className="blokk-xs"
                     type="tel"
                     label="Telefonnummer"
                     value={contactList[0] && contactList[0].phone ? contactList[0].phone : ''}
