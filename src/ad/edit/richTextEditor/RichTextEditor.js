@@ -15,6 +15,7 @@ import InlineStyleControls from './InlineStyleControls';
 import HeaderStylesDropdown from './HeaderStylesDropdown';
 import UndoRedoButtons from './UndoRedoButtons';
 import './RichTextEditor.less';
+import { Feilmelding } from 'nav-frontend-typografi';
 
 export const checkIfEmptyInput = (value) => {
     const emptySpaceOrNotWordRegex = /^(\s|\W)+$/g;
@@ -179,7 +180,7 @@ export default class RichTextEditor extends React.Component {
                 </div>
                 <div
                     className={`RichTextEditor__editor ${
-                        this.props.errorMessage ? 'skjemaelement__input--harFeil' : ''
+                        this.props.errorMessage ? 'blokk-xxs skjemaelement__input--harFeil' : ''
                     }`}
                 >
                     <Editor
@@ -191,9 +192,7 @@ export default class RichTextEditor extends React.Component {
                         ariaDescribedBy={this.props.ariaDescribedBy}
                     />
                 </div>
-                {this.props.errorMessage && (
-                    <div className="skjemaelement__feilmelding">{this.props.errorMessage}</div>
-                )}
+                {this.props.errorMessage && <Feilmelding>{this.props.errorMessage}</Feilmelding>}
             </div>
         );
     }

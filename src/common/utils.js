@@ -1,9 +1,9 @@
 export function isValidUrl(input) {
     const pattern = new RegExp(
         '^(https?:\\/\\/)' + // protocol (requires http://or https://)
-        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,})' + // domain name
-        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
-        '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+            '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,})' + // domain name
+            '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+            '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
             '(\\#[-a-z\\d_]*)?$',
         'i'
     ); // fragment locater
@@ -18,8 +18,4 @@ export function adjustUrl(url) {
         return `https://${url}`;
     }
     return url;
-}
-
-export function createErrorObject(errorMessage) {
-    return errorMessage ? { feilmelding: errorMessage } : null;
 }

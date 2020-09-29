@@ -4,9 +4,8 @@ import { connect } from 'react-redux';
 import { Select } from 'nav-frontend-skjema';
 import EngagementTypeEnum from './EngagementTypeEnum';
 import { SET_EMPLOYMENT_ENGAGEMENTTYPE } from '../../adDataReducer';
-import { createErrorObject } from '../../../common/utils';
-import './EngagementType.less';
 import Skjemalabel from '../skjemaetikett/Skjemalabel';
+import './EngagementType.less';
 
 class EngagementType extends React.Component {
     onEngagementTypeChange = (e) => {
@@ -23,7 +22,7 @@ class EngagementType extends React.Component {
                     id="endre-stilling-ansettelsesform"
                     value={this.props.engagementType}
                     onChange={this.onEngagementTypeChange}
-                    feil={createErrorObject(this.props.validation.engagementtype)}
+                    feil={this.props.validation.engagementtype}
                 >
                     <option value={EngagementTypeEnum.NONE} key={EngagementTypeEnum.NONE}>
                         Velg

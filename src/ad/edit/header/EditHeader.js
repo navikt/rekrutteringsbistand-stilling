@@ -4,7 +4,6 @@ import { Input } from 'nav-frontend-skjema';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import PropTypes from 'prop-types';
 
-import { createErrorObject } from '../../../common/utils';
 import { DEFAULT_TITLE_NEW_AD } from '../../adReducer';
 import { SET_AD_TITLE } from '../../adDataReducer';
 import Skjemalabel from '../skjemaetikett/Skjemalabel';
@@ -36,11 +35,11 @@ class EditHeader extends React.Component {
                 </Skjemalabel>
                 <Input
                     id="endre-stilling-tittel"
-                    inputClassName="blokk-xs"
+                    className="blokk-xs"
                     value={this.getAdTitle()}
                     onChange={this.onTitleChange}
-                    aria-describedby="endre-stilling-tittel-hint"
-                    feil={createErrorObject(validation.title)}
+                    aria-describedby="endre-stilling-tittel-beskrivelse"
+                    feil={validation.title}
                 />
             </Ekspanderbartpanel>
         );

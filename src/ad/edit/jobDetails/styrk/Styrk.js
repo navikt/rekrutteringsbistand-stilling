@@ -1,4 +1,4 @@
-import { Normaltekst, Undertekst } from 'nav-frontend-typografi';
+import { Feilmelding, Normaltekst, Undertekst } from 'nav-frontend-typografi';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
@@ -84,7 +84,6 @@ class Styrk extends React.Component {
                 </Skjemalabel>
                 <Typeahead
                     id="endre-stilling-styrk"
-                    label=""
                     className="Styrk__typeahead"
                     onSelect={this.onTypeAheadSuggestionSelected}
                     onChange={this.onTypeAheadValueChange}
@@ -100,9 +99,8 @@ class Styrk extends React.Component {
                     }}
                     error={this.props.validation.styrk !== undefined}
                 />
-
                 {this.props.validation.styrk && (
-                    <div className="Administration__error">{this.props.validation.styrk}</div>
+                    <Feilmelding>{this.props.validation.styrk}</Feilmelding>
                 )}
                 {this.props.showStyrkModal && <StyrkModal />}
             </div>

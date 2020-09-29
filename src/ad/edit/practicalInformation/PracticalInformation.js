@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import { Input, SkjemaGruppe, Radio, Checkbox, RadioGruppe } from 'nav-frontend-skjema';
 import { connect } from 'react-redux';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { Undertittel } from 'nav-frontend-typografi';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import Datovelger from 'nav-datovelger/dist/datovelger/Datovelger';
 import 'nav-datovelger/dist/datovelger/styles/datovelger.css';
@@ -22,9 +23,7 @@ import EngagementType from '../engagementType/EngagementType';
 import JobArrangement from '../jobArrangement/JobArrangement';
 import './PracticalInformation.less';
 import IsJson from './IsJson';
-import { createErrorObject } from '../../../common/utils';
 import Skjemalabel from '../skjemaetikett/Skjemalabel';
-import Påkrevd from '../skjemaetikett/Påkrevd';
 import Skjemalegend from '../skjemaetikett/Skjemalegend';
 
 class PracticalInformation extends React.Component {
@@ -108,8 +107,8 @@ class PracticalInformation extends React.Component {
                 <JobArrangement />
                 <div className="Edit__border" />
                 <RadioGruppe
-                    className="blokk-xs typo-normal"
-                    feil={createErrorObject(this.props.validation.extent)}
+                    className="blokk-xs typo-normal Edit__inline-fieldset"
+                    feil={this.props.validation.extent}
                 >
                     <Skjemalegend påkrevd>Omfang</Skjemalegend>
                     <Radio
@@ -130,8 +129,8 @@ class PracticalInformation extends React.Component {
                     />
                 </RadioGruppe>
                 <SkjemaGruppe
-                    className="blokk-xs typo-normal"
-                    feil={createErrorObject(this.props.validation.workday)}
+                    className="blokk-xs typo-normal Edit__inline-fieldset"
+                    feil={this.props.validation.workday}
                 >
                     <Skjemalegend påkrevd>Arbeidsdager</Skjemalegend>
                     <Checkbox
@@ -175,8 +174,8 @@ class PracticalInformation extends React.Component {
                     />
                 </SkjemaGruppe>
                 <SkjemaGruppe
-                    className="blokk-xs typo-normal"
-                    feil={createErrorObject(this.props.validation.workhours)}
+                    className="blokk-xs typo-normal Edit__inline-fieldset"
+                    feil={this.props.validation.workhours}
                 >
                     <Skjemalegend påkrevd>Arbeidstid</Skjemalegend>
                     <Checkbox
@@ -220,8 +219,8 @@ class PracticalInformation extends React.Component {
                     />
                 </SkjemaGruppe>
                 <SkjemaGruppe
-                    className="typo-normal"
-                    feil={createErrorObject(this.props.validation.sector)}
+                    className="typo-normal Edit__inline-fieldset"
+                    feil={this.props.validation.sector}
                 >
                     <Skjemalegend påkrevd>Sektor</Skjemalegend>
                     <Radio
@@ -260,15 +259,13 @@ class PracticalInformation extends React.Component {
                     min="1"
                     value={ad.properties.positioncount || ''}
                     onChange={this.onPositioncountChange}
-                    feil={createErrorObject(this.props.validation.positioncount)}
+                    feil={this.props.validation.positioncount}
                 />
                 <SkjemaGruppe
-                    className={
-                        createErrorObject(this.props.validation.applicationdue)
-                            ? 'typo-normal blokk-xs'
-                            : 'typo-normal'
-                    }
-                    feil={createErrorObject(this.props.validation.applicationdue)}
+                    className={classnames('typo-normal', 'Edit__inline-fieldset', {
+                        'blokk-xs': this.props.validation.applicationdue,
+                    })}
+                    feil={this.props.validation.applicationdue}
                 >
                     <Skjemalabel påkrevd inputId="endre-stilling-søknadsfrist">
                         Søknadsfrist
