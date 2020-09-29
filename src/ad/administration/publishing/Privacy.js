@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Radio } from 'nav-frontend-skjema';
+import { Radio, RadioGruppe, SkjemaGruppe } from 'nav-frontend-skjema';
 import { SET_PRIVACY } from '../../adDataReducer';
 import './Publishing.less';
 import PrivacyStatusEnum from '../../../common/enums/PrivacyStatusEnum';
+import Skjemalegend from '../../edit/skjemaetikett/Skjemalegend';
+import { Undertittel } from 'nav-frontend-typografi';
 
 class Privacy extends React.Component {
     onPrivacyChange = (e) => {
@@ -14,7 +16,8 @@ class Privacy extends React.Component {
     render() {
         const { privacy } = this.props;
         return (
-            <div className="Privacy">
+            <RadioGruppe className="Privacy">
+                <Skjemalegend>Hvor skal stillingen publiseres?</Skjemalegend>
                 <Radio
                     label="Kun internt i NAV"
                     value={PrivacyStatusEnum.INTERNAL_NOT_SHOWN}
@@ -29,7 +32,7 @@ class Privacy extends React.Component {
                     checked={privacy === PrivacyStatusEnum.SHOW_ALL}
                     onChange={this.onPrivacyChange}
                 />
-            </div>
+            </RadioGruppe>
         );
     }
 }

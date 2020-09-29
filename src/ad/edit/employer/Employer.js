@@ -114,7 +114,6 @@ class Employer extends React.Component {
                     value={ad.properties.employer || ad.businessName || ''} // todo: remove ad.properties.employer when depricated
                     onChange={this.onEmployerNameChange}
                 />
-
                 <Skjemalabel
                     inputId="endre-stilling-kort-om-bedriften"
                     beskrivelse="Skriv noen linjer om bedriften"
@@ -129,12 +128,19 @@ class Employer extends React.Component {
                         onChange={this.onEmployerDescriptionChange}
                     />
                 </div>
+                <Skjemalabel
+                    inputId="endre-stilling-nettsted"
+                    beskrivelse="For eksempel: www.firmanavn.no"
+                >
+                    Bedriftens nettsted
+                </Skjemalabel>
                 <Input
-                    label="Bedriftens nettsted"
+                    className="blokk-xs"
+                    id="endre-stilling-nettsted"
+                    aria-describedby="endre-stilling-nettsted-beskrivelse"
                     value={ad.properties.employerhomepage || ''}
                     onChange={this.onEmployerHomepageChange}
                     onBlur={this.completeHomepageLink}
-                    placeholder="www.firmanavn.no"
                 />
                 {hideOnlineAddresses ? (
                     <Row>
@@ -146,29 +152,50 @@ class Employer extends React.Component {
                     </Row>
                 ) : (
                     <div>
+                        <Skjemalabel
+                            inputId="endre-stilling-facebook"
+                            beskrivelse="For eksempel: facebook.com/firmanavn"
+                        >
+                            Bedriftens side på Facebook
+                        </Skjemalabel>
                         <Input
-                            label="Bedriftens side på Facebook"
+                            className="blokk-xs"
+                            id="endre-stilling-facebook"
+                            aria-describedby="endre-stilling-facebook-beskrivelse"
                             value={ad.properties.facebookpage ? ad.properties.facebookpage : ''}
                             onChange={this.onFacebookpageChange}
                             onBlur={this.completeFacebookLink}
-                            placeholder="For eksempel: facebook.com/firmanavn"
                             inputRef={(i) => {
                                 this.focusField = i;
                             }}
                         />
+                        <Skjemalabel
+                            inputId="endre-stilling-linkedin"
+                            beskrivelse="For eksempel: linkedin.com/company/firmanavn"
+                        >
+                            Bedriftens side på LinkedIn
+                        </Skjemalabel>
                         <Input
-                            label="Bedriftens side på LinkedIn"
+                            className="blokk-xs"
+                            id="endre-stilling-linkedin"
+                            aria-describedby="endre-stilling-linkedin-beskrivelse"
                             value={ad.properties.linkedinpage ? ad.properties.linkedinpage : ''}
                             onChange={this.onLinkedinpageChange}
                             onBlur={this.completeLinkedinLink}
-                            placeholder="For eksempel: linkedin.com/company/firmanavn"
                         />
+                        <Skjemalabel
+                            inputId="endre-stilling-twitter"
+                            beskrivelse="For eksempel: @firmanavn"
+                        >
+                            Bedriftens Twitteradresse
+                        </Skjemalabel>
                         <Input
-                            label="Bedriftens Twitteradresse"
+                            className="blokk-xs"
+                            id="endre-stilling-twitter"
+                            aria-describedby="endre-stilling-twitter-beskrivelse"
                             value={ad.properties.twitteraddress ? ad.properties.twitteraddress : ''}
                             onChange={this.onTwitteraddressChange}
                             onBlur={this.completeTwitterLink}
-                            placeholder="For eksempel: @firmanavn"
                         />
                     </div>
                 )}
