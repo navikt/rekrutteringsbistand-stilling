@@ -151,6 +151,7 @@ class Edit extends React.Component {
                             apen
                         >
                             <Input
+                                className="blokk-xs"
                                 label="Sist endret"
                                 value={
                                     ad.updated !== ad.created
@@ -159,8 +160,18 @@ class Edit extends React.Component {
                                 }
                                 disabled
                             />
-                            <Input label="Hentet fra/kilde" value={ad.medium || ''} disabled />
-                            <Input label="Annonsenummer" value={ad.id || ''} disabled />
+                            <Input
+                                className="blokk-xs"
+                                label="Hentet fra/kilde"
+                                value={ad.medium || ''}
+                                disabled
+                            />
+                            <Input
+                                className="blokk-xs"
+                                label="Annonsenummer"
+                                value={ad.id || ''}
+                                disabled
+                            />
                         </Ekspanderbartpanel>
                     </Column>
                 </Row>

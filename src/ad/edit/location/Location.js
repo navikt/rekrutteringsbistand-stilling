@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Input, Checkbox } from 'nav-frontend-skjema';
+import { Input, Checkbox, CheckboxGruppe } from 'nav-frontend-skjema';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import Typeahead from '../../../common/typeahead/Typeahead';
 import { FETCH_LOCATIONS, SET_POSTAL_CODE_TYPEAHEAD_VALUE } from './locationCodeReducer';
@@ -15,6 +15,7 @@ import {
 import capitalizeLocation from './capitalizeLocation';
 import LocationArea from './LocationArea';
 import './Location.less';
+import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 
 class Location extends React.Component {
     constructor(props) {
@@ -97,65 +98,73 @@ class Location extends React.Component {
         return (
             <Ekspanderbartpanel
                 className="Edit__panel"
-                tittel="Arbeidssted*"
-                tittelProps="undertittel"
+                tittel={
+                    <Undertittel>
+                        <Undertittel tag="span">Arbeidssted</Undertittel>
+                        <Normaltekst tag="span"> (må fylles ut)</Normaltekst>
+                    </Undertittel>
+                }
                 border
                 apen
             >
-                <Checkbox
-                    label="Adresse"
-                    checked={this.state.postCode === true}
-                    onChange={this.onPostCodeChecked}
-                />
-                {this.state.postCode && (
-                    <div className="blokk-m">
-                        <Input
-                            label="Gateadresse"
-                            value={locationListHasAddress ? locationList[0].address : ''}
-                            onChange={this.onAddressChange}
-                        />
-                        <div className="blokk-xs">
-                            <Typeahead
-                                id="typeahead-postal-code"
-                                className="PostalCode__typeahead"
-                                onSelect={this.onTypeAheadSuggestionSelected}
-                                onChange={this.onTypeAheadValueChange}
-                                onBlur={this.onBlur}
-                                label="Postnummer"
-                                suggestions={suggestions.map((loc) => ({
-                                    value: loc.postalCode,
-                                    label: `${loc.postalCode} ${capitalizeLocation(loc.city)}`,
-                                }))}
-                                value={typeAheadValue}
-                                error={validation.postalCode !== undefined}
+                <CheckboxGruppe>
+                    <Checkbox
+                        label="Adresse"
+                        checked={this.state.postCode === true}
+                        onChange={this.onPostCodeChecked}
+                    />
+                    {this.state.postCode && (
+                        <div className="blokk-m">
+                            <Input
+                                label="Gateadresse"
+                                value={locationListHasAddress ? locationList[0].address : ''}
+                                onChange={this.onAddressChange}
                             />
-                            {validation.postalCode && (
-                                <div className="Administration__error">{validation.postalCode}</div>
-                            )}
+                            <div className="blokk-xs">
+                                <Typeahead
+                                    id="typeahead-postal-code"
+                                    className="PostalCode__typeahead"
+                                    onSelect={this.onTypeAheadSuggestionSelected}
+                                    onChange={this.onTypeAheadValueChange}
+                                    onBlur={this.onBlur}
+                                    label="Postnummer"
+                                    suggestions={suggestions.map((loc) => ({
+                                        value: loc.postalCode,
+                                        label: `${loc.postalCode} ${capitalizeLocation(loc.city)}`,
+                                    }))}
+                                    value={typeAheadValue}
+                                    error={validation.postalCode !== undefined}
+                                />
+                                {validation.postalCode && (
+                                    <div className="Administration__error">
+                                        {validation.postalCode}
+                                    </div>
+                                )}
+                            </div>
+                            <Input
+                                label="Poststed"
+                                value={
+                                    locationList &&
+                                    locationList.length &&
+                                    locationList[0] &&
+                                    locationList[0].city
+                                        ? locationList[0].city
+                                        : ''
+                                }
+                                disabled
+                            />
                         </div>
-                        <Input
-                            label="Poststed"
-                            value={
-                                locationList &&
-                                locationList.length &&
-                                locationList[0] &&
-                                locationList[0].city
-                                    ? locationList[0].city
-                                    : ''
-                            }
-                            disabled
-                        />
-                    </div>
-                )}
-                <Checkbox
-                    label="Kommuner, fylker eller land"
-                    checked={this.state.locationArea === true}
-                    onChange={this.onLocationAreaChecked}
-                />
-                {this.state.locationArea && <LocationArea />}
-                {validation.location && (
-                    <div className="Administration__error blokk-xs">{validation.location}</div>
-                )}
+                    )}
+                    <Checkbox
+                        label="Kommuner, fylker eller land"
+                        checked={this.state.locationArea === true}
+                        onChange={this.onLocationAreaChecked}
+                    />
+                    {this.state.locationArea && <LocationArea />}
+                    {validation.location && (
+                        <div className="Administration__error blokk-xs">{validation.location}</div>
+                    )}
+                </CheckboxGruppe>
             </Ekspanderbartpanel>
         );
     }
