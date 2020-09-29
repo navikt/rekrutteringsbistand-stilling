@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Input, Checkbox } from 'nav-frontend-skjema';
+import { Input, Checkbox, CheckboxGruppe } from 'nav-frontend-skjema';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { SET_APPLICATIONURL, SET_APPLICATIONEMAIL } from '../../adDataReducer';
 import { VALIDATE_APPLICATION_EMAIL } from '../../adValidationReducer';
@@ -70,36 +70,38 @@ class Application extends React.Component {
                 <Normaltekst className="Edit__panel__undertittel">
                     Gjelder kun eksternt utlyste stillinger
                 </Normaltekst>
-                <Checkbox checked={showEmail} onChange={this.onEmailChecked} label="Via e-post" />
-                {showEmail && (
-                    <Input
-                        type="email"
-                        label="E-postadresse"
-                        value={applicationEmail || ''}
-                        onChange={this.onApplicationEmailChange}
-                        onBlur={this.validateEmail}
-                        feil={
-                            this.props.validation.applicationEmail && {
-                                feilmelding: this.props.validation.applicationEmail,
+                <CheckboxGruppe>
+                    <Checkbox checked={showEmail} onChange={this.onEmailChecked} label="E-post" />
+                    {showEmail && (
+                        <Input
+                            type="email"
+                            label="E-postadresse"
+                            value={applicationEmail || ''}
+                            onChange={this.onApplicationEmailChange}
+                            onBlur={this.validateEmail}
+                            feil={
+                                this.props.validation.applicationEmail && {
+                                    feilmelding: this.props.validation.applicationEmail,
+                                }
                             }
-                        }
-                        placeholder="For eksempel: ola.normann@firma.no"
+                            placeholder="For eksempel: ola.normann@firma.no"
+                        />
+                    )}
+                    <Checkbox
+                        checked={showLink}
+                        onChange={this.onLinkChecked}
+                        label="Søknadsskjema"
                     />
-                )}
-                <Checkbox
-                    checked={showLink}
-                    onChange={this.onLinkChecked}
-                    label="Via søknadsskjema"
-                />
-                {showLink && (
-                    <Input
-                        label="Lenke"
-                        value={applicationUrl || ''}
-                        onChange={this.onApplicationUrlChange}
-                        onBlur={this.completeLink}
-                        placeholder="For eksempel: www.rekruttering.no"
-                    />
-                )}
+                    {showLink && (
+                        <Input
+                            label="Lenke"
+                            value={applicationUrl || ''}
+                            onChange={this.onApplicationUrlChange}
+                            onBlur={this.completeLink}
+                            placeholder="For eksempel: www.rekruttering.no"
+                        />
+                    )}
+                </CheckboxGruppe>
             </Ekspanderbartpanel>
         );
     }
