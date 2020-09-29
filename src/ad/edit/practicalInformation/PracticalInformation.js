@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Input, SkjemaGruppe, Radio, Checkbox, RadioGruppe } from 'nav-frontend-skjema';
 import { connect } from 'react-redux';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import Datovelger from 'nav-datovelger/dist/datovelger/Datovelger';
 import 'nav-datovelger/dist/datovelger/styles/datovelger.css';
@@ -100,8 +100,7 @@ class PracticalInformation extends React.Component {
         return (
             <Ekspanderbartpanel
                 className="Edit__panel"
-                tittel="Praktiske opplysninger"
-                tittelProps="undertittel"
+                tittel={<Undertittel>Praktiske opplysninger</Undertittel>}
                 border
                 apen
             >

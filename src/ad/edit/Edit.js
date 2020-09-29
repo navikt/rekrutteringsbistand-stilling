@@ -25,6 +25,7 @@ import { hentAnnonselenke, stillingErPublisert } from '../adUtils';
 import CandidateActions from '../candidateActions/CandidateActions';
 import { Knapp } from 'nav-frontend-knapper';
 import KopierTekst from '../kopierTekst/KopierTekst';
+import { Undertittel } from 'nav-frontend-typografi';
 
 class Edit extends React.Component {
     constructor(props) {
@@ -145,8 +146,7 @@ class Edit extends React.Component {
                         <Location />
                         <Ekspanderbartpanel
                             className="Edit__panel"
-                            tittel="Om annonsen"
-                            tittelProps="undertittel"
+                            tittel={<Undertittel>Om annonsen</Undertittel>}
                             border
                             apen
                         >

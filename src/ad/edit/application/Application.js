@@ -6,7 +6,7 @@ import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { SET_APPLICATIONURL, SET_APPLICATIONEMAIL } from '../../adDataReducer';
 import { VALIDATE_APPLICATION_EMAIL } from '../../adValidationReducer';
 import { adjustUrl } from '../../../common/utils';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import Skjemalabel from '../skjemaetikett/Skjemalabel';
 
 class Application extends React.Component {
@@ -63,8 +63,7 @@ class Application extends React.Component {
         return (
             <Ekspanderbartpanel
                 className="Edit__panel"
-                tittel="Hvordan sende søknad?"
-                tittelProps="undertittel"
+                tittel={<Undertittel>Hvordan sende søknad?</Undertittel>}
                 border
                 apen
             >

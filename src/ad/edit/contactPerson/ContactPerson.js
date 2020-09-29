@@ -8,7 +8,7 @@ import {
     VALIDATE_CONTACTPERSON_EMAIL,
     VALIDATE_CONTACTPERSON_PHONE,
 } from '../../adValidationReducer';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import Skjemalabel from '../skjemaetikett/Skjemalabel';
 
 class ContactPerson extends React.Component {
@@ -53,8 +53,7 @@ class ContactPerson extends React.Component {
         return (
             <Ekspanderbartpanel
                 className="Edit__panel"
-                tittel="Kontaktinformasjon"
-                tittelProps="undertittel"
+                tittel={<Undertittel>Kontaktinformasjon</Undertittel>}
                 border
                 apen
             >

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Flatknapp } from 'nav-frontend-knapper';
 import { Column, Row } from 'nav-frontend-grid';
 import { Input } from 'nav-frontend-skjema';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import RichTextEditor from '../richTextEditor/RichTextEditor';
 import {
@@ -95,8 +95,7 @@ class Employer extends React.Component {
         return (
             <Ekspanderbartpanel
                 className="blokk-s"
-                tittel="Om bedriften"
-                tittelProps="undertittel"
+                tittel={<Undertittel>Om bedriften</Undertittel>}
                 border
                 apen
             >
