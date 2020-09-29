@@ -53,13 +53,15 @@ class ContactPerson extends React.Component {
         return (
             <Ekspanderbartpanel
                 className="Edit__panel"
-                tittel={<Undertittel>Kontaktinformasjon</Undertittel>}
+                tittel={
+                    <>
+                        <Undertittel>Kontaktinformasjon</Undertittel>
+                        <Normaltekst>Din egen eller arbeidsgivers kontaktinformasjon</Normaltekst>
+                    </>
+                }
                 border
                 apen
             >
-                <Normaltekst className="Edit__panel__undertittel">
-                    Din egen eller arbeidsgivers kontaktinformasjon
-                </Normaltekst>
                 <Input
                     className="blokk-xs"
                     label="Navn på kontaktperson"

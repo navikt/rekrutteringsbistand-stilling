@@ -63,13 +63,15 @@ class Application extends React.Component {
         return (
             <Ekspanderbartpanel
                 className="Edit__panel"
-                tittel={<Undertittel>Hvordan sende søknad?</Undertittel>}
+                tittel={
+                    <>
+                        <Undertittel>Hvordan sende søknad?</Undertittel>
+                        <Normaltekst>Gjelder kun eksternt utlyste stillinger</Normaltekst>
+                    </>
+                }
                 border
                 apen
             >
-                <Normaltekst className="Edit__panel__undertittel">
-                    Gjelder kun eksternt utlyste stillinger
-                </Normaltekst>
                 <CheckboxGruppe>
                     <Checkbox checked={showEmail} onChange={this.onEmailChecked} label="E-post" />
                     {showEmail && (
