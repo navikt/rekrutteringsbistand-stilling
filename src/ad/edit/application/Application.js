@@ -7,6 +7,7 @@ import { SET_APPLICATIONURL, SET_APPLICATIONEMAIL } from '../../adDataReducer';
 import { VALIDATE_APPLICATION_EMAIL } from '../../adValidationReducer';
 import { adjustUrl } from '../../../common/utils';
 import { Normaltekst } from 'nav-frontend-typografi';
+import Skjemalabel from '../skjemaetikett/Skjemalabel';
 
 class Application extends React.Component {
     constructor(props) {
@@ -73,33 +74,48 @@ class Application extends React.Component {
                 <CheckboxGruppe>
                     <Checkbox checked={showEmail} onChange={this.onEmailChecked} label="E-post" />
                     {showEmail && (
-                        <Input
-                            type="email"
-                            label="E-postadresse"
-                            value={applicationEmail || ''}
-                            onChange={this.onApplicationEmailChange}
-                            onBlur={this.validateEmail}
-                            feil={
-                                this.props.validation.applicationEmail && {
-                                    feilmelding: this.props.validation.applicationEmail,
+                        <>
+                            <Skjemalabel
+                                inputId="endre-stilling-email"
+                                beskrivelse="For eksempel: ola.normann@firma.no"
+                            >
+                                E-postadresse
+                            </Skjemalabel>
+                            <Input
+                                id="endre-stilling-email"
+                                aria-describedby="endre-stilling-email-beskrivelse"
+                                type="email"
+                                value={applicationEmail || ''}
+                                onChange={this.onApplicationEmailChange}
+                                onBlur={this.validateEmail}
+                                feil={
+                                    this.props.validation.applicationEmail && {
+                                        feilmelding: this.props.validation.applicationEmail,
+                                    }
                                 }
-                            }
-                            placeholder="For eksempel: ola.normann@firma.no"
-                        />
+                            />
+                        </>
                     )}
                     <Checkbox
                         checked={showLink}
                         onChange={this.onLinkChecked}
-                        label="Søknadsskjema"
+                        label="Lenke til søknadsskjema"
                     />
                     {showLink && (
-                        <Input
-                            label="Lenke"
-                            value={applicationUrl || ''}
-                            onChange={this.onApplicationUrlChange}
-                            onBlur={this.completeLink}
-                            placeholder="For eksempel: www.rekruttering.no"
-                        />
+                        <>
+                            <Skjemalabel
+                                inputId="endre-stilling-lenke"
+                                beskrivelse="For eksempel: www.rekruttering.no"
+                            >
+                                Lenke
+                            </Skjemalabel>
+                            <Input
+                                aria-describedby="endre-stilling-lenke-beskrivelse"
+                                value={applicationUrl || ''}
+                                onChange={this.onApplicationUrlChange}
+                                onBlur={this.completeLink}
+                            />
+                        </>
                     )}
                 </CheckboxGruppe>
             </Ekspanderbartpanel>

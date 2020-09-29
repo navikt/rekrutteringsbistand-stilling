@@ -16,6 +16,7 @@ import capitalizeLocation from './capitalizeLocation';
 import LocationArea from './LocationArea';
 import './Location.less';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import Skjemalabel from '../skjemaetikett/Skjemalabel';
 
 class Location extends React.Component {
     constructor(props) {
@@ -121,13 +122,15 @@ class Location extends React.Component {
                                 onChange={this.onAddressChange}
                             />
                             <div className="blokk-xs">
+                                <Skjemalabel inputId="endre-stilling-postnummer">
+                                    Postnummer
+                                </Skjemalabel>
                                 <Typeahead
-                                    id="typeahead-postal-code"
+                                    id="endre-stilling-postnummer"
                                     className="PostalCode__typeahead"
                                     onSelect={this.onTypeAheadSuggestionSelected}
                                     onChange={this.onTypeAheadValueChange}
                                     onBlur={this.onBlur}
-                                    label="Postnummer"
                                     suggestions={suggestions.map((loc) => ({
                                         value: loc.postalCode,
                                         label: `${loc.postalCode} ${capitalizeLocation(loc.city)}`,

@@ -13,6 +13,7 @@ import {
 import { VALIDATE_LOCATION_AREA } from '../../adValidationReducer';
 import capitalizeLocation from './capitalizeLocation';
 import './Location.less';
+import Skjemalabel from '../skjemaetikett/Skjemalabel';
 
 class LocationArea extends React.Component {
     componentDidMount() {
@@ -91,12 +92,14 @@ class LocationArea extends React.Component {
 
         return (
             <div className="LocationArea__typeahead">
+                <Skjemalabel inputId="endre-stilling-kommune">
+                    Skriv inn kommune, fylke eller land
+                </Skjemalabel>
                 <Typeahead
-                    id="typeahead-location-area"
+                    id="endre-stilling-kommune"
                     onChange={this.onLocationAreaChange}
                     onSelect={this.onLocationAreaSelect}
                     onBlur={this.onBlur}
-                    label="Skriv inn kommune, fylke eller land"
                     suggestionsLabel="Kommune eller fylke"
                     suggestions={municipalsCounties.map((mc) => ({
                         value: mc.code,
@@ -108,7 +111,6 @@ class LocationArea extends React.Component {
                     }))}
                     value={typeaheadValue}
                     minLength={1}
-                    placeholder="For eksempel Oslo, Sandefjord eller Danmark"
                     error={!!validation.locationArea}
                 />
                 {validation.locationArea && (
