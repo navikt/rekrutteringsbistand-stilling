@@ -269,7 +269,7 @@ export default class Typeahead extends React.Component {
                         }}
                         className={classNames('Typeahead__input typo-normal', {
                             'skjemaelement__input--harFeil': this.props.error,
-                            'blokk-l': this.props.error,
+                            'blokk-xxs': this.props.error,
                         })}
                     />
                     <ul

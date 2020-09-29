@@ -15,7 +15,7 @@ import {
 import capitalizeLocation from './capitalizeLocation';
 import LocationArea from './LocationArea';
 import './Location.less';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { Feilmelding, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import Skjemalabel from '../skjemaetikett/Skjemalabel';
 
 class Location extends React.Component {
@@ -139,9 +139,7 @@ class Location extends React.Component {
                                     error={validation.postalCode !== undefined}
                                 />
                                 {validation.postalCode && (
-                                    <div className="Administration__error">
-                                        {validation.postalCode}
-                                    </div>
+                                    <Feilmelding>{validation.postalCode}</Feilmelding>
                                 )}
                             </div>
                             <Input
@@ -164,9 +162,7 @@ class Location extends React.Component {
                         onChange={this.onLocationAreaChecked}
                     />
                     {this.state.locationArea && <LocationArea />}
-                    {validation.location && (
-                        <div className="Administration__error blokk-xs">{validation.location}</div>
-                    )}
+                    {validation.location && <Feilmelding>{validation.location}</Feilmelding>}
                 </CheckboxGruppe>
             </Ekspanderbartpanel>
         );

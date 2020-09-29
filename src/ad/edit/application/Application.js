@@ -87,11 +87,7 @@ class Application extends React.Component {
                                 value={applicationEmail || ''}
                                 onChange={this.onApplicationEmailChange}
                                 onBlur={this.validateEmail}
-                                feil={
-                                    this.props.validation.applicationEmail && {
-                                        feilmelding: this.props.validation.applicationEmail,
-                                    }
-                                }
+                                feil={this.props.validation.applicationEmail}
                             />
                         </>
                     )}

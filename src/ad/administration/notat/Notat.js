@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import { SET_NOTAT } from '../../../stillingsinfo/stillingsinfoDataReducer';
 import { MAX_LENGTH_NOTAT } from '../../adValidationReducer';
 import './Notat.less';
+import Skjemalabel from '../../edit/skjemaetikett/Skjemalabel';
+import { Undertittel } from 'nav-frontend-typografi';
 
 class Notat extends React.Component {
     constructor(props) {
@@ -41,22 +43,19 @@ class Notat extends React.Component {
         return null;
     }
 
-    feil = () => {
-        const error = this.props.validation.notat;
-        return error ? { feilmelding: error } : undefined;
-    };
-
     render() {
         return (
             <div className="Notat">
+                <Skjemalabel>
+                    <Undertittel>Notater (vises kun internt)</Undertittel>
+                </Skjemalabel>
                 <Textarea
-                    label="Notatfelt (vises kun internt)"
                     maxLength={MAX_LENGTH_NOTAT}
                     onChange={this.onChange}
                     onBlur={this.onBlur}
                     value={this.state.notat || ''}
                     textareaClass="typo-normal Notat__textarea"
-                    feil={this.feil()}
+                    feil={this.props.validation.notat}
                     placeholder={this.props.placeholder}
                 />
             </div>

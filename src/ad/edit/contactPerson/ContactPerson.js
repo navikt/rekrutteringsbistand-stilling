@@ -86,11 +86,7 @@ class ContactPerson extends React.Component {
                     value={contactList[0] && contactList[0].email ? contactList[0].email : ''}
                     onChange={this.onEmailChange}
                     onBlur={this.onEmailBlur}
-                    feil={
-                        this.props.validation.contactpersonEmail && {
-                            feilmelding: this.props.validation.contactpersonEmail,
-                        }
-                    }
+                    feil={this.props.validation.contactpersonEmail}
                 />
                 <Input
                     className="blokk-xs"
@@ -98,11 +94,7 @@ class ContactPerson extends React.Component {
                     label="Telefonnummer"
                     value={contactList[0] && contactList[0].phone ? contactList[0].phone : ''}
                     onBlur={this.onPhoneBlur}
-                    feil={
-                        this.props.validation.contactpersonPhone && {
-                            feilmelding: this.props.validation.contactpersonPhone,
-                        }
-                    }
+                    feil={this.props.validation.contactpersonPhone}
                     onChange={this.onPhoneChange}
                 />
             </Ekspanderbartpanel>
