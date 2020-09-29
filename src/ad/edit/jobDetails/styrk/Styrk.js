@@ -9,6 +9,7 @@ import './Styrk.less';
 import StyrkModal from './StyrkModal';
 import { FETCH_STYRK, SET_STYRK_TYPEAHEAD_VALUE, TOGGLE_STYRK_MODAL } from './styrkReducer';
 import { SET_EMPLOYMENT_JOBTITLE } from '../../../adDataReducer';
+import Skjemalabel from '../../skjemaetikett/Skjemalabel';
 
 class Styrk extends React.Component {
     componentDidMount() {
@@ -70,15 +71,19 @@ class Styrk extends React.Component {
 
         return (
             <div className="Styrk">
-                <div className="skjemaelement__label typo-normal">
-                    <label htmlFor="Styrk__typeahead">STYRK*</label>
-                    <span>
-                        {'  '}
-                        <LinkButton onClick={this.onShowListClick}>Velg fra liste</LinkButton>
-                    </span>
-                </div>
+                <Skjemalabel
+                    påkrevd
+                    inputId="endre-stilling-styrk"
+                    etterLabel={
+                        <LinkButton className="Styrk__velg-styrk" onClick={this.onShowListClick}>
+                            Velg fra liste
+                        </LinkButton>
+                    }
+                >
+                    Skriv inn STYRK
+                </Skjemalabel>
                 <Typeahead
-                    id="Styrk__typeahead"
+                    id="endre-stilling-styrk"
                     label=""
                     className="Styrk__typeahead"
                     placeholder="Skriv inn STYRK"

@@ -17,7 +17,7 @@ import {
 } from '../../adDataReducer';
 import EmployerName from './EmployerName';
 import { adjustUrl } from '../../../common/utils';
-import Skjemaetikett from '../skjemaetikett/Skjemaetikett';
+import Skjemalabel from '../skjemaetikett/Skjemalabel';
 
 function adjustTwitterLink(url) {
     if (url.startsWith('@')) {
@@ -101,12 +101,12 @@ class Employer extends React.Component {
                 apen
             >
                 <EmployerName />
-                <Skjemaetikett
+                <Skjemalabel
                     inputId="endre-stilling-navnet-bedriften-bruker"
                     beskrivelse="Navnet bedriften bruker"
                 >
                     Navn på bedrift
-                </Skjemaetikett>
+                </Skjemalabel>
                 <Input
                     className="blokk-s"
                     id="endre-stilling-navnet-bedriften-bruker"
@@ -115,12 +115,12 @@ class Employer extends React.Component {
                     onChange={this.onEmployerNameChange}
                 />
 
-                <Skjemaetikett
+                <Skjemalabel
                     inputId="endre-stilling-kort-om-bedriften"
                     beskrivelse="Skriv noen linjer om bedriften"
                 >
                     Kort om bedriften
-                </Skjemaetikett>
+                </Skjemalabel>
                 <div className="Edit__Employer__rteEditor-content">
                     <RichTextEditor
                         id="endre-stilling-kort-om-bedriften"

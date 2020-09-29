@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Input, SkjemaGruppe, Radio, Checkbox } from 'nav-frontend-skjema';
+import { Input, SkjemaGruppe, Radio, Checkbox, RadioGruppe } from 'nav-frontend-skjema';
 import { connect } from 'react-redux';
 import { Normaltekst } from 'nav-frontend-typografi';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
@@ -23,6 +23,9 @@ import JobArrangement from '../jobArrangement/JobArrangement';
 import './PracticalInformation.less';
 import IsJson from './IsJson';
 import { createErrorObject } from '../../../common/utils';
+import Skjemalabel from '../skjemaetikett/Skjemalabel';
+import Påkrevd from '../skjemaetikett/Påkrevd';
+import Skjemalegend from '../skjemaetikett/Skjemalegend';
 
 class PracticalInformation extends React.Component {
     onWorkdayChange = (e) => {
@@ -105,35 +108,33 @@ class PracticalInformation extends React.Component {
                 <EngagementType />
                 <JobArrangement />
                 <div className="Edit__border" />
-                <SkjemaGruppe
+                <RadioGruppe
                     className="blokk-xs typo-normal"
                     feil={createErrorObject(this.props.validation.extent)}
                 >
-                    <fieldset className="fieldset">
-                        <legend className="blokk-xxs">Omfang*</legend>
-                        <Radio
-                            className="Edit__inline"
-                            label="Heltid"
-                            value="Heltid"
-                            name="heltidDeltid"
-                            checked={ad.properties.extent === 'Heltid'}
-                            onChange={this.onExtentChange}
-                        />
-                        <Radio
-                            className="Edit__inline"
-                            label="Deltid"
-                            value="Deltid"
-                            name="heltidDeltid"
-                            checked={ad.properties.extent === 'Deltid'}
-                            onChange={this.onExtentChange}
-                        />
-                    </fieldset>
-                </SkjemaGruppe>
-                <Normaltekst className="PracticalInformation__label">Arbeidsdager*</Normaltekst>
+                    <Skjemalegend påkrevd>Omfang</Skjemalegend>
+                    <Radio
+                        className="Edit__inline"
+                        label="Heltid"
+                        value="Heltid"
+                        name="heltidDeltid"
+                        checked={ad.properties.extent === 'Heltid'}
+                        onChange={this.onExtentChange}
+                    />
+                    <Radio
+                        className="Edit__inline"
+                        label="Deltid"
+                        value="Deltid"
+                        name="heltidDeltid"
+                        checked={ad.properties.extent === 'Deltid'}
+                        onChange={this.onExtentChange}
+                    />
+                </RadioGruppe>
                 <SkjemaGruppe
                     className="blokk-xs typo-normal"
                     feil={createErrorObject(this.props.validation.workday)}
                 >
+                    <Skjemalegend påkrevd>Arbeidsdager</Skjemalegend>
                     <Checkbox
                         className="Edit__inline"
                         label="Ukedager"
@@ -174,11 +175,11 @@ class PracticalInformation extends React.Component {
                         onChange={this.onWorkdayChange}
                     />
                 </SkjemaGruppe>
-                <Normaltekst className="PracticalInformation__label">Arbeidstid*</Normaltekst>
                 <SkjemaGruppe
                     className="blokk-xs typo-normal"
                     feil={createErrorObject(this.props.validation.workhours)}
                 >
+                    <Skjemalegend påkrevd>Arbeidstid</Skjemalegend>
                     <Checkbox
                         className="Edit__inline"
                         label="Dagtid"
@@ -223,39 +224,41 @@ class PracticalInformation extends React.Component {
                     className="typo-normal"
                     feil={createErrorObject(this.props.validation.sector)}
                 >
-                    <fieldset className="fieldset">
-                        <legend className="blokk-xxs">Sektor*</legend>
-                        <Radio
-                            className="Edit__inline"
-                            label="Privat"
-                            value="Privat"
-                            name="sektor"
-                            checked={ad.properties.sector === 'Privat'}
-                            onChange={this.onSectorChange}
-                        />
-                        <Radio
-                            className="Edit__inline"
-                            label="Offentlig"
-                            value="Offentlig"
-                            name="sektor"
-                            checked={ad.properties.sector === 'Offentlig'}
-                            onChange={this.onSectorChange}
-                        />
-                        <Radio
-                            className="Edit__inline"
-                            label="Ikke oppgitt"
-                            value="Ikke oppgitt"
-                            name="sektor"
-                            checked={ad.properties.sector === 'Ikke oppgitt'}
-                            onChange={this.onSectorChange}
-                        />
-                    </fieldset>
+                    <Skjemalegend påkrevd>Sektor</Skjemalegend>
+                    <Radio
+                        className="Edit__inline"
+                        label="Privat"
+                        value="Privat"
+                        name="sektor"
+                        checked={ad.properties.sector === 'Privat'}
+                        onChange={this.onSectorChange}
+                    />
+                    <Radio
+                        className="Edit__inline"
+                        label="Offentlig"
+                        value="Offentlig"
+                        name="sektor"
+                        checked={ad.properties.sector === 'Offentlig'}
+                        onChange={this.onSectorChange}
+                    />
+                    <Radio
+                        className="Edit__inline"
+                        label="Ikke oppgitt"
+                        value="Ikke oppgitt"
+                        name="sektor"
+                        checked={ad.properties.sector === 'Ikke oppgitt'}
+                        onChange={this.onSectorChange}
+                    />
                 </SkjemaGruppe>
                 <div className="Edit__border" />
+                <Skjemalabel påkrevd inputId="endre-stilling-antall-stillinger">
+                    Antall stillinger
+                </Skjemalabel>
                 <Input
+                    id="endre-stilling-antall-stillinger"
+                    className="blokk-xs"
                     type="number"
                     min="1"
-                    label="Antall stillinger*"
                     value={ad.properties.positioncount || ''}
                     onChange={this.onPositioncountChange}
                     feil={createErrorObject(this.props.validation.positioncount)}
@@ -268,86 +271,70 @@ class PracticalInformation extends React.Component {
                     }
                     feil={createErrorObject(this.props.validation.applicationdue)}
                 >
-                    <fieldset className="fieldset">
-                        <legend className="blokk-xxs" id="soknadsfrist">
-                            Søknadsfrist*
-                        </legend>
-                        <div className="PracticalInformation">
-                            <div className="PracticalInformation__datepicker">
-                                <Datovelger
-                                    input={{
-                                        id: 'applicationDue__input',
-                                        name: 'applicationDue',
-                                        placeholder: 'dd.mm.åååå',
-                                        ariaLabel: 'Sett søknadsfrist',
-                                    }}
-                                    input={{
-                                        id: 'applicationDue__input',
-                                        name: 'applicationDue',
-                                        placeholder: 'dd.mm.åååå',
-                                        ariaLabel: 'Sett søknadsfrist',
-                                    }}
-                                    id="applicationDue"
-                                    dato={
-                                        formatISOString(
-                                            ad.properties.applicationdue,
-                                            'DD.MM.YYYY'
-                                        ) || ''
-                                    }
-                                    onChange={this.onApplicationDueChange}
-                                    ref={(instance) => {
-                                        this.refapplicationDue = instance;
-                                    }}
-                                    avgrensninger={{ minDato: new Date(Date.now()) }}
-                                    disabled={ad.properties.applicationdue === 'Snarest'}
-                                />
-                            </div>
-                            <div className="PracticalInformation__top">
-                                <Checkbox
-                                    id="chbx-snarest"
-                                    onChange={this.onSnarestChange}
-                                    checked={ad.properties.applicationdue === 'Snarest'}
-                                    value="Snarest"
-                                    label="Snarest"
-                                />
-                            </div>
+                    <Skjemalabel påkrevd inputId="endre-stilling-søknadsfrist">
+                        Søknadsfrist
+                    </Skjemalabel>
+                    <div className="PracticalInformation">
+                        <div className="PracticalInformation__datepicker">
+                            <Datovelger
+                                input={{
+                                    id: 'applicationDue__input',
+                                    name: 'applicationDue',
+                                    placeholder: 'dd.mm.åååå',
+                                    ariaLabel: 'Sett søknadsfrist',
+                                }}
+                                id="applicationDue"
+                                dato={
+                                    formatISOString(ad.properties.applicationdue, 'DD.MM.YYYY') ||
+                                    ''
+                                }
+                                onChange={this.onApplicationDueChange}
+                                ref={(instance) => {
+                                    this.refapplicationDue = instance;
+                                }}
+                                avgrensninger={{ minDato: new Date(Date.now()) }}
+                                disabled={ad.properties.applicationdue === 'Snarest'}
+                            />
                         </div>
-                    </fieldset>
+                        <div className="PracticalInformation__top">
+                            <Checkbox
+                                id="chbx-snarest"
+                                onChange={this.onSnarestChange}
+                                checked={ad.properties.applicationdue === 'Snarest'}
+                                value="Snarest"
+                                label="Snarest"
+                            />
+                        </div>
+                    </div>
                 </SkjemaGruppe>
                 <SkjemaGruppe className="typo-normal">
-                    <fieldset className="fieldset">
-                        <legend className="blokk-xxs" id="oppstart">
-                            Oppstart
-                        </legend>
-                        <div className="PracticalInformation ">
-                            <div className="PracticalInformation__datepicker">
-                                <Datovelger
-                                    id="starttime"
-                                    input={{
-                                        id: 'starttime__input',
-                                        name: 'starttime',
-                                        placeholder: 'dd.mm.åååå',
-                                        ariaLabel: 'Sett oppstart',
-                                    }}
-                                    dato={
-                                        formatISOString(ad.properties.starttime, 'DD.MM.YYYY') || ''
-                                    }
-                                    onChange={this.onStarttimeChange}
-                                    avgrensninger={{ minDato: new Date(Date.now()) }}
-                                    disabled={ad.properties.starttime === 'Etter avtale'}
-                                />
-                            </div>
-                            <div className="PracticalInformation__top">
-                                <Checkbox
-                                    id="chbx-etterAvtale"
-                                    onChange={this.onEtterAvtaleChange}
-                                    checked={ad.properties.starttime === 'Etter avtale'}
-                                    value="Etter avtale"
-                                    label="Etter avtale"
-                                />
-                            </div>
+                    <Skjemalegend>Oppstart</Skjemalegend>
+                    <div className="PracticalInformation ">
+                        <div className="PracticalInformation__datepicker">
+                            <Datovelger
+                                id="starttime"
+                                input={{
+                                    id: 'starttime__input',
+                                    name: 'starttime',
+                                    placeholder: 'dd.mm.åååå',
+                                    ariaLabel: 'Sett oppstart',
+                                }}
+                                dato={formatISOString(ad.properties.starttime, 'DD.MM.YYYY') || ''}
+                                onChange={this.onStarttimeChange}
+                                avgrensninger={{ minDato: new Date(Date.now()) }}
+                                disabled={ad.properties.starttime === 'Etter avtale'}
+                            />
                         </div>
-                    </fieldset>
+                        <div className="PracticalInformation__top">
+                            <Checkbox
+                                id="chbx-etterAvtale"
+                                onChange={this.onEtterAvtaleChange}
+                                checked={ad.properties.starttime === 'Etter avtale'}
+                                value="Etter avtale"
+                                label="Etter avtale"
+                            />
+                        </div>
+                    </div>
                 </SkjemaGruppe>
             </Ekspanderbartpanel>
         );

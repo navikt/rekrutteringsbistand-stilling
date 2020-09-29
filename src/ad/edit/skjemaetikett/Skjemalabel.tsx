@@ -1,22 +1,30 @@
 import { Element, Normaltekst } from 'nav-frontend-typografi';
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, ReactNode } from 'react';
 
 type Props = {
     påkrevd?: boolean;
     inputId?: string;
     beskrivelse?: string;
+    etterLabel?: ReactNode;
 };
 
-const Skjemaetikett: FunctionComponent<Props> = ({ inputId, påkrevd, beskrivelse, children }) => {
+const Skjemalabel: FunctionComponent<Props> = ({
+    inputId,
+    påkrevd,
+    beskrivelse,
+    children,
+    etterLabel,
+}) => {
     return (
         <div className="blokk-xxs">
             <label htmlFor={inputId}>
                 <Element tag="span">{children}</Element>
                 {påkrevd && <Normaltekst tag="span"> (må fylles ut)</Normaltekst>}
             </label>
+            {etterLabel}
             {beskrivelse && <Normaltekst id={`${inputId}-beskrivelse`}>{beskrivelse}</Normaltekst>}
         </div>
     );
 };
 
-export default Skjemaetikett;
+export default Skjemalabel;

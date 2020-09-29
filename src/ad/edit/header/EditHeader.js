@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import { createErrorObject } from '../../../common/utils';
 import { DEFAULT_TITLE_NEW_AD } from '../../adReducer';
 import { SET_AD_TITLE } from '../../adDataReducer';
-import Skjemaetikett from '../skjemaetikett/Skjemaetikett';
+import Skjemalabel from '../skjemaetikett/Skjemalabel';
 
 class EditHeader extends React.Component {
     onTitleChange = (e) => {
@@ -27,13 +27,13 @@ class EditHeader extends React.Component {
 
         return (
             <Ekspanderbartpanel apen border tittel="Tittel på annonsen" className="blokk-s">
-                <Skjemaetikett
+                <Skjemalabel
                     påkrevd
                     inputId="endre-stilling-tittel"
-                    beskrivelse={`For eksempel "engasjert barnehagelærer til Oslo-skole"`}
+                    beskrivelse={`For eksempel «engasjert barnehagelærer til Oslo-skole»`}
                 >
                     Overskrift på annonsen
-                </Skjemaetikett>
+                </Skjemalabel>
                 <Input
                     id="endre-stilling-tittel"
                     inputClassName="blokk-xs"

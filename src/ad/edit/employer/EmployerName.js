@@ -8,7 +8,7 @@ import { SET_EMPLOYER } from '../../adDataReducer';
 import './EmployerName.less';
 import capitalizeEmployerName from './capitalizeEmployerName';
 import capitalizeLocation from '../location/capitalizeLocation';
-import Skjemaetikett from '../skjemaetikett/Skjemaetikett';
+import Skjemalabel from '../skjemaetikett/Skjemalabel';
 
 class EmployerName extends React.Component {
     onTypeAheadValueChange = (value) => {
@@ -74,14 +74,14 @@ class EmployerName extends React.Component {
                     du registrerer stillingen på samsvare med arbeidsgivers virksomhetsnummer.
                 </Normaltekst>
                 <div className="blokk-xxs">
-                    <Skjemaetikett
+                    <Skjemalabel
                         påkrevd
                         inputId="endre-stilling-bedriftens-navn"
                         beskrivelse="Skriv inn arbeidsgivernavn eller virksomhetsnummer"
                         beskrivelse-id="endre-stilling-bedriftens-navn-hint"
                     >
                         Bedriftens navn hentet fra Enhetsregisteret
-                    </Skjemaetikett>
+                    </Skjemalabel>
                     <Typeahead
                         id="endre-stilling-bedriftens-navn"
                         aria-describedby="endre-stilling-bedriftens-navn-hint"
