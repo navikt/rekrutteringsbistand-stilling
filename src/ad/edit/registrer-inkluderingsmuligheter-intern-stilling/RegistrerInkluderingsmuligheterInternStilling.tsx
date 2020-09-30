@@ -8,7 +8,7 @@ import isJson from '../practicalInformation/IsJson';
 import { hentKategorierMedNavn } from '../../tagHelpers';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import './MuligheterForÅInkludere.less';
+import './RegistrerInkluderingsmuligheterInternStilling.less';
 
 type Props = {
     tags?: string;
@@ -17,7 +17,7 @@ type Props = {
     direktemeldt: boolean;
 };
 
-const InkluderingPanel: FunctionComponent<Props> = ({
+const RegistrerInkluderingsmuligheterInternStilling: FunctionComponent<Props> = ({
     tags,
     checkTag,
     uncheckTag,
@@ -32,7 +32,7 @@ const InkluderingPanel: FunctionComponent<Props> = ({
 
     return (
         <Ekspanderbartpanel
-            className="muligheter-for-å-inkludere blokk-s"
+            className="registrer-inkluderingsmuligheter-intern-stilling blokk-s"
             tittel={
                 <>
                     <Undertittel className="blokk-xxxs">Muligheter for å inkludere</Undertittel>
@@ -45,7 +45,7 @@ const InkluderingPanel: FunctionComponent<Props> = ({
             border
             apen
         >
-            <SkjemaGruppe className="Inkludering typo-normal">
+            <SkjemaGruppe>
                 {kategorierMedNavn.map(({ tag, navn, harUnderkategorier, underkategorier }) => (
                     <Fragment key={tag}>
                         <Checkbox
@@ -57,7 +57,7 @@ const InkluderingPanel: FunctionComponent<Props> = ({
                             onChange={onTagChange}
                         />
                         {harUnderkategorier && tagIsChecked(tag) && (
-                            <SkjemaGruppe className="Inkludering__subtags">
+                            <SkjemaGruppe className="registrer-inkluderingsmuligheter-intern-stilling__subtags">
                                 {(underkategorier || []).map(({ tag, navn }) => (
                                     <Checkbox
                                         className="checkbox--tag skjemaelement--pink"
@@ -78,7 +78,7 @@ const InkluderingPanel: FunctionComponent<Props> = ({
     );
 };
 
-InkluderingPanel.propTypes = {
+RegistrerInkluderingsmuligheterInternStilling.propTypes = {
     checkTag: PropTypes.func.isRequired,
     uncheckTag: PropTypes.func.isRequired,
     tags: PropTypes.string,
@@ -94,4 +94,7 @@ const mapDispatchToProps = (dispatch) => ({
     uncheckTag: (value: string) => dispatch({ type: UNCHECK_TAG, value }),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(InkluderingPanel);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(RegistrerInkluderingsmuligheterInternStilling);

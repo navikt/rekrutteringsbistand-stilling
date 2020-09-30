@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Input } from 'nav-frontend-skjema';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
-import { Column, Row } from 'nav-frontend-grid';
+import { Column } from 'nav-frontend-grid';
 import { connect } from 'react-redux';
 import { SAVE_AD } from '../adReducer';
 import { RESET_VALIDATION_ERROR } from '../adValidationReducer';
@@ -26,7 +26,7 @@ import CandidateActions from '../candidateActions/CandidateActions';
 import { Knapp } from 'nav-frontend-knapper';
 import KopierTekst from '../kopierTekst/KopierTekst';
 import { Undertittel } from 'nav-frontend-typografi';
-import InkluderingPanel from './inkludering/MuligheterForÅInkludere.tsx';
+import RegistrerInkluderingsmuligheterInternStilling from './registrer-inkluderingsmuligheter-intern-stilling/RegistrerInkluderingsmuligheterInternStilling';
 
 class Edit extends React.Component {
     constructor(props) {
@@ -132,7 +132,7 @@ class Edit extends React.Component {
                     <div className="Edit__left">
                         <EditHeader isNew={isNew} onPreviewAdClick={onPreviewAdClick} />
                         <Employer />
-                        <InkluderingPanel />
+                        <RegistrerInkluderingsmuligheterInternStilling />
                         <JobDetails isNew={isNew} />
                     </div>
                 </Column>
