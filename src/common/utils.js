@@ -19,7 +19,3 @@ export function adjustUrl(url) {
     }
     return url;
 }
-
-export function createErrorObject(errorMessage) {
-    return errorMessage ? { feilmelding: errorMessage } : null;
-}

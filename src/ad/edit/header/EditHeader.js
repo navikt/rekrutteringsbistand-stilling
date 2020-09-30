@@ -1,18 +1,12 @@
-/* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { Knapp } from 'nav-frontend-knapper';
 import { Input } from 'nav-frontend-skjema';
-import { Normaltekst, Element } from 'nav-frontend-typografi';
-import './EditHeader.less';
+import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
+import PropTypes from 'prop-types';
+
 import { DEFAULT_TITLE_NEW_AD } from '../../adReducer';
 import { SET_AD_TITLE } from '../../adDataReducer';
-import { createErrorObject } from '../../../common/utils';
-import CandidateActions from '../../candidateActions/CandidateActions';
-import Alertstripe from 'nav-frontend-alertstriper';
-import { hentAnnonselenke, stillingErPublisert } from '../../adUtils';
-import KopierTekst from '../../kopierTekst/KopierTekst';
+import Skjemalabel from '../skjemaetikett/Skjemalabel';
 
 class EditHeader extends React.Component {
     onTitleChange = (e) => {
@@ -28,51 +22,26 @@ class EditHeader extends React.Component {
     };
 
     render() {
-        const { onPreviewAdClick, validation, ad } = this.props;
-        const limitedAccess = ad.createdBy !== 'pam-rekrutteringsbistand';
-        const stillingsLenke = hentAnnonselenke(ad.uuid);
+        const { validation } = this.props;
 
         return (
-            <div>
-                <div className="Ad__actions">
-                    <CandidateActions />
-                    <div>
-                        {!limitedAccess && (
-                            <Knapp className="Ad__actions-button" onClick={onPreviewAdClick} mini>
-                                Forhåndsvis stillingen
-                            </Knapp>
-                        )}
-                        {stillingErPublisert(ad) && (
-                            <KopierTekst
-                                className=""
-                                tooltipTekst="Kopier stillingslenke"
-                                skalKopieres={stillingsLenke}
-                            />
-                        )}
-                    </div>
-                </div>
-                {limitedAccess && (
-                    <div className="Ad__info">
-                        <Alertstripe
-                            className="AdStatusPreview__Alertstripe"
-                            type="info"
-                            solid="true"
-                        >
-                            Dette er en eksternt utlyst stilling. Du kan <b>ikke</b> endre
-                            stillingen.
-                        </Alertstripe>
-                    </div>
-                )}
+            <Ekspanderbartpanel apen border tittel="Tittel på annonsen" className="blokk-s">
+                <Skjemalabel
+                    påkrevd
+                    inputId="endre-stilling-tittel"
+                    beskrivelse={`For eksempel «engasjert barnehagelærer til Oslo-skole»`}
+                >
+                    Overskrift på annonsen
+                </Skjemalabel>
                 <Input
-                    inputClassName="EditHeader__AdTitle"
-                    label={<Element>Overskrift på annonsen* </Element>}
+                    id="endre-stilling-tittel"
+                    className="blokk-xs"
                     value={this.getAdTitle()}
-                    placeholder="For eksempel: engasjert barnehagelærer til Oslo-skole"
                     onChange={this.onTitleChange}
-                    feil={createErrorObject(validation.title)}
+                    aria-describedby="endre-stilling-tittel-beskrivelse"
+                    feil={validation.title}
                 />
-                <Normaltekst className="blokk-xs">* felter du må fylle ut</Normaltekst>
-            </div>
+            </Ekspanderbartpanel>
         );
     }
 }

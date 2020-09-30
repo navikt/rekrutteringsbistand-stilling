@@ -20,6 +20,12 @@ import TokenExpirationChecker, {
     TOKEN_HAS_EXPIRED,
 } from './session/TokenExpirationChecker';
 import SessionExpirationModal from './session/SessionExpirationModal';
+import EditHeader from './header/EditHeader';
+import { hentAnnonselenke, stillingErPublisert } from '../adUtils';
+import CandidateActions from '../candidateActions/CandidateActions';
+import { Knapp } from 'nav-frontend-knapper';
+import KopierTekst from '../kopierTekst/KopierTekst';
+import { Undertittel } from 'nav-frontend-typografi';
 import InkluderingPanel from './inkludering/MuligheterForÅInkludere.tsx';
 
 class Edit extends React.Component {
@@ -64,8 +70,12 @@ class Edit extends React.Component {
     };
 
     render() {
-        const { ad, isNew } = this.props;
+        const { ad, isNew, onPreviewAdClick } = this.props;
         const { didTimeout, willTimeout } = this.state;
+
+        // Fra EditHeader
+        const limitedAccess = ad.createdBy !== 'pam-rekrutteringsbistand';
+        const stillingsLenke = hentAnnonselenke(ad.uuid);
 
         return (
             <div className="Edit">
@@ -89,40 +99,78 @@ class Edit extends React.Component {
                         isOpen={didTimeout}
                     />
                 )}
-                <Row className="Edit__inner">
-                    <Column xs="12" md="8">
-                        <div className="Edit__left">
-                            <Employer />
-                            <InkluderingPanel />
-                            <JobDetails isNew={isNew} />
-                        </div>
-                    </Column>
-                    <Column xs="12" md="4">
-                        <PracticalInformation />
-                        <ContactPerson />
-                        <Application />
-                        <Location />
-                        <Ekspanderbartpanel
-                            className="Edit__panel"
-                            tittel="Om annonsen"
-                            tittelProps="undertittel"
-                            border
-                            apen
-                        >
-                            <Input
-                                label="Sist endret"
-                                value={
-                                    ad.updated !== ad.created
-                                        ? formatISOString(ad.updated, 'DD.MM.YYYY')
-                                        : ''
-                                }
-                                disabled
+                <div className="Edit__actions">
+                    <CandidateActions />
+                    <div className="blokk-xs">
+                        {!limitedAccess && (
+                            <Knapp className="Ad__actions-button" onClick={onPreviewAdClick} mini>
+                                Forhåndsvis stillingen
+                            </Knapp>
+                        )}
+                        {stillingErPublisert(ad) && (
+                            <KopierTekst
+                                className=""
+                                tooltipTekst="Kopier stillingslenke"
+                                skalKopieres={stillingsLenke}
                             />
-                            <Input label="Hentet fra/kilde" value={ad.medium || ''} disabled />
-                            <Input label="Annonsenummer" value={ad.id || ''} disabled />
-                        </Ekspanderbartpanel>
-                    </Column>
-                </Row>
+                        )}
+                    </div>
+                </div>
+                {limitedAccess && (
+                    <div className="Ad__info">
+                        <Alertstripe
+                            className="AdStatusPreview__Alertstripe"
+                            type="info"
+                            solid="true"
+                        >
+                            Dette er en eksternt utlyst stilling. Du kan <b>ikke</b> endre
+                            stillingen.
+                        </Alertstripe>
+                    </div>
+                )}
+                <Column xs="12" md="8">
+                    <div className="Edit__left">
+                        <EditHeader isNew={isNew} onPreviewAdClick={onPreviewAdClick} />
+                        <Employer />
+                        <InkluderingPanel />
+                        <JobDetails isNew={isNew} />
+                    </div>
+                </Column>
+                <Column xs="12" md="4">
+                    <PracticalInformation />
+                    <ContactPerson />
+                    <Application />
+                    <Location />
+                    <Ekspanderbartpanel
+                        className="Edit__panel"
+                        tittel={<Undertittel>Om annonsen</Undertittel>}
+                        border
+                        apen
+                    >
+                        <Input
+                            className="blokk-xs"
+                            label="Sist endret"
+                            value={
+                                ad.updated !== ad.created
+                                    ? formatISOString(ad.updated, 'DD.MM.YYYY')
+                                    : ''
+                            }
+                            disabled
+                        />
+                        <Input
+                            className="blokk-xs"
+                            label="Hentet fra/kilde"
+                            value={ad.medium || ''}
+                            disabled
+                        />
+                        <Input
+                            className="blokk-xs"
+                            label="Annonsenummer"
+                            value={ad.id || ''}
+                            disabled
+                        />
+                    </Ekspanderbartpanel>
+                </Column>
             </div>
         );
     }
@@ -143,6 +191,7 @@ Edit.propTypes = {
     }).isRequired,
     resetValidation: PropTypes.func.isRequired,
     isNew: PropTypes.bool,
+    onPreviewAdClick: PropTypes.func.isRequired,
     saveAndLogin: PropTypes.func.isRequired,
 };
 

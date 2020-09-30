@@ -15,7 +15,6 @@ function AdministrationLimited(props) {
                     <InkluderingPanel />
                 </div>
                 <div className="Administration__panel">
-                    <Undertittel className="Administration__panel__title">Notater</Undertittel>
                     <Notat placeholder="Legg inn notat" />
                 </div>
             </div>

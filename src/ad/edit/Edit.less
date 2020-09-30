@@ -3,8 +3,12 @@
 .Edit {
     padding-bottom: 10rem;
 
-    .row {
-        margin-top: 0;
+    &__actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        margin: 0 0.5rem 0.5rem;
     }
 
     &__panel {
@@ -14,6 +18,12 @@
     &__inline {
         display: inline-block;
         margin-right: 1.5rem;
+    }
+
+    &__inline-fieldset {
+        .skjemaelement__feilmelding {
+            margin-top: -0.5rem;
+        }
     }
 
     &__inner {
@@ -35,10 +45,6 @@
 
     &__JobDetails__rteEditor-content .public-DraftEditor-content {
         min-height: 22rem;
-    }
-
-    &__panel__undertittel {
-        padding-bottom: 1.5rem;
     }
 
     .lenke-til-annonse {

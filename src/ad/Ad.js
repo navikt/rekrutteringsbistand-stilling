@@ -119,13 +119,10 @@ class Ad extends React.Component {
                                                     <Preview ad={stilling} />
                                                 </div>
                                             ) : (
-                                                <div>
-                                                    <EditHeader
-                                                        isNew={isNew}
-                                                        onPreviewAdClick={this.onPreviewAdClick}
-                                                    />
-                                                    <Edit isNew={isNew} />
-                                                </div>
+                                                <Edit
+                                                    isNew={isNew}
+                                                    onPreviewAdClick={this.onPreviewAdClick}
+                                                />
                                             )}
                                         </div>
                                     ) : (

@@ -4,14 +4,18 @@
 .Publishing {
     display: flex;
     flex-wrap: wrap;
-    margin-top: -1rem;
+    margin-bottom: 3rem;
 
     &__label {
         margin-bottom: 0.5rem !important;
     }
 
     &__datepicker {
-        margin: 1rem 1rem 0 0;
+        margin-top: 1rem;
+
+        &:not(:last-child) {
+            margin-right: 1rem;
+        }
 
         .Administration__error {
             max-width: 176px;
@@ -56,8 +60,15 @@
 .Privacy {
     padding-top: 20px;
 
-    legend {
-        .typo-undertittel;
-        margin-bottom: 1rem;
+    &__legend {
+        margin-bottom: 1rem !important;
+    }
+
+    .skjemaelement:last-child {
+        margin-bottom: 0;
+    }
+
+    &__tittel {
+        display: inline;
     }
 }

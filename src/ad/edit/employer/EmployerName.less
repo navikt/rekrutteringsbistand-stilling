@@ -2,27 +2,31 @@
 
 .EmployerName {
     margin-bottom: 1rem;
-}
 
-.EmployerName__typeahead {
-    ul li {
-        white-space: normal;
+    &__valgt-bedrift.typo-undertekst {
+        margin-top: 0.5rem;
     }
 
-    ul {
-        overflow-y: auto;
-        max-height: 20rem;
+    &__typeahead {
+        &__item {
+            padding: 0.25rem 0;
+        }
+
+        ul li {
+            white-space: normal;
+        }
+
+        ul {
+            overflow-y: auto;
+            max-height: 20rem;
+        }
+
+        .TypeaheadSuggestion__inner {
+            white-space: normal;
+        }
     }
 
-    .TypeaheadSuggestion__inner {
-        white-space: normal;
+    &__typeahead .TypeaheadSuggestion--active .typo-undertekst {
+        color: #fff;
     }
-}
-
-.EmployerName__typeahead__item {
-    padding: 0.25rem 0;
-}
-
-.EmployerName__typeahead .TypeaheadSuggestion--active .typo-undertekst {
-    color: #fff;
 }

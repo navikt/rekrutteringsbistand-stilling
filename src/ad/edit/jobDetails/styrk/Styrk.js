@@ -1,4 +1,4 @@
-import { Normaltekst, Undertekst } from 'nav-frontend-typografi';
+import { Feilmelding, Normaltekst, Undertekst } from 'nav-frontend-typografi';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
@@ -9,6 +9,7 @@ import './Styrk.less';
 import StyrkModal from './StyrkModal';
 import { FETCH_STYRK, SET_STYRK_TYPEAHEAD_VALUE, TOGGLE_STYRK_MODAL } from './styrkReducer';
 import { SET_EMPLOYMENT_JOBTITLE } from '../../../adDataReducer';
+import Skjemalabel from '../../skjemaetikett/Skjemalabel';
 
 class Styrk extends React.Component {
     componentDidMount() {
@@ -70,18 +71,20 @@ class Styrk extends React.Component {
 
         return (
             <div className="Styrk">
-                <div className="skjemaelement__label typo-normal">
-                    <label htmlFor="Styrk__typeahead">STYRK*</label>
-                    <span>
-                        {'  '}
-                        <LinkButton onClick={this.onShowListClick}>Velg fra liste</LinkButton>
-                    </span>
-                </div>
+                <Skjemalabel
+                    påkrevd
+                    inputId="endre-stilling-styrk"
+                    etterLabel={
+                        <LinkButton className="Styrk__velg-styrk" onClick={this.onShowListClick}>
+                            Velg fra liste
+                        </LinkButton>
+                    }
+                >
+                    Skriv inn STYRK
+                </Skjemalabel>
                 <Typeahead
-                    id="Styrk__typeahead"
-                    label=""
+                    id="endre-stilling-styrk"
                     className="Styrk__typeahead"
-                    placeholder="Skriv inn STYRK"
                     onSelect={this.onTypeAheadSuggestionSelected}
                     onChange={this.onTypeAheadValueChange}
                     onBlur={this.onTypeAheadBlur}
@@ -96,9 +99,8 @@ class Styrk extends React.Component {
                     }}
                     error={this.props.validation.styrk !== undefined}
                 />
-
                 {this.props.validation.styrk && (
-                    <div className="Administration__error">{this.props.validation.styrk}</div>
+                    <Feilmelding>{this.props.validation.styrk}</Feilmelding>
                 )}
                 {this.props.showStyrkModal && <StyrkModal />}
             </div>

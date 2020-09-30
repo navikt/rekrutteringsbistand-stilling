@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Select } from 'nav-frontend-skjema';
 import EngagementTypeEnum from './EngagementTypeEnum';
 import { SET_EMPLOYMENT_ENGAGEMENTTYPE } from '../../adDataReducer';
-import { createErrorObject } from '../../../common/utils';
+import Skjemalabel from '../skjemaetikett/Skjemalabel';
 import './EngagementType.less';
 
 class EngagementType extends React.Component {
@@ -15,12 +15,14 @@ class EngagementType extends React.Component {
     render() {
         return (
             <div className="EngagementType">
+                <Skjemalabel påkrevd inputId="endre-stilling-ansettelsesform">
+                    Ansettelsesform
+                </Skjemalabel>
                 <Select
-                    id="EngagementType__input"
-                    label="Ansettelsesform*"
+                    id="endre-stilling-ansettelsesform"
                     value={this.props.engagementType}
                     onChange={this.onEngagementTypeChange}
-                    feil={createErrorObject(this.props.validation.engagementtype)}
+                    feil={this.props.validation.engagementtype}
                 >
                     <option value={EngagementTypeEnum.NONE} key={EngagementTypeEnum.NONE}>
                         Velg

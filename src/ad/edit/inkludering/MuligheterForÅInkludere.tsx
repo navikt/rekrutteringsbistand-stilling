@@ -1,13 +1,13 @@
 import React, { ChangeEvent, Fragment, FunctionComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Checkbox, Fieldset } from 'nav-frontend-skjema';
+import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
 
 import { CHECK_TAG, UNCHECK_TAG } from '../../adDataReducer';
 import isJson from '../practicalInformation/IsJson';
 import { hentKategorierMedNavn } from '../../tagHelpers';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import './MuligheterForÅInkludere.less';
 
 type Props = {
@@ -33,16 +33,19 @@ const InkluderingPanel: FunctionComponent<Props> = ({
     return (
         <Ekspanderbartpanel
             className="muligheter-for-å-inkludere blokk-s"
-            tittel="Muligheter for å inkludere"
-            tittelProps="undertittel"
+            tittel={
+                <>
+                    <Undertittel className="blokk-xxxs">Muligheter for å inkludere</Undertittel>
+                    <Normaltekst>
+                        Arbeidsgiver er åpen for å inkludere personer som har behov for
+                        tilrettelegging og/eller har nedsatt funksjonsevne.
+                    </Normaltekst>
+                </>
+            }
             border
             apen
         >
-            <Normaltekst>
-                Arbeidsgiver er åpen for å inkludere personer som har behov for tilrettelegging
-                og/eller har nedsatt funksjonsevne.
-            </Normaltekst>
-            <Fieldset legend="Inkludering" className="Inkludering typo-normal">
+            <SkjemaGruppe className="Inkludering typo-normal">
                 {kategorierMedNavn.map(({ tag, navn, harUnderkategorier, underkategorier }) => (
                     <Fragment key={tag}>
                         <Checkbox
@@ -54,7 +57,7 @@ const InkluderingPanel: FunctionComponent<Props> = ({
                             onChange={onTagChange}
                         />
                         {harUnderkategorier && tagIsChecked(tag) && (
-                            <Fieldset legend={navn} className="Inkludering__subtags">
+                            <SkjemaGruppe className="Inkludering__subtags">
                                 {(underkategorier || []).map(({ tag, navn }) => (
                                     <Checkbox
                                         className="checkbox--tag skjemaelement--pink"
@@ -66,11 +69,11 @@ const InkluderingPanel: FunctionComponent<Props> = ({
                                         onChange={onTagChange}
                                     />
                                 ))}
-                            </Fieldset>
+                            </SkjemaGruppe>
                         )}
                     </Fragment>
                 ))}
-            </Fieldset>
+            </SkjemaGruppe>
         </Ekspanderbartpanel>
     );
 };
