@@ -65,7 +65,7 @@ class Application extends React.Component {
                 className="Edit__panel"
                 tittel={
                     <>
-                        <Undertittel>Hvordan sende søknad?</Undertittel>
+                        <Undertittel className="blokk-xxxs">Hvordan sende søknad?</Undertittel>
                         <Normaltekst>Gjelder kun eksternt utlyste stillinger</Normaltekst>
                     </>
                 }

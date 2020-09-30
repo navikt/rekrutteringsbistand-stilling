@@ -55,7 +55,7 @@ class ContactPerson extends React.Component {
                 className="Edit__panel"
                 tittel={
                     <>
-                        <Undertittel>Kontaktinformasjon</Undertittel>
+                        <Undertittel className="blokk-xxxs">Kontaktinformasjon</Undertittel>
                         <Normaltekst>Din egen eller arbeidsgivers kontaktinformasjon</Normaltekst>
                     </>
                 }
