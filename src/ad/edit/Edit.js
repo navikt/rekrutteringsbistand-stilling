@@ -100,7 +100,7 @@ class Edit extends React.Component {
                 )}
                 <div className="Edit__actions">
                     <CandidateActions />
-                    <div>
+                    <div className="blokk-xs">
                         {!limitedAccess && (
                             <Knapp className="Ad__actions-button" onClick={onPreviewAdClick} mini>
                                 Forhåndsvis stillingen

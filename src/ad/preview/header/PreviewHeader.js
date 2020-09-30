@@ -70,7 +70,7 @@ class PreviewMenu extends React.Component {
             <div>
                 <div className="Ad__actions">
                     <CandidateActions />
-                    <div>
+                    <div className="blokk-xs">
                         {!limitedAccess && (
                             <Hovedknapp
                                 className="Ad__actions-button"
