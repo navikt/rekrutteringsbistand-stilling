@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Normaltekst, Undertekst } from 'nav-frontend-typografi';
+import { Feilmelding, Normaltekst, Undertekst } from 'nav-frontend-typografi';
 import Typeahead from '../../../common/typeahead/Typeahead';
 import { FETCH_EMPLOYER_SUGGESTIONS, SET_EMPLOYER_TYPEAHEAD_VALUE } from './employerReducer';
 import { SET_EMPLOYER } from '../../adDataReducer';
 import './EmployerName.less';
 import capitalizeEmployerName from './capitalizeEmployerName';
 import capitalizeLocation from '../location/capitalizeLocation';
+import Skjemalabel from '../skjemaetikett/Skjemalabel';
 
 class EmployerName extends React.Component {
     onTypeAheadValueChange = (value) => {
@@ -72,35 +73,39 @@ class EmployerName extends React.Component {
                     <b>Obs!</b> For at arbeidsgiver skal få CV-er du sender må virksomhetsnummeret
                     du registrerer stillingen på samsvare med arbeidsgivers virksomhetsnummer.
                 </Normaltekst>
-                <div className="blokk-xxs">
-                    <Typeahead
-                        id="EmployerName__typeahead"
-                        className="EmployerName__typeahead"
-                        label="Bedriftens navn hentet fra Enhetsregisteret*"
-                        placeholder="Skriv inn arbeidsgivernavn eller virksomhetsnummer"
-                        onBlur={this.onTypeAheadValueBlur}
-                        onSelect={this.onTypeAheadSuggestionSelected}
-                        onChange={this.onTypeAheadValueChange}
-                        suggestions={this.props.suggestions.map((suggestion) => ({
-                            value: suggestion.orgnr,
-                            label: this.getEmployerSuggestionLabel(suggestion),
-                        }))}
-                        value={this.props.typeAheadValue}
-                        ref={(instance) => {
-                            this.inputRef = instance;
-                        }}
-                        error={this.props.validation.employer !== undefined}
-                    />
-                </div>
+                <Skjemalabel
+                    påkrevd
+                    inputId="endre-stilling-bedriftens-navn"
+                    beskrivelse="Skriv inn arbeidsgivernavn eller virksomhetsnummer"
+                >
+                    Bedriftens navn hentet fra Enhetsregisteret
+                </Skjemalabel>
+                <Typeahead
+                    id="endre-stilling-bedriftens-navn"
+                    aria-describedby="endre-stilling-bedriftens-navn-beskrivelse"
+                    className="EmployerName__typeahead"
+                    value={this.props.typeAheadValue}
+                    onBlur={this.onTypeAheadValueBlur}
+                    onSelect={this.onTypeAheadSuggestionSelected}
+                    onChange={this.onTypeAheadValueChange}
+                    suggestions={this.props.suggestions.map((suggestion) => ({
+                        value: suggestion.orgnr,
+                        label: this.getEmployerSuggestionLabel(suggestion),
+                    }))}
+                    ref={(instance) => {
+                        this.inputRef = instance;
+                    }}
+                    error={this.props.validation.employer !== undefined}
+                />
                 {employer && location && (
-                    <Undertekst>
+                    <Undertekst className="EmployerName__valgt-bedrift">
                         {capitalizeEmployerName(employer.name)}, {location.address},{' '}
                         {location.postalCode} {capitalizeLocation(location.city)},
                         Virksomhetsnummer: {employer.orgnr.match(/.{1,3}/g).join(' ')}
                     </Undertekst>
                 )}
                 {this.props.validation.employer && (
-                    <div className="Administration__error">{this.props.validation.employer}</div>
+                    <Feilmelding>{this.props.validation.employer}</Feilmelding>
                 )}
             </div>
         );

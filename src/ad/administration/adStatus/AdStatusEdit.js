@@ -216,7 +216,7 @@ class AdStatusEdit extends React.PureComponent {
                                 Stopp stilling
                             </Knapp>
                         </div>
-                        <div className="AdStatusEdit__buttons-mini">
+                        <div className="AdStatusEdit__buttons-mini AdStatusEdit__lagre-stilling">
                             <Flatknapp mini onClick={this.onCancelClick}>
                                 Avbryt
                             </Flatknapp>
@@ -224,7 +224,7 @@ class AdStatusEdit extends React.PureComponent {
                     </React.Fragment>
                 )}
                 {canSave && (
-                    <div className="AdStatusEdit__buttons-mini AdStatusEdit__Lagre__button">
+                    <div className="AdStatusEdit__buttons-mini AdStatusEdit__lagre-stilling">
                         <Flatknapp mini onClick={this.onSaveAdClick}>
                             Lagre og fortsett senere
                         </Flatknapp>

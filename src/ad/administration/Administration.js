@@ -28,13 +28,9 @@ class Administration extends React.Component {
                     <Publishing />
                 </div>
                 <div className="Administration__panel">
-                    <Undertittel className="Administration__panel__title">
-                        Hvor skal stillingen publiseres?*
-                    </Undertittel>
                     <Privacy />
                 </div>
                 <div className="Administration__panel">
-                    <Undertittel className="Administration__panel__title">Notater</Undertittel>
                     <Notat placeholder="Legg inn notat" />
                 </div>
             </div>

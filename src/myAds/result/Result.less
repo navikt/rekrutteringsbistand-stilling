@@ -25,16 +25,22 @@
         border: 2px solid @navBla;
         background-color: #e3edf8;
     }
-}
 
-.ResultItem__column {
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-}
+    &__column {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
 
-.ResultItem__Icon-button {
-    padding: 1px 6px;
+    &__hjelpetekst {
+        padding: 1rem;
+        background-color: @navLysBlaLighten80;
+        max-width: 15rem;
+    }
+
+    &__Icon-button {
+        padding: 1px 6px;
+    }
 }
 
 .Result__table {
@@ -137,13 +143,6 @@
 .Col-menu {
     min-width: @edit-width;
     max-width: @edit-width;
-
-    > .Inner__button {
-        width: 100%;
-        &:hover {
-            cursor: pointer;
-        }
-    }
 }
 
 .Col-transferred {

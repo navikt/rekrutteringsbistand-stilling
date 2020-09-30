@@ -7,7 +7,7 @@ import { CLOSE_TRANSFERRED_ALERT } from '../../../stillingsinfo/stillingsinfoRed
 import AdTitle from './AdTitle';
 import CandidateActions from '../../candidateActions/CandidateActions';
 import Alertstripe from 'nav-frontend-alertstriper';
-import { Lukknapp } from 'nav-frontend-ikonknapper';
+import { Xknapp } from 'nav-frontend-ikonknapper';
 import KopierTekst from '../../kopierTekst/KopierTekst';
 import { hentAnnonselenke, stillingErPublisert } from '../../adUtils';
 import OpprettKandidatlisteModal from './OpprettKandidatlisteModal';
@@ -116,7 +116,7 @@ class PreviewMenu extends React.Component {
                                             : 'Kandidatlisten er markert som din.') +
                                             ' Du er nå eier av stillingen og kandidatlisten.'}
                                     </div>
-                                    <Lukknapp
+                                    <Xknapp
                                         className="alertstripe-lukk-knapp"
                                         onClick={this.onCloseAlertstripe}
                                         mini={true}

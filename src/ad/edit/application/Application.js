@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Input, Checkbox } from 'nav-frontend-skjema';
+import { Input, Checkbox, CheckboxGruppe } from 'nav-frontend-skjema';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { SET_APPLICATIONURL, SET_APPLICATIONEMAIL } from '../../adDataReducer';
 import { VALIDATE_APPLICATION_EMAIL } from '../../adValidationReducer';
 import { adjustUrl } from '../../../common/utils';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import Skjemalabel from '../skjemaetikett/Skjemalabel';
 
 class Application extends React.Component {
     constructor(props) {
@@ -62,44 +63,58 @@ class Application extends React.Component {
         return (
             <Ekspanderbartpanel
                 className="Edit__panel"
-                tittel="Hvordan sende søknad?"
-                tittelProps="undertittel"
+                tittel={
+                    <>
+                        <Undertittel>Hvordan sende søknad?</Undertittel>
+                        <Normaltekst>Gjelder kun eksternt utlyste stillinger</Normaltekst>
+                    </>
+                }
                 border
                 apen
             >
-                <Normaltekst className="Edit__panel__undertittel">
-                    Gjelder kun eksternt utlyste stillinger
-                </Normaltekst>
-                <Checkbox checked={showEmail} onChange={this.onEmailChecked} label="Via e-post" />
-                {showEmail && (
-                    <Input
-                        type="email"
-                        label="E-postadresse"
-                        value={applicationEmail || ''}
-                        onChange={this.onApplicationEmailChange}
-                        onBlur={this.validateEmail}
-                        feil={
-                            this.props.validation.applicationEmail && {
-                                feilmelding: this.props.validation.applicationEmail,
-                            }
-                        }
-                        placeholder="For eksempel: ola.normann@firma.no"
+                <CheckboxGruppe>
+                    <Checkbox checked={showEmail} onChange={this.onEmailChecked} label="E-post" />
+                    {showEmail && (
+                        <>
+                            <Skjemalabel
+                                inputId="endre-stilling-email"
+                                beskrivelse="For eksempel: ola.normann@firma.no"
+                            >
+                                E-postadresse
+                            </Skjemalabel>
+                            <Input
+                                id="endre-stilling-email"
+                                aria-describedby="endre-stilling-email-beskrivelse"
+                                type="email"
+                                value={applicationEmail || ''}
+                                onChange={this.onApplicationEmailChange}
+                                onBlur={this.validateEmail}
+                                feil={this.props.validation.applicationEmail}
+                            />
+                        </>
+                    )}
+                    <Checkbox
+                        checked={showLink}
+                        onChange={this.onLinkChecked}
+                        label="Lenke til søknadsskjema"
                     />
-                )}
-                <Checkbox
-                    checked={showLink}
-                    onChange={this.onLinkChecked}
-                    label="Via søknadsskjema"
-                />
-                {showLink && (
-                    <Input
-                        label="Lenke"
-                        value={applicationUrl || ''}
-                        onChange={this.onApplicationUrlChange}
-                        onBlur={this.completeLink}
-                        placeholder="For eksempel: www.rekruttering.no"
-                    />
-                )}
+                    {showLink && (
+                        <>
+                            <Skjemalabel
+                                inputId="endre-stilling-lenke"
+                                beskrivelse="For eksempel: www.rekruttering.no"
+                            >
+                                Lenke
+                            </Skjemalabel>
+                            <Input
+                                aria-describedby="endre-stilling-lenke-beskrivelse"
+                                value={applicationUrl || ''}
+                                onChange={this.onApplicationUrlChange}
+                                onBlur={this.completeLink}
+                            />
+                        </>
+                    )}
+                </CheckboxGruppe>
             </Ekspanderbartpanel>
         );
     }
