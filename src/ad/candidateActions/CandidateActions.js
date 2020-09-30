@@ -6,6 +6,7 @@ import { SHOW_HAS_CHANGES_MODAL } from '../adReducer';
 import LeggTilKandidatModal from '../kandidatModal/LeggTilKandidatModal';
 import ButtonWithIcon from '../../common/buttonWithIcon/ButtonWithIcon';
 import './CandidateActions.less';
+import { erDirektemeldtStilling } from '../adUtils';
 
 class CandidateActions extends React.Component {
     constructor(props) {
@@ -33,7 +34,7 @@ class CandidateActions extends React.Component {
         const { stillingsinfo } = this.props;
 
         const showCandidateLinks =
-            (publishedByAdmin && source === 'DIR') || stillingsinfo.eierNavident;
+            (publishedByAdmin && erDirektemeldtStilling(source)) || stillingsinfo.eierNavident;
 
         return (
             <div className="CandidateActions">

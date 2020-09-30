@@ -27,3 +27,5 @@ export const loggPubliseringAvStillingMedInkluderingstags = (
         return null;
     }
 };
+
+export const erDirektemeldtStilling = (source: string): boolean => source === 'DIR';

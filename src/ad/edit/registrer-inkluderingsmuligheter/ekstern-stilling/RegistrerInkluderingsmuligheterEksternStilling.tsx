@@ -6,26 +6,27 @@ import { CHECK_TAG, UNCHECK_TAG } from '../../../adDataReducer';
 import { connect } from 'react-redux';
 import { Undertittel } from 'nav-frontend-typografi';
 import './RegistrerInkluderingsmuligheterEksternStilling.less';
+import { erDirektemeldtStilling } from '../../../adUtils';
 
 type Props = {
     tags?: string;
     checkTag: (tag: string) => void;
     uncheckTag: (tag: string) => void;
-    direktemeldt: boolean;
+    source: string;
 };
 
 const RegistrerInkluderingsmuligheterEksternStilling: FunctionComponent<Props> = ({
     tags,
     checkTag,
     uncheckTag,
-    direktemeldt,
+    source,
 }) => {
     const onTagChange = (e: ChangeEvent<HTMLInputElement>) => {
         e.target.checked ? checkTag(e.target.value) : uncheckTag(e.target.value);
     };
 
     const tagIsChecked = (tag: string) => tags && isJson(tags) && JSON.parse(tags).includes(tag);
-    const kategorierMedNavn = hentKategorierMedNavn(direktemeldt);
+    const kategorierMedNavn = hentKategorierMedNavn(erDirektemeldtStilling(source));
 
     return (
         <div className="registrer-inkluderingsmuligheter-ekstern-stilling">
@@ -65,7 +66,7 @@ const RegistrerInkluderingsmuligheterEksternStilling: FunctionComponent<Props> =
 
 const mapStateToProps = (state) => ({
     tags: state.adData.properties.tags || '[]',
-    direktemeldt: state.adData.source === 'DIR',
+    source: state.adData.source,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -8,26 +8,27 @@ import { hentKategorierMedNavn } from '../../../tagHelpers';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import './RegistrerInkluderingsmuligheterInternStilling.less';
+import { erDirektemeldtStilling } from '../../../adUtils';
 
 type Props = {
     tags?: string;
     checkTag: (tag: string) => void;
     uncheckTag: (tag: string) => void;
-    direktemeldt: boolean;
+    source: string;
 };
 
 const RegistrerInkluderingsmuligheterInternStilling: FunctionComponent<Props> = ({
     tags,
     checkTag,
     uncheckTag,
-    direktemeldt,
+    source,
 }) => {
     const onTagChange = (e: ChangeEvent<HTMLInputElement>) => {
         e.target.checked ? checkTag(e.target.value) : uncheckTag(e.target.value);
     };
 
     const tagIsChecked = (tag: string) => tags && isJson(tags) && JSON.parse(tags).includes(tag);
-    const kategorierMedNavn = hentKategorierMedNavn(direktemeldt);
+    const kategorierMedNavn = hentKategorierMedNavn(erDirektemeldtStilling(source));
 
     return (
         <Ekspanderbartpanel
@@ -77,7 +78,7 @@ const RegistrerInkluderingsmuligheterInternStilling: FunctionComponent<Props> = 
 
 const mapStateToProps = (state) => ({
     tags: state.adData.properties.tags || '[]',
-    direktemeldt: state.adData.source === 'DIR',
+    source: state.adData.source,
 });
 
 const mapDispatchToProps = (dispatch) => ({

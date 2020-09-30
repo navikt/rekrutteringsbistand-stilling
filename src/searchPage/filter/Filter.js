@@ -14,6 +14,7 @@ import FilterLocation from './location/FilterLocation';
 import InkluderingPanel from './inkludering/InkluderingPanel';
 import { getAdStatusLabel, getPrivacyStatusLabel } from '../../common/enums/getEnumLabels';
 import Filterpanel from './Filterpanel';
+import { erDirektemeldtStilling } from '../../ad/adUtils';
 
 const Filter = ({
     search,
@@ -121,7 +122,7 @@ const Filter = ({
                 <Radio
                     label="Direktemeldt stilling"
                     value="DIR"
-                    checked={source === 'DIR'}
+                    checked={erDirektemeldtStilling(source)}
                     name="source"
                     onChange={onSourceFilterChange}
                 />
