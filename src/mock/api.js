@@ -11,7 +11,8 @@ const reportee = require('./json/reportee.json');
 const ident = require('./json/ident.json');
 const mineStillinger = require('./json/minestillinger.json');
 const stilling = require('./json/stilling.json');
-const rekrutteringsbistandstilling = require('./json/rekrutteringsbistandstilling.json');
+const eksternStilling = require('./json/ekstern-stilling.json');
+const internStilling = require('./json/intern-stilling.json');
 const counties = require('./json/counties.json');
 const countries = require('./json/countries.json');
 const municipals = require('./json/municipals.json');
@@ -46,6 +47,14 @@ const modiacontextholderDecoratorUrl = `${modiacontextholderApiUrl}/decorator`;
 
 const med = (begynnelseAvUrl) => (url) => url.startsWith(begynnelseAvUrl);
 
+const getStilling = (url) => {
+    const stillingId = url.split('/').pop();
+    if (stillingId === eksternStilling.stilling.uuid) return eksternStilling;
+    else {
+        return internStilling;
+    }
+};
+
 fetchMock
     .get(med(mineStillingerUrl), mineStillinger)
     .get(med(adsUrl), adsReversed, { query: { sort: 'title,asc' } })
@@ -56,8 +65,8 @@ fetchMock
     .get(reporteeUrl, reportee)
     .get(med(identUrl), ident)
     .get(med(stillingUrl), stilling)
-    .get(rekrutteringsbistandstillingUrl, rekrutteringsbistandstilling)
-    .put(putRekrutteringsbistandstillingUrl, rekrutteringsbistandstilling)
+    .get(rekrutteringsbistandstillingUrl, getStilling)
+    .put(putRekrutteringsbistandstillingUrl, eksternStilling)
     .get(countiesUrl, counties)
     .get(countriesUrl, countries)
     .get(municipalsUrl, municipals)
