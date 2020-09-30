@@ -98,83 +98,77 @@ class Edit extends React.Component {
                         isOpen={didTimeout}
                     />
                 )}
-                <Row className="Edit__inner">
-                    <div className="Edit__actions">
-                        <CandidateActions />
-                        <div>
-                            {!limitedAccess && (
-                                <Knapp
-                                    className="Ad__actions-button"
-                                    onClick={onPreviewAdClick}
-                                    mini
-                                >
-                                    Forhåndsvis stillingen
-                                </Knapp>
-                            )}
-                            {stillingErPublisert(ad) && (
-                                <KopierTekst
-                                    className=""
-                                    tooltipTekst="Kopier stillingslenke"
-                                    skalKopieres={stillingsLenke}
-                                />
-                            )}
-                        </div>
+                <div className="Edit__actions">
+                    <CandidateActions />
+                    <div>
+                        {!limitedAccess && (
+                            <Knapp className="Ad__actions-button" onClick={onPreviewAdClick} mini>
+                                Forhåndsvis stillingen
+                            </Knapp>
+                        )}
+                        {stillingErPublisert(ad) && (
+                            <KopierTekst
+                                className=""
+                                tooltipTekst="Kopier stillingslenke"
+                                skalKopieres={stillingsLenke}
+                            />
+                        )}
                     </div>
-                    {limitedAccess && (
-                        <div className="Ad__info">
-                            <Alertstripe
-                                className="AdStatusPreview__Alertstripe"
-                                type="info"
-                                solid="true"
-                            >
-                                Dette er en eksternt utlyst stilling. Du kan <b>ikke</b> endre
-                                stillingen.
-                            </Alertstripe>
-                        </div>
-                    )}
-                    <Column xs="12" md="8">
-                        <div className="Edit__left">
-                            <EditHeader isNew={isNew} onPreviewAdClick={onPreviewAdClick} />
-                            <Employer />
-                            <JobDetails isNew={isNew} />
-                        </div>
-                    </Column>
-                    <Column xs="12" md="4">
-                        <PracticalInformation />
-                        <ContactPerson />
-                        <Application />
-                        <Location />
-                        <Ekspanderbartpanel
-                            className="Edit__panel"
-                            tittel={<Undertittel>Om annonsen</Undertittel>}
-                            border
-                            apen
+                </div>
+                {limitedAccess && (
+                    <div className="Ad__info">
+                        <Alertstripe
+                            className="AdStatusPreview__Alertstripe"
+                            type="info"
+                            solid="true"
                         >
-                            <Input
-                                className="blokk-xs"
-                                label="Sist endret"
-                                value={
-                                    ad.updated !== ad.created
-                                        ? formatISOString(ad.updated, 'DD.MM.YYYY')
-                                        : ''
-                                }
-                                disabled
-                            />
-                            <Input
-                                className="blokk-xs"
-                                label="Hentet fra/kilde"
-                                value={ad.medium || ''}
-                                disabled
-                            />
-                            <Input
-                                className="blokk-xs"
-                                label="Annonsenummer"
-                                value={ad.id || ''}
-                                disabled
-                            />
-                        </Ekspanderbartpanel>
-                    </Column>
-                </Row>
+                            Dette er en eksternt utlyst stilling. Du kan <b>ikke</b> endre
+                            stillingen.
+                        </Alertstripe>
+                    </div>
+                )}
+                <Column xs="12" md="8">
+                    <div className="Edit__left">
+                        <EditHeader isNew={isNew} onPreviewAdClick={onPreviewAdClick} />
+                        <Employer />
+                        <JobDetails isNew={isNew} />
+                    </div>
+                </Column>
+                <Column xs="12" md="4">
+                    <PracticalInformation />
+                    <ContactPerson />
+                    <Application />
+                    <Location />
+                    <Ekspanderbartpanel
+                        className="Edit__panel"
+                        tittel={<Undertittel>Om annonsen</Undertittel>}
+                        border
+                        apen
+                    >
+                        <Input
+                            className="blokk-xs"
+                            label="Sist endret"
+                            value={
+                                ad.updated !== ad.created
+                                    ? formatISOString(ad.updated, 'DD.MM.YYYY')
+                                    : ''
+                            }
+                            disabled
+                        />
+                        <Input
+                            className="blokk-xs"
+                            label="Hentet fra/kilde"
+                            value={ad.medium || ''}
+                            disabled
+                        />
+                        <Input
+                            className="blokk-xs"
+                            label="Annonsenummer"
+                            value={ad.id || ''}
+                            disabled
+                        />
+                    </Ekspanderbartpanel>
+                </Column>
             </div>
         );
     }
