@@ -1,14 +1,11 @@
 import React, { ChangeEvent, Fragment, FunctionComponent } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import isJson from '../../practicalInformation/IsJson';
+import { hentKategorierMedNavn } from '../../../tagHelpers';
 import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
-
-import { CHECK_TAG, UNCHECK_TAG } from '../../adDataReducer';
-import isJson from '../practicalInformation/IsJson';
-import { hentKategorierMedNavn } from '../../tagHelpers';
-import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import './RegistrerInkluderingsmuligheterInternStilling.less';
+import { CHECK_TAG, UNCHECK_TAG } from '../../../adDataReducer';
+import { connect } from 'react-redux';
+import { Undertittel } from 'nav-frontend-typografi';
+import './RegistrerInkluderingsmuligheterEksternStilling.less';
 
 type Props = {
     tags?: string;
@@ -17,7 +14,7 @@ type Props = {
     direktemeldt: boolean;
 };
 
-const RegistrerInkluderingsmuligheterInternStilling: FunctionComponent<Props> = ({
+const RegistrerInkluderingsmuligheterEksternStilling: FunctionComponent<Props> = ({
     tags,
     checkTag,
     uncheckTag,
@@ -31,25 +28,14 @@ const RegistrerInkluderingsmuligheterInternStilling: FunctionComponent<Props> = 
     const kategorierMedNavn = hentKategorierMedNavn(direktemeldt);
 
     return (
-        <Ekspanderbartpanel
-            className="registrer-inkluderingsmuligheter-intern-stilling blokk-s"
-            tittel={
-                <>
-                    <Undertittel className="blokk-xxxs">Muligheter for å inkludere</Undertittel>
-                    <Normaltekst>
-                        Arbeidsgiver er åpen for å inkludere personer som har behov for
-                        tilrettelegging og/eller har nedsatt funksjonsevne.
-                    </Normaltekst>
-                </>
-            }
-            border
-            apen
-        >
+        <div className="registrer-inkluderingsmuligheter-ekstern-stilling">
+            <Undertittel className="registrer-inkluderingsmuligheter-ekstern-stilling__tittel">
+                Inkludering
+            </Undertittel>
             <SkjemaGruppe>
                 {kategorierMedNavn.map(({ tag, navn, harUnderkategorier, underkategorier }) => (
                     <Fragment key={tag}>
                         <Checkbox
-                            className="checkbox--tag skjemaelement--pink"
                             id={`tag-${tag.toLowerCase()}-checkbox`}
                             label={navn}
                             value={tag}
@@ -57,10 +43,9 @@ const RegistrerInkluderingsmuligheterInternStilling: FunctionComponent<Props> = 
                             onChange={onTagChange}
                         />
                         {harUnderkategorier && tagIsChecked(tag) && (
-                            <SkjemaGruppe className="registrer-inkluderingsmuligheter-intern-stilling__subtags">
+                            <SkjemaGruppe className="registrer-inkluderingsmuligheter-ekstern-stilling__subtags">
                                 {(underkategorier || []).map(({ tag, navn }) => (
                                     <Checkbox
-                                        className="checkbox--tag skjemaelement--pink"
                                         id={`tag.${tag}-checkbox`}
                                         label={navn}
                                         value={tag}
@@ -74,14 +59,8 @@ const RegistrerInkluderingsmuligheterInternStilling: FunctionComponent<Props> = 
                     </Fragment>
                 ))}
             </SkjemaGruppe>
-        </Ekspanderbartpanel>
+        </div>
     );
-};
-
-RegistrerInkluderingsmuligheterInternStilling.propTypes = {
-    checkTag: PropTypes.func.isRequired,
-    uncheckTag: PropTypes.func.isRequired,
-    tags: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({
@@ -97,4 +76,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(RegistrerInkluderingsmuligheterInternStilling);
+)(RegistrerInkluderingsmuligheterEksternStilling);

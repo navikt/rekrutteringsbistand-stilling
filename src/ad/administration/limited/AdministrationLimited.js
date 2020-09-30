@@ -1,19 +1,15 @@
 import React from 'react';
-import { Undertittel } from 'nav-frontend-typografi';
 import AdStatus from '../adStatus/AdStatus';
 import AdStatusEdit from '../adStatus/AdStatusEdit';
 import Notat from '../notat/Notat';
 import '../Administration.less';
+import RegistrerInkluderingsmuligheterEksternStilling from '../../edit/registrer-inkluderingsmuligheter/ekstern-stilling/RegistrerInkluderingsmuligheterEksternStilling';
 
 function AdministrationLimited() {
     function editFields() {
         return (
             <div className="Administration__elements">
-                <div className="Administration__panel Inkluderingpanel">
-                    <Undertittel className="Administration__panel__title">Inkludering</Undertittel>
-                    <RegistrerInkluderingsmuligheterEksternStilling />
-                    {/*    TODO: Hva er dette? */}
-                </div>
+                <RegistrerInkluderingsmuligheterEksternStilling />
                 <div className="Administration__panel">
                     <Notat placeholder="Legg inn notat" />
                 </div>

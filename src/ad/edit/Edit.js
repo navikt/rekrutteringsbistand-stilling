@@ -26,7 +26,7 @@ import CandidateActions from '../candidateActions/CandidateActions';
 import { Knapp } from 'nav-frontend-knapper';
 import KopierTekst from '../kopierTekst/KopierTekst';
 import { Undertittel } from 'nav-frontend-typografi';
-import RegistrerInkluderingsmuligheterInternStilling from './registrer-inkluderingsmuligheter-intern-stilling/RegistrerInkluderingsmuligheterInternStilling';
+import RegistrerInkluderingsmuligheterInternStilling from './registrer-inkluderingsmuligheter/intern-stilling/RegistrerInkluderingsmuligheterInternStilling';
 
 class Edit extends React.Component {
     constructor(props) {
