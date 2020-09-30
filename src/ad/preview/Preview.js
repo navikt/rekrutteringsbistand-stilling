@@ -78,7 +78,7 @@ export default function Preview({ ad }) {
                         </div>
                     )}
                     {erDirektemeldtStilling(ad.source) && (
-                        <VisInkluderingsmuligheterInternStilling />
+                        <VisInkluderingsmuligheterInternStilling tags={ad.properties.tags} />
                     )}
                 </Column>
                 <Column xs="12" md="4">
