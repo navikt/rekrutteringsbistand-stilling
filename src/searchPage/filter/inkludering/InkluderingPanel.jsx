@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { CHECK_TAG_SOK, UNCHECK_TAG_SOK } from '../../searchReducer';
-import { hentKategorierMedNavn } from '../../../ad/tagHelpers';
+import { hentHierarkiAvTags } from '../../../ad/tags';
 import { SkjemaGruppe, Checkbox } from 'nav-frontend-skjema';
 import { sendEvent } from '../../../amplitude';
 
@@ -22,7 +22,7 @@ const InkluderingPanel = ({ tags, checkTag, uncheckTag }) => {
     };
 
     const tagIsChecked = (tag) => tags.includes(tag);
-    const kategorierMedNavn = hentKategorierMedNavn();
+    const kategorierMedNavn = hentHierarkiAvTags();
 
     return kategorierMedNavn.map(({ tag, navn, harUnderkategorier, underkategorier }) => (
         <Fragment key={tag}>

@@ -1,6 +1,7 @@
 import React, { Fragment, useCallback } from 'react';
 import { connect } from 'react-redux';
-import { hentKategorierMedNavn } from '../../../tagHelpers';
+import isJson from '../../../edit/practicalInformation/IsJson';
+import { hentHierarkiAvTags } from '../../../tags';
 import Etiketter from './Etiketter';
 import './inkludering.less';
 
@@ -22,7 +23,7 @@ const Inkludering = ({ tags }) => {
         [tags]
     );
 
-    const kategorierMedNavn = hentKategorierMedNavn();
+    const kategorierMedNavn = hentHierarkiAvTags();
     const overordnedeTags = kategorierMedNavn.filter((kategori) => tags.includes(kategori.tag));
     const underordnedeTags = overordnedeTags
         .filter(harNoenTagsFraKategori)
@@ -44,7 +45,7 @@ const Inkludering = ({ tags }) => {
 
 const mapStateToProps = (state) => {
     const tagsString = state.adData.properties.tags;
-    const tags = tagsString != undefined ? JSON.parse(tagsString) : [];
+    const tags = tagsString != undefined && isJson(tagsString) ? JSON.parse(tagsString) : [];
 
     return {
         tags,

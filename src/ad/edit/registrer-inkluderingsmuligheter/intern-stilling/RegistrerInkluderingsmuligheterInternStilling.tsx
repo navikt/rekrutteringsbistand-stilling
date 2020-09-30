@@ -4,11 +4,11 @@ import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
 
 import { CHECK_TAG, UNCHECK_TAG } from '../../../adDataReducer';
 import isJson from '../../practicalInformation/IsJson';
-import { hentKategorierMedNavn } from '../../../tagHelpers';
+import { hentHierarkiAvTags, KategoriMedTags } from '../../../tags';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import './RegistrerInkluderingsmuligheterInternStilling.less';
 import { erDirektemeldtStilling } from '../../../adUtils';
+import './RegistrerInkluderingsmuligheterInternStilling.less';
 
 type Props = {
     tags?: string;
@@ -28,7 +28,7 @@ const RegistrerInkluderingsmuligheterInternStilling: FunctionComponent<Props> = 
     };
 
     const tagIsChecked = (tag: string) => tags && isJson(tags) && JSON.parse(tags).includes(tag);
-    const kategorierMedNavn = hentKategorierMedNavn(erDirektemeldtStilling(source));
+    const hierarkiAvTags = hentHierarkiAvTags(erDirektemeldtStilling(source));
 
     return (
         <Ekspanderbartpanel
@@ -46,24 +46,24 @@ const RegistrerInkluderingsmuligheterInternStilling: FunctionComponent<Props> = 
             }
         >
             <SkjemaGruppe>
-                {kategorierMedNavn.map(({ tag, navn, harUnderkategorier, underkategorier }) => (
-                    <Fragment key={tag}>
+                {hierarkiAvTags.map((kategori: KategoriMedTags) => (
+                    <Fragment key={kategori.tag}>
                         <Checkbox
-                            id={`tag-${tag.toLowerCase()}-checkbox`}
-                            label={navn}
-                            value={tag}
-                            checked={tagIsChecked(tag)}
+                            id={`tag-${kategori.tag.toLowerCase()}-checkbox`}
+                            label={kategori.navn}
+                            value={kategori.tag}
+                            checked={tagIsChecked(kategori.tag)}
                             onChange={onTagChange}
                         />
-                        {harUnderkategorier && tagIsChecked(tag) && (
+                        {kategori.harUnderkategorier && tagIsChecked(kategori.tag) && (
                             <SkjemaGruppe className="registrer-inkluderingsmuligheter-intern-stilling__subtags">
-                                {(underkategorier || []).map(({ tag, navn }) => (
+                                {kategori.underkategorier.map((underkategori) => (
                                     <Checkbox
-                                        id={`tag.${tag}-checkbox`}
-                                        label={navn}
-                                        value={tag}
-                                        key={tag}
-                                        checked={tagIsChecked(tag)}
+                                        id={`tag.${underkategori.tag}-checkbox`}
+                                        label={underkategori.navn}
+                                        value={underkategori.tag}
+                                        key={underkategori.tag}
+                                        checked={tagIsChecked(underkategori.tag)}
                                         onChange={onTagChange}
                                     />
                                 ))}
