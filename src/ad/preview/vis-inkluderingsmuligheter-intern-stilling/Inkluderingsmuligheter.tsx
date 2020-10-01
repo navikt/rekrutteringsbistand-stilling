@@ -7,17 +7,6 @@ interface Props {
     tags?: string;
 }
 
-const oversettTagKategori = (tag: Tag, harSubtags: boolean) => {
-    switch (tag) {
-        case Tag.Inkludering:
-            return harSubtags
-                ? 'Arbeidsgiver kan tilrettelegge for:'
-                : 'Arbeidsgiveren kan tilrettelegge';
-        default:
-            return 'Ukjent kategori';
-    }
-};
-
 const Inkluderingsmuligheter: FunctionComponent<Props> = ({ tags }) => {
     const inkluderingsmuligheterErRegistrert = tags !== undefined;
     const tagsErGyldige = !inkluderingsmuligheterErRegistrert || isJson(tags);
@@ -41,7 +30,7 @@ const Inkluderingsmuligheter: FunctionComponent<Props> = ({ tags }) => {
                   )
                 : [];
 
-            const inkluderingsmulighetTittel = oversettTagKategori(
+            const inkluderingsmulighetTittel = inkluderingsmulighetTilVisningsnavn(
                 gruppeMedTags.tag,
                 subtagsRegistrertPåStillingen.length > 0
             );
@@ -62,7 +51,7 @@ const Inkluderingsmuligheter: FunctionComponent<Props> = ({ tags }) => {
                         <ul className="vis-inkluderingsmuligheter-intern-stilling__tagliste">
                             {gruppeMedTags.subtags.map((subtag) => (
                                 <Normaltekst tag="li" key={subtag.tag}>
-                                    {subtag.navn}
+                                    {visningsnavnForSubtags[subtag.tag]}
                                 </Normaltekst>
                             ))}
                         </ul>
@@ -71,6 +60,24 @@ const Inkluderingsmuligheter: FunctionComponent<Props> = ({ tags }) => {
             ))}
         </>
     );
+};
+
+const visningsnavnForSubtags: Partial<Record<Tag, string>> = {
+    [Tag.InkluderingArbeidstid]: 'arbeidstid',
+    [Tag.InkluderingFysisk]: 'fysiske omstendigheter',
+    [Tag.InkluderingArbeidshverdagen]: 'arbeidshverdagen',
+    [Tag.InkluderingGrunnleggende]: 'utfordringer med norsk',
+};
+
+const inkluderingsmulighetTilVisningsnavn = (inkluderingsmulighet: Tag, harSubtags: boolean) => {
+    switch (inkluderingsmulighet) {
+        case Tag.Inkludering:
+            return harSubtags
+                ? 'Arbeidsgiver kan tilrettelegge for:'
+                : 'Arbeidsgiveren kan tilrettelegge';
+        default:
+            return 'Ukjent inkluderingsmulighet';
+    }
 };
 
 export default Inkluderingsmuligheter;

@@ -4,7 +4,7 @@ export enum Tag {
     Inkludering = 'INKLUDERING',
     InkluderingArbeidstid = 'INKLUDERING__ARBEIDSTID',
     InkluderingFysisk = 'INKLUDERING__FYSISK',
-    InkluderingArbeidsmiljø = 'INKLUDERING__ARBEIDSMILJØ',
+    InkluderingArbeidshverdagen = 'INKLUDERING__ARBEIDSMILJØ',
     InkluderingGrunnleggende = 'INKLUDERING__GRUNNLEGGENDE',
     StatligInkluderingsdugnad = 'STATLIG_INKLUDERINGSDUGNAD',
 }
@@ -13,7 +13,7 @@ export const oversettelserAvTags: Record<Tag, string> = {
     [Tag.Inkludering]: 'Arbeidsgiver ønsker å tilrettelegge',
     [Tag.InkluderingArbeidstid]: 'Tilrettelegging av arbeidstid',
     [Tag.InkluderingFysisk]: 'Fysisk tilrettelegging på arbeidsplassen',
-    [Tag.InkluderingArbeidsmiljø]: 'Tilpasninger i arbeidshverdagen',
+    [Tag.InkluderingArbeidshverdagen]: 'Tilpasninger i arbeidshverdagen',
     [Tag.InkluderingGrunnleggende]: 'Utfordringer med norsk',
     [Tag.StatligInkluderingsdugnad]: 'Statlig inkluderingsdugnad',
 };
@@ -47,7 +47,7 @@ export const grupperMedTagsForDirektemeldteStillinger: GruppeMedTags[] = [
         tittelTilSubtags: 'Muligheter for tilrettelegging',
         subtags: [
             medOversettelse(Tag.InkluderingArbeidstid),
-            medOversettelse(Tag.InkluderingArbeidsmiljø),
+            medOversettelse(Tag.InkluderingArbeidshverdagen),
             medOversettelse(Tag.InkluderingFysisk),
             medOversettelse(Tag.InkluderingGrunnleggende),
         ],
