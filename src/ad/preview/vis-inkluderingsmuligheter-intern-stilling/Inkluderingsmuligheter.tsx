@@ -64,7 +64,7 @@ const Inkluderingsmuligheter: FunctionComponent<Props> = ({ tags }) => {
 
 const visningsnavnForSubtags: Partial<Record<Tag, string>> = {
     [Tag.InkluderingArbeidstid]: 'arbeidstid',
-    [Tag.InkluderingFysisk]: 'fysiske omstendigheter',
+    [Tag.InkluderingFysisk]: 'fysisk tilrettelegging',
     [Tag.InkluderingArbeidshverdagen]: 'arbeidshverdagen',
     [Tag.InkluderingGrunnleggende]: 'utfordringer med norsk',
 };
@@ -73,7 +73,7 @@ const inkluderingsmulighetTilVisningsnavn = (inkluderingsmulighet: Tag, harSubta
     switch (inkluderingsmulighet) {
         case Tag.Inkludering:
             return harSubtags
-                ? 'Arbeidsgiver kan tilrettelegge for:'
+                ? 'Arbeidsgiveren kan gjøre tilpasninger rundt:'
                 : 'Arbeidsgiveren kan tilrettelegge';
         default:
             return 'Ukjent inkluderingsmulighet';

@@ -9,7 +9,7 @@ export enum Tag {
     StatligInkluderingsdugnad = 'STATLIG_INKLUDERINGSDUGNAD',
 }
 
-export const oversettelserAvTags: Record<Tag, string> = {
+const visningsnavnForTags: Record<Tag, string> = {
     [Tag.Inkludering]: 'Arbeidsgiver ønsker å tilrettelegge',
     [Tag.InkluderingArbeidstid]: 'Tilrettelegging av arbeidstid',
     [Tag.InkluderingFysisk]: 'Fysisk tilrettelegging på arbeidsplassen',
@@ -37,7 +37,7 @@ export type GruppeMedTags = Oversettelse &
 
 const medOversettelse = (tag: Tag) => ({
     tag: tag,
-    navn: oversettelserAvTags[tag],
+    navn: visningsnavnForTags[tag],
 });
 
 export const grupperMedTagsForDirektemeldteStillinger: GruppeMedTags[] = [
