@@ -2,7 +2,7 @@ import { put, select, takeLatest } from 'redux-saga/effects';
 import { ApiError, fetchAds } from '../api/api';
 import AdminStatusEnum from '../common/enums/AdminStatusEnum';
 import PrivacyStatusEnum from '../common/enums/PrivacyStatusEnum';
-import { checkInkluderingstag, uncheckInkluderingstag } from '../ad/tagHelpers';
+import { checkInkluderingstag, uncheckInkluderingstag } from '../ad/tags.ts';
 
 export const FETCH_ADS = 'FETCH_ADS';
 export const FETCH_ADS_BEGIN = 'FETCH_ADS_BEGIN';

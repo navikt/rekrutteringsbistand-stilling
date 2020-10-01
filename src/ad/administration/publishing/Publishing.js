@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { Feilmelding, Normaltekst } from 'nav-frontend-typografi';
 import Datovelger from 'nav-datovelger/dist/datovelger/Datovelger';
 import 'nav-datovelger/dist/datovelger/styles/datovelger.css';
 import { formatISOString } from '../../../utils';
@@ -53,9 +53,7 @@ class Publishing extends React.Component {
                         />
                     </Normaltekst>
                     {this.props.validation.published && (
-                        <div className="Administration__error">
-                            {this.props.validation.published}
-                        </div>
+                        <Feilmelding>{this.props.validation.published}</Feilmelding>
                     )}
                 </div>
                 <div className="Publishing__datepicker Publishing__datepicker-expires">
@@ -75,7 +73,7 @@ class Publishing extends React.Component {
                         />
                     </Normaltekst>
                     {this.props.validation.expires && (
-                        <div className="Administration__error">{this.props.validation.expires}</div>
+                        <Feilmelding>{this.props.validation.expires}</Feilmelding>
                     )}
                 </div>
             </div>

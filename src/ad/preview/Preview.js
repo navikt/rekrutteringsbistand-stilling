@@ -9,6 +9,8 @@ import Employment from './employment/Employment';
 import Summary from './summary/Summary';
 
 import './Preview.less';
+import VisInkluderingsmuligheterInternStilling from './vis-inkluderingsmuligheter-intern-stilling/VisInkluderingsmuligheterInternStilling';
+import { erDirektemeldtStilling } from '../adUtils';
 
 export default function Preview({ ad }) {
     const hardrequirements = ad.properties.hardrequirements
@@ -20,6 +22,7 @@ export default function Preview({ ad }) {
     const personalattributes = ad.properties.personalattributes
         ? JSON.parse(ad.properties.personalattributes)
         : undefined;
+
     return (
         <div className="AdText">
             <Row>
@@ -74,6 +77,9 @@ export default function Preview({ ad }) {
                                 </ul>
                             </div>
                         </div>
+                    )}
+                    {erDirektemeldtStilling(ad.source) && (
+                        <VisInkluderingsmuligheterInternStilling tags={ad.properties.tags} />
                     )}
                 </Column>
                 <Column xs="12" md="4">

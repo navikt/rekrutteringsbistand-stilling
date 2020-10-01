@@ -6,6 +6,7 @@ import Flatknapp, { Knapp } from 'nav-frontend-knapper';
 import { MARKER_SOM_MIN, SAVE_AD } from '../../../adReducer';
 import './ContactInfo.less';
 import { SET_NAV_IDENT, SET_REPORTEE } from '../../../adDataReducer';
+import { erDirektemeldtStilling } from '../../../adUtils';
 
 class ContactInfo extends React.Component {
     onMarkerSomMinKlikkEksternStilling = () => {
@@ -21,7 +22,7 @@ class ContactInfo extends React.Component {
 
     render() {
         const { stilling, stillingsinfo, innlogget } = this.props;
-        const isDir = stilling && stilling.source === 'DIR';
+        const isDir = stilling && erDirektemeldtStilling(stilling.source);
         const hasStillingsinfo = stillingsinfo && stillingsinfo.eierNavident;
         const { reportee, navIdent } = stilling.administration;
 
