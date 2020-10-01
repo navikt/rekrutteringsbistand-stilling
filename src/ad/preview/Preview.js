@@ -77,7 +77,7 @@ export default function Preview({ ad }) {
                             </div>
                         </div>
                     )}
-                    {erDirektemeldtStilling(ad.source) && (
+                    {erDirektemeldtStilling(ad.source) && ad.properties.tags !== undefined && (
                         <VisInkluderingsmuligheterInternStilling tags={ad.properties.tags} />
                     )}
                 </Column>
