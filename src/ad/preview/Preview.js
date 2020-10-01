@@ -22,6 +22,7 @@ export default function Preview({ ad }) {
     const personalattributes = ad.properties.personalattributes
         ? JSON.parse(ad.properties.personalattributes)
         : undefined;
+
     return (
         <div className="AdText">
             <Row>
@@ -77,7 +78,7 @@ export default function Preview({ ad }) {
                             </div>
                         </div>
                     )}
-                    {erDirektemeldtStilling(ad.source) && ad.properties.tags !== undefined && (
+                    {erDirektemeldtStilling(ad.source) && (
                         <VisInkluderingsmuligheterInternStilling tags={ad.properties.tags} />
                     )}
                 </Column>

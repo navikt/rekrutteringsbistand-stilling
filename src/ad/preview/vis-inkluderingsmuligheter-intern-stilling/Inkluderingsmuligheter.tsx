@@ -1,52 +1,23 @@
-import { Element, Feilmelding, Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
-import isJson from '../../edit/practicalInformation/IsJson';
-import { GruppeMedTags, hentGrupperMedTags, Tag } from '../../tags';
+import { Element, Normaltekst } from 'nav-frontend-typografi';
+import { GruppeMedTags, Tag } from '../../tags';
 
 interface Props {
-    tags: string;
+    registrerteTags: Tag[];
+    alleRelevanteGrupperMedTags: GruppeMedTags[];
 }
 
-const Inkluderingsmuligheter: FunctionComponent<Props> = ({ tags }) => {
-    const tagsErGyldige = isJson(tags);
-
-    if (!tagsErGyldige) {
-        return <Feilmelding>Noe galt skjedde ved uthenting av inkluderingsmuligheter.</Feilmelding>;
-    }
-
-    const gruppeMedTagsErRegistrertOgHarSubtags = (gruppeMedTags: GruppeMedTags) =>
-        registrerteTags.includes(gruppeMedTags.tag) && gruppeMedTags.harSubtags;
-
-    const fjernSubtagsSomIkkeErRegistrert = (gruppeMedTags: GruppeMedTags): GruppeMedTags => {
-        if (gruppeMedTags.harSubtags) {
-            const subtagsRegistrertPåStillingen = gruppeMedTags.subtags.filter((subtag) =>
-                registrerteTags.includes(subtag.tag)
-            );
-
-            const inkluderingsmulighetTittel = inkluderingsmulighetTilVisningsnavn(
-                gruppeMedTags.tag,
-                subtagsRegistrertPåStillingen.length > 0
-            );
-
-            return {
-                ...gruppeMedTags,
-                navn: inkluderingsmulighetTittel,
-                subtags: subtagsRegistrertPåStillingen,
-            };
-        } else {
-            return gruppeMedTags;
-        }
-    };
-
-    const registrerteTags: Tag[] = JSON.parse(tags);
-    const grupperMedTags = hentGrupperMedTags(true);
-    const grupperRegistrertPåStillingen: GruppeMedTags[] = grupperMedTags
-        .filter(gruppeMedTagsErRegistrertOgHarSubtags)
-        .map(fjernSubtagsSomIkkeErRegistrert);
+const Inkluderingsmuligheter: FunctionComponent<Props> = ({
+    registrerteTags,
+    alleRelevanteGrupperMedTags,
+}) => {
+    const registrerteInkuderingstags: GruppeMedTags[] = alleRelevanteGrupperMedTags
+        .filter(gruppeMedTagsErRegistrertOgHarSubtags(registrerteTags))
+        .map(fjernSubtagsSomIkkeErRegistrert(registrerteTags));
 
     return (
         <>
-            {grupperRegistrertPåStillingen.map((gruppeMedTags) => (
+            {registrerteInkuderingstags.map((gruppeMedTags) => (
                 <div key={gruppeMedTags.tag} className="blokk-s">
                     <Element>{gruppeMedTags.navn}</Element>
                     {gruppeMedTags.harSubtags && (
@@ -62,6 +33,33 @@ const Inkluderingsmuligheter: FunctionComponent<Props> = ({ tags }) => {
             ))}
         </>
     );
+};
+
+const gruppeMedTagsErRegistrertOgHarSubtags = (registrerteTags: Tag[]) => (
+    gruppeMedTags: GruppeMedTags
+) => registrerteTags.includes(gruppeMedTags.tag) && gruppeMedTags.harSubtags;
+
+const fjernSubtagsSomIkkeErRegistrert = (registrerteTags: Tag[]) => (
+    gruppeMedTags: GruppeMedTags
+): GruppeMedTags => {
+    if (gruppeMedTags.harSubtags) {
+        const subtagsRegistrertPåStillingen = gruppeMedTags.subtags.filter((subtag) =>
+            registrerteTags.includes(subtag.tag)
+        );
+
+        const inkluderingsmulighetTittel = inkluderingsmulighetTilVisningsnavn(
+            gruppeMedTags.tag,
+            subtagsRegistrertPåStillingen.length > 0
+        );
+
+        return {
+            ...gruppeMedTags,
+            navn: inkluderingsmulighetTittel,
+            subtags: subtagsRegistrertPåStillingen,
+        };
+    } else {
+        return gruppeMedTags;
+    }
 };
 
 const visningsnavnForSubtags: Partial<Record<Tag, string>> = {
