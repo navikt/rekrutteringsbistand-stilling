@@ -4,7 +4,7 @@ import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
 
 import { CHECK_TAG, UNCHECK_TAG } from '../../../adDataReducer';
 import isJson from '../../practicalInformation/IsJson';
-import { hentHierarkiAvTags, KategoriMedTags } from '../../../tags';
+import { hentGrupperMedTags, GruppeMedTags } from '../../../tags';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import { erDirektemeldtStilling } from '../../../adUtils';
@@ -28,7 +28,7 @@ const RegistrerInkluderingsmuligheterInternStilling: FunctionComponent<Props> = 
     };
 
     const tagIsChecked = (tag: string) => tags && isJson(tags) && JSON.parse(tags).includes(tag);
-    const hierarkiAvTags = hentHierarkiAvTags(erDirektemeldtStilling(source));
+    const grupperMedTags = hentGrupperMedTags(erDirektemeldtStilling(source));
 
     return (
         <Ekspanderbartpanel
@@ -46,7 +46,7 @@ const RegistrerInkluderingsmuligheterInternStilling: FunctionComponent<Props> = 
             }
         >
             <SkjemaGruppe>
-                {hierarkiAvTags.map((kategori: KategoriMedTags) => (
+                {grupperMedTags.map((kategori: GruppeMedTags) => (
                     <Fragment key={kategori.tag}>
                         <Checkbox
                             id={`tag-${kategori.tag.toLowerCase()}-checkbox`}
@@ -55,15 +55,15 @@ const RegistrerInkluderingsmuligheterInternStilling: FunctionComponent<Props> = 
                             checked={tagIsChecked(kategori.tag)}
                             onChange={onTagChange}
                         />
-                        {kategori.harUnderkategorier && tagIsChecked(kategori.tag) && (
+                        {kategori.harSubtags && tagIsChecked(kategori.tag) && (
                             <SkjemaGruppe className="registrer-inkluderingsmuligheter-intern-stilling__subtags">
-                                {kategori.underkategorier.map((underkategori) => (
+                                {kategori.subtags.map((subtag) => (
                                     <Checkbox
-                                        id={`tag.${underkategori.tag}-checkbox`}
-                                        label={underkategori.navn}
-                                        value={underkategori.tag}
-                                        key={underkategori.tag}
-                                        checked={tagIsChecked(underkategori.tag)}
+                                        id={`tag.${subtag.tag}-checkbox`}
+                                        label={subtag.navn}
+                                        value={subtag.tag}
+                                        key={subtag.tag}
+                                        checked={tagIsChecked(subtag.tag)}
                                         onChange={onTagChange}
                                     />
                                 ))}

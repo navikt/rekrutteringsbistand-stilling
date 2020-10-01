@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { CHECK_TAG_SOK, UNCHECK_TAG_SOK } from '../../searchReducer';
-import { hentHierarkiAvTags } from '../../../ad/tags';
+import { hentGrupperMedTags } from '../../../ad/tags';
 import { SkjemaGruppe, Checkbox } from 'nav-frontend-skjema';
 import { sendEvent } from '../../../amplitude';
 
@@ -22,9 +22,9 @@ const InkluderingPanel = ({ tags, checkTag, uncheckTag }) => {
     };
 
     const tagIsChecked = (tag) => tags.includes(tag);
-    const kategorierMedNavn = hentHierarkiAvTags();
+    const kategorierMedNavn = hentGrupperMedTags();
 
-    return kategorierMedNavn.map(({ tag, navn, harUnderkategorier, underkategorier }) => (
+    return kategorierMedNavn.map(({ tag, navn, harSubtags, underkategorier }) => (
         <Fragment key={tag}>
             <Checkbox
                 className="checkbox--tag--sok skjemaelement--pink"
@@ -35,7 +35,7 @@ const InkluderingPanel = ({ tags, checkTag, uncheckTag }) => {
                 checked={tagIsChecked(tag)}
                 onChange={onTagChange}
             />
-            {harUnderkategorier && tagIsChecked(tag) && (
+            {harSubtags && tagIsChecked(tag) && (
                 <SkjemaGruppe legend={navn} className="SearchPage__subtags">
                     {underkategorier.map(({ tag, navn }) => (
                         <Checkbox

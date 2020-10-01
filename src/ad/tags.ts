@@ -23,15 +23,15 @@ type Oversettelse = {
     navn: string;
 };
 
-export type KategoriMedTags = Oversettelse &
+export type GruppeMedTags = Oversettelse &
     (
         | {
-              harUnderkategorier: false;
+              harSubtags: false;
           }
         | {
-              harUnderkategorier: true;
-              tittelTilUnderkategorier: string;
-              underkategorier: Oversettelse[];
+              harSubtags: true;
+              tittelTilSubtags: string;
+              subtags: Oversettelse[];
           }
     );
 
@@ -40,12 +40,12 @@ const medOversettelse = (tag: Tag) => ({
     navn: oversettelserAvTags[tag],
 });
 
-export const kategorierMedTagsForDirektemeldteStillinger: KategoriMedTags[] = [
+export const grupperMedTagsForDirektemeldteStillinger: GruppeMedTags[] = [
     {
         ...medOversettelse(Tag.Inkludering),
-        harUnderkategorier: true,
-        tittelTilUnderkategorier: 'Muligheter for tilrettelegging',
-        underkategorier: [
+        harSubtags: true,
+        tittelTilSubtags: 'Muligheter for tilrettelegging',
+        subtags: [
             medOversettelse(Tag.InkluderingArbeidstid),
             medOversettelse(Tag.InkluderingArbeidsmiljø),
             medOversettelse(Tag.InkluderingFysisk),
@@ -54,18 +54,16 @@ export const kategorierMedTagsForDirektemeldteStillinger: KategoriMedTags[] = [
     },
 ];
 
-export const kategorierMedTagsForEksterneStillinger: KategoriMedTags[] = [
-    ...kategorierMedTagsForDirektemeldteStillinger,
+export const grupperMedTagsForEksterneStillinger: GruppeMedTags[] = [
+    ...grupperMedTagsForDirektemeldteStillinger,
     {
         ...medOversettelse(Tag.StatligInkluderingsdugnad),
-        harUnderkategorier: false,
+        harSubtags: false,
     },
 ];
 
-export const hentHierarkiAvTags = (direktemeldt: boolean = false): KategoriMedTags[] =>
-    direktemeldt
-        ? kategorierMedTagsForDirektemeldteStillinger
-        : kategorierMedTagsForEksterneStillinger;
+export const hentGrupperMedTags = (direktemeldt: boolean = false): GruppeMedTags[] =>
+    direktemeldt ? grupperMedTagsForDirektemeldteStillinger : grupperMedTagsForEksterneStillinger;
 
 export const checkInkluderingstag = (currentTags: string[], newTag: string) => {
     if (newTag.includes(TAG_HIERARCHY_SPACER)) {

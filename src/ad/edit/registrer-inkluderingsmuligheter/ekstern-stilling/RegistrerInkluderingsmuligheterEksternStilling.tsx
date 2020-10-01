@@ -1,6 +1,6 @@
 import React, { ChangeEvent, Fragment, FunctionComponent } from 'react';
 import isJson from '../../practicalInformation/IsJson';
-import { hentHierarkiAvTags } from '../../../tags';
+import { hentGrupperMedTags } from '../../../tags';
 import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
 import { CHECK_TAG, UNCHECK_TAG } from '../../../adDataReducer';
 import { connect } from 'react-redux';
@@ -26,7 +26,7 @@ const RegistrerInkluderingsmuligheterEksternStilling: FunctionComponent<Props> =
     };
 
     const tagIsChecked = (tag: string) => tags && isJson(tags) && JSON.parse(tags).includes(tag);
-    const hierarkiAvTags = hentHierarkiAvTags(erDirektemeldtStilling(source));
+    const hierarkiAvTags = hentGrupperMedTags(erDirektemeldtStilling(source));
 
     return (
         <div className="registrer-inkluderingsmuligheter-ekstern-stilling">
@@ -43,15 +43,15 @@ const RegistrerInkluderingsmuligheterEksternStilling: FunctionComponent<Props> =
                             checked={tagIsChecked(kategori.tag)}
                             onChange={onTagChange}
                         />
-                        {kategori.harUnderkategorier && tagIsChecked(kategori.tag) && (
+                        {kategori.harSubtags && tagIsChecked(kategori.tag) && (
                             <SkjemaGruppe className="registrer-inkluderingsmuligheter-ekstern-stilling__subtags">
-                                {kategori.underkategorier.map((underkategori) => (
+                                {kategori.subtags.map((subtag) => (
                                     <Checkbox
-                                        id={`tag.${underkategori.tag}-checkbox`}
-                                        label={underkategori.navn}
-                                        value={underkategori.tag}
-                                        key={underkategori.tag}
-                                        checked={tagIsChecked(underkategori.tag)}
+                                        id={`tag.${subtag.tag}-checkbox`}
+                                        label={subtag.navn}
+                                        value={subtag.tag}
+                                        key={subtag.tag}
+                                        checked={tagIsChecked(subtag.tag)}
                                         onChange={onTagChange}
                                     />
                                 ))}

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import AdStatus from '../../administration/adStatus/AdStatus';
 import { EDIT_AD } from '../../adReducer';
-import Inkludering from './inkludering/Inkludering';
+import Inkludering from './inkludering/Inkludering.tsx';
 import Publishing from './publishing/Publishing';
 import ContactInfo from './contact/ContactInfo';
 import Notat from './notat/Notat';
