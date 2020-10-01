@@ -12,7 +12,7 @@ import Error from './error/Error';
 import Preview from './preview/Preview';
 import Administration from './administration/Administration.tsx';
 import AdministrationLimited from './administration/limited/AdministrationLimited';
-import AdministrationPreview from './preview/administration/AdministrationPreview';
+import AdministrationPreview from './preview/administration/AdministrationPreview.tsx';
 import SavedAdAlertStripe from './alertstripe/SavedAdAlertStripe';
 import PreviewHeader from './preview/header/PreviewHeader';
 import EditHeader from './edit/header/EditHeader';
