@@ -4,31 +4,24 @@ import isJson from '../../edit/practicalInformation/IsJson';
 import { GruppeMedTags, hentGrupperMedTags, Tag } from '../../tags';
 
 interface Props {
-    tags?: string;
+    tags: string;
 }
 
 const Inkluderingsmuligheter: FunctionComponent<Props> = ({ tags }) => {
-    const inkluderingsmuligheterErRegistrert = tags !== undefined;
-    const tagsErGyldige = !inkluderingsmuligheterErRegistrert || isJson(tags);
+    const tagsErGyldige = isJson(tags);
 
     if (!tagsErGyldige) {
         return <Feilmelding>Noe galt skjedde ved uthenting av inkluderingsmuligheter.</Feilmelding>;
     }
 
-    if (!inkluderingsmuligheterErRegistrert) {
-        return <Normaltekst>Ingen inkluderingsmuligheter er registrert.</Normaltekst>;
-    }
+    const gruppeMedTagsErRegistrertOgHarSubtags = (gruppeMedTags: GruppeMedTags) =>
+        registrerteTags.includes(gruppeMedTags.tag) && gruppeMedTags.harSubtags;
 
-    const parsedeTags: Tag[] = JSON.parse(tags!);
-    const grupperMedTags = hentGrupperMedTags(true);
-    const grupperRegistrertPåStillingen: GruppeMedTags[] = grupperMedTags
-        .filter((kategori) => parsedeTags.includes(kategori.tag))
-        .map((gruppeMedTags) => {
-            const subtagsRegistrertPåStillingen = gruppeMedTags.harSubtags
-                ? gruppeMedTags.subtags.filter((underkategori) =>
-                      parsedeTags.includes(underkategori.tag)
-                  )
-                : [];
+    const fjernSubtagsSomIkkeErRegistrert = (gruppeMedTags: GruppeMedTags): GruppeMedTags => {
+        if (gruppeMedTags.harSubtags) {
+            const subtagsRegistrertPåStillingen = gruppeMedTags.subtags.filter((subtag) =>
+                registrerteTags.includes(subtag.tag)
+            );
 
             const inkluderingsmulighetTittel = inkluderingsmulighetTilVisningsnavn(
                 gruppeMedTags.tag,
@@ -40,7 +33,16 @@ const Inkluderingsmuligheter: FunctionComponent<Props> = ({ tags }) => {
                 navn: inkluderingsmulighetTittel,
                 subtags: subtagsRegistrertPåStillingen,
             };
-        });
+        } else {
+            return gruppeMedTags;
+        }
+    };
+
+    const registrerteTags: Tag[] = JSON.parse(tags);
+    const grupperMedTags = hentGrupperMedTags(true);
+    const grupperRegistrertPåStillingen: GruppeMedTags[] = grupperMedTags
+        .filter(gruppeMedTagsErRegistrertOgHarSubtags)
+        .map(fjernSubtagsSomIkkeErRegistrert);
 
     return (
         <>

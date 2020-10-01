@@ -8,6 +8,10 @@ interface Props {
 }
 
 const VisInkluderingsmuligheterInternStilling: FunctionComponent<Props> = ({ tags }) => {
+    if (tags === undefined) {
+        return null;
+    }
+
     return (
         <div className="vis-inkluderingsmuligheter-intern-stilling">
             <Undertittel className="vis-inkluderingsmuligheter-intern-stilling__tittel">
