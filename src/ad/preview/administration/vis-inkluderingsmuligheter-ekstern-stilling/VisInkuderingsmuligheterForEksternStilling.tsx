@@ -6,7 +6,7 @@ import {
     hentSubtagsForMulighetForEksternStilling,
     InkluderingsmulighetForEksternStilling,
 } from '../../../tags/hierarkiAvTags';
-import Etiketter from './Etiketter';
+import Inkluderingstags from './Inkluderingstags';
 
 const VisInkuderingsmuligheterForEksternStilling = ({ tags }) => {
     const tagsForTilretteleggingsmuligheter = hentSubtagsForMulighetForEksternStilling(
@@ -20,13 +20,13 @@ const VisInkuderingsmuligheterForEksternStilling = ({ tags }) => {
     return (
         <>
             {tagsForTilretteleggingsmuligheter.length > 0 && (
-                <Etiketter
+                <Inkluderingstags
                     tittel="Arbeidsgiver ønsker å tilrettelegge"
                     tags={tagsForTilretteleggingsmuligheter}
                 />
             )}
             {tagsForStatligInkluderingsdugnad.length > 0 && (
-                <Etiketter
+                <Inkluderingstags
                     tittel="Arbeidsgiver er del av:"
                     tags={tagsForStatligInkluderingsdugnad}
                 />
