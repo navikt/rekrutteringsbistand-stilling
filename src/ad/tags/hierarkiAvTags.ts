@@ -19,13 +19,13 @@ export enum Tag {
     StatligInkluderingsdugnad = 'STATLIG_INKLUDERINGSDUGNAD',
 }
 
-export enum MulighetForDirektemeldtStilling {
+export enum InkluderingsmulighetForDirektemeldtStilling {
     Tilrettelegging,
     TiltakEllerVirkemiddel,
     PrioriterteMålgrupper,
 }
 
-export enum MulighetForEksternStilling {
+export enum InkluderingsmulighetForEksternStilling {
     Tilrettelegging,
     StatligInkluderingsdugnad,
 }
@@ -36,10 +36,10 @@ type GruppeMedTags = {
 };
 
 export const hierarkiAvTagsForDirektemeldteStillinger: Record<
-    MulighetForDirektemeldtStilling,
+    InkluderingsmulighetForDirektemeldtStilling,
     GruppeMedTags
 > = {
-    [MulighetForDirektemeldtStilling.Tilrettelegging]: {
+    [InkluderingsmulighetForDirektemeldtStilling.Tilrettelegging]: {
         hovedtag: Tag.Tilrettelegging,
         subtags: [
             Tag.TilretteleggingArbeidstid,
@@ -49,11 +49,11 @@ export const hierarkiAvTagsForDirektemeldteStillinger: Record<
         ],
     },
 
-    [MulighetForDirektemeldtStilling.TiltakEllerVirkemiddel]: {
+    [InkluderingsmulighetForDirektemeldtStilling.TiltakEllerVirkemiddel]: {
         subtags: [Tag.TiltakLønnstilskudd, Tag.TiltakMentortilskudd],
     },
 
-    [MulighetForDirektemeldtStilling.PrioriterteMålgrupper]: {
+    [InkluderingsmulighetForDirektemeldtStilling.PrioriterteMålgrupper]: {
         hovedtag: Tag.Målgruppe,
         subtags: [
             Tag.MålgruppeErUngeUnder30,
@@ -67,10 +67,10 @@ export const hierarkiAvTagsForDirektemeldteStillinger: Record<
 };
 
 export const hierarkiAvTagsForEksterneStillinger: Record<
-    MulighetForEksternStilling,
+    InkluderingsmulighetForEksternStilling,
     GruppeMedTags
 > = {
-    [MulighetForEksternStilling.Tilrettelegging]: {
+    [InkluderingsmulighetForEksternStilling.Tilrettelegging]: {
         hovedtag: Tag.Tilrettelegging,
         subtags: [
             Tag.TilretteleggingArbeidstid,
@@ -80,7 +80,7 @@ export const hierarkiAvTagsForEksterneStillinger: Record<
         ],
     },
 
-    [MulighetForEksternStilling.StatligInkluderingsdugnad]: {
+    [InkluderingsmulighetForEksternStilling.StatligInkluderingsdugnad]: {
         hovedtag: Tag.StatligInkluderingsdugnad,
     },
 };
