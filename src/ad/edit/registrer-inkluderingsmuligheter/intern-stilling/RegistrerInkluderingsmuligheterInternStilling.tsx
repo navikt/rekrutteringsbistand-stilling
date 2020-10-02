@@ -1,17 +1,18 @@
-import React, { ChangeEvent, Fragment, FunctionComponent } from 'react';
+import React, { ChangeEvent, FunctionComponent } from 'react';
 import { connect } from 'react-redux';
-import { Checkbox, CheckboxGruppe, SkjemaGruppe } from 'nav-frontend-skjema';
+import { Checkbox, CheckboxGruppe } from 'nav-frontend-skjema';
 
 import { CHECK_TAG, UNCHECK_TAG } from '../../../adDataReducer';
 import isJson from '../../practicalInformation/IsJson';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
-import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import {
     hierarkiAvTagsForDirektemeldteStillinger,
     InkluderingsmulighetForDirektemeldtStilling,
 } from '../../../tags/hierarkiAvTags';
 import './RegistrerInkluderingsmuligheterInternStilling.less';
 import Skjemalegend from '../../skjemaetikett/Skjemalegend';
+import { visningsnavnForRegistrering } from '../../../tags/visningsnavnForTags';
 
 type Props = {
     tags?: string;
@@ -57,7 +58,7 @@ const RegistrerInkluderingsmuligheterInternStilling: FunctionComponent<Props> = 
                     <Checkbox
                         key={subtag}
                         id={`tag.${subtag}-checkbox`}
-                        label={subtag.toLowerCase()}
+                        label={visningsnavnForRegistrering[subtag]}
                         value={subtag}
                         checked={tagIsChecked(subtag)}
                         onChange={onTagChange}
@@ -72,7 +73,7 @@ const RegistrerInkluderingsmuligheterInternStilling: FunctionComponent<Props> = 
                     <Checkbox
                         key={subtag}
                         id={`tag.${subtag}-checkbox`}
-                        label={subtag.toLowerCase()}
+                        label={visningsnavnForRegistrering[subtag]}
                         value={subtag}
                         checked={tagIsChecked(subtag)}
                         onChange={onTagChange}
@@ -87,7 +88,7 @@ const RegistrerInkluderingsmuligheterInternStilling: FunctionComponent<Props> = 
                     <Checkbox
                         key={subtag}
                         id={`tag.${subtag}-checkbox`}
-                        label={subtag.toLowerCase()} // Oversett til visning
+                        label={visningsnavnForRegistrering[subtag]}
                         value={subtag}
                         checked={tagIsChecked(subtag)}
                         onChange={onTagChange}

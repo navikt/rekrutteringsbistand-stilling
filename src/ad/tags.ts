@@ -65,21 +65,35 @@ export const grupperMedTagsForEksterneStillinger: GruppeMedTags[] = [
 export const hentGrupperMedTags = (direktemeldt: boolean = false): GruppeMedTags[] =>
     direktemeldt ? grupperMedTagsForDirektemeldteStillinger : grupperMedTagsForEksterneStillinger;
 
-export const checkInkluderingstag = (currentTags: string[], newTag: string) => {
-    if (newTag.includes(TAG_HIERARCHY_SPACER)) {
-        const baseTag = newTag.split(TAG_HIERARCHY_SPACER)[0];
+export const checkInkluderingstag = (tags: string[], nyTag: string): string[] => {
+    const nyTagErSubtag = nyTag.includes(TAG_HIERARCHY_SPACER);
 
-        if (!currentTags.includes(baseTag)) {
-            currentTags.push(baseTag);
+    if (nyTagErSubtag) {
+        const inkluderingsmulighet = nyTag.split(TAG_HIERARCHY_SPACER)[0];
+
+        if (!tags.includes(inkluderingsmulighet)) {
+            tags.push(inkluderingsmulighet);
         }
     }
 
-    return [...currentTags, newTag];
+    return [...tags, nyTag];
 };
 
-export const uncheckInkluderingstag = (currentTags: string[], tagToRemove: string) => {
-    const newTags = currentTags.filter((tag) => tag !== tagToRemove);
-    const otherSubtags = `${tagToRemove}${TAG_HIERARCHY_SPACER}`;
+export const uncheckInkluderingstag = (tags: string[], tagSomSkalFjernes: string): string[] => {
+    const inkluderingsmulighet = tagSomSkalFjernes.split(TAG_HIERARCHY_SPACER)[0];
+    const erEnesteSubtagForInkluderingsmulighet =
+        tags.filter((tag) => tag.startsWith(`${inkluderingsmulighet}${TAG_HIERARCHY_SPACER}`))
+            .length === 1;
 
-    return newTags.filter((tag) => !tag.startsWith(otherSubtags));
+    if (erEnesteSubtagForInkluderingsmulighet) {
+        const tagsUtenomInkluderingsmulighet = tags.filter((tag) => tag !== inkluderingsmulighet);
+        const tagsUtenomTagSomSkalFjernes = tagsUtenomInkluderingsmulighet.filter(
+            (tag) => tag !== tagSomSkalFjernes
+        );
+
+        return tagsUtenomTagSomSkalFjernes;
+    }
+
+    const tagsUtenomTagSomSkalFjernes = tags.filter((tag) => tag !== tagSomSkalFjernes);
+    return tagsUtenomTagSomSkalFjernes;
 };
