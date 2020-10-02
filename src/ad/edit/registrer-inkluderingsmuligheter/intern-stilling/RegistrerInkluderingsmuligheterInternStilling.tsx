@@ -1,14 +1,17 @@
 import React, { ChangeEvent, Fragment, FunctionComponent } from 'react';
 import { connect } from 'react-redux';
-import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
+import { Checkbox, CheckboxGruppe, SkjemaGruppe } from 'nav-frontend-skjema';
 
 import { CHECK_TAG, UNCHECK_TAG } from '../../../adDataReducer';
 import isJson from '../../practicalInformation/IsJson';
-import { hentGrupperMedTags, GruppeMedTags } from '../../../tags';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import { erDirektemeldtStilling } from '../../../adUtils';
+import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import {
+    hierarkiAvTagsForDirektemeldteStillinger,
+    InkluderingsmulighetForDirektemeldtStilling,
+} from '../../../tags/hierarkiAvTags';
 import './RegistrerInkluderingsmuligheterInternStilling.less';
+import Skjemalegend from '../../skjemaetikett/Skjemalegend';
 
 type Props = {
     tags?: string;
@@ -21,14 +24,15 @@ const RegistrerInkluderingsmuligheterInternStilling: FunctionComponent<Props> = 
     tags,
     checkTag,
     uncheckTag,
-    source,
 }) => {
     const onTagChange = (e: ChangeEvent<HTMLInputElement>) => {
         e.target.checked ? checkTag(e.target.value) : uncheckTag(e.target.value);
     };
 
     const tagIsChecked = (tag: string) => tags && isJson(tags) && JSON.parse(tags).includes(tag);
-    const grupperMedTags = hentGrupperMedTags(erDirektemeldtStilling(source));
+    const hentSubtagsForMulighet = (
+        inkluderingsmulighet: InkluderingsmulighetForDirektemeldtStilling
+    ) => hierarkiAvTagsForDirektemeldteStillinger[inkluderingsmulighet].subtags || [];
 
     return (
         <Ekspanderbartpanel
@@ -45,33 +49,51 @@ const RegistrerInkluderingsmuligheterInternStilling: FunctionComponent<Props> = 
                 </>
             }
         >
-            <SkjemaGruppe>
-                {grupperMedTags.map((kategori: GruppeMedTags) => (
-                    <Fragment key={kategori.tag}>
-                        <Checkbox
-                            id={`tag-${kategori.tag.toLowerCase()}-checkbox`}
-                            label={kategori.navn}
-                            value={kategori.tag}
-                            checked={tagIsChecked(kategori.tag)}
-                            onChange={onTagChange}
-                        />
-                        {kategori.harSubtags && tagIsChecked(kategori.tag) && (
-                            <SkjemaGruppe className="registrer-inkluderingsmuligheter-intern-stilling__subtags">
-                                {kategori.subtags.map((subtag) => (
-                                    <Checkbox
-                                        id={`tag.${subtag.tag}-checkbox`}
-                                        label={subtag.navn}
-                                        value={subtag.tag}
-                                        key={subtag.tag}
-                                        checked={tagIsChecked(subtag.tag)}
-                                        onChange={onTagChange}
-                                    />
-                                ))}
-                            </SkjemaGruppe>
-                        )}
-                    </Fragment>
+            <CheckboxGruppe className="blokk-xs">
+                <Skjemalegend>Arbeidsgiver kan tilrettelegge for</Skjemalegend>
+                {hentSubtagsForMulighet(
+                    InkluderingsmulighetForDirektemeldtStilling.Tilrettelegging
+                ).map((subtag) => (
+                    <Checkbox
+                        key={subtag}
+                        id={`tag.${subtag}-checkbox`}
+                        label={subtag.toLowerCase()}
+                        value={subtag}
+                        checked={tagIsChecked(subtag)}
+                        onChange={onTagChange}
+                    />
                 ))}
-            </SkjemaGruppe>
+            </CheckboxGruppe>
+            <CheckboxGruppe className="blokk-xs">
+                <Skjemalegend>Arbeidsgiver er åpen for kandidater som</Skjemalegend>
+                {hentSubtagsForMulighet(
+                    InkluderingsmulighetForDirektemeldtStilling.PrioriterteMålgrupper
+                ).map((subtag) => (
+                    <Checkbox
+                        key={subtag}
+                        id={`tag.${subtag}-checkbox`}
+                        label={subtag.toLowerCase()}
+                        value={subtag}
+                        checked={tagIsChecked(subtag)}
+                        onChange={onTagChange}
+                    />
+                ))}
+            </CheckboxGruppe>
+            <CheckboxGruppe className="blokk-xs">
+                <Skjemalegend>Arbeidsgiver kan tilrettelegge for</Skjemalegend>
+                {hentSubtagsForMulighet(
+                    InkluderingsmulighetForDirektemeldtStilling.TiltakEllerVirkemiddel
+                ).map((subtag) => (
+                    <Checkbox
+                        key={subtag}
+                        id={`tag.${subtag}-checkbox`}
+                        label={subtag.toLowerCase()} // Oversett til visning
+                        value={subtag}
+                        checked={tagIsChecked(subtag)}
+                        onChange={onTagChange}
+                    />
+                ))}
+            </CheckboxGruppe>
         </Ekspanderbartpanel>
     );
 };
