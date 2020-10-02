@@ -124,7 +124,8 @@
             "employer": "Harstad kommune",
             "location": "Hjemmetjenesten",
             "classification_input_source": "title",
-            "sector": "Offentlig"
+            "sector": "Offentlig",
+            "tags": "[\"INKLUDERING\", \"INKLUDERING__ARBEIDSMILJØ\", \"STATLIG_INKLUDERINGSDUGNAD\", \"INKLUDERING__FYSISK\"]"
         },
         "publishedByAdmin": "2020-06-03T06:46:54.606661",
         "businessName": "ENTRE ENTREPRENØR AS",
