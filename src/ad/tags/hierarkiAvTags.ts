@@ -19,10 +19,14 @@ export enum Tag {
     StatligInkluderingsdugnad = 'STATLIG_INKLUDERINGSDUGNAD',
 }
 
-enum Gruppenavn {
+export enum MulighetForDirektemeldtStilling {
     Tilrettelegging,
     TiltakEllerVirkemiddel,
     PrioriterteMålgrupper,
+}
+
+export enum MulighetForEksternStilling {
+    Tilrettelegging,
     StatligInkluderingsdugnad,
 }
 
@@ -31,10 +35,11 @@ type GruppeMedTags = {
     subtags?: Tag[];
 };
 
-export type HierarkiAvTags = Partial<Record<Gruppenavn, GruppeMedTags>>;
-
-export const hierarkiAvTagsForDirektemeldteStillinger: HierarkiAvTags = {
-    [Gruppenavn.Tilrettelegging]: {
+export const hierarkiAvTagsForDirektemeldteStillinger: Record<
+    MulighetForDirektemeldtStilling,
+    GruppeMedTags
+> = {
+    [MulighetForDirektemeldtStilling.Tilrettelegging]: {
         hovedtag: Tag.Tilrettelegging,
         subtags: [
             Tag.TilretteleggingArbeidstid,
@@ -44,11 +49,11 @@ export const hierarkiAvTagsForDirektemeldteStillinger: HierarkiAvTags = {
         ],
     },
 
-    [Gruppenavn.TiltakEllerVirkemiddel]: {
+    [MulighetForDirektemeldtStilling.TiltakEllerVirkemiddel]: {
         subtags: [Tag.TiltakLønnstilskudd, Tag.TiltakMentortilskudd],
     },
 
-    [Gruppenavn.PrioriterteMålgrupper]: {
+    [MulighetForDirektemeldtStilling.PrioriterteMålgrupper]: {
         hovedtag: Tag.Målgruppe,
         subtags: [
             Tag.MålgruppeErUngeUnder30,
@@ -61,8 +66,11 @@ export const hierarkiAvTagsForDirektemeldteStillinger: HierarkiAvTags = {
     },
 };
 
-export const hierarkiAvTagsForEksterneStillinger: HierarkiAvTags = {
-    [Gruppenavn.Tilrettelegging]: {
+export const hierarkiAvTagsForEksterneStillinger: Record<
+    MulighetForEksternStilling,
+    GruppeMedTags
+> = {
+    [MulighetForEksternStilling.Tilrettelegging]: {
         hovedtag: Tag.Tilrettelegging,
         subtags: [
             Tag.TilretteleggingArbeidstid,
@@ -72,12 +80,7 @@ export const hierarkiAvTagsForEksterneStillinger: HierarkiAvTags = {
         ],
     },
 
-    [Gruppenavn.StatligInkluderingsdugnad]: {
+    [MulighetForEksternStilling.StatligInkluderingsdugnad]: {
         hovedtag: Tag.StatligInkluderingsdugnad,
     },
 };
-
-export const hentHierarkiAvTags = (stillingErDirektemeldt: boolean = false): HierarkiAvTags =>
-    stillingErDirektemeldt
-        ? hierarkiAvTagsForDirektemeldteStillinger
-        : hierarkiAvTagsForEksterneStillinger;
