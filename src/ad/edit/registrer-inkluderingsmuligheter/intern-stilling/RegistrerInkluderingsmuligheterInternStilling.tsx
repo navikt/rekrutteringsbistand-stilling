@@ -7,7 +7,7 @@ import isJson from '../../practicalInformation/IsJson';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import {
-    hierarkiAvTagsForDirektemeldteStillinger,
+    hentSubtagsForMulighetForDirektemeldtStilling,
     InkluderingsmulighetForDirektemeldtStilling,
 } from '../../../tags/hierarkiAvTags';
 import './RegistrerInkluderingsmuligheterInternStilling.less';
@@ -31,9 +31,6 @@ const RegistrerInkluderingsmuligheterInternStilling: FunctionComponent<Props> = 
     };
 
     const tagIsChecked = (tag: string) => tags && isJson(tags) && JSON.parse(tags).includes(tag);
-    const hentSubtagsForMulighet = (
-        inkluderingsmulighet: InkluderingsmulighetForDirektemeldtStilling
-    ) => hierarkiAvTagsForDirektemeldteStillinger[inkluderingsmulighet].subtags || [];
 
     return (
         <Ekspanderbartpanel
@@ -52,7 +49,7 @@ const RegistrerInkluderingsmuligheterInternStilling: FunctionComponent<Props> = 
         >
             <CheckboxGruppe className="blokk-xs">
                 <Skjemalegend>Arbeidsgiver kan tilrettelegge for</Skjemalegend>
-                {hentSubtagsForMulighet(
+                {hentSubtagsForMulighetForDirektemeldtStilling(
                     InkluderingsmulighetForDirektemeldtStilling.Tilrettelegging
                 ).map((subtag) => (
                     <Checkbox
@@ -67,7 +64,7 @@ const RegistrerInkluderingsmuligheterInternStilling: FunctionComponent<Props> = 
             </CheckboxGruppe>
             <CheckboxGruppe className="blokk-xs">
                 <Skjemalegend>Arbeidsgiver er åpen for kandidater som</Skjemalegend>
-                {hentSubtagsForMulighet(
+                {hentSubtagsForMulighetForDirektemeldtStilling(
                     InkluderingsmulighetForDirektemeldtStilling.PrioriterteMålgrupper
                 ).map((subtag) => (
                     <Checkbox
@@ -82,7 +79,7 @@ const RegistrerInkluderingsmuligheterInternStilling: FunctionComponent<Props> = 
             </CheckboxGruppe>
             <CheckboxGruppe className="blokk-xs">
                 <Skjemalegend>Arbeidsgiver kan tilrettelegge for</Skjemalegend>
-                {hentSubtagsForMulighet(
+                {hentSubtagsForMulighetForDirektemeldtStilling(
                     InkluderingsmulighetForDirektemeldtStilling.TiltakEllerVirkemiddel
                 ).map((subtag) => (
                     <Checkbox

@@ -1,65 +1,72 @@
 import React, { ChangeEvent, Fragment, FunctionComponent } from 'react';
+import { connect } from 'react-redux';
+import { Element, Undertittel } from 'nav-frontend-typografi';
+
 import isJson from '../../practicalInformation/IsJson';
 import { hentGrupperMedTags } from '../../../tags';
-import { Checkbox, SkjemaGruppe } from 'nav-frontend-skjema';
+import { Checkbox, CheckboxGruppe, SkjemaGruppe } from 'nav-frontend-skjema';
 import { CHECK_TAG, UNCHECK_TAG } from '../../../adDataReducer';
-import { connect } from 'react-redux';
-import { Undertittel } from 'nav-frontend-typografi';
+import Skjemalegend from '../../skjemaetikett/Skjemalegend';
+import {
+    hentSubtagsForMulighetForEksternStilling,
+    InkluderingsmulighetForEksternStilling,
+} from '../../../tags/hierarkiAvTags';
 import './RegistrerInkluderingsmuligheterEksternStilling.less';
-import { erDirektemeldtStilling } from '../../../adUtils';
+import { visningsnavnForRegistrering } from '../../../tags/visningsnavnForTags';
+import Skjemalabel from '../../skjemaetikett/Skjemalabel';
 
 type Props = {
     tags?: string;
     checkTag: (tag: string) => void;
     uncheckTag: (tag: string) => void;
-    source: string;
 };
 
 const RegistrerInkluderingsmuligheterEksternStilling: FunctionComponent<Props> = ({
     tags,
     checkTag,
     uncheckTag,
-    source,
 }) => {
     const onTagChange = (e: ChangeEvent<HTMLInputElement>) => {
         e.target.checked ? checkTag(e.target.value) : uncheckTag(e.target.value);
     };
 
     const tagIsChecked = (tag: string) => tags && isJson(tags) && JSON.parse(tags).includes(tag);
-    const hierarkiAvTags = hentGrupperMedTags(erDirektemeldtStilling(source));
 
     return (
         <div className="registrer-inkluderingsmuligheter-ekstern-stilling">
             <Undertittel className="registrer-inkluderingsmuligheter-ekstern-stilling__tittel">
-                Inkludering
+                Muligheter for inkludering
             </Undertittel>
-            <SkjemaGruppe>
-                {hierarkiAvTags.map((kategori) => (
-                    <Fragment key={kategori.tag}>
-                        <Checkbox
-                            id={`tag-${kategori.tag.toLowerCase()}-checkbox`}
-                            label={kategori.navn}
-                            value={kategori.tag}
-                            checked={tagIsChecked(kategori.tag)}
-                            onChange={onTagChange}
-                        />
-                        {kategori.harSubtags && tagIsChecked(kategori.tag) && (
-                            <SkjemaGruppe className="registrer-inkluderingsmuligheter-ekstern-stilling__subtags">
-                                {kategori.subtags.map((subtag) => (
-                                    <Checkbox
-                                        id={`tag.${subtag.tag}-checkbox`}
-                                        label={subtag.navn}
-                                        value={subtag.tag}
-                                        key={subtag.tag}
-                                        checked={tagIsChecked(subtag.tag)}
-                                        onChange={onTagChange}
-                                    />
-                                ))}
-                            </SkjemaGruppe>
-                        )}
-                    </Fragment>
+            <CheckboxGruppe className="blokk-xs">
+                <Skjemalegend>Arbeidsgiver ønsker å tilrettelegge</Skjemalegend>
+                {hentSubtagsForMulighetForEksternStilling(
+                    InkluderingsmulighetForEksternStilling.Tilrettelegging
+                ).map((kategori) => (
+                    <Checkbox
+                        id={`tag.${kategori}-checkbox`}
+                        label={visningsnavnForRegistrering[kategori]}
+                        value={kategori}
+                        key={kategori}
+                        checked={tagIsChecked(kategori)}
+                        onChange={onTagChange}
+                    />
                 ))}
-            </SkjemaGruppe>
+            </CheckboxGruppe>
+            <CheckboxGruppe>
+                <Skjemalegend>Arbeidsgiver er del av:</Skjemalegend>
+                {hentSubtagsForMulighetForEksternStilling(
+                    InkluderingsmulighetForEksternStilling.StatligInkluderingsdugnad
+                ).map((tag) => (
+                    <Checkbox
+                        id={`tag.${tag}-checkbox`}
+                        label={visningsnavnForRegistrering[tag]}
+                        value={tag}
+                        key={tag}
+                        checked={tagIsChecked(tag)}
+                        onChange={onTagChange}
+                    />
+                ))}
+            </CheckboxGruppe>
         </div>
     );
 };

@@ -32,7 +32,7 @@ export enum InkluderingsmulighetForEksternStilling {
 
 type GruppeMedTags = {
     hovedtag?: Tag;
-    subtags?: Tag[];
+    subtags: Tag[];
 };
 
 export const hierarkiAvTagsForDirektemeldteStillinger: Record<
@@ -81,6 +81,14 @@ export const hierarkiAvTagsForEksterneStillinger: Record<
     },
 
     [InkluderingsmulighetForEksternStilling.StatligInkluderingsdugnad]: {
-        hovedtag: Tag.StatligInkluderingsdugnad,
+        subtags: [Tag.StatligInkluderingsdugnad],
     },
 };
+
+export const hentSubtagsForMulighetForDirektemeldtStilling = (
+    inkluderingsmulighet: InkluderingsmulighetForDirektemeldtStilling
+) => hierarkiAvTagsForDirektemeldteStillinger[inkluderingsmulighet].subtags;
+
+export const hentSubtagsForMulighetForEksternStilling = (
+    inkluderingsmulighet: InkluderingsmulighetForEksternStilling
+) => hierarkiAvTagsForEksterneStillinger[inkluderingsmulighet].subtags;
