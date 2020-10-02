@@ -11,7 +11,7 @@ import {
 import AdStatusEnum from '../../common/enums/AdStatusEnum';
 import PrivacyStatusEnum from '../../common/enums/PrivacyStatusEnum';
 import FilterLocation from './location/FilterLocation';
-import InkluderingPanel from './inkludering/InkluderingPanel';
+import InkluderingPanel from './inkludering/InkluderingPanel.tsx';
 import { getAdStatusLabel, getPrivacyStatusLabel } from '../../common/enums/getEnumLabels';
 import Filterpanel from './Filterpanel';
 import { erDirektemeldtStilling } from '../../ad/adUtils';

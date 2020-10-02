@@ -15,3 +15,24 @@ export const visningsnavnForRegistrering: Partial<Record<Tag, string>> = {
     [Tag.MålgruppeLiteEllerIngenArbeidserfaring]: 'har lite eller ingen arbeidserfaring',
     [Tag.StatligInkluderingsdugnad]: 'den statlige inkluderingsdugnaden',
 };
+
+export const visningsnavnForFilter: Record<Tag, string> = {
+    [Tag.Tilrettelegging]: 'Alle muligheter',
+    [Tag.TilretteleggingArbeidstid]: 'Arbeidstid',
+    [Tag.TilretteleggingFysisk]: 'Fysisk tilrettelegging',
+    [Tag.TilretteleggingArbeidshverdagen]: 'Arbeidshverdagen',
+    [Tag.TilretteleggingGrunnleggende]: 'Utfordringer med norsk',
+
+    [Tag.TiltakLønnstilskudd]: 'Lønnstilskudd',
+    [Tag.TiltakMentortilskudd]: 'Mentor (tilskudd)',
+
+    [Tag.Målgruppe]: 'Alle målgrupper',
+    [Tag.MålgruppeErUngeUnder30]: 'Unge under 30 år',
+    [Tag.MålgruppeErSeniorerOver45]: 'Seniorer 45+',
+    [Tag.MålgruppeKommerFraLandUtenforEØS]: 'Borgere fra land utenfor EØS',
+    [Tag.MålgruppeHullICVen]: 'Hull i CV-en',
+    [Tag.MålgruppeLiteEllerIngenUtdanning]: 'Lite eller ingen utdanning',
+    [Tag.MålgruppeLiteEllerIngenArbeidserfaring]: 'Lite eller ingen arbeidserfaring',
+
+    [Tag.StatligInkluderingsdugnad]: 'Den statlige inkluderingsdugnaden',
+};

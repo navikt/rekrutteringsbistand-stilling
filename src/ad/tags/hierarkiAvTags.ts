@@ -30,6 +30,13 @@ export enum InkluderingsmulighetForEksternStilling {
     StatligInkluderingsdugnad,
 }
 
+export enum AlleInkluderingsmuligheter {
+    Tilrettelegging,
+    TiltakEllerVirkemiddel,
+    PrioriterteMålgrupper,
+    StatligInkluderingsdugnad,
+}
+
 type GruppeMedTags = {
     hovedtag?: Tag;
     subtags: Tag[];
@@ -85,6 +92,38 @@ export const hierarkiAvTagsForEksterneStillinger: Record<
     },
 };
 
+export const hierarkiAvTagsForFilter: Record<AlleInkluderingsmuligheter, GruppeMedTags> = {
+    [AlleInkluderingsmuligheter.Tilrettelegging]: {
+        hovedtag: Tag.Tilrettelegging,
+        subtags: [
+            Tag.TilretteleggingArbeidstid,
+            Tag.TilretteleggingArbeidshverdagen,
+            Tag.TilretteleggingFysisk,
+            Tag.TilretteleggingGrunnleggende,
+        ],
+    },
+
+    [AlleInkluderingsmuligheter.TiltakEllerVirkemiddel]: {
+        subtags: [Tag.TiltakLønnstilskudd, Tag.TiltakMentortilskudd],
+    },
+
+    [AlleInkluderingsmuligheter.PrioriterteMålgrupper]: {
+        hovedtag: Tag.Målgruppe,
+        subtags: [
+            Tag.MålgruppeErUngeUnder30,
+            Tag.MålgruppeErSeniorerOver45,
+            Tag.MålgruppeKommerFraLandUtenforEØS,
+            Tag.MålgruppeHullICVen,
+            Tag.MålgruppeLiteEllerIngenUtdanning,
+            Tag.MålgruppeLiteEllerIngenArbeidserfaring,
+        ],
+    },
+
+    [AlleInkluderingsmuligheter.StatligInkluderingsdugnad]: {
+        subtags: [Tag.StatligInkluderingsdugnad],
+    },
+};
+
 export const hentSubtagsForMulighetForDirektemeldtStilling = (
     inkluderingsmulighet: InkluderingsmulighetForDirektemeldtStilling
 ) => hierarkiAvTagsForDirektemeldteStillinger[inkluderingsmulighet].subtags;
@@ -92,3 +131,6 @@ export const hentSubtagsForMulighetForDirektemeldtStilling = (
 export const hentSubtagsForMulighetForEksternStilling = (
     inkluderingsmulighet: InkluderingsmulighetForEksternStilling
 ) => hierarkiAvTagsForEksterneStillinger[inkluderingsmulighet].subtags;
+
+export const hentSubtagsForMulighetForFilter = (inkluderingsmulighet: AlleInkluderingsmuligheter) =>
+    hierarkiAvTagsForFilter[inkluderingsmulighet].subtags;
