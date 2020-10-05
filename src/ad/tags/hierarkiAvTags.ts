@@ -31,7 +31,7 @@ export enum InkluderingsmulighetForEksternStilling {
     StatligInkluderingsdugnad,
 }
 
-export enum AlleInkluderingsmuligheter {
+export enum Inkluderingsmulighet {
     Tilrettelegging,
     TiltakEllerVirkemiddel,
     PrioriterteMålgrupper,
@@ -93,8 +93,8 @@ export const hierarkiAvTagsForEksterneStillinger: Record<
     },
 };
 
-export const hierarkiAvTagsForFilter: Record<AlleInkluderingsmuligheter, GruppeMedTags> = {
-    [AlleInkluderingsmuligheter.Tilrettelegging]: {
+export const hierarkiAvTagsForFilter: Record<Inkluderingsmulighet, GruppeMedTags> = {
+    [Inkluderingsmulighet.Tilrettelegging]: {
         hovedtag: Tag.Tilrettelegging,
         subtags: [
             Tag.TilretteleggingArbeidstid,
@@ -104,12 +104,12 @@ export const hierarkiAvTagsForFilter: Record<AlleInkluderingsmuligheter, GruppeM
         ],
     },
 
-    [AlleInkluderingsmuligheter.TiltakEllerVirkemiddel]: {
+    [Inkluderingsmulighet.TiltakEllerVirkemiddel]: {
         hovedtag: Tag.Tiltak,
         subtags: [Tag.TiltakLønnstilskudd, Tag.TiltakMentortilskudd],
     },
 
-    [AlleInkluderingsmuligheter.PrioriterteMålgrupper]: {
+    [Inkluderingsmulighet.PrioriterteMålgrupper]: {
         hovedtag: Tag.Målgruppe,
         subtags: [
             Tag.MålgruppeErUngeUnder30,
@@ -121,7 +121,7 @@ export const hierarkiAvTagsForFilter: Record<AlleInkluderingsmuligheter, GruppeM
         ],
     },
 
-    [AlleInkluderingsmuligheter.StatligInkluderingsdugnad]: {
+    [Inkluderingsmulighet.StatligInkluderingsdugnad]: {
         subtags: [Tag.StatligInkluderingsdugnad],
     },
 };
@@ -134,5 +134,5 @@ export const hentSubtagsForMulighetForEksternStilling = (
     inkluderingsmulighet: InkluderingsmulighetForEksternStilling
 ) => hierarkiAvTagsForEksterneStillinger[inkluderingsmulighet].subtags;
 
-export const hentSubtagsForMulighetForFilter = (inkluderingsmulighet: AlleInkluderingsmuligheter) =>
+export const hentSubtagsForMulighetForFilter = (inkluderingsmulighet: Inkluderingsmulighet) =>
     hierarkiAvTagsForFilter[inkluderingsmulighet].subtags;
