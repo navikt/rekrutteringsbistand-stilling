@@ -17,10 +17,10 @@ import './Inkluderingsfilter.less';
 type Props = {
     checkTag: (tag: string) => void;
     uncheckTag: (tag: string) => void;
-    tags: string[];
+    tags: Tag[];
 };
 
-const loggFiltreringPåInkluderingstags = (tags) => {
+const loggFiltreringPåInkluderingstags = (tags: Tag[]) => {
     sendEvent('stillingssøk', 'filtrer_på_inkluderingstags', {
         tags,
     });
@@ -29,7 +29,7 @@ const loggFiltreringPåInkluderingstags = (tags) => {
 const InkluderingPanel: FunctionComponent<Props> = ({ tags = [], checkTag, uncheckTag }) => {
     const onTagChange = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.checked) {
-            loggFiltreringPåInkluderingstags([...tags, e.target.value]);
+            loggFiltreringPåInkluderingstags([...tags, e.target.value as Tag]);
         }
 
         e.target.checked ? checkTag(e.target.value) : uncheckTag(e.target.value);

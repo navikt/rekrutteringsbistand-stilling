@@ -120,13 +120,13 @@ export default function searchReducer(state = initialState, action) {
             return {
                 ...state,
                 page: 0,
-                tags: checkInkluderingstag(state.tags, action.value),
+                tags: [...state.tags, action.value],
             };
         case UNCHECK_TAG_SOK:
             return {
                 ...state,
                 page: 0,
-                tags: uncheckInkluderingstag(state.tags, action.value),
+                tags: state.tags.filter((tag) => tag !== action.value),
             };
         case FETCH_ADS_BEGIN:
             return {
