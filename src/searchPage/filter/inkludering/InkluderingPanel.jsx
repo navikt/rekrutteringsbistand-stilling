@@ -24,20 +24,20 @@ const InkluderingPanel = ({ tags, checkTag, uncheckTag }) => {
     const tagIsChecked = (tag) => tags.includes(tag);
     const kategorierMedNavn = hentGrupperMedTags();
 
-    return kategorierMedNavn.map(({ tag, navn, harSubtags, underkategorier }) => (
-        <Fragment key={tag}>
+    return kategorierMedNavn.map((gruppeMedTags) => (
+        <Fragment key={gruppeMedTags.tag}>
             <Checkbox
                 className="checkbox--tag--sok skjemaelement--pink"
-                id={`tag-${tag.toLowerCase()}-checkbox`}
-                label={navn}
-                key={tag}
-                value={tag}
-                checked={tagIsChecked(tag)}
+                id={`tag-${gruppeMedTags.tag.toLowerCase()}-checkbox`}
+                label={gruppeMedTags.navn}
+                key={gruppeMedTags.tag}
+                value={gruppeMedTags.tag}
+                checked={tagIsChecked(gruppeMedTags.tag)}
                 onChange={onTagChange}
             />
-            {harSubtags && tagIsChecked(tag) && (
-                <SkjemaGruppe legend={navn} className="SearchPage__subtags">
-                    {underkategorier.map(({ tag, navn }) => (
+            {gruppeMedTags.harSubtags && tagIsChecked(gruppeMedTags.tag) && (
+                <SkjemaGruppe legend={gruppeMedTags.navn} className="SearchPage__subtags">
+                    {gruppeMedTags.subtags.map(({ tag, navn }) => (
                         <Checkbox
                             className="checkbox--tag--sok skjemaelement--pink"
                             id={`tag-${tag.toLowerCase()}-checkbox`}
