@@ -5,6 +5,7 @@ export enum Tag {
     TilretteleggingArbeidshverdagen = 'INKLUDERING__ARBEIDSMILJØ',
     TilretteleggingGrunnleggende = 'INKLUDERING__GRUNNLEGGENDE',
 
+    Tiltak = 'TILTAK',
     TiltakLønnstilskudd = 'TILTAK__LØNNSTILSKUDD',
     TiltakMentortilskudd = 'TILTAK__MENTORTILSKUDD',
 
@@ -104,6 +105,7 @@ export const hierarkiAvTagsForFilter: Record<AlleInkluderingsmuligheter, GruppeM
     },
 
     [AlleInkluderingsmuligheter.TiltakEllerVirkemiddel]: {
+        hovedtag: Tag.Tiltak,
         subtags: [Tag.TiltakLønnstilskudd, Tag.TiltakMentortilskudd],
     },
 

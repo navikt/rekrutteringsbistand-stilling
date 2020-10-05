@@ -40,6 +40,7 @@ const InkluderingPanel: FunctionComponent<Props> = ({ tags = [], checkTag, unche
     const filterForTilretteleggingmuligheter = hentSubtagsForMulighetForFilter(
         AlleInkluderingsmuligheter.Tilrettelegging
     );
+
     const tilretteleggingHovedtag = hierarkiAvTagsForFilter[
         AlleInkluderingsmuligheter.Tilrettelegging
     ].hovedtag!;
@@ -47,6 +48,10 @@ const InkluderingPanel: FunctionComponent<Props> = ({ tags = [], checkTag, unche
     const filterForVirkemidler = hentSubtagsForMulighetForFilter(
         AlleInkluderingsmuligheter.TiltakEllerVirkemiddel
     );
+
+    const tiltakHovedtak = hierarkiAvTagsForFilter[
+        AlleInkluderingsmuligheter.TiltakEllerVirkemiddel
+    ].hovedtag!;
 
     const prioriterteMålgrupperHovedtag = hierarkiAvTagsForFilter[
         AlleInkluderingsmuligheter.PrioriterteMålgrupper
@@ -83,9 +88,17 @@ const InkluderingPanel: FunctionComponent<Props> = ({ tags = [], checkTag, unche
                 ))}
             </CheckboxGruppe>
             <CheckboxGruppe>
+                <Checkbox
+                    id={`tag-${tiltakHovedtak.toLowerCase()}-checkbox`}
+                    label={visningsnavnForFilter[tiltakHovedtak]}
+                    value={tiltakHovedtak}
+                    checked={tagIsChecked(tiltakHovedtak)}
+                    onChange={onTagChange}
+                />
                 <Skjemalegend>Muligheter for bruk av virkemidler</Skjemalegend>
                 {filterForVirkemidler.map((virkemiddel) => (
                     <Checkbox
+                        className="inkluderingsfilter__subtag"
                         id={`tag-${virkemiddel}-checkbox`}
                         key={virkemiddel}
                         label={visningsnavnForFilter[virkemiddel]}

@@ -23,6 +23,7 @@ export const visningsnavnForFilter: Record<Tag, string> = {
     [Tag.TilretteleggingArbeidshverdagen]: 'Arbeidshverdagen',
     [Tag.TilretteleggingGrunnleggende]: 'Utfordringer med norsk',
 
+    [Tag.Tiltak]: 'Alle tiltak eller virkemidler',
     [Tag.TiltakLønnstilskudd]: 'Lønnstilskudd',
     [Tag.TiltakMentortilskudd]: 'Mentor (tilskudd)',
 
