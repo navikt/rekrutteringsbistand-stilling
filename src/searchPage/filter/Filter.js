@@ -11,7 +11,7 @@ import {
 import AdStatusEnum from '../../common/enums/AdStatusEnum';
 import PrivacyStatusEnum from '../../common/enums/PrivacyStatusEnum';
 import FilterLocation from './location/FilterLocation';
-import InkluderingPanel from './inkludering/InkluderingPanel.tsx';
+import Inkluderingsfilter from './inkludering/Inkluderingsfilter.tsx';
 import { getAdStatusLabel, getPrivacyStatusLabel } from '../../common/enums/getEnumLabels';
 import Filterpanel from './Filterpanel';
 import { erDirektemeldtStilling } from '../../ad/adUtils';
@@ -129,7 +129,7 @@ const Filter = ({
             </Filterpanel>
             <FilterLocation />
             <Filterpanel label="Inkludering">
-                <InkluderingPanel />
+                <Inkluderingsfilter />
             </Filterpanel>
         </form>
     );

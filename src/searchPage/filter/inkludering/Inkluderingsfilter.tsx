@@ -1,17 +1,18 @@
-import React, { ChangeEvent, Fragment, FunctionComponent } from 'react';
+import React, { ChangeEvent, FunctionComponent } from 'react';
 import { connect } from 'react-redux';
+import { Checkbox, CheckboxGruppe } from 'nav-frontend-skjema';
+
 import { CHECK_TAG_SOK, UNCHECK_TAG_SOK } from '../../searchReducer';
-import { hentGrupperMedTags } from '../../../ad/tags';
-import { Checkbox, CheckboxGruppe, SkjemaGruppe } from 'nav-frontend-skjema';
 import { sendEvent } from '../../../amplitude';
 import {
     AlleInkluderingsmuligheter,
     hentSubtagsForMulighetForFilter,
     hierarkiAvTagsForFilter,
-    InkluderingsmulighetForEksternStilling,
+    Tag,
 } from '../../../ad/tags/hierarkiAvTags';
 import Skjemalegend from '../../../ad/edit/skjemaetikett/Skjemalegend';
 import { visningsnavnForFilter } from '../../../ad/tags/visningsnavnForTags';
+import './Inkluderingsfilter.less';
 
 type Props = {
     checkTag: (tag: string) => void;
@@ -34,8 +35,7 @@ const InkluderingPanel: FunctionComponent<Props> = ({ tags = [], checkTag, unche
         e.target.checked ? checkTag(e.target.value) : uncheckTag(e.target.value);
     };
 
-    const tagIsChecked = (tag) => tags.includes(tag);
-    const kategorierMedNavn = hentGrupperMedTags();
+    const tagIsChecked = (tag: Tag) => tags.includes(tag);
 
     const filterForTilretteleggingmuligheter = hentSubtagsForMulighetForFilter(
         AlleInkluderingsmuligheter.Tilrettelegging
@@ -47,6 +47,11 @@ const InkluderingPanel: FunctionComponent<Props> = ({ tags = [], checkTag, unche
     const filterForVirkemidler = hentSubtagsForMulighetForFilter(
         AlleInkluderingsmuligheter.TiltakEllerVirkemiddel
     );
+
+    const prioriterteMålgrupperHovedtag = hierarkiAvTagsForFilter[
+        AlleInkluderingsmuligheter.PrioriterteMålgrupper
+    ].hovedtag!;
+
     const filterForPrioriterteMålgrupper = hentSubtagsForMulighetForFilter(
         AlleInkluderingsmuligheter.PrioriterteMålgrupper
     );
@@ -55,7 +60,7 @@ const InkluderingPanel: FunctionComponent<Props> = ({ tags = [], checkTag, unche
     );
 
     return (
-        <>
+        <div className="inkluderingsfilter">
             <CheckboxGruppe>
                 <Skjemalegend>Muligheter for tilrettelegging</Skjemalegend>
                 <Checkbox
@@ -67,7 +72,7 @@ const InkluderingPanel: FunctionComponent<Props> = ({ tags = [], checkTag, unche
                 />
                 {filterForTilretteleggingmuligheter.map((mulighet) => (
                     <Checkbox
-                        className="InkluderingPanel_subtag"
+                        className="inkluderingsfilter__subtag"
                         id={`tag-${mulighet}-checkbox`}
                         key={mulighet}
                         label={visningsnavnForFilter[mulighet]}
@@ -77,35 +82,54 @@ const InkluderingPanel: FunctionComponent<Props> = ({ tags = [], checkTag, unche
                     />
                 ))}
             </CheckboxGruppe>
-            {/*{kategorierMedNavn.map(({ tag, navn, harSubtags, underkategorier }) => (*/}
-            {/*    <Fragment key={tag}>*/}
-            {/*        <Checkbox*/}
-            {/*            className="checkbox--tag--sok skjemaelement--pink"*/}
-            {/*            id={`tag-${tag.toLowerCase()}-checkbox`}*/}
-            {/*            label={navn}*/}
-            {/*            key={tag}*/}
-            {/*            value={tag}*/}
-            {/*            checked={tagIsChecked(tag)}*/}
-            {/*            onChange={onTagChange}*/}
-            {/*        />*/}
-            {/*        {harSubtags && tagIsChecked(tag) && (*/}
-            {/*            <SkjemaGruppe legend={navn} className="SearchPage__subtags">*/}
-            {/*                {underkategorier.map(({ tag, navn }) => (*/}
-            {/*                    <Checkbox*/}
-            {/*                        className="checkbox--tag--sok skjemaelement--pink"*/}
-            {/*                        id={`tag-${tag.toLowerCase()}-checkbox`}*/}
-            {/*                        label={navn}*/}
-            {/*                        key={tag}*/}
-            {/*                        value={tag}*/}
-            {/*                        checked={tagIsChecked(tag)}*/}
-            {/*                        onChange={onTagChange}*/}
-            {/*                    />*/}
-            {/*                ))}*/}
-            {/*            </SkjemaGruppe>*/}
-            {/*        )}*/}
-            {/*    </Fragment>*/}
-            {/*))}*/}
-        </>
+            <CheckboxGruppe>
+                <Skjemalegend>Muligheter for bruk av virkemidler</Skjemalegend>
+                {filterForVirkemidler.map((virkemiddel) => (
+                    <Checkbox
+                        id={`tag-${virkemiddel}-checkbox`}
+                        key={virkemiddel}
+                        label={visningsnavnForFilter[virkemiddel]}
+                        value={virkemiddel}
+                        checked={tagIsChecked(virkemiddel)}
+                        onChange={onTagChange}
+                    />
+                ))}
+            </CheckboxGruppe>
+            <CheckboxGruppe>
+                <Skjemalegend>Muligheter for prioriterte målgrupper</Skjemalegend>
+                <Checkbox
+                    id={`tag-${prioriterteMålgrupperHovedtag.toLowerCase()}-checkbox`}
+                    label={visningsnavnForFilter[prioriterteMålgrupperHovedtag]}
+                    value={prioriterteMålgrupperHovedtag}
+                    checked={tagIsChecked(prioriterteMålgrupperHovedtag)}
+                    onChange={onTagChange}
+                />
+                {filterForPrioriterteMålgrupper.map((målgruppe) => (
+                    <Checkbox
+                        className="inkluderingsfilter__subtag"
+                        id={`tag-${målgruppe}-checkbox`}
+                        key={målgruppe}
+                        label={visningsnavnForFilter[målgruppe]}
+                        value={målgruppe}
+                        checked={tagIsChecked(målgruppe)}
+                        onChange={onTagChange}
+                    />
+                ))}
+            </CheckboxGruppe>
+            <CheckboxGruppe>
+                <Skjemalegend>Arbeidsgiver er en del av</Skjemalegend>
+                {filterForStatligInkludering.map((tag) => (
+                    <Checkbox
+                        id={`tag-${tag}-checkbox`}
+                        key={tag}
+                        label={visningsnavnForFilter[tag]}
+                        value={tag}
+                        checked={tagIsChecked(tag)}
+                        onChange={onTagChange}
+                    />
+                ))}
+            </CheckboxGruppe>
+        </div>
     );
 };
 
@@ -116,8 +140,8 @@ const mapStateToProps = (state: any) => {
 };
 
 const mapDispatchToProps = (dispatch: any) => ({
-    checkTag: (value) => dispatch({ type: CHECK_TAG_SOK, value }),
-    uncheckTag: (value) => dispatch({ type: UNCHECK_TAG_SOK, value }),
+    checkTag: (tag: Tag) => dispatch({ type: CHECK_TAG_SOK, value: tag }),
+    uncheckTag: (tag: Tag) => dispatch({ type: UNCHECK_TAG_SOK, value: tag }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(InkluderingPanel);
