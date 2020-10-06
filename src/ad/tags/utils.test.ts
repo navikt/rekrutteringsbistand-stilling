@@ -43,8 +43,4 @@ describe('Registrere inkluderingsmuligheter på en stilling', () => {
             )
         ).toEqual(expect.arrayContaining([]));
     });
-
-    test('Eksempel på feilende test', () => {
-        expect(1).toBe(2);
-    });
 });
