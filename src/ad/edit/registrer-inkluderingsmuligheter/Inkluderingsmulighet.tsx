@@ -9,6 +9,7 @@ import {
 import Skjemalegend from '../skjemaetikett/Skjemalegend';
 import { visningsnavnForRegistrering } from '../../tags/visningsnavnForTags';
 import './Inkluderingsmulighet.less';
+import { HjelpetekstForInkluderingsmulighet } from './HjelpetekstForInkluderingsmulighet';
 
 type Props = {
     tittel: string;
@@ -31,7 +32,15 @@ const Inkluderingsmulighet: FunctionComponent<Props> = ({
 
     return (
         <CheckboxGruppe className="blokk-xs inkluderingsmulighet">
-            <Skjemalegend>{tittel}</Skjemalegend>
+            <Skjemalegend
+                hjelpetekst={
+                    <HjelpetekstForInkluderingsmulighet
+                        inkluderingsmulighet={inkluderingsmulighet}
+                    />
+                }
+            >
+                {tittel}
+            </Skjemalegend>
             {subtags.map((subtag) => (
                 <Checkbox
                     key={subtag}
