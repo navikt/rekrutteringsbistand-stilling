@@ -32,12 +32,14 @@ const FilterForMulighet: FunctionComponent<Props> = ({
     }
 
     const subtags = hentSubtagsForMulighetForFilter(inkluderingsmulighet);
+    const visSubtags = !hovedtag || tagIsChecked(hovedtag);
 
     return (
-        <CheckboxGruppe>
+        <CheckboxGruppe className="inkluderingsfilter__filter-for-mulighet">
             <Skjemalegend>{tittel}</Skjemalegend>
             {hovedtag && (
                 <Checkbox
+                    className="inkluderingsfilter__hovedtag"
                     id={`tag-${hovedtag.toLowerCase()}-checkbox`}
                     label={visningsnavnForFilter[hovedtag]}
                     value={hovedtag}
@@ -45,19 +47,20 @@ const FilterForMulighet: FunctionComponent<Props> = ({
                     onChange={onTagChange}
                 />
             )}
-            {subtags.map((tag) => (
-                <Checkbox
-                    className={classnames({
-                        inkluderingsfilter__subtag: visHovedtag,
-                    })}
-                    id={`tag-${tag}-checkbox`}
-                    key={tag}
-                    label={visningsnavnForFilter[tag]}
-                    value={tag}
-                    checked={tagIsChecked(tag)}
-                    onChange={onTagChange}
-                />
-            ))}
+            {visSubtags &&
+                subtags.map((tag) => (
+                    <Checkbox
+                        className={classnames({
+                            inkluderingsfilter__subtag: visHovedtag,
+                        })}
+                        id={`tag-${tag}-checkbox`}
+                        key={tag}
+                        label={visningsnavnForFilter[tag]}
+                        value={tag}
+                        checked={tagIsChecked(tag)}
+                        onChange={onTagChange}
+                    />
+                ))}
         </CheckboxGruppe>
     );
 };
