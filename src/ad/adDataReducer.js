@@ -12,7 +12,7 @@ import AdStatusEnum from '../common/enums/AdStatusEnum';
 import PrivacyStatusEnum from '../common/enums/PrivacyStatusEnum';
 import IsJson from './edit/practicalInformation/IsJson';
 import { isValidISOString } from '../utils';
-import { checkInkluderingstag, uncheckInkluderingstag } from './tags.ts';
+import { leggTilTagUnderRegistrering, fjernTagUnderRegistrering } from '../ad/tags/utils.ts';
 
 export const SET_AD_DATA = 'SET_AD_DATA';
 export const REMOVE_AD_DATA = 'REMOVE_AD_DATA';
@@ -569,7 +569,7 @@ export default function adDataReducer(state = initialState, action) {
                 privacy: action.privacy,
             };
         case CHECK_TAG: {
-            const tags = checkInkluderingstag(
+            const tags = leggTilTagUnderRegistrering(
                 IsJson(state.properties.tags) ? JSON.parse(state.properties.tags) : [],
                 action.value
             );
@@ -583,7 +583,7 @@ export default function adDataReducer(state = initialState, action) {
             };
         }
         case UNCHECK_TAG:
-            const tags = uncheckInkluderingstag(JSON.parse(state.properties.tags), action.value);
+            const tags = fjernTagUnderRegistrering(JSON.parse(state.properties.tags), action.value);
 
             return {
                 ...state,
