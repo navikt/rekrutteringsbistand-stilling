@@ -65,9 +65,9 @@ const PrioriterteMålgrupper = () => (
             Unge under 30 år er en målgruppe med høy prioritet i NAV. Tidlig og tett oppfølging er
             viktig for å hindre at unge blir stående utenfor arbeidslivet.
         </Normaltekst>
-        <Element tag="h3">Senior 50+</Element>
+        <Element tag="h3">Senior 45+</Element>
         <Normaltekst className="blokk-s">
-            Å få arbeidsgivere til å ansette og beholde personer som er 50+, er med på å forlenge
+            Å få arbeidsgivere til å ansette og beholde personer som er 45+, er med på å forlenge
             yrkeslivet og senkarrieren til kandidater. Ansettelse av seniorer bidrar til at vi har
             et inkluderende, kompetent og lønnsomt arbeidsliv.
         </Normaltekst>
