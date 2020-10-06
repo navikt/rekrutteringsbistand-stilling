@@ -8,8 +8,8 @@ import {
 } from '../../tags/hierarkiAvTags';
 import Skjemalegend from '../skjemaetikett/Skjemalegend';
 import { visningsnavnForRegistrering } from '../../tags/visningsnavnForTags';
-import './Inkluderingsmulighet.less';
 import { HjelpetekstForInkluderingsmulighet } from './HjelpetekstForInkluderingsmulighet';
+import './Inkluderingsmulighet.less';
 
 type Props = {
     tittel: string;
@@ -31,7 +31,7 @@ const Inkluderingsmulighet: FunctionComponent<Props> = ({
         : hentSubtagsForMulighetForDirektemeldtStilling(inkluderingsmulighet);
 
     return (
-        <CheckboxGruppe className="blokk-xs inkluderingsmulighet">
+        <CheckboxGruppe className="blokk-m inkluderingsmulighet">
             <Skjemalegend
                 hjelpetekst={
                     <HjelpetekstForInkluderingsmulighet
