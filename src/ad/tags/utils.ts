@@ -1,10 +1,11 @@
+import { Tag } from './hierarkiAvTags';
 export const TAG_HIERARCHY_SPACER = '__';
 
-export const leggTilTagUnderRegistrering = (tags: string[], nyTag: string): string[] => {
+export const leggTilTagUnderRegistrering = (tags: Tag[], nyTag: Tag): Tag[] => {
     const nyTagErSubtag = nyTag.includes(TAG_HIERARCHY_SPACER);
 
     if (nyTagErSubtag) {
-        const inkluderingsmulighet = nyTag.split(TAG_HIERARCHY_SPACER)[0];
+        const inkluderingsmulighet = nyTag.split(TAG_HIERARCHY_SPACER)[0] as Tag;
 
         if (!tags.includes(inkluderingsmulighet)) {
             tags.push(inkluderingsmulighet);
@@ -14,8 +15,8 @@ export const leggTilTagUnderRegistrering = (tags: string[], nyTag: string): stri
     return [...tags, nyTag];
 };
 
-export const fjernTagUnderRegistrering = (tags: string[], tagSomSkalFjernes: string): string[] => {
-    const inkluderingsmulighet = tagSomSkalFjernes.split(TAG_HIERARCHY_SPACER)[0];
+export const fjernTagUnderRegistrering = (tags: Tag[], tagSomSkalFjernes: Tag): Tag[] => {
+    const inkluderingsmulighet = tagSomSkalFjernes.split(TAG_HIERARCHY_SPACER)[0] as Tag;
     const erEnesteSubtagForInkluderingsmulighet =
         tags.filter((tag) => tag.startsWith(`${inkluderingsmulighet}${TAG_HIERARCHY_SPACER}`))
             .length === 1;
@@ -31,4 +32,18 @@ export const fjernTagUnderRegistrering = (tags: string[], tagSomSkalFjernes: str
 
     const tagsUtenomTagSomSkalFjernes = tags.filter((tag) => tag !== tagSomSkalFjernes);
     return tagsUtenomTagSomSkalFjernes;
+};
+
+export const leggTilTagIFilteret = (tags: Tag[], nyTag: Tag): Tag[] => [...tags, nyTag];
+
+export const fjernTagFraFilteret = (tags: Tag[], tagSomSkalFjernes: Tag): Tag[] => {
+    const erHovedtag = !tagSomSkalFjernes.includes(TAG_HIERARCHY_SPACER);
+
+    if (erHovedtag) {
+        const fjernSubtags = (tag: Tag) =>
+            !tag.startsWith(`${tagSomSkalFjernes}${TAG_HIERARCHY_SPACER}`);
+        tags = tags.filter(fjernSubtags);
+    }
+
+    return tags.filter((tag) => tag !== tagSomSkalFjernes);
 };

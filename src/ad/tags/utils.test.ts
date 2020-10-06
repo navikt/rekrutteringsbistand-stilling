@@ -1,5 +1,9 @@
 import { Tag } from './hierarkiAvTags';
-import { leggTilTagUnderRegistrering, fjernTagUnderRegistrering } from './utils';
+import {
+    leggTilTagUnderRegistrering,
+    fjernTagUnderRegistrering,
+    fjernTagFraFilteret,
+} from './utils';
 
 const utenTilretteleggingFysisk = [
     Tag.Målgruppe,
@@ -17,13 +21,13 @@ describe('Registrere inkluderingsmuligheter på en stilling', () => {
         ).toEqual(expect.arrayContaining(medTilretteleggingFysisk));
     });
 
-    test('Å legge til en subtag skal også legge til dens hovedtag', () => {
+    test('Å legge til en subtag legger til dens hovedtag', () => {
         expect(leggTilTagUnderRegistrering([], Tag.TilretteleggingFysisk)).toEqual(
             expect.arrayContaining([Tag.Tilrettelegging, Tag.TilretteleggingFysisk])
         );
     });
 
-    test('Å legge til en subtag skal ikke legge til dens hovedtag hvis den er registrert fra før', () => {
+    test('Å legge til en subtag legger ikke til dens hovedtag hvis den er registrert fra før', () => {
         expect(leggTilTagUnderRegistrering([Tag.Målgruppe], Tag.MålgruppeHullICVen)).toEqual(
             expect.arrayContaining([Tag.Målgruppe, Tag.MålgruppeHullICVen])
         );
@@ -35,11 +39,26 @@ describe('Registrere inkluderingsmuligheter på en stilling', () => {
         ).toEqual(expect.arrayContaining(utenTilretteleggingFysisk));
     });
 
-    test('Fjerning av siste subtag innen en inkluderingsmulighet skal også fjerne dens hovedtag', () => {
+    test('Fjerning av siste subtag innen en inkluderingsmulighet fjerner også dens hovedtag', () => {
         expect(
             fjernTagUnderRegistrering(
                 [Tag.Målgruppe, Tag.MålgruppeErUngeUnder30],
                 Tag.MålgruppeErUngeUnder30
+            )
+        ).toEqual(expect.arrayContaining([]));
+    });
+});
+
+describe('Filtrering på inkluderingsmuligheter', () => {
+    test('Fjerning av en hovedtag fjerner også subtags', () => {
+        expect(
+            fjernTagFraFilteret(
+                [
+                    Tag.Tilrettelegging,
+                    Tag.TilretteleggingArbeidshverdagen,
+                    Tag.TilretteleggingFysisk,
+                ],
+                Tag.Tilrettelegging
             )
         ).toEqual(expect.arrayContaining([]));
     });

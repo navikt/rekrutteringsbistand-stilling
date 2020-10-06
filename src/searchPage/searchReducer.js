@@ -1,4 +1,5 @@
 import { put, select, takeLatest } from 'redux-saga/effects';
+import { fjernTagFraFilteret, leggTilTagIFilteret } from '../ad/tags/utils';
 import { ApiError, fetchAds } from '../api/api';
 import AdminStatusEnum from '../common/enums/AdminStatusEnum';
 import PrivacyStatusEnum from '../common/enums/PrivacyStatusEnum';
@@ -119,13 +120,13 @@ export default function searchReducer(state = initialState, action) {
             return {
                 ...state,
                 page: 0,
-                tags: [...state.tags, action.value],
+                tags: leggTilTagIFilteret(state.tags, action.value),
             };
         case UNCHECK_TAG_SOK:
             return {
                 ...state,
                 page: 0,
-                tags: state.tags.filter((tag) => tag !== action.value),
+                tags: fjernTagFraFilteret(state.tags, action.value),
             };
         case FETCH_ADS_BEGIN:
             return {
