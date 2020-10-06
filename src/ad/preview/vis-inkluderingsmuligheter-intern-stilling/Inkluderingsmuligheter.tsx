@@ -11,58 +11,56 @@ interface Props {
     registrerteTags: Tag[];
 }
 
-const Inkluderingsmuligheter: FunctionComponent<Props> = ({ registrerteTags }) => {
-    const tagsInnenTilrettelegging = hentSubtagsForMulighetForDirektemeldtStilling(
-        InkluderingsmulighetForDirektemeldtStilling.Tilrettelegging
-    ).filter((tag) => registrerteTags.includes(tag));
+const Inkluderingsmuligheter: FunctionComponent<Props> = ({ registrerteTags }) => (
+    <>
+        <Tags
+            tittel="Arbeidsgiver kan tilrettelegge for"
+            alleTags={registrerteTags}
+            inkluderingsmulighet={InkluderingsmulighetForDirektemeldtStilling.Tilrettelegging}
+        />
+        <Tags
+            tittel="Arbeidsgiveren er åpen for kandidater som"
+            alleTags={registrerteTags}
+            inkluderingsmulighet={InkluderingsmulighetForDirektemeldtStilling.PrioriterteMålgrupper}
+        />
+        <Tags
+            tittel="Arbeidsgiveren kan tilrettelegge for"
+            alleTags={registrerteTags}
+            inkluderingsmulighet={
+                InkluderingsmulighetForDirektemeldtStilling.TiltakEllerVirkemiddel
+            }
+        />
+    </>
+);
 
-    const tagsInnenPrioriterteMålgrupper = hentSubtagsForMulighetForDirektemeldtStilling(
-        InkluderingsmulighetForDirektemeldtStilling.PrioriterteMålgrupper
-    ).filter((tag) => registrerteTags.includes(tag));
+const Tags = ({
+    alleTags,
+    tittel,
+    inkluderingsmulighet,
+}: {
+    alleTags: Tag[];
+    tittel: string;
+    inkluderingsmulighet: InkluderingsmulighetForDirektemeldtStilling;
+}) => {
+    const tagsInnenMulighet = hentSubtagsForMulighetForDirektemeldtStilling(
+        inkluderingsmulighet
+    ).filter((tag) => alleTags.includes(tag));
 
-    const tagsInnenTiltakEllerVirkemidler = hentSubtagsForMulighetForDirektemeldtStilling(
-        InkluderingsmulighetForDirektemeldtStilling.TiltakEllerVirkemiddel
-    ).filter((tag) => registrerteTags.includes(tag));
+    if (tagsInnenMulighet.length === 0) {
+        return null;
+    }
 
     return (
-        <>
-            {tagsInnenTilrettelegging.length > 0 && (
-                <div className="blokk-s">
-                    <Element>Arbeidsgiver kan tilrettelegge for</Element>
-                    <ul className="vis-inkluderingsmuligheter-intern-stilling__tagliste">
-                        {tagsInnenTilrettelegging.map((tag) => (
-                            <Normaltekst tag="li" key={tag}>
-                                {visningsnavnForRegistrering[tag]}
-                            </Normaltekst>
-                        ))}
-                    </ul>
-                </div>
-            )}
-            {tagsInnenPrioriterteMålgrupper.length > 0 && (
-                <div className="blokk-s">
-                    <Element>Arbeidsgiveren er åpen for kandidater som </Element>
-                    <ul className="vis-inkluderingsmuligheter-intern-stilling__tagliste">
-                        {tagsInnenPrioriterteMålgrupper.map((tag) => (
-                            <Normaltekst tag="li" key={tag}>
-                                {visningsnavnForRegistrering[tag]}
-                            </Normaltekst>
-                        ))}
-                    </ul>
-                </div>
-            )}
-            {tagsInnenTiltakEllerVirkemidler.length > 0 && (
-                <div className="blokk-s">
-                    <Element>Arbeidsgiveren er åpen for kandidater som </Element>
-                    <ul className="vis-inkluderingsmuligheter-intern-stilling__tagliste">
-                        {tagsInnenTiltakEllerVirkemidler.map((tag) => (
-                            <Normaltekst tag="li" key={tag}>
-                                {visningsnavnForRegistrering[tag]}
-                            </Normaltekst>
-                        ))}
-                    </ul>
-                </div>
-            )}
-        </>
+        <div className="vis-inkluderingsmuligheter-intern-stilling__inkluderingsmulighet">
+            <Element>{tittel}</Element>
+            <ul className="vis-inkluderingsmuligheter-intern-stilling__tagliste">
+                {tagsInnenMulighet.map((tag) => (
+                    <Normaltekst tag="li" key={tag}>
+                        {visningsnavnForRegistrering[tag]}
+                    </Normaltekst>
+                ))}
+            </ul>
+        </div>
     );
 };
 

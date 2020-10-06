@@ -1,15 +1,19 @@
 @import 'src/variables.less';
 
-.registrer-inkluderingsmuligheter-intern-stilling {
+.registrer-inkluderingsmuligheter-direktemeldt-stilling {
     background-color: #e3edf8;
+
+    &__inkluderingsmuligheter {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .inkluderingsmulighet {
+        margin-right: 3rem;
+    }
 
     &__subtags.skjemagruppe {
         padding-left: 1.5rem;
-    }
-
-    .ekspanderbartPanel {
-        &__hode {
-            background-color: #e3edf8;
-        }
     }
 }

@@ -27,7 +27,7 @@ const DirektemeldtStilling: FunctionComponent<Props> = ({ tags, checkTag, unchec
         <Ekspanderbartpanel
             border
             apen
-            className="registrer-inkluderingsmuligheter-intern-stilling blokk-s"
+            className="registrer-inkluderingsmuligheter-direktemeldt-stilling blokk-s"
             tittel={
                 <>
                     <Undertittel className="blokk-xxxs">Muligheter for å inkludere</Undertittel>
@@ -38,28 +38,34 @@ const DirektemeldtStilling: FunctionComponent<Props> = ({ tags, checkTag, unchec
                 </>
             }
         >
-            <Inkluderingsmulighet
-                tittel="Arbeidsgiver kan tilrettelegge for"
-                inkluderingsmulighet={InkluderingsmulighetForDirektemeldtStilling.Tilrettelegging}
-                tagIsChecked={tagIsChecked}
-                onTagChange={onTagChange}
-            />
-            <Inkluderingsmulighet
-                tittel="Arbeidsgiver er åpen for kandidater som"
-                inkluderingsmulighet={
-                    InkluderingsmulighetForDirektemeldtStilling.PrioriterteMålgrupper
-                }
-                tagIsChecked={tagIsChecked}
-                onTagChange={onTagChange}
-            />
-            <Inkluderingsmulighet
-                tittel="Arbeidsgiver kan tilrettelegge for"
-                inkluderingsmulighet={
-                    InkluderingsmulighetForDirektemeldtStilling.TiltakEllerVirkemiddel
-                }
-                tagIsChecked={tagIsChecked}
-                onTagChange={onTagChange}
-            />
+            <div className="registrer-inkluderingsmuligheter-direktemeldt-stilling__inkluderingsmuligheter">
+                <div>
+                    <Inkluderingsmulighet
+                        tittel="Arbeidsgiver kan tilrettelegge for"
+                        inkluderingsmulighet={
+                            InkluderingsmulighetForDirektemeldtStilling.Tilrettelegging
+                        }
+                        tagIsChecked={tagIsChecked}
+                        onTagChange={onTagChange}
+                    />
+                    <Inkluderingsmulighet
+                        tittel="Arbeidsgiver kan tilrettelegge for"
+                        inkluderingsmulighet={
+                            InkluderingsmulighetForDirektemeldtStilling.TiltakEllerVirkemiddel
+                        }
+                        tagIsChecked={tagIsChecked}
+                        onTagChange={onTagChange}
+                    />
+                </div>
+                <Inkluderingsmulighet
+                    tittel="Arbeidsgiver er åpen for kandidater som"
+                    inkluderingsmulighet={
+                        InkluderingsmulighetForDirektemeldtStilling.PrioriterteMålgrupper
+                    }
+                    tagIsChecked={tagIsChecked}
+                    onTagChange={onTagChange}
+                />
+            </div>
         </Ekspanderbartpanel>
     );
 };
