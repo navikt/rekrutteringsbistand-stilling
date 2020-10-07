@@ -53,7 +53,7 @@ const TiltakEllerVirkemiddel = () => (
 const PrioriterteMålgrupper = () => (
     <>
         <Undertittel className="blokk-xxs">
-            Har arbeidsgiveren et ekstra engasjement for enkelte målgrupper?{' '}
+            Har arbeidsgiveren et ekstra engasjement for enkelte målgrupper?
         </Undertittel>
         <Normaltekst className="blokk-s">
             Arbeidsgivere kan ha et ekstra engasjement eller interesse for enkelte målgrupper som de
