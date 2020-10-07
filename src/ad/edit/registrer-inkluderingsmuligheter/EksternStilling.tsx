@@ -6,6 +6,8 @@ import isJson from '../practicalInformation/IsJson';
 import { CHECK_TAG, UNCHECK_TAG } from '../../adDataReducer';
 import { InkluderingsmulighetForEksternStilling } from '../../tags/hierarkiAvTags';
 import Inkluderingsmulighet from './Inkluderingsmulighet';
+import { Inkluderingsmulighet as AlleInkluderingsmuligheter } from '../../../ad/tags/hierarkiAvTags';
+import { HjelpetekstForInkluderingsmulighet } from './HjelpetekstForInkluderingsmulighet';
 import './EksternStilling.less';
 
 type Props = {
@@ -31,6 +33,11 @@ const EksternStilling: FunctionComponent<Props> = ({ tags, checkTag, uncheckTag 
                 tittel="Arbeidsgiver ønsker å tilrettelegge"
                 onTagChange={onTagChange}
                 inkluderingsmulighet={InkluderingsmulighetForEksternStilling.Tilrettelegging}
+                hjelpetekst={
+                    <HjelpetekstForInkluderingsmulighet
+                        inkluderingsmulighet={AlleInkluderingsmuligheter.Tilrettelegging}
+                    />
+                }
                 tagIsChecked={tagIsChecked}
                 className="blokk-s"
             />

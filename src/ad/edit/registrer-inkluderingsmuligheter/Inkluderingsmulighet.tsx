@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FunctionComponent } from 'react';
+import React, { ChangeEvent, FunctionComponent, ReactNode } from 'react';
 import { Checkbox, CheckboxGruppe } from 'nav-frontend-skjema';
 import classnames from 'classnames';
 
@@ -18,6 +18,7 @@ type Props = {
     inkluderingsmulighet: any;
     onTagChange: (event: ChangeEvent<HTMLInputElement>) => void;
     tagIsChecked: (tag: Tag) => boolean;
+    hjelpetekst?: ReactNode;
     className?: string;
 };
 
@@ -27,6 +28,7 @@ const Inkluderingsmulighet: FunctionComponent<Props> = ({
     inkluderingsmulighet,
     tagIsChecked,
     onTagChange,
+    hjelpetekst,
     className,
 }) => {
     const subtags = eksternStilling
@@ -35,15 +37,7 @@ const Inkluderingsmulighet: FunctionComponent<Props> = ({
 
     return (
         <CheckboxGruppe className={classnames('inkluderingsmulighet', className)}>
-            <Skjemalegend
-                hjelpetekst={
-                    <HjelpetekstForInkluderingsmulighet
-                        inkluderingsmulighet={inkluderingsmulighet}
-                    />
-                }
-            >
-                {tittel}
-            </Skjemalegend>
+            <Skjemalegend hjelpetekst={hjelpetekst}>{tittel}</Skjemalegend>
             {subtags.map((subtag) => (
                 <Checkbox
                     key={subtag}

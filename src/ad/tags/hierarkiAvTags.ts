@@ -21,21 +21,21 @@ export enum Tag {
 }
 
 export enum InkluderingsmulighetForDirektemeldtStilling {
-    Tilrettelegging,
-    TiltakEllerVirkemiddel,
-    PrioriterteMålgrupper,
+    Tilrettelegging = Tag.Tilrettelegging,
+    TiltakEllerVirkemiddel = Tag.Tiltak,
+    PrioriterteMålgrupper = Tag.Målgruppe,
 }
 
 export enum InkluderingsmulighetForEksternStilling {
-    Tilrettelegging,
-    StatligInkluderingsdugnad,
+    Tilrettelegging = Tag.Tilrettelegging,
+    StatligInkluderingsdugnad = Tag.StatligInkluderingsdugnad,
 }
 
 export enum Inkluderingsmulighet {
-    Tilrettelegging,
-    TiltakEllerVirkemiddel,
-    PrioriterteMålgrupper,
-    StatligInkluderingsdugnad,
+    Tilrettelegging = Tag.Tilrettelegging,
+    TiltakEllerVirkemiddel = Tag.Tiltak,
+    PrioriterteMålgrupper = Tag.Målgruppe,
+    StatligInkluderingsdugnad = Tag.StatligInkluderingsdugnad,
 }
 
 type GruppeMedTags = {

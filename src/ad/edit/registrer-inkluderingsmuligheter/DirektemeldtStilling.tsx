@@ -7,6 +7,8 @@ import { CHECK_TAG, UNCHECK_TAG } from '../../adDataReducer';
 import { InkluderingsmulighetForDirektemeldtStilling, Tag } from '../../tags/hierarkiAvTags';
 import isJson from '../practicalInformation/IsJson';
 import Inkluderingsmulighet from './Inkluderingsmulighet';
+import { Inkluderingsmulighet as AlleInkluderingsmuligheter } from '../../../ad/tags/hierarkiAvTags';
+import { HjelpetekstForInkluderingsmulighet } from './HjelpetekstForInkluderingsmulighet';
 import './DirektemeldtStilling.less';
 
 type Props = {
@@ -45,6 +47,11 @@ const DirektemeldtStilling: FunctionComponent<Props> = ({ tags, checkTag, unchec
                         inkluderingsmulighet={
                             InkluderingsmulighetForDirektemeldtStilling.Tilrettelegging
                         }
+                        hjelpetekst={
+                            <HjelpetekstForInkluderingsmulighet
+                                inkluderingsmulighet={AlleInkluderingsmuligheter.Tilrettelegging}
+                            />
+                        }
                         tagIsChecked={tagIsChecked}
                         onTagChange={onTagChange}
                         className="blokk-m"
@@ -53,6 +60,13 @@ const DirektemeldtStilling: FunctionComponent<Props> = ({ tags, checkTag, unchec
                         tittel="Arbeidsgiver kan tilrettelegge for"
                         inkluderingsmulighet={
                             InkluderingsmulighetForDirektemeldtStilling.TiltakEllerVirkemiddel
+                        }
+                        hjelpetekst={
+                            <HjelpetekstForInkluderingsmulighet
+                                inkluderingsmulighet={
+                                    AlleInkluderingsmuligheter.TiltakEllerVirkemiddel
+                                }
+                            />
                         }
                         tagIsChecked={tagIsChecked}
                         onTagChange={onTagChange}
@@ -63,6 +77,11 @@ const DirektemeldtStilling: FunctionComponent<Props> = ({ tags, checkTag, unchec
                     tittel="Arbeidsgiver er åpen for kandidater som"
                     inkluderingsmulighet={
                         InkluderingsmulighetForDirektemeldtStilling.PrioriterteMålgrupper
+                    }
+                    hjelpetekst={
+                        <HjelpetekstForInkluderingsmulighet
+                            inkluderingsmulighet={AlleInkluderingsmuligheter.PrioriterteMålgrupper}
+                        />
                     }
                     tagIsChecked={tagIsChecked}
                     onTagChange={onTagChange}
