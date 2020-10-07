@@ -102,6 +102,8 @@ export const DEFAULT_TITLE_NEW_AD = 'Ny stilling';
 export const LEGG_TIL_I_MINE_STILLINGER = 'LEGG_TIL_I_MINE_STILLINGER';
 export const MARKER_SOM_MIN = 'MARKER_SOM_MIN';
 
+export const TOGGLE_KAN_IKKE_INKLUDERE = 'TOGGLE_KAN_IKKE_INKLUDERE';
+
 const initialState = {
     error: undefined,
     isSavingAd: false,
@@ -119,6 +121,7 @@ const initialState = {
     showAdSavedErrorModal: false,
     hasChangesLeaveUrl: undefined,
     leavePageTrigger: false,
+    kanIkkeInkludere: false,
 };
 
 export default function adReducer(state = initialState, action) {
@@ -289,6 +292,11 @@ export default function adReducer(state = initialState, action) {
             return {
                 ...state,
                 leavePageTrigger: true,
+            };
+        case TOGGLE_KAN_IKKE_INKLUDERE:
+            return {
+                ...state,
+                kanIkkeInkludere: action.kanIkkeInkludere,
             };
 
         default:

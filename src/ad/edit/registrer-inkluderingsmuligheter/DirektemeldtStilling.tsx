@@ -1,28 +1,41 @@
 import React, { ChangeEvent, FunctionComponent } from 'react';
 import { connect } from 'react-redux';
+import { Checkbox, CheckboxGruppe } from 'nav-frontend-skjema';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 
 import { CHECK_TAG, UNCHECK_TAG } from '../../adDataReducer';
-import { InkluderingsmulighetForDirektemeldtStilling, Tag } from '../../tags/hierarkiAvTags';
-import isJson from '../practicalInformation/IsJson';
-import Inkluderingsmulighet from './Inkluderingsmulighet';
-import { Inkluderingsmulighet as AlleInkluderingsmuligheter } from '../../../ad/tags/hierarkiAvTags';
 import { HjelpetekstForInkluderingsmulighet } from './HjelpetekstForInkluderingsmulighet';
-import './DirektemeldtStilling.less';
-import { Checkbox, CheckboxGruppe } from 'nav-frontend-skjema';
+import { Inkluderingsmulighet as AlleInkluderingsmuligheter } from '../../../ad/tags/hierarkiAvTags';
+import { InkluderingsmulighetForDirektemeldtStilling, Tag } from '../../tags/hierarkiAvTags';
+import { TOGGLE_KAN_IKKE_INKLUDERE } from '../../adReducer';
+import Inkluderingsmulighet from './Inkluderingsmulighet';
+import isJson from '../practicalInformation/IsJson';
 import Skjemalegend from '../skjemaetikett/Skjemalegend';
+import './DirektemeldtStilling.less';
 
 type Props = {
     tags?: string;
     checkTag: (tag: string) => void;
     uncheckTag: (tag: string) => void;
+    kanIkkeInkludere: boolean;
+    toggleKanIkkeInkludere: (kanIkkeInkludere: boolean) => void;
     source: string;
 };
 
-const DirektemeldtStilling: FunctionComponent<Props> = ({ tags, checkTag, uncheckTag }) => {
+const DirektemeldtStilling: FunctionComponent<Props> = ({
+    tags,
+    checkTag,
+    uncheckTag,
+    kanIkkeInkludere,
+    toggleKanIkkeInkludere,
+}) => {
     const onTagChange = (e: ChangeEvent<HTMLInputElement>) => {
         e.target.checked ? checkTag(e.target.value) : uncheckTag(e.target.value);
+    };
+
+    const onKanIkkeInkludereChange = (e: ChangeEvent<HTMLInputElement>) => {
+        toggleKanIkkeInkludere(e.target.checked);
     };
 
     const tagIsChecked = (tag: string) => tags && isJson(tags) && JSON.parse(tags).includes(tag);
@@ -95,7 +108,11 @@ const DirektemeldtStilling: FunctionComponent<Props> = ({ tags, checkTag, unchec
             </div>
             <CheckboxGruppe>
                 <Skjemalegend>Ikke mulighet til å inkludere?</Skjemalegend>
-                <Checkbox label="Nei, arbeidsgiver kan ikke inkludere for denne stillingen" />
+                <Checkbox
+                    checked={kanIkkeInkludere}
+                    onChange={onKanIkkeInkludereChange}
+                    label="Nei, arbeidsgiver kan ikke inkludere for denne stillingen"
+                />
             </CheckboxGruppe>
         </Ekspanderbartpanel>
     );
@@ -103,12 +120,15 @@ const DirektemeldtStilling: FunctionComponent<Props> = ({ tags, checkTag, unchec
 
 const mapStateToProps = (state: any) => ({
     tags: state.adData.properties.tags || '[]',
+    kanIkkeInkludere: state.ad.kanIkkeInkludere,
     source: state.adData.source,
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
     checkTag: (value: Tag) => dispatch({ type: CHECK_TAG, value }),
     uncheckTag: (value: Tag) => dispatch({ type: UNCHECK_TAG, value }),
+    toggleKanIkkeInkludere: (kanIkkeInkludere: boolean) =>
+        dispatch({ type: TOGGLE_KAN_IKKE_INKLUDERE, kanIkkeInkludere }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DirektemeldtStilling);
