@@ -13,6 +13,7 @@ import Inkluderingsmulighet from './Inkluderingsmulighet';
 import isJson from '../practicalInformation/IsJson';
 import Skjemalegend from '../skjemaetikett/Skjemalegend';
 import './DirektemeldtStilling.less';
+import State from '../../../State';
 
 type Props = {
     tags?: string;
@@ -121,7 +122,7 @@ const DirektemeldtStilling: FunctionComponent<Props> = ({
     );
 };
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: State) => ({
     tags: state.adData.properties.tags || '[]',
     kanIkkeInkludere: state.ad.kanIkkeInkludere,
     feilmelding: state.adValidation.errors.inkluderingsmuligheter,

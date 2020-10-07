@@ -33,6 +33,7 @@ import {
 
 import { SET_NOTAT } from '../stillingsinfo/stillingsinfoDataReducer';
 import isJson from './edit/practicalInformation/IsJson';
+import State from '../State';
 
 const ADD_VALIDATION_ERROR = 'ADD_VALIDATION_ERROR';
 const REMOVE_VALIDATION_ERROR = 'REMOVE_VALIDATION_ERROR';
@@ -352,7 +353,7 @@ function* validateWorkday() {
 }
 
 function* validateWorkhours() {
-    const state = yield select();
+    const state: State = yield select();
     const { workhours } = state.adData.properties;
 
     if (valueIsNotSet(workhours) || !IsJson(workhours) || valueIsNotSet(JSON.parse(workhours))) {
@@ -469,6 +470,10 @@ export function hasValidationErrorsOnSave(validation) {
         validation.notat !== undefined
     );
 }
+
+export type AdValidationState = {
+    errors: Record<string, string | undefined>;
+};
 
 const initialState = {
     errors: {},

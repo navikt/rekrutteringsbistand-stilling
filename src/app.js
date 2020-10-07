@@ -22,7 +22,7 @@ import SearchPage from './searchPage/SearchPage';
 import MyAds from './myAds/MyAds';
 import reporteeReducer, { FETCH_REPORTEE, reporteeSaga } from './reportee/reporteeReducer';
 import adDataReducer, { adDataSaga } from './ad/adDataReducer';
-import adValidationReducer, { validationSaga } from './ad/adValidationReducer';
+import adValidationReducer, { validationSaga } from './ad/adValidationReducer.ts';
 import savedSearchAlertStripeReducer from './ad/alertstripe/SavedAdAlertStripeReducer';
 import myAdsReducer, { myAdsSaga } from './myAds/myAdsReducer';
 import history from './history';
