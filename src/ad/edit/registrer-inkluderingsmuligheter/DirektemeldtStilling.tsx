@@ -1,7 +1,7 @@
 import React, { ChangeEvent, FunctionComponent } from 'react';
 import { connect } from 'react-redux';
 import { Checkbox, CheckboxGruppe } from 'nav-frontend-skjema';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { Feilmelding, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 
 import { CHECK_TAG, UNCHECK_TAG } from '../../adDataReducer';
@@ -20,6 +20,7 @@ type Props = {
     uncheckTag: (tag: string) => void;
     kanIkkeInkludere: boolean;
     toggleKanIkkeInkludere: (kanIkkeInkludere: boolean) => void;
+    feilmelding?: string;
     source: string;
 };
 
@@ -29,6 +30,7 @@ const DirektemeldtStilling: FunctionComponent<Props> = ({
     uncheckTag,
     kanIkkeInkludere,
     toggleKanIkkeInkludere,
+    feilmelding,
 }) => {
     const onTagChange = (e: ChangeEvent<HTMLInputElement>) => {
         e.target.checked ? checkTag(e.target.value) : uncheckTag(e.target.value);
@@ -114,6 +116,7 @@ const DirektemeldtStilling: FunctionComponent<Props> = ({
                     label="Nei, arbeidsgiver kan ikke inkludere for denne stillingen"
                 />
             </CheckboxGruppe>
+            {feilmelding && <Feilmelding>{feilmelding}</Feilmelding>}
         </Ekspanderbartpanel>
     );
 };
@@ -121,6 +124,7 @@ const DirektemeldtStilling: FunctionComponent<Props> = ({
 const mapStateToProps = (state: any) => ({
     tags: state.adData.properties.tags || '[]',
     kanIkkeInkludere: state.ad.kanIkkeInkludere,
+    feilmelding: state.adValidation.errors.inkluderingsmuligheter,
     source: state.adData.source,
 });
 

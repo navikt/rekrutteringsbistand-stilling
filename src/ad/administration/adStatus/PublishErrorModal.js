@@ -28,7 +28,7 @@ class PublishErrorModal extends React.Component {
                     <Normaltekst className="blokk-s">
                         Stillingen kan ikke publiseres før følgende feil er rettet:
                     </Normaltekst>
-                    <ul className="blokk-s">
+                    <Normaltekst tag="ul" className="blokk-s">
                         {Object.keys(validation).map(
                             (key) =>
                                 validation[key] && (
@@ -37,7 +37,7 @@ class PublishErrorModal extends React.Component {
                                     </li>
                                 )
                         )}
-                    </ul>
+                    </Normaltekst>
                     <Hovedknapp onClick={this.onClose}>Lukk</Hovedknapp>
                 </NavFrontendModal>
             )

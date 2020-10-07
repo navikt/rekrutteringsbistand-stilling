@@ -32,6 +32,7 @@ import {
 } from './adDataReducer';
 
 import { SET_NOTAT } from '../stillingsinfo/stillingsinfoDataReducer';
+import isJson from './edit/practicalInformation/IsJson';
 
 const ADD_VALIDATION_ERROR = 'ADD_VALIDATION_ERROR';
 const REMOVE_VALIDATION_ERROR = 'REMOVE_VALIDATION_ERROR';
@@ -365,6 +366,36 @@ function* validateWorkhours() {
     }
 }
 
+function* validateInkluderingsmuligheter() {
+    const state = yield select();
+    const { kanIkkeInkludere } = state.ad;
+    const { tags } = state.adData.properties;
+
+    if (kanIkkeInkludere) {
+        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'inkluderingsmuligheter' });
+    } else {
+        const tagsErArray = isJson(tags) && Array.isArray(JSON.parse(tags));
+
+        if (!tagsErArray) {
+            yield put({
+                type: ADD_VALIDATION_ERROR,
+                field: 'inkluderingsmuligheter',
+                message: 'Mulighet for inkludering mangler – velg én eller flere',
+            });
+        } else {
+            if (JSON.parse(tags).length === 0) {
+                yield put({
+                    type: ADD_VALIDATION_ERROR,
+                    field: 'inkluderingsmuligheter',
+                    message: 'Mulighet for inkludering mangler – velg én eller flere',
+                });
+            } else {
+                yield put({ type: REMOVE_VALIDATION_ERROR, field: 'inkluderingsmuligheter' });
+            }
+        }
+    }
+}
+
 export function* validateAll() {
     const state = yield select();
     if (state.adData !== null) {
@@ -386,6 +417,7 @@ export function* validateAll() {
         yield validateSector();
         yield validateWorkday();
         yield validateWorkhours();
+        yield validateInkluderingsmuligheter();
     }
 }
 
@@ -408,7 +440,8 @@ export function hasValidationErrors(validation) {
         validation.extent !== undefined ||
         validation.sector !== undefined ||
         validation.workday !== undefined ||
-        validation.workhours !== undefined
+        validation.workhours !== undefined ||
+        validation.inkluderingsmuligheter !== undefined
     );
 }
 
