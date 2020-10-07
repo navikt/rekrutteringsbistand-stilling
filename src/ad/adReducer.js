@@ -39,7 +39,7 @@ import {
     SET_NOTAT,
     SET_STILLINGSINFO_DATA,
 } from '../stillingsinfo/stillingsinfoDataReducer';
-import { loggPubliseringAvStilling } from './adUtils';
+import { erDirektemeldtStilling, loggPubliseringAvStilling } from './adUtils';
 
 export const FETCH_AD = 'FETCH_AD';
 export const FETCH_AD_BEGIN = 'FETCH_AD_BEGIN';

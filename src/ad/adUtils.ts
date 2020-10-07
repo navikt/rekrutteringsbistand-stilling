@@ -26,7 +26,7 @@ const loggInkluderingstagsHvisDefinert = (stillingsId: string, alleTags: string)
 };
 
 export const loggPubliseringAvStilling = (stillingsId: string, alleTags: string) => {
-    sendEvent('stilling', 'publiser_stilling');
+    sendEvent('stilling', 'publiser_direktemeldt_stilling');
     loggInkluderingstagsHvisDefinert(stillingsId, alleTags);
 };
 
