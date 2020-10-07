@@ -5,25 +5,25 @@ export enum Tag {
     TilretteleggingArbeidshverdagen = 'INKLUDERING__ARBEIDSMILJØ',
     TilretteleggingGrunnleggende = 'INKLUDERING__GRUNNLEGGENDE',
 
-    Tiltak = 'TILTAK',
-    TiltakLønnstilskudd = 'TILTAK__LØNNSTILSKUDD',
-    TiltakMentortilskudd = 'TILTAK__MENTORTILSKUDD',
+    TiltakEllerVirkemiddel = 'TILTAK_ELLER_VIRKEMIDDEL',
+    VirkemiddelLønnstilskudd = 'TILTAK_ELLER_VIRKEMIDDEL__LØNNSTILSKUDD',
+    VirkemiddelMentortilskudd = 'TILTAK_ELLER_VIRKEMIDDEL__MENTORTILSKUDD',
 
-    Målgruppe = 'MÅLGRUPPE',
-    MålgruppeErUngeUnder30 = 'MÅLGRUPPE__ER_UNGE_UNDER_30',
-    MålgruppeErSeniorerOver45 = 'MÅLGRUPPE__ER_SENIORER_OVER_45',
-    MålgruppeKommerFraLandUtenforEØS = 'MÅLGRUPPE__KOMMER_FRA_LAND_UTENFOR_EØS',
-    MålgruppeHullICVen = 'MÅLGRUPPE__HULL_I_CV_EN',
-    MålgruppeLiteEllerIngenUtdanning = 'MÅLGRUPPE__LITE_ELLER_INGEN_UTDANNING',
-    MålgruppeLiteEllerIngenArbeidserfaring = 'MÅLGRUPPE__LITE_ELLER_INGEN_ARBEIDSERFARING',
+    PrioritertMålgruppe = 'PRIORITERT_MÅLGRUPPE',
+    MålgruppeErUngeUnder30 = 'PRIORITERT_MÅLGRUPPE__UNGE_UNDER_30',
+    MålgruppeErSeniorerOver45 = 'PRIORITERT_MÅLGRUPPE__SENIORER_OVER_45',
+    MålgruppeKommerFraLandUtenforEØS = 'PRIORITERT_MÅLGRUPPE__KOMMER_FRA_LAND_UTENFOR_EØS',
+    MålgruppeHullICVen = 'PRIORITERT_MÅLGRUPPE__HULL_I_CV_EN',
+    MålgruppeLiteEllerIngenUtdanning = 'PRIORITERT_MÅLGRUPPE__LITE_ELLER_INGEN_UTDANNING',
+    MålgruppeLiteEllerIngenArbeidserfaring = 'PRIORITERT_MÅLGRUPPE__LITE_ELLER_INGEN_ARBEIDSERFARING',
 
     StatligInkluderingsdugnad = 'STATLIG_INKLUDERINGSDUGNAD',
 }
 
 export enum InkluderingsmulighetForDirektemeldtStilling {
     Tilrettelegging = Tag.Tilrettelegging,
-    TiltakEllerVirkemiddel = Tag.Tiltak,
-    PrioriterteMålgrupper = Tag.Målgruppe,
+    TiltakEllerVirkemiddel = Tag.TiltakEllerVirkemiddel,
+    PrioriterteMålgrupper = Tag.PrioritertMålgruppe,
 }
 
 export enum InkluderingsmulighetForEksternStilling {
@@ -33,8 +33,8 @@ export enum InkluderingsmulighetForEksternStilling {
 
 export enum Inkluderingsmulighet {
     Tilrettelegging = Tag.Tilrettelegging,
-    TiltakEllerVirkemiddel = Tag.Tiltak,
-    PrioriterteMålgrupper = Tag.Målgruppe,
+    TiltakEllerVirkemiddel = Tag.TiltakEllerVirkemiddel,
+    PrioriterteMålgrupper = Tag.PrioritertMålgruppe,
     StatligInkluderingsdugnad = Tag.StatligInkluderingsdugnad,
 }
 
@@ -58,11 +58,11 @@ export const hierarkiAvTagsForDirektemeldteStillinger: Record<
     },
 
     [InkluderingsmulighetForDirektemeldtStilling.TiltakEllerVirkemiddel]: {
-        subtags: [Tag.TiltakLønnstilskudd, Tag.TiltakMentortilskudd],
+        subtags: [Tag.VirkemiddelLønnstilskudd, Tag.VirkemiddelMentortilskudd],
     },
 
     [InkluderingsmulighetForDirektemeldtStilling.PrioriterteMålgrupper]: {
-        hovedtag: Tag.Målgruppe,
+        hovedtag: Tag.PrioritertMålgruppe,
         subtags: [
             Tag.MålgruppeErUngeUnder30,
             Tag.MålgruppeErSeniorerOver45,
@@ -105,12 +105,12 @@ export const hierarkiAvTagsForFilter: Record<Inkluderingsmulighet, GruppeMedTags
     },
 
     [Inkluderingsmulighet.TiltakEllerVirkemiddel]: {
-        hovedtag: Tag.Tiltak,
-        subtags: [Tag.TiltakLønnstilskudd, Tag.TiltakMentortilskudd],
+        hovedtag: Tag.TiltakEllerVirkemiddel,
+        subtags: [Tag.VirkemiddelLønnstilskudd, Tag.VirkemiddelMentortilskudd],
     },
 
     [Inkluderingsmulighet.PrioriterteMålgrupper]: {
-        hovedtag: Tag.Målgruppe,
+        hovedtag: Tag.PrioritertMålgruppe,
         subtags: [
             Tag.MålgruppeErUngeUnder30,
             Tag.MålgruppeErSeniorerOver45,

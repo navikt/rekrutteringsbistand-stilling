@@ -6,7 +6,7 @@ import {
 } from './utils';
 
 const utenTilretteleggingFysisk = [
-    Tag.Målgruppe,
+    Tag.PrioritertMålgruppe,
     Tag.MålgruppeErUngeUnder30,
     Tag.Tilrettelegging,
     Tag.TilretteleggingArbeidshverdagen,
@@ -28,9 +28,9 @@ describe('Registrere inkluderingsmuligheter på en stilling', () => {
     });
 
     test('Å legge til en subtag legger ikke til dens hovedtag hvis den er registrert fra før', () => {
-        expect(leggTilTagUnderRegistrering([Tag.Målgruppe], Tag.MålgruppeHullICVen)).toEqual(
-            expect.arrayContaining([Tag.Målgruppe, Tag.MålgruppeHullICVen])
-        );
+        expect(
+            leggTilTagUnderRegistrering([Tag.PrioritertMålgruppe], Tag.MålgruppeHullICVen)
+        ).toEqual(expect.arrayContaining([Tag.PrioritertMålgruppe, Tag.MålgruppeHullICVen]));
     });
 
     test('Fjerning av en subtag', () => {
@@ -42,7 +42,7 @@ describe('Registrere inkluderingsmuligheter på en stilling', () => {
     test('Fjerning av siste subtag innen en inkluderingsmulighet fjerner også dens hovedtag', () => {
         expect(
             fjernTagUnderRegistrering(
-                [Tag.Målgruppe, Tag.MålgruppeErUngeUnder30],
+                [Tag.PrioritertMålgruppe, Tag.MålgruppeErUngeUnder30],
                 Tag.MålgruppeErUngeUnder30
             )
         ).toEqual(expect.arrayContaining([]));
