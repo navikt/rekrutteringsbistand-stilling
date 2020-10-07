@@ -10,6 +10,8 @@ import Inkluderingsmulighet from './Inkluderingsmulighet';
 import { Inkluderingsmulighet as AlleInkluderingsmuligheter } from '../../../ad/tags/hierarkiAvTags';
 import { HjelpetekstForInkluderingsmulighet } from './HjelpetekstForInkluderingsmulighet';
 import './DirektemeldtStilling.less';
+import { Checkbox, CheckboxGruppe } from 'nav-frontend-skjema';
+import Skjemalegend from '../skjemaetikett/Skjemalegend';
 
 type Props = {
     tags?: string;
@@ -32,7 +34,10 @@ const DirektemeldtStilling: FunctionComponent<Props> = ({ tags, checkTag, unchec
             className="registrer-inkluderingsmuligheter-direktemeldt-stilling blokk-s"
             tittel={
                 <>
-                    <Undertittel className="blokk-xxxs">Muligheter for å inkludere</Undertittel>
+                    <Undertittel className="blokk-xxxs">
+                        <Undertittel tag="span">Muligheter for å inkludere</Undertittel>
+                        <Normaltekst tag="span"> (må fylles ut)</Normaltekst>
+                    </Undertittel>
                     <Normaltekst>
                         Arbeidsgiver er åpen for å inkludere personer som har behov for
                         tilrettelegging og/eller har nedsatt funksjonsevne.
@@ -88,6 +93,10 @@ const DirektemeldtStilling: FunctionComponent<Props> = ({ tags, checkTag, unchec
                     className="blokk-s"
                 />
             </div>
+            <CheckboxGruppe>
+                <Skjemalegend>Ikke mulighet til å inkludere?</Skjemalegend>
+                <Checkbox label="Nei, arbeidsgiver kan ikke inkludere for denne stillingen" />
+            </CheckboxGruppe>
         </Ekspanderbartpanel>
     );
 };
