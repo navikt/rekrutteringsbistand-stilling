@@ -1,9 +1,9 @@
 import React, { FunctionComponent } from 'react';
 import { Feilmelding, Undertittel } from 'nav-frontend-typografi';
 import Inkluderingsmuligheter from './Inkluderingsmuligheter';
-import './VisInkluderingsmuligheterInternStilling.less';
-import { hentGrupperMedTags, Tag } from '../../tags';
 import isJson from '../../edit/practicalInformation/IsJson';
+import './VisInkluderingsmuligheterInternStilling.less';
+import { Tag } from '../../tags/hierarkiAvTags';
 
 interface Props {
     tags: string;
@@ -25,12 +25,7 @@ const VisInkluderingsmuligheterInternStilling: FunctionComponent<Props> = ({ tag
     }
 
     const registrerteTags: Tag[] = JSON.parse(tags);
-    const alleRelevanteGrupperMedTags = hentGrupperMedTags(true);
-    const harRegistrertRelevanteGrupperMedTags = alleRelevanteGrupperMedTags.some(
-        (inkluderingstag) => registrerteTags.includes(inkluderingstag.tag)
-    );
-
-    if (!harRegistrertRelevanteGrupperMedTags) {
+    if (registrerteTags.length === 0) {
         return null;
     }
 
@@ -39,10 +34,7 @@ const VisInkluderingsmuligheterInternStilling: FunctionComponent<Props> = ({ tag
             <Undertittel className="vis-inkluderingsmuligheter-intern-stilling__tittel">
                 Mulighet for å inkludere
             </Undertittel>
-            <Inkluderingsmuligheter
-                registrerteTags={registrerteTags}
-                alleRelevanteGrupperMedTags={alleRelevanteGrupperMedTags}
-            />
+            <Inkluderingsmuligheter registrerteTags={registrerteTags} />
         </div>
     );
 };

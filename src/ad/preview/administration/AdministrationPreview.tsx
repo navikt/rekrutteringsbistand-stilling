@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import AdStatus from '../../administration/adStatus/AdStatus';
 import { EDIT_AD } from '../../adReducer';
-import Inkludering from './inkludering/Inkludering';
+import Inkludering from './vis-inkluderingsmuligheter-ekstern-stilling/VisInkuderingsmuligheterForEksternStilling';
 import Publishing from './publishing/Publishing';
 import ContactInfo from './contact/ContactInfo';
 import Notat from './notat/Notat';
