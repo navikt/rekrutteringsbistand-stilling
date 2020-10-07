@@ -19,6 +19,7 @@ import {
     SET_UPDATED_BY,
     SET_FIRST_PUBLISHED,
     REMOVE_AD_DATA,
+    CHECK_TAG,
 } from './adDataReducer';
 import AdminStatusEnum from '../common/enums/AdminStatusEnum';
 import AdStatusEnum from '../common/enums/AdStatusEnum';
@@ -297,6 +298,11 @@ export default function adReducer(state = initialState, action) {
             return {
                 ...state,
                 kanIkkeInkludere: action.kanIkkeInkludere,
+            };
+        case CHECK_TAG:
+            return {
+                ...state,
+                kanIkkeInkludere: false,
             };
 
         default:

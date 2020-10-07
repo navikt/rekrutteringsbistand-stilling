@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FunctionComponent } from 'react';
+import React, { ChangeEvent, FunctionComponent, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Checkbox, CheckboxGruppe } from 'nav-frontend-skjema';
 import { Feilmelding, Normaltekst, Undertittel } from 'nav-frontend-typografi';

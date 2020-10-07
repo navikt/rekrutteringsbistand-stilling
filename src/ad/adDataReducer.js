@@ -6,6 +6,7 @@ import {
     FETCH_AD_SUCCESS,
     SAVE_AD_SUCCESS,
     DELETE_AD_SUCCESS,
+    TOGGLE_KAN_IKKE_INKLUDERE,
 } from './adReducer';
 import { FETCH_LOCATIONS, FETCH_LOCATIONS_SUCCESS } from './edit/location/locationCodeReducer';
 import AdStatusEnum from '../common/enums/AdStatusEnum';
@@ -592,6 +593,20 @@ export default function adDataReducer(state = initialState, action) {
                     tags: JSON.stringify(tags),
                 },
             };
+        case TOGGLE_KAN_IKKE_INKLUDERE: {
+            if (action.kanIkkeInkludere) {
+                return {
+                    ...state,
+                    properties: {
+                        ...state.properties,
+                        tags: JSON.stringify([]),
+                    },
+                };
+            } else {
+                return state;
+            }
+        }
+
         case SET_CONTACT_PERSON:
             return {
                 ...state,
