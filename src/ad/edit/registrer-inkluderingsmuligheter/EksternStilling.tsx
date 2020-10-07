@@ -32,6 +32,7 @@ const EksternStilling: FunctionComponent<Props> = ({ tags, checkTag, uncheckTag 
                 onTagChange={onTagChange}
                 inkluderingsmulighet={InkluderingsmulighetForEksternStilling.Tilrettelegging}
                 tagIsChecked={tagIsChecked}
+                className="blokk-s"
             />
             <Inkluderingsmulighet
                 eksternStilling
@@ -41,6 +42,7 @@ const EksternStilling: FunctionComponent<Props> = ({ tags, checkTag, uncheckTag 
                     InkluderingsmulighetForEksternStilling.StatligInkluderingsdugnad
                 }
                 tagIsChecked={tagIsChecked}
+                className="blokk-s"
             />
         </div>
     );

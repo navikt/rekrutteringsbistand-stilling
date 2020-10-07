@@ -1,5 +1,6 @@
 import React, { ChangeEvent, FunctionComponent } from 'react';
 import { Checkbox, CheckboxGruppe } from 'nav-frontend-skjema';
+import classnames from 'classnames';
 
 import {
     Tag,
@@ -17,6 +18,7 @@ type Props = {
     inkluderingsmulighet: any;
     onTagChange: (event: ChangeEvent<HTMLInputElement>) => void;
     tagIsChecked: (tag: Tag) => boolean;
+    className?: string;
 };
 
 const Inkluderingsmulighet: FunctionComponent<Props> = ({
@@ -25,13 +27,14 @@ const Inkluderingsmulighet: FunctionComponent<Props> = ({
     inkluderingsmulighet,
     tagIsChecked,
     onTagChange,
+    className,
 }) => {
     const subtags = eksternStilling
         ? hentSubtagsForMulighetForEksternStilling(inkluderingsmulighet)
         : hentSubtagsForMulighetForDirektemeldtStilling(inkluderingsmulighet);
 
     return (
-        <CheckboxGruppe className="blokk-m inkluderingsmulighet">
+        <CheckboxGruppe className={classnames('inkluderingsmulighet', className)}>
             <Skjemalegend
                 hjelpetekst={
                     <HjelpetekstForInkluderingsmulighet

@@ -90,6 +90,7 @@
     },
     "devDependencies": {
         "@types/amplitude-js": "^5.11.0",
+        "@types/classnames": "^2.2.10",
         "@types/jest": "^26.0.14",
         "@types/react-collapse": "^4.0.2",
         "@types/react-modal": "^3.10.6",

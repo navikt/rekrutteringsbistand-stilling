@@ -47,6 +47,7 @@ const DirektemeldtStilling: FunctionComponent<Props> = ({ tags, checkTag, unchec
                         }
                         tagIsChecked={tagIsChecked}
                         onTagChange={onTagChange}
+                        className="blokk-m"
                     />
                     <Inkluderingsmulighet
                         tittel="Arbeidsgiver kan tilrettelegge for"
@@ -55,6 +56,7 @@ const DirektemeldtStilling: FunctionComponent<Props> = ({ tags, checkTag, unchec
                         }
                         tagIsChecked={tagIsChecked}
                         onTagChange={onTagChange}
+                        className="blokk-m"
                     />
                 </div>
                 <Inkluderingsmulighet
@@ -64,6 +66,7 @@ const DirektemeldtStilling: FunctionComponent<Props> = ({ tags, checkTag, unchec
                     }
                     tagIsChecked={tagIsChecked}
                     onTagChange={onTagChange}
+                    className="blokk-s"
                 />
             </div>
         </Ekspanderbartpanel>
