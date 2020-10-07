@@ -43,7 +43,7 @@ const EksternStilling: FunctionComponent<Props> = ({ tags, checkTag, uncheckTag 
             />
             <Inkluderingsmulighet
                 eksternStilling
-                tittel="Arbeidsgiver er en del av:"
+                tittel="Arbeidsgiver er del av:"
                 onTagChange={onTagChange}
                 inkluderingsmulighet={
                     InkluderingsmulighetForEksternStilling.StatligInkluderingsdugnad

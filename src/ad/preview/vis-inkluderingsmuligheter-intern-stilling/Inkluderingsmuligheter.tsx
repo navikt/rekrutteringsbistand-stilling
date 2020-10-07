@@ -24,7 +24,7 @@ const Inkluderingsmuligheter: FunctionComponent<Props> = ({ registrerteTags }) =
             inkluderingsmulighet={InkluderingsmulighetForDirektemeldtStilling.PrioriterteMålgrupper}
         />
         <Tags
-            tittel="Arbeidsgiver er en del av:"
+            tittel="Arbeidsgiver kan tilby"
             alleTags={registrerteTags}
             inkluderingsmulighet={
                 InkluderingsmulighetForDirektemeldtStilling.TiltakEllerVirkemiddel

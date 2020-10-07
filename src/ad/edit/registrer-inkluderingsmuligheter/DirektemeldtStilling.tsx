@@ -57,7 +57,7 @@ const DirektemeldtStilling: FunctionComponent<Props> = ({ tags, checkTag, unchec
                         className="blokk-m"
                     />
                     <Inkluderingsmulighet
-                        tittel="Arbeidsgiver er en del av:"
+                        tittel="Arbeidsgiver kan tilby"
                         inkluderingsmulighet={
                             InkluderingsmulighetForDirektemeldtStilling.TiltakEllerVirkemiddel
                         }
