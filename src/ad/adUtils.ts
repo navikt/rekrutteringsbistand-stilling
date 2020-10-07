@@ -11,10 +11,7 @@ export const stillingErPublisert = (ad: any) => {
 
 export const hentAnnonselenke = (uuid: string) => `${VIS_STILLING_URL}/${uuid}`;
 
-export const loggPubliseringAvStillingMedInkluderingstags = (
-    stillingsId: string,
-    alleTags: string
-) => {
+const loggInkluderingstagsHvisDefinert = (stillingsId: string, alleTags: string) => {
     try {
         const tags = JSON.parse(alleTags);
         if (Array.isArray(tags) && tags.length > 0) {
@@ -26,6 +23,11 @@ export const loggPubliseringAvStillingMedInkluderingstags = (
     } catch (e) {
         return null;
     }
+};
+
+export const loggPubliseringAvStilling = (stillingsId: string, alleTags: string) => {
+    sendEvent('stilling', 'publiser_stilling');
+    loggInkluderingstagsHvisDefinert(stillingsId, alleTags);
 };
 
 export const erDirektemeldtStilling = (source: string): boolean => source === 'DIR';

@@ -39,7 +39,7 @@ import {
     SET_NOTAT,
     SET_STILLINGSINFO_DATA,
 } from '../stillingsinfo/stillingsinfoDataReducer';
-import { loggPubliseringAvStillingMedInkluderingstags } from './adUtils';
+import { loggPubliseringAvStilling } from './adUtils';
 
 export const FETCH_AD = 'FETCH_AD';
 export const FETCH_AD_BEGIN = 'FETCH_AD_BEGIN';
@@ -407,10 +407,7 @@ function* saveRekrutteringsbistandStilling(loggPublisering) {
         yield put({ type: SAVE_AD_SUCCESS, response: response.stilling });
 
         if (loggPublisering) {
-            loggPubliseringAvStillingMedInkluderingstags(
-                state.adData.uuid,
-                state.adData.properties.tags
-            );
+            loggPubliseringAvStilling(state.adData.uuid, state.adData.properties.tags);
         }
     } catch (e) {
         if (e instanceof ApiError) {
