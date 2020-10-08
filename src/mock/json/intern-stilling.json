@@ -132,7 +132,7 @@
             "applicationemail": "test@nav.no",
             "classification_input_source": "categoryName",
             "sector": "Offentlig",
-            "tags": "[\"TILTAK__LØNNSTILSKUDD\", \"TILTAK__MENTORTILSKUDD\", \"INKLUDERING\", \"INKLUDERING__ARBEIDSTID\", \"INKLUDERING__FYSISK\", \"INKLUDERING__ARBEIDSMILJØ\", \"INKLUDERING__GRUNNLEGGENDE\", \"MÅLGRUPPE__ER_UNGE_UNDER_30\", \"MÅLGRUPPE__ER_SENIORER_OVER_45\", \"MÅLGRUPPE__KOMMER_FRA_LAND_UTENFOR_EØS\", \"MÅLGRUPPE__HULL_I_CV_EN\"]"
+            "tags": "[\"INKLUDERING\", \"INKLUDERING__ARBEIDSTID\", \"Bull\"]"
         },
         "publishedByAdmin": "2020-09-29T14:43:49.760339",
         "businessName": "Tullekontoret",

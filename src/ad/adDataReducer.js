@@ -602,19 +602,6 @@ export default function adDataReducer(state = initialState, action) {
                     tags: action.tags,
                 },
             };
-        case TOGGLE_KAN_IKKE_INKLUDERE: {
-            if (action.kanIkkeInkludere) {
-                return {
-                    ...state,
-                    properties: {
-                        ...state.properties,
-                        tags: JSON.stringify([]),
-                    },
-                };
-            } else {
-                return state;
-            }
-        }
 
         case SET_CONTACT_PERSON:
             return {

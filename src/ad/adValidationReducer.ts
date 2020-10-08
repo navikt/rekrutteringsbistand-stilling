@@ -1,7 +1,9 @@
+import { alleInkluderingstags } from './tags/utils';
+import { Tag } from './tags/hierarkiAvTags';
 import { put, select, takeLatest } from 'redux-saga/es/effects';
 import { erDatoEtterMinDato } from 'nav-datovelger/dist/datovelger/utils/datovalidering';
 import { toDate } from '../utils';
-import { DEFAULT_TITLE_NEW_AD } from './adReducer';
+import { DEFAULT_TITLE_NEW_AD, TOGGLE_KAN_IKKE_INKLUDERE } from './adReducer';
 import IsJson from './edit/practicalInformation/IsJson';
 
 import {
@@ -29,6 +31,8 @@ import {
     UNCHECK_EMPLOYMENT_WORKHOURS,
     findLocationByPostalCode,
     REMOVE_LOCATION_AREAS,
+    CHECK_TAG,
+    UNCHECK_TAG,
 } from './adDataReducer';
 
 import { SET_NOTAT } from '../stillingsinfo/stillingsinfoDataReducer';
@@ -368,31 +372,30 @@ function* validateWorkhours() {
 }
 
 function* validateInkluderingsmuligheter() {
-    const state = yield select();
+    const state: State = yield select();
     const { kanIkkeInkludere } = state.ad;
     const { tags } = state.adData.properties;
 
-    if (kanIkkeInkludere) {
-        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'inkluderingsmuligheter' });
-    } else {
-        const tagsErArray = isJson(tags) && Array.isArray(JSON.parse(tags));
+    const fjernFeilAction = { type: REMOVE_VALIDATION_ERROR, field: 'inkluderingsmuligheter' };
+    const leggTilFeilAction = {
+        type: ADD_VALIDATION_ERROR,
+        field: 'inkluderingsmuligheter',
+        message: 'Mulighet for inkludering mangler – velg én eller flere',
+    };
 
-        if (!tagsErArray) {
-            yield put({
-                type: ADD_VALIDATION_ERROR,
-                field: 'inkluderingsmuligheter',
-                message: 'Mulighet for inkludering mangler – velg én eller flere',
-            });
-        } else {
-            if (JSON.parse(tags).length === 0) {
-                yield put({
-                    type: ADD_VALIDATION_ERROR,
-                    field: 'inkluderingsmuligheter',
-                    message: 'Mulighet for inkludering mangler – velg én eller flere',
-                });
+    if (kanIkkeInkludere) {
+        yield put(fjernFeilAction);
+    } else {
+        const tagArray: Tag[] | false = isJson(tags) && JSON.parse(tags);
+
+        if (tagArray) {
+            if (alleInkluderingstags.some((tag) => tagArray.includes(tag))) {
+                yield put(fjernFeilAction);
             } else {
-                yield put({ type: REMOVE_VALIDATION_ERROR, field: 'inkluderingsmuligheter' });
+                yield put(leggTilFeilAction);
             }
+        } else {
+            yield put(leggTilFeilAction);
         }
     }
 }
@@ -538,4 +541,8 @@ export const validationSaga = function* saga() {
     yield takeLatest(UNCHECK_EMPLOYMENT_WORKDAY, validateWorkday);
     yield takeLatest(CHECK_EMPLOYMENT_WORKHOURS, validateWorkhours);
     yield takeLatest(UNCHECK_EMPLOYMENT_WORKHOURS, validateWorkhours);
+    yield takeLatest(
+        [CHECK_TAG, UNCHECK_TAG, TOGGLE_KAN_IKKE_INKLUDERE],
+        validateInkluderingsmuligheter
+    );
 };

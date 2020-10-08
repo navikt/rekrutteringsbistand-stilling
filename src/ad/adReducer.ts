@@ -40,7 +40,7 @@ import {
     SET_NOTAT,
     SET_STILLINGSINFO_DATA,
 } from '../stillingsinfo/stillingsinfoDataReducer';
-import { erDirektemeldtStilling, loggPubliseringAvStilling } from './adUtils';
+import { loggPubliseringAvStilling } from './adUtils';
 
 export const FETCH_AD = 'FETCH_AD';
 export const FETCH_AD_BEGIN = 'FETCH_AD_BEGIN';
@@ -105,7 +105,27 @@ export const MARKER_SOM_MIN = 'MARKER_SOM_MIN';
 
 export const TOGGLE_KAN_IKKE_INKLUDERE = 'TOGGLE_KAN_IKKE_INKLUDERE';
 
-const initialState = {
+export type AdState = {
+    error: any;
+    isSavingAd: boolean;
+    isLoadingAd: boolean;
+    isEditingAd: boolean;
+    originalData: any;
+    hasSavedChanges: boolean;
+    hasChanges: boolean;
+    copiedAds: any[];
+    showPublishErrorModal: boolean;
+    showHasChangesModal: boolean;
+    showStopAdModal: boolean;
+    showDeleteAdModal: boolean;
+    showAdPublishedModal: boolean;
+    showAdSavedErrorModal: boolean;
+    hasChangesLeaveUrl: any;
+    leavePageTrigger: boolean;
+    kanIkkeInkludere: boolean;
+};
+
+const initialState: AdState = {
     error: undefined,
     isSavingAd: false,
     isLoadingAd: false,
@@ -391,7 +411,7 @@ function* createAd() {
     }
 }
 
-function* saveRekrutteringsbistandStilling(loggPublisering) {
+function* saveRekrutteringsbistandStilling(loggPublisering?: boolean) {
     let state = yield select();
     yield put({ type: SAVE_AD_BEGIN });
     try {
@@ -423,34 +443,6 @@ function* saveRekrutteringsbistandStilling(loggPublisering) {
         if (loggPublisering) {
             loggPubliseringAvStilling(state.adData.uuid, state.adData.properties.tags);
         }
-    } catch (e) {
-        if (e instanceof ApiError) {
-            yield put({ type: SAVE_AD_FAILURE, error: e });
-        } else {
-            throw e;
-        }
-    }
-}
-
-function* save() {
-    let state = yield select();
-    yield put({ type: SAVE_AD_BEGIN });
-    try {
-        yield put({ type: SET_UPDATED_BY });
-
-        state = yield select();
-
-        // Modified category list requires store/PUT with (re)classification
-        let putUrl = `${AD_API}ads/${state.adData.uuid}`;
-        if (
-            typeof state.ad.originalData === 'undefined' ||
-            needClassify(state.ad.originalData, state.adData)
-        ) {
-            putUrl += '?classify=true';
-        }
-
-        const response = yield fetchPut(putUrl, state.adData);
-        yield put({ type: SAVE_AD_SUCCESS, response });
     } catch (e) {
         if (e instanceof ApiError) {
             yield put({ type: SAVE_AD_FAILURE, error: e });

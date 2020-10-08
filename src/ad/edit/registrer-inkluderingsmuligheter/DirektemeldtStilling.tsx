@@ -14,6 +14,7 @@ import isJson from '../practicalInformation/IsJson';
 import Skjemalegend from '../skjemaetikett/Skjemalegend';
 import './DirektemeldtStilling.less';
 import State from '../../../State';
+import { fjernAlleInkluderingstags } from '../../tags/utils';
 
 type Props = {
     tags?: string;
@@ -44,9 +45,21 @@ const DirektemeldtStilling: FunctionComponent<Props> = ({
         checked ? checkTag(value as Tag) : uncheckTag(value as Tag);
     };
 
+    const fjernInkluderingstags = () => {
+        let utenInkluderingstags: Tag[] | undefined;
+
+        if (isJson(tags)) {
+            const parsedeTags: Tag[] = JSON.parse(tags === undefined ? '[]' : tags);
+            utenInkluderingstags = fjernAlleInkluderingstags(parsedeTags);
+        }
+
+        setTags(JSON.stringify(utenInkluderingstags));
+    };
+
     const onKanIkkeInkludereChange = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.checked) {
             setForrigeTags(tags);
+            fjernInkluderingstags();
         } else if (forrigeTags) {
             setTags(forrigeTags);
         }

@@ -7,7 +7,7 @@ import createSagaMiddleware from 'redux-saga';
 import employerReducer, { employerSaga } from './ad/edit/employer/employerReducer';
 import locationCodeReducer, { locationCodeSaga } from './ad/edit/location/locationCodeReducer';
 import styrkReducer, { styrkSaga } from './ad/edit/jobDetails/styrk/styrkReducer';
-import adReducer, { adSaga } from './ad/adReducer';
+import adReducer, { adSaga } from './ad/adReducer.ts';
 import searchReducer, { searchSaga } from './searchPage/searchReducer';
 import filterLocationReducer, {
     filterLocationSaga,

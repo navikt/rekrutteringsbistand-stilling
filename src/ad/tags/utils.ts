@@ -1,5 +1,8 @@
 import { Tag } from './hierarkiAvTags';
+
 export const TAG_HIERARCHY_SPACER = '__';
+
+export const alleInkluderingstags = Object.values(Tag);
 
 export const leggTilTagUnderRegistrering = (tags: Tag[], nyTag: Tag): Tag[] => {
     const nyTagErSubtag = nyTag.includes(TAG_HIERARCHY_SPACER);
@@ -46,4 +49,8 @@ export const fjernTagFraFilteret = (tags: Tag[], tagSomSkalFjernes: Tag): Tag[] 
     }
 
     return tags.filter((tag) => tag !== tagSomSkalFjernes);
+};
+
+export const fjernAlleInkluderingstags = (tags: Tag[]): Tag[] => {
+    return tags.filter((tag) => !alleInkluderingstags.includes(tag));
 };
