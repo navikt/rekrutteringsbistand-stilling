@@ -68,6 +68,7 @@ export const SET_UPDATED_BY = 'SET_UPDATED_BY';
 export const SET_PRIVACY = 'SET_PRIVACY';
 export const CHECK_TAG = 'CHECK_TAG';
 export const UNCHECK_TAG = 'UNCHECK_TAG';
+export const SET_TAGS = 'SET_TAGS';
 export const SET_CONTACT_PERSON = 'SET_CONTACT_PERSON';
 
 const initialState = {
@@ -591,6 +592,14 @@ export default function adDataReducer(state = initialState, action) {
                 properties: {
                     ...state.properties,
                     tags: JSON.stringify(tags),
+                },
+            };
+        case SET_TAGS:
+            return {
+                ...state,
+                properties: {
+                    ...state.properties,
+                    tags: action.tags,
                 },
             };
         case TOGGLE_KAN_IKKE_INKLUDERE: {

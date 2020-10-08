@@ -4,7 +4,7 @@ import { Checkbox, CheckboxGruppe } from 'nav-frontend-skjema';
 import { Feilmelding, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 
-import { CHECK_TAG, UNCHECK_TAG } from '../../adDataReducer';
+import { CHECK_TAG, UNCHECK_TAG, SET_TAGS } from '../../adDataReducer';
 import { HjelpetekstForInkluderingsmulighet } from './HjelpetekstForInkluderingsmulighet';
 import { Inkluderingsmulighet as AlleInkluderingsmuligheter } from '../../../ad/tags/hierarkiAvTags';
 import { InkluderingsmulighetForDirektemeldtStilling, Tag } from '../../tags/hierarkiAvTags';
@@ -17,8 +17,9 @@ import State from '../../../State';
 
 type Props = {
     tags?: string;
-    checkTag: (tag: string) => void;
-    uncheckTag: (tag: string) => void;
+    setTags: (tags: string) => void;
+    checkTag: (tag: Tag) => void;
+    uncheckTag: (tag: Tag) => void;
     kanIkkeInkludere: boolean;
     toggleKanIkkeInkludere: (kanIkkeInkludere: boolean) => void;
     feilmelding?: string;
@@ -27,17 +28,29 @@ type Props = {
 
 const DirektemeldtStilling: FunctionComponent<Props> = ({
     tags,
+    setTags,
     checkTag,
     uncheckTag,
     kanIkkeInkludere,
     toggleKanIkkeInkludere,
     feilmelding,
 }) => {
+    const [forrigeTags, setForrigeTags] = useState<string | undefined>(undefined);
+
     const onTagChange = (e: ChangeEvent<HTMLInputElement>) => {
-        e.target.checked ? checkTag(e.target.value) : uncheckTag(e.target.value);
+        setForrigeTags(undefined);
+
+        const { checked, value } = e.target;
+        checked ? checkTag(value as Tag) : uncheckTag(value as Tag);
     };
 
     const onKanIkkeInkludereChange = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.checked) {
+            setForrigeTags(tags);
+        } else if (forrigeTags) {
+            setTags(forrigeTags);
+        }
+
         toggleKanIkkeInkludere(e.target.checked);
     };
 
@@ -130,6 +143,7 @@ const mapStateToProps = (state: State) => ({
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
+    setTags: (tags: string) => dispatch({ type: SET_TAGS, tags }),
     checkTag: (value: Tag) => dispatch({ type: CHECK_TAG, value }),
     uncheckTag: (value: Tag) => dispatch({ type: UNCHECK_TAG, value }),
     toggleKanIkkeInkludere: (kanIkkeInkludere: boolean) =>
