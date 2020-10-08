@@ -185,7 +185,7 @@ class LeggTilKandidatModal extends React.Component {
                 <Input
                     className="legg-til-kandidat__fodselsnummer"
                     onChange={this.onInputChange}
-                    feil={this.state.errorMessage && { feilmelding: this.state.errorMessage }}
+                    feil={this.state.errorMessage}
                     bredde="S"
                     label="Fødselsnummer på kandidaten (11 siffer)"
                     inputRef={(input) => {

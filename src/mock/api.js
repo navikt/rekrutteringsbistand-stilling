@@ -34,6 +34,7 @@ const countriesUrl = `${apiUrl}/geography/countries`;
 const municipalsUrl = `${apiUrl}/geography/municipals`;
 const categoriesWithAltnamesUrl = `${apiUrl}/categories-with-altnames/`;
 const postdataUrl = `${apiUrl}/postdata/`;
+const fnrsokUrl = 'express:/kandidater/rest/veileder/kandidatsok/fnrsok/:fnr';
 
 const identUrl = `${baseUrl}/rekruttering/ident/`;
 const featuresUrl = `${baseUrl}/features/`;
@@ -78,4 +79,5 @@ fetchMock
     .get(modiacontextholderAktivEnhetUrl, aktivEnhet)
     .get(modiacontextholderAktivBrukerUrl, aktivBruker)
     .get(modiacontextholderDecoratorUrl, decorator)
-    .post(modiacontextholderContextUrl, 200);
+    .post(modiacontextholderContextUrl, 200)
+    .get(fnrsokUrl, 404);
