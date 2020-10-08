@@ -386,7 +386,7 @@ function* validateInkluderingsmuligheter() {
     if (kanIkkeInkludere) {
         yield put(fjernFeilAction);
     } else {
-        const tagArray: Tag[] | false = isJson(tags) && JSON.parse(tags);
+        const tagArray: Tag[] | false = isJson(tags) && JSON.parse(tags || '');
 
         if (tagArray) {
             if (alleInkluderingstags.some((tag) => tagArray.includes(tag))) {

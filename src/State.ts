@@ -1,11 +1,12 @@
 import { AdState } from './ad/adReducer';
 import { AdValidationState } from './ad/adValidationReducer';
+import { AdDataState } from './ad/adDataReducer';
 import { NavKontorState } from './navKontor/navKontorReducer';
 
 type State = {
     navKontor: NavKontorState;
     ad: AdState;
-    adData: any;
+    adData: AdDataState;
     adValidation: AdValidationState;
 };
 
