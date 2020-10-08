@@ -1,20 +1,24 @@
 import React, { ChangeEvent, FunctionComponent, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { Checkbox, CheckboxGruppe } from 'nav-frontend-skjema';
-import { Feilmelding, Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { Radio, RadioGruppe } from 'nav-frontend-skjema';
+import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 
 import { CHECK_TAG, UNCHECK_TAG, SET_TAGS } from '../../adDataReducer';
+import { fjernAlleInkluderingstags } from '../../tags/utils';
 import { HjelpetekstForInkluderingsmulighet } from './HjelpetekstForInkluderingsmulighet';
 import { Inkluderingsmulighet as AlleInkluderingsmuligheter } from '../../../ad/tags/hierarkiAvTags';
 import { InkluderingsmulighetForDirektemeldtStilling, Tag } from '../../tags/hierarkiAvTags';
 import { TOGGLE_KAN_IKKE_INKLUDERE } from '../../adReducer';
 import Inkluderingsmulighet from './Inkluderingsmulighet';
 import isJson from '../practicalInformation/IsJson';
-import Skjemalegend from '../skjemaetikett/Skjemalegend';
-import './DirektemeldtStilling.less';
 import State from '../../../State';
-import { fjernAlleInkluderingstags } from '../../tags/utils';
+import './DirektemeldtStilling.less';
+
+enum KanInkludere {
+    Ja = 'ja',
+    Nei = 'nei',
+}
 
 type Props = {
     tags?: string;
@@ -57,14 +61,16 @@ const DirektemeldtStilling: FunctionComponent<Props> = ({
     };
 
     const onKanIkkeInkludereChange = (e: ChangeEvent<HTMLInputElement>) => {
-        if (e.target.checked) {
+        const kanIkkeInkludere = e.target.value === KanInkludere.Nei;
+
+        if (kanIkkeInkludere) {
             setForrigeTags(tags);
             fjernInkluderingstags();
         } else if (forrigeTags) {
             setTags(forrigeTags);
         }
 
-        toggleKanIkkeInkludere(e.target.checked);
+        toggleKanIkkeInkludere(kanIkkeInkludere);
     };
 
     const tagIsChecked = (tag: string) => tags && isJson(tags) && JSON.parse(tags).includes(tag);
@@ -77,7 +83,9 @@ const DirektemeldtStilling: FunctionComponent<Props> = ({
             tittel={
                 <>
                     <Undertittel className="blokk-xxxs">
-                        <Undertittel tag="span">Muligheter for å inkludere</Undertittel>
+                        <Undertittel id="endre-stilling-muligheter-for-å-inkludere" tag="span">
+                            Muligheter for å inkludere
+                        </Undertittel>
                         <Normaltekst tag="span"> (må fylles ut)</Normaltekst>
                     </Undertittel>
                     <Normaltekst>
@@ -87,63 +95,79 @@ const DirektemeldtStilling: FunctionComponent<Props> = ({
                 </>
             }
         >
-            <div className="registrer-inkluderingsmuligheter-direktemeldt-stilling__inkluderingsmuligheter">
-                <div>
+            <RadioGruppe
+                className="registrer-inkluderingsmuligheter-direktemeldt-stilling__radiogruppe"
+                feil={feilmelding}
+            >
+                <Radio
+                    name="muligheter-for-inkludering"
+                    label="Arbeidsgiver kan inkludere"
+                    value={KanInkludere.Ja}
+                    checked={!kanIkkeInkludere}
+                    onChange={onKanIkkeInkludereChange}
+                />
+                <Radio
+                    name="muligheter-for-inkludering"
+                    label="Arbeidsgiver kan ikke inkludere"
+                    value={KanInkludere.Nei}
+                    checked={kanIkkeInkludere}
+                    onChange={onKanIkkeInkludereChange}
+                />
+            </RadioGruppe>
+            {!kanIkkeInkludere && (
+                <div className="registrer-inkluderingsmuligheter-direktemeldt-stilling__inkluderingsmuligheter">
+                    <div>
+                        <Inkluderingsmulighet
+                            tittel="Arbeidsgiver kan tilrettelegge for"
+                            inkluderingsmulighet={
+                                InkluderingsmulighetForDirektemeldtStilling.Tilrettelegging
+                            }
+                            hjelpetekst={
+                                <HjelpetekstForInkluderingsmulighet
+                                    inkluderingsmulighet={
+                                        AlleInkluderingsmuligheter.Tilrettelegging
+                                    }
+                                />
+                            }
+                            tagIsChecked={tagIsChecked}
+                            onTagChange={onTagChange}
+                            className="blokk-m"
+                        />
+                        <Inkluderingsmulighet
+                            tittel="Arbeidsgiver er åpen for de som trenger"
+                            inkluderingsmulighet={
+                                InkluderingsmulighetForDirektemeldtStilling.TiltakEllerVirkemiddel
+                            }
+                            hjelpetekst={
+                                <HjelpetekstForInkluderingsmulighet
+                                    inkluderingsmulighet={
+                                        AlleInkluderingsmuligheter.TiltakEllerVirkemiddel
+                                    }
+                                />
+                            }
+                            tagIsChecked={tagIsChecked}
+                            onTagChange={onTagChange}
+                            className="blokk-m"
+                        />
+                    </div>
                     <Inkluderingsmulighet
-                        tittel="Arbeidsgiver kan tilrettelegge for"
+                        tittel="Arbeidsgiver er åpen for kandidater som"
                         inkluderingsmulighet={
-                            InkluderingsmulighetForDirektemeldtStilling.Tilrettelegging
-                        }
-                        hjelpetekst={
-                            <HjelpetekstForInkluderingsmulighet
-                                inkluderingsmulighet={AlleInkluderingsmuligheter.Tilrettelegging}
-                            />
-                        }
-                        tagIsChecked={tagIsChecked}
-                        onTagChange={onTagChange}
-                        className="blokk-m"
-                    />
-                    <Inkluderingsmulighet
-                        tittel="Arbeidsgiver er åpen for de som trenger"
-                        inkluderingsmulighet={
-                            InkluderingsmulighetForDirektemeldtStilling.TiltakEllerVirkemiddel
+                            InkluderingsmulighetForDirektemeldtStilling.PrioriterteMålgrupper
                         }
                         hjelpetekst={
                             <HjelpetekstForInkluderingsmulighet
                                 inkluderingsmulighet={
-                                    AlleInkluderingsmuligheter.TiltakEllerVirkemiddel
+                                    AlleInkluderingsmuligheter.PrioriterteMålgrupper
                                 }
                             />
                         }
                         tagIsChecked={tagIsChecked}
                         onTagChange={onTagChange}
-                        className="blokk-m"
+                        className="blokk-s"
                     />
                 </div>
-                <Inkluderingsmulighet
-                    tittel="Arbeidsgiver er åpen for kandidater som"
-                    inkluderingsmulighet={
-                        InkluderingsmulighetForDirektemeldtStilling.PrioriterteMålgrupper
-                    }
-                    hjelpetekst={
-                        <HjelpetekstForInkluderingsmulighet
-                            inkluderingsmulighet={AlleInkluderingsmuligheter.PrioriterteMålgrupper}
-                        />
-                    }
-                    tagIsChecked={tagIsChecked}
-                    onTagChange={onTagChange}
-                    className="blokk-s"
-                />
-            </div>
-            <CheckboxGruppe>
-                <Skjemalegend>Ikke mulighet til å inkludere?</Skjemalegend>
-                <Checkbox
-                    checked={kanIkkeInkludere}
-                    onChange={onKanIkkeInkludereChange}
-                    label="Nei, arbeidsgiver kan ikke inkludere for denne stillingen"
-                />
-            </CheckboxGruppe>
-            {feilmelding && <Feilmelding>{feilmelding}</Feilmelding>}
+            )}
         </Ekspanderbartpanel>
     );
 };
