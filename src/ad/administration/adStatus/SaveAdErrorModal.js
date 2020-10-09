@@ -28,7 +28,7 @@ class SaveAdErrorModal extends React.Component {
                     <Normaltekst className="blokk-s">
                         Stillingen kan ikke lagres før følgende feil er rettet:
                     </Normaltekst>
-                    <ul className="blokk-l">
+                    <Normaltekst tag="ul" className="blokk-l">
                         {validation.title && (
                             <li className="skjemaelement__feilmelding">{validation.title}</li>
                         )}
@@ -56,7 +56,7 @@ class SaveAdErrorModal extends React.Component {
                         {validation.postalCode && (
                             <li className="skjemaelement__feilmelding">{validation.postalCode}</li>
                         )}
-                    </ul>
+                    </Normaltekst>
                     <Hovedknapp onClick={this.onClose}>Lukk</Hovedknapp>
                 </NavFrontendModal>
             )

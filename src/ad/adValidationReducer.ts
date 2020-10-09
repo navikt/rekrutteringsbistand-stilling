@@ -1,7 +1,9 @@
+import { alleInkluderingstags } from './tags/utils';
+import { Tag } from './tags/hierarkiAvTags';
 import { put, select, takeLatest } from 'redux-saga/es/effects';
 import { erDatoEtterMinDato } from 'nav-datovelger/dist/datovelger/utils/datovalidering';
 import { toDate } from '../utils';
-import { DEFAULT_TITLE_NEW_AD } from './adReducer';
+import { DEFAULT_TITLE_NEW_AD, SET_KAN_INKLUDERE } from './adReducer';
 import IsJson from './edit/practicalInformation/IsJson';
 
 import {
@@ -29,9 +31,14 @@ import {
     UNCHECK_EMPLOYMENT_WORKHOURS,
     findLocationByPostalCode,
     REMOVE_LOCATION_AREAS,
+    CHECK_TAG,
+    UNCHECK_TAG,
 } from './adDataReducer';
 
 import { SET_NOTAT } from '../stillingsinfo/stillingsinfoDataReducer';
+import isJson from './edit/practicalInformation/IsJson';
+import State from '../State';
+import { KanInkludere } from './edit/registrer-inkluderingsmuligheter/DirektemeldtStilling';
 
 const ADD_VALIDATION_ERROR = 'ADD_VALIDATION_ERROR';
 const REMOVE_VALIDATION_ERROR = 'REMOVE_VALIDATION_ERROR';
@@ -351,7 +358,7 @@ function* validateWorkday() {
 }
 
 function* validateWorkhours() {
-    const state = yield select();
+    const state: State = yield select();
     const { workhours } = state.adData.properties;
 
     if (valueIsNotSet(workhours) || !IsJson(workhours) || valueIsNotSet(JSON.parse(workhours))) {
@@ -362,6 +369,35 @@ function* validateWorkhours() {
         });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'workhours' });
+    }
+}
+
+function* validateInkluderingsmuligheter() {
+    const state: State = yield select();
+    const { kanInkludere } = state.ad;
+    const { tags } = state.adData.properties;
+
+    const fjernFeilAction = { type: REMOVE_VALIDATION_ERROR, field: 'inkluderingsmuligheter' };
+    const leggTilFeilAction = {
+        type: ADD_VALIDATION_ERROR,
+        field: 'inkluderingsmuligheter',
+        message: 'Mulighet for inkludering mangler – velg én eller flere',
+    };
+
+    if (kanInkludere === KanInkludere.Nei) {
+        yield put(fjernFeilAction);
+    } else {
+        const tagArray: Tag[] | false = isJson(tags) && JSON.parse(tags || '');
+
+        if (tagArray) {
+            if (alleInkluderingstags.some((tag) => tagArray.includes(tag))) {
+                yield put(fjernFeilAction);
+            } else {
+                yield put(leggTilFeilAction);
+            }
+        } else {
+            yield put(leggTilFeilAction);
+        }
     }
 }
 
@@ -386,6 +422,7 @@ export function* validateAll() {
         yield validateSector();
         yield validateWorkday();
         yield validateWorkhours();
+        yield validateInkluderingsmuligheter();
     }
 }
 
@@ -408,7 +445,8 @@ export function hasValidationErrors(validation) {
         validation.extent !== undefined ||
         validation.sector !== undefined ||
         validation.workday !== undefined ||
-        validation.workhours !== undefined
+        validation.workhours !== undefined ||
+        validation.inkluderingsmuligheter !== undefined
     );
 }
 
@@ -436,6 +474,10 @@ export function hasValidationErrorsOnSave(validation) {
         validation.notat !== undefined
     );
 }
+
+export type AdValidationState = {
+    errors: Record<string, string | undefined>;
+};
 
 const initialState = {
     errors: {},
@@ -500,4 +542,5 @@ export const validationSaga = function* saga() {
     yield takeLatest(UNCHECK_EMPLOYMENT_WORKDAY, validateWorkday);
     yield takeLatest(CHECK_EMPLOYMENT_WORKHOURS, validateWorkhours);
     yield takeLatest(UNCHECK_EMPLOYMENT_WORKHOURS, validateWorkhours);
+    yield takeLatest([CHECK_TAG, UNCHECK_TAG, SET_KAN_INKLUDERE], validateInkluderingsmuligheter);
 };

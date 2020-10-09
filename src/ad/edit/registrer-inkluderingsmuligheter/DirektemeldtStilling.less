@@ -1,7 +1,7 @@
 @import 'src/variables.less';
 
 .registrer-inkluderingsmuligheter-direktemeldt-stilling {
-    background-color: #e3edf8;
+    background-color: @arbeidsgiverBla;
     margin-bottom: 1.5rem;
 
     &__inkluderingsmuligheter {
@@ -10,8 +10,18 @@
         justify-content: space-between;
     }
 
+    &__radiogruppe.skjemagruppe {
+        margin-bottom: 0rem;
+
+        .skjemaelement:first-of-type {
+            margin-bottom: 0.5rem;
+        }
+    }
+
     .inkluderingsmulighet {
+        margin-top: 1rem;
         margin-right: 3rem;
+        padding-bottom: 1rem;
     }
 
     &__subtags.skjemagruppe {

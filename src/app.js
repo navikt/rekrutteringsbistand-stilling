@@ -7,7 +7,7 @@ import createSagaMiddleware from 'redux-saga';
 import employerReducer, { employerSaga } from './ad/edit/employer/employerReducer';
 import locationCodeReducer, { locationCodeSaga } from './ad/edit/location/locationCodeReducer';
 import styrkReducer, { styrkSaga } from './ad/edit/jobDetails/styrk/styrkReducer';
-import adReducer, { adSaga } from './ad/adReducer';
+import adReducer, { adSaga } from './ad/adReducer.ts';
 import searchReducer, { searchSaga } from './searchPage/searchReducer';
 import filterLocationReducer, {
     filterLocationSaga,
@@ -22,7 +22,7 @@ import SearchPage from './searchPage/SearchPage';
 import MyAds from './myAds/MyAds';
 import reporteeReducer, { FETCH_REPORTEE, reporteeSaga } from './reportee/reporteeReducer';
 import adDataReducer, { adDataSaga } from './ad/adDataReducer';
-import adValidationReducer, { validationSaga } from './ad/adValidationReducer';
+import adValidationReducer, { validationSaga } from './ad/adValidationReducer.ts';
 import savedSearchAlertStripeReducer from './ad/alertstripe/SavedAdAlertStripeReducer';
 import myAdsReducer, { myAdsSaga } from './myAds/myAdsReducer';
 import history from './history';

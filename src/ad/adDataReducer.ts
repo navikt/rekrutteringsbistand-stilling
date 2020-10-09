@@ -12,7 +12,7 @@ import AdStatusEnum from '../common/enums/AdStatusEnum';
 import PrivacyStatusEnum from '../common/enums/PrivacyStatusEnum';
 import IsJson from './edit/practicalInformation/IsJson';
 import { isValidISOString } from '../utils';
-import { leggTilTagUnderRegistrering, fjernTagUnderRegistrering } from '../ad/tags/utils.ts';
+import { leggTilTagUnderRegistrering, fjernTagUnderRegistrering } from '../ad/tags/utils';
 
 export const SET_AD_DATA = 'SET_AD_DATA';
 export const REMOVE_AD_DATA = 'REMOVE_AD_DATA';
@@ -67,9 +67,26 @@ export const SET_UPDATED_BY = 'SET_UPDATED_BY';
 export const SET_PRIVACY = 'SET_PRIVACY';
 export const CHECK_TAG = 'CHECK_TAG';
 export const UNCHECK_TAG = 'UNCHECK_TAG';
+export const SET_TAGS = 'SET_TAGS';
 export const SET_CONTACT_PERSON = 'SET_CONTACT_PERSON';
 
-const initialState = {
+export type AdDataState = {
+    properties: {
+        workday?: any;
+        workhours?: any;
+        tags?: string;
+    };
+    status: string;
+    administration: object;
+    privacy: string;
+    locationList?: any;
+    expires?: any;
+    employer?: any;
+    contactList?: any;
+    source?: string;
+};
+
+const initialState: AdDataState = {
     properties: {},
     status: AdStatusEnum.INACTIVE,
     administration: {},
@@ -570,7 +587,7 @@ export default function adDataReducer(state = initialState, action) {
             };
         case CHECK_TAG: {
             const tags = leggTilTagUnderRegistrering(
-                IsJson(state.properties.tags) ? JSON.parse(state.properties.tags) : [],
+                IsJson(state.properties.tags) ? JSON.parse(state.properties.tags || '') : [],
                 action.value
             );
 
@@ -583,7 +600,10 @@ export default function adDataReducer(state = initialState, action) {
             };
         }
         case UNCHECK_TAG:
-            const tags = fjernTagUnderRegistrering(JSON.parse(state.properties.tags), action.value);
+            const tags = fjernTagUnderRegistrering(
+                JSON.parse(state.properties.tags || ''),
+                action.value
+            );
 
             return {
                 ...state,
@@ -592,6 +612,15 @@ export default function adDataReducer(state = initialState, action) {
                     tags: JSON.stringify(tags),
                 },
             };
+        case SET_TAGS:
+            return {
+                ...state,
+                properties: {
+                    ...state.properties,
+                    tags: action.tags,
+                },
+            };
+
         case SET_CONTACT_PERSON:
             return {
                 ...state,
