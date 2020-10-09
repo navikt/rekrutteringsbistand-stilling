@@ -67,7 +67,7 @@ const DirektemeldtStilling: FunctionComponent<Props> = ({
         }
     };
 
-    const onKanIkkeInkludereChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const onKanInkludereChange = (e: ChangeEvent<HTMLInputElement>) => {
         const kanInkludere = e.target.value as KanInkludere;
 
         if (kanInkludere === KanInkludere.Nei) {
@@ -112,14 +112,14 @@ const DirektemeldtStilling: FunctionComponent<Props> = ({
                     label="Ja, arbeidsgiver kan inkludere"
                     value={KanInkludere.Ja}
                     checked={kanInkludere === KanInkludere.Ja}
-                    onChange={onKanIkkeInkludereChange}
+                    onChange={onKanInkludereChange}
                 />
                 <Radio
                     name="muligheter-for-inkludering"
                     label="Nei, arbeidsgiver kan ikke inkludere"
                     value={KanInkludere.Nei}
                     checked={kanInkludere === KanInkludere.Nei}
-                    onChange={onKanIkkeInkludereChange}
+                    onChange={onKanInkludereChange}
                 />
             </RadioGruppe>
             {kanInkludere === KanInkludere.Ja && (
