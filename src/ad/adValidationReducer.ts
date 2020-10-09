@@ -1,5 +1,4 @@
-import { alleInkluderingstags } from './tags/utils';
-import { Tag } from './tags/hierarkiAvTags';
+import { tagsInneholderInkluderingsmuligheter } from './tags/utils';
 import { put, select, takeLatest } from 'redux-saga/es/effects';
 import { erDatoEtterMinDato } from 'nav-datovelger/dist/datovelger/utils/datovalidering';
 import { toDate } from '../utils';
@@ -387,14 +386,8 @@ function* validateInkluderingsmuligheter() {
     if (kanInkludere === KanInkludere.Nei) {
         yield put(fjernFeilAction);
     } else {
-        const tagArray: Tag[] | false = isJson(tags) && JSON.parse(tags || '');
-
-        if (tagArray) {
-            if (alleInkluderingstags.some((tag) => tagArray.includes(tag))) {
-                yield put(fjernFeilAction);
-            } else {
-                yield put(leggTilFeilAction);
-            }
+        if (tagsInneholderInkluderingsmuligheter(tags)) {
+            yield put(fjernFeilAction);
         } else {
             yield put(leggTilFeilAction);
         }

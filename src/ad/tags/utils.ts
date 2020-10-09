@@ -1,3 +1,4 @@
+import isJson from '../edit/practicalInformation/IsJson';
 import { Tag } from './hierarkiAvTags';
 
 export const TAG_HIERARCHY_SPACER = '__';
@@ -53,4 +54,18 @@ export const fjernTagFraFilteret = (tags: Tag[], tagSomSkalFjernes: Tag): Tag[] 
 
 export const fjernAlleInkluderingstags = (tags: Tag[]): Tag[] => {
     return tags.filter((tag) => !alleInkluderingstags.includes(tag));
+};
+
+export const tagsInneholderInkluderingsmuligheter = (tags?: string) => {
+    try {
+        const erGyldigJsonArray = Array.isArray(JSON.parse(tags || ''));
+        if (!erGyldigJsonArray) {
+            return false;
+        }
+
+        const parsedeTags: Tag[] = JSON.parse(tags || '[]');
+        return alleInkluderingstags.some((tag) => parsedeTags.includes(tag));
+    } catch (e) {
+        return false;
+    }
 };

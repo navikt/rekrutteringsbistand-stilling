@@ -42,6 +42,7 @@ import {
     SET_STILLINGSINFO_DATA,
 } from '../stillingsinfo/stillingsinfoDataReducer';
 import { loggPubliseringAvStilling } from './adUtils';
+import { tagsInneholderInkluderingsmuligheter } from './tags/utils';
 
 export const FETCH_AD = 'FETCH_AD';
 export const FETCH_AD_BEGIN = 'FETCH_AD_BEGIN';
@@ -167,6 +168,9 @@ export default function adReducer(state = initialState, action) {
                 isLoadingAd: false,
                 isEditingAd: false,
                 originalData: { ...action.response },
+                kanInkludere: tagsInneholderInkluderingsmuligheter(action.response.properties.tags)
+                    ? KanInkludere.Ja
+                    : KanInkludere.Nei,
             };
         case FETCH_AD_FAILURE:
             return {

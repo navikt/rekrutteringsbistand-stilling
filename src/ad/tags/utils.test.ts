@@ -1,5 +1,6 @@
 import { Tag } from './hierarkiAvTags';
 import {
+    tagsInneholderInkluderingsmuligheter,
     leggTilTagUnderRegistrering,
     fjernTagUnderRegistrering,
     fjernTagFraFilteret,
@@ -61,5 +62,31 @@ describe('Filtrering på inkluderingsmuligheter', () => {
                 Tag.Tilrettelegging
             )
         ).toEqual(expect.arrayContaining([]));
+    });
+});
+
+describe('Parsing av tags og inkluderingsmuligheter', () => {
+    test('En liste med en inkluderingsmulighet inneholder inkluderingsmuligheter', () => {
+        expect(tagsInneholderInkluderingsmuligheter(JSON.stringify([Tag.Tilrettelegging]))).toBe(
+            true
+        );
+    });
+
+    test('Ugjyldig json inneholder ikke inkluderingsmuligheter', () => {
+        expect(tagsInneholderInkluderingsmuligheter('dsa')).toBe(false);
+    });
+
+    test('En udefinert variabel inneholder ikke inkluderingsmuligheter', () => {
+        expect(tagsInneholderInkluderingsmuligheter(undefined)).toBe(false);
+    });
+
+    test('En tom liste inneholder ikke inkluderingsmuligheter', () => {
+        expect(tagsInneholderInkluderingsmuligheter('[]')).toBe(false);
+    });
+
+    test('En liste med en udefinert tag inneholder ikke inkluderingsmuligheter', () => {
+        expect(tagsInneholderInkluderingsmuligheter(JSON.stringify(['IKKE_GYLDIG_TAG']))).toBe(
+            false
+        );
     });
 });
