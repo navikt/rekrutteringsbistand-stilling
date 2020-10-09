@@ -11,7 +11,7 @@ export enum Tag {
 
     PrioritertMålgruppe = 'PRIORITERT_MÅLGRUPPE',
     MålgruppeErUngeUnder30 = 'PRIORITERT_MÅLGRUPPE__UNGE_UNDER_30',
-    MålgruppeErSeniorerOver45 = 'PRIORITERT_MÅLGRUPPE__SENIORER_OVER_45',
+    MålgruppeErSeniorerOver50 = 'PRIORITERT_MÅLGRUPPE__SENIORER_OVER_45',
     MålgruppeKommerFraLandUtenforEØS = 'PRIORITERT_MÅLGRUPPE__KOMMER_FRA_LAND_UTENFOR_EØS',
     MålgruppeHullICVen = 'PRIORITERT_MÅLGRUPPE__HULL_I_CV_EN',
     MålgruppeLiteEllerIngenUtdanning = 'PRIORITERT_MÅLGRUPPE__LITE_ELLER_INGEN_UTDANNING',
@@ -65,7 +65,7 @@ export const hierarkiAvTagsForDirektemeldteStillinger: Record<
         hovedtag: Tag.PrioritertMålgruppe,
         subtags: [
             Tag.MålgruppeErUngeUnder30,
-            Tag.MålgruppeErSeniorerOver45,
+            Tag.MålgruppeErSeniorerOver50,
             Tag.MålgruppeKommerFraLandUtenforEØS,
             Tag.MålgruppeHullICVen,
             Tag.MålgruppeLiteEllerIngenUtdanning,
@@ -113,7 +113,7 @@ export const hierarkiAvTagsForFilter: Record<Inkluderingsmulighet, GruppeMedTags
         hovedtag: Tag.PrioritertMålgruppe,
         subtags: [
             Tag.MålgruppeErUngeUnder30,
-            Tag.MålgruppeErSeniorerOver45,
+            Tag.MålgruppeErSeniorerOver50,
             Tag.MålgruppeKommerFraLandUtenforEØS,
             Tag.MålgruppeHullICVen,
             Tag.MålgruppeLiteEllerIngenUtdanning,
