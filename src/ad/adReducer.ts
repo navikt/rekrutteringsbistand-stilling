@@ -1,3 +1,4 @@
+import { KanInkludere } from './edit/registrer-inkluderingsmuligheter/DirektemeldtStilling';
 import deepEqual from 'deep-equal';
 import { put, select, takeLatest } from 'redux-saga/effects';
 import {
@@ -103,7 +104,7 @@ export const DEFAULT_TITLE_NEW_AD = 'Ny stilling';
 export const LEGG_TIL_I_MINE_STILLINGER = 'LEGG_TIL_I_MINE_STILLINGER';
 export const MARKER_SOM_MIN = 'MARKER_SOM_MIN';
 
-export const TOGGLE_KAN_IKKE_INKLUDERE = 'TOGGLE_KAN_IKKE_INKLUDERE';
+export const SET_KAN_INKLUDERE = 'SET_KAN_INKLUDERE';
 
 export type AdState = {
     error: any;
@@ -122,7 +123,7 @@ export type AdState = {
     showAdSavedErrorModal: boolean;
     hasChangesLeaveUrl: any;
     leavePageTrigger: boolean;
-    kanIkkeInkludere: boolean;
+    kanInkludere: KanInkludere;
 };
 
 const initialState: AdState = {
@@ -142,7 +143,7 @@ const initialState: AdState = {
     showAdSavedErrorModal: false,
     hasChangesLeaveUrl: undefined,
     leavePageTrigger: false,
-    kanIkkeInkludere: false,
+    kanInkludere: KanInkludere.Ja,
 };
 
 export default function adReducer(state = initialState, action) {
@@ -314,15 +315,15 @@ export default function adReducer(state = initialState, action) {
                 ...state,
                 leavePageTrigger: true,
             };
-        case TOGGLE_KAN_IKKE_INKLUDERE:
+        case SET_KAN_INKLUDERE:
             return {
                 ...state,
-                kanIkkeInkludere: action.kanIkkeInkludere,
+                kanInkludere: action.kanInkludere,
             };
         case CHECK_TAG:
             return {
                 ...state,
-                kanIkkeInkludere: false,
+                kanInkludere: KanInkludere.Ja,
             };
 
         default:

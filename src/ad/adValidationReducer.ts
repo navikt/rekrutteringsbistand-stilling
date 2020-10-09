@@ -3,7 +3,7 @@ import { Tag } from './tags/hierarkiAvTags';
 import { put, select, takeLatest } from 'redux-saga/es/effects';
 import { erDatoEtterMinDato } from 'nav-datovelger/dist/datovelger/utils/datovalidering';
 import { toDate } from '../utils';
-import { DEFAULT_TITLE_NEW_AD, TOGGLE_KAN_IKKE_INKLUDERE } from './adReducer';
+import { DEFAULT_TITLE_NEW_AD, SET_KAN_INKLUDERE } from './adReducer';
 import IsJson from './edit/practicalInformation/IsJson';
 
 import {
@@ -38,6 +38,7 @@ import {
 import { SET_NOTAT } from '../stillingsinfo/stillingsinfoDataReducer';
 import isJson from './edit/practicalInformation/IsJson';
 import State from '../State';
+import { KanInkludere } from './edit/registrer-inkluderingsmuligheter/DirektemeldtStilling';
 
 const ADD_VALIDATION_ERROR = 'ADD_VALIDATION_ERROR';
 const REMOVE_VALIDATION_ERROR = 'REMOVE_VALIDATION_ERROR';
@@ -373,7 +374,7 @@ function* validateWorkhours() {
 
 function* validateInkluderingsmuligheter() {
     const state: State = yield select();
-    const { kanIkkeInkludere } = state.ad;
+    const { kanInkludere } = state.ad;
     const { tags } = state.adData.properties;
 
     const fjernFeilAction = { type: REMOVE_VALIDATION_ERROR, field: 'inkluderingsmuligheter' };
@@ -383,7 +384,7 @@ function* validateInkluderingsmuligheter() {
         message: 'Mulighet for inkludering mangler – velg én eller flere',
     };
 
-    if (kanIkkeInkludere) {
+    if (kanInkludere === KanInkludere.Nei) {
         yield put(fjernFeilAction);
     } else {
         const tagArray: Tag[] | false = isJson(tags) && JSON.parse(tags || '');
@@ -541,8 +542,5 @@ export const validationSaga = function* saga() {
     yield takeLatest(UNCHECK_EMPLOYMENT_WORKDAY, validateWorkday);
     yield takeLatest(CHECK_EMPLOYMENT_WORKHOURS, validateWorkhours);
     yield takeLatest(UNCHECK_EMPLOYMENT_WORKHOURS, validateWorkhours);
-    yield takeLatest(
-        [CHECK_TAG, UNCHECK_TAG, TOGGLE_KAN_IKKE_INKLUDERE],
-        validateInkluderingsmuligheter
-    );
+    yield takeLatest([CHECK_TAG, UNCHECK_TAG, SET_KAN_INKLUDERE], validateInkluderingsmuligheter);
 };

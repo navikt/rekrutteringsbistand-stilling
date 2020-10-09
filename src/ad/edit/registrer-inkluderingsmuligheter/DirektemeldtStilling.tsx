@@ -9,13 +9,13 @@ import { fjernAlleInkluderingstags } from '../../tags/utils';
 import { HjelpetekstForInkluderingsmulighet } from './HjelpetekstForInkluderingsmulighet';
 import { Inkluderingsmulighet as AlleInkluderingsmuligheter } from '../../../ad/tags/hierarkiAvTags';
 import { InkluderingsmulighetForDirektemeldtStilling, Tag } from '../../tags/hierarkiAvTags';
-import { TOGGLE_KAN_IKKE_INKLUDERE } from '../../adReducer';
+import { SET_KAN_INKLUDERE } from '../../adReducer';
 import Inkluderingsmulighet from './Inkluderingsmulighet';
 import isJson from '../practicalInformation/IsJson';
 import State from '../../../State';
 import './DirektemeldtStilling.less';
 
-enum KanInkludere {
+export enum KanInkludere {
     Ja = 'ja',
     Nei = 'nei',
 }
@@ -25,8 +25,8 @@ type Props = {
     setTags: (tags: string) => void;
     checkTag: (tag: Tag) => void;
     uncheckTag: (tag: Tag) => void;
-    kanIkkeInkludere: boolean;
-    toggleKanIkkeInkludere: (kanIkkeInkludere: boolean) => void;
+    kanInkludere: KanInkludere;
+    setKanInkludere: (kanInkludere: KanInkludere) => void;
     feilmelding?: string;
     source: string;
 };
@@ -36,14 +36,14 @@ const DirektemeldtStilling: FunctionComponent<Props> = ({
     setTags,
     checkTag,
     uncheckTag,
-    kanIkkeInkludere,
-    toggleKanIkkeInkludere,
+    kanInkludere,
+    setKanInkludere,
     feilmelding,
 }) => {
-    const [forrigeTags, setForrigeTags] = useState<string | undefined>(undefined);
+    const [registrerteTags, setRegistrerteTags] = useState<string | undefined>(undefined);
 
     const onTagChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setForrigeTags(undefined);
+        setRegistrerteTags(undefined);
 
         const { checked, value } = e.target;
         checked ? checkTag(value as Tag) : uncheckTag(value as Tag);
@@ -60,17 +60,23 @@ const DirektemeldtStilling: FunctionComponent<Props> = ({
         setTags(JSON.stringify(utenInkluderingstags));
     };
 
-    const onKanIkkeInkludereChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const kanIkkeInkludere = e.target.value === KanInkludere.Nei;
+    const brukRegistrerteTags = () => {
+        if (registrerteTags) {
+            setTags(registrerteTags);
+        }
+    };
 
-        if (kanIkkeInkludere) {
-            setForrigeTags(tags);
+    const onKanIkkeInkludereChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const kanInkludere = e.target.value as KanInkludere;
+
+        if (kanInkludere === KanInkludere.Nei) {
+            setRegistrerteTags(tags);
             fjernInkluderingstags();
-        } else if (forrigeTags) {
-            setTags(forrigeTags);
+        } else {
+            brukRegistrerteTags();
         }
 
-        toggleKanIkkeInkludere(kanIkkeInkludere);
+        setKanInkludere(kanInkludere);
     };
 
     const tagIsChecked = (tag: string) => tags && isJson(tags) && JSON.parse(tags).includes(tag);
@@ -103,22 +109,25 @@ const DirektemeldtStilling: FunctionComponent<Props> = ({
                     name="muligheter-for-inkludering"
                     label="Arbeidsgiver kan inkludere"
                     value={KanInkludere.Ja}
-                    checked={!kanIkkeInkludere}
+                    checked={kanInkludere === KanInkludere.Ja}
                     onChange={onKanIkkeInkludereChange}
                 />
                 <Radio
                     name="muligheter-for-inkludering"
                     label="Arbeidsgiver kan ikke inkludere"
                     value={KanInkludere.Nei}
-                    checked={kanIkkeInkludere}
+                    checked={kanInkludere === KanInkludere.Nei}
                     onChange={onKanIkkeInkludereChange}
                 />
             </RadioGruppe>
-            {!kanIkkeInkludere && (
+            {kanInkludere === KanInkludere.Ja && (
                 <div className="registrer-inkluderingsmuligheter-direktemeldt-stilling__inkluderingsmuligheter">
                     <div>
                         <Inkluderingsmulighet
                             tittel="Arbeidsgiver kan tilrettelegge for"
+                            tagIsChecked={tagIsChecked}
+                            onTagChange={onTagChange}
+                            className="blokk-m"
                             inkluderingsmulighet={
                                 InkluderingsmulighetForDirektemeldtStilling.Tilrettelegging
                             }
@@ -129,12 +138,12 @@ const DirektemeldtStilling: FunctionComponent<Props> = ({
                                     }
                                 />
                             }
-                            tagIsChecked={tagIsChecked}
-                            onTagChange={onTagChange}
-                            className="blokk-m"
                         />
                         <Inkluderingsmulighet
                             tittel="Arbeidsgiver er åpen for de som trenger"
+                            tagIsChecked={tagIsChecked}
+                            onTagChange={onTagChange}
+                            className="blokk-m"
                             inkluderingsmulighet={
                                 InkluderingsmulighetForDirektemeldtStilling.TiltakEllerVirkemiddel
                             }
@@ -145,13 +154,13 @@ const DirektemeldtStilling: FunctionComponent<Props> = ({
                                     }
                                 />
                             }
-                            tagIsChecked={tagIsChecked}
-                            onTagChange={onTagChange}
-                            className="blokk-m"
                         />
                     </div>
                     <Inkluderingsmulighet
                         tittel="Arbeidsgiver er åpen for kandidater som"
+                        tagIsChecked={tagIsChecked}
+                        onTagChange={onTagChange}
+                        className="blokk-s"
                         inkluderingsmulighet={
                             InkluderingsmulighetForDirektemeldtStilling.PrioriterteMålgrupper
                         }
@@ -162,9 +171,6 @@ const DirektemeldtStilling: FunctionComponent<Props> = ({
                                 }
                             />
                         }
-                        tagIsChecked={tagIsChecked}
-                        onTagChange={onTagChange}
-                        className="blokk-s"
                     />
                 </div>
             )}
@@ -174,7 +180,7 @@ const DirektemeldtStilling: FunctionComponent<Props> = ({
 
 const mapStateToProps = (state: State) => ({
     tags: state.adData.properties.tags || '[]',
-    kanIkkeInkludere: state.ad.kanIkkeInkludere,
+    kanInkludere: state.ad.kanInkludere,
     feilmelding: state.adValidation.errors.inkluderingsmuligheter,
     source: state.adData.source,
 });
@@ -183,8 +189,8 @@ const mapDispatchToProps = (dispatch: any) => ({
     setTags: (tags: string) => dispatch({ type: SET_TAGS, tags }),
     checkTag: (value: Tag) => dispatch({ type: CHECK_TAG, value }),
     uncheckTag: (value: Tag) => dispatch({ type: UNCHECK_TAG, value }),
-    toggleKanIkkeInkludere: (kanIkkeInkludere: boolean) =>
-        dispatch({ type: TOGGLE_KAN_IKKE_INKLUDERE, kanIkkeInkludere }),
+    setKanInkludere: (kanInkludere: KanInkludere) =>
+        dispatch({ type: SET_KAN_INKLUDERE, kanInkludere }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DirektemeldtStilling);

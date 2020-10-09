@@ -6,14 +6,13 @@ import {
     FETCH_AD_SUCCESS,
     SAVE_AD_SUCCESS,
     DELETE_AD_SUCCESS,
-    TOGGLE_KAN_IKKE_INKLUDERE,
 } from './adReducer';
 import { FETCH_LOCATIONS, FETCH_LOCATIONS_SUCCESS } from './edit/location/locationCodeReducer';
 import AdStatusEnum from '../common/enums/AdStatusEnum';
 import PrivacyStatusEnum from '../common/enums/PrivacyStatusEnum';
 import IsJson from './edit/practicalInformation/IsJson';
 import { isValidISOString } from '../utils';
-import { leggTilTagUnderRegistrering, fjernTagUnderRegistrering } from '../ad/tags/utils.ts';
+import { leggTilTagUnderRegistrering, fjernTagUnderRegistrering } from '../ad/tags/utils';
 
 export const SET_AD_DATA = 'SET_AD_DATA';
 export const REMOVE_AD_DATA = 'REMOVE_AD_DATA';
