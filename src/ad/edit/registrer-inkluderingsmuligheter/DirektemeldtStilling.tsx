@@ -14,6 +14,7 @@ import Inkluderingsmulighet from './Inkluderingsmulighet';
 import isJson from '../practicalInformation/IsJson';
 import State from '../../../State';
 import './DirektemeldtStilling.less';
+import Skjemalegend from '../skjemaetikett/Skjemalegend';
 
 export enum KanInkludere {
     Ja = 'ja',
@@ -105,16 +106,17 @@ const DirektemeldtStilling: FunctionComponent<Props> = ({
                 className="registrer-inkluderingsmuligheter-direktemeldt-stilling__radiogruppe"
                 feil={feilmelding}
             >
+                <Skjemalegend>Kan arbeidsgiver inkludere?</Skjemalegend>
                 <Radio
                     name="muligheter-for-inkludering"
-                    label="Arbeidsgiver kan inkludere"
+                    label="Ja, arbeidsgiver kan inkludere"
                     value={KanInkludere.Ja}
                     checked={kanInkludere === KanInkludere.Ja}
                     onChange={onKanIkkeInkludereChange}
                 />
                 <Radio
                     name="muligheter-for-inkludering"
-                    label="Arbeidsgiver kan ikke inkludere"
+                    label="Nei, arbeidsgiver kan ikke inkludere"
                     value={KanInkludere.Nei}
                     checked={kanInkludere === KanInkludere.Nei}
                     onChange={onKanIkkeInkludereChange}
