@@ -127,7 +127,6 @@ const DirektemeldtStilling: FunctionComponent<Props> = ({
                             tittel="Arbeidsgiver kan tilrettelegge for"
                             tagIsChecked={tagIsChecked}
                             onTagChange={onTagChange}
-                            className="blokk-m"
                             inkluderingsmulighet={
                                 InkluderingsmulighetForDirektemeldtStilling.Tilrettelegging
                             }
@@ -143,7 +142,6 @@ const DirektemeldtStilling: FunctionComponent<Props> = ({
                             tittel="Arbeidsgiver er åpen for de som trenger"
                             tagIsChecked={tagIsChecked}
                             onTagChange={onTagChange}
-                            className="blokk-m"
                             inkluderingsmulighet={
                                 InkluderingsmulighetForDirektemeldtStilling.TiltakEllerVirkemiddel
                             }
@@ -160,7 +158,6 @@ const DirektemeldtStilling: FunctionComponent<Props> = ({
                         tittel="Arbeidsgiver er åpen for kandidater som"
                         tagIsChecked={tagIsChecked}
                         onTagChange={onTagChange}
-                        className="blokk-s"
                         inkluderingsmulighet={
                             InkluderingsmulighetForDirektemeldtStilling.PrioriterteMålgrupper
                         }
