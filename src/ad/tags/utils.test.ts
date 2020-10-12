@@ -72,7 +72,7 @@ describe('Parsing av tags og inkluderingsmuligheter', () => {
         );
     });
 
-    test('Ugjyldig json inneholder ikke inkluderingsmuligheter', () => {
+    test('Ugyldig json inneholder ikke inkluderingsmuligheter', () => {
         expect(tagsInneholderInkluderingsmuligheter('dsa')).toBe(false);
     });
 
