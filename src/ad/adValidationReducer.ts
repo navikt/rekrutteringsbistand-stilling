@@ -1,5 +1,4 @@
-import { alleInkluderingstags } from './tags/utils';
-import { Tag } from './tags/hierarkiAvTags';
+import { tagsInneholderInkluderingsmuligheter } from './tags/utils';
 import { put, select, takeLatest } from 'redux-saga/es/effects';
 import { erDatoEtterMinDato } from 'nav-datovelger/dist/datovelger/utils/datovalidering';
 import { toDate } from '../utils';
@@ -377,27 +376,14 @@ function* validateInkluderingsmuligheter() {
     const { kanInkludere } = state.ad;
     const { tags } = state.adData.properties;
 
-    const fjernFeilAction = { type: REMOVE_VALIDATION_ERROR, field: 'inkluderingsmuligheter' };
-    const leggTilFeilAction = {
-        type: ADD_VALIDATION_ERROR,
-        field: 'inkluderingsmuligheter',
-        message: 'Mulighet for inkludering mangler – velg én eller flere',
-    };
-
-    if (kanInkludere === KanInkludere.Nei) {
-        yield put(fjernFeilAction);
+    if (kanInkludere === KanInkludere.Nei || tagsInneholderInkluderingsmuligheter(tags)) {
+        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'inkluderingsmuligheter' });
     } else {
-        const tagArray: Tag[] | false = isJson(tags) && JSON.parse(tags || '');
-
-        if (tagArray) {
-            if (alleInkluderingstags.some((tag) => tagArray.includes(tag))) {
-                yield put(fjernFeilAction);
-            } else {
-                yield put(leggTilFeilAction);
-            }
-        } else {
-            yield put(leggTilFeilAction);
-        }
+        yield put({
+            type: ADD_VALIDATION_ERROR,
+            field: 'inkluderingsmuligheter',
+            message: 'Mulighet for inkludering mangler – velg én eller flere',
+        });
     }
 }
 

@@ -1,5 +1,6 @@
 import { Tag } from './hierarkiAvTags';
 import {
+    tagsInneholderInkluderingsmuligheter,
     leggTilTagUnderRegistrering,
     fjernTagUnderRegistrering,
     fjernTagFraFilteret,
@@ -15,31 +16,31 @@ const utenTilretteleggingFysisk = [
 const medTilretteleggingFysisk = [...utenTilretteleggingFysisk, Tag.TilretteleggingFysisk];
 
 describe('Registrere inkluderingsmuligheter på en stilling', () => {
-    test('Å legge til en subtag', () => {
+    test('leggTilTagUnderRegistrering skal legge til tag', () => {
         expect(
             leggTilTagUnderRegistrering(utenTilretteleggingFysisk, Tag.TilretteleggingFysisk)
         ).toEqual(expect.arrayContaining(medTilretteleggingFysisk));
     });
 
-    test('Å legge til en subtag legger til dens hovedtag', () => {
+    test('leggTilTagUnderRegistrering med en subtag skal legge til dens hovedtag hvis den ikke finnes fra før', () => {
         expect(leggTilTagUnderRegistrering([], Tag.TilretteleggingFysisk)).toEqual(
             expect.arrayContaining([Tag.Tilrettelegging, Tag.TilretteleggingFysisk])
         );
     });
 
-    test('Å legge til en subtag legger ikke til dens hovedtag hvis den er registrert fra før', () => {
+    test('leggTilTagUnderRegistrering med en subtag skal ikke legge til dens hovedtag hvis den er registrert fra før', () => {
         expect(
             leggTilTagUnderRegistrering([Tag.PrioritertMålgruppe], Tag.MålgruppeHullICVen)
         ).toEqual(expect.arrayContaining([Tag.PrioritertMålgruppe, Tag.MålgruppeHullICVen]));
     });
 
-    test('Fjerning av en subtag', () => {
+    test('fjernTagUnderRegistrering skal fjerne en tag', () => {
         expect(
             fjernTagUnderRegistrering(medTilretteleggingFysisk, Tag.TilretteleggingFysisk)
         ).toEqual(expect.arrayContaining(utenTilretteleggingFysisk));
     });
 
-    test('Fjerning av siste subtag innen en inkluderingsmulighet fjerner også dens hovedtag', () => {
+    test('fjernTagUnderRegistrering med siste subtag innen en inkluderingsmulighet skal også fjerne dens hovedtag', () => {
         expect(
             fjernTagUnderRegistrering(
                 [Tag.PrioritertMålgruppe, Tag.MålgruppeErUngeUnder30],
@@ -50,7 +51,7 @@ describe('Registrere inkluderingsmuligheter på en stilling', () => {
 });
 
 describe('Filtrering på inkluderingsmuligheter', () => {
-    test('Fjerning av en hovedtag fjerner også subtags', () => {
+    test('fjernTagFraFilteret med en hovedtag skal også fjerne dens subtags', () => {
         expect(
             fjernTagFraFilteret(
                 [
@@ -61,5 +62,31 @@ describe('Filtrering på inkluderingsmuligheter', () => {
                 Tag.Tilrettelegging
             )
         ).toEqual(expect.arrayContaining([]));
+    });
+});
+
+describe('Parsing av tags og inkluderingsmuligheter', () => {
+    test('En liste med én inkluderingsmulighet skal inneholde inkluderingsmuligheter', () => {
+        expect(tagsInneholderInkluderingsmuligheter(JSON.stringify([Tag.Tilrettelegging]))).toBe(
+            true
+        );
+    });
+
+    test('Ugyldig JSON skal ikke inneholde inkluderingsmuligheter', () => {
+        expect(tagsInneholderInkluderingsmuligheter('dsa')).toBe(false);
+    });
+
+    test('En udefinert variabel skal ikke inneholde inkluderingsmuligheter', () => {
+        expect(tagsInneholderInkluderingsmuligheter(undefined)).toBe(false);
+    });
+
+    test('En tom liste skal ikke inneholde inkluderingsmuligheter', () => {
+        expect(tagsInneholderInkluderingsmuligheter('[]')).toBe(false);
+    });
+
+    test('En liste med en udefinert tag skal ikke inneholde inkluderingsmuligheter', () => {
+        expect(tagsInneholderInkluderingsmuligheter(JSON.stringify(['IKKE_GYLDIG_TAG']))).toBe(
+            false
+        );
     });
 });

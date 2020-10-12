@@ -4,6 +4,7 @@ import Inkluderingsmuligheter from './Inkluderingsmuligheter';
 import isJson from '../../edit/practicalInformation/IsJson';
 import './VisInkluderingsmuligheterInternStilling.less';
 import { Tag } from '../../tags/hierarkiAvTags';
+import { tagsInneholderInkluderingsmuligheter } from '../../tags/utils';
 
 interface Props {
     tags: string;
@@ -24,10 +25,11 @@ const VisInkluderingsmuligheterInternStilling: FunctionComponent<Props> = ({ tag
         );
     }
 
-    const registrerteTags: Tag[] = JSON.parse(tags);
-    if (registrerteTags.length === 0) {
+    if (!tagsInneholderInkluderingsmuligheter(tags)) {
         return null;
     }
+
+    const registrerteTags = JSON.parse(tags);
 
     return (
         <div className="vis-inkluderingsmuligheter-intern-stilling">
