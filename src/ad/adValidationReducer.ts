@@ -376,21 +376,14 @@ function* validateInkluderingsmuligheter() {
     const { kanInkludere } = state.ad;
     const { tags } = state.adData.properties;
 
-    const fjernFeilAction = { type: REMOVE_VALIDATION_ERROR, field: 'inkluderingsmuligheter' };
-    const leggTilFeilAction = {
-        type: ADD_VALIDATION_ERROR,
-        field: 'inkluderingsmuligheter',
-        message: 'Mulighet for inkludering mangler – velg én eller flere',
-    };
-
-    if (kanInkludere === KanInkludere.Nei) {
-        yield put(fjernFeilAction);
+    if (kanInkludere === KanInkludere.Nei || tagsInneholderInkluderingsmuligheter(tags)) {
+        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'inkluderingsmuligheter' });
     } else {
-        if (tagsInneholderInkluderingsmuligheter(tags)) {
-            yield put(fjernFeilAction);
-        } else {
-            yield put(leggTilFeilAction);
-        }
+        yield put({
+            type: ADD_VALIDATION_ERROR,
+            field: 'inkluderingsmuligheter',
+            message: 'Mulighet for inkludering mangler – velg én eller flere',
+        });
     }
 }
 
