@@ -57,15 +57,10 @@ export const fjernAlleInkluderingstags = (tags: Tag[]): Tag[] => {
 };
 
 export const tagsInneholderInkluderingsmuligheter = (tags?: string) => {
-    try {
-        const erGyldigJsonArray = Array.isArray(JSON.parse(tags || ''));
-        if (!erGyldigJsonArray) {
-            return false;
-        }
-
-        const parsedeTags: Tag[] = JSON.parse(tags || '[]');
-        return alleInkluderingstags.some((tag) => parsedeTags.includes(tag));
-    } catch (e) {
+    if (!isJson(tags)) {
         return false;
     }
+
+    const parsedeTags: Tag[] = JSON.parse(tags || '[]');
+    return alleInkluderingstags.some((tag) => parsedeTags.includes(tag));
 };

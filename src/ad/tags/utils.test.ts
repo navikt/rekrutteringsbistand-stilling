@@ -66,13 +66,13 @@ describe('Filtrering på inkluderingsmuligheter', () => {
 });
 
 describe('Parsing av tags og inkluderingsmuligheter', () => {
-    test('En liste med en inkluderingsmulighet inneholder inkluderingsmuligheter', () => {
+    test('En liste med én inkluderingsmulighet inneholder inkluderingsmuligheter', () => {
         expect(tagsInneholderInkluderingsmuligheter(JSON.stringify([Tag.Tilrettelegging]))).toBe(
             true
         );
     });
 
-    test('Ugyldig json inneholder ikke inkluderingsmuligheter', () => {
+    test('Ugyldig JSON inneholder ikke inkluderingsmuligheter', () => {
         expect(tagsInneholderInkluderingsmuligheter('dsa')).toBe(false);
     });
 
