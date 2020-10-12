@@ -8,7 +8,7 @@ export const visningsnavnForRegistrering: Partial<Record<Tag, string>> = {
     [Tag.VirkemiddelLønnstilskudd]: 'lønnstilskudd',
     [Tag.VirkemiddelMentortilskudd]: 'mentor (tilskudd)',
     [Tag.MålgruppeErUngeUnder30]: 'er unge under 30 år',
-    [Tag.MålgruppeErSeniorerOver45]: 'er seniorer 45+',
+    [Tag.MålgruppeErSeniorerOver50]: 'er seniorer 50+',
     [Tag.MålgruppeKommerFraLandUtenforEØS]: 'kommer fra land utenfor EØS',
     [Tag.MålgruppeHullICVen]: 'har hull i CV-en',
     [Tag.MålgruppeLiteEllerIngenUtdanning]: 'har lite eller ingen utdanning',
@@ -29,7 +29,7 @@ export const visningsnavnForFilter: Record<Tag, string> = {
 
     [Tag.PrioritertMålgruppe]: 'Alle målgrupper',
     [Tag.MålgruppeErUngeUnder30]: 'Unge under 30 år',
-    [Tag.MålgruppeErSeniorerOver45]: 'Seniorer 45+',
+    [Tag.MålgruppeErSeniorerOver50]: 'Seniorer 50+',
     [Tag.MålgruppeKommerFraLandUtenforEØS]: 'Borgere fra land utenfor EØS',
     [Tag.MålgruppeHullICVen]: 'Hull i CV-en',
     [Tag.MålgruppeLiteEllerIngenUtdanning]: 'Lite eller ingen utdanning',
