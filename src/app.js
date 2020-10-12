@@ -37,6 +37,14 @@ import featureTogglesReducer, {
 import navKontorReducer from './navKontor/navKontorReducer.ts';
 import Dekoratør from './dekoratør/Dekoratør.tsx';
 import useLoggNavigering from './useLoggNavigering';
+import { fjernPersonopplysninger, getMiljø } from './sentryUtils';
+
+Sentry.init({
+    dsn: 'https://34e485d3fd9945e29d5f66f11a29f84e@sentry.gc.nav.no/43',
+    environment: getMiljø(),
+    enabled: getMiljø() === 'dev-fss' || getMiljø() === 'prod-fss',
+    beforeSend: fjernPersonopplysninger,
+});
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -112,10 +120,12 @@ const Main = () => {
 };
 
 ReactDOM.render(
-    <Provider store={store}>
-        <Router history={history}>
-            <Main />
-        </Router>
-    </Provider>,
+    <Sentry.ErrorBoundary>
+        <Provider store={store}>
+            <Router history={history}>
+                <Main />
+            </Router>
+        </Provider>
+    </Sentry.ErrorBoundary>,
     document.getElementById('app')
 );

@@ -28,6 +28,10 @@ class SearchPage extends React.Component {
     render() {
         const { ads, isSearching, error, resetSearch } = this.props;
         const adsFound = !isSearching && ads && ads.length > 0;
+        const crash = () => {
+            throw new Error('Oops!');
+        };
+
         return (
             <div className="SearchPage">
                 <h1 className="visually-hidden">Søk etter stilling</h1>
@@ -36,7 +40,7 @@ class SearchPage extends React.Component {
                         <SearchBox />
                     </div>
                     <div className="SearchPage__SearchBox__resetButton">
-                        <Flatknapp mini onClick={resetSearch}>
+                        <Flatknapp mini onClick={crash}>
                             Nullstill søk
                         </Flatknapp>
                     </div>
