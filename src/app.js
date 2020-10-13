@@ -1,42 +1,53 @@
 import React, { useEffect } from 'react';
-import ReactDOM from 'react-dom';
-import { Router, Route, Switch } from 'react-router-dom';
 import { applyMiddleware, createStore, combineReducers, compose } from 'redux';
-import { Provider, useDispatch, useSelector } from 'react-redux';
+import { Provider, useDispatch } from 'react-redux';
+import { Router, Route, Switch } from 'react-router-dom';
+import * as Sentry from '@sentry/react';
 import createSagaMiddleware from 'redux-saga';
-import employerReducer, { employerSaga } from './ad/edit/employer/employerReducer';
-import locationCodeReducer, { locationCodeSaga } from './ad/edit/location/locationCodeReducer';
-import styrkReducer, { styrkSaga } from './ad/edit/jobDetails/styrk/styrkReducer';
-import adReducer, { adSaga } from './ad/adReducer.ts';
-import searchReducer, { searchSaga } from './searchPage/searchReducer';
-import filterLocationReducer, {
-    filterLocationSaga,
-} from './searchPage/filter/location/filterLocationReducer';
-import locationAreaReducer, { locationAreaSaga } from './ad/edit/location/locationAreaReducer';
-import Ad from './ad/Ad';
-import Navigeringsmeny from './navigeringsmeny/Navigeringsmeny.tsx';
-import './styles.less';
-import './variables.less';
-import StartPage from './startPage/StartPage';
-import SearchPage from './searchPage/SearchPage';
-import MyAds from './myAds/MyAds';
-import reporteeReducer, { FETCH_REPORTEE, reporteeSaga } from './reportee/reporteeReducer';
-import adDataReducer, { adDataSaga } from './ad/adDataReducer';
-import adValidationReducer, { validationSaga } from './ad/adValidationReducer.ts';
-import savedSearchAlertStripeReducer from './ad/alertstripe/SavedAdAlertStripeReducer';
-import myAdsReducer, { myAdsSaga } from './myAds/myAdsReducer';
-import history from './history';
+import ReactDOM from 'react-dom';
+
+import { fjernPersonopplysninger, getMiljø } from './sentryUtils';
 import { urlHasPath, redirectToUrlPath } from './login';
-import kandidatReducer, { kandidatSaga } from './ad/kandidatModal/kandidatReducer';
-import stillingsinfoDataReducer from './stillingsinfo/stillingsinfoDataReducer';
-import stillingsinfoReducer, { stillingsinfoSaga } from './stillingsinfo/stillingsinfoReducer';
+import Ad from './ad/Ad';
+import adDataReducer, { adDataSaga } from './ad/adDataReducer';
+import adReducer, { adSaga } from './ad/adReducer.ts';
+import adValidationReducer, { validationSaga } from './ad/adValidationReducer.ts';
+import Dekoratør from './dekoratør/Dekoratør.tsx';
+import employerReducer, { employerSaga } from './ad/edit/employer/employerReducer';
 import featureTogglesReducer, {
     featureTogglesSaga,
     FETCH_FEATURE_TOGGLES,
 } from './featureToggles/featureTogglesReducer';
+import filterLocationReducer, {
+    filterLocationSaga,
+} from './searchPage/filter/location/filterLocationReducer';
+import history from './history';
+import kandidatReducer, { kandidatSaga } from './ad/kandidatModal/kandidatReducer';
+import locationAreaReducer, { locationAreaSaga } from './ad/edit/location/locationAreaReducer';
+import locationCodeReducer, { locationCodeSaga } from './ad/edit/location/locationCodeReducer';
+import MyAds from './myAds/MyAds';
+import myAdsReducer, { myAdsSaga } from './myAds/myAdsReducer';
+import Navigeringsmeny from './navigeringsmeny/Navigeringsmeny.tsx';
 import navKontorReducer from './navKontor/navKontorReducer.ts';
-import Dekoratør from './dekoratør/Dekoratør.tsx';
+import reporteeReducer, { FETCH_REPORTEE, reporteeSaga } from './reportee/reporteeReducer';
+import savedSearchAlertStripeReducer from './ad/alertstripe/SavedAdAlertStripeReducer';
+import SearchPage from './searchPage/SearchPage';
+import searchReducer, { searchSaga } from './searchPage/searchReducer';
+import StartPage from './startPage/StartPage';
+import stillingsinfoDataReducer from './stillingsinfo/stillingsinfoDataReducer';
+import stillingsinfoReducer, { stillingsinfoSaga } from './stillingsinfo/stillingsinfoReducer';
+import styrkReducer, { styrkSaga } from './ad/edit/jobDetails/styrk/styrkReducer';
 import useLoggNavigering from './useLoggNavigering';
+
+import './styles.less';
+import './variables.less';
+
+Sentry.init({
+    dsn: 'https://34e485d3fd9945e29d5f66f11a29f84e@sentry.gc.nav.no/43',
+    environment: getMiljø(),
+    enabled: getMiljø() === 'dev-fss' || getMiljø() === 'prod-fss',
+    beforeSend: fjernPersonopplysninger,
+});
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -112,10 +123,12 @@ const Main = () => {
 };
 
 ReactDOM.render(
-    <Provider store={store}>
-        <Router history={history}>
-            <Main />
-        </Router>
-    </Provider>,
+    <Sentry.ErrorBoundary>
+        <Provider store={store}>
+            <Router history={history}>
+                <Main />
+            </Router>
+        </Provider>
+    </Sentry.ErrorBoundary>,
     document.getElementById('app')
 );
