@@ -6,6 +6,8 @@ import * as Sentry from '@sentry/react';
 import createSagaMiddleware from 'redux-saga';
 import ReactDOM from 'react-dom';
 
+import './styles.less'; // Må importeres før andre komponenter
+
 import { fjernPersonopplysninger, getMiljø } from './sentryUtils';
 import { urlHasPath, redirectToUrlPath } from './login';
 import Ad from './ad/Ad';
@@ -31,17 +33,13 @@ import Navigeringsmeny from './navigeringsmeny/Navigeringsmeny.tsx';
 import navKontorReducer from './navKontor/navKontorReducer.ts';
 import reporteeReducer, { FETCH_REPORTEE, reporteeSaga } from './reportee/reporteeReducer';
 import savedSearchAlertStripeReducer from './ad/alertstripe/SavedAdAlertStripeReducer';
+import SearchPage from './searchPage/SearchPage';
 import searchReducer, { searchSaga } from './searchPage/searchReducer';
 import StartPage from './startPage/StartPage';
 import stillingsinfoDataReducer from './stillingsinfo/stillingsinfoDataReducer';
 import stillingsinfoReducer, { stillingsinfoSaga } from './stillingsinfo/stillingsinfoReducer';
 import styrkReducer, { styrkSaga } from './ad/edit/jobDetails/styrk/styrkReducer';
 import useLoggNavigering from './useLoggNavigering';
-
-import './variables.less';
-import './styles.less';
-
-import SearchPage from './searchPage/SearchPage'; // Må importeres etter StartPage og less-filer
 
 Sentry.init({
     dsn: 'https://34e485d3fd9945e29d5f66f11a29f84e@sentry.gc.nav.no/43',
