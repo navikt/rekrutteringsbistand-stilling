@@ -1,7 +1,7 @@
 import React, { ChangeEvent, FunctionComponent, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Radio, RadioGruppe } from 'nav-frontend-skjema';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 
 import { CHECK_TAG, UNCHECK_TAG, SET_TAGS } from '../../adDataReducer';
@@ -15,6 +15,7 @@ import isJson from '../practicalInformation/IsJson';
 import State from '../../../State';
 import './DirektemeldtStilling.less';
 import Skjemalegend from '../skjemaetikett/Skjemalegend';
+import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 
 export enum KanInkludere {
     Ja = 'ja',
@@ -172,6 +173,15 @@ const DirektemeldtStilling: FunctionComponent<Props> = ({
                         }
                     />
                 </div>
+            )}
+            {kanInkludere === KanInkludere.Nei && (
+                <AlertStripeAdvarsel>
+                    <Element>Kan ikke arbeidsgiveren inkludere?</Element>
+                    <Normaltekst>
+                        Hør om arbeidsgiveren kan tenke seg å registrere en annonse selv på
+                        Arbeidsplassen.
+                    </Normaltekst>
+                </AlertStripeAdvarsel>
             )}
         </Ekspanderbartpanel>
     );
