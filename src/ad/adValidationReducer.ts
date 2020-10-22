@@ -382,7 +382,8 @@ function* validateInkluderingsmuligheter() {
         yield put({
             type: ADD_VALIDATION_ERROR,
             field: 'inkluderingsmuligheter',
-            message: 'Mulighet for inkludering mangler – velg én eller flere',
+            message:
+                'Mulighet for inkludering mangler – velg én eller flere inkluderingsmuligheter eller oppgi at arbeidsgiver ikke kan inkludere',
         });
     }
 }
