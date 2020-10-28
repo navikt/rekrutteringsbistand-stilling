@@ -27,7 +27,7 @@ export const visningsnavnForFilter: Record<Tag, string> = {
     [Tag.TiltakEllerVirkemiddel]: 'Alle virkemidler',
     [Tag.VirkemiddelLønnstilskudd]: 'Lønnstilskudd',
     [Tag.VirkemiddelMentortilskudd]: 'Mentor (tilskudd)',
-    [Tag.VirkemiddelLærlingplass]: 'Læringplass',
+    [Tag.VirkemiddelLærlingplass]: 'Lærlingplass',
 
     [Tag.PrioritertMålgruppe]: 'Alle målgrupper',
     [Tag.MålgruppeErUngeUnder30]: 'Unge under 30 år',
