@@ -30,6 +30,13 @@ const Inkluderingsmuligheter: FunctionComponent<Props> = ({ registrerteTags }) =
                 InkluderingsmulighetForDirektemeldtStilling.TiltakEllerVirkemiddel
             }
         />
+        <Tags
+            tittel="Arbeidsgiver er del av"
+            alleTags={registrerteTags}
+            inkluderingsmulighet={
+                InkluderingsmulighetForDirektemeldtStilling.StatligInkluderingsdugnad
+            }
+        />
     </>
 );
 

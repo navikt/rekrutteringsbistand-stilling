@@ -8,6 +8,7 @@ export enum Tag {
     TiltakEllerVirkemiddel = 'TILTAK_ELLER_VIRKEMIDDEL',
     VirkemiddelLønnstilskudd = 'TILTAK_ELLER_VIRKEMIDDEL__LØNNSTILSKUDD',
     VirkemiddelMentortilskudd = 'TILTAK_ELLER_VIRKEMIDDEL__MENTORTILSKUDD',
+    VirkemiddelLærlingplass = 'TILTAK_ELLER_VIRKEMIDDEL__LÆRLINGPLASS',
 
     PrioritertMålgruppe = 'PRIORITERT_MÅLGRUPPE',
     MålgruppeErUngeUnder30 = 'PRIORITERT_MÅLGRUPPE__UNGE_UNDER_30',
@@ -24,6 +25,7 @@ export enum InkluderingsmulighetForDirektemeldtStilling {
     Tilrettelegging = Tag.Tilrettelegging,
     TiltakEllerVirkemiddel = Tag.TiltakEllerVirkemiddel,
     PrioriterteMålgrupper = Tag.PrioritertMålgruppe,
+    StatligInkluderingsdugnad = Tag.StatligInkluderingsdugnad,
 }
 
 export enum InkluderingsmulighetForEksternStilling {
@@ -58,7 +60,11 @@ export const hierarkiAvTagsForDirektemeldteStillinger: Record<
     },
 
     [InkluderingsmulighetForDirektemeldtStilling.TiltakEllerVirkemiddel]: {
-        subtags: [Tag.VirkemiddelLønnstilskudd, Tag.VirkemiddelMentortilskudd],
+        subtags: [
+            Tag.VirkemiddelLønnstilskudd,
+            Tag.VirkemiddelMentortilskudd,
+            Tag.VirkemiddelLærlingplass,
+        ],
     },
 
     [InkluderingsmulighetForDirektemeldtStilling.PrioriterteMålgrupper]: {
@@ -71,6 +77,10 @@ export const hierarkiAvTagsForDirektemeldteStillinger: Record<
             Tag.MålgruppeLiteEllerIngenUtdanning,
             Tag.MålgruppeLiteEllerIngenArbeidserfaring,
         ],
+    },
+
+    [InkluderingsmulighetForEksternStilling.StatligInkluderingsdugnad]: {
+        subtags: [Tag.StatligInkluderingsdugnad],
     },
 };
 
@@ -106,7 +116,11 @@ export const hierarkiAvTagsForFilter: Record<Inkluderingsmulighet, GruppeMedTags
 
     [Inkluderingsmulighet.TiltakEllerVirkemiddel]: {
         hovedtag: Tag.TiltakEllerVirkemiddel,
-        subtags: [Tag.VirkemiddelLønnstilskudd, Tag.VirkemiddelMentortilskudd],
+        subtags: [
+            Tag.VirkemiddelLønnstilskudd,
+            Tag.VirkemiddelMentortilskudd,
+            Tag.VirkemiddelLærlingplass,
+        ],
     },
 
     [Inkluderingsmulighet.PrioriterteMålgrupper]: {

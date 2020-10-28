@@ -157,21 +157,31 @@ const DirektemeldtStilling: FunctionComponent<Props> = ({
                             }
                         />
                     </div>
-                    <Inkluderingsmulighet
-                        tittel="Arbeidsgiver er åpen for kandidater som"
-                        tagIsChecked={tagIsChecked}
-                        onTagChange={onTagChange}
-                        inkluderingsmulighet={
-                            InkluderingsmulighetForDirektemeldtStilling.PrioriterteMålgrupper
-                        }
-                        hjelpetekst={
-                            <HjelpetekstForInkluderingsmulighet
-                                inkluderingsmulighet={
-                                    AlleInkluderingsmuligheter.PrioriterteMålgrupper
-                                }
-                            />
-                        }
-                    />
+                    <div>
+                        <Inkluderingsmulighet
+                            tittel="Arbeidsgiver er åpen for kandidater som"
+                            tagIsChecked={tagIsChecked}
+                            onTagChange={onTagChange}
+                            inkluderingsmulighet={
+                                InkluderingsmulighetForDirektemeldtStilling.PrioriterteMålgrupper
+                            }
+                            hjelpetekst={
+                                <HjelpetekstForInkluderingsmulighet
+                                    inkluderingsmulighet={
+                                        AlleInkluderingsmuligheter.PrioriterteMålgrupper
+                                    }
+                                />
+                            }
+                        />
+                        <Inkluderingsmulighet
+                            tittel="Arbeidsgiver er del av"
+                            tagIsChecked={tagIsChecked}
+                            onTagChange={onTagChange}
+                            inkluderingsmulighet={
+                                InkluderingsmulighetForDirektemeldtStilling.StatligInkluderingsdugnad
+                            }
+                        />
+                    </div>
                 </div>
             )}
             {kanInkludere === KanInkludere.Nei && (
