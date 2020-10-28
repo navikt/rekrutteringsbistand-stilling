@@ -7,6 +7,7 @@ export const visningsnavnForRegistrering: Partial<Record<Tag, string>> = {
     [Tag.TilretteleggingGrunnleggende]: 'utfordringer med norsk',
     [Tag.VirkemiddelLønnstilskudd]: 'lønnstilskudd',
     [Tag.VirkemiddelMentortilskudd]: 'mentor (tilskudd)',
+    [Tag.VirkemiddelLærlingplass]: 'lærlingplass',
     [Tag.MålgruppeErUngeUnder30]: 'er unge under 30 år',
     [Tag.MålgruppeErSeniorerOver50]: 'er seniorer 50+',
     [Tag.MålgruppeKommerFraLandUtenforEØS]: 'kommer fra land utenfor EØS',
@@ -26,6 +27,7 @@ export const visningsnavnForFilter: Record<Tag, string> = {
     [Tag.TiltakEllerVirkemiddel]: 'Alle virkemidler',
     [Tag.VirkemiddelLønnstilskudd]: 'Lønnstilskudd',
     [Tag.VirkemiddelMentortilskudd]: 'Mentor (tilskudd)',
+    [Tag.VirkemiddelLærlingplass]: 'Læringplass',
 
     [Tag.PrioritertMålgruppe]: 'Alle målgrupper',
     [Tag.MålgruppeErUngeUnder30]: 'Unge under 30 år',
