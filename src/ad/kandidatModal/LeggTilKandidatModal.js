@@ -2,23 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import NavFrontendModal from 'nav-frontend-modal';
-import { Systemtittel, Normaltekst, Element } from 'nav-frontend-typografi';
+import { Element, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import { Input, Textarea } from 'nav-frontend-skjema';
 import { Flatknapp, Hovedknapp } from 'nav-frontend-knapper';
 import { Kandidatliste } from './kandidatTypes';
-import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
+import { AlertStripeAdvarsel, AlertStripeInfo } from 'nav-frontend-alertstriper';
 import {
-    Hentestatus,
     HENT_KANDIDAT_MED_FNR,
     HENT_KANDIDAT_MED_FNR_RESET,
+    HENT_KANDIDATLISTE,
+    Hentestatus,
     LEGG_TIL_KANDIDAT,
     SET_FODSELSNUMMER,
     SET_NOTAT,
-    HENT_KANDIDATLISTE,
 } from './kandidatReducer';
 import './LeggTilKandidatModal.less';
 import { sendEvent } from '../../amplitude';
-import { AlertStripe } from 'nav-frontend-alertstriper';
 
 const NOTATLENGDE = 2000;
 
@@ -167,10 +166,10 @@ class LeggTilKandidatModal extends React.Component {
                     <li>Kandidaten er sperret "Egen ansatt"</li>
                 </ul>
             </div>
-            <AlertStripe type="info">
+            <AlertStripeInfo>
                 Du kan kun legge til kandidater som ikke er synlige i Rekrutteringsbistand via
                 kandidatlisten
-            </AlertStripe>
+            </AlertStripeInfo>
         </>
     );
 
