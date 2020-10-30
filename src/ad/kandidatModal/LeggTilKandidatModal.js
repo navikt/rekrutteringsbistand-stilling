@@ -166,10 +166,13 @@ class LeggTilKandidatModal extends React.Component {
                     <li>Kandidaten er sperret "Egen ansatt"</li>
                 </ul>
             </div>
-            <AlertStripeInfo>
-                Du kan kun legge til kandidater som ikke er synlige i Rekrutteringsbistand via
-                kandidatlisten
-            </AlertStripeInfo>
+            <div className="LeggTilKandidat__info">
+                <AlertStripeInfo>
+                    Noen kandidater som ikke kan søkes opp i Rekrutteringsbistand kan likevel legges
+                    til en kandidatliste ved at du navigerer til kandidatlisten og velger "Legg til
+                    kandidat" der.
+                </AlertStripeInfo>
+            </div>
         </>
     );
 
