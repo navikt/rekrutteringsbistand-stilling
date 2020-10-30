@@ -2,19 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import NavFrontendModal from 'nav-frontend-modal';
-import { Systemtittel, Normaltekst, Element } from 'nav-frontend-typografi';
+import { Element, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import { Input, Textarea } from 'nav-frontend-skjema';
 import { Flatknapp, Hovedknapp } from 'nav-frontend-knapper';
 import { Kandidatliste } from './kandidatTypes';
-import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
+import { AlertStripeAdvarsel, AlertStripeInfo } from 'nav-frontend-alertstriper';
 import {
-    Hentestatus,
     HENT_KANDIDAT_MED_FNR,
     HENT_KANDIDAT_MED_FNR_RESET,
+    HENT_KANDIDATLISTE,
+    Hentestatus,
     LEGG_TIL_KANDIDAT,
     SET_FODSELSNUMMER,
     SET_NOTAT,
-    HENT_KANDIDATLISTE,
 } from './kandidatReducer';
 import './LeggTilKandidatModal.less';
 import { sendEvent } from '../../amplitude';
@@ -152,19 +152,28 @@ class LeggTilKandidatModal extends React.Component {
     };
 
     kandidatenFinnesIkke = () => (
-        <div className="LeggTilKandidat__feilmelding">
-            <div className="blokk-xxs">Du kan ikke legge til kandidaten.</div>
-            <div>Mulige årsaker:</div>
-            <ul>
-                <li>Fødselsnummeret er feil</li>
-                <li>Kandidaten har ikke jobbprofil</li>
-                <li>Kandidaten har ikke CV</li>
-                <li>Kandidaten har ikke lest hjemmel i ny CV-løsning</li>
-                <li>Kandidaten har "Nei nav.no" i Formidlingsinformasjon i Arena</li>
-                <li>Kandidaten har personforhold "Fritatt for kandidatsøk" i Arena</li>
-                <li>Kandidaten er sperret "Egen ansatt"</li>
-            </ul>
-        </div>
+        <>
+            <div className="LeggTilKandidat__feilmelding">
+                <div className="blokk-xxs">Du kan ikke legge til kandidaten.</div>
+                <div>Mulige årsaker:</div>
+                <ul>
+                    <li>Fødselsnummeret er feil</li>
+                    <li>Kandidaten har ikke jobbprofil</li>
+                    <li>Kandidaten har ikke CV</li>
+                    <li>Kandidaten har ikke lest hjemmel i ny CV-løsning</li>
+                    <li>Kandidaten har "Nei nav.no" i Formidlingsinformasjon i Arena</li>
+                    <li>Kandidaten har personforhold "Fritatt for kandidatsøk" i Arena</li>
+                    <li>Kandidaten er sperret "Egen ansatt"</li>
+                </ul>
+            </div>
+            <div className="LeggTilKandidat__info">
+                <AlertStripeInfo>
+                    Noen kandidater som ikke kan søkes opp i Rekrutteringsbistand kan likevel legges
+                    til en kandidatliste ved at du navigerer til kandidatlisten og velger "Legg til
+                    kandidat" der.
+                </AlertStripeInfo>
+            </div>
+        </>
     );
 
     render() {
@@ -237,6 +246,7 @@ class LeggTilKandidatModal extends React.Component {
         );
     }
 }
+
 LeggTilKandidatModal.defaultProps = {
     fodselsnummer: undefined,
     vis: true,
