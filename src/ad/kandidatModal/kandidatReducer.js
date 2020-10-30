@@ -197,8 +197,7 @@ function* hentKandidatliste({ stillingsnummer }) {
 function* hentKandidatMedFnr({ fodselsnummer }) {
     try {
         const response = yield fetchKandidatMedFnr(fodselsnummer);
-        yield put({ type: HENT_KANDIDAT_MED_FNR_NOT_FOUND }); // TODO Are: rydd
-        // yield put({ type: HENT_KANDIDAT_MED_FNR_SUCCESS, kandidat: response });
+        yield put({ type: HENT_KANDIDAT_MED_FNR_SUCCESS, kandidat: response });
     } catch (e) {
         if (e instanceof KandidatSokError) {
             if (e.status === 404) {
