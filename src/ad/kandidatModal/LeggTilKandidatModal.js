@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import NavFrontendModal from 'nav-frontend-modal';
-import { Systemtittel, Normaltekst, Element } from 'nav-frontend-typografi';
-import { Input, Textarea } from 'nav-frontend-skjema';
-import { Flatknapp, Hovedknapp } from 'nav-frontend-knapper';
-import { Kandidatliste } from './kandidatTypes';
-import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
+import {Systemtittel, Normaltekst, Element} from 'nav-frontend-typografi';
+import {Input, Textarea} from 'nav-frontend-skjema';
+import {Flatknapp, Hovedknapp} from 'nav-frontend-knapper';
+import {Kandidatliste} from './kandidatTypes';
+import {AlertStripeAdvarsel} from 'nav-frontend-alertstriper';
 import {
     Hentestatus,
     HENT_KANDIDAT_MED_FNR,
@@ -17,7 +17,8 @@ import {
     HENT_KANDIDATLISTE,
 } from './kandidatReducer';
 import './LeggTilKandidatModal.less';
-import { sendEvent } from '../../amplitude';
+import {sendEvent} from '../../amplitude';
+import { AlertStripe } from 'nav-frontend-alertstriper';
 
 const NOTATLENGDE = 2000;
 
@@ -47,7 +48,7 @@ class LeggTilKandidatModal extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { kandidatStatus } = this.props;
+        const {kandidatStatus} = this.props;
         if (kandidatStatus !== prevProps.kandidatStatus) {
             if (kandidatStatus === Hentestatus.SUCCESS) {
                 this.setState({
@@ -65,7 +66,7 @@ class LeggTilKandidatModal extends React.Component {
     }
 
     onInputChange = (event) => {
-        const { hentKandidatMedFnr, setFodselsnummer } = this.props;
+        const {hentKandidatMedFnr, setFodselsnummer} = this.props;
         const fodselsnummer = event.target.value;
 
         setFodselsnummer(fodselsnummer);
@@ -83,7 +84,7 @@ class LeggTilKandidatModal extends React.Component {
     };
 
     resetKandidat = (message) => {
-        const { resetHentKandidatMedFnr } = this.props;
+        const {resetHentKandidatMedFnr} = this.props;
         resetHentKandidatMedFnr();
         this.setState({
             showFodselsnummer: false,
@@ -152,23 +153,26 @@ class LeggTilKandidatModal extends React.Component {
     };
 
     kandidatenFinnesIkke = () => (
-        <div className="LeggTilKandidat__feilmelding">
-            <div className="blokk-xxs">Du kan ikke legge til kandidaten.</div>
-            <div>Mulige årsaker:</div>
-            <ul>
-                <li>Fødselsnummeret er feil</li>
-                <li>Kandidaten har ikke jobbprofil</li>
-                <li>Kandidaten har ikke CV</li>
-                <li>Kandidaten har ikke lest hjemmel i ny CV-løsning</li>
-                <li>Kandidaten har "Nei nav.no" i Formidlingsinformasjon i Arena</li>
-                <li>Kandidaten har personforhold "Fritatt for kandidatsøk" i Arena</li>
-                <li>Kandidaten er sperret "Egen ansatt"</li>
-            </ul>
-        </div>
+        <>
+            <div className="LeggTilKandidat__feilmelding">
+                <div className="blokk-xxs">Du kan ikke legge til kandidaten.</div>
+                <div>Mulige årsaker:</div>
+                <ul>
+                    <li>Fødselsnummeret er feil</li>
+                    <li>Kandidaten har ikke jobbprofil</li>
+                    <li>Kandidaten har ikke CV</li>
+                    <li>Kandidaten har ikke lest hjemmel i ny CV-løsning</li>
+                    <li>Kandidaten har "Nei nav.no" i Formidlingsinformasjon i Arena</li>
+                    <li>Kandidaten har personforhold "Fritatt for kandidatsøk" i Arena</li>
+                    <li>Kandidaten er sperret "Egen ansatt"</li>
+                </ul>
+            </div>
+            <AlertStripe type="info">Du kan kun legge til kandidater som ikke er synlige i Rekrutteringsbistand via kandidatlisten</AlertStripe>
+        </>
     );
 
     render() {
-        const { vis, onClose, fodselsnummer, kandidat, notat } = this.props;
+        const {vis, onClose, fodselsnummer, kandidat, notat} = this.props;
         return (
             <NavFrontendModal
                 contentLabel="Modal legg til kandidat"
@@ -193,11 +197,12 @@ class LeggTilKandidatModal extends React.Component {
                     }}
                 />
                 {this.state.showFodselsnummer && (
-                    <Normaltekst className="fodselsnummer">{`${kandidat.fornavn} ${kandidat.etternavn} (${fodselsnummer})`}</Normaltekst>
+                    <Normaltekst
+                        className="fodselsnummer">{`${kandidat.fornavn} ${kandidat.etternavn} (${fodselsnummer})`}</Normaltekst>
                 )}
                 {this.state.alleredeLagtTil && (
                     <div className="legg-til-kandidat__advarsel">
-                        <i className="advarsel__icon" />
+                        <i className="advarsel__icon"/>
                         <div className="legg-til-kandidat__advarsel-tekst">
                             <Element>Kandidaten er allerede lagt til i listen</Element>
                             <Normaltekst>
@@ -237,6 +242,7 @@ class LeggTilKandidatModal extends React.Component {
         );
     }
 }
+
 LeggTilKandidatModal.defaultProps = {
     fodselsnummer: undefined,
     vis: true,
@@ -276,12 +282,12 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    hentKandidatliste: (stillingsnummer) => dispatch({ type: HENT_KANDIDATLISTE, stillingsnummer }),
-    hentKandidatMedFnr: (fodselsnummer) => dispatch({ type: HENT_KANDIDAT_MED_FNR, fodselsnummer }),
-    leggTilKandidatMedFnr: (kandidat, id) => dispatch({ type: LEGG_TIL_KANDIDAT, kandidat, id }),
-    resetHentKandidatMedFnr: () => dispatch({ type: HENT_KANDIDAT_MED_FNR_RESET }),
-    setFodselsnummer: (fodselsnummer) => dispatch({ type: SET_FODSELSNUMMER, fodselsnummer }),
-    setNotat: (notat) => dispatch({ type: SET_NOTAT, notat }),
+    hentKandidatliste: (stillingsnummer) => dispatch({type: HENT_KANDIDATLISTE, stillingsnummer}),
+    hentKandidatMedFnr: (fodselsnummer) => dispatch({type: HENT_KANDIDAT_MED_FNR, fodselsnummer}),
+    leggTilKandidatMedFnr: (kandidat, id) => dispatch({type: LEGG_TIL_KANDIDAT, kandidat, id}),
+    resetHentKandidatMedFnr: () => dispatch({type: HENT_KANDIDAT_MED_FNR_RESET}),
+    setFodselsnummer: (fodselsnummer) => dispatch({type: SET_FODSELSNUMMER, fodselsnummer}),
+    setNotat: (notat) => dispatch({type: SET_NOTAT, notat}),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LeggTilKandidatModal);
