@@ -48,15 +48,16 @@ const renderApp = (htmlPages) =>
 const startServer = (html) => {
     writeEnvironmentVariablesToFile();
 
-    server.use('/js', express.static(path.resolve(__dirname, 'dist/js')));
-    server.use('/css', express.static(path.resolve(__dirname, 'dist/css')));
+    server.use('/stilling/js', express.static(path.resolve(__dirname, 'dist/js')));
+    server.use('/stilling/css', express.static(path.resolve(__dirname, 'dist/css')));
 
-    server.get(/^\/(?!.*dist).*$/, (req, res) => {
+    server.get(['/stilling', '/stillinger', '/minestillinger'], (req, res) => {
         res.send(html);
     });
 
-    server.get('/internal/isAlive', (req, res) => res.sendStatus(200));
-    server.get('/internal/isReady', (req, res) => res.sendStatus(200));
+    server.get(['/stilling/internal/isAlive', '/stilling/internal/isReady'], (req, res) =>
+        res.sendStatus(200)
+    );
 
     server.listen(port, () => {
         console.log(`Express-server startet. Server filer fra ./dist/ til localhost:${port}/`);
