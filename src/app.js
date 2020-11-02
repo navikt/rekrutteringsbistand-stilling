@@ -109,11 +109,10 @@ const Main = () => {
             <Dekoratør />
             <Navigeringsmeny />
             <Switch>
-                <Route exact path="/minestillinger" component={MyAds} />
-                <Route exact path="/stilling" component={Ad} />
-
+                <Route exact path="/stillinger/minestillinger" component={MyAds} />
+                <Route exact path="/stillinger/stilling" component={Ad} />
+                <Route exact path="/stillinger/stilling/:uuid" component={Ad} />
                 <Route exact path="/stillinger" component={SearchPage} />
-                <Route exact path="/stilling/:uuid" component={Ad} />
             </Switch>
         </main>
     );

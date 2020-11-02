@@ -58,7 +58,7 @@ const ResultItem = ({ ad, copiedAds, reportee }) => {
     const colTitle = (
         <td className="Col-title">
             <div className="ResultItem__column Col-title-inner">
-                <Link className="typo-normal lenke" to={`/stilling/${ad.uuid}`}>
+                <Link className="typo-normal lenke" to={`/stillinger/stilling/${ad.uuid}`}>
                     {isCopy
                         ? (
                               <div>
@@ -149,7 +149,7 @@ const ResultItem = ({ ad, copiedAds, reportee }) => {
                     className="Icon__button Inner__button"
                     aria-label="Rediger"
                     title="rediger"
-                    to={`/stilling/${ad.uuid}?${REDIGERINGSMODUS_QUERY_PARAM}=true`}
+                    to={`/stillinger/stilling/${ad.uuid}?${REDIGERINGSMODUS_QUERY_PARAM}=true`}
                 >
                     <i className="Edit__icon" />
                 </Link>

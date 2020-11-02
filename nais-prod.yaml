@@ -6,6 +6,7 @@ metadata:
     labels:
         team: arbeidsgiver
 spec:
+    # prettier-ignore
     image: {{ image }}
     port: 8080
     replicas:
@@ -17,10 +18,10 @@ spec:
         path: /metrics
     liveness:
         initialDelay: 10
-        path: /stilling/internal/isAlive
+        path: /stillinger/internal/isAlive
     readiness:
         initialDelay: 10
-        path: /stilling/internal/isReady
+        path: /stillinger/internal/isReady
     resources:
         limits:
             cpu: 500m
@@ -29,8 +30,8 @@ spec:
             cpu: 200m
             memory: 128Mi
     ingresses:
-        - https://pam-rekrutteringsbistand.nais.adeo.no
-        - https://rekrutteringsbistand.nais.adeo.no
+        - https://pam-rekrutteringsbistand.nais.adeo.no/stillinger
+        - https://rekrutteringsbistand.nais.adeo.no/stillinger
     env:
         - name: LOGIN_URL
           value: https://loginservice.nais.adeo.no/login

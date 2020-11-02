@@ -52,7 +52,11 @@ class AdPublishedModal extends React.Component {
                         >
                             Finn kandidater
                         </a>
-                        <Link to="/minestillinger" className="lenke" onClick={this.onClose}>
+                        <Link
+                            to="/stillinger/minestillinger"
+                            className="lenke"
+                            onClick={this.onClose}
+                        >
                             Til mine stillinger
                         </Link>
                     </div>

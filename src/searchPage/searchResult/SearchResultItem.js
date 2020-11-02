@@ -20,7 +20,10 @@ const SearchResultItem = ({ ad }) => {
             </td>
             <td>
                 <div className="SearchResultItem__column">
-                    <Link className="AdTitle_link typo-normal lenke" to={`/stilling/${ad.uuid}`}>
+                    <Link
+                        className="AdTitle_link typo-normal lenke"
+                        to={`/stillinger/stilling/${ad.uuid}`}
+                    >
                         {ad.title ? ad.title : ''}
                     </Link>
                 </div>

@@ -39,10 +39,10 @@ class Ad extends React.Component {
 
     componentDidUpdate() {
         if (!this.uuid && this.props.stilling && this.props.stilling.uuid) {
-            // Skjer når man kommer rett til /stilling uten uuid
+            // Skjer når man kommer rett til /stillinger/stilling uten uuid
             this.uuid = this.props.stilling.uuid;
             this.props.history.replace({
-                pathname: `/stilling/${this.uuid}`,
+                pathname: `/stillinger/stilling/${this.uuid}`,
                 state: this.props.location.state,
             });
         }
@@ -159,7 +159,7 @@ Ad.defaultProps = {
     stilling: undefined,
     isLoadingAd: false,
     leavePageTrigger: false,
-    hasChangesLeaveUrl: '/mineStillinger',
+    hasChangesLeaveUrl: '/stillinger/mineStillinger',
 };
 
 Ad.propTypes = {

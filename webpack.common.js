@@ -6,7 +6,7 @@ module.exports = {
     output: {
         path: path.join(__dirname, 'dist'),
         filename: 'js/[name].[contenthash:7].js',
-        publicPath: '/stilling',
+        publicPath: '/stillinger',
     },
     module: {
         rules: [
