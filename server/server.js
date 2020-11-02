@@ -51,7 +51,9 @@ const startServer = (html) => {
     const basePath = '/stillinger';
     const buildPath = path.resolve(__dirname, 'dist');
 
-    server.use(`${basePath}/static`, express.static(buildPath));
+    server.use(`${basePath}/js`, express.static(`${buildPath}/js`));
+    server.use(`${basePath}/css`, express.static(`${buildPath}/css`));
+
     server.get([basePath, `${basePath}/stilling`, `${basePath}/minestillinger`], (req, res) => {
         res.send(html);
     });
