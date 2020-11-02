@@ -109,13 +109,11 @@ const Main = () => {
             <Dekoratør />
             <Navigeringsmeny />
             <Switch>
-                <Route exact path="/" component={StartPage} />
                 <Route exact path="/minestillinger" component={MyAds} />
                 <Route exact path="/stilling" component={Ad} />
 
                 <Route exact path="/stillinger" component={SearchPage} />
                 <Route exact path="/stilling/:uuid" component={Ad} />
-                <Route exact path="*" component={StartPage} />
             </Switch>
         </main>
     );
