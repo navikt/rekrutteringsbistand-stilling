@@ -48,12 +48,11 @@ const renderApp = (htmlPages) =>
 const startServer = (html) => {
     writeEnvironmentVariablesToFile();
 
-    server.use('/stilling/js', express.static(path.resolve(__dirname, 'dist/js')));
-    server.use('/stilling/css', express.static(path.resolve(__dirname, 'dist/css')));
-
-    server.get(['/stilling', '/stillinger', '/minestillinger'], (req, res) => {
-        res.send(html);
-    });
+    // const build = path.resolve(__dirname, 'dist');
+    // server.use('/stilling/static', express.static(build));
+    // server.get(['/stilling', '/stillinger', '/minestillinger'], (req, res) => {
+    //     res.send(html);
+    // });
 
     server.get(['/stilling/internal/isAlive', '/stilling/internal/isReady'], (req, res) =>
         res.sendStatus(200)
