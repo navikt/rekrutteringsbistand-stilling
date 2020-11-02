@@ -60,7 +60,7 @@ const Navigeringsmeny: FunctionComponent = () => {
                         <Tab
                             key={tab.href}
                             config={tab}
-                            erAktiv={pathname.startsWith(tab.href)}
+                            erAktiv={pathname === tab.href}
                             onClick={onClickTab(tab.href)}
                         />
                     ))}
