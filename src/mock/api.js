@@ -34,7 +34,7 @@ const countriesUrl = `${apiUrl}/geography/countries`;
 const municipalsUrl = `${apiUrl}/geography/municipals`;
 const categoriesWithAltnamesUrl = `${apiUrl}/categories-with-altnames/`;
 const postdataUrl = `${apiUrl}/postdata/`;
-const fnrsokUrl = 'express:/kandidater/rest/veileder/kandidatsok/fnrsok/:fnr';
+const fnrsokUrl = 'express:/kandidater/rest/veileder/kandidatsok/fnrsok';
 
 const identUrl = `${baseUrl}/rekruttering/ident/`;
 const featuresUrl = `${baseUrl}/features/`;
