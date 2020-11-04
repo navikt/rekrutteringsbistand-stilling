@@ -6,7 +6,7 @@ module.exports = {
     output: {
         path: path.join(__dirname, 'dist'),
         filename: 'js/[name].[contenthash:7].js',
-        publicPath: '/',
+        publicPath: '/stillinger',
     },
     module: {
         rules: [
@@ -30,7 +30,7 @@ module.exports = {
     },
     plugins: [
         new MiniCssExtractPlugin({
-            filename: './css/styles.css',
+            filename: 'css/styles.css',
         }),
     ],
 };

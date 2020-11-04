@@ -2,7 +2,7 @@ import { LOGIN_URL } from './fasitProperties';
 
 const whiteList = ['/stillinger', '/kandidater'];
 
-const validUrlPaths = ['?/stilling', '?/minestillinger', '?/kandidater'];
+const validUrlPaths = ['?/stillinger/stilling', '?/stillinger/minestillinger', '?/kandidater'];
 
 const getUrlPath = () =>
     // Remove question mark

@@ -68,7 +68,7 @@ class HasChangesModal extends React.Component {
 HasChangesModal.defaultProps = {
     updated: undefined,
     created: undefined,
-    hasChangesLeaveUrl: '/mineStillinger',
+    hasChangesLeaveUrl: '/stillinger/mineStillinger',
 };
 
 HasChangesModal.propTypes = {

@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { sendEvent } from './amplitude';
 
-const stierSomSkalLogges = ['/', '/stillinger', '/minestillinger'];
-const begynnelsenAvStierSomSkalLogges = ['/stilling/'];
+const stierSomSkalLogges = ['/stillinger', '/stillinger/minestillinger'];
+const begynnelsenAvStierSomSkalLogges = ['/stillinger/stilling/'];
 
 const useLoggNavigering = () => {
     const history = useHistory();

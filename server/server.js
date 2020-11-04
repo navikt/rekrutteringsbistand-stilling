@@ -48,15 +48,26 @@ const renderApp = (htmlPages) =>
 const startServer = (html) => {
     writeEnvironmentVariablesToFile();
 
-    server.use('/js', express.static(path.resolve(__dirname, 'dist/js')));
-    server.use('/css', express.static(path.resolve(__dirname, 'dist/css')));
+    const buildPath = path.resolve(__dirname, 'dist');
+    const basePath = '/stillinger';
 
-    server.get(/^\/(?!.*dist).*$/, (req, res) => {
-        res.send(html);
-    });
+    const pathsForServingApp = [
+        `${basePath}`,
+        `${basePath}/stilling`,
+        `${basePath}/stilling/*`,
+        `${basePath}/minestillinger`,
+    ];
 
-    server.get('/internal/isAlive', (req, res) => res.sendStatus(200));
-    server.get('/internal/isReady', (req, res) => res.sendStatus(200));
+    const pathsForReadinessAndLiveness = [
+        `${basePath}/internal/isAlive`,
+        `${basePath}/internal/isReady`,
+    ];
+
+    server.use(`${basePath}/js`, express.static(`${buildPath}/js`));
+    server.use(`${basePath}/css`, express.static(`${buildPath}/css`));
+
+    server.get(pathsForServingApp, (req, res) => res.send(html));
+    server.get(pathsForReadinessAndLiveness, (req, res) => res.sendStatus(200));
 
     server.listen(port, () => {
         console.log(`Express-server startet. Server filer fra ./dist/ til localhost:${port}/`);

@@ -23,7 +23,7 @@ class StartPage extends React.Component {
 
     render() {
         const newAdRoute = {
-            pathname: '/stilling',
+            pathname: '/stillinger/stilling',
             state: { isNew: true },
         };
         return (
@@ -36,9 +36,11 @@ class StartPage extends React.Component {
                     <Row>
                         <Column className="StartPage__panel blokk-s" xs="12" md="6">
                             <LenkepanelBase
-                                href="/minestillinger"
+                                href="/stillinger/minestillinger"
                                 border
-                                linkCreator={(props) => <Link to="/minestillinger" {...props} />}
+                                linkCreator={(props) => (
+                                    <Link to="/stillinger/minestillinger" {...props} />
+                                )}
                             >
                                 <div className="StartPage__panel-flex">
                                     <div className="StartPage__icon-copy" />
@@ -50,7 +52,7 @@ class StartPage extends React.Component {
                         </Column>
                         <Column className="StartPage__panel blokk-s" xs="12" md="6">
                             <LenkepanelBase
-                                href="/stilling"
+                                href="/stillinger/stilling"
                                 border
                                 linkCreator={(props) => <Link to={newAdRoute} {...props} />}
                             >
