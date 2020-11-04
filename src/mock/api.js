@@ -80,4 +80,4 @@ fetchMock
     .get(modiacontextholderAktivBrukerUrl, aktivBruker)
     .get(modiacontextholderDecoratorUrl, decorator)
     .post(modiacontextholderContextUrl, 200)
-    .get(fnrsokUrl, 404);
+    .post(fnrsokUrl, 404);
