@@ -1,11 +1,9 @@
 import React, { ChangeEvent } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import NavFrontendModal from 'nav-frontend-modal';
 import { Element, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import { Input, Textarea } from 'nav-frontend-skjema';
 import { Flatknapp, Hovedknapp } from 'nav-frontend-knapper';
-import { Kandidatliste } from './kandidatTypes';
 import { AlertStripeAdvarsel, AlertStripeInfo } from 'nav-frontend-alertstriper';
 import {
     HENT_KANDIDAT_MED_FNR,
@@ -87,14 +85,22 @@ class LeggTilKandidatModal extends React.Component<Props> {
     }
 
     componentDidUpdate(prevProps: Props) {
-        const { kandidatStatus } = this.props;
+        const { kandidatStatus, kandidat, kandidatlisteStatus, kandidatliste } = this.props;
 
-        if (kandidatStatus !== prevProps.kandidatStatus) {
-            if (kandidatStatus === Hentestatus.SUCCESS) {
+        if (
+            kandidatStatus !== prevProps.kandidatStatus ||
+            kandidatlisteStatus !== prevProps.kandidatlisteStatus
+        ) {
+            if (
+                kandidatStatus === Hentestatus.SUCCESS &&
+                kandidatlisteStatus === Hentestatus.SUCCESS &&
+                kandidat &&
+                kandidatliste
+            ) {
                 this.setState({
                     showFodselsnummer: true,
                     errorMessage: undefined,
-                    alleredeLagtTil: this.kandidatenFinnesAllerede(),
+                    alleredeLagtTil: this.kandidatenFinnesAllerede(kandidat, kandidatliste),
                 });
             } else if (kandidatStatus === Hentestatus.FINNES_IKKE) {
                 this.setState({
@@ -105,7 +111,7 @@ class LeggTilKandidatModal extends React.Component<Props> {
         }
     }
 
-    onInputChange = (event) => {
+    onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { hentKandidatMedFnr, setFodselsnummer } = this.props;
         const fodselsnummer = event.target.value;
 
