@@ -309,6 +309,7 @@ const mapStateToProps = (state: any) => ({
     kandidatStatus: state.kandidat.kandidatStatus,
     kandidat: state.kandidat.kandidat,
     kandidatliste: state.kandidat.detaljer.kandidatliste,
+    kandidatlisteStatus: state.kandidat.kandidatlisteStatus,
     stillingsid: state.ad.originalData.uuid,
     notat: state.kandidat.notat,
 });
