@@ -5,6 +5,7 @@ import { Router, Route, Switch } from 'react-router-dom';
 import * as Sentry from '@sentry/react';
 import createSagaMiddleware from 'redux-saga';
 import ReactDOM from 'react-dom';
+import Modal from 'react-modal';
 
 import './styles.less'; // Må importeres før andre komponenter
 
@@ -118,6 +119,10 @@ const Main = () => {
     );
 };
 
+const appElement = document.getElementById('app');
+
+Modal.setAppElement(appElement);
+
 ReactDOM.render(
     <Sentry.ErrorBoundary>
         <Provider store={store}>
@@ -126,5 +131,5 @@ ReactDOM.render(
             </Router>
         </Provider>
     </Sentry.ErrorBoundary>,
-    document.getElementById('app')
+    appElement
 );

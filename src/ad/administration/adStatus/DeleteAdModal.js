@@ -25,7 +25,6 @@ class DeleteAdModal extends React.Component {
                 contentLabel="Fortsett"
                 onRequestClose={this.onClose}
                 closeButton
-                appElement={document.getElementById('app')}
                 className="DeleteAdModal"
             >
                 <Undertittel className="blokk-s">Slett stilling og kandidatliste</Undertittel>

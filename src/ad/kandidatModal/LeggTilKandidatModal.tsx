@@ -1,11 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { ChangeEvent } from 'react';
 import { connect } from 'react-redux';
 import NavFrontendModal from 'nav-frontend-modal';
 import { Element, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import { Input, Textarea } from 'nav-frontend-skjema';
 import { Flatknapp, Hovedknapp } from 'nav-frontend-knapper';
-import { Kandidatliste } from './kandidatTypes';
 import { AlertStripeAdvarsel, AlertStripeInfo } from 'nav-frontend-alertstriper';
 import {
     HENT_KANDIDAT_MED_FNR,
@@ -21,8 +19,48 @@ import { sendEvent } from '../../amplitude';
 
 const NOTATLENGDE = 2000;
 
-class LeggTilKandidatModal extends React.Component {
-    constructor(props) {
+type Props = {
+    vis: boolean;
+    stillingsid: string;
+    onClose: () => void;
+    fodselsnummer?: string;
+    kandidatliste?: {
+        kandidatlisteId: string;
+        kandidater: Array<{
+            kandidatnr: string;
+        }>;
+    };
+    kandidat?: {
+        arenaKandidatnr: string;
+        fornavn: string;
+        etternavn: string;
+        mestRelevanteYrkeserfaring: {
+            styrkKodeStillingstittel: string;
+            yrkeserfaringManeder: number;
+        };
+    };
+    kandidatStatus: string;
+    kandidatlisteStatus: string;
+    hentKandidatMedFnr: (fnr: string) => void;
+    hentKandidatliste: (stillingsId: string) => void;
+    leggTilKandidatMedFnr: (kandidat: any, id: string) => void;
+    resetHentKandidatMedFnr: () => void;
+    setFodselsnummer: (fnr?: string) => void;
+    notat: string;
+    setNotat: (notat: string) => void;
+};
+
+class LeggTilKandidatModal extends React.Component<Props> {
+    fnrinput: any;
+    textArea: any;
+
+    state: {
+        showFodselsnummer: boolean;
+        alleredeLagtTil: boolean;
+        errorMessage?: string;
+    };
+
+    constructor(props: Props) {
         super(props);
         this.state = {
             showFodselsnummer: false,
@@ -46,14 +84,23 @@ class LeggTilKandidatModal extends React.Component {
         resetHentKandidatMedFnr();
     }
 
-    componentDidUpdate(prevProps) {
-        const { kandidatStatus } = this.props;
-        if (kandidatStatus !== prevProps.kandidatStatus) {
-            if (kandidatStatus === Hentestatus.SUCCESS) {
+    componentDidUpdate(prevProps: Props) {
+        const { kandidatStatus, kandidat, kandidatlisteStatus, kandidatliste } = this.props;
+
+        if (
+            kandidatStatus !== prevProps.kandidatStatus ||
+            kandidatlisteStatus !== prevProps.kandidatlisteStatus
+        ) {
+            if (
+                kandidatStatus === Hentestatus.SUCCESS &&
+                kandidatlisteStatus === Hentestatus.SUCCESS &&
+                kandidat &&
+                kandidatliste
+            ) {
                 this.setState({
                     showFodselsnummer: true,
                     errorMessage: undefined,
-                    alleredeLagtTil: this.kandidatenFinnesAllerede(),
+                    alleredeLagtTil: this.kandidatenFinnesAllerede(kandidat, kandidatliste),
                 });
             } else if (kandidatStatus === Hentestatus.FINNES_IKKE) {
                 this.setState({
@@ -64,7 +111,7 @@ class LeggTilKandidatModal extends React.Component {
         }
     }
 
-    onInputChange = (event) => {
+    onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { hentKandidatMedFnr, setFodselsnummer } = this.props;
         const fodselsnummer = event.target.value;
 
@@ -78,11 +125,11 @@ class LeggTilKandidatModal extends React.Component {
         }
     };
 
-    onNotatChange = (event) => {
+    onNotatChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
         this.props.setNotat(event.target.value);
     };
 
-    resetKandidat = (message) => {
+    resetKandidat = (message?: string) => {
         const { resetHentKandidatMedFnr } = this.props;
         resetHentKandidatMedFnr();
         this.setState({
@@ -92,20 +139,19 @@ class LeggTilKandidatModal extends React.Component {
         });
     };
 
-    leggTilKandidat = () => {
-        const {
-            fodselsnummer,
-            kandidatStatus,
-            kandidat,
-            kandidatliste,
-            leggTilKandidatMedFnr,
-            onClose,
-            notat,
-        } = this.props;
+    onLeggTilKandidatKlikk = () => {
+        const { kandidat, kandidatliste } = this.props;
+
+        if (kandidat && kandidatliste) {
+            this.leggTilKandidat(kandidat, kandidatliste);
+        }
+    };
+
+    leggTilKandidat = (kandidat: any, kandidatliste: any) => {
+        const { fodselsnummer, leggTilKandidatMedFnr, onClose, notat } = this.props;
 
         if (
-            kandidatStatus === Hentestatus.SUCCESS &&
-            !this.kandidatenFinnesAllerede() &&
+            !this.kandidatenFinnesAllerede(kandidat, kandidatliste) &&
             notat.length <= NOTATLENGDE
         ) {
             const nyKandidat = {
@@ -135,7 +181,7 @@ class LeggTilKandidatModal extends React.Component {
                     errorMessage: 'Fødselsnummeret er for kort',
                 });
                 this.fnrinput.focus();
-            } else if (this.kandidatenFinnesAllerede()) {
+            } else if (this.kandidatenFinnesAllerede(kandidat, kandidatliste)) {
                 this.setState({
                     errorMessage: 'Kandidaten er allerede lagt til i listen',
                 });
@@ -144,11 +190,12 @@ class LeggTilKandidatModal extends React.Component {
         }
     };
 
-    kandidatenFinnesAllerede = () => {
-        const kandidat = this.props.kandidatliste.kandidater.filter(
-            (k) => this.props.kandidat.arenaKandidatnr === k.kandidatnr
+    kandidatenFinnesAllerede = (kandidat: any, kandidatliste: any) => {
+        const finnesAllerede = kandidatliste.kandidater.filter(
+            (k: any) => kandidat.arenaKandidatnr === k.kandidatnr
         );
-        return kandidat.length > 0;
+
+        return finnesAllerede.length > 0;
     };
 
     kandidatenFinnesIkke = () => (
@@ -177,14 +224,13 @@ class LeggTilKandidatModal extends React.Component {
     );
 
     render() {
-        const { vis, onClose, fodselsnummer, kandidat, notat } = this.props;
+        const { vis = true, onClose, fodselsnummer, kandidat, notat } = this.props;
         return (
             <NavFrontendModal
                 contentLabel="Modal legg til kandidat"
                 isOpen={vis}
                 onRequestClose={onClose}
                 className="LeggTilKandidatModal"
-                appElement={document.getElementById('app')}
             >
                 <Systemtittel className="tittel">Legg til kandidat</Systemtittel>
                 <AlertStripeAdvarsel>
@@ -201,7 +247,7 @@ class LeggTilKandidatModal extends React.Component {
                         this.fnrinput = input;
                     }}
                 />
-                {this.state.showFodselsnummer && (
+                {this.state.showFodselsnummer && kandidat && (
                     <Normaltekst className="fodselsnummer">{`${kandidat.fornavn} ${kandidat.etternavn} (${fodselsnummer})`}</Normaltekst>
                 )}
                 {this.state.alleredeLagtTil && (
@@ -235,7 +281,11 @@ class LeggTilKandidatModal extends React.Component {
                 />
 
                 <div>
-                    <Hovedknapp className="legg-til--knapp" onClick={this.leggTilKandidat}>
+                    <Hovedknapp
+                        disabled={!kandidat}
+                        className="legg-til--knapp"
+                        onClick={this.onLeggTilKandidatKlikk}
+                    >
                         Legg til
                     </Hovedknapp>
                     <Flatknapp className="avbryt--knapp" onClick={onClose}>
@@ -247,51 +297,27 @@ class LeggTilKandidatModal extends React.Component {
     }
 }
 
-LeggTilKandidatModal.defaultProps = {
-    fodselsnummer: undefined,
-    vis: true,
-};
-
-LeggTilKandidatModal.propTypes = {
-    fodselsnummer: PropTypes.string,
-    kandidatStatus: PropTypes.string,
-    kandidatlisteStatus: PropTypes.string,
-    hentKandidatMedFnr: PropTypes.func.isRequired,
-    kandidat: PropTypes.shape({
-        arenaKandidatnr: PropTypes.string,
-        fornavn: PropTypes.string,
-        etternavn: PropTypes.string,
-        mestRelevanteYrkeserfaring: PropTypes.shape({
-            styrkKodeStillingstittel: PropTypes.string,
-            yrkeserfaringManeder: PropTypes.number,
-        }),
-    }).isRequired,
-    kandidatliste: PropTypes.shape(Kandidatliste),
-    hentKandidatliste: PropTypes.func.isRequired,
-    leggTilKandidatMedFnr: PropTypes.func.isRequired,
-    onClose: PropTypes.func.isRequired,
-    resetHentKandidatMedFnr: PropTypes.func.isRequired,
-    setFodselsnummer: PropTypes.func.isRequired,
-    vis: PropTypes.bool,
-    stillingsid: PropTypes.string,
-};
-
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
     fodselsnummer: state.kandidat.fodselsnummer,
     kandidatStatus: state.kandidat.kandidatStatus,
     kandidat: state.kandidat.kandidat,
     kandidatliste: state.kandidat.detaljer.kandidatliste,
+    kandidatlisteStatus: state.kandidat.kandidatlisteStatus,
     stillingsid: state.ad.originalData.uuid,
     notat: state.kandidat.notat,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    hentKandidatliste: (stillingsnummer) => dispatch({ type: HENT_KANDIDATLISTE, stillingsnummer }),
-    hentKandidatMedFnr: (fodselsnummer) => dispatch({ type: HENT_KANDIDAT_MED_FNR, fodselsnummer }),
-    leggTilKandidatMedFnr: (kandidat, id) => dispatch({ type: LEGG_TIL_KANDIDAT, kandidat, id }),
+const mapDispatchToProps = (dispatch: any) => ({
+    hentKandidatliste: (stillingsnummer: string) =>
+        dispatch({ type: HENT_KANDIDATLISTE, stillingsnummer }),
+    hentKandidatMedFnr: (fodselsnummer: string) =>
+        dispatch({ type: HENT_KANDIDAT_MED_FNR, fodselsnummer }),
+    leggTilKandidatMedFnr: (kandidat: any, id: string) =>
+        dispatch({ type: LEGG_TIL_KANDIDAT, kandidat, id }),
     resetHentKandidatMedFnr: () => dispatch({ type: HENT_KANDIDAT_MED_FNR_RESET }),
-    setFodselsnummer: (fodselsnummer) => dispatch({ type: SET_FODSELSNUMMER, fodselsnummer }),
-    setNotat: (notat) => dispatch({ type: SET_NOTAT, notat }),
+    setFodselsnummer: (fodselsnummer: string) =>
+        dispatch({ type: SET_FODSELSNUMMER, fodselsnummer }),
+    setNotat: (notat: string) => dispatch({ type: SET_NOTAT, notat }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LeggTilKandidatModal);

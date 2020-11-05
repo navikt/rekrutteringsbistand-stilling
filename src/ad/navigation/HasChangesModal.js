@@ -38,7 +38,6 @@ class HasChangesModal extends React.Component {
                 contentLabel="Fortsett"
                 onRequestClose={this.onClose}
                 closeButton
-                appElement={document.getElementById('app')}
                 className="HasChangesModal"
             >
                 {updated === created ? (

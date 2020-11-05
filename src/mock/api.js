@@ -1,27 +1,29 @@
 import fetchMock from 'fetch-mock';
 import { REKRUTTERINGSBISTAND_BASE_URL } from '../fasitProperties';
+import fnrsok from './data/fnrsok';
+import kandidatliste from './data/kandidatliste';
 
 const baseUrl = REKRUTTERINGSBISTAND_BASE_URL;
 const apiUrl = `${baseUrl}/rekrutteringsbistand/api/v1`;
 
-const ads = require('./json/ads.json');
-const adsReversed = require('./json/ads-reversed.json');
-const putPostAds = require('./json/post-ads.json');
-const reportee = require('./json/reportee.json');
-const ident = require('./json/ident.json');
-const mineStillinger = require('./json/minestillinger.json');
-const stilling = require('./json/stilling.json');
-const eksternStilling = require('./json/ekstern-stilling.json');
-const internStilling = require('./json/intern-stilling.json');
-const counties = require('./json/counties.json');
-const countries = require('./json/countries.json');
-const municipals = require('./json/municipals.json');
-const categoriesWithAltnames = require('./json/categories-with-altnames.json');
-const postdata = require('./json/postdata.json');
-const search = require('./json/search.json');
-const aktivEnhet = require('./json/dekoratør/aktivenhet.json');
-const aktivBruker = require('./json/dekoratør/aktivbruker.json');
-const decorator = require('./json/dekoratør/decorator.json');
+const ads = require('./data/ads.json');
+const adsReversed = require('./data/ads-reversed.json');
+const putPostAds = require('./data/post-ads.json');
+const reportee = require('./data/reportee.json');
+const ident = require('./data/ident.json');
+const mineStillinger = require('./data/minestillinger.json');
+const stilling = require('./data/stilling.json');
+const eksternStilling = require('./data/ekstern-stilling.json');
+const internStilling = require('./data/intern-stilling.json');
+const counties = require('./data/counties.json');
+const countries = require('./data/countries.json');
+const municipals = require('./data/municipals.json');
+const categoriesWithAltnames = require('./data/categories-with-altnames.json');
+const postdata = require('./data/postdata.json');
+const search = require('./data/search.json');
+const aktivEnhet = require('./data/dekoratør/aktivenhet.json');
+const aktivBruker = require('./data/dekoratør/aktivbruker.json');
+const decorator = require('./data/dekoratør/decorator.json');
 
 const adsUrl = `${apiUrl}/ads`;
 const reporteeUrl = `${apiUrl}/reportee/`;
@@ -35,6 +37,7 @@ const municipalsUrl = `${apiUrl}/geography/municipals`;
 const categoriesWithAltnamesUrl = `${apiUrl}/categories-with-altnames/`;
 const postdataUrl = `${apiUrl}/postdata/`;
 const fnrsokUrl = 'express:/kandidater/rest/veileder/kandidatsok/fnrsok';
+const kandidatlisteUrl = 'express:/kandidater/rest/veileder/stilling/:stillingsId/kandidatliste';
 
 const identUrl = `${baseUrl}/rekruttering/ident/`;
 const featuresUrl = `${baseUrl}/features/`;
@@ -80,4 +83,5 @@ fetchMock
     .get(modiacontextholderAktivBrukerUrl, aktivBruker)
     .get(modiacontextholderDecoratorUrl, decorator)
     .post(modiacontextholderContextUrl, 200)
-    .post(fnrsokUrl, 404);
+    .post(fnrsokUrl, fnrsok)
+    .get(kandidatlisteUrl, kandidatliste);

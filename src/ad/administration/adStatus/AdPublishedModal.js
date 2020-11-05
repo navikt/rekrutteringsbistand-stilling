@@ -30,7 +30,6 @@ class AdPublishedModal extends React.Component {
                 contentLabel="Fortsett"
                 onRequestClose={this.onClose}
                 closeButton
-                appElement={document.getElementById('app')}
                 className="AdPublishedModal"
             >
                 {adStatus === AdStatusEnum.INACTIVE && activationOnPublishingDate ? (

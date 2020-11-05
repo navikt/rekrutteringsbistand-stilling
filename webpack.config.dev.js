@@ -8,7 +8,9 @@ module.exports = (env) =>
         mode: 'development',
         devtool: 'eval-cheap-source-map',
         devServer: {
-            historyApiFallback: true,
+            historyApiFallback: {
+                index: '/stillinger',
+            },
         },
         module: {
             rules: [

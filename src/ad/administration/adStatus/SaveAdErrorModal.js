@@ -21,7 +21,6 @@ class SaveAdErrorModal extends React.Component {
                     contentLabel="Fortsett"
                     onRequestClose={this.onClose}
                     closeButton
-                    appElement={document.getElementById('app')}
                     className="SaveAdErrorModal"
                 >
                     <Undertittel className="blokk-s">Kan ikke lagre stillingen</Undertittel>
