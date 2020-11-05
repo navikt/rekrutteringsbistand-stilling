@@ -33,7 +33,6 @@ class StopAdModal extends React.Component {
                 contentLabel="Fortsett"
                 onRequestClose={this.onClose}
                 closeButton
-                appElement={document.getElementById('app')}
                 className="StopAdModal"
             >
                 <Undertittel className="blokk-s">Stopp stillingen</Undertittel>

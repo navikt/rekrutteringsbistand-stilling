@@ -21,7 +21,6 @@ class PublishErrorModal extends React.Component {
                     contentLabel="Fortsett"
                     onRequestClose={this.onClose}
                     closeButton
-                    appElement={document.getElementById('app')}
                     className="PublishErrorModal"
                 >
                     <Undertittel className="blokk-s">Kan ikke publisere stillingen</Undertittel>
