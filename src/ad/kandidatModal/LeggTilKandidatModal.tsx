@@ -191,18 +191,11 @@ class LeggTilKandidatModal extends React.Component<Props> {
     };
 
     kandidatenFinnesAllerede = (kandidat: any, kandidatliste: any) => {
-        if (
-            this.props.kandidatlisteStatus === Hentestatus.SUCCESS &&
-            this.props.kandidatStatus === Hentestatus.SUCCESS &&
-            this.props.kandidatliste &&
-            this.props.kandidat
-        ) {
-            const finnesAllerede = kandidatliste.kandidater.filter(
-                (k: any) => kandidat.arenaKandidatnr === k.kandidatnr
-            );
+        const finnesAllerede = kandidatliste.kandidater.filter(
+            (k: any) => kandidat.arenaKandidatnr === k.kandidatnr
+        );
 
-            return finnesAllerede.length > 0;
-        }
+        return finnesAllerede.length > 0;
     };
 
     kandidatenFinnesIkke = () => (
