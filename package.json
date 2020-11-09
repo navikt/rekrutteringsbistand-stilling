@@ -5,6 +5,7 @@
     "repository": "https://github.com/navikt/rekrutteringsbistand-stilling",
     "main": "index.js",
     "scripts": {
+        "start-craco": "craco start",
         "start": "webpack-dev-server --port 8090 --inline --env.dev --config webpack.config.dev.js",
         "mock": "webpack-dev-server --port 8090 --inline --env.dev --env.MOCK_APP --config webpack.config.dev.js",
         "clean-build": "rimraf ./dist",
@@ -19,6 +20,18 @@
         "lint": "eslint \"src/**\"",
         "test": "jest",
         "test:snyk": "snyk test"
+    },
+    "eslintConfig": {
+        "extends": [
+            "react-app",
+            "prettier"
+        ]
+    },
+    "prettier": {
+        "tabWidth": 4,
+        "trailingComma": "es5",
+        "singleQuote": true,
+        "printWidth": 100
     },
     "author": "",
     "license": "ISC",
@@ -84,12 +97,14 @@
         "react-process-string": "^1.2.0",
         "react-redux": "^7.2.1",
         "react-router-dom": "^5.2.0",
+        "react-scripts": "^4.0.0",
         "redux": "^4.0.4",
         "redux-saga": "^0.16.0",
         "snyk": "^1.400.0",
         "whatwg-fetch": "^2.0.4"
     },
     "devDependencies": {
+        "@craco/craco": "^5.8.0",
         "@types/amplitude-js": "^5.11.0",
         "@types/classnames": "^2.2.10",
         "@types/jest": "^26.0.14",
@@ -103,21 +118,16 @@
         "babel-preset-react": "^6.24.1",
         "babel-preset-stage-2": "^6.24.1",
         "cache-loader": "^4.1.0",
+        "craco-less": "^1.17.0",
         "css-loader": "^4.3.0",
-        "eslint": "^6.7.2",
-        "eslint-config-react-app": "^5.2.1",
-        "eslint-plugin-flowtype": "^3.13.0",
-        "eslint-plugin-import": "^2.22.0",
-        "eslint-plugin-jsx-a11y": "^6.3.1",
-        "eslint-plugin-react": "^7.21.2",
-        "eslint-plugin-react-hooks": "^1.7.0",
+        "eslint-config-prettier": "^6.15.0",
         "fetch-mock": "^9.10.7",
         "html-webpack-plugin": "^4.5.0",
-        "jest": "^26.5.0",
         "less": "^3.12.2",
         "less-loader": "^6.2.0",
         "mini-css-extract-plugin": "^0.11.2",
         "mustache-loader": "^1.4.3",
+        "postcss-prefix-selector": "^1.7.2",
         "prettier": "^2.1.2",
         "rimraf": "^3.0.2",
         "ts-jest": "^26.4.1",
