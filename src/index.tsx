@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import ReactDOM from 'react-dom';
+import { Main } from './app';
 
 const skalEksporteres = process.env.REACT_APP_EXPORT || process.env.NODE_ENV === 'production';
 
@@ -15,4 +16,4 @@ const AppMedCssScope: FunctionComponent = (props: any) => (
     <div className={cssScopeForApp}>Hallå</div>
 );
 
-ReactDOM.render(<div>heiiiiiiiiii</div>, document.getElementById('utviklingsapp'));
+ReactDOM.render(<Main />, document.getElementById('utviklingsapp'));

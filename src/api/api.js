@@ -1,10 +1,15 @@
 import AdminStatusEnum from '../common/enums/AdminStatusEnum';
 import toUrl from '../common/toUrl';
-import { AD_API, SEARCH_API, REKRUTTERING_API, REKRUTTERINGSBISTAND_BASE_URL } from '../fasitProperties';
+import {
+    AD_API,
+    SEARCH_API,
+    REKRUTTERING_API,
+    REKRUTTERINGSBISTAND_BASE_URL,
+} from '../fasitProperties';
 import { loginWithRedirectToCurrentLocation } from '../login';
 
 // Bruk mock-api hvis app kjører via "npm run mock"
-if (MOCK_APP) {
+if (process.env.REACT_APP_MOCK) {
     require('../mock/api');
 }
 
@@ -44,7 +49,7 @@ export async function fetchGet(url) {
         credentials: 'include',
         headers: {
             'X-Requested-With': 'XMLHttpRequest',
-            'Cache-Control': 'no-cache, no-store' 
+            'Cache-Control': 'no-cache, no-store',
         },
     });
 }

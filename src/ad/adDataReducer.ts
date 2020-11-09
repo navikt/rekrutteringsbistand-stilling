@@ -1,4 +1,4 @@
-import { put, take, takeLatest, select } from 'redux-saga/es/effects';
+import { put, take, takeLatest, select } from 'redux-saga/effects';
 import { lookUpStyrk } from './edit/jobDetails/styrk/styrkReducer';
 import {
     CREATE_AD_BEGIN,

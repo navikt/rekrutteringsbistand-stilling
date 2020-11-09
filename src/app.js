@@ -91,7 +91,7 @@ sagaMiddleware.run(kandidatSaga);
 sagaMiddleware.run(stillingsinfoSaga);
 sagaMiddleware.run(featureTogglesSaga);
 
-const Main = () => {
+export const Main = () => {
     const dispatch = useDispatch();
     useLoggNavigering();
 
@@ -106,30 +106,37 @@ const Main = () => {
     }
 
     return (
-        <main>
-            <Dekoratør />
-            <Navigeringsmeny />
-            <Switch>
-                <Route exact path="/stillinger/minestillinger" component={MyAds} />
-                <Route exact path="/stillinger/stilling" component={Ad} />
-                <Route exact path="/stillinger/stilling/:uuid" component={Ad} />
-                <Route exact path="/stillinger" component={SearchPage} />
-            </Switch>
-        </main>
+        <Sentry.ErrorBoundary>
+            <Provider store={store}>
+                <Router history={history}>
+                    <main>
+                        <Dekoratør />
+                        <Navigeringsmeny />
+                        <Switch>
+                            <Route exact path="/stillinger/minestillinger" component={MyAds} />
+                            <Route exact path="/stillinger/stilling" component={Ad} />
+                            <Route exact path="/stillinger/stilling/:uuid" component={Ad} />
+                            <Route exact path="/stillinger" component={SearchPage} />
+                        </Switch>
+                    </main>
+                </Router>
+            </Provider>
+        </Sentry.ErrorBoundary>
     );
 };
 
-const appElement = document.getElementById('app');
+// TODO:
+// const appElement = document.getElementById('app');
 
-Modal.setAppElement(appElement);
+// Modal.setAppElement(appElement);
 
-ReactDOM.render(
-    <Sentry.ErrorBoundary>
-        <Provider store={store}>
-            <Router history={history}>
-                <Main />
-            </Router>
-        </Provider>
-    </Sentry.ErrorBoundary>,
-    appElement
-);
+// ReactDOM.render(
+//     <Sentry.ErrorBoundary>
+//         <Provider store={store}>
+//             <Router history={history}>
+//                 <Main />
+//             </Router>
+//         </Provider>
+//     </Sentry.ErrorBoundary>,
+//     appElement
+// );

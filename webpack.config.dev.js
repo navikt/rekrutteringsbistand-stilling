@@ -40,7 +40,6 @@ module.exports = (env) =>
                 __STILLING_PAM_KANDIDATLISTE_API_URL__:
                     "'http://localhost:8766/kandidater/rest/veileder'",
                 __STILLING_VIS_STILLING_URL__: "'https://www-q0.nav.no/arbeid/stilling'",
-                MOCK_APP: env.MOCK_APP,
             }),
             new HtmlWebpackPlugin({
                 template: './src/index.html',

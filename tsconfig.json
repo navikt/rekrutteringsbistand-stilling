@@ -16,7 +16,7 @@
     ],
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "strict": true,
+    "strict": false,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "noEmit": true

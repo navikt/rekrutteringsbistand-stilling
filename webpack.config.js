@@ -32,9 +32,6 @@ module.exports = () => {
             ],
         },
         plugins: [
-            new webpack.DefinePlugin({
-                MOCK_APP: false,
-            }),
             new HtmlWebpackPlugin({
                 template: './src/index.html',
             }),
