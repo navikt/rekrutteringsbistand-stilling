@@ -27,19 +27,12 @@ module.exports = (env) =>
         },
         plugins: [
             new webpack.DefinePlugin({
-                __STILLING_PAM_AD_API__:
-                    "'http://localhost:9501/rekrutteringsbistand-api/rekrutteringsbistand/api/v1/'",
-                __STILLING_REKRUTTERINGSBISTAND_BASE_URL__:
+                STILLING_REKRUTTERINGSBISTAND_BASE_URL:
                     "'http://localhost:9501/rekrutteringsbistand-api'",
-                __STILLING_REKRUTTERING_API__:
-                    "'http://localhost:9501/rekrutteringsbistand-api/rekruttering'",
-                __STILLING_PAM_SEARCH_API__:
-                    "'http://localhost:9501/rekrutteringsbistand-api/search-api/'",
-                __STILLING_PAM_LOGIN_URL__:
+                STILLING_LOGIN_URL:
                     "'http://localhost:9501/rekrutteringsbistand-api/local/cookie-isso'",
-                __STILLING_PAM_KANDIDATLISTE_API_URL__:
-                    "'http://localhost:8766/kandidater/rest/veileder'",
-                __STILLING_VIS_STILLING_URL__: "'https://www-q0.nav.no/arbeid/stilling'",
+                STILLING_VIS_STILLING_URL: "'https://www-q0.nav.no/arbeid/stilling'",
+                MOCK_APP: env.MOCK_APP,
             }),
             new HtmlWebpackPlugin({
                 template: './src/index.html',

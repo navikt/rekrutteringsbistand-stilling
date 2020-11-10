@@ -81,7 +81,7 @@ export function* fetchLocations() {
     try {
         if (!state.locationCode.hasFetchedLocations) {
             yield put({ type: FETCH_LOCATIONS_BEGIN });
-            const response = yield fetchGet(`${AD_API}postdata/`);
+            const response = yield fetchGet(`${AD_API}/postdata/`);
             const sorted = response.sort((a, b) => {
                 if (a.city < b.city) return -1;
                 if (a.city > b.city) return 1;

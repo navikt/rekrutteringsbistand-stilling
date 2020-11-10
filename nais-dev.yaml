@@ -37,11 +37,5 @@ spec:
           value: https://loginservice.nais.preprod.local/login
         - name: REKRUTTERINGSBISTAND_BASE_URL
           value: https://arbeidsgiver.nais.preprod.local/rekrutteringsbistand-api
-        - name: REKRUTTERINGSBISTAND_API_URL
-          value: https://arbeidsgiver.nais.preprod.local/rekrutteringsbistand-api/rekrutteringsbistand/api/v1/
-        - name: REKRUTTERING_API_URL
-          value: https://arbeidsgiver.nais.preprod.local/rekrutteringsbistand-api/rekruttering/
-        - name: REKRUTTERINGSBISTAND_API_SEARCH_URL
-          value: https://arbeidsgiver.nais.preprod.local/rekrutteringsbistand-api/search-api/
         - name: VIS_STILLING_URL
           value: https://www-q0.nav.no/arbeid/stilling
