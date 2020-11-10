@@ -389,7 +389,7 @@ function* createAd() {
     try {
         const reportee = yield getReportee();
 
-        const postUrl = `${AD_API}ads?classify=true`;
+        const postUrl = `${AD_API}/ads?classify=true`;
 
         const response = yield fetchPost(postUrl, {
             title: DEFAULT_TITLE_NEW_AD,
@@ -528,7 +528,7 @@ function* deleteAd() {
         yield put({ type: SET_UPDATED_BY });
 
         const state = yield select();
-        const deleteUrl = `${AD_API}ads/${state.adData.uuid}`;
+        const deleteUrl = `${AD_API}/ads/${state.adData.uuid}`;
 
         const response = yield fetchDelete(deleteUrl);
         yield put({ type: DELETE_AD_SUCCESS, response });
@@ -561,7 +561,7 @@ function* copyAdFromMyAds(action) {
         const adToCopy = yield fetchAd(action.uuid);
         const reportee = yield getReportee();
 
-        const postUrl = `${AD_API}ads?classify=true`;
+        const postUrl = `${AD_API}/ads?classify=true`;
 
         const response = yield fetchPost(postUrl, {
             ...adToCopy,

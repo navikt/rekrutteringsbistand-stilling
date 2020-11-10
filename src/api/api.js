@@ -1,6 +1,11 @@
 import AdminStatusEnum from '../common/enums/AdminStatusEnum';
 import toUrl from '../common/toUrl';
-import { AD_API, SEARCH_API, REKRUTTERING_API, REKRUTTERINGSBISTAND_BASE_URL } from '../fasitProperties';
+import {
+    AD_API,
+    SEARCH_API,
+    REKRUTTERING_API,
+    REKRUTTERINGSBISTAND_BASE_URL,
+} from '../fasitProperties';
 import { loginWithRedirectToCurrentLocation } from '../login';
 
 // Bruk mock-api hvis app kjører via "npm run mock"
@@ -44,7 +49,7 @@ export async function fetchGet(url) {
         credentials: 'include',
         headers: {
             'X-Requested-With': 'XMLHttpRequest',
-            'Cache-Control': 'no-cache, no-store' 
+            'Cache-Control': 'no-cache, no-store',
         },
     });
 }
@@ -100,7 +105,7 @@ function fixMissingAdministration(ad) {
 }
 
 export async function fetchAd(uuid) {
-    const ad = await fetchGet(`${AD_API}stilling/${uuid}`);
+    const ad = await fetchGet(`${AD_API}/stilling/${uuid}`);
     if (ad.administration === null) {
         return fixMissingAdministration(ad);
     }
@@ -134,11 +139,11 @@ async function fetchAdsCommon(query, baseurl) {
 }
 
 export async function fetchAds(query) {
-    return fetchAdsCommon(query, `${AD_API}ads`);
+    return fetchAdsCommon(query, `${AD_API}/ads`);
 }
 
 export async function fetchMyAds(query) {
-    return fetchAdsCommon(query, `${AD_API}ads/rekrutteringsbistand/minestillinger`);
+    return fetchAdsCommon(query, `${AD_API}/ads/rekrutteringsbistand/minestillinger`);
 }
 
 const employerNameCompletionQueryTemplate = (match) => ({
@@ -155,7 +160,7 @@ const employerNameCompletionQueryTemplate = (match) => ({
 
 export async function fetchEmployerNameCompletionHits(match) {
     const result = await fetchPost(
-        `${SEARCH_API}underenhet/_search`,
+        `${SEARCH_API}/underenhet/_search`,
         employerNameCompletionQueryTemplate(match)
     );
 
@@ -180,7 +185,7 @@ export async function fetchEmployerNameCompletionHits(match) {
 export async function fetchOrgnrSuggestions(value) {
     const match = value.replace(/\s/g, '');
     const result = await fetchGet(
-        `${SEARCH_API}underenhet/_search?q=organisasjonsnummer:${match}*`
+        `${SEARCH_API}/underenhet/_search?q=organisasjonsnummer:${match}*`
     );
 
     return {
@@ -204,5 +209,5 @@ export async function fetchOrgnrSuggestions(value) {
 }
 
 export async function checkTokenExpiration() {
-    return fetchGet(`${AD_API}reportee/token-expiring`);
+    return fetchGet(`${AD_API}/reportee/token-expiring`);
 }

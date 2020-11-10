@@ -21,9 +21,9 @@ server.engine('html', mustacheExpress());
 
 const writeEnvironmentVariablesToFile = () => {
     const fileContent =
-        `window.__STILLING_REKRUTTERINGSBISTAND_BASE_URL__="${process.env.REKRUTTERINGSBISTAND_BASE_URL}";\n` +
-        `window.__STILLING_PAM_LOGIN_URL__="${process.env.LOGIN_URL}";\n` +
-        `window.__STILLING_VIS_STILLING_URL__="${process.env.VIS_STILLING_URL}";\n`;
+        `window.STILLING_REKRUTTERINGSBISTAND_BASE_URL="${process.env.REKRUTTERINGSBISTAND_BASE_URL}";\n` +
+        `window.STILLING_LOGIN_URL="${process.env.LOGIN_URL}";\n` +
+        `window.STILLING_VIS_STILLING_URL="${process.env.VIS_STILLING_URL}";\n`;
 
     fs.writeFile(path.resolve(__dirname, 'dist/js/env.js'), fileContent, (err) => {
         if (err) throw err;

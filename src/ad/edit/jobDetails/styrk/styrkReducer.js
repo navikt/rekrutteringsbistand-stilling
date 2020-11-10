@@ -198,7 +198,7 @@ export default function styrkReducer(state = initialState, action) {
 function* getStyrk() {
     if (!originalStyrkThree) {
         try {
-            const response = yield fetchGet(`${AD_API}categories-with-altnames/`);
+            const response = yield fetchGet(`${AD_API}/categories-with-altnames/`);
             const sorted = response.sort((a, b) => {
                 if (a.code < b.code) return -1;
                 if (a.code > b.code) return 1;

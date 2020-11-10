@@ -45,7 +45,7 @@ export function* getReportee() {
     if (!state.reportee.data) {
         yield put({ type: FETCH_REPORTEE_BEGIN });
         try {
-            const response = yield fetchGet(`${AD_API}reportee/`);
+            const response = yield fetchGet(`${AD_API}/reportee/`);
             yield put({ type: FETCH_REPORTEE_SUCCESS, response });
             state = yield select();
         } catch (e) {
