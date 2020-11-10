@@ -4,8 +4,6 @@ import { Provider, useDispatch } from 'react-redux';
 import { Router, Route, Switch } from 'react-router-dom';
 import * as Sentry from '@sentry/react';
 import createSagaMiddleware from 'redux-saga';
-import ReactDOM from 'react-dom';
-import Modal from 'react-modal';
 
 import './styles.less'; // Må importeres før andre komponenter
 
@@ -15,7 +13,6 @@ import Ad from './ad/Ad';
 import adDataReducer, { adDataSaga } from './ad/adDataReducer';
 import adReducer, { adSaga } from './ad/adReducer.ts';
 import adValidationReducer, { validationSaga } from './ad/adValidationReducer.ts';
-import Dekoratør from './dekoratør/Dekoratør.tsx';
 import employerReducer, { employerSaga } from './ad/edit/employer/employerReducer';
 import featureTogglesReducer, {
     featureTogglesSaga,
@@ -110,8 +107,6 @@ export const Main = () => {
             <Provider store={store}>
                 <Router history={history}>
                     <main>
-                        <Dekoratør />
-                        <Navigeringsmeny />
                         <Switch>
                             <Route exact path="/stillinger/minestillinger" component={MyAds} />
                             <Route exact path="/stillinger/stilling" component={Ad} />
@@ -119,6 +114,18 @@ export const Main = () => {
                             <Route exact path="/stillinger" component={SearchPage} />
                         </Switch>
                     </main>
+                </Router>
+            </Provider>
+        </Sentry.ErrorBoundary>
+    );
+};
+
+export const Hoved = () => {
+    return (
+        <Sentry.ErrorBoundary>
+            <Provider store={store}>
+                <Router history={history}>
+                    <Main />
                 </Router>
             </Provider>
         </Sentry.ErrorBoundary>
