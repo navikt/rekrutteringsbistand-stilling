@@ -61,6 +61,10 @@ const startServer = (html) => {
 
     server.use(`${basePath}/js`, express.static(`${buildPath}/js`));
     server.use(`${basePath}/css`, express.static(`${buildPath}/css`));
+    server.use(
+        `${basePath}/asset-manifest.json`,
+        express.static(`${buildPath}/asset-manifest.json`)
+    );
 
     server.get(pathsForServingApp, (req, res) => res.send(html));
     server.get(pathsForReadinessAndLiveness, (req, res) => res.sendStatus(200));

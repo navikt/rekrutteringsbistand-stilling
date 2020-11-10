@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import ReactDOM from 'react-dom';
-import { Hoved, Main } from './app';
+import { Hoved } from './app';
+import eksporterApp from './eksporterApp';
 import Utviklingsapp from './utviklingsapp/Utviklingsapp';
 
 const skalEksporteres = process.env.REACT_APP_EXPORT || process.env.NODE_ENV === 'production';
@@ -14,7 +15,13 @@ if (process.env.REACT_APP_MOCK) {
 }
 
 const AppMedCssScope: FunctionComponent = (props: any) => (
-    <div className={cssScopeForApp}>Hallååååå</div>
+    <div className={cssScopeForApp}>
+        <Hoved {...props} />
+    </div>
 );
 
-ReactDOM.render(<Utviklingsapp />, document.getElementById('utviklingsapp'));
+if (skalEksporteres) {
+    eksporterApp('rekrutteringsbistand-statistikk', AppMedCssScope);
+} else {
+    ReactDOM.render(<Utviklingsapp />, document.getElementById('utviklingsapp'));
+}
