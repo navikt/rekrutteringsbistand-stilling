@@ -21,12 +21,12 @@ const Utviklingsapp: FunctionComponent = () => {
     return (
         <div className={cssScopeForApp}>
             <header className="utviklingsapp">
-                <Systemtittel>Utviklingsapp for rekrutteringsbistand-statistikk</Systemtittel>
+                <Systemtittel>Utviklingsapp for rekrutteringsbistand-stilling</Systemtittel>
                 <div className="lenke">
-                    <a href="http://localhost:3000/stillinger/">stilling</a>
+                    <a href="http://localhost:3002/stillinger/">stilling</a>
                 </div>
                 <div className="lenke">
-                    <a href="http://localhost:3000/stillinger/minestillinger">mine stillinger</a>
+                    <a href="http://localhost:3002/stillinger/minestillinger">mine stillinger</a>
                 </div>
             </header>
             <main>
