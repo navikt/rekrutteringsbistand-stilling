@@ -21,7 +21,7 @@ const AppMedCssScope: FunctionComponent = (props: any) => (
 );
 
 if (skalEksporteres) {
-    eksporterApp('rekrutteringsbistand-statistikk', AppMedCssScope);
+    eksporterApp('rekrutteringsbistand-stilling', AppMedCssScope);
 } else {
     ReactDOM.render(<Utviklingsapp />, document.getElementById('utviklingsapp'));
 }
