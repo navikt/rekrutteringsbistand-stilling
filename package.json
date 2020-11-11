@@ -2,7 +2,7 @@
     "name": "rekrutteringsbistand-stilling",
     "version": "0.54.0",
     "private": true,
-    "homepage": "/stillinger",
+    "homepage": "/microfrontend-ressurser/stilling",
     "description": "Applikasjon for å søke opp stillinger og opprette direktemeldte stillinger for veiledere i NAV.",
     "repository": "https://github.com/navikt/rekrutteringsbistand-stilling",
     "scripts": {
