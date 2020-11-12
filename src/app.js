@@ -35,8 +35,8 @@ import stillingsinfoDataReducer from './stillingsinfo/stillingsinfoDataReducer';
 import stillingsinfoReducer, { stillingsinfoSaga } from './stillingsinfo/stillingsinfoReducer';
 import styrkReducer, { styrkSaga } from './ad/edit/jobDetails/styrk/styrkReducer';
 import useLoggNavigering from './useLoggNavigering';
-import { useHistory, useLocation } from 'react-router';
-import { createBrowserHistory } from 'history';
+import { useHistory } from 'react-router';
+import browserHistory from './history';
 
 Sentry.init({
     dsn: 'https://34e485d3fd9945e29d5f66f11a29f84e@sentry.gc.nav.no/43',
@@ -122,7 +122,7 @@ export const Hoved = () => {
     return (
         <Sentry.ErrorBoundary>
             <Provider store={store}>
-                <Router history={createBrowserHistory()}>
+                <Router history={browserHistory}>
                     <Main />
                 </Router>
             </Provider>
