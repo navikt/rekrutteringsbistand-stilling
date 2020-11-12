@@ -18,10 +18,10 @@ spec:
         path: /metrics
     liveness:
         initialDelay: 10
-        path: /stillinger/internal/isAlive
+        path: /microfrontend-ressurser/stilling/internal/isAlive
     readiness:
         initialDelay: 10
-        path: /stillinger/internal/isReady
+        path: /microfrontend-ressurser/stilling/internal/isReady
     resources:
         limits:
             cpu: 500m
