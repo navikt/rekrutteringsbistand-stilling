@@ -1,23 +1,8 @@
-const express = require('express');
 const path = require('path');
-const helmet = require('helmet');
-const mustacheExpress = require('mustache-express');
-const Promise = require('promise');
+const express = require('express');
 const fs = require('fs');
-const compression = require('compression');
-
-const currentDirectory = __dirname;
-const server = express();
+const app = express();
 const port = process.env.PORT || 8080;
-server.set('port', port);
-
-server.use(compression());
-server.disable('x-powered-by');
-server.use(helmet());
-
-server.set('views', `${currentDirectory}`);
-server.set('view engine', 'mustache');
-server.engine('html', mustacheExpress());
 
 const writeEnvironmentVariablesToFile = () => {
     const fileContent =
@@ -25,55 +10,26 @@ const writeEnvironmentVariablesToFile = () => {
         `window.STILLING_LOGIN_URL="${process.env.LOGIN_URL}";\n` +
         `window.STILLING_VIS_STILLING_URL="${process.env.VIS_STILLING_URL}";\n`;
 
-    fs.writeFile(path.resolve(__dirname, 'dist/js/env.js'), fileContent, (err) => {
+    fs.writeFile(path.resolve(__dirname, 'static/js/env.js'), fileContent, (err) => {
         if (err) throw err;
     });
 };
 
-const renderApp = (htmlPages) =>
-    new Promise((resolve, reject) => {
-        server.render('./dist/index.html', htmlPages, (err, html) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(html);
-            }
-        });
-    });
+const basePath = '/stillinger';
+const buildPath = path.join(__dirname, '../build');
 
-const startServer = (html) => {
+const startServer = () => {
     writeEnvironmentVariablesToFile();
 
-    const buildPath = path.resolve(__dirname, 'dist');
-    const basePath = '/stillinger';
+    app.use(`${basePath}/static`, express.static(buildPath + '/static'));
+    app.use(`${basePath}/asset-manifest.json`, express.static(`${buildPath}/asset-manifest.json`));
 
-    const pathsForServingApp = [
-        `${basePath}`,
-        `${basePath}/stilling`,
-        `${basePath}/stilling/*`,
-        `${basePath}/minestillinger`,
-    ];
+    app.get(`${basePath}/internal/isAlive`, (req, res) => res.sendStatus(200));
+    app.get(`${basePath}/internal/isReady`, (req, res) => res.sendStatus(200));
 
-    const pathsForReadinessAndLiveness = [
-        `${basePath}/internal/isAlive`,
-        `${basePath}/internal/isReady`,
-    ];
-
-    server.use(`${basePath}/js`, express.static(`${buildPath}/js`));
-    server.use(`${basePath}/css`, express.static(`${buildPath}/css`));
-    server.use(
-        `${basePath}/asset-manifest.json`,
-        express.static(`${buildPath}/asset-manifest.json`)
-    );
-
-    server.get(pathsForServingApp, (req, res) => res.send(html));
-    server.get(pathsForReadinessAndLiveness, (req, res) => res.sendStatus(200));
-
-    server.listen(port, () => {
-        console.log(`Express-server startet. Server filer fra ./dist/ til localhost:${port}/`);
+    app.listen(port, () => {
+        console.log('Server kjører på port', port);
     });
 };
 
-const logError = (errorMessage, details) => console.log(errorMessage, details);
-
-renderApp({}).then(startServer, (error) => logError('Failed to render app', error));
+startServer();
