@@ -30,8 +30,7 @@ spec:
             cpu: 200m
             memory: 128Mi
     ingresses:
-        - https://rekrutteringsbistand.nais.preprod.local/stillinger
-        - https://pam-rekrutteringsbistand.nais.preprod.local/stillinger
+        - https://rekrutteringsbistand.nais.preprod.local/microfrontend-ressurser/stilling
     env:
         - name: LOGIN_URL
           value: https://loginservice.nais.preprod.local/login
