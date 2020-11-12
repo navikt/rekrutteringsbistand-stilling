@@ -20,10 +20,12 @@ const AppMedCssScope: FunctionComponent = (props: any) => (
     </div>
 );
 
-if (skalEksporteres) {
-    console.log('Eksporterer app');
-    eksporterApp('rekrutteringsbistand-stilling', AppMedCssScope);
-} else {
-    console.log('Rendrer app. Feil');
-    ReactDOM.render(<Utviklingsapp />, document.getElementById('utviklingsapp'));
-}
+eksporterApp('rekrutteringsbistand-stilling', AppMedCssScope);
+
+// if (skalEksporteres) {
+//     console.log('Eksporterer app');
+//     eksporterApp('rekrutteringsbistand-stilling', AppMedCssScope);
+// } else {
+//     console.log('Rendrer app. Feil');
+//     ReactDOM.render(<Utviklingsapp />, document.getElementById('utviklingsapp'));
+// }
