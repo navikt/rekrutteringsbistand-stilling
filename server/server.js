@@ -10,7 +10,7 @@ const writeEnvironmentVariablesToFile = () => {
         `window.STILLING_LOGIN_URL="${process.env.LOGIN_URL}";\n` +
         `window.STILLING_VIS_STILLING_URL="${process.env.VIS_STILLING_URL}";\n`;
 
-    fs.writeFile(path.resolve(__dirname, 'static/js/env.js'), fileContent, (err) => {
+    fs.writeFile(path.resolve(__dirname, 'build/static/js/env.js'), fileContent, (err) => {
         if (err) throw err;
     });
 };
