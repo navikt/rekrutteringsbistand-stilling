@@ -21,23 +21,22 @@ import featureTogglesReducer, {
 import filterLocationReducer, {
     filterLocationSaga,
 } from './searchPage/filter/location/filterLocationReducer';
-import history from './history';
 import kandidatReducer, { kandidatSaga } from './ad/kandidatModal/kandidatReducer';
 import locationAreaReducer, { locationAreaSaga } from './ad/edit/location/locationAreaReducer';
 import locationCodeReducer, { locationCodeSaga } from './ad/edit/location/locationCodeReducer';
 import MyAds from './myAds/MyAds';
 import myAdsReducer, { myAdsSaga } from './myAds/myAdsReducer';
-import Navigeringsmeny from './navigeringsmeny/Navigeringsmeny.tsx';
 import navKontorReducer from './navKontor/navKontorReducer.ts';
 import reporteeReducer, { FETCH_REPORTEE, reporteeSaga } from './reportee/reporteeReducer';
 import savedSearchAlertStripeReducer from './ad/alertstripe/SavedAdAlertStripeReducer';
 import SearchPage from './searchPage/SearchPage';
 import searchReducer, { searchSaga } from './searchPage/searchReducer';
-import StartPage from './startPage/StartPage';
 import stillingsinfoDataReducer from './stillingsinfo/stillingsinfoDataReducer';
 import stillingsinfoReducer, { stillingsinfoSaga } from './stillingsinfo/stillingsinfoReducer';
 import styrkReducer, { styrkSaga } from './ad/edit/jobDetails/styrk/styrkReducer';
 import useLoggNavigering from './useLoggNavigering';
+import { useHistory, useLocation } from 'react-router';
+import { createBrowserHistory } from 'history';
 
 Sentry.init({
     dsn: 'https://34e485d3fd9945e29d5f66f11a29f84e@sentry.gc.nav.no/43',
@@ -92,6 +91,11 @@ export const Main = () => {
     const dispatch = useDispatch();
     useLoggNavigering();
 
+    const history = useHistory();
+    useEffect(() => {
+        history.replace(window.location.pathname);
+    }, [window.location.pathname]);
+
     useEffect(() => {
         dispatch({ type: FETCH_FEATURE_TOGGLES });
         dispatch({ type: FETCH_REPORTEE });
@@ -103,20 +107,14 @@ export const Main = () => {
     }
 
     return (
-        <Sentry.ErrorBoundary>
-            <Provider store={store}>
-                <Router history={history}>
-                    <main>
-                        <Switch>
-                            <Route exact path="/stillinger/minestillinger" component={MyAds} />
-                            <Route exact path="/stillinger/stilling" component={Ad} />
-                            <Route exact path="/stillinger/stilling/:uuid" component={Ad} />
-                            <Route exact path="/stillinger" component={SearchPage} />
-                        </Switch>
-                    </main>
-                </Router>
-            </Provider>
-        </Sentry.ErrorBoundary>
+        <main>
+            <Switch>
+                <Route exact path="/stillinger/minestillinger" component={MyAds} />
+                <Route exact path="/stillinger/stilling" component={Ad} />
+                <Route exact path="/stillinger/stilling/:uuid" component={Ad} />
+                <Route exact path="/stillinger" component={SearchPage} />
+            </Switch>
+        </main>
     );
 };
 
@@ -124,7 +122,7 @@ export const Hoved = () => {
     return (
         <Sentry.ErrorBoundary>
             <Provider store={store}>
-                <Router history={history}>
+                <Router history={createBrowserHistory()}>
                     <Main />
                 </Router>
             </Provider>
