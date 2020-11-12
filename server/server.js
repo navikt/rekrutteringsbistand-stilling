@@ -16,7 +16,7 @@ const writeEnvironmentVariablesToFile = () => {
 };
 
 const basePath = '/microfrontend-ressurser/stilling';
-const buildPath = path.join(__dirname, '../build');
+const buildPath = path.join(__dirname, 'build');
 
 const startServer = () => {
     writeEnvironmentVariablesToFile();
