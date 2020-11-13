@@ -1,7 +1,6 @@
 {
     "name": "rekrutteringsbistand-stilling",
     "version": "0.54.0",
-    "private": true,
     "homepage": "/rekrutteringsbistand-stilling",
     "description": "Applikasjon for å søke opp stillinger og opprette direktemeldte stillinger for veiledere i NAV.",
     "repository": "https://github.com/navikt/rekrutteringsbistand-stilling",
@@ -11,8 +10,6 @@
         "start:mock": "REACT_APP_MOCK=true craco start",
         "build": "craco build",
         "test": "craco test",
-        "eject": "craco eject",
-        "clean-build": "rimraf ./dist",
         "start-express": "node server/server.js",
         "docker-build": "npm run build && docker build . -t rekrutteringsbistand-stilling",
         "docker-start": "docker run --name rekrutteringsbistand-stilling -p 8080:8080 -d rekrutteringsbistand-stilling",
@@ -128,7 +125,6 @@
         "mustache-loader": "^1.4.3",
         "postcss-prefix-selector": "^1.7.2",
         "prettier": "^2.1.2",
-        "rimraf": "^3.0.2",
         "ts-jest": "^26.4.1",
         "ts-loader": "^8.0.4",
         "typescript": "^4.0.3"
