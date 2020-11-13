@@ -36,6 +36,8 @@ import styrkReducer, { styrkSaga } from './ad/edit/jobDetails/styrk/styrkReducer
 import useLoggNavigering from './useLoggNavigering';
 import { useHistory } from 'react-router';
 import browserHistory from './history';
+import Modal from 'react-modal';
+import { useSyncHistorikkMedContainer } from './useSyncHistorikkMedContainer';
 
 Sentry.init({
     dsn: 'https://34e485d3fd9945e29d5f66f11a29f84e@sentry.gc.nav.no/43',
@@ -85,14 +87,13 @@ sagaMiddleware.run(kandidatSaga);
 sagaMiddleware.run(stillingsinfoSaga);
 sagaMiddleware.run(featureTogglesSaga);
 
-export const Main = () => {
+const appElement = document.getElementById('rekrutteringsbistand-container');
+Modal.setAppElement(appElement);
+
+const App = () => {
     const dispatch = useDispatch();
     useLoggNavigering();
-
-    const history = useHistory();
-    useEffect(() => {
-        history.replace(window.location.pathname);
-    }, [window.location.pathname]);
+    useSyncHistorikkMedContainer();
 
     useEffect(() => {
         dispatch({ type: FETCH_FEATURE_TOGGLES });
@@ -116,30 +117,14 @@ export const Main = () => {
     );
 };
 
-export const Hoved = () => {
+export const Main = () => {
     return (
         <Sentry.ErrorBoundary>
             <Provider store={store}>
                 <Router history={browserHistory}>
-                    <Main />
+                    <App />
                 </Router>
             </Provider>
         </Sentry.ErrorBoundary>
     );
 };
-
-// TODO:
-// const appElement = document.getElementById('app');
-
-// Modal.setAppElement(appElement);
-
-// ReactDOM.render(
-//     <Sentry.ErrorBoundary>
-//         <Provider store={store}>
-//             <Router history={history}>
-//                 <Main />
-//             </Router>
-//         </Provider>
-//     </Sentry.ErrorBoundary>,
-//     appElement
-// );
