@@ -2,8 +2,7 @@ import React, { FunctionComponent, useEffect, useState } from 'react';
 import { Systemtittel } from 'nav-frontend-typografi';
 import { cssScopeForApp } from '../index';
 import './Utviklingsapp.less';
-import { Hoved } from '../app';
-import { Link } from 'react-router-dom';
+import { Main } from '../app';
 
 const Utviklingsapp: FunctionComponent = () => {
     const [navKontor, setNavKontor] = useState<string | null>(null);
@@ -30,7 +29,7 @@ const Utviklingsapp: FunctionComponent = () => {
                 </div>
             </header>
             <main>
-                <Hoved />
+                <Main />
             </main>
         </div>
     );
