@@ -15,7 +15,7 @@ const writeEnvironmentVariablesToFile = () => {
     });
 };
 
-const basePath = '/microfrontend-ressurser/stilling';
+const basePath = '/rekrutteringsbistand-stilling';
 const buildPath = path.join(__dirname, 'build');
 
 const startServer = () => {
