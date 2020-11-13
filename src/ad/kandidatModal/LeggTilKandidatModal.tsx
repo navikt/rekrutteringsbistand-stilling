@@ -215,9 +215,8 @@ class LeggTilKandidatModal extends React.Component<Props> {
             </div>
             <div className="LeggTilKandidat__info">
                 <AlertStripeInfo>
-                    Noen kandidater som ikke kan søkes opp i Rekrutteringsbistand kan likevel legges
-                    til en kandidatliste ved at du navigerer til kandidatlisten og velger "Legg til
-                    kandidat" der.
+                    Ønsker du å registrere utfall på en kandidat som ikke er synlig i
+                    Rekrutteringsbistand? Gå til kandidatlisten og velg «Legg til kandidat».
                 </AlertStripeInfo>
             </div>
         </>
