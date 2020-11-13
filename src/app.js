@@ -26,7 +26,6 @@ import locationAreaReducer, { locationAreaSaga } from './ad/edit/location/locati
 import locationCodeReducer, { locationCodeSaga } from './ad/edit/location/locationCodeReducer';
 import MyAds from './myAds/MyAds';
 import myAdsReducer, { myAdsSaga } from './myAds/myAdsReducer';
-import navKontorReducer from './navKontor/navKontorReducer.ts';
 import reporteeReducer, { FETCH_REPORTEE, reporteeSaga } from './reportee/reporteeReducer';
 import savedSearchAlertStripeReducer from './ad/alertstripe/SavedAdAlertStripeReducer';
 import SearchPage from './searchPage/SearchPage';
@@ -67,7 +66,6 @@ const store = createStore(
         stillingsinfo: stillingsinfoReducer,
         stillingsinfoData: stillingsinfoDataReducer,
         featureToggles: featureTogglesReducer,
-        navKontor: navKontorReducer,
     }),
     composeEnhancers(applyMiddleware(sagaMiddleware))
 );
