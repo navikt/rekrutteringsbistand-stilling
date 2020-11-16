@@ -5,6 +5,7 @@ import NavFrontendModal from 'nav-frontend-modal';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import { HIDE_PUBLISH_ERROR_MODAL } from '../../adReducer';
+import Modal from '../../../Modal';
 import './PublishErrorModal.less';
 
 class PublishErrorModal extends React.Component {
@@ -16,7 +17,7 @@ class PublishErrorModal extends React.Component {
         const { showPublishErrorModal, validation } = this.props;
         return (
             showPublishErrorModal && (
-                <NavFrontendModal
+                <Modal
                     isOpen={showPublishErrorModal}
                     contentLabel="Fortsett"
                     onRequestClose={this.onClose}
@@ -38,7 +39,7 @@ class PublishErrorModal extends React.Component {
                         )}
                     </Normaltekst>
                     <Hovedknapp onClick={this.onClose}>Lukk</Hovedknapp>
-                </NavFrontendModal>
+                </Modal>
             )
         );
     }
