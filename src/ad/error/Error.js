@@ -1,17 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Modal from 'nav-frontend-modal';
 import { Normaltekst } from 'nav-frontend-typografi';
 import './Error.less';
 import { Hovedknapp } from 'nav-frontend-knapper';
+import ModalMedStillingScope from '../../ModalMedStillingScope';
 
 function Error({ error }) {
     if (error) {
         const showDefaultError = error.statusCode !== 404 && error.statusCode !== 412;
         return (
             <div>
-                <Modal
+                <ModalMedStillingScope
                     isOpen
                     closeButton={false}
                     onRequestClose={() => {}}
@@ -39,7 +39,7 @@ function Error({ error }) {
                             </Normaltekst>
                         )}
                     </div>
-                </Modal>
+                </ModalMedStillingScope>
             </div>
         );
     }
