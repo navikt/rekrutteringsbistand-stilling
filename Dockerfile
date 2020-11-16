@@ -5,8 +5,6 @@ WORKDIR /usr/src/app
 COPY build/ build/
 COPY server/ ./
 
-RUN npm install
-
 EXPOSE 8080
 
 CMD ["node", "server.js"]
