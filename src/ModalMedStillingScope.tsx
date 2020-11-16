@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
-import NavFrontendModal from 'nav-frontend-modal';
+import NavFrontendModal, { ModalProps } from 'nav-frontend-modal';
 
-const ModalMedStillingScope: FunctionComponent = (props: any) => (
+const ModalMedStillingScope: FunctionComponent<ModalProps> = (props) => (
     <NavFrontendModal {...props} portalClassName="rek-stilling"></NavFrontendModal>
 );
 

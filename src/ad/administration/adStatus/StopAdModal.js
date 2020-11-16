@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import NavFrontendModal from 'nav-frontend-modal';
 import { Flatknapp, Hovedknapp } from 'nav-frontend-knapper';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import { HIDE_STOP_AD_MODAL, STOP_AD, STOP_AD_FROM_MY_ADS } from '../../adReducer';
 import './StopAdModal.less';
 import Notat from '../notat/Notat';
+import ModalMedStillingScope from '../../../ModalMedStillingScope';
 
 class StopAdModal extends React.Component {
     onClose = () => {
@@ -28,7 +28,7 @@ class StopAdModal extends React.Component {
     render() {
         const { showStopAdModal, title } = this.props;
         return (
-            <NavFrontendModal
+            <ModalMedStillingScope
                 isOpen={showStopAdModal}
                 contentLabel="Fortsett"
                 onRequestClose={this.onClose}
@@ -47,7 +47,7 @@ class StopAdModal extends React.Component {
                     <Hovedknapp onClick={this.onStopAdClick}>Stopp stillingen</Hovedknapp>
                     <Flatknapp onClick={this.onClose}>Avbryt</Flatknapp>
                 </div>
-            </NavFrontendModal>
+            </ModalMedStillingScope>
         );
     }
 }

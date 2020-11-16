@@ -1,8 +1,8 @@
 import React from 'react';
 import KnappBase from 'nav-frontend-knapper';
-import NavFrontendModal from 'nav-frontend-modal';
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import './SessionExpirationModal.less';
+import ModalMedStillingScope from '../../../ModalMedStillingScope';
 
 export default function SessionExpirationModal(props) {
     const {
@@ -17,7 +17,7 @@ export default function SessionExpirationModal(props) {
     } = props;
 
     return (
-        <NavFrontendModal
+        <ModalMedStillingScope
             className="SessionExpirationModal"
             closeButton={onClose !== undefined}
             contentLabel={title}
@@ -40,6 +40,6 @@ export default function SessionExpirationModal(props) {
                     </KnappBase>
                 )}
             </div>
-        </NavFrontendModal>
+        </ModalMedStillingScope>
     );
 }

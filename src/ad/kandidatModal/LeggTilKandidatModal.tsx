@@ -1,6 +1,5 @@
 import React, { ChangeEvent } from 'react';
 import { connect } from 'react-redux';
-import NavFrontendModal from 'nav-frontend-modal';
 import { Element, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import { Input, Textarea } from 'nav-frontend-skjema';
 import { Flatknapp, Hovedknapp } from 'nav-frontend-knapper';
@@ -16,6 +15,7 @@ import {
 } from './kandidatReducer';
 import './LeggTilKandidatModal.less';
 import { sendEvent } from '../../amplitude';
+import ModalMedStillingScope from '../../ModalMedStillingScope';
 
 const NOTATLENGDE = 2000;
 
@@ -225,7 +225,7 @@ class LeggTilKandidatModal extends React.Component<Props> {
     render() {
         const { vis = true, onClose, fodselsnummer, kandidat, notat } = this.props;
         return (
-            <NavFrontendModal
+            <ModalMedStillingScope
                 contentLabel="Modal legg til kandidat"
                 isOpen={vis}
                 onRequestClose={onClose}
@@ -291,7 +291,7 @@ class LeggTilKandidatModal extends React.Component<Props> {
                         Avbryt
                     </Flatknapp>
                 </div>
-            </NavFrontendModal>
+            </ModalMedStillingScope>
         );
     }
 }

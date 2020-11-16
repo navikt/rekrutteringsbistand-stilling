@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import NavFrontendModal from 'nav-frontend-modal';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import { HIDE_AD_PUBLISHED_MODAL } from '../../adReducer';
 import { formatISOString } from '../../../utils';
 import './AdPublishedModal.less';
 import AdStatusEnum from '../../../common/enums/AdStatusEnum';
+import ModalMedStillingScope from '../../../ModalMedStillingScope';
 
 class AdPublishedModal extends React.Component {
     onClose = () => {
@@ -25,7 +25,7 @@ class AdPublishedModal extends React.Component {
         } = this.props;
 
         return isSavingAd ? null : (
-            <NavFrontendModal
+            <ModalMedStillingScope
                 isOpen={showAdPublishedModal}
                 contentLabel="Fortsett"
                 onRequestClose={this.onClose}
@@ -60,7 +60,7 @@ class AdPublishedModal extends React.Component {
                         </Link>
                     </div>
                 </div>
-            </NavFrontendModal>
+            </ModalMedStillingScope>
         );
     }
 }
