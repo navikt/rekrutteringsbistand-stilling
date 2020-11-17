@@ -8,7 +8,6 @@ import createSagaMiddleware from 'redux-saga';
 import './styles.less'; // Må importeres før andre komponenter
 
 import { fjernPersonopplysninger, getMiljø } from './sentryUtils';
-import { urlHasPath, redirectToUrlPath } from './login';
 import Ad from './ad/Ad';
 import adDataReducer, { adDataSaga } from './ad/adDataReducer';
 import adReducer, { adSaga } from './ad/adReducer.ts';
@@ -34,7 +33,6 @@ import stillingsinfoDataReducer from './stillingsinfo/stillingsinfoDataReducer';
 import stillingsinfoReducer, { stillingsinfoSaga } from './stillingsinfo/stillingsinfoReducer';
 import styrkReducer, { styrkSaga } from './ad/edit/jobDetails/styrk/styrkReducer';
 import useLoggNavigering from './useLoggNavigering';
-import { useHistory } from 'react-router';
 import browserHistory from './history';
 import Modal from 'react-modal';
 import { useSyncHistorikkMedContainer } from './useSyncHistorikkMedContainer';
@@ -99,11 +97,6 @@ const App = () => {
         dispatch({ type: FETCH_FEATURE_TOGGLES });
         dispatch({ type: FETCH_REPORTEE });
     }, []);
-
-    if (urlHasPath()) {
-        redirectToUrlPath();
-        return null;
-    }
 
     return (
         <main>

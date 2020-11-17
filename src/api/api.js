@@ -207,7 +207,3 @@ export async function fetchOrgnrSuggestions(value) {
         ],
     };
 }
-
-export async function checkTokenExpiration() {
-    return fetchGet(`${AD_API}/reportee/token-expiring`);
-}
