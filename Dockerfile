@@ -2,10 +2,8 @@ FROM navikt/node-express:12.2.0-alpine
 
 WORKDIR /usr/src/app
 
-COPY dist/ dist/
+COPY build/ build/
 COPY server/ ./
-
-RUN npm install
 
 EXPOSE 8080
 

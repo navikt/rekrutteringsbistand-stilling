@@ -18,10 +18,10 @@ spec:
         path: /metrics
     liveness:
         initialDelay: 10
-        path: /stillinger/internal/isAlive
+        path: /rekrutteringsbistand-stilling/internal/isAlive
     readiness:
         initialDelay: 10
-        path: /stillinger/internal/isReady
+        path: /rekrutteringsbistand-stilling/internal/isReady
     resources:
         limits:
             cpu: 500m
@@ -30,8 +30,7 @@ spec:
             cpu: 200m
             memory: 128Mi
     ingresses:
-        - https://pam-rekrutteringsbistand.nais.adeo.no/stillinger
-        - https://rekrutteringsbistand.nais.adeo.no/stillinger
+        - https://rekrutteringsbistand.nais.adeo.no/rekrutteringsbistand-stilling
     env:
         - name: LOGIN_URL
           value: https://loginservice.nais.adeo.no/login

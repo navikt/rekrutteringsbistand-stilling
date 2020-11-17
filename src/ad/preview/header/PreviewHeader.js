@@ -14,7 +14,8 @@ import OpprettKandidatlisteModal from './OpprettKandidatlisteModal';
 import './PreviewHeader.less';
 
 class PreviewMenu extends React.Component {
-    constructor() {
+    constructor(props) {
+        super(props);
         this.state = {
             opprettKandidatlisteModalÅpen: false,
         };

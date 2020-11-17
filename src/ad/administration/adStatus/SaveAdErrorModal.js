@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import NavFrontendModal from 'nav-frontend-modal';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import { HIDE_AD_SAVED_ERROR_MODAL } from '../../adReducer';
 import './SaveAdErrorModal.less';
+import ModalMedStillingScope from '../../../ModalMedStillingScope';
 
 class SaveAdErrorModal extends React.Component {
     onClose = () => {
@@ -16,7 +16,7 @@ class SaveAdErrorModal extends React.Component {
         const { showAdSavedErrorModal, validation } = this.props;
         return (
             showAdSavedErrorModal && (
-                <NavFrontendModal
+                <ModalMedStillingScope
                     isOpen={showAdSavedErrorModal}
                     contentLabel="Fortsett"
                     onRequestClose={this.onClose}
@@ -57,7 +57,7 @@ class SaveAdErrorModal extends React.Component {
                         )}
                     </Normaltekst>
                     <Hovedknapp onClick={this.onClose}>Lukk</Hovedknapp>
-                </NavFrontendModal>
+                </ModalMedStillingScope>
             )
         );
     }

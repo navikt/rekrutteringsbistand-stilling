@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import NavFrontendModal from 'nav-frontend-modal';
 import { Flatknapp, Hovedknapp } from 'nav-frontend-knapper';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import './DeleteAdModal.less';
 import { DELETE_AD_FROM_MY_ADS, HIDE_DELETE_AD_MODAL } from '../../adReducer';
+import ModalMedStillingScope from '../../../ModalMedStillingScope';
 
 class DeleteAdModal extends React.Component {
     onClose = () => {
@@ -20,7 +20,7 @@ class DeleteAdModal extends React.Component {
     render() {
         const { showDeleteAdModal, title } = this.props;
         return (
-            <NavFrontendModal
+            <ModalMedStillingScope
                 isOpen={showDeleteAdModal}
                 contentLabel="Fortsett"
                 onRequestClose={this.onClose}
@@ -36,7 +36,7 @@ class DeleteAdModal extends React.Component {
                     <Hovedknapp onClick={this.onDeleteAdClick}>Slett</Hovedknapp>
                     <Flatknapp onClick={this.onClose}>Avbryt</Flatknapp>
                 </div>
-            </NavFrontendModal>
+            </ModalMedStillingScope>
         );
     }
 }

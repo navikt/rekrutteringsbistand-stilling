@@ -9,7 +9,7 @@ import {
 import { loginWithRedirectToCurrentLocation } from '../login';
 
 // Bruk mock-api hvis app kjører via "npm run mock"
-if (MOCK_APP) {
+if (process.env.REACT_APP_MOCK) {
     require('../mock/api');
 }
 

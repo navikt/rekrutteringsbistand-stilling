@@ -4,8 +4,6 @@ import { Provider, useDispatch } from 'react-redux';
 import { Router, Route, Switch } from 'react-router-dom';
 import * as Sentry from '@sentry/react';
 import createSagaMiddleware from 'redux-saga';
-import ReactDOM from 'react-dom';
-import Modal from 'react-modal';
 
 import './styles.less'; // Må importeres før andre komponenter
 
@@ -15,7 +13,6 @@ import Ad from './ad/Ad';
 import adDataReducer, { adDataSaga } from './ad/adDataReducer';
 import adReducer, { adSaga } from './ad/adReducer.ts';
 import adValidationReducer, { validationSaga } from './ad/adValidationReducer.ts';
-import Dekoratør from './dekoratør/Dekoratør.tsx';
 import employerReducer, { employerSaga } from './ad/edit/employer/employerReducer';
 import featureTogglesReducer, {
     featureTogglesSaga,
@@ -24,23 +21,23 @@ import featureTogglesReducer, {
 import filterLocationReducer, {
     filterLocationSaga,
 } from './searchPage/filter/location/filterLocationReducer';
-import history from './history';
 import kandidatReducer, { kandidatSaga } from './ad/kandidatModal/kandidatReducer';
 import locationAreaReducer, { locationAreaSaga } from './ad/edit/location/locationAreaReducer';
 import locationCodeReducer, { locationCodeSaga } from './ad/edit/location/locationCodeReducer';
 import MyAds from './myAds/MyAds';
 import myAdsReducer, { myAdsSaga } from './myAds/myAdsReducer';
-import Navigeringsmeny from './navigeringsmeny/Navigeringsmeny.tsx';
-import navKontorReducer from './navKontor/navKontorReducer.ts';
 import reporteeReducer, { FETCH_REPORTEE, reporteeSaga } from './reportee/reporteeReducer';
 import savedSearchAlertStripeReducer from './ad/alertstripe/SavedAdAlertStripeReducer';
 import SearchPage from './searchPage/SearchPage';
 import searchReducer, { searchSaga } from './searchPage/searchReducer';
-import StartPage from './startPage/StartPage';
 import stillingsinfoDataReducer from './stillingsinfo/stillingsinfoDataReducer';
 import stillingsinfoReducer, { stillingsinfoSaga } from './stillingsinfo/stillingsinfoReducer';
 import styrkReducer, { styrkSaga } from './ad/edit/jobDetails/styrk/styrkReducer';
 import useLoggNavigering from './useLoggNavigering';
+import { useHistory } from 'react-router';
+import browserHistory from './history';
+import Modal from 'react-modal';
+import { useSyncHistorikkMedContainer } from './useSyncHistorikkMedContainer';
 
 Sentry.init({
     dsn: 'https://34e485d3fd9945e29d5f66f11a29f84e@sentry.gc.nav.no/43',
@@ -71,7 +68,6 @@ const store = createStore(
         stillingsinfo: stillingsinfoReducer,
         stillingsinfoData: stillingsinfoDataReducer,
         featureToggles: featureTogglesReducer,
-        navKontor: navKontorReducer,
     }),
     composeEnhancers(applyMiddleware(sagaMiddleware))
 );
@@ -91,9 +87,13 @@ sagaMiddleware.run(kandidatSaga);
 sagaMiddleware.run(stillingsinfoSaga);
 sagaMiddleware.run(featureTogglesSaga);
 
-const Main = () => {
+const appElement = document.getElementById('rekrutteringsbistand-container');
+Modal.setAppElement(appElement);
+
+const App = () => {
     const dispatch = useDispatch();
     useLoggNavigering();
+    useSyncHistorikkMedContainer();
 
     useEffect(() => {
         dispatch({ type: FETCH_FEATURE_TOGGLES });
@@ -107,8 +107,6 @@ const Main = () => {
 
     return (
         <main>
-            <Dekoratør />
-            <Navigeringsmeny />
             <Switch>
                 <Route exact path="/stillinger/minestillinger" component={MyAds} />
                 <Route exact path="/stillinger/stilling" component={Ad} />
@@ -119,17 +117,14 @@ const Main = () => {
     );
 };
 
-const appElement = document.getElementById('app');
-
-Modal.setAppElement(appElement);
-
-ReactDOM.render(
-    <Sentry.ErrorBoundary>
-        <Provider store={store}>
-            <Router history={history}>
-                <Main />
-            </Router>
-        </Provider>
-    </Sentry.ErrorBoundary>,
-    appElement
-);
+export const Main = () => {
+    return (
+        <Sentry.ErrorBoundary>
+            <Provider store={store}>
+                <Router history={browserHistory}>
+                    <App />
+                </Router>
+            </Provider>
+        </Sentry.ErrorBoundary>
+    );
+};

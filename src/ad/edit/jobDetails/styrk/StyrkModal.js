@@ -1,5 +1,4 @@
 import { Flatknapp } from 'nav-frontend-knapper';
-import Modal from 'nav-frontend-modal';
 import { Input } from 'nav-frontend-skjema';
 import { Undertittel } from 'nav-frontend-typografi';
 import PropTypes from 'prop-types';
@@ -8,6 +7,7 @@ import { connect } from 'react-redux';
 import { RESET_STYRK_THREE, SET_STRYK_SEARCH_STRING, TOGGLE_STYRK_MODAL } from './styrkReducer';
 import StyrkThree from './StyrkThree';
 import './StyrkModal.less';
+import ModalMedStillingScope from '../../../../ModalMedStillingScope';
 
 class StyrkModal extends React.Component {
     onInputChange = (e) => {
@@ -20,7 +20,7 @@ class StyrkModal extends React.Component {
 
     render() {
         return (
-            <Modal
+            <ModalMedStillingScope
                 className="StyrkModal"
                 contentClass="StyrkModal__content"
                 isOpen
@@ -46,7 +46,7 @@ class StyrkModal extends React.Component {
                 <div className="StyrkModal__body">
                     <StyrkThree />
                 </div>
-            </Modal>
+            </ModalMedStillingScope>
         );
     }
 }

@@ -32,10 +32,11 @@ class Notat extends React.Component {
     };
 
     render() {
-        const { notat } = this.props;
-
         const notat =
-            notat && notat.length ? this.process() : 'Det er ikke lagt inn notater.';
+            this.props.notat && this.props.notat.length
+                ? this.process()
+                : 'Det er ikke lagt inn notater.';
+
         return (
             <div className="Notat__preview">
                 <Element>Notater</Element>

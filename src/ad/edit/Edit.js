@@ -27,6 +27,7 @@ import { Knapp } from 'nav-frontend-knapper';
 import KopierTekst from '../kopierTekst/KopierTekst';
 import { Undertittel } from 'nav-frontend-typografi';
 import RegistrerInkluderingsmuligheter from './registrer-inkluderingsmuligheter/DirektemeldtStilling';
+import AlertStripe from 'nav-frontend-alertstriper';
 
 class Edit extends React.Component {
     constructor(props) {
@@ -118,14 +119,14 @@ class Edit extends React.Component {
                 </div>
                 {limitedAccess && (
                     <div className="Ad__info">
-                        <Alertstripe
+                        <AlertStripe
                             className="AdStatusPreview__Alertstripe"
                             type="info"
                             solid="true"
                         >
                             Dette er en eksternt utlyst stilling. Du kan <b>ikke</b> endre
                             stillingen.
-                        </Alertstripe>
+                        </AlertStripe>
                     </div>
                 )}
                 <Column xs="12" md="8">
