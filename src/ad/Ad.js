@@ -15,7 +15,6 @@ import AdministrationLimited from './administration/limited/AdministrationLimite
 import AdministrationPreview from './preview/administration/AdministrationPreview.tsx';
 import SavedAdAlertStripe from './alertstripe/SavedAdAlertStripe';
 import PreviewHeader from './preview/header/PreviewHeader';
-import EditHeader from './edit/header/EditHeader';
 import AdStatusEnum from '../common/enums/AdStatusEnum';
 import LeggTilKandidatAlertStripe from './kandidatModal/LeggTilKandidatAlertStripe';
 import HasChangesModal from './navigation/HasChangesModal';

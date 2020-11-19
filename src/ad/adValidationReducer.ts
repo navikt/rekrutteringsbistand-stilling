@@ -35,7 +35,6 @@ import {
 } from './adDataReducer';
 
 import { SET_NOTAT } from '../stillingsinfo/stillingsinfoDataReducer';
-import isJson from './edit/practicalInformation/IsJson';
 import State from '../State';
 import { KanInkludere } from './edit/registrer-inkluderingsmuligheter/DirektemeldtStilling';
 
@@ -245,7 +244,7 @@ function* validateContactpersonPhone() {
         contactperson &&
         contactperson.phone &&
         contactperson.phone.length > 0 &&
-        !contactperson.phone.match(/^(\(?\+?[0-9]*\)?)?[0-9_\- \(\)]*$/);
+        !contactperson.phone.match(/^(\(?\+?[0-9]*\)?)?[0-9_\- ()]*$/);
 
     if (error) {
         yield put({

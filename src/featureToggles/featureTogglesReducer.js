@@ -1,6 +1,6 @@
+import { takeEvery, put } from 'redux-saga/effects';
 import { fetchGet } from '../api/api';
 import { REKRUTTERINGSBISTAND_BASE_URL } from '../fasitProperties';
-import { takeEvery, put } from 'redux-saga/effects';
 
 export const FETCH_FEATURE_TOGGLES = 'FETCH_FEATURE_TOGGLES';
 const FETCH_FEATURE_TOGGLES_COMPLETE = 'FETCH_FEATURE_TOGGLES_COMPLETE';
@@ -19,6 +19,7 @@ const featureTogglesReducer = (state = initialState, action) => {
 };
 
 function* hentFeatureToggles() {
+    // eslint-disable-next-line
     const alleFeatures = yield Promise.all(
         [].map((feature) => fetchGet(`${REKRUTTERINGSBISTAND_BASE_URL}/features/${feature}`))
     );

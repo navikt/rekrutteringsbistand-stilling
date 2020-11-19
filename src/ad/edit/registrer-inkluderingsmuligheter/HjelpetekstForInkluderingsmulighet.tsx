@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { Inkluderingsmulighet } from '../../tags/hierarkiAvTags';
-import { Element, Ingress, Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 
 type Props = {
     inkluderingsmulighet: Inkluderingsmulighet;
