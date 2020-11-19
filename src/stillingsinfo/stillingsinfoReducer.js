@@ -143,7 +143,7 @@ function* updateStillingsinfo() {
         state = yield select();
 
         if (!state.stillingsinfoData.stillingsinfoid) {
-            throw 'oppdaterer uten å ha id';
+            throw new Error('oppdaterer uten å ha id');
         }
         const response = yield fetchPut(REKRUTTERING_API, state.stillingsinfoData);
         yield put({ type: UPDATE_STILLINGSINFO_SUCCESS, response });

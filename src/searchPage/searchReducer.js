@@ -95,7 +95,7 @@ export default function searchReducer(state = initialState, action) {
                 ...state,
                 page: 0,
                 privacy: action.value,
-                tags: action.value != PrivacyStatusEnum.INTERNAL_NOT_SHOWN ? [] : state.tags,
+                tags: action.value !== PrivacyStatusEnum.INTERNAL_NOT_SHOWN ? [] : state.tags,
             };
         case CHANGE_STATUS_FILTER:
             return {
