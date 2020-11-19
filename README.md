@@ -22,7 +22,7 @@ npm start
 Med mocket API:
 
 ```
-npm run mock
+npm run start:mock
 ```
 
 ## For Nav-ansatte
