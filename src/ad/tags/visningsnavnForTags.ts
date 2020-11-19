@@ -15,7 +15,7 @@ export const visningsnavnForRegistrering: Partial<Record<Tag, string>> = {
     [Tag.MålgruppeLiteEllerIngenUtdanning]: 'har lite eller ingen utdanning',
     [Tag.MålgruppeLiteEllerIngenArbeidserfaring]: 'har lite eller ingen arbeidserfaring',
     [Tag.StatligInkluderingsdugnad]:
-        'den statlige inkluderingsdugnaden (gjelder kun statlige virksomheter med avtale)',
+        'den statlige inkluderingsdugnaden \n(gjelder kun statlige virksomheter med avtale)',
 };
 
 export const visningsnavnForFilter: Record<Tag, string> = {
