@@ -103,6 +103,17 @@ const PrioriterteMålgrupper = () => (
     </>
 );
 
+const StatligInkluderingsdugnad = () => (
+    <>
+        <Element tag="h3">Statlig inkluderingsdugnad</Element>
+        <Normaltekst>
+            Statlig inkluderingsdugnad skal benyttes når NAV har inngått en samarbeidsavtale med
+            statlige bedrifter. Avtalen går ut på at NAV får forsprang til å jobbe med
+            (midlertidige) stillinger.
+        </Normaltekst>
+    </>
+);
+
 export const HjelpetekstForInkluderingsmulighet: FunctionComponent<Props> = ({
     inkluderingsmulighet,
 }) => {
@@ -113,6 +124,8 @@ export const HjelpetekstForInkluderingsmulighet: FunctionComponent<Props> = ({
             return <TiltakEllerVirkemiddel />;
         case Inkluderingsmulighet.PrioriterteMålgrupper:
             return <PrioriterteMålgrupper />;
+        case Inkluderingsmulighet.StatligInkluderingsdugnad:
+            return <StatligInkluderingsdugnad />;
         default:
             return null;
     }
