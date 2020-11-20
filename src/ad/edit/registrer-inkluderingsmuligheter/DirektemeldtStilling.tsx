@@ -4,7 +4,7 @@ import { Radio, RadioGruppe } from 'nav-frontend-skjema';
 import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 
-import { CHECK_TAG, UNCHECK_TAG, SET_TAGS } from '../../adDataReducer';
+import { CHECK_TAG, SET_TAGS, UNCHECK_TAG } from '../../adDataReducer';
 import { fjernAlleInkluderingstags } from '../../tags/utils';
 import { HjelpetekstForInkluderingsmulighet } from './HjelpetekstForInkluderingsmulighet';
 import { Inkluderingsmulighet as AlleInkluderingsmuligheter } from '../../../ad/tags/hierarkiAvTags';
@@ -179,6 +179,13 @@ const DirektemeldtStilling: FunctionComponent<Props> = ({
                             onTagChange={onTagChange}
                             inkluderingsmulighet={
                                 InkluderingsmulighetForDirektemeldtStilling.StatligInkluderingsdugnad
+                            }
+                            hjelpetekst={
+                                <HjelpetekstForInkluderingsmulighet
+                                    inkluderingsmulighet={
+                                        AlleInkluderingsmuligheter.StatligInkluderingsdugnad
+                                    }
+                                />
                             }
                         />
                     </div>
