@@ -1,8 +1,11 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { Systemtittel } from 'nav-frontend-typografi';
 import { cssScopeForApp } from '../index';
-import './Utviklingsapp.less';
+import { createBrowserHistory } from 'history';
 import { Main } from '../app';
+import './Utviklingsapp.less';
+
+const history = createBrowserHistory();
 
 const Utviklingsapp: FunctionComponent = () => {
     const [navKontor, setNavKontor] = useState<string | null>(null);
@@ -29,7 +32,7 @@ const Utviklingsapp: FunctionComponent = () => {
                 </div>
             </header>
             <main>
-                <Main />
+                <Main history={history} />
             </main>
         </div>
     );
