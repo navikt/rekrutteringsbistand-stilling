@@ -15,7 +15,7 @@ function useSorting(initialState, changeSorting) {
         } else {
             setClassName('Sort-desc');
         }
-    }, [sort]);
+    }, [sort, initialState, changeSorting]);
 
     const toggleSorting = (field) => {
         // If field already sorted, change opposite direction

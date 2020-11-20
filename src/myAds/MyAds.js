@@ -50,6 +50,7 @@ const MyAds = (props) => {
     useEffect(() => {
         onMount();
         return onDismount;
+        // eslint-disable-next-line
     }, []);
 
     const onCreateAd = () => {
