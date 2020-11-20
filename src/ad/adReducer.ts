@@ -438,7 +438,7 @@ function* saveRekrutteringsbistandStilling(loggPublisering?: boolean) {
             stillingsinfoid: state.stillingsinfoData
                 ? state.stillingsinfoData.stillingsinfoid
                 : undefined,
-            notat: state.stillingsinfoData != undefined ? state.stillingsinfoData.notat : '',
+            notat: state.stillingsinfoData !== undefined ? state.stillingsinfoData.notat : '',
         };
 
         const response = yield fetchPut(putUrl, data);

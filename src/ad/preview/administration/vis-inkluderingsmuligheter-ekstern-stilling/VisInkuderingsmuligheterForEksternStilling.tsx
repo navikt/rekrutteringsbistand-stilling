@@ -37,7 +37,7 @@ const VisInkuderingsmuligheterForEksternStilling = ({ tags }) => {
 
 const mapStateToProps = (state: any) => {
     const tagsString = state.adData.properties.tags;
-    const tags = tagsString != undefined && isJson(tagsString) ? JSON.parse(tagsString) : [];
+    const tags = tagsString !== undefined && isJson(tagsString) ? JSON.parse(tagsString) : [];
 
     return {
         tags,

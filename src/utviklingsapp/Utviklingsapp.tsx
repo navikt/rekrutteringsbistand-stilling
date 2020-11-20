@@ -5,6 +5,7 @@ import './Utviklingsapp.less';
 import { Main } from '../app';
 
 const Utviklingsapp: FunctionComponent = () => {
+    // eslint-disable-next-line
     const [navKontor, setNavKontor] = useState<string | null>(null);
 
     useEffect(() => {

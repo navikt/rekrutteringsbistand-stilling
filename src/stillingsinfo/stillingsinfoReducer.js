@@ -3,8 +3,6 @@ import { ApiError, fetchPost, fetchPut } from '../api/api';
 import { REKRUTTERING_API } from '../fasitProperties';
 
 import { SET_STILLINGSINFO_DATA } from './stillingsinfoDataReducer';
-import { showAlertStripe } from '../ad/alertstripe/SavedAdAlertStripeReducer';
-import AdAlertStripeEnum from '../ad/alertstripe/AdAlertStripeEnum';
 export const FETCH_STILLINGSINFO = 'FETCH_STILLINGSINFO';
 export const FETCH_STILLINGSINFO_BEGIN = 'FETCH_STILLINGSINFO_BEGIN';
 export const FETCH_STILLINGSINFO_SUCCESS = 'FETCH_STILLINGSINFO_SUCCESS';
@@ -145,7 +143,7 @@ function* updateStillingsinfo() {
         state = yield select();
 
         if (!state.stillingsinfoData.stillingsinfoid) {
-            throw 'oppdaterer uten å ha id';
+            throw new Error('oppdaterer uten å ha id');
         }
         const response = yield fetchPut(REKRUTTERING_API, state.stillingsinfoData);
         yield put({ type: UPDATE_STILLINGSINFO_SUCCESS, response });

@@ -23,10 +23,6 @@ import RegistrerInkluderingsmuligheter from './registrer-inkluderingsmuligheter/
 import AlertStripe from 'nav-frontend-alertstriper';
 
 class Edit extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     componentWillUnmount() {
         this.props.resetValidation();
     }

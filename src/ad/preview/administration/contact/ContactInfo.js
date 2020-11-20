@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
-import Flatknapp, { Knapp } from 'nav-frontend-knapper';
+import { Knapp } from 'nav-frontend-knapper';
 import { MARKER_SOM_MIN, SAVE_AD } from '../../../adReducer';
 import './ContactInfo.less';
 import { SET_NAV_IDENT, SET_REPORTEE } from '../../../adDataReducer';

@@ -53,7 +53,7 @@ const ResultItem = ({ ad, copiedAds, reportee }) => {
         ad.administration.navIdent &&
         ad.rekruttering.eierNavident !== ad.administration.navIdent &&
         reportee &&
-        ad.rekruttering.eierNavident != reportee.navIdent;
+        ad.rekruttering.eierNavident !== reportee.navIdent;
 
     const colTitle = (
         <td className="Col-title">

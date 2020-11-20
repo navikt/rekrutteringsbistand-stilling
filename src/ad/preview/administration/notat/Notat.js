@@ -11,7 +11,7 @@ class Notat extends React.Component {
 
         const config = [
             {
-                regex: /(http|https):\/\/(\S+)\.([a-z]{2,}?)(.*?)( |\,|$|\.)/gim,
+                regex: /(http|https):\/\/(\S+)\.([a-z]{2,}?)(.*?)( |,|$|\.)/gim,
                 fn: (key, result) => (
                     <span key={key} className="Notat__text__link">
                         <a

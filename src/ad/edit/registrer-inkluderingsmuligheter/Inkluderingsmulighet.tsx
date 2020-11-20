@@ -9,7 +9,6 @@ import {
 } from '../../tags/hierarkiAvTags';
 import Skjemalegend from '../skjemaetikett/Skjemalegend';
 import { visningsnavnForRegistrering } from '../../tags/visningsnavnForTags';
-import { HjelpetekstForInkluderingsmulighet } from './HjelpetekstForInkluderingsmulighet';
 import './Inkluderingsmulighet.less';
 
 type Props = {

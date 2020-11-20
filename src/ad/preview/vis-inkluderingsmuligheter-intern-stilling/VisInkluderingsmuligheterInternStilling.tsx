@@ -2,9 +2,8 @@ import React, { FunctionComponent } from 'react';
 import { Feilmelding, Undertittel } from 'nav-frontend-typografi';
 import Inkluderingsmuligheter from './Inkluderingsmuligheter';
 import isJson from '../../edit/practicalInformation/IsJson';
-import './VisInkluderingsmuligheterInternStilling.less';
-import { Tag } from '../../tags/hierarkiAvTags';
 import { tagsInneholderInkluderingsmuligheter } from '../../tags/utils';
+import './VisInkluderingsmuligheterInternStilling.less';
 
 interface Props {
     tags: string;
