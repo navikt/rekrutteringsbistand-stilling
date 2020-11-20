@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { Inkluderingsmulighet } from '../../tags/hierarkiAvTags';
-import { Element, Ingress, Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import Lenke from 'nav-frontend-lenker';
 
 type Props = {
     inkluderingsmulighet: Inkluderingsmulighet;
@@ -42,10 +43,18 @@ const TiltakEllerVirkemiddel = () => (
             tilskudd til lønn fra NAV som skal kompensere for lavere produktivitet.
         </Normaltekst>
         <Element tag="h3">Mentor (tilskudd)</Element>
-        <Normaltekst>
+        <Normaltekst className="blokk-s">
             Arbeidsgiveren er åpen for kandidater som trenger en mentor på arbeidsplassen. En mentor
             er en kollega som kan gi praktisk bistand, veiledning eller opplæring slik at kandidaten
             kan mestre jobben. Det er arbeidsgiveren som søker og mottar mentortilskuddet.
+        </Normaltekst>
+        <Element tag="h3">Lærlingplass</Element>
+        <Normaltekst>
+            Arbeidsgiver er åpen for å ta inn personer som lærlinger, og kan gi opplæring i
+            lærerplanen for faget. Bedriften må godkjennes som en lærebedrift.{' '}
+            <Lenke href="https://laerlingplass.no/blog/bli-en-godkjent-l%C3%A6rebedrift/">
+                Les mer om hva bedriften må gjøre.
+            </Lenke>
         </Normaltekst>
     </>
 );
@@ -94,6 +103,17 @@ const PrioriterteMålgrupper = () => (
     </>
 );
 
+const StatligInkluderingsdugnad = () => (
+    <>
+        <Element tag="h3">Statlig inkluderingsdugnad</Element>
+        <Normaltekst>
+            Statlig inkluderingsdugnad skal benyttes når NAV har inngått en samarbeidsavtale med
+            statlige bedrifter. Avtalen går ut på at NAV får forsprang til å jobbe med
+            (midlertidige) stillinger.
+        </Normaltekst>
+    </>
+);
+
 export const HjelpetekstForInkluderingsmulighet: FunctionComponent<Props> = ({
     inkluderingsmulighet,
 }) => {
@@ -104,6 +124,8 @@ export const HjelpetekstForInkluderingsmulighet: FunctionComponent<Props> = ({
             return <TiltakEllerVirkemiddel />;
         case Inkluderingsmulighet.PrioriterteMålgrupper:
             return <PrioriterteMålgrupper />;
+        case Inkluderingsmulighet.StatligInkluderingsdugnad:
+            return <StatligInkluderingsdugnad />;
         default:
             return null;
     }
