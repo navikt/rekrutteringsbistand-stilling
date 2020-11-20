@@ -93,7 +93,7 @@ const App = () => {
     useEffect(() => {
         dispatch({ type: FETCH_FEATURE_TOGGLES });
         dispatch({ type: FETCH_REPORTEE });
-    }, [dispatch]);
+    }, []);
 
     return (
         <main>
