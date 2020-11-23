@@ -33,9 +33,7 @@ import stillingsinfoDataReducer from './stillingsinfo/stillingsinfoDataReducer';
 import stillingsinfoReducer, { stillingsinfoSaga } from './stillingsinfo/stillingsinfoReducer';
 import styrkReducer, { styrkSaga } from './ad/edit/jobDetails/styrk/styrkReducer';
 import useLoggNavigering from './useLoggNavigering';
-import browserHistory from './history';
 import Modal from 'react-modal';
-import { useSyncHistorikkMedContainer } from './useSyncHistorikkMedContainer';
 
 Sentry.init({
     dsn: 'https://34e485d3fd9945e29d5f66f11a29f84e@sentry.gc.nav.no/43',
@@ -91,7 +89,6 @@ Modal.setAppElement(appElement);
 const App = () => {
     const dispatch = useDispatch();
     useLoggNavigering();
-    useSyncHistorikkMedContainer();
 
     useEffect(() => {
         dispatch({ type: FETCH_FEATURE_TOGGLES });
@@ -110,11 +107,11 @@ const App = () => {
     );
 };
 
-export const Main = () => {
+export const Main = ({ history }) => {
     return (
         <Sentry.ErrorBoundary>
             <Provider store={store}>
-                <Router history={browserHistory}>
+                <Router history={history}>
                     <App />
                 </Router>
             </Provider>
