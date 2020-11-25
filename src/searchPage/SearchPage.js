@@ -39,9 +39,9 @@ class SearchPage extends React.Component {
                             <SearchBox />
                         </div>
                         <RadioGruppe className="SearchPage__SearchBox__radio-gruppe">
-                            <Radio label={'Bakerst'} name="sitteplass" />
-                            <Radio label={'Midten'} name="sitteplass" />
-                            <Radio label={'Fremst'} name="sitteplass" />
+                            <Radio label="Annonsetittel" name="annonsetittel" />
+                            <Radio label="Arbeidsgiver" name="arbeidsgiver" />
+                            <Radio label="Annonsenummer" name="annonsenummer" />
                         </RadioGruppe>
                     </div>
                     <div className="SearchPage__SearchBox__resetButton">
