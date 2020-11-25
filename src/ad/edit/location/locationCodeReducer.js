@@ -1,6 +1,5 @@
 import { put, takeEvery, select } from 'redux-saga/effects';
-import { ApiError, fetchGet } from '../../../api/api';
-import { AD_API } from '../../../fasitProperties';
+import { AD_API_URL, ApiError, fetchGet } from '../../../api/api';
 import {
     CREATE_AD_BEGIN,
     FETCH_AD_BEGIN,
@@ -81,7 +80,7 @@ export function* fetchLocations() {
     try {
         if (!state.locationCode.hasFetchedLocations) {
             yield put({ type: FETCH_LOCATIONS_BEGIN });
-            const response = yield fetchGet(`${AD_API}/postdata/`);
+            const response = yield fetchGet(`${AD_API_URL}/postdata/`);
             const sorted = response.sort((a, b) => {
                 if (a.city < b.city) return -1;
                 if (a.city > b.city) return 1;

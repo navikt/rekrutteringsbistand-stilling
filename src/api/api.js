@@ -1,12 +1,9 @@
 import AdminStatusEnum from '../common/enums/AdminStatusEnum';
 import toUrl from '../common/toUrl';
-import {
-    AD_API,
-    SEARCH_API,
-    REKRUTTERING_API,
-    REKRUTTERINGSBISTAND_BASE_URL,
-} from '../fasitProperties';
 import { loginWithRedirectToCurrentLocation } from '../login';
+
+export const API_URL = '/rekrutteringsbistand-stilling/api';
+export const AD_API_URL = `${API_URL}/rekrutteringsbistand/api/v1`;
 
 // Bruk mock-api hvis app kjører via "npm run mock"
 if (process.env.REACT_APP_MOCK) {
@@ -105,7 +102,7 @@ function fixMissingAdministration(ad) {
 }
 
 export async function fetchAd(uuid) {
-    const ad = await fetchGet(`${AD_API}/stilling/${uuid}`);
+    const ad = await fetchGet(`${API_URL}/rekrutteringsbistand/api/v1/stilling/${uuid}`);
     if (ad.administration === null) {
         return fixMissingAdministration(ad);
     }
@@ -113,15 +110,15 @@ export async function fetchAd(uuid) {
 }
 
 export async function fetchStillingsinfo(uuid) {
-    return await fetchGet(`${REKRUTTERING_API}/stilling/${uuid}`);
+    return await fetchGet(`${API_URL}/rekruttering/stilling/${uuid}`);
 }
 
 export async function fetchRekrutteringsbistandstilling(uuid) {
-    return await fetchGet(`${REKRUTTERINGSBISTAND_BASE_URL}/rekrutteringsbistandstilling/${uuid}`);
+    return await fetchGet(`${API_URL}/rekrutteringsbistandstilling/${uuid}`);
 }
 
 export async function fetchStillingsinfoForVeileder(navIdent) {
-    return await fetchGet(`${REKRUTTERING_API}/ident/${navIdent}`);
+    return await fetchGet(`${API_URL}/rekruttering/ident/${navIdent}`);
 }
 
 async function fetchAdsCommon(query, baseurl) {
@@ -139,11 +136,14 @@ async function fetchAdsCommon(query, baseurl) {
 }
 
 export async function fetchAds(query) {
-    return fetchAdsCommon(query, `${AD_API}/ads`);
+    return fetchAdsCommon(query, `${API_URL}/rekrutteringsbistand/api/v1/ads`);
 }
 
 export async function fetchMyAds(query) {
-    return fetchAdsCommon(query, `${AD_API}/ads/rekrutteringsbistand/minestillinger`);
+    return fetchAdsCommon(
+        query,
+        `${API_URL}/rekrutteringsbistand/api/v1/ads/rekrutteringsbistand/minestillinger`
+    );
 }
 
 const employerNameCompletionQueryTemplate = (match) => ({
@@ -160,7 +160,7 @@ const employerNameCompletionQueryTemplate = (match) => ({
 
 export async function fetchEmployerNameCompletionHits(match) {
     const result = await fetchPost(
-        `${SEARCH_API}/underenhet/_search`,
+        `${API_URL}/search-api/underenhet/_search`,
         employerNameCompletionQueryTemplate(match)
     );
 
@@ -185,7 +185,7 @@ export async function fetchEmployerNameCompletionHits(match) {
 export async function fetchOrgnrSuggestions(value) {
     const match = value.replace(/\s/g, '');
     const result = await fetchGet(
-        `${SEARCH_API}/underenhet/_search?q=organisasjonsnummer:${match}*`
+        `${API_URL}/search-api/underenhet/_search?q=organisasjonsnummer:${match}*`
     );
 
     return {

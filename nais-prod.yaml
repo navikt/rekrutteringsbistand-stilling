@@ -34,7 +34,9 @@ spec:
     env:
         - name: LOGIN_URL
           value: https://loginservice.nais.adeo.no/login
-        - name: REKRUTTERINGSBISTAND_BASE_URL
+        - name: STILLING_API_URL
           value: https://arbeidsgiver.nais.adeo.no/rekrutteringsbistand-api
+        - name: KANDIDAT_API_URL
+          value: https://rekrutteringsbistand-kandidat-api.nais.adeo.no/rest
         - name: VIS_STILLING_URL
           value: https://www.nav.no/arbeid/stilling

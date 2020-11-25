@@ -1,9 +1,10 @@
 import fetchMock from 'fetch-mock';
-import { REKRUTTERINGSBISTAND_BASE_URL } from '../fasitProperties';
+import { API_URL } from '../api/api';
+import { KANDIDAT_API_URL } from '../ad/kandidatModal/kandidatApi';
 import fnrsok from './data/fnrsok';
 import kandidatliste from './data/kandidatliste';
 
-const baseUrl = REKRUTTERINGSBISTAND_BASE_URL;
+const baseUrl = API_URL;
 const apiUrl = `${baseUrl}/rekrutteringsbistand/api/v1`;
 
 const ads = require('./data/ads.json');
@@ -29,15 +30,15 @@ const adsUrl = `${apiUrl}/ads`;
 const reporteeUrl = `${apiUrl}/reportee/`;
 const mineStillingerUrl = `${apiUrl}/ads/rekrutteringsbistand/minestillinger`;
 const stillingUrl = `${apiUrl}/stilling/`;
-const rekrutteringsbistandstillingUrl = `express:/rekrutteringsbistand-api/rekrutteringsbistandstilling/:stillingsId`;
-const putRekrutteringsbistandstillingUrl = `express:/rekrutteringsbistand-api/rekrutteringsbistandstilling`;
+const rekrutteringsbistandstillingUrl = `express:${baseUrl}/rekrutteringsbistandstilling/:stillingsId`;
+const putRekrutteringsbistandstillingUrl = `express:${baseUrl}/rekrutteringsbistandstilling`;
 const countiesUrl = `${apiUrl}/geography/counties`;
 const countriesUrl = `${apiUrl}/geography/countries`;
 const municipalsUrl = `${apiUrl}/geography/municipals`;
 const categoriesWithAltnamesUrl = `${apiUrl}/categories-with-altnames/`;
 const postdataUrl = `${apiUrl}/postdata/`;
-const fnrsokUrl = 'express:/kandidater/rest/veileder/kandidatsok/fnrsok';
-const kandidatlisteUrl = 'express:/kandidater/rest/veileder/stilling/:stillingsId/kandidatliste';
+const fnrsokUrl = `express:${KANDIDAT_API_URL}/kandidater/rest/veileder/kandidatsok/fnrsok`;
+const kandidatlisteUrl = `express:${KANDIDAT_API_URL}/kandidater/rest/veileder/stilling/:stillingsId/kandidatliste`;
 
 const identUrl = `${baseUrl}/rekruttering/ident/`;
 const featuresUrl = `${baseUrl}/features/`;

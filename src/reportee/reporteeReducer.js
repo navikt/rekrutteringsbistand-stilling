@@ -1,6 +1,5 @@
 import { put, select, takeLatest } from 'redux-saga/effects';
-import { ApiError, fetchGet } from '../api/api';
-import { AD_API } from '../fasitProperties';
+import { AD_API_URL, ApiError, fetchGet } from '../api/api';
 
 export const FETCH_REPORTEE = 'FETCH_REPORTEE';
 export const FETCH_REPORTEE_BEGIN = 'FETCH_REPORTEE_BEGIN';
@@ -45,7 +44,7 @@ export function* getReportee() {
     if (!state.reportee.data) {
         yield put({ type: FETCH_REPORTEE_BEGIN });
         try {
-            const response = yield fetchGet(`${AD_API}/reportee/`);
+            const response = yield fetchGet(`${AD_API_URL}/reportee/`);
             yield put({ type: FETCH_REPORTEE_SUCCESS, response });
             state = yield select();
         } catch (e) {

@@ -1,6 +1,5 @@
 import { put, takeLatest, throttle } from 'redux-saga/effects';
-import { ApiError, fetchGet } from '../../../../api/api';
-import { AD_API } from '../../../../fasitProperties';
+import { AD_API_URL, ApiError, fetchGet } from '../../../../api/api';
 import { SET_STYRK } from '../../../adDataReducer';
 
 export const SET_STYRK_TYPEAHEAD_VALUE = 'SET_STYRK_TYPEAHEAD_VALUE';
@@ -198,7 +197,7 @@ export default function styrkReducer(state = initialState, action) {
 function* getStyrk() {
     if (!originalStyrkThree) {
         try {
-            const response = yield fetchGet(`${AD_API}/categories-with-altnames/`);
+            const response = yield fetchGet(`${AD_API_URL}/categories-with-altnames/`);
             const sorted = response.sort((a, b) => {
                 if (a.code < b.code) return -1;
                 if (a.code > b.code) return 1;
