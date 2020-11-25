@@ -1,17 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { Link } from 'react-router-dom';
 import './AWithIcon.less';
 
 export default function AWithIcon({ iconName, classNameText, classNameLink, text, href, onClick }) {
     return (
-        <a
-            href={href}
+        <Link
+            to={href}
             onClick={onClick}
             className={classNames('AWithIcon', classNameLink, iconName)}
         >
             <span className={classNames('AWithIcon__text lenke', classNameText)}>{text}</span>
-        </a>
+        </Link>
     );
 }
 
