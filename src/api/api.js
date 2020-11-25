@@ -7,6 +7,7 @@ import {
     REKRUTTERINGSBISTAND_BASE_URL,
 } from '../fasitProperties';
 import { loginWithRedirectToCurrentLocation } from '../login';
+import { stringify } from 'ts-jest/dist/utils/json';
 
 // Bruk mock-api hvis app kjører via "npm run mock"
 if (process.env.REACT_APP_MOCK) {
@@ -139,6 +140,7 @@ async function fetchAdsCommon(query, baseurl) {
 }
 
 export async function fetchAds(query) {
+    console.log('Henter adds: ' + stringify(query));
     return fetchAdsCommon(query, `${AD_API}/ads`);
 }
 

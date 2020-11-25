@@ -2,31 +2,40 @@ import React, { ChangeEvent, FunctionComponent, useState } from 'react';
 import { Input, Label, Radio, RadioGruppe } from 'nav-frontend-skjema';
 import { Flatknapp } from 'nav-frontend-knapper';
 import './StillingSøkeboks.less';
+import {
+    Fields,
+    RESET_SEARCH,
+    SET_SEARCH,
+    SET_SEARCH_FIELD,
+    SET_SEARCH_VALUE,
+} from '../searchReducer';
+import { useDispatch } from 'react-redux';
 
-type StillingSøkeboksProps = {
-    nullstillSøk: () => void;
-    gjørSøk: () => void;
+type Props = {
+    setSøketekst: (søketekst: string) => void;
+    setSøkekategori: (søkekategori: typeof Fields) => void;
 };
 
-const StillingSøkeboks: FunctionComponent<StillingSøkeboksProps> = (
-    props: StillingSøkeboksProps
-) => {
+const StillingSøkeboks: FunctionComponent<Props> = ({ setSøketekst, setSøkekategori }) => {
     const [søkestring, setSøkestring] = useState('');
-    const [valgtRadioButton, setValgtRadioButton] = useState('annonsetittel');
+    const [valgtKategoriRadioButton, setValgtKategoriRadioButton] = useState(Fields.TITLE);
+    const dispatch = useDispatch();
+
     const onSøkestringChanged = (e: ChangeEvent<HTMLInputElement>) => setSøkestring(e.target.value);
-    const onRadioButtonChanged = (e: ChangeEvent<HTMLInputElement>) =>
-        setValgtRadioButton(e.target.id);
+
+    const onRadioButtonChanged = (e: ChangeEvent<HTMLInputElement>) => {
+        setValgtKategoriRadioButton(e.target.id);
+    };
 
     const onSøk = () => {
-        if (søkestring) console.log('Søk: ' + søkestring + valgtRadioButton);
-        props.gjørSøk();
+        dispatch({ type: SET_SEARCH_VALUE, value: søkestring });
+        dispatch({ type: SET_SEARCH_FIELD, field: valgtKategoriRadioButton });
     };
 
     const onNullstillSøk = () => {
         setSøkestring('');
-        setValgtRadioButton('annonsetittel');
-        console.log('Nullstill søk');
-        props.nullstillSøk();
+        setValgtKategoriRadioButton(Fields.TITLE);
+        dispatch({ type: RESET_SEARCH });
     };
 
     return (
@@ -38,7 +47,9 @@ const StillingSøkeboks: FunctionComponent<StillingSøkeboksProps> = (
                         name="søkeboks-stilling"
                         id="SearchPageSearchBox"
                         onChange={onSøkestringChanged}
-                        onSelect={onSøk}
+                        onKeyPress={(event) => {
+                            if (event.key === 'Enter') onSøk();
+                        }}
                         value={søkestring}
                     />
                     <span className="SearchBox__button">
@@ -49,23 +60,23 @@ const StillingSøkeboks: FunctionComponent<StillingSøkeboksProps> = (
                     <Radio
                         label="Annonsetittel"
                         name="søkekategori"
-                        id="annonsetittel"
+                        id={Fields.TITLE}
                         onChange={onRadioButtonChanged}
-                        checked={valgtRadioButton === 'annonsetittel'}
+                        checked={valgtKategoriRadioButton === Fields.TITLE}
                     />
                     <Radio
                         label="Arbeidsgiver"
                         name="søkekategori"
-                        id="arbeidsgiver"
+                        id={Fields.EMPLOYER_NAME}
                         onChange={onRadioButtonChanged}
-                        checked={valgtRadioButton === 'arbeidsgiver'}
+                        checked={valgtKategoriRadioButton === Fields.EMPLOYER_NAME}
                     />
                     <Radio
                         label="Annonsenummer"
                         name="søkekategori"
-                        id="annonsenummer"
+                        id={Fields.ID}
                         onChange={onRadioButtonChanged}
-                        checked={valgtRadioButton === 'annonsenummer'}
+                        checked={valgtKategoriRadioButton === Fields.ID}
                     />
                 </RadioGruppe>
             </div>

@@ -29,13 +29,13 @@ class SearchPage extends React.Component {
     }
 
     render() {
-        const { ads, isSearching, error, resetSearch } = this.props;
+        const { ads, isSearching, error } = this.props;
         const adsFound = !isSearching && ads && ads.length > 0;
         return (
             <div className="SearchPage">
                 <h1 className="visually-hidden">Søk etter stilling</h1>
                 <div className="SearchPage__søkeboks-wrapper">
-                    <StillingSøkeboks nullstillSøk={resetSearch} gjørSøk={ads} />
+                    <StillingSøkeboks />
                 </div>
                 <Container className="SearchPage__container">
                     {error && error.statusCode === 412 && (
@@ -89,7 +89,6 @@ SearchPage.propTypes = {
     ads: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
     isSearching: PropTypes.bool.isRequired,
     getAds: PropTypes.func.isRequired,
-    resetSearch: PropTypes.func.isRequired,
     restoreSearch: PropTypes.func.isRequired,
     error: PropTypes.shape({
         statusCode: PropTypes.number,
@@ -109,7 +108,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     getAds: () => dispatch({ type: FETCH_ADS }),
-    resetSearch: () => dispatch({ type: RESET_SEARCH }),
     restoreSearch: () => dispatch({ type: RESTORE_SEARCH }),
 });
 
