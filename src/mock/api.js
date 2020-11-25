@@ -38,6 +38,8 @@ const categoriesWithAltnamesUrl = `${apiUrl}/categories-with-altnames/`;
 const postdataUrl = `${apiUrl}/postdata/`;
 const fnrsokUrl = 'express:/kandidater/rest/veileder/kandidatsok/fnrsok';
 const kandidatlisteUrl = 'express:/kandidater/rest/veileder/stilling/:stillingsId/kandidatliste';
+const leggKandidatIKandidatlisteUrl =
+    'express:/kandidater/rest/veileder/kandidatlister/:kandidatlisteId/kandidater';
 
 const identUrl = `${baseUrl}/rekruttering/ident/`;
 const featuresUrl = `${baseUrl}/features/`;
@@ -84,4 +86,5 @@ fetchMock
     .get(modiacontextholderDecoratorUrl, decorator)
     .post(modiacontextholderContextUrl, 200)
     .post(fnrsokUrl, fnrsok)
-    .get(kandidatlisteUrl, kandidatliste);
+    .get(kandidatlisteUrl, kandidatliste)
+    .post(leggKandidatIKandidatlisteUrl, kandidatliste);
