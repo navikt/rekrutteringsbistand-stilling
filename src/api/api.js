@@ -2,7 +2,7 @@ import AdminStatusEnum from '../common/enums/AdminStatusEnum';
 import toUrl from '../common/toUrl';
 import { loginWithRedirectToCurrentLocation } from '../login';
 
-export const stillingApi = '/rekrutteringsbistand-stilling/api';
+export const stillingApi = '/rekrutteringsbistand-stilling/stilling-api';
 
 // Bruk mock-api hvis app kjører via "npm run mock"
 if (process.env.REACT_APP_MOCK) {
