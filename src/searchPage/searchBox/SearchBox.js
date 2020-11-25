@@ -4,13 +4,14 @@ import { connect } from 'react-redux';
 import './SearchBox.less';
 import Typeahead from '../../common/typeahead/Typeahead';
 import { SET_SEARCH_FIELD, SET_SEARCH_VALUE } from '../searchReducer';
+import { Input, Label } from 'nav-frontend-skjema';
 
 class SearchBox extends React.Component {
-    onTypeAheadChange = (value) => {
+    onInputChange = (value) => {
         this.props.setSearchValue(value);
     };
 
-    onTypeAheadSelect = (selected) => {
+    onInputSelect = (selected) => {
         this.props.setSearchField(selected && selected.value ? selected.value : undefined);
         if (this.props.onSearch) {
             this.props.onSearch();
