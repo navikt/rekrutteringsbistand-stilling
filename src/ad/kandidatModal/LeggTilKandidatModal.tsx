@@ -1,9 +1,9 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, ReactNode } from 'react';
 import { connect } from 'react-redux';
 import { Element, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import { Input, Textarea } from 'nav-frontend-skjema';
 import { Flatknapp, Hovedknapp } from 'nav-frontend-knapper';
-import { AlertStripeAdvarsel, AlertStripeInfo } from 'nav-frontend-alertstriper';
+import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import {
     HENT_KANDIDAT_MED_FNR,
     HENT_KANDIDAT_MED_FNR_RESET,
@@ -16,6 +16,8 @@ import {
 import './LeggTilKandidatModal.less';
 import { sendEvent } from '../../amplitude';
 import ModalMedStillingScope from '../../ModalMedStillingScope';
+import kandidatliste from '../../mock/data/kandidatliste';
+import KandidatenFinnesIkke from './KandidatenFinnesIkke';
 
 const NOTATLENGDE = 2000;
 
@@ -67,7 +69,7 @@ class LeggTilKandidatModal extends React.Component<Props> {
     state: {
         showFodselsnummer: boolean;
         alleredeLagtTil: boolean;
-        errorMessage?: string;
+        errorMessage?: string | ReactNode;
     };
 
     constructor(props: Props) {
@@ -115,7 +117,7 @@ class LeggTilKandidatModal extends React.Component<Props> {
             } else if (kandidatStatus === Hentestatus.FINNES_IKKE) {
                 this.setState({
                     showFodselsnummer: false,
-                    errorMessage: this.kandidatenFinnesIkke(),
+                    errorMessage: <KandidatenFinnesIkke />,
                 });
             }
         }
@@ -213,32 +215,16 @@ class LeggTilKandidatModal extends React.Component<Props> {
         return finnesAllerede.length > 0;
     };
 
-    kandidatenFinnesIkke = () => (
-        <>
-            <div className="LeggTilKandidat__feilmelding">
-                <div className="blokk-xxs">Du kan ikke legge til kandidaten.</div>
-                <div>Mulige årsaker:</div>
-                <ul>
-                    <li>Fødselsnummeret er feil</li>
-                    <li>Kandidaten har ikke jobbprofil</li>
-                    <li>Kandidaten har ikke CV</li>
-                    <li>Kandidaten har ikke lest hjemmel i ny CV-løsning</li>
-                    <li>Kandidaten har "Nei nav.no" i Formidlingsinformasjon i Arena</li>
-                    <li>Kandidaten har personforhold "Fritatt for kandidatsøk" i Arena</li>
-                    <li>Kandidaten er sperret "Egen ansatt"</li>
-                </ul>
-            </div>
-            <div className="LeggTilKandidat__info">
-                <AlertStripeInfo>
-                    Ønsker du å registrere utfall på en kandidat som ikke er synlig i
-                    Rekrutteringsbistand? Gå til kandidatlisten og velg «Legg til kandidat».
-                </AlertStripeInfo>
-            </div>
-        </>
-    );
-
     render() {
-        const { vis = true, onClose, fodselsnummer, kandidat, notat } = this.props;
+        const {
+            vis = true,
+            onClose,
+            fodselsnummer,
+            kandidat,
+            notat,
+            kandidatStatus,
+            kandidatlisteStatus,
+        } = this.props;
         return (
             <ModalMedStillingScope
                 contentLabel="Modal legg til kandidat"
@@ -296,7 +282,12 @@ class LeggTilKandidatModal extends React.Component<Props> {
 
                 <div>
                     <Hovedknapp
-                        disabled={!this.props.kandidatStatus || !this.props.kandidatlisteStatus}
+                        disabled={
+                            kandidatStatus !== Hentestatus.SUCCESS ||
+                            kandidatlisteStatus !== Hentestatus.SUCCESS ||
+                            !kandidat ||
+                            !kandidatliste
+                        }
                         className="legg-til--knapp"
                         onClick={this.onLeggTilKandidatKlikk}
                     >
