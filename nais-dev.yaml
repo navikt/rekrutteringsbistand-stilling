@@ -40,3 +40,5 @@ spec:
           value: https://rekrutteringsbistand-kandidat-api.nais.preprod.local/rekrutteringsbistand-kandidat-api/rest
         - name: VIS_STILLING_URL
           value: https://www-q0.nav.no/arbeid/stilling
+        - name: NODE_EXTRA_CA_CERTS
+          value: /etc/ssl/ca-bundle.pem
