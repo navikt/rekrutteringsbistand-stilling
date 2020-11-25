@@ -34,8 +34,8 @@ class SearchPage extends React.Component {
         return (
             <div className="SearchPage">
                 <h1 className="visually-hidden">Søk etter stilling</h1>
-                <div className="SearchPage__SearchBox__wrapper">
-                    <StillingSøkeboks nullstillSøk={resetSearch} />
+                <div className="SearchPage__søkeboks-wrapper">
+                    <StillingSøkeboks nullstillSøk={resetSearch} gjørSøk={ads} />
                 </div>
                 <Container className="SearchPage__container">
                     {error && error.statusCode === 412 && (

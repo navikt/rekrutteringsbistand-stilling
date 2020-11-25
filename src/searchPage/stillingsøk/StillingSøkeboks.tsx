@@ -1,35 +1,38 @@
 import React, { ChangeEvent, FunctionComponent, useState } from 'react';
 import { Input, Label, Radio, RadioGruppe } from 'nav-frontend-skjema';
 import { Flatknapp } from 'nav-frontend-knapper';
+import './StillingSøkeboks.less';
 
 type StillingSøkeboksProps = {
     nullstillSøk: () => void;
+    gjørSøk: () => void;
 };
 
-function StillingSøkeboks(props: StillingSøkeboksProps) {
+const StillingSøkeboks: FunctionComponent<StillingSøkeboksProps> = (
+    props: StillingSøkeboksProps
+) => {
     const [søkestring, setSøkestring] = useState('');
-    const [valgtRadioButton, setValgtRadioButton] = useState('');
+    const [valgtRadioButton, setValgtRadioButton] = useState('annonsetittel');
     const onSøkestringChanged = (e: ChangeEvent<HTMLInputElement>) => setSøkestring(e.target.value);
     const onRadioButtonChanged = (e: ChangeEvent<HTMLInputElement>) =>
         setValgtRadioButton(e.target.id);
 
     const onSøk = () => {
-        console.log(søkestring + valgtRadioButton);
+        if (søkestring) console.log('Søk: ' + søkestring + valgtRadioButton);
+        props.gjørSøk();
     };
 
     const onNullstillSøk = () => {
         setSøkestring('');
         setValgtRadioButton('annonsetittel');
-        props.nullstillSøk();
-        // Reset radio button
-
         console.log('Nullstill søk');
+        props.nullstillSøk();
     };
 
     return (
         <>
-            <div className="SearchPage__SearchBox__input-container">
-                <div className="SearchPage__SearchBox">
+            <div className="Søkeboks">
+                <div className="Søkeboks__input">
                     <Label htmlFor="søkeboks-stilling">Søk etter stilling</Label>
                     <Input
                         name="søkeboks-stilling"
@@ -42,7 +45,7 @@ function StillingSøkeboks(props: StillingSøkeboksProps) {
                         <i className="SearchBox__button__icon" />
                     </span>
                 </div>
-                <RadioGruppe className="SearchPage__SearchBox__radio-gruppe">
+                <RadioGruppe className="Søkeboks__radio-gruppe">
                     <Radio
                         label="Annonsetittel"
                         name="søkekategori"
@@ -73,6 +76,6 @@ function StillingSøkeboks(props: StillingSøkeboksProps) {
             </div>
         </>
     );
-}
+};
 
 export default StillingSøkeboks;
