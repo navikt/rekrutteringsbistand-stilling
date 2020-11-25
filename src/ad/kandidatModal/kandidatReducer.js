@@ -37,16 +37,7 @@ const initialState = {
     fodselsnummer: undefined,
     kandidatStatus: Hentestatus.IKKE_HENTET,
     kandidatlisteStatus: Hentestatus.IKKE_HENTET,
-    kandidat: {
-        arenaKandidatnr: undefined,
-        fornavn: undefined,
-        etternavn: undefined,
-        fodselsnummer: undefined,
-        mestRelevanteYrkesErfaring: {
-            styrkKodeStillingstittel: undefined,
-            yrkeserfaringManeder: undefined,
-        },
-    },
+    kandidat: undefined,
     lagreStatus: Lagrestatus.UNSAVED,
     showAlertStripe: false,
     alertStripeMode: KandidatAlertStripeMode.INACTIVE,
@@ -209,9 +200,9 @@ function* hentKandidatMedFnr({ fodselsnummer }) {
     }
 }
 
-function* leggTilKandidat({ id, kandidat }) {
+function* leggTilKandidat({ kandidatlisteId, kandidat }) {
     try {
-        const response = yield postKandidatTilKandidatliste(id, kandidat);
+        const response = yield postKandidatTilKandidatliste(kandidatlisteId, kandidat);
         yield put({ type: LEGG_TIL_KANDIDAT_SUCCESS, kandidatliste: response });
         yield showAlertStripe(KandidatAlertStripeMode.SAVED);
     } catch (e) {
