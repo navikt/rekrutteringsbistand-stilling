@@ -1,5 +1,4 @@
 export const KANDIDAT_API_URL = '/rekrutteringsbistand-stilling/kandidat-api';
-const KANDIDAT_API_VEILEDER = `${KANDIDAT_API_URL}/kandidater/rest/veileder`;
 
 export class KandidatSokError {
     constructor(error) {
@@ -13,7 +12,7 @@ export const postKandidatTilKandidatliste = (kandidatlisteId, kandidat) =>
 
 export const postKandidaterTilKandidatliste = (kandidatlisteId, kandidater) =>
     postJson(
-        `${KANDIDAT_API_VEILEDER}/kandidatlister/${kandidatlisteId}/kandidater`,
+        `${KANDIDAT_API_URL}/veileder/kandidatlister/${kandidatlisteId}/kandidater`,
         JSON.stringify(kandidater)
     );
 
@@ -21,10 +20,10 @@ export const fetchKandidatMedFnr = (fnr) =>
     postJson(`${KANDIDAT_API_URL}/kandidatsok/fnrsok`, JSON.stringify({ fnr }));
 
 export const putKandidatliste = (stillingsId) =>
-    putRequest(`${KANDIDAT_API_VEILEDER}/stilling/${stillingsId}/kandidatliste/`);
+    putRequest(`${KANDIDAT_API_URL}/veileder/stilling/${stillingsId}/kandidatliste/`);
 
 export const fetchKandidatliste = (stillingsId) =>
-    fetchJson(`${KANDIDAT_API_VEILEDER}/stilling/${stillingsId}/kandidatliste`, true);
+    fetchJson(`${KANDIDAT_API_URL}/veileder/stilling/${stillingsId}/kandidatliste`, true);
 
 async function postJson(url, bodyString) {
     try {
