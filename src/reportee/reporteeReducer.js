@@ -1,5 +1,5 @@
 import { put, select, takeLatest } from 'redux-saga/effects';
-import { AD_API_URL, ApiError, fetchGet } from '../api/api';
+import { stillingApi, ApiError, fetchGet } from '../api/api';
 
 export const FETCH_REPORTEE = 'FETCH_REPORTEE';
 export const FETCH_REPORTEE_BEGIN = 'FETCH_REPORTEE_BEGIN';
@@ -44,7 +44,7 @@ export function* getReportee() {
     if (!state.reportee.data) {
         yield put({ type: FETCH_REPORTEE_BEGIN });
         try {
-            const response = yield fetchGet(`${AD_API_URL}/reportee/`);
+            const response = yield fetchGet(`${stillingApi}/rekrutteringsbistand/api/v1/reportee/`);
             yield put({ type: FETCH_REPORTEE_SUCCESS, response });
             state = yield select();
         } catch (e) {

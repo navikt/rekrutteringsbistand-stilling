@@ -1,5 +1,5 @@
 import { takeEvery, put } from 'redux-saga/effects';
-import { API_URL, fetchGet } from '../api/api';
+import { stillingApi, fetchGet } from '../api/api';
 
 export const FETCH_FEATURE_TOGGLES = 'FETCH_FEATURE_TOGGLES';
 const FETCH_FEATURE_TOGGLES_COMPLETE = 'FETCH_FEATURE_TOGGLES_COMPLETE';
@@ -20,7 +20,7 @@ const featureTogglesReducer = (state = initialState, action) => {
 function* hentFeatureToggles() {
     // eslint-disable-next-line
     const alleFeatures = yield Promise.all(
-        [].map((feature) => fetchGet(`${API_URL}/features/${feature}`))
+        [].map((feature) => fetchGet(`${stillingApi}/features/${feature}`))
     );
 
     const featureToggles = {};

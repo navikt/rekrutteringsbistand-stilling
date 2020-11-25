@@ -1,5 +1,5 @@
 import { put, takeLatest } from 'redux-saga/effects';
-import { AD_API_URL, fetchGet } from '../../../api/api';
+import { stillingApi, fetchGet } from '../../../api/api';
 import { ADD_LOCATION_AREA } from '../../adDataReducer';
 
 /** *********************************************************
@@ -82,9 +82,15 @@ export default function reducer(state = initialState, action) {
  ********************************************************* */
 function* fetchLocationArea() {
     try {
-        const municipals = yield fetchGet(`${AD_API_URL}/geography/municipals`);
-        const countries = yield fetchGet(`${AD_API_URL}/geography/countries`);
-        const counties = yield fetchGet(`${AD_API_URL}/geography/counties`);
+        const municipals = yield fetchGet(
+            `${stillingApi}/rekrutteringsbistand/api/v1/geography/municipals`
+        );
+        const countries = yield fetchGet(
+            `${stillingApi}/rekrutteringsbistand/api/v1/geography/countries`
+        );
+        const counties = yield fetchGet(
+            `${stillingApi}/rekrutteringsbistand/api/v1/geography/counties`
+        );
         const municipalsCounties = municipals.concat(counties);
 
         const sortedMunicipalsCounties = municipalsCounties.sort((a, b) => {
