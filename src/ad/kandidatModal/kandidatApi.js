@@ -17,7 +17,7 @@ export const postKandidaterTilKandidatliste = (kandidatlisteId, kandidater) =>
     );
 
 export const fetchKandidatMedFnr = (fnr) =>
-    postJson(`${KANDIDAT_API_URL}/kandidatsok/fnrsok`, JSON.stringify({ fnr }));
+    postJson(`${KANDIDAT_API_URL}/veileder/kandidatsok/fnrsok`, JSON.stringify({ fnr }));
 
 export const putKandidatliste = (stillingsId) =>
     putRequest(`${KANDIDAT_API_URL}/veileder/stilling/${stillingsId}/kandidatliste/`);
