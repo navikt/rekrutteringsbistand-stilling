@@ -1,9 +1,9 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, ReactNode } from 'react';
 import { connect } from 'react-redux';
 import { Element, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import { Input, Textarea } from 'nav-frontend-skjema';
 import { Flatknapp, Hovedknapp } from 'nav-frontend-knapper';
-import { AlertStripeAdvarsel, AlertStripeInfo } from 'nav-frontend-alertstriper';
+import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import {
     HENT_KANDIDAT_MED_FNR,
     HENT_KANDIDAT_MED_FNR_RESET,
@@ -16,6 +16,8 @@ import {
 import './LeggTilKandidatModal.less';
 import { sendEvent } from '../../amplitude';
 import ModalMedStillingScope from '../../ModalMedStillingScope';
+import kandidatliste from '../../mock/data/kandidatliste';
+import KandidatenFinnesIkke from './KandidatenFinnesIkke';
 
 const NOTATLENGDE = 2000;
 
@@ -24,30 +26,40 @@ type Props = {
     stillingsid: string;
     onClose: () => void;
     fodselsnummer?: string;
-    kandidatliste?: {
-        kandidatlisteId: string;
-        kandidater: Array<{
-            kandidatnr: string;
-        }>;
-    };
-    kandidat?: {
-        arenaKandidatnr: string;
-        fornavn: string;
-        etternavn: string;
-        mestRelevanteYrkeserfaring: {
-            styrkKodeStillingstittel: string;
-            yrkeserfaringManeder: number;
-        };
-    };
+    kandidatliste?: Kandidatliste;
+    kandidat?: Kandidat;
     kandidatStatus: string;
     kandidatlisteStatus: string;
     hentKandidatMedFnr: (fnr: string) => void;
     hentKandidatliste: (stillingsId: string) => void;
-    leggTilKandidatMedFnr: (kandidat: any, id: string) => void;
+    leggTilKandidatMedFnr: (kandidat: LeggTilKandidatOutboundDto, kandidatlisteId: string) => void;
     resetHentKandidatMedFnr: () => void;
     setFodselsnummer: (fnr?: string) => void;
     notat: string;
     setNotat: (notat: string) => void;
+};
+
+type Kandidat = {
+    arenaKandidatnr: string;
+    fornavn: string;
+    etternavn: string;
+    mestRelevanteYrkeserfaring: {
+        styrkKodeStillingstittel: string;
+        yrkeserfaringManeder: number;
+    };
+};
+
+type Kandidatliste = {
+    kandidatlisteId: string;
+    kandidater: Array<{
+        kandidatnr: string;
+    }>;
+};
+
+type LeggTilKandidatOutboundDto = {
+    notat: string;
+    kandidatnr: string;
+    sisteArbeidserfaring: string;
 };
 
 class LeggTilKandidatModal extends React.Component<Props> {
@@ -57,7 +69,7 @@ class LeggTilKandidatModal extends React.Component<Props> {
     state: {
         showFodselsnummer: boolean;
         alleredeLagtTil: boolean;
-        errorMessage?: string;
+        errorMessage?: string | ReactNode;
     };
 
     constructor(props: Props) {
@@ -105,7 +117,7 @@ class LeggTilKandidatModal extends React.Component<Props> {
             } else if (kandidatStatus === Hentestatus.FINNES_IKKE) {
                 this.setState({
                     showFodselsnummer: false,
-                    errorMessage: this.kandidatenFinnesIkke(),
+                    errorMessage: <KandidatenFinnesIkke />,
                 });
             }
         }
@@ -140,14 +152,19 @@ class LeggTilKandidatModal extends React.Component<Props> {
     };
 
     onLeggTilKandidatKlikk = () => {
-        const { kandidat, kandidatliste } = this.props;
+        const { kandidat, kandidatliste, kandidatStatus, kandidatlisteStatus } = this.props;
 
-        if (kandidat && kandidatliste) {
+        if (
+            kandidatStatus === Hentestatus.SUCCESS &&
+            kandidatlisteStatus === Hentestatus.SUCCESS &&
+            kandidat &&
+            kandidatliste
+        ) {
             this.leggTilKandidat(kandidat, kandidatliste);
         }
     };
 
-    leggTilKandidat = (kandidat: any, kandidatliste: any) => {
+    leggTilKandidat = (kandidat: Kandidat, kandidatliste: Kandidatliste) => {
         const { fodselsnummer, leggTilKandidatMedFnr, onClose, notat } = this.props;
 
         if (
@@ -190,40 +207,24 @@ class LeggTilKandidatModal extends React.Component<Props> {
         }
     };
 
-    kandidatenFinnesAllerede = (kandidat: any, kandidatliste: any) => {
+    kandidatenFinnesAllerede = (kandidat: Kandidat, kandidatliste: Kandidatliste) => {
         const finnesAllerede = kandidatliste.kandidater.filter(
-            (k: any) => kandidat.arenaKandidatnr === k.kandidatnr
+            (k) => kandidat.arenaKandidatnr === k.kandidatnr
         );
 
         return finnesAllerede.length > 0;
     };
 
-    kandidatenFinnesIkke = () => (
-        <>
-            <div className="LeggTilKandidat__feilmelding">
-                <div className="blokk-xxs">Du kan ikke legge til kandidaten.</div>
-                <div>Mulige årsaker:</div>
-                <ul>
-                    <li>Fødselsnummeret er feil</li>
-                    <li>Kandidaten har ikke jobbprofil</li>
-                    <li>Kandidaten har ikke CV</li>
-                    <li>Kandidaten har ikke lest hjemmel i ny CV-løsning</li>
-                    <li>Kandidaten har "Nei nav.no" i Formidlingsinformasjon i Arena</li>
-                    <li>Kandidaten har personforhold "Fritatt for kandidatsøk" i Arena</li>
-                    <li>Kandidaten er sperret "Egen ansatt"</li>
-                </ul>
-            </div>
-            <div className="LeggTilKandidat__info">
-                <AlertStripeInfo>
-                    Ønsker du å registrere utfall på en kandidat som ikke er synlig i
-                    Rekrutteringsbistand? Gå til kandidatlisten og velg «Legg til kandidat».
-                </AlertStripeInfo>
-            </div>
-        </>
-    );
-
     render() {
-        const { vis = true, onClose, fodselsnummer, kandidat, notat } = this.props;
+        const {
+            vis = true,
+            onClose,
+            fodselsnummer,
+            kandidat,
+            notat,
+            kandidatStatus,
+            kandidatlisteStatus,
+        } = this.props;
         return (
             <ModalMedStillingScope
                 contentLabel="Modal legg til kandidat"
@@ -281,7 +282,12 @@ class LeggTilKandidatModal extends React.Component<Props> {
 
                 <div>
                     <Hovedknapp
-                        disabled={!kandidat}
+                        disabled={
+                            kandidatStatus !== Hentestatus.SUCCESS ||
+                            kandidatlisteStatus !== Hentestatus.SUCCESS ||
+                            !kandidat ||
+                            !kandidatliste
+                        }
                         className="legg-til--knapp"
                         onClick={this.onLeggTilKandidatKlikk}
                     >
@@ -311,8 +317,8 @@ const mapDispatchToProps = (dispatch: any) => ({
         dispatch({ type: HENT_KANDIDATLISTE, stillingsnummer }),
     hentKandidatMedFnr: (fodselsnummer: string) =>
         dispatch({ type: HENT_KANDIDAT_MED_FNR, fodselsnummer }),
-    leggTilKandidatMedFnr: (kandidat: any, id: string) =>
-        dispatch({ type: LEGG_TIL_KANDIDAT, kandidat, id }),
+    leggTilKandidatMedFnr: (kandidat: LeggTilKandidatOutboundDto, kandidatlisteId: string) =>
+        dispatch({ type: LEGG_TIL_KANDIDAT, kandidat, kandidatlisteId }),
     resetHentKandidatMedFnr: () => dispatch({ type: HENT_KANDIDAT_MED_FNR_RESET }),
     setFodselsnummer: (fodselsnummer: string) =>
         dispatch({ type: SET_FODSELSNUMMER, fodselsnummer }),
