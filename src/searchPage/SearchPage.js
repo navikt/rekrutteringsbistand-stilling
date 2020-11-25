@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import AlertStripe from 'nav-frontend-alertstriper';
@@ -14,6 +14,8 @@ import Filter from './filter/Filter';
 import Pagination from './pagination/Pagination';
 import { FETCH_ADS, RESET_SEARCH, RESTORE_SEARCH } from './searchReducer';
 import './SearchPage.less';
+import { Radio, RadioGruppe, RadioPanelGruppe } from 'nav-frontend-skjema';
+import { KanInkludere } from '../ad/edit/registrer-inkluderingsmuligheter/DirektemeldtStilling';
 
 class SearchPage extends React.Component {
     componentDidMount() {
@@ -32,8 +34,15 @@ class SearchPage extends React.Component {
             <div className="SearchPage">
                 <h1 className="visually-hidden">Søk etter stilling</h1>
                 <div className="SearchPage__SearchBox__wrapper">
-                    <div className="SearchPage__SearchBox">
-                        <SearchBox />
+                    <div className="SearchPage__SearchBox__input-container">
+                        <div className="SearchPage__SearchBox">
+                            <SearchBox />
+                        </div>
+                        <RadioGruppe className="SearchPage__SearchBox__radio-gruppe">
+                            <Radio label={'Bakerst'} name="sitteplass" />
+                            <Radio label={'Midten'} name="sitteplass" />
+                            <Radio label={'Fremst'} name="sitteplass" />
+                        </RadioGruppe>
                     </div>
                     <div className="SearchPage__SearchBox__resetButton">
                         <Flatknapp mini onClick={resetSearch}>
