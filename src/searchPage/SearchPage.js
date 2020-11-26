@@ -10,7 +10,7 @@ import NoResults from './noResults/NoResults';
 import Loading from '../common/loading/Loading';
 import Filter from './filter/Filter';
 import Pagination from './pagination/Pagination';
-import { FETCH_ADS, RESET_SEARCH, RESTORE_SEARCH } from './searchReducer';
+import { FETCH_ADS, RESTORE_SEARCH } from './searchReducer';
 import './SearchPage.less';
 import StillingSøkeboks from './stillingsøk/StillingSøkeboks';
 
