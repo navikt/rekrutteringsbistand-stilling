@@ -1,15 +1,57 @@
+@import '../../variables';
+
 .Søkeboks {
     display: flex;
     flex-direction: column;
     width: 40rem;
+    margin: 2rem 1rem 1rem 0;
 
-    &__input {
+    &__input input {
         flex: auto;
         width: 100%;
-        margin: 2rem 1rem 2rem 0;
+        padding: 1rem;
+        font-size: 110%;
+        border-radius: 0;
+
+        &:hover {
+            border-color: @navBla;
+        }
+
+        &:focus {
+            outline: 0;
+            box-shadow: 0 0 0 3px @navOransjeLighten40;
+        }
+
+        &:disabled {
+            background-color: @navLysGra;
+            border-color: @navGra40;
+        }
     }
 
     &__radio-gruppe {
+        margin-top: 1rem;
         display: flex;
     }
 }
+
+//
+//.Typeahead__input {
+//    width: 100%;
+//    padding: 0.5rem;
+//    border: 1px solid @navGra40;
+//    border-radius: 0.25rem;
+//
+//    &:hover {
+//        border-color: @navBla;
+//    }
+//
+//    &:focus {
+//        outline: 0;
+//        box-shadow: 0 0 0 3px @navOransjeLighten40;
+//    }
+//
+//    &:disabled {
+//        background-color: @navLysGra;
+//        border-color: @navGra40;
+//    }
+//}

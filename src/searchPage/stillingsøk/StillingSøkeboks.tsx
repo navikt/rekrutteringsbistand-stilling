@@ -2,41 +2,29 @@ import React, { ChangeEvent, FunctionComponent, useState } from 'react';
 import { Input, Label, Radio, RadioGruppe } from 'nav-frontend-skjema';
 import { Flatknapp } from 'nav-frontend-knapper';
 import './StillingSøkeboks.less';
-import {
-    Fields,
-    getLastSearchStringFromLocalStorage,
-    RESET_SEARCH,
-    SET_SEARCH,
-    SET_SEARCH_FIELD,
-    SET_SEARCH_VALUE,
-} from '../searchReducer';
-import { useDispatch, useStore } from 'react-redux';
-import { stringify } from 'ts-jest/dist/utils/json';
+import { Fields, RESET_SEARCH, SET_SEARCH_FIELD, SET_SEARCH_VALUE } from '../searchReducer';
+import { useDispatch, useSelector } from 'react-redux';
+import State from '../../State';
 
-type Props = {
-    setSøketekst: (søketekst: string) => void;
-    setSøkekategori: (søkekategori: typeof Fields) => void;
-};
-
-const StillingSøkeboks: FunctionComponent<Props> = ({ setSøketekst, setSøkekategori }) => {
-    const [søkestring, setSøkestring] = useState(getLastSearchStringFromLocalStorage);
-    const [valgtKategoriRadioButton, setValgtKategoriRadioButton] = useState(Fields.TITLE);
+const StillingSøkeboks: FunctionComponent = () => {
     const dispatch = useDispatch();
+    const søkestring = useSelector((state: any) => state.search.value);
+    const valgtKategori = useSelector((state: any) => state.search.field);
 
-    const onSøkestringChanged = (e: ChangeEvent<HTMLInputElement>) => setSøkestring(e.target.value);
+    const onSøkestringChanged = (e: ChangeEvent<HTMLInputElement>) =>
+        dispatch({ type: SET_SEARCH_VALUE, value: e.target.value });
 
+    // TODO: SET_SEARCH_FIELD må ikke trigge søk
     const onRadioButtonChanged = (e: ChangeEvent<HTMLInputElement>) => {
-        setValgtKategoriRadioButton(e.target.id);
+        console.log('radioButtonId: ', e.target.value);
+        dispatch({ type: SET_SEARCH_FIELD, value: e.target.value });
     };
 
     const onSøk = () => {
-        dispatch({ type: SET_SEARCH_VALUE, value: søkestring });
-        dispatch({ type: SET_SEARCH_FIELD, field: valgtKategoriRadioButton });
+        // TODO: Ny metode for search
     };
 
     const onNullstillSøk = () => {
-        setSøkestring('');
-        setValgtKategoriRadioButton(Fields.TITLE);
         dispatch({ type: RESET_SEARCH });
     };
 
@@ -53,6 +41,7 @@ const StillingSøkeboks: FunctionComponent<Props> = ({ setSøketekst, setSøkeka
                             if (event.key === 'Enter') onSøk();
                         }}
                         value={søkestring}
+                        className="Søkeboks__input"
                     />
                     <span className="SearchBox__button">
                         <i className="SearchBox__button__icon" />
@@ -62,23 +51,23 @@ const StillingSøkeboks: FunctionComponent<Props> = ({ setSøketekst, setSøkeka
                     <Radio
                         label="Annonsetittel"
                         name="søkekategori"
-                        id={Fields.TITLE}
+                        value={Fields.TITLE}
                         onChange={onRadioButtonChanged}
-                        checked={valgtKategoriRadioButton === Fields.TITLE}
+                        checked={valgtKategori === Fields.TITLE}
                     />
                     <Radio
                         label="Arbeidsgiver"
                         name="søkekategori"
-                        id={Fields.EMPLOYER_NAME}
+                        value={Fields.EMPLOYER_NAME}
                         onChange={onRadioButtonChanged}
-                        checked={valgtKategoriRadioButton === Fields.EMPLOYER_NAME}
+                        checked={valgtKategori === Fields.EMPLOYER_NAME}
                     />
                     <Radio
                         label="Annonsenummer"
                         name="søkekategori"
-                        id={Fields.ID}
+                        value={Fields.ID}
                         onChange={onRadioButtonChanged}
-                        checked={valgtKategoriRadioButton === Fields.ID}
+                        checked={valgtKategori === Fields.ID}
                     />
                 </RadioGruppe>
             </div>
