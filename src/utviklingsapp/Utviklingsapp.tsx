@@ -1,7 +1,9 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { Systemtittel } from 'nav-frontend-typografi';
-import { cssScopeForApp } from '../index';
+import { Link, Router } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
+
+import { cssScopeForApp } from '../index';
 import { Main } from '../app';
 import './Utviklingsapp.less';
 
@@ -23,18 +25,20 @@ const Utviklingsapp: FunctionComponent = () => {
 
     return (
         <div className={cssScopeForApp}>
-            <header className="utviklingsapp">
-                <Systemtittel>Utviklingsapp for rekrutteringsbistand-stilling</Systemtittel>
-                <div className="lenke">
-                    <a href="http://localhost:3002/stillinger/">stilling</a>
-                </div>
-                <div className="lenke">
-                    <a href="http://localhost:3002/stillinger/minestillinger">mine stillinger</a>
-                </div>
-            </header>
-            <main>
-                <Main history={history} />
-            </main>
+            <Router history={history}>
+                <header className="utviklingsapp">
+                    <Systemtittel>Utviklingsapp for rekrutteringsbistand-stilling</Systemtittel>
+                    <div className="utviklingsapp__lenke">
+                        <Link to="/stillinger/">Stilling</Link>
+                    </div>
+                    <div className="utviklingsapp__lenke">
+                        <Link to="/stillinger/minestillinger">Mine stillinger</Link>
+                    </div>
+                </header>
+                <main>
+                    <Main history={history} />
+                </main>
+            </Router>
         </div>
     );
 };
