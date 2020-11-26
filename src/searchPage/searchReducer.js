@@ -14,6 +14,7 @@ export const CHANGE_PAGE = 'CHANGE_PAGE';
 export const RESET_PAGE = 'RESET_PAGE';
 export const SET_SEARCH_VALUE = 'SET_SEARCH_VALUE';
 export const SET_SEARCH_FIELD = 'SET_SEARCH_FIELD';
+export const SEARCH = 'SEARCH';
 export const CHANGE_PRIVACY_FILTER = 'CHANGE_PRIVACY_FILTER';
 export const CHANGE_STATUS_FILTER = 'CHANGE_STATUS_FILTER';
 export const CHANGE_SOURCE_FILTER = 'CHANGE_SOURCE_FILTER';
@@ -267,7 +268,7 @@ export const searchSaga = function* saga() {
             CHANGE_SOURCE_FILTER,
             CHANGE_PRIVACY_FILTER,
             CHANGE_LOCATION_FILTER,
-            SET_SEARCH_FIELD,
+            SEARCH,
             CHANGE_SORTING,
             CHANGE_PAGE,
             FETCH_ADS,

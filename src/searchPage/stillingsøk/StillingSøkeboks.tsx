@@ -2,9 +2,8 @@ import React, { ChangeEvent, FunctionComponent, useState } from 'react';
 import { Input, Label, Radio, RadioGruppe } from 'nav-frontend-skjema';
 import { Flatknapp } from 'nav-frontend-knapper';
 import './StillingSøkeboks.less';
-import { Fields, RESET_SEARCH, SET_SEARCH_FIELD, SET_SEARCH_VALUE } from '../searchReducer';
+import { Fields, RESET_SEARCH, SEARCH, SET_SEARCH_FIELD, SET_SEARCH_VALUE } from '../searchReducer';
 import { useDispatch, useSelector } from 'react-redux';
-import State from '../../State';
 
 const StillingSøkeboks: FunctionComponent = () => {
     const dispatch = useDispatch();
@@ -14,14 +13,12 @@ const StillingSøkeboks: FunctionComponent = () => {
     const onSøkestringChanged = (e: ChangeEvent<HTMLInputElement>) =>
         dispatch({ type: SET_SEARCH_VALUE, value: e.target.value });
 
-    // TODO: SET_SEARCH_FIELD må ikke trigge søk
     const onRadioButtonChanged = (e: ChangeEvent<HTMLInputElement>) => {
-        console.log('radioButtonId: ', e.target.value);
-        dispatch({ type: SET_SEARCH_FIELD, value: e.target.value });
+        dispatch({ type: SET_SEARCH_FIELD, field: e.target.value });
     };
 
     const onSøk = () => {
-        // TODO: Ny metode for search
+        dispatch({ type: SEARCH });
     };
 
     const onNullstillSøk = () => {
