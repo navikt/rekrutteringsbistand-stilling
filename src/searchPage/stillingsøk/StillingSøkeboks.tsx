@@ -29,7 +29,9 @@ const StillingSøkeboks: FunctionComponent = () => {
         <>
             <div className="Søkeboks">
                 <div className="Søkeboks__input">
-                    <Label htmlFor="søkeboks-stilling">Søk etter stilling</Label>
+                    <Label htmlFor="søkeboks-stilling">
+                        Søk etter tittel, arbeidsgiver eller annonsenummer
+                    </Label>
                     <Input
                         name="søkeboks-stilling"
                         id="SearchPageSearchBox"
