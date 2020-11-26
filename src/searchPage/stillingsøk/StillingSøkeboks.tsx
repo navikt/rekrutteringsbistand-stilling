@@ -4,6 +4,7 @@ import { Flatknapp } from 'nav-frontend-knapper';
 import './StillingSøkeboks.less';
 import { Fields, RESET_SEARCH, SEARCH, SET_SEARCH_FIELD, SET_SEARCH_VALUE } from '../searchReducer';
 import { useDispatch, useSelector } from 'react-redux';
+import { Undertittel } from 'nav-frontend-typografi';
 
 const StillingSøkeboks: FunctionComponent = () => {
     const dispatch = useDispatch();
@@ -29,9 +30,7 @@ const StillingSøkeboks: FunctionComponent = () => {
         <>
             <div className="Søkeboks">
                 <div className="Søkeboks__input">
-                    <Label htmlFor="søkeboks-stilling">
-                        Søk etter tittel, arbeidsgiver eller annonsenummer
-                    </Label>
+                    <Undertittel>Søk etter tittel, arbeidsgiver eller annonsenummer</Undertittel>
                     <Input
                         name="søkeboks-stilling"
                         id="SearchPageSearchBox"
@@ -41,13 +40,15 @@ const StillingSøkeboks: FunctionComponent = () => {
                         }}
                         value={søkestring}
                         className="Søkeboks__input"
+                        aria-label={'Søk etter LEGG INN LOGIKK'}
                     />
                     <span className="SearchBox__button">
                         <i className="SearchBox__button__icon" />
                     </span>
                 </div>
-                <RadioGruppe className="Søkeboks__radio-gruppe">
+                <RadioGruppe className="Søkeboks__radio-gruppe" aria-controls="SearchPageSearchBox">
                     <Radio
+                        className="Søkeboks__radio-knapp"
                         label="Annonsetittel"
                         name="søkekategori"
                         value={Fields.TITLE}
@@ -55,6 +56,7 @@ const StillingSøkeboks: FunctionComponent = () => {
                         checked={valgtKategori === Fields.TITLE}
                     />
                     <Radio
+                        className="Søkeboks__radio-knapp"
                         label="Arbeidsgiver"
                         name="søkekategori"
                         value={Fields.EMPLOYER_NAME}
@@ -62,6 +64,7 @@ const StillingSøkeboks: FunctionComponent = () => {
                         checked={valgtKategori === Fields.EMPLOYER_NAME}
                     />
                     <Radio
+                        className="Søkeboks__radio-knapp"
                         label="Annonsenummer"
                         name="søkekategori"
                         value={Fields.ID}
