@@ -1,6 +1,7 @@
 import React, { ChangeEvent, FunctionComponent, useState } from 'react';
-import { Input, Label, Radio, RadioGruppe } from 'nav-frontend-skjema';
+import { Input, Radio, RadioGruppe } from 'nav-frontend-skjema';
 import { Flatknapp } from 'nav-frontend-knapper';
+import { Søkeknapp } from 'nav-frontend-ikonknapper';
 import './StillingSøkeboks.less';
 import { Fields, RESET_SEARCH, SEARCH, SET_SEARCH_FIELD, SET_SEARCH_VALUE } from '../searchReducer';
 import { useDispatch, useSelector } from 'react-redux';
@@ -31,20 +32,22 @@ const StillingSøkeboks: FunctionComponent = () => {
             <div className="Søkeboks">
                 <div className="Søkeboks__input">
                     <Undertittel>Søk etter tittel, arbeidsgiver eller annonsenummer</Undertittel>
-                    <Input
-                        name="søkeboks-stilling"
-                        id="SearchPageSearchBox"
-                        onChange={onSøkestringChanged}
-                        onKeyPress={(event) => {
-                            if (event.key === 'Enter') onSøk();
-                        }}
-                        value={søkestring}
-                        className="Søkeboks__input"
-                        aria-label={'Søk etter LEGG INN LOGIKK'}
-                    />
-                    <span className="SearchBox__button">
-                        <i className="SearchBox__button__icon" />
-                    </span>
+                    <div className="Søkeboks__input-wrapper">
+                        <Input
+                            name="søkeboks-stilling"
+                            id="SearchPageSearchBox"
+                            onChange={onSøkestringChanged}
+                            onKeyPress={(event) => {
+                                if (event.key === 'Enter') onSøk();
+                            }}
+                            value={søkestring}
+                            className="Søkeboks__input"
+                            aria-label={'Søk etter LEGG INN LOGIKK'}
+                        />
+                        <Søkeknapp type="flat" className="Søkeboks__søkeknapp" onClick={onSøk}>
+                            Søk
+                        </Søkeknapp>
+                    </div>
                 </div>
                 <RadioGruppe className="Søkeboks__radio-gruppe" aria-controls="SearchPageSearchBox">
                     <Radio
@@ -73,11 +76,9 @@ const StillingSøkeboks: FunctionComponent = () => {
                     />
                 </RadioGruppe>
             </div>
-            <div className="SearchPage__SearchBox__resetButton">
-                <Flatknapp mini onClick={onNullstillSøk}>
-                    Nullstill søk
-                </Flatknapp>
-            </div>
+            <Flatknapp mini onClick={onNullstillSøk} className="SearchPage__SearchBox__resetButton">
+                Nullstill søk
+            </Flatknapp>
         </>
     );
 };

@@ -6,25 +6,22 @@
     width: 40rem;
     margin: 2rem 1rem 1rem 0;
 
-    &__input input {
+    &__input-wrapper {
+        position: relative;
+    }
+
+    &__input {
         flex: auto;
         width: 100%;
-        padding: 1rem;
-        font-size: 110%;
-        border-radius: 0;
+    }
 
-        &:hover {
-            border-color: @navBla;
-        }
+    &__søkeknapp {
+        position: absolute;
+        right: 0;
+        bottom: 0;
 
-        &:focus {
-            outline: 0;
-            box-shadow: 0 0 0 3px @navOransjeLighten40;
-        }
-
-        &:disabled {
-            background-color: @navLysGra;
-            border-color: @navGra40;
+        svg {
+            margin-right: 0.5rem;
         }
     }
 
@@ -34,5 +31,6 @@
     }
 
     &__radio-knapp {
+        margin-right: 1rem;
     }
 }
