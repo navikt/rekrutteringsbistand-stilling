@@ -1,11 +1,10 @@
 import React, { ChangeEvent, FunctionComponent, useState } from 'react';
-import { Input, Radio, RadioGruppe } from 'nav-frontend-skjema';
+import { Input, Label, Radio, RadioGruppe } from 'nav-frontend-skjema';
 import { Flatknapp } from 'nav-frontend-knapper';
 import { Søkeknapp } from 'nav-frontend-ikonknapper';
 import './StillingSøkeboks.less';
 import { Fields, RESET_SEARCH, SEARCH, SET_SEARCH_FIELD, SET_SEARCH_VALUE } from '../searchReducer';
 import { useDispatch, useSelector } from 'react-redux';
-import { Undertittel } from 'nav-frontend-typografi';
 
 const StillingSøkeboks: FunctionComponent = () => {
     const dispatch = useDispatch();
@@ -27,32 +26,24 @@ const StillingSøkeboks: FunctionComponent = () => {
         dispatch({ type: RESET_SEARCH });
     };
 
+    const hentPresenterbarSøkekategori = () => {
+        switch (valgtKategori) {
+            case Fields.ID:
+                return 'annonsenummer';
+            case Fields.EMPLOYER_NAME:
+                return 'arbeidsgiver';
+            case Fields.TITLE:
+                return 'annonsetittel';
+        }
+    };
+
     return (
         <>
             <div className="Søkeboks">
-                <div className="Søkeboks__input">
-                    <Undertittel>Søk etter tittel, arbeidsgiver eller annonsenummer</Undertittel>
-                    <div className="Søkeboks__input-wrapper">
-                        <Input
-                            name="søkeboks-stilling"
-                            id="SearchPageSearchBox"
-                            onChange={onSøkestringChanged}
-                            onKeyPress={(event) => {
-                                if (event.key === 'Enter') onSøk();
-                            }}
-                            value={søkestring}
-                            className="Søkeboks__input"
-                            aria-label={'Søk etter LEGG INN LOGIKK'}
-                        />
-                        <Søkeknapp type="flat" className="Søkeboks__søkeknapp" onClick={onSøk}>
-                            Søk
-                        </Søkeknapp>
-                    </div>
-                </div>
                 <RadioGruppe className="Søkeboks__radio-gruppe" aria-controls="SearchPageSearchBox">
                     <Radio
                         className="Søkeboks__radio-knapp"
-                        label="Annonsetittel"
+                        label="Søk på annonsetittel"
                         name="søkekategori"
                         value={Fields.TITLE}
                         onChange={onRadioButtonChanged}
@@ -60,7 +51,7 @@ const StillingSøkeboks: FunctionComponent = () => {
                     />
                     <Radio
                         className="Søkeboks__radio-knapp"
-                        label="Arbeidsgiver"
+                        label="Søk på arbeidsgiver"
                         name="søkekategori"
                         value={Fields.EMPLOYER_NAME}
                         onChange={onRadioButtonChanged}
@@ -68,15 +59,36 @@ const StillingSøkeboks: FunctionComponent = () => {
                     />
                     <Radio
                         className="Søkeboks__radio-knapp"
-                        label="Annonsenummer"
+                        label="Søk på annonsenummer"
                         name="søkekategori"
                         value={Fields.ID}
                         onChange={onRadioButtonChanged}
                         checked={valgtKategori === Fields.ID}
                     />
                 </RadioGruppe>
+                <div className="Søkeboks__input">
+                    <div className="Søkeboks__input-wrapper">
+                        <Input
+                            name="søkeboks-stilling"
+                            id="søkeboks-stilling"
+                            onChange={onSøkestringChanged}
+                            onKeyPress={(event) => {
+                                if (event.key === 'Enter') onSøk();
+                            }}
+                            value={søkestring}
+                            label={
+                                <Label htmlFor={'søkeboks-stilling'} hidden>
+                                    Søk på {hentPresenterbarSøkekategori()}
+                                </Label>
+                            }
+                        />
+                        <Søkeknapp type="flat" className="Søkeboks__søkeknapp" onClick={onSøk}>
+                            Søk
+                        </Søkeknapp>
+                    </div>
+                </div>
             </div>
-            <Flatknapp mini onClick={onNullstillSøk} className="SearchPage__SearchBox__resetButton">
+            <Flatknapp mini onClick={onNullstillSøk} className="nullstill-knapp">
                 Nullstill søk
             </Flatknapp>
         </>
