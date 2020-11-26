@@ -4,12 +4,14 @@ import { Flatknapp } from 'nav-frontend-knapper';
 import './StillingSøkeboks.less';
 import {
     Fields,
+    getLastSearchStringFromLocalStorage,
     RESET_SEARCH,
     SET_SEARCH,
     SET_SEARCH_FIELD,
     SET_SEARCH_VALUE,
 } from '../searchReducer';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useStore } from 'react-redux';
+import { stringify } from 'ts-jest/dist/utils/json';
 
 type Props = {
     setSøketekst: (søketekst: string) => void;
@@ -17,7 +19,7 @@ type Props = {
 };
 
 const StillingSøkeboks: FunctionComponent<Props> = ({ setSøketekst, setSøkekategori }) => {
-    const [søkestring, setSøkestring] = useState('');
+    const [søkestring, setSøkestring] = useState(getLastSearchStringFromLocalStorage);
     const [valgtKategoriRadioButton, setValgtKategoriRadioButton] = useState(Fields.TITLE);
     const dispatch = useDispatch();
 

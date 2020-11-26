@@ -34,6 +34,8 @@ const ACTIVE = 'ACTIVE';
 
 const LOCAL_STORAGE_SEARCH_KEY = 'last_search';
 
+const LOCAL_STORAGE_SEARCH_VALUE_KEY = 'last_search_value';
+
 const initialState = {
     items: [],
     error: undefined,
@@ -59,6 +61,7 @@ export default function searchReducer(state = initialState, action) {
     switch (action.type) {
         case SET_SEARCH_VALUE: {
             // only allow spaces and numbers for search on 'annonsenummer'
+            localStorage.setItem(LOCAL_STORAGE_SEARCH_VALUE_KEY, JSON.stringify(action.value));
             const isNumbersOnly = action.value.match(/^[ 0-9]+$/) !== null;
             const suggestions = [];
             if (action.value.length > 0) {
@@ -256,6 +259,10 @@ function* restoreSearchFromLocalStorage() {
             localStorage.removeItem(LOCAL_STORAGE_SEARCH_KEY);
         }
     }
+}
+
+export function getLastSearchStringFromLocalStorage() {
+    return JSON.parse(localStorage.getItem(LOCAL_STORAGE_SEARCH_VALUE_KEY));
 }
 
 export const searchSaga = function* saga() {
