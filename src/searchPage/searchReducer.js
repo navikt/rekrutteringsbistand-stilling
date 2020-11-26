@@ -47,7 +47,6 @@ const initialState = {
     value: '',
     administrationStatus: AdminStatusEnum.DONE,
     field: Fields.TITLE,
-    suggestions: [],
     privacy: undefined,
     status: ACTIVE,
     deactivatedByExpiry: undefined,
@@ -59,29 +58,9 @@ const initialState = {
 export default function searchReducer(state = initialState, action) {
     switch (action.type) {
         case SET_SEARCH_VALUE: {
-            // only allow spaces and numbers for search on 'annonsenummer'
-            const isNumbersOnly = action.value.match(/^[ 0-9]+$/) !== null;
-            const suggestions = [];
-            if (action.value.length > 0) {
-                suggestions.push({
-                    label: `Søk på "${action.value}" i annonseoverskrift`,
-                    value: Fields.TITLE,
-                });
-                suggestions.push({
-                    label: `Søk på "${action.value}" i arbeidsgiver`,
-                    value: Fields.EMPLOYER_NAME,
-                });
-                if (isNumbersOnly) {
-                    suggestions.push({
-                        label: `Søk på "${action.value}" i annonsenummer`,
-                        value: Fields.ID,
-                    });
-                }
-            }
             return {
                 ...state,
                 value: action.value,
-                suggestions,
             };
         }
         case RESET_SEARCH:
