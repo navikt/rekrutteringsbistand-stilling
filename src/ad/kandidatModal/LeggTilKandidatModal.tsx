@@ -39,7 +39,7 @@ type Props = {
     setNotat: (notat: string) => void;
 };
 
-type Kandidat = {
+export type Kandidat = {
     arenaKandidatnr: string;
     fornavn: string;
     etternavn: string;
