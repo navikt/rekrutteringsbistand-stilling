@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import AlertStripe from 'nav-frontend-alertstriper';
 import { Container } from 'nav-frontend-grid';
-import { Flatknapp } from 'nav-frontend-knapper';
-import SearchBox from './searchBox/SearchBox';
 import SearchResultHeaders from './searchResult/SearchResultHeaders';
 import SearchResultItem from './searchResult/SearchResultItem';
 import SearchResultCount from './searchResult/SearchResultCount';
@@ -14,8 +12,6 @@ import Filter from './filter/Filter';
 import Pagination from './pagination/Pagination';
 import { FETCH_ADS, RESET_SEARCH, RESTORE_SEARCH } from './searchReducer';
 import './SearchPage.less';
-import { Radio, RadioGruppe, RadioPanelGruppe } from 'nav-frontend-skjema';
-import { KanInkludere } from '../ad/edit/registrer-inkluderingsmuligheter/DirektemeldtStilling';
 import StillingSøkeboks from './stillingsøk/StillingSøkeboks';
 
 class SearchPage extends React.Component {
