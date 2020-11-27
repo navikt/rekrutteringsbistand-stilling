@@ -16,6 +16,10 @@ const StillingSøkeboks: FunctionComponent = () => {
 
     const onRadioButtonChanged = (e: ChangeEvent<HTMLInputElement>) => {
         dispatch({ type: SET_SEARCH_FIELD, field: e.target.value });
+
+        if (søkestring.length > 0) {
+            onSøk();
+        }
     };
 
     const onSøk = () => {
