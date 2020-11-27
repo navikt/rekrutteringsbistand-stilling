@@ -18,15 +18,15 @@ const StillingSøkeboks: FunctionComponent = () => {
         dispatch({ type: SET_SEARCH_FIELD, field: e.target.value });
 
         if (søkestring.length > 0) {
-            onSøk();
+            søk();
         }
     };
 
-    const onSøk = () => {
+    const søk = () => {
         dispatch({ type: SEARCH });
     };
 
-    const onNullstillSøk = () => {
+    const nullstillSøk = () => {
         dispatch({ type: RESET_SEARCH });
     };
 
@@ -77,7 +77,7 @@ const StillingSøkeboks: FunctionComponent = () => {
                         className="Søkeboks__input"
                         onChange={onSøkestringChanged}
                         onKeyPress={(event) => {
-                            if (event.key === 'Enter') onSøk();
+                            if (event.key === 'Enter') søk();
                         }}
                         value={søkestring}
                         label={
@@ -86,12 +86,12 @@ const StillingSøkeboks: FunctionComponent = () => {
                             </Label>
                         }
                     />
-                    <Søkeknapp type="flat" className="Søkeboks__søkeknapp" onClick={onSøk}>
+                    <Søkeknapp type="flat" className="Søkeboks__søkeknapp" onClick={søk}>
                         Søk
                     </Søkeknapp>
                 </div>
             </div>
-            <Flatknapp mini onClick={onNullstillSøk} className="nullstill-knapp">
+            <Flatknapp mini onClick={nullstillSøk} className="nullstill-knapp">
                 Nullstill søk
             </Flatknapp>
         </>
