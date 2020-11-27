@@ -66,26 +66,25 @@ const StillingSøkeboks: FunctionComponent = () => {
                         checked={valgtKategori === Fields.ID}
                     />
                 </RadioGruppe>
-                <div className="Søkeboks__input">
-                    <div className="Søkeboks__input-wrapper">
-                        <Input
-                            name="søkeboks-stilling"
-                            id="søkeboks-stilling"
-                            onChange={onSøkestringChanged}
-                            onKeyPress={(event) => {
-                                if (event.key === 'Enter') onSøk();
-                            }}
-                            value={søkestring}
-                            label={
-                                <Label htmlFor={'søkeboks-stilling'} hidden>
-                                    Søk på {hentPresenterbarSøkekategori()}
-                                </Label>
-                            }
-                        />
-                        <Søkeknapp type="flat" className="Søkeboks__søkeknapp" onClick={onSøk}>
-                            Søk
-                        </Søkeknapp>
-                    </div>
+                <div className="Søkeboks__input-wrapper">
+                    <Input
+                        name="søkeboks-stilling"
+                        id="søkeboks-stilling"
+                        className="Søkeboks__input"
+                        onChange={onSøkestringChanged}
+                        onKeyPress={(event) => {
+                            if (event.key === 'Enter') onSøk();
+                        }}
+                        value={søkestring}
+                        label={
+                            <Label htmlFor={'søkeboks-stilling'} hidden>
+                                Søk på {hentPresenterbarSøkekategori()}
+                            </Label>
+                        }
+                    />
+                    <Søkeknapp type="flat" className="Søkeboks__søkeknapp" onClick={onSøk}>
+                        Søk
+                    </Søkeknapp>
                 </div>
             </div>
             <Flatknapp mini onClick={onNullstillSøk} className="nullstill-knapp">

@@ -3,19 +3,21 @@
 .Søkeboks {
     display: flex;
     flex-direction: column;
-    width: 50rem;
+    width: 40rem;
 
     &__input-wrapper {
         position: relative;
     }
 
-    &__input {
+    &__input input {
         flex: auto;
         width: 100%;
+        padding: 1rem;
     }
 
     &__søkeknapp {
         position: absolute;
+        top: 0.5rem;
         right: 0;
         bottom: 0;
 
@@ -35,6 +37,6 @@
 
 .nullstill-knapp {
     margin-left: 0.5rem;
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.75rem;
     align-self: flex-end;
 }
