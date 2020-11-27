@@ -209,7 +209,6 @@ function* getAds() {
 
         const state = yield select();
         const query = toQuery(state.search);
-
         const response = yield fetchAds(query);
 
         yield put({ type: FETCH_ADS_SUCCESS, response });
