@@ -1,10 +1,10 @@
-import React, { ChangeEvent, FunctionComponent, useState } from 'react';
+import React, { ChangeEvent, FunctionComponent } from 'react';
 import { Input, Label, Radio, RadioGruppe } from 'nav-frontend-skjema';
 import { Flatknapp } from 'nav-frontend-knapper';
 import { Søkeknapp } from 'nav-frontend-ikonknapper';
-import './StillingSøkeboks.less';
 import { Fields, RESET_SEARCH, SEARCH, SET_SEARCH_FIELD, SET_SEARCH_VALUE } from '../searchReducer';
 import { useDispatch, useSelector } from 'react-redux';
+import './StillingSøkeboks.less';
 
 const StillingSøkeboks: FunctionComponent = () => {
     const dispatch = useDispatch();

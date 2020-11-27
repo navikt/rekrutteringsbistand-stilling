@@ -3,7 +3,6 @@ import { fjernTagFraFilteret, leggTilTagIFilteret } from '../ad/tags/utils';
 import { ApiError, fetchAds } from '../api/api';
 import AdminStatusEnum from '../common/enums/AdminStatusEnum';
 import PrivacyStatusEnum from '../common/enums/PrivacyStatusEnum';
-import { stringify } from 'ts-jest/dist/utils/json';
 
 export const FETCH_ADS = 'FETCH_ADS';
 export const FETCH_ADS_BEGIN = 'FETCH_ADS_BEGIN';
