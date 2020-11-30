@@ -134,7 +134,7 @@ const StillingSøkeboks: FunctionComponent = () => {
                     </SkjemaGruppe>
                 </div>
             </div>
-            <Flatknapp mini onClick={nullstillSøk} className="nullstill-knapp">
+            <Flatknapp mini onClick={nullstillSøk} className="søkeboks__nullstill-knapp">
                 Nullstill søk
             </Flatknapp>
         </>
