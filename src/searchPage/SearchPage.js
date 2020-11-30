@@ -16,12 +16,9 @@ import StillingSøkeboks from './stillingsøk/StillingSøkeboks';
 
 class SearchPage extends React.Component {
     componentDidMount() {
-        const { getAds, restoreSearch, location } = this.props;
-
-        if (!(location.state && location.state.searchFromStartPage)) {
-            restoreSearch();
-            getAds();
-        }
+        const { getAds, restoreSearch } = this.props;
+        restoreSearch();
+        getAds();
     }
 
     render() {
