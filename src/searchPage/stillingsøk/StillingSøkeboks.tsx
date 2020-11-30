@@ -66,7 +66,7 @@ const StillingSøkeboks: FunctionComponent = () => {
     return (
         <>
             <div className="Søkeboks">
-                <RadioGruppe className="Søkeboks__radio-gruppe" aria-controls="SearchPageSearchBox">
+                <RadioGruppe className="Søkeboks__radio-gruppe" aria-controls="søkeboks-stilling">
                     <Radio
                         className="Søkeboks__radio-knapp"
                         label="Søk på annonsetittel"
