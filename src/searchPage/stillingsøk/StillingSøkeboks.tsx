@@ -115,7 +115,7 @@ const StillingSøkeboks: FunctionComponent = () => {
                             )}
                             value={søkestring}
                             label={
-                                <Label htmlFor={'søkeboks-stilling'} hidden>
+                                <Label htmlFor="søkeboks-stilling" hidden>
                                     Søk på {hentPresenterbarSøkekategori(valgtKategori)}
                                 </Label>
                             }
