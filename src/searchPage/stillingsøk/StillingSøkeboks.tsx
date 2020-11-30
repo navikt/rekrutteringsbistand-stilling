@@ -72,10 +72,10 @@ const StillingSøkeboks: FunctionComponent = () => {
 
     return (
         <>
-            <div className="Søkeboks">
-                <RadioGruppe className="Søkeboks__radio-gruppe" aria-controls="søkeboks-stilling">
+            <div className="søkeboks">
+                <RadioGruppe className="søkeboks__radio-gruppe" aria-controls="søkeboks-stilling">
                     <Radio
-                        className="Søkeboks__radio-knapp"
+                        className="søkeboks__radio-knapp"
                         label="Søk på annonsetittel"
                         name="søkekategori"
                         value={Fields.TITLE}
@@ -83,7 +83,7 @@ const StillingSøkeboks: FunctionComponent = () => {
                         checked={valgtKategori === Fields.TITLE}
                     />
                     <Radio
-                        className="Søkeboks__radio-knapp"
+                        className="søkeboks__radio-knapp"
                         label="Søk på arbeidsgiver"
                         name="søkekategori"
                         value={Fields.EMPLOYER_NAME}
@@ -91,7 +91,7 @@ const StillingSøkeboks: FunctionComponent = () => {
                         checked={valgtKategori === Fields.EMPLOYER_NAME}
                     />
                     <Radio
-                        className="Søkeboks__radio-knapp"
+                        className="søkeboks__radio-knapp"
                         label="Søk på annonsenummer"
                         name="søkekategori"
                         value={Fields.ID}
@@ -99,12 +99,12 @@ const StillingSøkeboks: FunctionComponent = () => {
                         checked={valgtKategori === Fields.ID}
                     />
                 </RadioGruppe>
-                <div className="Søkeboks__input-wrapper">
+                <div className="søkeboks__input-wrapper">
                     <SkjemaGruppe>
                         <Input
                             name="søkeboks-stilling"
                             id="søkeboks-stilling"
-                            className="Søkeboks__input"
+                            className="søkeboks__input"
                             onChange={onSøkestringChanged}
                             onKeyPress={(event) => {
                                 if (event.key === 'Enter') søk();
@@ -124,11 +124,11 @@ const StillingSøkeboks: FunctionComponent = () => {
                             valgtKategori,
                             søkestring
                         ) && (
-                            <Feilmelding className="Søkeboks__feilmelding">
+                            <Feilmelding className="søkeboks__feilmelding">
                                 Skriv inn tall for å søke på annonsenummer
                             </Feilmelding>
                         )}
-                        <Søkeknapp type="flat" className="Søkeboks__søkeknapp" onClick={søk}>
+                        <Søkeknapp type="flat" className="søkeboks__søkeknapp" onClick={søk}>
                             Søk
                         </Søkeknapp>
                     </SkjemaGruppe>
