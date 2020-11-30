@@ -20,8 +20,15 @@ const erAnnonsenummerSøkOgInputInneholderAnnetEnnTall = (
     return harValgtSøkPåAnnonsenummer && !inputInneholderKunTall;
 };
 
-const søkeinputErGyldig = (søkekategori: string, søkestring: string) => {
+const søkeinputErGyldigForSøkTriggetAvRadioButtonsEndring = (
+    søkekategori: string,
+    søkestring: string
+) => {
     if (søkestring.length === 0) return false;
+    return !erAnnonsenummerSøkOgInputInneholderAnnetEnnTall(søkekategori, søkestring);
+};
+
+const søkeinputErGyldigForSøkTriggetAvSøkeknapp = (søkekategori: string, søkestring: string) => {
     return !erAnnonsenummerSøkOgInputInneholderAnnetEnnTall(søkekategori, søkestring);
 };
 
@@ -48,13 +55,13 @@ const StillingSøkeboks: FunctionComponent = () => {
         let nyValgtKategori = e.target.value;
         dispatch({ type: SET_SEARCH_FIELD, field: nyValgtKategori });
 
-        if (søkeinputErGyldig(nyValgtKategori, søkestring)) {
+        if (søkeinputErGyldigForSøkTriggetAvRadioButtonsEndring(nyValgtKategori, søkestring)) {
             søk();
         }
     };
 
     const søk = () => {
-        if (søkeinputErGyldig(valgtKategori, søkestring)) {
+        if (søkeinputErGyldigForSøkTriggetAvSøkeknapp(valgtKategori, søkestring)) {
             dispatch({ type: SEARCH });
         }
     };
