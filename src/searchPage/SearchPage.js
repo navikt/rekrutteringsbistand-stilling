@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import AlertStripe from 'nav-frontend-alertstriper';
 import { Container } from 'nav-frontend-grid';
-import { Flatknapp } from 'nav-frontend-knapper';
-import SearchBox from './searchBox/SearchBox';
 import SearchResultHeaders from './searchResult/SearchResultHeaders';
 import SearchResultItem from './searchResult/SearchResultItem';
 import SearchResultCount from './searchResult/SearchResultCount';
@@ -12,8 +10,9 @@ import NoResults from './noResults/NoResults';
 import Loading from '../common/loading/Loading';
 import Filter from './filter/Filter';
 import Pagination from './pagination/Pagination';
-import { FETCH_ADS, RESET_SEARCH, RESTORE_SEARCH } from './searchReducer';
+import { FETCH_ADS, RESTORE_SEARCH } from './searchReducer';
 import './SearchPage.less';
+import StillingSøkeboks from './stillingsøk/StillingSøkeboks';
 
 class SearchPage extends React.Component {
     componentDidMount() {
@@ -26,20 +25,13 @@ class SearchPage extends React.Component {
     }
 
     render() {
-        const { ads, isSearching, error, resetSearch } = this.props;
+        const { ads, isSearching, error } = this.props;
         const adsFound = !isSearching && ads && ads.length > 0;
         return (
             <div className="SearchPage">
                 <h1 className="visually-hidden">Søk etter stilling</h1>
-                <div className="SearchPage__SearchBox__wrapper">
-                    <div className="SearchPage__SearchBox">
-                        <SearchBox />
-                    </div>
-                    <div className="SearchPage__SearchBox__resetButton">
-                        <Flatknapp mini onClick={resetSearch}>
-                            Nullstill søk
-                        </Flatknapp>
-                    </div>
+                <div className="SearchPage__søkeboks-wrapper">
+                    <StillingSøkeboks />
                 </div>
                 <Container className="SearchPage__container">
                     {error && error.statusCode === 412 && (
@@ -93,7 +85,6 @@ SearchPage.propTypes = {
     ads: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
     isSearching: PropTypes.bool.isRequired,
     getAds: PropTypes.func.isRequired,
-    resetSearch: PropTypes.func.isRequired,
     restoreSearch: PropTypes.func.isRequired,
     error: PropTypes.shape({
         statusCode: PropTypes.number,
@@ -113,7 +104,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     getAds: () => dispatch({ type: FETCH_ADS }),
-    resetSearch: () => dispatch({ type: RESET_SEARCH }),
     restoreSearch: () => dispatch({ type: RESTORE_SEARCH }),
 });
 
