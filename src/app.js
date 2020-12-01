@@ -83,7 +83,9 @@ sagaMiddleware.run(kandidatSaga);
 sagaMiddleware.run(stillingsinfoSaga);
 sagaMiddleware.run(featureTogglesSaga);
 
-const appElement = document.getElementById('rekrutteringsbistand-container');
+const appElement =
+    document.getElementById('rekrutteringsbistand-container') ||
+    document.getElementById('utviklingsapp');
 Modal.setAppElement(appElement);
 
 const App = () => {

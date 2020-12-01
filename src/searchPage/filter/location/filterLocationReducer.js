@@ -1,6 +1,5 @@
 import { put, takeLatest } from 'redux-saga/effects';
-import { fetchGet } from '../../../api/api';
-import { AD_API } from '../../../fasitProperties';
+import { stillingApi, fetchGet } from '../../../api/api';
 import { RESET_SEARCH } from '../../searchReducer';
 
 /** *********************************************************
@@ -73,8 +72,12 @@ export default function filterLocationReducer(state = initialState, action) {
  ********************************************************* */
 function* fetchFilterLocations() {
     try {
-        const municipals = yield fetchGet(`${AD_API}/geography/municipals`);
-        const counties = yield fetchGet(`${AD_API}/geography/counties`);
+        const municipals = yield fetchGet(
+            `${stillingApi}/rekrutteringsbistand/api/v1/geography/municipals`
+        );
+        const counties = yield fetchGet(
+            `${stillingApi}/rekrutteringsbistand/api/v1/geography/counties`
+        );
         yield put({ type: FETCH_FILTER_LOCATIONS, response: { municipals, counties } });
     } catch (e) {
         yield put({ type: FETCH_FILTER_LOCATIONS_FAILURE });

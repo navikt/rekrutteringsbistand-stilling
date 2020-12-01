@@ -1,10 +1,8 @@
 import fetchMock from 'fetch-mock';
-import { REKRUTTERINGSBISTAND_BASE_URL } from '../fasitProperties';
+import { stillingApi } from '../api/api';
+import { kandidatApi } from '../ad/kandidatModal/kandidatApi';
 import fnrsok from './data/fnrsok';
 import kandidatliste from './data/kandidatliste';
-
-const baseUrl = REKRUTTERINGSBISTAND_BASE_URL;
-const apiUrl = `${baseUrl}/rekrutteringsbistand/api/v1`;
 
 const ads = require('./data/ads.json');
 const adsReversed = require('./data/ads-reversed.json');
@@ -25,25 +23,24 @@ const aktivEnhet = require('./data/dekoratør/aktivenhet.json');
 const aktivBruker = require('./data/dekoratør/aktivbruker.json');
 const decorator = require('./data/dekoratør/decorator.json');
 
-const adsUrl = `${apiUrl}/ads`;
-const reporteeUrl = `${apiUrl}/reportee/`;
-const mineStillingerUrl = `${apiUrl}/ads/rekrutteringsbistand/minestillinger`;
-const stillingUrl = `${apiUrl}/stilling/`;
-const rekrutteringsbistandstillingUrl = `express:/rekrutteringsbistand-api/rekrutteringsbistandstilling/:stillingsId`;
-const putRekrutteringsbistandstillingUrl = `express:/rekrutteringsbistand-api/rekrutteringsbistandstilling`;
-const countiesUrl = `${apiUrl}/geography/counties`;
-const countriesUrl = `${apiUrl}/geography/countries`;
-const municipalsUrl = `${apiUrl}/geography/municipals`;
-const categoriesWithAltnamesUrl = `${apiUrl}/categories-with-altnames/`;
-const postdataUrl = `${apiUrl}/postdata/`;
-const fnrsokUrl = 'express:/kandidater/rest/veileder/kandidatsok/fnrsok';
-const kandidatlisteUrl = 'express:/kandidater/rest/veileder/stilling/:stillingsId/kandidatliste';
-const leggKandidatIKandidatlisteUrl =
-    'express:/kandidater/rest/veileder/kandidatlister/:kandidatlisteId/kandidater';
+const adsUrl = `${stillingApi}/rekrutteringsbistand/api/v1/ads`;
+const reporteeUrl = `${stillingApi}/rekrutteringsbistand/api/v1/reportee/`;
+const mineStillingerUrl = `${stillingApi}/rekrutteringsbistand/api/v1/ads/rekrutteringsbistand/minestillinger`;
+const stillingUrl = `${stillingApi}/rekrutteringsbistand/api/v1/stilling/`;
+const rekrutteringsbistandstillingUrl = `express:${stillingApi}/rekrutteringsbistandstilling/:stillingsId`;
+const putRekrutteringsbistandstillingUrl = `express:${stillingApi}/rekrutteringsbistandstilling`;
+const countiesUrl = `${stillingApi}/rekrutteringsbistand/api/v1/geography/counties`;
+const countriesUrl = `${stillingApi}/rekrutteringsbistand/api/v1/geography/countries`;
+const municipalsUrl = `${stillingApi}/rekrutteringsbistand/api/v1/geography/municipals`;
+const categoriesWithAltnamesUrl = `${stillingApi}/rekrutteringsbistand/api/v1/categories-with-altnames/`;
+const postdataUrl = `${stillingApi}/rekrutteringsbistand/api/v1/postdata/`;
+const fnrsokUrl = `express:${kandidatApi}/kandidater/rest/veileder/kandidatsok/fnrsok`;
+const kandidatlisteUrl = `express:${kandidatApi}/kandidater/rest/veileder/stilling/:stillingsId/kandidatliste`;
+const leggKandidatIKandidatlisteUrl = `express:${kandidatApi}/kandidater/rest/veileder/kandidatlister/:kandidatlisteId/kandidater`;
 
-const identUrl = `${baseUrl}/rekruttering/ident/`;
-const featuresUrl = `${baseUrl}/features/`;
-const searchApiUrl = `${baseUrl}/search-api/`;
+const identUrl = `${stillingApi}/rekruttering/ident/`;
+const featuresUrl = `${stillingApi}/features/`;
+const searchApiUrl = `${stillingApi}/search-api/`;
 
 const modiacontextholderApiUrl = '/modiacontextholder/api';
 const modiacontextholderAktivEnhetUrl = `${modiacontextholderApiUrl}/context/aktivenhet`;
