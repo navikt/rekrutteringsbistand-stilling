@@ -12,7 +12,7 @@ export const CHANGE_SORTING = 'CHANGE_SORTING';
 export const CHANGE_PAGE = 'CHANGE_PAGE';
 export const RESET_PAGE = 'RESET_PAGE';
 export const SET_SEARCH_VALUE = 'SET_SEARCH_VALUE';
-export const SET_SEARCH_FIELD = 'SET_SEARCH_FIELD';
+export const SET_SØKEKATEGORI = 'SET_SØKEKATEGORI';
 export const SEARCH = 'SEARCH';
 export const CHANGE_PRIVACY_FILTER = 'CHANGE_PRIVACY_FILTER';
 export const CHANGE_STATUS_FILTER = 'CHANGE_STATUS_FILTER';
@@ -24,10 +24,10 @@ export const SET_SEARCH = 'SET_SEARCH';
 export const CHECK_TAG_SOK = 'CHECK_TAG_SOK';
 export const UNCHECK_TAG_SOK = 'UNCHECK_TAG_SOK';
 
-export const Fields = {
-    EMPLOYER_NAME: 'employerName',
-    TITLE: 'title',
-    ID: 'id',
+export const Søkekategori = {
+    arbeidsgiversNavn: 'employerName',
+    annonsetittel: 'title',
+    annonsenummer: 'id',
 };
 
 const ACTIVE = 'ACTIVE';
@@ -45,7 +45,7 @@ const initialState = {
     page: 0,
     value: '',
     administrationStatus: AdminStatusEnum.DONE,
-    field: Fields.TITLE,
+    søkekategori: Søkekategori.annonsetittel,
     privacy: undefined,
     status: ACTIVE,
     deactivatedByExpiry: undefined,
@@ -64,11 +64,11 @@ export default function searchReducer(state = initialState, action) {
         }
         case RESET_SEARCH:
             return initialState;
-        case SET_SEARCH_FIELD:
+        case SET_SØKEKATEGORI:
             return {
                 ...state,
                 page: 0,
-                field: action.field,
+                søkekategori: action.søkekategori,
             };
         case CHANGE_PRIVACY_FILTER:
             return {
@@ -189,7 +189,7 @@ export function toQuery(search) {
         ...combineStatusQuery(status),
     };
 
-    query[search.field] = search.value;
+    query[search.søkekategori] = search.value;
     return query;
 }
 

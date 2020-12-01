@@ -2,7 +2,13 @@ import React, { ChangeEvent, FunctionComponent } from 'react';
 import { Input, Label, Radio, RadioGruppe, SkjemaGruppe } from 'nav-frontend-skjema';
 import { Flatknapp } from 'nav-frontend-knapper';
 import { Søkeknapp } from 'nav-frontend-ikonknapper';
-import { Fields, RESET_SEARCH, SEARCH, SET_SEARCH_FIELD, SET_SEARCH_VALUE } from '../searchReducer';
+import {
+    Søkekategori,
+    RESET_SEARCH,
+    SEARCH,
+    SET_SØKEKATEGORI,
+    SET_SEARCH_VALUE,
+} from '../searchReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { Feilmelding } from 'nav-frontend-typografi';
 import './StillingSøkeboks.less';
@@ -16,7 +22,7 @@ const erAnnonsenummerSøkOgInputInneholderAnnetEnnTall = (
     }
 
     let inputInneholderKunTall = søkestring.match(/^[ 0-9]+$/) !== null;
-    let harValgtSøkPåAnnonsenummer = søkekategori === Fields.ID;
+    let harValgtSøkPåAnnonsenummer = søkekategori === Søkekategori.annonsenummer;
     return harValgtSøkPåAnnonsenummer && !inputInneholderKunTall;
 };
 
@@ -34,11 +40,11 @@ const søkeinputErGyldigForSøkTriggetAvSøkeknapp = (søkekategori: string, sø
 
 const hentPresenterbarSøkekategori = (kategori: string) => {
     switch (kategori) {
-        case Fields.ID:
+        case Søkekategori.annonsenummer:
             return 'annonsenummer';
-        case Fields.EMPLOYER_NAME:
+        case Søkekategori.arbeidsgiversNavn:
             return 'arbeidsgiver';
-        case Fields.TITLE:
+        case Søkekategori.annonsetittel:
             return 'annonsetittel';
     }
 };
@@ -46,14 +52,14 @@ const hentPresenterbarSøkekategori = (kategori: string) => {
 const StillingSøkeboks: FunctionComponent = () => {
     const dispatch = useDispatch();
     const søkestring = useSelector((state: any) => state.search.value);
-    const valgtKategori = useSelector((state: any) => state.search.field);
+    const valgtKategori = useSelector((state: any) => state.search.søkekategori);
 
     const onSøkestringChanged = (e: ChangeEvent<HTMLInputElement>) =>
         dispatch({ type: SET_SEARCH_VALUE, value: e.target.value });
 
     const onRadioButtonChanged = (e: ChangeEvent<HTMLInputElement>) => {
         let nyValgtKategori = e.target.value;
-        dispatch({ type: SET_SEARCH_FIELD, field: nyValgtKategori });
+        dispatch({ type: SET_SØKEKATEGORI, søkekategori: nyValgtKategori });
 
         if (søkeinputErGyldigForSøkTriggetAvRadioButtonsEndring(nyValgtKategori, søkestring)) {
             søk();
@@ -78,25 +84,25 @@ const StillingSøkeboks: FunctionComponent = () => {
                         className="søkeboks__radio-knapp"
                         label="Søk på annonsetittel"
                         name="søkekategori"
-                        value={Fields.TITLE}
+                        value={Søkekategori.annonsetittel}
                         onChange={onRadioButtonChanged}
-                        checked={valgtKategori === Fields.TITLE}
+                        checked={valgtKategori === Søkekategori.annonsetittel}
                     />
                     <Radio
                         className="søkeboks__radio-knapp"
                         label="Søk på arbeidsgiver"
                         name="søkekategori"
-                        value={Fields.EMPLOYER_NAME}
+                        value={Søkekategori.arbeidsgiversNavn}
                         onChange={onRadioButtonChanged}
-                        checked={valgtKategori === Fields.EMPLOYER_NAME}
+                        checked={valgtKategori === Søkekategori.arbeidsgiversNavn}
                     />
                     <Radio
                         className="søkeboks__radio-knapp"
                         label="Søk på annonsenummer"
                         name="søkekategori"
-                        value={Fields.ID}
+                        value={Søkekategori.annonsenummer}
                         onChange={onRadioButtonChanged}
-                        checked={valgtKategori === Fields.ID}
+                        checked={valgtKategori === Søkekategori.annonsenummer}
                     />
                 </RadioGruppe>
                 <div className="søkeboks__input-wrapper">
