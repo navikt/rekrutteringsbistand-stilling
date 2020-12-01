@@ -1,6 +1,5 @@
 import { put, select, takeLatest } from 'redux-saga/effects';
-import { ApiError, fetchPost, fetchPut } from '../api/api';
-import { REKRUTTERING_API } from '../fasitProperties';
+import { ApiError, stillingApi, fetchPost, fetchPut } from '../api/api';
 
 import { SET_STILLINGSINFO_DATA } from './stillingsinfoDataReducer';
 export const FETCH_STILLINGSINFO = 'FETCH_STILLINGSINFO';
@@ -121,9 +120,9 @@ function* saveStillingsinfo() {
 
         let response;
         if (state.stillingsinfoData.stillingsinfoid) {
-            response = yield fetchPut(REKRUTTERING_API, state.stillingsinfoData);
+            response = yield fetchPut(`${stillingApi}/rekruttering`, state.stillingsinfoData);
         } else {
-            response = yield fetchPost(REKRUTTERING_API, state.stillingsinfoData);
+            response = yield fetchPost(`${stillingApi}/rekruttering`, state.stillingsinfoData);
         }
 
         yield put({ type: SAVE_STILLINGSINFO_SUCCESS, response });
@@ -145,7 +144,7 @@ function* updateStillingsinfo() {
         if (!state.stillingsinfoData.stillingsinfoid) {
             throw new Error('oppdaterer uten å ha id');
         }
-        const response = yield fetchPut(REKRUTTERING_API, state.stillingsinfoData);
+        const response = yield fetchPut(`${stillingApi}/rekruttering`, state.stillingsinfoData);
         yield put({ type: UPDATE_STILLINGSINFO_SUCCESS, response });
     } catch (e) {
         if (e instanceof ApiError) {

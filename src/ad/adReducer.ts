@@ -9,7 +9,7 @@ import {
     fetchPost,
     fetchPut,
 } from '../api/api';
-import { AD_API, REKRUTTERINGSBISTAND_BASE_URL } from '../fasitProperties';
+import { stillingApi } from '../api/api';
 import { getReportee } from '../reportee/reporteeReducer';
 import {
     SET_AD_DATA,
@@ -389,7 +389,7 @@ function* createAd() {
     try {
         const reportee = yield getReportee();
 
-        const postUrl = `${AD_API}/ads?classify=true`;
+        const postUrl = `${stillingApi}/rekrutteringsbistand/api/v1/ads?classify=true`;
 
         const response = yield fetchPost(postUrl, {
             title: DEFAULT_TITLE_NEW_AD,
@@ -425,7 +425,7 @@ function* saveRekrutteringsbistandStilling(loggPublisering?: boolean) {
         state = yield select();
 
         // Modified category list requires store/PUT with (re)classification
-        let putUrl = `${REKRUTTERINGSBISTAND_BASE_URL}/rekrutteringsbistandstilling`;
+        let putUrl = `${stillingApi}/rekrutteringsbistandstilling`;
         if (
             typeof state.ad.originalData === 'undefined' ||
             needClassify(state.ad.originalData, state.adData)
@@ -528,7 +528,7 @@ function* deleteAd() {
         yield put({ type: SET_UPDATED_BY });
 
         const state = yield select();
-        const deleteUrl = `${AD_API}/ads/${state.adData.uuid}`;
+        const deleteUrl = `${stillingApi}/rekrutteringsbistand/api/v1/ads/${state.adData.uuid}`;
 
         const response = yield fetchDelete(deleteUrl);
         yield put({ type: DELETE_AD_SUCCESS, response });
@@ -561,7 +561,7 @@ function* copyAdFromMyAds(action) {
         const adToCopy = yield fetchAd(action.uuid);
         const reportee = yield getReportee();
 
-        const postUrl = `${AD_API}/ads?classify=true`;
+        const postUrl = `${stillingApi}/rekrutteringsbistand/api/v1/ads?classify=true`;
 
         const response = yield fetchPost(postUrl, {
             ...adToCopy,

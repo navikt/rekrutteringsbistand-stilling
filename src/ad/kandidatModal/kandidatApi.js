@@ -1,4 +1,4 @@
-import { KANDIDATLISTE_API, KANDIDATSOK_API } from '../../fasitProperties';
+export const kandidatApi = '/rekrutteringsbistand-stilling/kandidat-api';
 
 export class KandidatSokError {
     constructor(error) {
@@ -12,18 +12,18 @@ export const postKandidatTilKandidatliste = (kandidatlisteId, kandidat) =>
 
 export const postKandidaterTilKandidatliste = (kandidatlisteId, kandidater) =>
     postJson(
-        `${KANDIDATLISTE_API}/kandidatlister/${kandidatlisteId}/kandidater`,
+        `${kandidatApi}/veileder/kandidatlister/${kandidatlisteId}/kandidater`,
         JSON.stringify(kandidater)
     );
 
 export const fetchKandidatMedFnr = (fnr) =>
-    postJson(`${KANDIDATSOK_API}/fnrsok`, JSON.stringify({ fnr }));
+    postJson(`${kandidatApi}/veileder/kandidatsok/fnrsok`, JSON.stringify({ fnr }));
 
 export const putKandidatliste = (stillingsId) =>
-    putRequest(`${KANDIDATLISTE_API}/stilling/${stillingsId}/kandidatliste/`);
+    putRequest(`${kandidatApi}/veileder/stilling/${stillingsId}/kandidatliste/`);
 
 export const fetchKandidatliste = (stillingsId) =>
-    fetchJson(`${KANDIDATLISTE_API}/stilling/${stillingsId}/kandidatliste`, true);
+    fetchJson(`${kandidatApi}/veileder/stilling/${stillingsId}/kandidatliste`, true);
 
 async function postJson(url, bodyString) {
     try {
