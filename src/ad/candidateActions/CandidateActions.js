@@ -82,4 +82,4 @@ const mapStateToProps = (state) => ({
     stillingsinfo: state.stillingsinfoData,
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CandidateActions);
+export default connect(mapStateToProps)(CandidateActions);
