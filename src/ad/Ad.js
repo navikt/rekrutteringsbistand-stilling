@@ -17,7 +17,6 @@ import SavedAdAlertStripe from './alertstripe/SavedAdAlertStripe';
 import PreviewHeader from './preview/header/PreviewHeader';
 import AdStatusEnum from '../common/enums/AdStatusEnum';
 import LeggTilKandidatAlertStripe from './kandidatModal/LeggTilKandidatAlertStripe';
-import HasChangesModal from './navigation/HasChangesModal.tsx';
 import './Ad.less';
 
 export const REDIGERINGSMODUS_QUERY_PARAM = 'redigeringsmodus';
@@ -66,21 +65,11 @@ class Ad extends React.Component {
     };
 
     render() {
-        const {
-            stilling,
-            isEditingAd,
-            isLoadingAd,
-            leavePageTrigger,
-            hasChangesLeaveUrl,
-        } = this.props;
+        const { stilling, isEditingAd, isLoadingAd } = this.props;
         const { isNew } = this.props.location.state || { isNew: false };
         const limitedAccess = stilling.createdBy !== 'pam-rekrutteringsbistand';
 
-        if (leavePageTrigger) {
-            window.location.pathname = hasChangesLeaveUrl;
-        }
-
-        if (leavePageTrigger || isLoadingAd || !stilling) {
+        if (isLoadingAd || !stilling) {
             return (
                 <div className="Ad Ad__spinner">
                     <DelayedSpinner />
@@ -101,7 +90,6 @@ class Ad extends React.Component {
 
         return (
             <div className="Ad">
-                <HasChangesModal />
                 <LeggTilKandidatAlertStripe />
                 <SavedAdAlertStripe />
                 <Faded>
@@ -157,8 +145,6 @@ class Ad extends React.Component {
 Ad.defaultProps = {
     stilling: undefined,
     isLoadingAd: false,
-    leavePageTrigger: false,
-    hasChangesLeaveUrl: '/stillinger/mineStillinger',
 };
 
 Ad.propTypes = {
@@ -175,16 +161,12 @@ Ad.propTypes = {
     isEditingAd: PropTypes.bool.isRequired,
     removeAdData: PropTypes.func.isRequired,
     isLoadingAd: PropTypes.bool,
-    leavePageTrigger: PropTypes.bool,
-    hasChangesLeaveUrl: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({
     stilling: state.adData,
     isEditingAd: state.ad.isEditingAd,
     isLoadingAd: state.ad.isLoadingAd,
-    leavePageTrigger: state.ad.leavePageTrigger,
-    hasChangesLeaveUrl: state.ad.hasChangesLeaveUrl,
 });
 
 const mapDispatchToProps = (dispatch) => ({

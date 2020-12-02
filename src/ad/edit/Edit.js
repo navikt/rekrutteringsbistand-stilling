@@ -36,6 +36,14 @@ const Edit = ({
     deleteAd,
     hasDeletedAd,
 }) => {
+    const [forlatSiden, setForlatSiden] = useState(undefined);
+
+    useEffect(() => {
+        if (hasDeletedAd && forlatSiden) {
+            forlatSiden();
+        }
+    }, [hasDeletedAd, forlatSiden]);
+
     useEffect(() => {
         return () => {
             resetValidation();
@@ -46,25 +54,15 @@ const Edit = ({
     const limitedAccess = ad.createdBy !== 'pam-rekrutteringsbistand';
     const stillingsLenke = hentAnnonselenke(ad.uuid);
 
-    const [forlatSiden, setForlatSiden] = useState(undefined);
-
-    const onForlatSidenClick = (onConfirm) => () => {
+    const onForlatSidenClick = (bekreftForlatSiden) => () => {
         const stillingenErTom = updated === created;
         if (stillingenErTom) {
             deleteAd();
-            setForlatSiden(onConfirm);
-            console.log('Sletter ad ...');
+            setForlatSiden(bekreftForlatSiden);
         } else {
-            onConfirm();
-            console.log('Forlater siden med en gang ...');
+            bekreftForlatSiden();
         }
     };
-
-    useEffect(() => {
-        if (hasDeletedAd && forlatSiden) {
-            forlatSiden();
-        }
-    }, [hasDeletedAd, forlatSiden]);
 
     return (
         <div className="Edit">
@@ -72,8 +70,8 @@ const Edit = ({
                 {({ isActive, onConfirm, onCancel }) => (
                     <HasChangesModal
                         vis={isActive}
-                        bliPåSiden={onCancel}
-                        forlatSiden={onForlatSidenClick(onConfirm)} // TODO: onForlatSidenClick
+                        onBliPåSidenClick={onCancel}
+                        onForlatSidenClick={onForlatSidenClick(onConfirm)}
                     />
                 )}
             </NavigationPrompt>

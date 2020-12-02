@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import AWithIcon from '../../common/aWithIcon/AWithIcon';
-import { SHOW_HAS_CHANGES_MODAL } from '../adReducer';
 import LeggTilKandidatModal from '../kandidatModal/LeggTilKandidatModal';
 import ButtonWithIcon from '../../common/buttonWithIcon/ButtonWithIcon';
 import './CandidateActions.less';
@@ -15,13 +14,6 @@ class CandidateActions extends React.Component {
             showKandidatModal: false,
         };
     }
-
-    onNavigationClick = (url) => (e) => {
-        if (this.props.hasChanges) {
-            e.preventDefault();
-            this.props.showHasChangesModal(url);
-        }
-    };
 
     toggleKandidatModal = () => {
         this.setState({
@@ -48,7 +40,6 @@ class CandidateActions extends React.Component {
                 {showCandidateLinks && (
                     <AWithIcon
                         href={`/kandidater/stilling/${uuid}`}
-                        onClick={this.onNavigationClick(`/kandidater/stilling/${uuid}`)}
                         classNameText="typo-element"
                         classNameLink="Ad__actions-link FindCandidate"
                         text="Finn kandidater"
@@ -65,9 +56,6 @@ class CandidateActions extends React.Component {
                 {showCandidateLinks && (
                     <AWithIcon
                         href={`/kandidater/lister/stilling/${uuid}/detaljer`}
-                        onClick={this.onNavigationClick(
-                            `/kandidater/lister/stilling/${uuid}/detaljer`
-                        )}
                         classNameText="typo-element"
                         classNameLink="Ad__actions-link CandidateList"
                         text="Se kandidatliste"
@@ -86,17 +74,12 @@ CandidateActions.propTypes = {
         id: PropTypes.number,
     }).isRequired,
     hasChanges: PropTypes.bool.isRequired,
-    showHasChangesModal: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
     ad: state.adData,
     hasChanges: state.ad.hasChanges,
     stillingsinfo: state.stillingsinfoData,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-    showHasChangesModal: (leaveUrl) => dispatch({ type: SHOW_HAS_CHANGES_MODAL, leaveUrl }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CandidateActions);

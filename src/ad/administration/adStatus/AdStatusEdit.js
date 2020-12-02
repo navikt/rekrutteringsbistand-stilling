@@ -8,7 +8,6 @@ import {
     SAVE_AD,
     PUBLISH_AD_CHANGES,
     SHOW_STOP_AD_MODAL,
-    SHOW_HAS_CHANGES_MODAL,
     PREVIEW_EDIT_AD,
     FETCH_AD,
 } from '../../adReducer';
@@ -221,7 +220,6 @@ AdStatusEdit.propTypes = {
     publish: PropTypes.func.isRequired,
     stop: PropTypes.func.isRequired,
     saveAd: PropTypes.func.isRequired,
-    showHasChangesModal: PropTypes.func.isRequired,
     publishAdChanges: PropTypes.func.isRequired,
     activationOnPublishingDate: PropTypes.bool.isRequired,
     deactivatedByExpiry: PropTypes.bool.isRequired,
@@ -245,7 +243,6 @@ const mapDispatchToProps = (dispatch) => ({
     publish: () => dispatch({ type: PUBLISH_AD }),
     stop: () => dispatch({ type: SHOW_STOP_AD_MODAL }),
     saveAd: () => dispatch({ type: SAVE_AD, showModal: true }),
-    showHasChangesModal: () => dispatch({ type: SHOW_HAS_CHANGES_MODAL }),
     publishAdChanges: () => dispatch({ type: PUBLISH_AD_CHANGES }),
     previewAd: () => dispatch({ type: PREVIEW_EDIT_AD }),
     reload: (uuid) => dispatch({ type: FETCH_AD, uuid, edit: false }),
