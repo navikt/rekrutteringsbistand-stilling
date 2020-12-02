@@ -60,6 +60,7 @@ export default function myAdsReducer(state = initialState, action) {
 
             return {
                 ...state,
+                page: 0,
                 filter: {
                     status: action.status,
                 },
@@ -70,6 +71,7 @@ export default function myAdsReducer(state = initialState, action) {
 
             return {
                 ...state,
+                page: 0,
                 filter: {
                     status,
                 },

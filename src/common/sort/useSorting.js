@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import './Sort.less';
+import { shallowEqual } from 'react-redux';
 
 function useSorting(initialState, changeSorting) {
     const [sort, setSort] = useState(initialState);
     const [className, setClassName] = useState('Sort__Icon-asc');
 
     useEffect(() => {
-        if (sort !== initialState) {
+        if (!shallowEqual(sort, initialState)) {
             changeSorting(sort.field, sort.dir);
         }
 
