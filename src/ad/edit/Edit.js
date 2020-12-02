@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Input } from 'nav-frontend-skjema';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
@@ -23,8 +23,19 @@ import RegistrerInkluderingsmuligheter from './registrer-inkluderingsmuligheter/
 import AlertStripe from 'nav-frontend-alertstriper';
 import NavigationPrompt from 'react-router-navigation-prompt';
 import HasChangesModal from '../navigation/HasChangesModal.tsx';
+import { DELETE_AD } from '../adReducer';
 
-const Edit = ({ ad, isNew, onPreviewAdClick, hasChanges, resetValidation }) => {
+const Edit = ({
+    ad,
+    isNew,
+    onPreviewAdClick,
+    hasChanges,
+    resetValidation,
+    updated,
+    created,
+    deleteAd,
+    hasDeletedAd,
+}) => {
     useEffect(() => {
         return () => {
             resetValidation();
@@ -35,11 +46,38 @@ const Edit = ({ ad, isNew, onPreviewAdClick, hasChanges, resetValidation }) => {
     const limitedAccess = ad.createdBy !== 'pam-rekrutteringsbistand';
     const stillingsLenke = hentAnnonselenke(ad.uuid);
 
+    const [forlatSiden, setForlatSiden] = useState(undefined);
+
+    const onForlatSidenClick = (onConfirm) => () => {
+        const stillingenErTom = updated === created;
+        if (stillingenErTom) {
+            deleteAd();
+            setForlatSiden(onConfirm);
+            console.log('Sletter ad ...');
+        } else {
+            onConfirm();
+            console.log('Forlater siden med en gang ...');
+        }
+    };
+
+    useEffect(() => {
+        if (hasDeletedAd) {
+            if (forlatSiden) {
+                forlatSiden();
+                console.log('forlat siden');
+            }
+        }
+    }, [hasDeletedAd, forlatSiden]);
+
     return (
         <div className="Edit">
             <NavigationPrompt when={hasChanges}>
                 {({ isActive, onConfirm, onCancel }) => (
-                    <HasChangesModal vis={isActive} bliPåSiden={onCancel} forlatSiden={onConfirm} />
+                    <HasChangesModal
+                        vis={isActive}
+                        bliPåSiden={onCancel}
+                        forlatSiden={onForlatSidenClick(onConfirm)} // TODO: onForlatSidenClick
+                    />
                 )}
             </NavigationPrompt>
             <div className="Edit__actions">
@@ -135,10 +173,14 @@ Edit.propTypes = {
 const mapStateToProps = (state) => ({
     ad: state.adData,
     hasChanges: state.ad.hasChanges,
+    updated: state.adData.updated,
+    created: state.adData.created,
+    hasDeletedAd: state.ad.hasDeletedAd,
 });
 
 const mapDispatchToProps = (dispatch) => ({
     resetValidation: () => dispatch({ type: RESET_VALIDATION_ERROR }),
+    deleteAd: () => dispatch({ type: DELETE_AD }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Edit);

@@ -19,24 +19,8 @@ type Props = {
 };
 const HasChangesModal: FunctionComponent<Props> = (props) => {
     console.log('ALLE RPOSP:', props);
+
     const { vis, updated, created, bliPåSiden, forlatSiden, deleteAd, hasDeletedAd } = props;
-
-    const onForlatSidenClick = () => {
-        if (updated === created) {
-            deleteAd();
-            console.log('Sletter ad ...');
-        } else {
-            if (forlatSiden) forlatSiden();
-            console.log('Forlater siden med en gang ...');
-        }
-    };
-
-    useEffect(() => {
-        if (hasDeletedAd) {
-            console.log('Skal forlate siden', forlatSiden, hasDeletedAd);
-            if (forlatSiden) forlatSiden();
-        }
-    }, [hasDeletedAd, forlatSiden]);
 
     return (
         <ModalMedStillingScope
@@ -58,7 +42,7 @@ const HasChangesModal: FunctionComponent<Props> = (props) => {
                     Hvis du navigerer bort fra denne siden uten å lagre så mister du informasjonen.
                 </Normaltekst>
                 <Hovedknapp onClick={bliPåSiden}>Bli på siden</Hovedknapp>
-                <LinkButton className="lenke" onClick={onForlatSidenClick}>
+                <LinkButton className="lenke" onClick={forlatSiden}>
                     Forlat siden
                 </LinkButton>
             </div>
