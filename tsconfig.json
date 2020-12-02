@@ -13,7 +13,7 @@
         "lib": ["es7", "dom"],
         "skipLibCheck": true,
         "esModuleInterop": true,
-        "strict": false, // TODO: Sett denne til true
+        "strict": false,
         "forceConsistentCasingInFileNames": true,
         "isolatedModules": true,
         "noEmit": true,

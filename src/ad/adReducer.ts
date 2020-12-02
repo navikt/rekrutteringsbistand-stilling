@@ -64,7 +64,6 @@ export const DELETE_AD_BEGIN = 'DELETE_AD_BEGIN';
 export const DELETE_AD_SUCCESS = 'DELETE_AD_SUCCESS';
 export const DELETE_AD_FAILURE = 'DELETE_AD_FAILURE';
 
-export const DELETE_AD_AND_REDIRECT = 'DELETE_AD_AND_REDIRECT';
 export const DELETE_AD_FROM_MY_ADS = 'DELETE_AD_FROM_MY_ADS';
 export const SHOW_DELETE_AD_MODAL = 'SHOW_DELETE_AD_MODAL';
 export const HIDE_DELETE_AD_MODAL = 'HIDE_DELETE_AD_MODAL';
@@ -83,10 +82,6 @@ export const SHOW_STOP_AD_MODAL = 'SHOW_STOP_AD_MODAL';
 export const HIDE_STOP_AD_MODAL = 'HIDE_STOP_AD_MODAL';
 
 export const COPY_AD_FROM_MY_ADS = 'COPY_AD_FROM_MY_ADS';
-
-export const SHOW_HAS_CHANGES_MODAL = 'SHOW_HAS_CHANGES_MODAL';
-export const HIDE_HAS_CHANGES_MODAL = 'HIDE_HAS_CHANGES_MODAL';
-export const LEAVE_PAGE_TRIGGER = 'LEAVE_PAGE_TRIGGER';
 
 export const SHOW_AD_PUBLISHED_MODAL = 'SHOW_AD_PUBLISHED_MODAL';
 export const HIDE_AD_PUBLISHED_MODAL = 'HIDE_AD_PUBLISHED_MODAL';
@@ -115,15 +110,13 @@ export type AdState = {
     originalData: any;
     hasSavedChanges: boolean;
     hasChanges: boolean;
+    hasDeletedAd: boolean;
     copiedAds: any[];
     showPublishErrorModal: boolean;
-    showHasChangesModal: boolean;
     showStopAdModal: boolean;
     showDeleteAdModal: boolean;
     showAdPublishedModal: boolean;
     showAdSavedErrorModal: boolean;
-    hasChangesLeaveUrl: any;
-    leavePageTrigger: boolean;
     kanInkludere: KanInkludere;
 };
 
@@ -135,15 +128,13 @@ const initialState: AdState = {
     originalData: undefined,
     hasSavedChanges: false,
     hasChanges: false,
+    hasDeletedAd: false,
     copiedAds: [],
     showPublishErrorModal: false,
-    showHasChangesModal: false,
     showStopAdModal: false,
     showDeleteAdModal: false,
     showAdPublishedModal: false,
     showAdSavedErrorModal: false,
-    hasChangesLeaveUrl: undefined,
-    leavePageTrigger: false,
     kanInkludere: KanInkludere.Ja,
 };
 
@@ -193,12 +184,14 @@ export default function adReducer(state = initialState, action) {
                 isSavingAd: true,
                 hasSavedChanges: false,
                 hasChanges: false,
+                hasDeletedAd: false,
             };
         case DELETE_AD_SUCCESS:
             return {
                 ...state,
                 isSavingAd: false,
                 isLoadingAd: false,
+                hasDeletedAd: true,
             };
         case CREATE_AD_SUCCESS:
             return {
@@ -226,7 +219,6 @@ export default function adReducer(state = initialState, action) {
                 isLoadingAd: false,
                 error: action.error,
                 showPublishErrorModal: false,
-                showHasChangesModal: false,
                 showStopAdModal: false,
                 showDeleteAdModal: false,
                 showAdPublishedModal: false,
@@ -252,17 +244,6 @@ export default function adReducer(state = initialState, action) {
             return {
                 ...state,
                 showPublishErrorModal: false,
-            };
-        case SHOW_HAS_CHANGES_MODAL:
-            return {
-                ...state,
-                showHasChangesModal: true,
-                hasChangesLeaveUrl: action.leaveUrl,
-            };
-        case HIDE_HAS_CHANGES_MODAL:
-            return {
-                ...state,
-                showHasChangesModal: false,
             };
         case SHOW_STOP_AD_MODAL:
             return {
@@ -313,11 +294,6 @@ export default function adReducer(state = initialState, action) {
             return {
                 ...state,
                 copiedAds: [],
-            };
-        case LEAVE_PAGE_TRIGGER:
-            return {
-                ...state,
-                leavePageTrigger: true,
             };
         case SET_KAN_INKLUDERE:
             return {
@@ -540,11 +516,6 @@ function* deleteAd() {
     }
 }
 
-function* deleteAdAndRedirect() {
-    yield deleteAd();
-    yield put({ type: LEAVE_PAGE_TRIGGER });
-}
-
 function* deleteAdFromMyAds() {
     yield deleteAd();
     // Update list with the new status
@@ -624,7 +595,6 @@ export const adSaga = function* saga() {
     yield takeLatest(CREATE_AD, createAd);
     yield takeLatest(PUBLISH_AD_CHANGES, publishAdChanges);
     yield takeLatest(DELETE_AD, deleteAd);
-    yield takeLatest(DELETE_AD_AND_REDIRECT, deleteAdAndRedirect);
     yield takeLatest(SHOW_STOP_MODAL_MY_ADS, showStopModalMyAds);
     yield takeLatest(SHOW_DELETE_MODAL_MY_ADS, showDeleteModalMyAds);
     yield takeLatest(STOP_AD_FROM_MY_ADS, stopAdFromMyAds);

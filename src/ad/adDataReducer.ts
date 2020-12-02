@@ -84,6 +84,8 @@ export type AdDataState = {
     employer?: any;
     contactList?: any;
     source?: string;
+    updated?: any;
+    created?: any;
 };
 
 const initialState: AdDataState = {

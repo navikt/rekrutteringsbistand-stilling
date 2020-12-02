@@ -95,6 +95,7 @@
         "react-process-string": "^1.2.0",
         "react-redux": "^7.2.1",
         "react-router-dom": "^5.2.0",
+        "react-router-navigation-prompt": "^1.8.13",
         "react-scripts": "^4.0.1",
         "redux": "^4.0.4",
         "redux-saga": "^0.16.0",

@@ -64,7 +64,7 @@ fetchMock
     .get(med(adsUrl), ads)
     .post(med(adsUrl), putPostAds)
     .put(med(adsUrl), putPostAds)
-    .delete(med(adsUrl), 204)
+    .delete(med(adsUrl), putPostAds)
     .get(reporteeUrl, reportee)
     .get(med(identUrl), ident)
     .get(med(stillingUrl), stilling)
