@@ -22,53 +22,14 @@ import { Undertittel } from 'nav-frontend-typografi';
 import RegistrerInkluderingsmuligheter from './registrer-inkluderingsmuligheter/DirektemeldtStilling';
 import AlertStripe from 'nav-frontend-alertstriper';
 import NavigationPrompt from 'react-router-navigation-prompt';
-import HasChangesModal from '../navigation/HasChangesModal';
+import HasChangesModal from '../navigation/HasChangesModal.tsx';
 
 const Edit = ({ ad, isNew, onPreviewAdClick, hasChanges, resetValidation }) => {
-    // const history = useHistory();
-
-    // useEffect(() => {
-    //     const unblock = history.block((transition) => {
-    //         console.log('Transition:', transition);
-    //         const vilDuForlateSiden = window.confirm(`Are you sure you want to go to the url?`);
-
-    //         if (vilDuForlateSiden) {
-    //             console.log('Slett stillingen hvis den er ny, så naviger bort');
-
-    //             unblock();
-    //         } else {
-    //             console.log('Bli på siden');
-    //         }
-    //     });
-    // }, [history]);
-
     useEffect(() => {
         return () => {
             resetValidation();
         };
     }, [resetValidation]);
-    /*
-    console.log('Render');
-    let unblock = history.block((transition) => {
-        // Navigation was blocked! Let's show a confirmation dialog
-        // so the user can decide if they actually want to navigate
-        // away and discard changes they've made in the current page.
-        //let url = tx.location.pathname;
-
-        console.log('Transition:', transition);
-        const svar = window.confirm(`Are you sure you want to go to the url?`);
-        console.log('Svaret er', svar);
-
-        unblock();
-
-        if (svar) {
-            // Retry the transition.
-            // transition.retry();
-            // history.push(transition.pathname);
-        } else {
-        }
-    });
-    */
 
     // Fra EditHeader
     const limitedAccess = ad.createdBy !== 'pam-rekrutteringsbistand';
@@ -78,11 +39,7 @@ const Edit = ({ ad, isNew, onPreviewAdClick, hasChanges, resetValidation }) => {
         <div className="Edit">
             <NavigationPrompt when={hasChanges}>
                 {({ isActive, onConfirm, onCancel }) => (
-                    <HasChangesModal
-                        showHasChangesModal={isActive}
-                        bliPåSiden={onCancel}
-                        forlatSiden={onConfirm}
-                    />
+                    <HasChangesModal vis={isActive} bliPåSiden={onCancel} forlatSiden={onConfirm} />
                 )}
             </NavigationPrompt>
             <div className="Edit__actions">

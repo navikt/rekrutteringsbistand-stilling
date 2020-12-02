@@ -17,7 +17,7 @@ import SavedAdAlertStripe from './alertstripe/SavedAdAlertStripe';
 import PreviewHeader from './preview/header/PreviewHeader';
 import AdStatusEnum from '../common/enums/AdStatusEnum';
 import LeggTilKandidatAlertStripe from './kandidatModal/LeggTilKandidatAlertStripe';
-import HasChangesModal from './navigation/HasChangesModal';
+import HasChangesModal from './navigation/HasChangesModal.tsx';
 import './Ad.less';
 
 export const REDIGERINGSMODUS_QUERY_PARAM = 'redigeringsmodus';

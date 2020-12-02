@@ -115,6 +115,7 @@ export type AdState = {
     originalData: any;
     hasSavedChanges: boolean;
     hasChanges: boolean;
+    hasDeletedAd: boolean;
     copiedAds: any[];
     showPublishErrorModal: boolean;
     showHasChangesModal: boolean;
@@ -135,6 +136,7 @@ const initialState: AdState = {
     originalData: undefined,
     hasSavedChanges: false,
     hasChanges: false,
+    hasDeletedAd: false,
     copiedAds: [],
     showPublishErrorModal: false,
     showHasChangesModal: false,
@@ -193,12 +195,14 @@ export default function adReducer(state = initialState, action) {
                 isSavingAd: true,
                 hasSavedChanges: false,
                 hasChanges: false,
+                hasDeletedAd: false,
             };
         case DELETE_AD_SUCCESS:
             return {
                 ...state,
                 isSavingAd: false,
                 isLoadingAd: false,
+                hasDeletedAd: true,
             };
         case CREATE_AD_SUCCESS:
             return {
