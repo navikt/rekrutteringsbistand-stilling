@@ -17,6 +17,7 @@ import './AdStatusEdit.less';
 import StopAdModal from './StopAdModal';
 import AdPublishedModal from './AdPublishedModal';
 import SaveAdErrorModal from './SaveAdErrorModal';
+import { Link } from 'react-router-dom';
 
 const ButtonEnum = {
     PUBLISH: 'PUBLISH',
@@ -63,13 +64,6 @@ class AdStatusEdit extends React.PureComponent {
         });
     };
 
-    onCancelClick = () => {
-        this.props.showHasChangesModal();
-        this.setState({
-            buttonClicked: undefined,
-        });
-    };
-
     onStopClick = () => {
         this.props.stop();
         this.setState({
@@ -91,16 +85,12 @@ class AdStatusEdit extends React.PureComponent {
             this.props.previewAd();
         }
 
-        this.setState({
-            buttonClicked: undefined,
-        });
+        this.setState({ buttonClicked: undefined });
     };
 
     OnCancelPreviewAdClick = () => {
         this.props.reload(this.props.uuid);
-        this.setState({
-            buttonClicked: undefined,
-        });
+        this.setState({ buttonClicked: undefined });
     };
 
     render() {
@@ -168,13 +158,7 @@ class AdStatusEdit extends React.PureComponent {
                         >
                             Publiser
                         </Hovedknapp>
-                        <Knapp
-                            mini
-                            className="AdStatusEdit__buttons__button"
-                            onClick={this.onCancelClick}
-                        >
-                            Avbryt
-                        </Knapp>
+                        <AvbrytKnapp />
                     </div>
                 )}
                 {buttonState === ButtonGroupEnum.PUBLISHED_BEFORE && (
@@ -187,17 +171,11 @@ class AdStatusEdit extends React.PureComponent {
                         >
                             Republiser stilling
                         </Hovedknapp>
-                        <Knapp
-                            mini
-                            className="AdStatusEdit__buttons__button"
-                            onClick={this.onCancelClick}
-                        >
-                            Avbryt
-                        </Knapp>
+                        <AvbrytKnapp />
                     </div>
                 )}
                 {buttonState === ButtonGroupEnum.IS_PUBLISHED_NOW && (
-                    <React.Fragment>
+                    <>
                         <div className="AdStatusEdit__buttons">
                             <Hovedknapp
                                 mini
@@ -217,11 +195,14 @@ class AdStatusEdit extends React.PureComponent {
                             </Knapp>
                         </div>
                         <div className="AdStatusEdit__buttons-mini AdStatusEdit__lagre-stilling">
-                            <Flatknapp mini onClick={this.onCancelClick}>
+                            <Link
+                                className="knapp knapp--flat knapp--mini AdStatusEdit__buttons__button"
+                                to="/stillinger/minestillinger"
+                            >
                                 Avbryt
-                            </Flatknapp>
+                            </Link>
                         </div>
-                    </React.Fragment>
+                    </>
                 )}
                 {canSave && (
                     <div className="AdStatusEdit__buttons-mini AdStatusEdit__lagre-stilling">
@@ -247,6 +228,7 @@ AdStatusEdit.propTypes = {
     isSavingAd: PropTypes.bool.isRequired,
     createdBy: PropTypes.string.isRequired,
     previewAd: PropTypes.func.isRequired,
+    reload: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -268,5 +250,14 @@ const mapDispatchToProps = (dispatch) => ({
     previewAd: () => dispatch({ type: PREVIEW_EDIT_AD }),
     reload: (uuid) => dispatch({ type: FETCH_AD, uuid, edit: false }),
 });
+
+const AvbrytKnapp = () => (
+    <Link
+        className="knapp knapp--mini AdStatusEdit__buttons__button"
+        to="/stillinger/minestillinger"
+    >
+        Avbryt
+    </Link>
+);
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdStatusEdit);

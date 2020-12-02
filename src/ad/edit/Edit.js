@@ -61,11 +61,8 @@ const Edit = ({
     };
 
     useEffect(() => {
-        if (hasDeletedAd) {
-            if (forlatSiden) {
-                forlatSiden();
-                console.log('forlat siden');
-            }
+        if (hasDeletedAd && forlatSiden) {
+            forlatSiden();
         }
     }, [hasDeletedAd, forlatSiden]);
 

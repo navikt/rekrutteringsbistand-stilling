@@ -544,6 +544,7 @@ function* deleteAd() {
     }
 }
 
+// TODO: Fjern
 function* deleteAdAndRedirect() {
     yield deleteAd();
     yield put({ type: LEAVE_PAGE_TRIGGER });

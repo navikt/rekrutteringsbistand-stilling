@@ -18,8 +18,6 @@ type Props = {
     created: any;
 };
 const HasChangesModal: FunctionComponent<Props> = (props) => {
-    console.log('ALLE RPOSP:', props);
-
     const { vis, updated, created, bliPåSiden, forlatSiden, deleteAd, hasDeletedAd } = props;
 
     return (
