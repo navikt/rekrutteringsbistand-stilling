@@ -195,7 +195,7 @@ class AdStatusEdit extends React.PureComponent {
                         </div>
                         <div className="AdStatusEdit__buttons-mini AdStatusEdit__lagre-stilling">
                             <Link
-                                className="knapp knapp--flat knapp--mini AdStatusEdit__buttons__button"
+                                className="knapp knapp--flat knapp--mini"
                                 to="/stillinger/minestillinger"
                             >
                                 Avbryt
