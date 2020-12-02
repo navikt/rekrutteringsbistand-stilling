@@ -22,8 +22,8 @@ import { Undertittel } from 'nav-frontend-typografi';
 import RegistrerInkluderingsmuligheter from './registrer-inkluderingsmuligheter/DirektemeldtStilling';
 import AlertStripe from 'nav-frontend-alertstriper';
 import NavigationPrompt from 'react-router-navigation-prompt';
-import HasChangesModal from '../navigation/HasChangesModal.tsx';
 import { DELETE_AD } from '../adReducer';
+import BekreftForlatSidenModal from '../bekreft-forlat-siden-modal/BekreftForlatSidenModal.tsx';
 
 const Edit = ({
     ad,
@@ -68,7 +68,7 @@ const Edit = ({
         <div className="Edit">
             <NavigationPrompt when={hasChanges}>
                 {({ isActive, onConfirm, onCancel }) => (
-                    <HasChangesModal
+                    <BekreftForlatSidenModal
                         vis={isActive}
                         onBliPåSidenClick={onCancel}
                         onForlatSidenClick={onForlatSidenClick(onConfirm)}

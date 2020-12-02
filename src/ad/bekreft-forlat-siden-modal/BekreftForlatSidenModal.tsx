@@ -5,7 +5,7 @@ import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import LinkButton from '../../common/linkbutton/LinkButton';
 import ModalMedStillingScope from '../../ModalMedStillingScope';
 import State from '../../State';
-import './HasChangesModal.less';
+import './BekreftForlatSidenModal.less';
 
 type Props = {
     vis: boolean;
@@ -14,7 +14,7 @@ type Props = {
     onBliPåSidenClick: () => void;
     onForlatSidenClick: () => void;
 };
-const HasChangesModal: FunctionComponent<Props> = (props) => {
+const BekreftForlatSidenModal: FunctionComponent<Props> = (props) => {
     const { vis, updated, created, onBliPåSidenClick, onForlatSidenClick } = props;
 
     return (
@@ -23,7 +23,7 @@ const HasChangesModal: FunctionComponent<Props> = (props) => {
             contentLabel="Fortsett"
             onRequestClose={onBliPåSidenClick}
             closeButton
-            className="HasChangesModal"
+            className="BekreftForlatSidenModal"
         >
             {updated === created ? (
                 <Undertittel className="blokk-s">
@@ -51,4 +51,4 @@ const mapStateToProps = (state: State) => ({
     created: state.adData.created,
 });
 
-export default connect(mapStateToProps)(HasChangesModal);
+export default connect(mapStateToProps)(BekreftForlatSidenModal);
