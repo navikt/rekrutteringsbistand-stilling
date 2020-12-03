@@ -48,6 +48,8 @@ const modiacontextholderAktivBrukerUrl = `${modiacontextholderApiUrl}/context/ak
 const modiacontextholderContextUrl = `${modiacontextholderApiUrl}/context`;
 const modiacontextholderDecoratorUrl = `${modiacontextholderApiUrl}/decorator`;
 
+fetchMock.config.fallbackToNetwork = true;
+
 const med = (begynnelseAvUrl) => (url) => url.startsWith(begynnelseAvUrl);
 
 const getStilling = (url) => {
