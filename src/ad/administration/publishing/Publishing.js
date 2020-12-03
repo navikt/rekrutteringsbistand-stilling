@@ -19,7 +19,6 @@ class Publishing extends React.Component {
 
     render() {
         const { published, expires } = this.props;
-        console.log('Values:', published, expires, 'Validation:', this.props.validation);
 
         return (
             <div className="Publishing">
