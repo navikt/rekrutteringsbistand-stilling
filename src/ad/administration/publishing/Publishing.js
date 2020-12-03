@@ -1,55 +1,43 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Datepicker } from 'nav-datovelger';
 import { Feilmelding, Normaltekst } from 'nav-frontend-typografi';
-import Datovelger from 'nav-datovelger/dist/datovelger/Datovelger';
-import 'nav-datovelger/dist/datovelger/styles/datovelger.css';
-import { formatISOString } from '../../../utils';
+import { fjernTidspunktFraISOString, leggTilTimerPåISOString } from '../../../utils';
 import { SET_PUBLISHED, SET_EXPIRATION_DATE } from '../../adDataReducer';
-import './Publishing.less';
 import Skjemalabel from '../../edit/skjemaetikett/Skjemalabel';
+import './Publishing.less';
 
 class Publishing extends React.Component {
     onPublishedChange = (date) => {
-        let published;
-        if (date && !Number.isNaN(Date.parse(date))) {
-            date.setHours(3);
-            published = date.toISOString();
-        }
-        this.props.setPublished(published);
+        this.props.setPublished(leggTilTimerPåISOString(date, 3));
     };
 
     onExpiresChange = (date) => {
-        let expires;
-        if (date && !Number.isNaN(Date.parse(date))) {
-            date.setHours(3);
-            expires = date.toISOString();
-        }
-        this.props.setExpirationDate(expires);
+        this.props.setExpirationDate(leggTilTimerPåISOString(date, 3));
     };
 
     render() {
         const { published, expires } = this.props;
+        console.log('Values:', published, expires, 'Validation:', this.props.validation);
+
         return (
             <div className="Publishing">
                 <div className="Publishing__datepicker Publishing__datepicker-publishing-date">
                     <Skjemalabel påkrevd>Publiseringsdato</Skjemalabel>
                     <Normaltekst tag="div">
-                        <Datovelger
+                        <Datepicker
+                            locale="nb"
                             id="endre-stilling-datovelger-published"
-                            input={{
-                                id: 'published__input',
+                            inputId="published__input"
+                            inputProps={{
                                 name: 'endre-stilling-datovelger-published',
                                 placeholder: 'dd.mm.åååå',
-                                ariaLabel: 'Sett publiseringsdato',
+                                'aria-label': 'Sett publiseringsdato',
                             }}
-                            dato={formatISOString(published, 'DD.MM.YYYY') || ''}
+                            value={fjernTidspunktFraISOString(published)}
                             onChange={this.onPublishedChange}
-                            ref={(instance) => {
-                                this.refPublished = instance;
-                            }}
-                            avgrensninger={{ minDato: new Date(Date.now()) }}
-                            inputProps={{ placeholder: 'dd.mm.åååå' }}
+                            limitations={{ minDate: new Date() }}
                         />
                     </Normaltekst>
                     {this.props.validation.published && (
@@ -59,17 +47,20 @@ class Publishing extends React.Component {
                 <div className="Publishing__datepicker Publishing__datepicker-expires">
                     <Skjemalabel påkrevd>Siste visningsdato</Skjemalabel>
                     <Normaltekst tag="div">
-                        <Datovelger
+                        <Datepicker
+                            locale="nb"
                             id="endre-stilling-datovelger-expires"
-                            input={{
-                                id: 'expires__input',
+                            inputId="expires__input"
+                            inputProps={{
                                 name: 'endre-stilling-datovelger-expires',
                                 placeholder: 'dd.mm.åååå',
-                                ariaLabel: 'Sett siste visningsdato',
+                                'aria-label': 'Sett siste visningsdato',
                             }}
-                            dato={formatISOString(expires, 'DD.MM.YYYY') || ''}
+                            value={fjernTidspunktFraISOString(expires) || ''}
                             onChange={this.onExpiresChange}
-                            avgrensninger={{ minDato: new Date(Date.now()) }}
+                            limitations={{
+                                minDate: fjernTidspunktFraISOString(new Date().toISOString()),
+                            }}
                         />
                     </Normaltekst>
                     {this.props.validation.expires && (

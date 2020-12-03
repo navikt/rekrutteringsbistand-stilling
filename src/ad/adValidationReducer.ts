@@ -1,7 +1,6 @@
 import { tagsInneholderInkluderingsmuligheter } from './tags/utils';
 import { put, select, takeLatest } from 'redux-saga/es/effects';
-import { erDatoEtterMinDato } from 'nav-datovelger/dist/datovelger/utils/datovalidering';
-import { toDate } from '../utils';
+import { idagMidnatt, toDate } from '../utils';
 import { DEFAULT_TITLE_NEW_AD, SET_KAN_INKLUDERE } from './adReducer';
 import IsJson from './edit/practicalInformation/IsJson';
 
@@ -167,13 +166,15 @@ function* validateExpireDate() {
     const state = yield select();
     const { expires } = state.adData;
 
+    const expirationESattIFremtiden = toDate(expires) > idagMidnatt();
+
     if (valueIsNotSet(expires)) {
         yield put({
             type: ADD_VALIDATION_ERROR,
             field: 'expires',
             message: 'Siste visningsdato mangler',
         });
-    } else if (!erDatoEtterMinDato(toDate(expires), new Date(Date.now()))) {
+    } else if (!expirationESattIFremtiden) {
         yield put({
             type: ADD_VALIDATION_ERROR,
             field: 'expires',
