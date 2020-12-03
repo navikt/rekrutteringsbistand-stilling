@@ -44,10 +44,6 @@ class FilterLocation extends React.Component {
         }
     };
 
-    onBlur = (e) => {
-        this.onLocationSelect({ label: e });
-    };
-
     onSubmit = (e) => {
         e.preventDefault();
         const locationArray = this.getLocationAsArray(this.props.locationName);
@@ -80,7 +76,6 @@ class FilterLocation extends React.Component {
                         className="FilterLocation__typeahead"
                         onChange={this.onLocationChange}
                         onSelect={this.onLocationSelect}
-                        onBlur={this.onBlur}
                         suggestions={this.props.municipals.map((m) => ({
                             value: m.code,
                             label: capitalizeLocation(m.name),
