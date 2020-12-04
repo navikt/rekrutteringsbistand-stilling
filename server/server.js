@@ -33,7 +33,7 @@ const setupProxy = (fraPath, tilTarget) =>
         },
     });
 
-const manifestMedEnvpath = (url) => {
+const manifestMedEnvpath = () => {
     const asset = JSON.parse(fs.readFileSync(`${buildPath}/asset-manifest.json`, 'utf8'));
     if (asset.files) {
         const name = envPath.split('/').pop();
