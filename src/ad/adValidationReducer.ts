@@ -166,7 +166,7 @@ function* validateExpireDate() {
     const state = yield select();
     const { expires } = state.adData;
 
-    const expirationESattIFremtiden = toDate(expires) > idagMidnatt();
+    const expirationErSattIFremtiden = toDate(expires) > idagMidnatt();
 
     if (valueIsNotSet(expires)) {
         yield put({
@@ -174,7 +174,7 @@ function* validateExpireDate() {
             field: 'expires',
             message: 'Siste visningsdato mangler',
         });
-    } else if (!expirationESattIFremtiden) {
+    } else if (!expirationErSattIFremtiden) {
         yield put({
             type: ADD_VALIDATION_ERROR,
             field: 'expires',
