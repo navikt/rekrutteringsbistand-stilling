@@ -6,9 +6,9 @@
     "repository": "https://github.com/navikt/rekrutteringsbistand-stilling",
     "scripts": {
         "start": "craco start",
-        "start:export": "REACT_APP_EXPORT=true craco start",
+        "start:export": "BROWSER=none REACT_APP_EXPORT=true craco start",
         "start:mock": "REACT_APP_MOCK=true craco start",
-        "start:mock:export": "REACT_APP_EXPORT=true REACT_APP_MOCK=true craco start",
+        "start:mock:export": "BROWSER=none REACT_APP_EXPORT=true REACT_APP_MOCK=true craco start",
         "build": "craco build",
         "test": "craco test",
         "start-express": "node server/server.js",
