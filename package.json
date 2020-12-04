@@ -10,6 +10,7 @@
         "start:mock": "REACT_APP_MOCK=true craco start",
         "start:mock:export": "BROWSER=none REACT_APP_EXPORT=true REACT_APP_MOCK=true craco start",
         "build": "REACT_APP_SENTRY_RELEASE=$(git rev-parse --short HEAD) craco build",
+        "release": "(export REACT_APP_SENTRY_RELEASE=$(git rev-parse --short HEAD); node scripts/sentry-release",
         "test": "craco test",
         "start-express": "node server/server.js",
         "docker-build": "npm run build && docker build . -t rekrutteringsbistand-stilling",
@@ -104,6 +105,7 @@
     },
     "devDependencies": {
         "@craco/craco": "^5.8.0",
+        "@sentry/cli": "^1.60.1",
         "@types/amplitude-js": "^7.0.0",
         "@types/classnames": "^2.2.10",
         "@types/http-proxy-middleware": "^0.19.3",
