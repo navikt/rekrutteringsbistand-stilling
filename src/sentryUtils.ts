@@ -8,12 +8,16 @@ export const fjernPersonopplysninger = (event: Event): Event => {
         request: {
             ...event.request,
             url,
+            headers: {
+                Referer: maskerPersonopplysninger(event.request?.headers?.Referer) || '',
+            },
         },
         breadcrumbs: (event.breadcrumbs || []).map((breadcrumb: Breadcrumb) => ({
             ...breadcrumb,
             message: maskerPersonopplysninger(breadcrumb.message),
             data: {
                 ...breadcrumb.data,
+                url: maskerPersonopplysninger(breadcrumb.data?.url),
                 from: maskerPersonopplysninger(breadcrumb.data?.from),
                 to: maskerPersonopplysninger(breadcrumb.data?.to),
             },
