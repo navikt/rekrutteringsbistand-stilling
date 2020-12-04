@@ -33,16 +33,16 @@ const setupProxy = (fraPath, tilTarget) =>
         },
     });
 
-const manifestMedEkstraFil = (url) => {
+const manifestMedEnvpath = (url) => {
     const asset = JSON.parse(fs.readFileSync(`${buildPath}/asset-manifest.json`, 'utf8'));
     if (asset.files) {
-        const name = url.split('/').pop();
-        asset.files[name] = `${basePath}/${url}`;
+        const name = envPath.split('/').pop();
+        asset.files[name] = `${basePath}/${envPath}`;
     }
     return JSON.stringify(asset, null, 4);
 };
 
-const manifest = manifestMedEkstraFil(`${envPath}`);
+const manifest = manifestMedEnvpath();
 
 const startServer = () => {
     writeEnvironmentVariablesToFile();
