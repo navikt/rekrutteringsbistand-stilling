@@ -6,12 +6,14 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 const app = express();
 const port = process.env.PORT || 8080;
 
+const envPath = 'static/js/env.js';
+
 const writeEnvironmentVariablesToFile = () => {
     const fileContent =
         `window.STILLING_LOGIN_URL="${process.env.LOGIN_URL}";\n` +
         `window.STILLING_VIS_STILLING_URL="${process.env.VIS_STILLING_URL}";\n`;
 
-    fs.writeFile(path.resolve(__dirname, 'build/static/js/env.js'), fileContent, (err) => {
+    fs.writeFile(path.resolve(__dirname, `build/${envPath}`), fileContent, (err) => {
         if (err) throw err;
     });
 };
@@ -31,6 +33,17 @@ const setupProxy = (fraPath, tilTarget) =>
         },
     });
 
+const manifestMedEnvpath = () => {
+    const asset = JSON.parse(fs.readFileSync(`${buildPath}/asset-manifest.json`, 'utf8'));
+    if (asset.files) {
+        const name = envPath.split('/').pop();
+        asset.files[name] = `${basePath}/${envPath}`;
+    }
+    return JSON.stringify(asset, null, 4);
+};
+
+const manifest = manifestMedEnvpath();
+
 const startServer = () => {
     writeEnvironmentVariablesToFile();
 
@@ -38,7 +51,10 @@ const startServer = () => {
     app.use(setupProxy(`${basePath}/kandidat-api`, process.env.KANDIDAT_API_URL));
 
     app.use(`${basePath}/static`, express.static(buildPath + '/static'));
-    app.use(`${basePath}/asset-manifest.json`, express.static(`${buildPath}/asset-manifest.json`));
+
+    app.get(`${basePath}/asset-manifest.json`, (req, res) => {
+        res.type('json').send(manifest);
+    });
 
     app.get(`${basePath}/internal/isAlive`, (req, res) => res.sendStatus(200));
     app.get(`${basePath}/internal/isReady`, (req, res) => res.sendStatus(200));
