@@ -1,11 +1,15 @@
 const SentryCli = require('@sentry/cli');
 
 async function opprettReleaseTilSentry() {
-    const release = process.env.REACT_APP_SENTRY_RELEASE;
+    const release = process.env.SENTRY_RELEASE;
+    const authToken = process.env.SENTRY_AUTH_TOKEN;
 
     if (!release) {
-        console.warn('"REACT_APP_SENTRY_RELEASE" er ikke satt');
-        return;
+        throw new Error('"REACT_APP_SENTRY_RELEASE" er ikke satt');
+    }
+
+    if (!authToken) {
+        throw new Error('"SENTRY_AUTH_TOKEN" er ikke satt');
     }
 
     const cli = new SentryCli();
