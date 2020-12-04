@@ -38,7 +38,7 @@ import Modal from 'react-modal';
 Sentry.init({
     dsn: 'https://34e485d3fd9945e29d5f66f11a29f84e@sentry.gc.nav.no/43',
     environment: getMiljø(),
-    release: process.env.REACT_APP_GIT_COMMIT_HASH || 'unknown',
+    release: process.env.REACT_APP_SENTRY_RELEASE || 'unknown',
     enabled: getMiljø() === 'dev-fss' || getMiljø() === 'prod-fss',
     beforeSend: fjernPersonopplysninger,
 });
