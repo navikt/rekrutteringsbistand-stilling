@@ -31,6 +31,17 @@ const setupProxy = (fraPath, tilTarget) =>
         },
     });
 
+const manifestMedEkstraFil = (url) => {
+    const asset = JSON.parse(fs.readFileSync(`${buildPath}/asset-manifest.json`, 'utf8'));
+    if (asset.files) {
+        const name = url.split('/').pop();
+        asset.files[name] = `${basePath}/${url}`;
+    }
+    return JSON.stringify(asset, null, 4);
+};
+
+const manifest = manifestMedEkstraFil(`${envPath}`);
+
 const startServer = () => {
     writeEnvironmentVariablesToFile();
 
@@ -38,7 +49,10 @@ const startServer = () => {
     app.use(setupProxy(`${basePath}/kandidat-api`, process.env.KANDIDAT_API_URL));
 
     app.use(`${basePath}/static`, express.static(buildPath + '/static'));
-    app.use(`${basePath}/asset-manifest.json`, express.static(`${buildPath}/asset-manifest.json`));
+
+    app.get(`${basePath}/asset-manifest.json`, (req, res) => {
+        res.type('json').send(manifest);
+    });
 
     app.get(`${basePath}/internal/isAlive`, (req, res) => res.sendStatus(200));
     app.get(`${basePath}/internal/isReady`, (req, res) => res.sendStatus(200));
