@@ -6,12 +6,14 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 const app = express();
 const port = process.env.PORT || 8080;
 
+const envPath = 'static/js/env.js';
+
 const writeEnvironmentVariablesToFile = () => {
     const fileContent =
         `window.STILLING_LOGIN_URL="${process.env.LOGIN_URL}";\n` +
         `window.STILLING_VIS_STILLING_URL="${process.env.VIS_STILLING_URL}";\n`;
 
-    fs.writeFile(path.resolve(__dirname, 'build/static/js/env.js'), fileContent, (err) => {
+    fs.writeFile(path.resolve(__dirname, `build/${envPath}`), fileContent, (err) => {
         if (err) throw err;
     });
 };
