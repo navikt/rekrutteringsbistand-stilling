@@ -1,4 +1,4 @@
-import { Event } from '@sentry/types';
+import { Breadcrumb, Event } from '@sentry/types';
 
 export const fjernPersonopplysninger = (event: Event): Event => {
     const url = event.request?.url ? maskerPersonopplysninger(event.request.url) : '';
@@ -9,10 +9,11 @@ export const fjernPersonopplysninger = (event: Event): Event => {
             ...event.request,
             url,
         },
-        breadcrumbs: (event.breadcrumbs || []).map((breadcrumb) => ({
+        breadcrumbs: (event.breadcrumbs || []).map((breadcrumb: Breadcrumb) => ({
             ...breadcrumb,
             message: maskerPersonopplysninger(breadcrumb.message),
             data: {
+                ...breadcrumb.data,
                 from: maskerPersonopplysninger(breadcrumb.data?.from),
                 to: maskerPersonopplysninger(breadcrumb.data?.to),
             },
