@@ -5,9 +5,8 @@ import { Input, SkjemaGruppe, Radio, Checkbox, RadioGruppe } from 'nav-frontend-
 import { connect } from 'react-redux';
 import { Undertittel } from 'nav-frontend-typografi';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
-import Datovelger from 'nav-datovelger/dist/datovelger/Datovelger';
-import 'nav-datovelger/dist/datovelger/styles/datovelger.css';
-import { formatISOString } from '../../../utils';
+import { Datepicker } from 'nav-datovelger';
+import { fjernTidspunktFraISOString, leggTilTimerPåISOString } from '../../../utils';
 import {
     SET_EMPLOYMENT_EXTENT,
     CHECK_EMPLOYMENT_WORKDAY,
@@ -58,12 +57,7 @@ class PracticalInformation extends React.Component {
     };
 
     onApplicationDueChange = (date) => {
-        let applicationDue;
-        if (date && !Number.isNaN(Date.parse(date))) {
-            date.setHours(12);
-            applicationDue = date.toISOString();
-        }
-        this.props.setApplicationDue(applicationDue);
+        this.props.setApplicationDue(leggTilTimerPåISOString(date, 12));
     };
 
     onSnarestChange = (e) => {
@@ -76,12 +70,7 @@ class PracticalInformation extends React.Component {
     };
 
     onStarttimeChange = (date) => {
-        let starttime;
-        if (date && !Number.isNaN(Date.parse(date))) {
-            date.setHours(12);
-            starttime = date.toISOString();
-        }
-        this.props.setStartTime(starttime);
+        this.props.setStartTime(leggTilTimerPåISOString(date, 12));
     };
 
     onEtterAvtaleChange = (e) => {
@@ -272,23 +261,21 @@ class PracticalInformation extends React.Component {
                     </Skjemalabel>
                     <div className="PracticalInformation">
                         <div className="PracticalInformation__datepicker">
-                            <Datovelger
-                                input={{
-                                    id: 'applicationDue__input',
+                            <Datepicker
+                                id="applicationDue"
+                                inputId="applicationDue__input"
+                                inputProps={{
                                     name: 'applicationDue',
                                     placeholder: 'dd.mm.åååå',
-                                    ariaLabel: 'Sett søknadsfrist',
+                                    'aria-label': 'Sett søknadsfrist',
                                 }}
-                                id="applicationDue"
-                                dato={
-                                    formatISOString(ad.properties.applicationdue, 'DD.MM.YYYY') ||
-                                    ''
+                                value={
+                                    fjernTidspunktFraISOString(ad.properties.applicationdue) || ''
                                 }
                                 onChange={this.onApplicationDueChange}
-                                ref={(instance) => {
-                                    this.refapplicationDue = instance;
+                                limitations={{
+                                    minDate: fjernTidspunktFraISOString(new Date().toISOString()),
                                 }}
-                                avgrensninger={{ minDato: new Date(Date.now()) }}
                                 disabled={ad.properties.applicationdue === 'Snarest'}
                             />
                         </div>
@@ -307,17 +294,19 @@ class PracticalInformation extends React.Component {
                     <Skjemalegend>Oppstart</Skjemalegend>
                     <div className="PracticalInformation ">
                         <div className="PracticalInformation__datepicker">
-                            <Datovelger
+                            <Datepicker
                                 id="starttime"
-                                input={{
-                                    id: 'starttime__input',
+                                inputId="starttime__input"
+                                inputProps={{
                                     name: 'starttime',
                                     placeholder: 'dd.mm.åååå',
-                                    ariaLabel: 'Sett oppstart',
+                                    'aria-label': 'Sett oppstart',
                                 }}
-                                dato={formatISOString(ad.properties.starttime, 'DD.MM.YYYY') || ''}
+                                value={fjernTidspunktFraISOString(ad.properties.starttime) || ''}
                                 onChange={this.onStarttimeChange}
-                                avgrensninger={{ minDato: new Date(Date.now()) }}
+                                limitations={{
+                                    minDate: fjernTidspunktFraISOString(new Date().toISOString()),
+                                }}
                                 disabled={ad.properties.starttime === 'Etter avtale'}
                             />
                         </div>
