@@ -10,8 +10,6 @@ async function opprettReleaseTilSentry() {
 
     if (!authToken) {
         throw new Error('"SENTRY_AUTH_TOKEN" er ikke satt');
-    } else {
-        console.log('Using "SENTRY_AUTH_TOKEN" with length', authToken.length);
     }
 
     const cli = new SentryCli();
