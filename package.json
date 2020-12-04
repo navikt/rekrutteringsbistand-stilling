@@ -9,7 +9,7 @@
         "start:export": "BROWSER=none REACT_APP_EXPORT=true craco start",
         "start:mock": "REACT_APP_MOCK=true craco start",
         "start:mock:export": "BROWSER=none REACT_APP_EXPORT=true REACT_APP_MOCK=true craco start",
-        "build": "craco build",
+        "build": "REACT_APP_GIT_COMMIT_HASH=$(git log -n 1 --pretty=format:‘%h’) craco build",
         "test": "craco test",
         "start-express": "node server/server.js",
         "docker-build": "npm run build && docker build . -t rekrutteringsbistand-stilling",
