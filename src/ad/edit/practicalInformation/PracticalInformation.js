@@ -273,11 +273,10 @@ class PracticalInformation extends React.Component {
                                     fjernTidspunktFraISOString(ad.properties.applicationdue) || ''
                                 }
                                 onChange={this.onApplicationDueChange}
-                                limitations={{ minDate: new Date() }}
-                                disabled={ad.properties.applicationdue === 'Snarest'}
-                                calendarSettings={{
-                                    showWeekNumbers: true,
+                                limitations={{
+                                    minDate: fjernTidspunktFraISOString(new Date().toISOString()),
                                 }}
+                                disabled={ad.properties.applicationdue === 'Snarest'}
                             />
                         </div>
                         <div className="PracticalInformation__top">
@@ -305,11 +304,10 @@ class PracticalInformation extends React.Component {
                                 }}
                                 value={fjernTidspunktFraISOString(ad.properties.starttime) || ''}
                                 onChange={this.onStarttimeChange}
-                                limitations={{ minDate: new Date() }}
-                                disabled={ad.properties.starttime === 'Etter avtale'}
-                                calendarSettings={{
-                                    showWeekNumbers: true,
+                                limitations={{
+                                    minDate: fjernTidspunktFraISOString(new Date().toISOString()),
                                 }}
+                                disabled={ad.properties.starttime === 'Etter avtale'}
                             />
                         </div>
                         <div className="PracticalInformation__top">

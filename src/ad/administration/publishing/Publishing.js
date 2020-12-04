@@ -36,7 +36,9 @@ class Publishing extends React.Component {
                             }}
                             value={fjernTidspunktFraISOString(published)}
                             onChange={this.onPublishedChange}
-                            limitations={{ minDate: new Date() }}
+                            limitations={{
+                                minDate: fjernTidspunktFraISOString(new Date().toISOString()),
+                            }}
                         />
                     </Normaltekst>
                     {this.props.validation.published && (
