@@ -21,7 +21,7 @@ async function opprettReleaseTilSentry() {
         console.log('Laster opp source maps');
         await cli.releases.uploadSourceMaps(release, {
             include: ['build/static/js'],
-            urlPrefix: '~/static/js',
+            urlPrefix: '~/rekrutteringsbistand-stilling/static/js',
             rewrite: false,
         });
 
