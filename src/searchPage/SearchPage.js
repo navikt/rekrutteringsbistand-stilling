@@ -29,13 +29,6 @@ class SearchPage extends React.Component {
                 <h1 className="visually-hidden">Søk etter stilling</h1>
                 <div className="SearchPage__søkeboks-wrapper">
                     <StillingSøkeboks />
-                    <button
-                        onClick={() => {
-                            throw new Error('Provosert feil!');
-                        }}
-                    >
-                        Trykk meg
-                    </button>
                 </div>
                 <Container className="SearchPage__container">
                     {error && error.statusCode === 412 && (
