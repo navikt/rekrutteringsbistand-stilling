@@ -1,28 +1,24 @@
 {
-  "compilerOptions": {
-    "outDir": "./dist/",
-    "sourceMap": true,
-    "strictNullChecks": true,
-    "module": "esnext",
-    "jsx": "react-jsx",
-    "target": "es5",
-    "allowJs": true,
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true,
-    "lib": [
-      "es7",
-      "dom"
-    ],
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "strict": false,
-    "forceConsistentCasingInFileNames": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "noFallthroughCasesInSwitch": true
-  },
-  "include": [
-    "./src/"
-  ]
+    "compilerOptions": {
+        "outDir": "./dist/",
+        "sourceMap": true,
+        "strictNullChecks": true,
+        "module": "esnext",
+        "jsx": "react",
+        "target": "es5",
+        "allowJs": true,
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "allowSyntheticDefaultImports": true,
+        "lib": ["es7", "dom"],
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "strict": false,
+        "forceConsistentCasingInFileNames": true,
+        "isolatedModules": true,
+        "noEmit": true,
+        "noFallthroughCasesInSwitch": true
+    },
+    "include": ["./src/"]
 }
+
