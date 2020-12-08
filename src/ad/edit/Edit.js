@@ -22,7 +22,7 @@ import { Undertittel } from 'nav-frontend-typografi';
 import RegistrerInkluderingsmuligheter from './registrer-inkluderingsmuligheter/DirektemeldtStilling';
 import AlertStripe from 'nav-frontend-alertstriper';
 import NavigationPrompt from 'react-router-navigation-prompt';
-import { DELETE_AD } from '../adReducer';
+import { FORKAST_NY_STILLING, NyStillingState } from '../adReducer';
 import BekreftForlatSidenModal from '../bekreft-forlat-siden-modal/BekreftForlatSidenModal.tsx';
 
 const Edit = ({
@@ -33,16 +33,16 @@ const Edit = ({
     resetValidation,
     updated,
     created,
-    deleteAd,
-    hasDeletedAd,
+    nyStillingState,
+    forkastNyStilling,
 }) => {
-    const [forlatSiden, setForlatSiden] = useState(undefined);
+    const [forlatSiden, setForlatSiden] = useState(null);
 
     useEffect(() => {
-        if (hasDeletedAd && forlatSiden) {
-            forlatSiden();
+        if (nyStillingState === NyStillingState.ErForkastet && forlatSiden) {
+            forlatSiden.bekreft();
         }
-    }, [hasDeletedAd, forlatSiden]);
+    }, [nyStillingState, forlatSiden]);
 
     useEffect(() => {
         return () => {
@@ -56,9 +56,12 @@ const Edit = ({
 
     const onForlatSidenClick = (bekreftForlatSiden) => () => {
         const stillingenErTom = updated === created;
+
         if (stillingenErTom) {
-            deleteAd();
-            setForlatSiden(bekreftForlatSiden);
+            forkastNyStilling();
+            setForlatSiden({
+                bekreft: bekreftForlatSiden,
+            });
         } else {
             bekreftForlatSiden();
         }
@@ -170,12 +173,12 @@ const mapStateToProps = (state) => ({
     hasChanges: state.ad.hasChanges,
     updated: state.adData.updated,
     created: state.adData.created,
-    hasDeletedAd: state.ad.hasDeletedAd,
+    nyStillingState: state.ad.nyStillingState,
 });
 
 const mapDispatchToProps = (dispatch) => ({
     resetValidation: () => dispatch({ type: RESET_VALIDATION_ERROR }),
-    deleteAd: () => dispatch({ type: DELETE_AD }),
+    forkastNyStilling: () => dispatch({ type: FORKAST_NY_STILLING }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Edit);

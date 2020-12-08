@@ -59,10 +59,12 @@ export const CREATE_AD_BEGIN = 'CREATE_AD_BEGIN';
 export const CREATE_AD_SUCCESS = 'CREATE_AD_SUCCESS';
 export const CREATE_AD_FAILURE = 'CREATE_AD_FAILURE';
 
-export const DELETE_AD = 'DELETE_AD';
 export const DELETE_AD_BEGIN = 'DELETE_AD_BEGIN';
 export const DELETE_AD_SUCCESS = 'DELETE_AD_SUCCESS';
 export const DELETE_AD_FAILURE = 'DELETE_AD_FAILURE';
+export const FORKAST_NY_STILLING = 'FORKAST_NY_STILLING';
+export const FORKAST_NY_STILLING_SUCCESS = 'FORKAST_NY_STILLING_SUCCESS';
+export const FORKAST_NY_STILLING_FAILURE = 'FORKAST_NY_STILLING_FAILURE';
 
 export const DELETE_AD_FROM_MY_ADS = 'DELETE_AD_FROM_MY_ADS';
 export const SHOW_DELETE_AD_MODAL = 'SHOW_DELETE_AD_MODAL';
@@ -102,6 +104,13 @@ export const MARKER_SOM_MIN = 'MARKER_SOM_MIN';
 
 export const SET_KAN_INKLUDERE = 'SET_KAN_INKLUDERE';
 
+export enum NyStillingState {
+    SkalBeholdes = 'skalBeholdes',
+    Forkastes = 'forkastes',
+    ErForkastet = 'erforkastet',
+    Feil = 'feil',
+}
+
 export type AdState = {
     error: any;
     isSavingAd: boolean;
@@ -110,7 +119,6 @@ export type AdState = {
     originalData: any;
     hasSavedChanges: boolean;
     hasChanges: boolean;
-    hasDeletedAd: boolean;
     copiedAds: any[];
     showPublishErrorModal: boolean;
     showStopAdModal: boolean;
@@ -118,6 +126,7 @@ export type AdState = {
     showAdPublishedModal: boolean;
     showAdSavedErrorModal: boolean;
     kanInkludere: KanInkludere;
+    nyStillingState: NyStillingState;
 };
 
 const initialState: AdState = {
@@ -128,7 +137,6 @@ const initialState: AdState = {
     originalData: undefined,
     hasSavedChanges: false,
     hasChanges: false,
-    hasDeletedAd: false,
     copiedAds: [],
     showPublishErrorModal: false,
     showStopAdModal: false,
@@ -136,9 +144,10 @@ const initialState: AdState = {
     showAdPublishedModal: false,
     showAdSavedErrorModal: false,
     kanInkludere: KanInkludere.Ja,
+    nyStillingState: NyStillingState.SkalBeholdes,
 };
 
-export default function adReducer(state = initialState, action) {
+export default function adReducer(state = initialState, action: any) {
     switch (action.type) {
         case REMOVE_AD_DATA:
             return {
@@ -192,6 +201,21 @@ export default function adReducer(state = initialState, action) {
                 isSavingAd: false,
                 isLoadingAd: false,
                 hasDeletedAd: true,
+            };
+        case FORKAST_NY_STILLING:
+            return {
+                ...state,
+                nyStillingState: NyStillingState.Forkastes,
+            };
+        case FORKAST_NY_STILLING_SUCCESS:
+            return {
+                ...state,
+                nyStillingState: NyStillingState.ErForkastet,
+            };
+        case FORKAST_NY_STILLING_FAILURE:
+            return {
+                ...state,
+                nyStillingState: NyStillingState.Feil,
             };
         case CREATE_AD_SUCCESS:
             return {
@@ -522,6 +546,23 @@ function* deleteAdFromMyAds() {
     yield put({ type: FETCH_MY_ADS });
 }
 
+function* forkastNyStilling() {
+    try {
+        yield put({ type: SET_UPDATED_BY });
+
+        const state = yield select();
+        const deleteUrl = `${stillingApi}/rekrutteringsbistand/api/v1/ads/${state.adData.uuid}`;
+
+        const response = yield fetchDelete(deleteUrl);
+        yield put({ type: FORKAST_NY_STILLING_SUCCESS, response });
+    } catch (e) {
+        if (e instanceof ApiError) {
+            yield put({ type: FORKAST_NY_STILLING_FAILURE, error: e });
+        }
+        throw e;
+    }
+}
+
 function* showDeleteModalMyAds(action) {
     yield getRekrutteringsbistandstilling(action);
     yield put({ type: SHOW_DELETE_AD_MODAL });
@@ -594,7 +635,7 @@ export const adSaga = function* saga() {
     yield takeLatest(SAVE_AD, saveAd);
     yield takeLatest(CREATE_AD, createAd);
     yield takeLatest(PUBLISH_AD_CHANGES, publishAdChanges);
-    yield takeLatest(DELETE_AD, deleteAd);
+    yield takeLatest(FORKAST_NY_STILLING, forkastNyStilling);
     yield takeLatest(SHOW_STOP_MODAL_MY_ADS, showStopModalMyAds);
     yield takeLatest(SHOW_DELETE_MODAL_MY_ADS, showDeleteModalMyAds);
     yield takeLatest(STOP_AD_FROM_MY_ADS, stopAdFromMyAds);
