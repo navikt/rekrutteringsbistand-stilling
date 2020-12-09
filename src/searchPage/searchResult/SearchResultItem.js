@@ -4,7 +4,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { getTruncatedWorkLocation } from '../../common/getWorkLocation';
 import getEmployerName from '../../common/getEmployerName';
-import { formatISOString } from '../../utils';
+import { formatISOString } from '../../utils.ts';
 import './SearchResult.less';
 import PrivacyStatusEnum from '../../common/enums/PrivacyStatusEnum';
 import AWithIcon from '../../common/aWithIcon/AWithIcon';

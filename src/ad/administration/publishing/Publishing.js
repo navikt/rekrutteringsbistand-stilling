@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Datepicker } from 'nav-datovelger';
 import { Feilmelding, Normaltekst } from 'nav-frontend-typografi';
-import { fjernTidspunktFraISOString, leggTilTimerPåISOString } from '../../../utils';
+import { fjernTidspunktFraISOString, leggTilTimerPåISOString } from '../../../utils.ts';
 import { SET_PUBLISHED, SET_EXPIRATION_DATE } from '../../adDataReducer';
 import Skjemalabel from '../../edit/skjemaetikett/Skjemalabel';
 import './Publishing.less';
@@ -57,7 +57,7 @@ class Publishing extends React.Component {
                                 placeholder: 'dd.mm.åååå',
                                 'aria-label': 'Sett siste visningsdato',
                             }}
-                            value={fjernTidspunktFraISOString(expires) || ''}
+                            value={fjernTidspunktFraISOString(expires)}
                             onChange={this.onExpiresChange}
                             limitations={{
                                 minDate: fjernTidspunktFraISOString(new Date().toISOString()),

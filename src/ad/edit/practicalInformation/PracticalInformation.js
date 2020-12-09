@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { Undertittel } from 'nav-frontend-typografi';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Datepicker } from 'nav-datovelger';
-import { fjernTidspunktFraISOString, leggTilTimerPåISOString } from '../../../utils';
+import { fjernTidspunktFraISOString, leggTilTimerPåISOString } from '../../../utils.ts';
 import {
     SET_EMPLOYMENT_EXTENT,
     CHECK_EMPLOYMENT_WORKDAY,
@@ -269,9 +269,7 @@ class PracticalInformation extends React.Component {
                                     placeholder: 'dd.mm.åååå',
                                     'aria-label': 'Sett søknadsfrist',
                                 }}
-                                value={
-                                    fjernTidspunktFraISOString(ad.properties.applicationdue) || ''
-                                }
+                                value={fjernTidspunktFraISOString(ad.properties.applicationdue)}
                                 onChange={this.onApplicationDueChange}
                                 limitations={{
                                     minDate: fjernTidspunktFraISOString(new Date().toISOString()),
@@ -302,7 +300,7 @@ class PracticalInformation extends React.Component {
                                     placeholder: 'dd.mm.åååå',
                                     'aria-label': 'Sett oppstart',
                                 }}
-                                value={fjernTidspunktFraISOString(ad.properties.starttime) || ''}
+                                value={fjernTidspunktFraISOString(ad.properties.starttime)}
                                 onChange={this.onStarttimeChange}
                                 limitations={{
                                     minDate: fjernTidspunktFraISOString(new Date().toISOString()),

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Undertittel } from 'nav-frontend-typografi';
-import { formatISOString, isValidISOString } from '../../../utils';
+import { formatISOString, isValidISOString } from '../../../utils.ts';
 import { isValidUrl } from '../../../common/utils';
 
 export function getApplicationUrl(source, properties) {

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import { HIDE_AD_PUBLISHED_MODAL } from '../../adReducer';
-import { formatISOString } from '../../../utils';
+import { formatISOString } from '../../../utils.ts';
 import './AdPublishedModal.less';
 import AdStatusEnum from '../../../common/enums/AdStatusEnum';
 import ModalMedStillingScope from '../../../ModalMedStillingScope';
