@@ -32,6 +32,8 @@ export function formatISOString(isoString, format = 'DD.MM.YYYY') {
 }
 
 export const leggTilTimerPåISOString = (datoString, antallTimerFraMidnatt) => {
+    if (!datoString) return undefined;
+
     let dato = new Date(datoString);
     dato.setHours(antallTimerFraMidnatt);
     return dato.toISOString();
