@@ -54,9 +54,9 @@ export default class Typeahead extends React.Component {
 
         switch (e.keyCode) {
             case 9: // Tab
-                if (hasSelectedSuggestion && this.state.shouldShowSuggestions) {
-                    this.setValue(this.props.suggestions[activeSuggestionIndex]);
-                }
+                this.setState({
+                    shouldShowSuggestions: false,
+                });
                 break;
             case 13: // Enter
                 if (hasSelectedSuggestion && this.state.shouldShowSuggestions) {
