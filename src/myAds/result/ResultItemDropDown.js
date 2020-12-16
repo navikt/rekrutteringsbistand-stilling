@@ -10,6 +10,7 @@ import {
 } from '../../ad/adReducer';
 import { getAdStatusLabel } from '../../common/enums/getEnumLabels';
 import './ResultItemDropDown.less';
+import { Flatknapp } from 'nav-frontend-knapper';
 
 const DropDownItem = ({ label, onClick, active, helpText, onToggleHjelpetekst }) => {
     const onHjelpetekstClick = (event) => {
@@ -18,14 +19,9 @@ const DropDownItem = ({ label, onClick, active, helpText, onToggleHjelpetekst })
     };
 
     return active ? (
-        <div
-            role="button"
-            tabIndex="0"
-            className="ResultItemDropDown__item lenke"
-            onClick={active ? onClick : null}
-        >
+        <Flatknapp mini onClick={onClick} className="ResultItemDropDown__knapp">
             {label}
-        </div>
+        </Flatknapp>
     ) : (
         <>
             <div
