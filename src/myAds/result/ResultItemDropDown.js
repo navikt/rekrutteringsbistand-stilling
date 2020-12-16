@@ -20,6 +20,7 @@ const DropDownItem = ({ label, onClick, active, helpText, onToggleHjelpetekst })
     return active ? (
         <div
             role="button"
+            tabIndex="0"
             className="ResultItemDropDown__item lenke"
             onClick={active ? onClick : null}
         >
