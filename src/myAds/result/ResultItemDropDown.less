@@ -10,18 +10,22 @@
     width: @drop-down-width;
 
     &__item {
-        text-decoration: none;
-
-        &:hover:not(&--disabled) {
-            text-decoration: underline;
-        }
-
-        &--disabled {
-            color: @navGra60;
-        }
+        font-weight: bold;
+        padding: 0.3rem 0.3rem 0.3rem 0.1rem;
+        color: @navGra60;
 
         &:not(:last-child) {
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.2rem;
+        }
+    }
+
+    &__knapp {
+        margin-left: -0.2rem;
+        display: block;
+        padding: 0.1rem;
+
+        &:not(:last-child) {
+            margin-bottom: 0.2rem;
         }
     }
 }
