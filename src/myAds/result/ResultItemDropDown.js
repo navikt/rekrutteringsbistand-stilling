@@ -19,11 +19,7 @@ const DropDownItem = ({ label, onClick, active, helpText, onToggleHjelpetekst })
     };
 
     return active ? (
-        <Flatknapp
-            mini
-            onClick={onClick}
-            className="ResultItemDropDown__item ResultItemDropDown__knapp"
-        >
+        <Flatknapp mini onClick={onClick} className="ResultItemDropDown__knapp">
             {label}
         </Flatknapp>
     ) : (
