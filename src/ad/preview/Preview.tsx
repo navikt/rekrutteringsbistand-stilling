@@ -18,8 +18,7 @@ type Props = {
 };
 
 const Preview: FunctionComponent<Props> = ({ stilling }) => {
-    console.log('STILLING:', stilling);
-    const { properties, source, locationList, contactList, businessName } = stilling;
+    const { properties, employer, source, locationList, contactList, businessName } = stilling;
 
     const hardrequirements = properties.hardrequirements
         ? JSON.parse(properties.hardrequirements)
@@ -95,7 +94,11 @@ const Preview: FunctionComponent<Props> = ({ stilling }) => {
                         <Application source={source} properties={properties} />
                         <Employment properties={properties} locationList={locationList} />
                         <ContactPerson contactList={contactList} />
-                        <Employer businessName={businessName} properties={properties} />
+                        <Employer
+                            employer={employer}
+                            businessName={businessName}
+                            properties={properties}
+                        />
                         <Summary ad={stilling} />
                     </div>
                 </Column>

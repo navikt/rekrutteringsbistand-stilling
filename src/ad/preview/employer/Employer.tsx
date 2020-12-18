@@ -2,15 +2,16 @@ import React, { FunctionComponent } from 'react';
 import ReactHtmlParser from 'react-html-parser';
 import { Undertittel } from 'nav-frontend-typografi';
 import { isValidUrl } from '../../../common/utils';
-import { Properties } from '../../Stilling';
+import { Arbeidsgiver, Nullable, Properties } from '../../Stilling';
 import './Employer.less';
 
 type Props = {
+    employer: Nullable<Arbeidsgiver>;
     properties: Properties;
     businessName: string | null;
 };
 
-const Employer: FunctionComponent<Props> = ({ properties, businessName }) => {
+const Employer: FunctionComponent<Props> = ({ employer, properties, businessName }) => {
     return (
         <div className="detail-section">
             <Undertittel className="detail-section__head">Om bedriften</Undertittel>
@@ -18,6 +19,10 @@ const Employer: FunctionComponent<Props> = ({ properties, businessName }) => {
                 {(properties.employer || businessName) && [
                     <dt key="dt">Bedriftens navn:</dt>,
                     <dd key="dd">{properties.employer || businessName}</dd>, // todo: remove ad.properties.employer when depricated
+                ]}
+                {employer?.orgnr && [
+                    <dt key="dt">Bedriftsnummer:</dt>,
+                    <dd key="dd">{employer.orgnr}</dd>,
                 ]}
                 {properties.employerhomepage &&
                     isValidUrl(properties.employerhomepage) && [
