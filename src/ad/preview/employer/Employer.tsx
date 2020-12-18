@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import ReactHtmlParser from 'react-html-parser';
 import { Undertittel } from 'nav-frontend-typografi';
-import './Employer.less';
 import { isValidUrl } from '../../../common/utils';
+import { Properties } from '../../Stilling';
+import './Employer.less';
 
-export default function Employer({ properties, businessName }) {
+type Props = {
+    properties: Properties;
+    businessName: string | null;
+};
+
+const Employer: FunctionComponent<Props> = ({ properties, businessName }) => {
     return (
         <div className="detail-section">
             <Undertittel className="detail-section__head">Om bedriften</Undertittel>
@@ -99,4 +105,6 @@ export default function Employer({ properties, businessName }) {
             </div>
         </div>
     );
-}
+};
+
+export default Employer;

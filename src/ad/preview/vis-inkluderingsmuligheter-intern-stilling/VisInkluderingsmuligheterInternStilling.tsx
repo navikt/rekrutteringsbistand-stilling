@@ -6,7 +6,7 @@ import { tagsInneholderInkluderingsmuligheter } from '../../tags/utils';
 import './VisInkluderingsmuligheterInternStilling.less';
 
 interface Props {
-    tags: string;
+    tags?: string;
 }
 
 const VisInkluderingsmuligheterInternStilling: FunctionComponent<Props> = ({ tags }) => {

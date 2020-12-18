@@ -1,21 +1,21 @@
 export type Stilling = {
-    id: Nullable<number>;
-    uuid: Nullable<string>;
-    title: Nullable<string>;
-    status: string;
-    created: Nullable<string>;
-    createdBy: Nullable<string>;
-    updated: Nullable<string>;
-    updatedBy: Nullable<string>;
-    administration: Administration;
-    properties: Properties;
+    uuid: string;
+    title: string;
+    created: string;
+    createdBy: string;
+    updated: string;
+    updatedBy: string;
     mediaList: Media[];
     contactList: Contact[];
-    source: Nullable<string>;
+    status: Status;
+    privacy: Privacy;
+    source: Source;
+
+    administration: Administration;
+    properties: Properties;
     medium: Nullable<string>;
     reference: Nullable<string>;
     published: Nullable<string>;
-    privacy: string;
     expires: Nullable<string>;
     employer: Nullable<Arbeidsgiver>;
     location: Nullable<Geografi>;
@@ -28,14 +28,50 @@ export type Stilling = {
     activationOnPublishingDate: Nullable<Boolean>;
 };
 
-export type Administration = {
-    id: Nullable<number>;
-    status: Nullable<string>;
-    comments: Nullable<string>;
-    reportee: Nullable<string>;
-    remarks: string[];
-    navIdent: Nullable<string>;
+export enum Status {
+    Active = 'ACTIVE',
+    Inactive = 'INACTIVE',
+    Stopped = 'STOPPED',
+    Rejected = 'REJECTED',
+    Deleted = 'DELETED',
+}
+
+export enum Privacy {
+    InternalNotShown = 'INTERNAL_NOT_SHOWN',
+    ShowAll = 'SHOW_ALL',
+}
+
+export enum Source {
+    Dir = 'DIR',
+}
+
+export type NyStilling = {
+    createdBy: string;
+    updatedBy?: string;
+    title: string;
+    source: string;
+    medium?: string;
+    uuid?: string;
+    reference?: string;
+    privacy?: string;
+    expires?: string;
+    published?: string;
+    administration?: Administration;
 };
+
+export type Administration = {
+    status?: AdminStatus;
+    comments?: Nullable<string>;
+    reportee?: Nullable<string>;
+    remarks?: string[];
+    navIdent?: Nullable<string>;
+};
+
+export enum AdminStatus {
+    Received = 'RECEIVED',
+    Pending = 'PENDING',
+    Done = 'DONE',
+}
 
 export type Arbeidsgiver = {
     id: Nullable<number>;

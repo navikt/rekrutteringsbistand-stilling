@@ -8,12 +8,10 @@ import {
     DELETE_AD_SUCCESS,
 } from './adReducer';
 import { FETCH_LOCATIONS, FETCH_LOCATIONS_SUCCESS } from './edit/location/locationCodeReducer';
-import AdStatusEnum from '../common/enums/AdStatusEnum';
-import PrivacyStatusEnum from '../common/enums/PrivacyStatusEnum';
 import IsJson from './edit/practicalInformation/IsJson';
 import { isValidISOString } from '../utils';
 import { leggTilTagUnderRegistrering, fjernTagUnderRegistrering } from '../ad/tags/utils';
-import Stilling, { Geografi } from './Stilling';
+import Stilling, { Geografi, Privacy, Status, Source } from './Stilling';
 
 export const SET_AD_DATA = 'SET_AD_DATA';
 export const REMOVE_AD_DATA = 'REMOVE_AD_DATA';
@@ -74,40 +72,37 @@ export const SET_CONTACT_PERSON = 'SET_CONTACT_PERSON';
 export type AdDataState = Stilling;
 
 const initialState: AdDataState = {
-    id: null,
-    uuid: null,
-    title: null,
-    status: AdStatusEnum.INACTIVE,
-    updated: null,
-    updatedBy: null,
-    created: null,
-    createdBy: null,
-    administration: {
-        id: null,
-        status: null,
-        comments: null,
-        reportee: null,
-        remarks: [],
-        navIdent: null,
-    },
+    source: Source.Dir,
+    privacy: Privacy.InternalNotShown,
+    status: Status.Inactive,
+    administration: {},
     properties: {},
-    activationOnPublishingDate: null,
+
+    // Disse må initialiseres fordi gammel kode over alt forventer
+    // at hele "adData" er tilgjengelig til enhver tid.
+    uuid: '',
+    title: '',
+    created: '',
+    createdBy: '',
+    updated: '',
+    updatedBy: '',
+
+    medium: null,
+    reference: null,
+    published: null,
+    expires: null,
+    employer: null,
+    location: null,
+    publishedByAdmin: null,
     businessName: null,
+    firstPublished: null,
+    deactivatedByExpiry: null,
+    activationOnPublishingDate: null,
+
     categoryList: [],
     contactList: [],
-    deactivatedByExpiry: null,
-    employer: null,
-    expires: null,
-    firstPublished: null,
-    location: null,
     locationList: [],
     mediaList: [],
-    medium: null,
-    privacy: PrivacyStatusEnum.INTERNAL_NOT_SHOWN,
-    published: null,
-    publishedByAdmin: null,
-    reference: null,
-    source: null,
 };
 
 export function* findLocationByPostalCode(value: string) {

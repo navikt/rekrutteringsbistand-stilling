@@ -9,7 +9,7 @@ import { REMOVE_AD_DATA } from './adDataReducer';
 import { CREATE_AD, FETCH_AD, PREVIEW_EDIT_AD } from './adReducer';
 import Edit from './edit/Edit';
 import Error from './error/Error';
-import Preview from './preview/Preview';
+import Preview from './preview/Preview.tsx';
 import Administration from './administration/Administration.tsx';
 import AdministrationLimited from './administration/limited/AdministrationLimited';
 import AdministrationPreview from './preview/administration/AdministrationPreview.tsx';
@@ -103,7 +103,7 @@ class Ad extends React.Component {
                                             {limitedAccess ? (
                                                 <div>
                                                     <PreviewHeader />
-                                                    <Preview ad={stilling} />
+                                                    <Preview stilling={stilling} />
                                                 </div>
                                             ) : (
                                                 <Edit
@@ -115,7 +115,7 @@ class Ad extends React.Component {
                                     ) : (
                                         <div className="Ad__preview">
                                             <PreviewHeader />
-                                            <Preview ad={stilling} />
+                                            <Preview stilling={stilling} />
                                         </div>
                                     )}
                                 </div>

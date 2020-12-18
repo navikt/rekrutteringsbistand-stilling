@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { Element } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
 import ReactHtmlParser from 'react-html-parser';
@@ -11,16 +11,24 @@ import Summary from './summary/Summary';
 import './Preview.less';
 import VisInkluderingsmuligheterInternStilling from './vis-inkluderingsmuligheter-intern-stilling/VisInkluderingsmuligheterInternStilling';
 import { erDirektemeldtStilling } from '../adUtils';
+import Stilling from '../Stilling';
 
-export default function Preview({ ad }) {
-    const hardrequirements = ad.properties.hardrequirements
-        ? JSON.parse(ad.properties.hardrequirements)
+type Props = {
+    stilling: Stilling;
+};
+
+const Preview: FunctionComponent<Props> = ({ stilling }) => {
+    console.log('STILLING:', stilling);
+    const { properties, source, locationList, contactList, businessName } = stilling;
+
+    const hardrequirements = properties.hardrequirements
+        ? JSON.parse(properties.hardrequirements)
         : undefined;
-    const softrequirements = ad.properties.softrequirements
-        ? JSON.parse(ad.properties.softrequirements)
+    const softrequirements = properties.softrequirements
+        ? JSON.parse(properties.softrequirements)
         : undefined;
-    const personalattributes = ad.properties.personalattributes
-        ? JSON.parse(ad.properties.personalattributes)
+    const personalattributes = properties.personalattributes
+        ? JSON.parse(properties.personalattributes)
         : undefined;
 
     return (
@@ -28,7 +36,7 @@ export default function Preview({ ad }) {
             <Row>
                 <Column xs="12" md="8">
                     <article className="AdText__body">
-                        {ad.properties.adtext && ReactHtmlParser(ad.properties.adtext)}
+                        {properties.adtext && ReactHtmlParser(properties.adtext)}
                     </article>
                     {hardrequirements && (
                         <div className="HardRequirements">
@@ -78,20 +86,22 @@ export default function Preview({ ad }) {
                             </div>
                         </div>
                     )}
-                    {erDirektemeldtStilling(ad.source) && (
-                        <VisInkluderingsmuligheterInternStilling tags={ad.properties.tags} />
+                    {erDirektemeldtStilling(source) && (
+                        <VisInkluderingsmuligheterInternStilling tags={properties.tags} />
                     )}
                 </Column>
                 <Column xs="12" md="4">
                     <div className="AdText__details">
-                        <Application source={ad.source} properties={ad.properties} />
-                        <Employment properties={ad.properties} locationList={ad.locationList} />
-                        <ContactPerson contactList={ad.contactList} />
-                        <Employer businessName={ad.businessName} properties={ad.properties} />
-                        <Summary ad={ad} />
+                        <Application source={source} properties={properties} />
+                        <Employment properties={properties} locationList={locationList} />
+                        <ContactPerson contactList={contactList} />
+                        <Employer businessName={businessName} properties={properties} />
+                        <Summary ad={stilling} />
                     </div>
                 </Column>
             </Row>
         </div>
     );
-}
+};
+
+export default Preview;
