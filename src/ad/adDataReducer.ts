@@ -13,6 +13,7 @@ import PrivacyStatusEnum from '../common/enums/PrivacyStatusEnum';
 import IsJson from './edit/practicalInformation/IsJson';
 import { isValidISOString } from '../utils';
 import { leggTilTagUnderRegistrering, fjernTagUnderRegistrering } from '../ad/tags/utils';
+import Stilling, { Geografi } from './Stilling';
 
 export const SET_AD_DATA = 'SET_AD_DATA';
 export const REMOVE_AD_DATA = 'REMOVE_AD_DATA';
@@ -70,32 +71,46 @@ export const UNCHECK_TAG = 'UNCHECK_TAG';
 export const SET_TAGS = 'SET_TAGS';
 export const SET_CONTACT_PERSON = 'SET_CONTACT_PERSON';
 
-export type AdDataState = {
-    properties: {
-        workday?: any;
-        workhours?: any;
-        tags?: string;
-    };
-    status: string;
-    administration: object;
-    privacy: string;
-    locationList?: any;
-    expires?: any;
-    employer?: any;
-    contactList?: any;
-    source?: string;
-    updated?: any;
-    created?: any;
-};
+export type AdDataState = Stilling;
 
 const initialState: AdDataState = {
-    properties: {},
+    id: null,
+    uuid: null,
+    title: null,
     status: AdStatusEnum.INACTIVE,
-    administration: {},
+    updated: null,
+    updatedBy: null,
+    created: null,
+    createdBy: null,
+    administration: {
+        id: null,
+        status: null,
+        comments: null,
+        reportee: null,
+        remarks: [],
+        navIdent: null,
+    },
+    properties: {},
+    activationOnPublishingDate: null,
+    businessName: null,
+    categoryList: [],
+    contactList: [],
+    deactivatedByExpiry: null,
+    employer: null,
+    expires: null,
+    firstPublished: null,
+    location: null,
+    locationList: [],
+    mediaList: [],
+    medium: null,
     privacy: PrivacyStatusEnum.INTERNAL_NOT_SHOWN,
+    published: null,
+    publishedByAdmin: null,
+    reference: null,
+    source: null,
 };
 
-export function* findLocationByPostalCode(value) {
+export function* findLocationByPostalCode(value: string) {
     let state = yield select();
     if (!state.locationCode.locations) {
         yield put({ type: FETCH_LOCATIONS });
@@ -103,12 +118,14 @@ export function* findLocationByPostalCode(value) {
         state = yield select();
     }
     if (state.locationCode.locations) {
-        return state.locationCode.locations.find((location) => location.postalCode === value);
+        return state.locationCode.locations.find(
+            (location: Geografi) => location.postalCode === value
+        );
     }
     return undefined;
 }
 
-function findStyrkAndSkipAlternativeNames(code) {
+function findStyrkAndSkipAlternativeNames(code: string) {
     const found = lookUpStyrk(code);
     if (found) {
         // eslint-disable-next-line no-unused-vars
@@ -118,12 +135,12 @@ function findStyrkAndSkipAlternativeNames(code) {
     return found;
 }
 
-function isLocationInList(location, locationList) {
+function isLocationInList(location: Geografi, locationList: Geografi[]): boolean {
     let isAlreadyAdded = false;
     if (location.country) {
         isAlreadyAdded =
             locationList &&
-            locationList.find(
+            locationList.some(
                 (item) =>
                     item.country === location.country &&
                     !item.postalCode &&
@@ -133,18 +150,18 @@ function isLocationInList(location, locationList) {
     } else if (location.county) {
         isAlreadyAdded =
             locationList &&
-            locationList.find(
+            locationList.some(
                 (item) => item.county === location.county && !item.postalCode && !item.municipal
             );
     } else if (location.municipal) {
         isAlreadyAdded =
             locationList &&
-            locationList.find((item) => item.municipal === location.municipal && !item.postalCode);
+            locationList.some((item) => item.municipal === location.municipal && !item.postalCode);
     }
     return isAlreadyAdded;
 }
 
-export default function adDataReducer(state = initialState, action) {
+export default function adDataReducer(state: AdDataState = initialState, action: any) {
     switch (action.type) {
         case CREATE_AD_BEGIN:
         case FETCH_AD_BEGIN:
@@ -155,7 +172,7 @@ export default function adDataReducer(state = initialState, action) {
             return {
                 ...action.response,
                 locationList: action.response.locationList.filter(
-                    (loc) =>
+                    (loc: Geografi) =>
                         loc.postalCode || loc.municipal || loc.county || loc.country !== 'NORGE'
                 ), // filtrer vekk object med kun Norge
                 location: null,
@@ -364,7 +381,7 @@ export default function adDataReducer(state = initialState, action) {
                 properties: {
                     ...state.properties,
                     workday: JSON.stringify(
-                        JSON.parse(state.properties.workday).filter((m) => m !== action.value)
+                        JSON.parse(state.properties.workday || '').filter((m) => m !== action.value)
                     ),
                 },
             };
@@ -388,7 +405,9 @@ export default function adDataReducer(state = initialState, action) {
                 properties: {
                     ...state.properties,
                     workhours: JSON.stringify(
-                        JSON.parse(state.properties.workhours).filter((m) => m !== action.value)
+                        JSON.parse(state.properties.workhours || '').filter(
+                            (m) => m !== action.value
+                        )
                     ),
                 },
             };
@@ -416,7 +435,8 @@ export default function adDataReducer(state = initialState, action) {
                     applicationdue: action.applicationdue,
                 },
                 expires:
-                    isValidISOString(action.applicationdue) && state.expires < action.applicationdue
+                    isValidISOString(action.applicationdue) &&
+                    (state.expires || '') < action.applicationdue
                         ? action.applicationdue
                         : state.expires,
             };

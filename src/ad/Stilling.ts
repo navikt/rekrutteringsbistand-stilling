@@ -1,23 +1,21 @@
-type Stilling = {
-    administration: Administration;
-    properties: Properties;
-    status: string;
-    privacy: string;
-
-    // Nye props
+export type Stilling = {
     id: Nullable<number>;
     uuid: Nullable<string>;
+    title: Nullable<string>;
+    status: string;
     created: Nullable<string>;
     createdBy: Nullable<string>;
     updated: Nullable<string>;
     updatedBy: Nullable<string>;
+    administration: Administration;
+    properties: Properties;
     mediaList: Media[];
     contactList: Contact[];
-    title: Nullable<string>;
     source: Nullable<string>;
     medium: Nullable<string>;
     reference: Nullable<string>;
     published: Nullable<string>;
+    privacy: string;
     expires: Nullable<string>;
     employer: Nullable<Arbeidsgiver>;
     location: Nullable<Geografi>;
@@ -30,7 +28,7 @@ type Stilling = {
     activationOnPublishingDate: Nullable<Boolean>;
 };
 
-type Administration = {
+export type Administration = {
     id: Nullable<number>;
     status: Nullable<string>;
     comments: Nullable<string>;
@@ -39,7 +37,7 @@ type Administration = {
     navIdent: Nullable<string>;
 };
 
-type Arbeidsgiver = {
+export type Arbeidsgiver = {
     id: Nullable<number>;
     uuid: Nullable<string>;
     created: Nullable<string>;
@@ -61,7 +59,7 @@ type Arbeidsgiver = {
     employees: Nullable<number>;
 };
 
-type Geografi = {
+export type Geografi = {
     address: Nullable<string>;
     postalCode: Nullable<string>;
     county: Nullable<string>;
@@ -73,7 +71,7 @@ type Geografi = {
     longitude: Nullable<string>;
 };
 
-type Kategori = {
+export type Kategori = {
     id: Nullable<number>;
     code: Nullable<string>;
     categoryType: Nullable<string>;
@@ -82,7 +80,7 @@ type Kategori = {
     parentId: Nullable<number>;
 };
 
-type Contact = {
+export type Contact = {
     name: Nullable<string>;
     email: Nullable<string>;
     phone: Nullable<string>;
@@ -90,12 +88,12 @@ type Contact = {
     title: Nullable<string>;
 };
 
-type Media = {
+export type Media = {
     mediaLink: Nullable<string>;
     filename: Nullable<string>;
 };
 
-type Properties = Partial<{
+export type Properties = Partial<{
     adtext: string;
     sourceurl: string;
     applicationdue: string;
@@ -159,6 +157,6 @@ type Properties = Partial<{
     personalattributes: string;
 }>;
 
-type Nullable<T> = T | null;
+export type Nullable<T> = T | null;
 
 export default Stilling;

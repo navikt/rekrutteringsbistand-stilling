@@ -360,7 +360,11 @@ function* validateWorkhours() {
     const state: State = yield select();
     const { workhours } = state.adData.properties;
 
-    if (valueIsNotSet(workhours) || !IsJson(workhours) || valueIsNotSet(JSON.parse(workhours))) {
+    if (
+        valueIsNotSet(workhours) ||
+        !IsJson(workhours) ||
+        valueIsNotSet(JSON.parse(workhours || ''))
+    ) {
         yield put({
             type: ADD_VALIDATION_ERROR,
             field: 'workhours',
