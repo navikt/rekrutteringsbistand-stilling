@@ -1,5 +1,6 @@
 import { KanInkludere } from './edit/registrer-inkluderingsmuligheter/DirektemeldtStilling';
 import deepEqual from 'deep-equal';
+import * as Sentry from '@sentry/react';
 import { put, select, takeLatest } from 'redux-saga/effects';
 import {
     ApiError,
@@ -410,6 +411,7 @@ function* createAd() {
         yield put({ type: SET_NAV_IDENT, navIdent: reportee.navIdent });
         yield put({ type: CREATE_AD_SUCCESS, response });
     } catch (e) {
+        Sentry.captureException(e);
         if (e instanceof ApiError) {
             yield put({ type: CREATE_AD_FAILURE, error: e });
         }
