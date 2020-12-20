@@ -20,6 +20,7 @@ type Props = {
 const Preview: FunctionComponent<Props> = ({ stilling }) => {
     const { properties, employer, source, locationList, contactList, businessName } = stilling;
 
+    // TODO: Disse er depracated, slett
     const hardrequirements = properties.hardrequirements
         ? JSON.parse(properties.hardrequirements)
         : undefined;

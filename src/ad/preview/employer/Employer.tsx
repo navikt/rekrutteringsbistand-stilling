@@ -21,7 +21,7 @@ const Employer: FunctionComponent<Props> = ({ employer, properties, businessName
                     <dd key="dd">{properties.employer || businessName}</dd>, // todo: remove ad.properties.employer when depricated
                 ]}
                 {employer?.orgnr && [
-                    <dt key="dt">Bedriftsnummer:</dt>,
+                    <dt key="dt">Organisasjonsnr:</dt>,
                     <dd key="dd">{employer.orgnr}</dd>,
                 ]}
                 {properties.employerhomepage &&
