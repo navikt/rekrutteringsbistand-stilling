@@ -3,18 +3,30 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Datepicker } from 'nav-datovelger';
 import { Feilmelding, Normaltekst } from 'nav-frontend-typografi';
-import { fjernTidspunktFraISOString, leggTilTimerPåISOString } from '../../../utils.ts';
+import {
+    fjernTidspunktFraISOString,
+    isValidISOString,
+    leggTilTimerPåISOString,
+} from '../../../utils.ts';
 import { SET_PUBLISHED, SET_EXPIRATION_DATE } from '../../adDataReducer';
 import Skjemalabel from '../../edit/skjemaetikett/Skjemalabel';
 import './Publishing.less';
 
 class Publishing extends React.Component {
     onPublishedChange = (date) => {
-        this.props.setPublished(leggTilTimerPåISOString(date, 3));
+        if (isValidISOString(date)) {
+            this.props.setPublished(leggTilTimerPåISOString(date, 3));
+        } else {
+            this.props.setPublished(date);
+        }
     };
 
     onExpiresChange = (date) => {
-        this.props.setExpirationDate(leggTilTimerPåISOString(date, 3));
+        if (isValidISOString(date)) {
+            this.props.setExpirationDate(leggTilTimerPåISOString(date, 3));
+        } else {
+            this.props.setExpirationDate(date);
+        }
     };
 
     render() {

@@ -32,7 +32,7 @@ class AdPublishedModal extends React.Component {
                 closeButton
                 className="AdPublishedModal"
             >
-                {adStatus === AdStatusEnum.INACTIVE && activationOnPublishingDate ? (
+                {adStatus === AdStatusEnum.INACTIVE && activationOnPublishingDate && published ? (
                     <Undertittel className="blokk-s">
                         Stillingen blir publisert {formatISOString(published)}
                     </Undertittel>
@@ -77,7 +77,7 @@ AdPublishedModal.propTypes = {
     uuid: PropTypes.string,
     adStatus: PropTypes.string.isRequired,
     activationOnPublishingDate: PropTypes.bool,
-    published: PropTypes.string.isRequired,
+    published: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({
