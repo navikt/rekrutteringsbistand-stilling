@@ -4,13 +4,6 @@ export function isValidISOString(isoString: string) {
     return ISO_8601_DATE.test(isoString);
 }
 
-export function toDate(isoString: string) {
-    if (!isValidISOString(isoString)) {
-        throw Error(`${isoString} is not a valid ISO 8601 date`);
-    }
-    return new Date(isoString);
-}
-
 export function formatISOString(isoString: string, format: string = 'DD.MM.YYYY') {
     try {
         if (isValidISOString(isoString)) {
@@ -32,11 +25,9 @@ export function formatISOString(isoString: string, format: string = 'DD.MM.YYYY'
 }
 
 export const leggTilTimerPåISOString = (
-    datoString: string | undefined,
+    datoString: string,
     antallTimerFraMidnatt: number
-) => {
-    if (!datoString) return undefined;
-
+): string => {
     let dato = new Date(datoString);
     dato.setHours(antallTimerFraMidnatt);
     return dato.toISOString();
@@ -45,7 +36,7 @@ export const leggTilTimerPåISOString = (
 export const fjernTidspunktFraISOString = (dato: string | undefined) =>
     typeof dato === 'string' ? dato.split('T')[0] : undefined;
 
-export const idagMidnatt = () => {
+export const idagMidnatt = (): Date => {
     const idag = new Date();
     idag.setHours(0);
     idag.setMinutes(0);
@@ -53,5 +44,3 @@ export const idagMidnatt = () => {
     idag.setMilliseconds(0);
     return idag;
 };
-
-export default toDate;

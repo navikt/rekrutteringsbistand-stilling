@@ -1,6 +1,6 @@
 import { tagsInneholderInkluderingsmuligheter } from './tags/utils';
 import { put, select, takeLatest } from 'redux-saga/es/effects';
-import { idagMidnatt, toDate } from '../utils';
+import { idagMidnatt, isValidISOString } from '../utils';
 import { DEFAULT_TITLE_NEW_AD, SET_KAN_INKLUDERE } from './adReducer';
 import IsJson from './edit/practicalInformation/IsJson';
 
@@ -31,6 +31,7 @@ import {
     REMOVE_LOCATION_AREAS,
     CHECK_TAG,
     UNCHECK_TAG,
+    SET_EMPLOYMENT_STARTTIME,
 } from './adDataReducer';
 
 import { SET_NOTAT } from '../stillingsinfo/stillingsinfoDataReducer';
@@ -166,15 +167,19 @@ function* validateExpireDate() {
     const state = yield select();
     const { expires } = state.adData;
 
-    const expirationErSattIFremtiden = toDate(expires) > idagMidnatt();
-
     if (valueIsNotSet(expires)) {
         yield put({
             type: ADD_VALIDATION_ERROR,
             field: 'expires',
             message: 'Siste visningsdato mangler',
         });
-    } else if (!expirationErSattIFremtiden) {
+    } else if (!isValidISOString(expires)) {
+        yield put({
+            type: ADD_VALIDATION_ERROR,
+            field: 'expires',
+            message: 'Siste visningsdato er ugyldig',
+        });
+    } else if (erSattFørIdag(expires)) {
         yield put({
             type: ADD_VALIDATION_ERROR,
             field: 'expires',
@@ -185,6 +190,10 @@ function* validateExpireDate() {
     }
 }
 
+const erSattFørIdag = (datoString: string): boolean => {
+    return new Date(datoString) <= idagMidnatt();
+};
+
 function* validatePublishDate() {
     const state = yield select();
     const { published } = state.adData;
@@ -194,6 +203,12 @@ function* validatePublishDate() {
             type: ADD_VALIDATION_ERROR,
             field: 'published',
             message: 'Publiseringsdato mangler',
+        });
+    } else if (!isValidISOString(published)) {
+        yield put({
+            type: ADD_VALIDATION_ERROR,
+            field: 'published',
+            message: 'Publiseringsdato er ugyldig',
         });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'published' });
@@ -282,8 +297,32 @@ function* validateApplicationdueDate() {
             field: 'applicationdue',
             message: 'Søknadsfrist mangler',
         });
+    } else if (!isValidISOString(applicationdue) && applicationdue !== 'Snarest') {
+        yield put({
+            type: ADD_VALIDATION_ERROR,
+            field: 'applicationdue',
+            message: 'Søknadsfrist er ugyldig',
+        });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'applicationdue' });
+    }
+}
+
+function* validateEmploymentStartTime() {
+    const state = yield select();
+    const { starttime } = state.adData.properties;
+
+    const erGyldig =
+        starttime === undefined || starttime === 'Etter avtale' || isValidISOString(starttime);
+
+    if (erGyldig) {
+        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'starttime' });
+    } else {
+        yield put({
+            type: ADD_VALIDATION_ERROR,
+            field: 'starttime',
+            message: 'Oppstartstidspunkt er ugyldig',
+        });
     }
 }
 
@@ -521,6 +560,7 @@ export const validationSaga = function* saga() {
     yield takeLatest(VALIDATE_CONTACTPERSON_PHONE, validateContactpersonPhone);
     yield takeLatest(SET_NOTAT, validateNotat);
     yield takeLatest(SET_APPLICATIONDUE, validateApplicationdueDate);
+    yield takeLatest(SET_EMPLOYMENT_STARTTIME, validateEmploymentStartTime);
     yield takeLatest(SET_EMPLOYMENT_ENGAGEMENTTYPE, validateEngagementType);
     yield takeLatest(SET_EMPLOYMENT_POSITIONCOUNT, validatePositionCount);
     yield takeLatest(SET_EMPLOYMENT_EXTENT, validateExtent);

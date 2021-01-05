@@ -6,7 +6,11 @@ import { connect } from 'react-redux';
 import { Undertittel } from 'nav-frontend-typografi';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Datepicker } from 'nav-datovelger';
-import { fjernTidspunktFraISOString, leggTilTimerPåISOString } from '../../../utils.ts';
+import {
+    fjernTidspunktFraISOString,
+    isValidISOString,
+    leggTilTimerPåISOString,
+} from '../../../utils.ts';
 import {
     SET_EMPLOYMENT_EXTENT,
     CHECK_EMPLOYMENT_WORKDAY,
@@ -57,7 +61,11 @@ class PracticalInformation extends React.Component {
     };
 
     onApplicationDueChange = (date) => {
-        this.props.setApplicationDue(leggTilTimerPåISOString(date, 12));
+        if (isValidISOString(date)) {
+            this.props.setApplicationDue(leggTilTimerPåISOString(date, 12));
+        } else {
+            this.props.setApplicationDue(date);
+        }
     };
 
     onSnarestChange = (e) => {
@@ -70,7 +78,13 @@ class PracticalInformation extends React.Component {
     };
 
     onStarttimeChange = (date) => {
-        this.props.setStartTime(leggTilTimerPåISOString(date, 12));
+        if (isValidISOString(date)) {
+            this.props.setStartTime(leggTilTimerPåISOString(date, 12));
+        } else if (date.length === 0) {
+            this.props.setStartTime(undefined);
+        } else {
+            this.props.setStartTime(date);
+        }
     };
 
     onEtterAvtaleChange = (e) => {
@@ -78,7 +92,7 @@ class PracticalInformation extends React.Component {
         if (e.target.checked) {
             this.props.setStartTime(value);
         } else {
-            this.props.setStartTime('');
+            this.props.setStartTime(undefined);
         }
     };
 
@@ -288,7 +302,7 @@ class PracticalInformation extends React.Component {
                         </div>
                     </div>
                 </SkjemaGruppe>
-                <SkjemaGruppe className="typo-normal">
+                <SkjemaGruppe className="typo-normal" feil={this.props.validation.starttime}>
                     <Skjemalegend>Oppstart</Skjemalegend>
                     <div className="PracticalInformation ">
                         <div className="PracticalInformation__datepicker">
