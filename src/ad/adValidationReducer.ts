@@ -177,7 +177,7 @@ function* validateExpireDate() {
         yield put({
             type: ADD_VALIDATION_ERROR,
             field: 'expires',
-            message: 'Fyll inn gyldig dato',
+            message: 'Siste visningsdato er ugyldig',
         });
     } else if (erSattFørIdag(expires)) {
         yield put({
@@ -208,7 +208,7 @@ function* validatePublishDate() {
         yield put({
             type: ADD_VALIDATION_ERROR,
             field: 'published',
-            message: 'Fyll inn gyldig dato',
+            message: 'Publiseringsdato er ugyldig',
         });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'published' });
@@ -301,7 +301,7 @@ function* validateApplicationdueDate() {
         yield put({
             type: ADD_VALIDATION_ERROR,
             field: 'applicationdue',
-            message: 'Fyll inn gyldig dato', // TODO Bra melding
+            message: 'Søknadsfrist er ugyldig',
         });
     } else {
         yield put({ type: REMOVE_VALIDATION_ERROR, field: 'applicationdue' });
@@ -321,7 +321,7 @@ function* validateEmploymentStartTime() {
         yield put({
             type: ADD_VALIDATION_ERROR,
             field: 'starttime',
-            message: 'Fyll inn gyldig dato',
+            message: 'Oppstartstidspunkt er ugyldig',
         });
     }
 }
