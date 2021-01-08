@@ -9,12 +9,11 @@ const KandidatenFinnesIkke: FunctionComponent = () => {
                 <div>Mulige årsaker:</div>
                 <ul>
                     <li>Fødselsnummeret er feil</li>
-                    <li>Kandidaten har ikke jobbprofil</li>
-                    <li>Kandidaten har ikke CV</li>
-                    <li>Kandidaten har ikke lest hjemmel i ny CV-løsning</li>
-                    <li>Kandidaten har "Nei nav.no" i Formidlingsinformasjon i Arena</li>
+                    <li>Kandidaten mangler CV eller jobbprofil</li>
+                    <li>Kandidaten har ikke blitt informert om NAVs behandlingsgrunnlag</li>
                     <li>Kandidaten har personforhold "Fritatt for kandidatsøk" i Arena</li>
                     <li>Kandidaten er sperret "Egen ansatt"</li>
+                    <li>Kandidaten har diskresjonskode (kode 6 og 7)</li>
                 </ul>
             </div>
             <div className="LeggTilKandidat__info">
