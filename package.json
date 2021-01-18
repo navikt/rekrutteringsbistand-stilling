@@ -103,10 +103,10 @@
         "redux": "^4.0.4",
         "redux-saga": "^0.16.0",
         "snyk": "^1.437.4",
-        "whatwg-fetch": "^2.0.4"
+        "whatwg-fetch": "^3.5.0"
     },
     "devDependencies": {
-        "@craco/craco": "^5.8.0",
+        "@craco/craco": "^6.0.0",
         "@sentry/cli": "^1.61.0",
         "@types/amplitude-js": "^7.0.0",
         "@types/classnames": "^2.2.10",
@@ -123,10 +123,10 @@
         "babel-preset-stage-2": "^6.24.1",
         "browserslist": "^4.16.1",
         "craco-less": "^1.17.1",
-        "eslint-config-prettier": "^6.13.0",
+        "eslint-config-prettier": "^7.1.0",
         "fetch-mock": "^9.11.0",
         "http-proxy-middleware": "^1.0.6",
-        "less": "^3.12.2",
+        "less": "^4.1.0",
         "postcss-prefix-selector": "^1.7.2",
         "prettier": "^2.2.1",
         "ts-jest": "^26.4.1",
