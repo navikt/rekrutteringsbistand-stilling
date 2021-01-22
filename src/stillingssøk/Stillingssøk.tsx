@@ -29,7 +29,7 @@ const Stillingssøk: FunctionComponent = () => {
         };
 
         hentStillinger();
-    });
+    }, []);
 
     return (
         <div>
