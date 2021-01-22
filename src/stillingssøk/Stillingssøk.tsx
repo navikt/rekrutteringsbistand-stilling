@@ -34,11 +34,7 @@ const Stillingssøk: FunctionComponent = () => {
     return (
         <div>
             <h1>Stillinger:</h1>
-            <ul>
-                {stillinger.map((stilling) => (
-                    <li>{stilling.stilling.title}</li>
-                ))}
-            </ul>
+            <code>{JSON.stringify(stillinger, null, 4)}</code>
         </div>
     );
 };
