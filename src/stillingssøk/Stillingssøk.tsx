@@ -37,6 +37,53 @@ const tittelQuery = {
     query: { match: { 'stilling.title': { query: 'Tittel' } } },
 };
 
+const tilretteleggingQuery = {
+    query: {
+        bool: {
+            must_not: [
+                {
+                    term: {
+                        'stilling.status': 'DELETED',
+                    },
+                },
+            ],
+            must: [
+                {
+                    term: {
+                        'stilling.source': 'DIR',
+                    },
+                },
+                {
+                    range: {
+                        'stilling.created': {
+                            gte: '2020-01-01',
+                            lt: '2022-01-01',
+                        },
+                    },
+                },
+            ],
+            should: [
+                {
+                    match_phrase: {
+                        'stilling.properties.tags': 'INKLUDERING',
+                    },
+                },
+                {
+                    match_phrase: {
+                        'stilling.properties.tags': 'PRIORITERT_MÅLGRUPPE',
+                    },
+                },
+                {
+                    match_phrase: {
+                        'stilling.properties.tags': 'TILTAK_ELLER_VIRKEMIDDEL',
+                    },
+                },
+            ],
+            minimum_should_match: 1,
+        },
+    },
+};
+
 const Stillingssøk: FunctionComponent = () => {
     const [resultat, setResultat] = useState<Resultat>();
     const [query, setQuery] = useState<object>(defaultQuery);
@@ -80,6 +127,9 @@ const Stillingssøk: FunctionComponent = () => {
             <Select className="blokk-m" label="Velg en query" onChange={onQuerySelect}>
                 <option value={formaterJson(defaultQuery)}>Søk alle stillinger</option>
                 <option value={formaterJson(tittelQuery)}>Søk på tittel</option>
+                <option value={formaterJson(tilretteleggingQuery)}>
+                    Søk på tilretteleggingsmuligheter
+                </option>
             </Select>
 
             <div className="blokk-m">
