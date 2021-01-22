@@ -38,6 +38,8 @@ spec:
           value: https://arbeidsgiver.nais.adeo.no/rekrutteringsbistand-api
         - name: KANDIDAT_API_URL
           value: https://rekrutteringsbistand-kandidat-api.nais.adeo.no/rekrutteringsbistand-kandidat-api/rest
+        - name: STILLINGSOK_PROXY_URL
+          value: https://rekrutteringsbistand-stillingssok-proxy.intern.nav.no
         - name: VIS_STILLING_URL
           value: https://www.nav.no/arbeid/stilling
         - name: NODE_EXTRA_CA_CERTS

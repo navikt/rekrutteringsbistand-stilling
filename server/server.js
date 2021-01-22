@@ -49,6 +49,7 @@ const startServer = () => {
 
     app.use(setupProxy(`${basePath}/stilling-api`, process.env.STILLING_API_URL));
     app.use(setupProxy(`${basePath}/kandidat-api`, process.env.KANDIDAT_API_URL));
+    app.use(setupProxy(`${basePath}/stillingssok-proxy`, process.env.STILLINGSOK_PROXY_URL));
 
     app.use(`${basePath}/static`, express.static(buildPath + '/static'));
 
