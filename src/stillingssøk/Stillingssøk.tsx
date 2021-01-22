@@ -77,7 +77,7 @@ const Stillingssøk: FunctionComponent = () => {
     return (
         <div className="stillingssøk">
             <Sidetittel className="blokk-m">Nytt stillingssøk</Sidetittel>
-            <Select label="Velg en query" onChange={onQuerySelect}>
+            <Select className="blokk-m" label="Velg en query" onChange={onQuerySelect}>
                 <option value={formaterJson(defaultQuery)}>Søk alle stillinger</option>
                 <option value={formaterJson(tittelQuery)}>Søk på tittel</option>
             </Select>
