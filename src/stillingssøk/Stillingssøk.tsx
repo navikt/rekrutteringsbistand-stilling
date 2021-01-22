@@ -4,15 +4,9 @@ import { fetchPost } from '../api/api';
 const stillingsøkProxy = '/rekrutteringsbistand-stilling/stillingssok-proxy';
 
 const query = {
-    size: 3,
+    size: 10,
     query: {
-        bool: {
-            must: {
-                exists: {
-                    field: 'stillingsinfo',
-                },
-            },
-        },
+        match_all: {},
     },
 };
 
