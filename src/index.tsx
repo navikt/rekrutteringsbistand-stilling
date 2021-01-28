@@ -1,7 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import ReactDOM from 'react-dom';
+import Navspa from '@navikt/navspa';
+
 import { Main } from './app';
-import eksporterApp from './eksporterApp';
 import Utviklingsapp from './utviklingsapp/Utviklingsapp';
 
 const skalEksporteres = process.env.REACT_APP_EXPORT || process.env.NODE_ENV === 'production';
@@ -17,7 +18,7 @@ const AppMedCssScope: FunctionComponent = (props: any) => (
 );
 
 if (skalEksporteres) {
-    eksporterApp('rekrutteringsbistand-stilling', AppMedCssScope);
+    Navspa.eksporter('rekrutteringsbistand-stilling', AppMedCssScope);
 } else {
     ReactDOM.render(<Utviklingsapp />, document.getElementById('utviklingsapp'));
 }
