@@ -1,5 +1,5 @@
 import { tagsInneholderInkluderingsmuligheter } from './tags/utils';
-import { put, select, takeLatest } from 'redux-saga/es/effects';
+import { put, select, takeLatest } from 'redux-saga/effects';
 import { idagMidnatt, isValidISOString } from '../utils';
 import { DEFAULT_TITLE_NEW_AD, SET_KAN_INKLUDERE } from './adReducer';
 import IsJson from './edit/practicalInformation/IsJson';

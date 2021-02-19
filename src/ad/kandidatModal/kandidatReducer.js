@@ -1,5 +1,4 @@
-import { delay } from 'redux-saga';
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest, delay } from 'redux-saga/effects';
 import {
     fetchKandidatliste,
     fetchKandidatMedFnr,
