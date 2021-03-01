@@ -48,7 +48,7 @@ class ContactInfo extends React.Component {
 
         const skalViseStillingsinfo = isDir || stillingsinfo;
 
-        if (skalViseStillingsinfo) {
+        if (!skalViseStillingsinfo) {
             return null;
         }
 
