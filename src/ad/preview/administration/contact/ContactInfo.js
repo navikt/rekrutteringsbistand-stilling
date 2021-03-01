@@ -17,6 +17,7 @@ class ContactInfo extends React.Component {
     }
     onMarkerSomMinKlikkEksternStilling = () => {
         this.props.markerSomMin();
+        this.setState({ markerSomMinStillingModalErÅpen: false });
     };
 
     onMarkerSomMinKlikkInternStilling = () => {
@@ -24,6 +25,7 @@ class ContactInfo extends React.Component {
         setReportee(innlogget.displayName);
         setNavIdent(innlogget.navIdent);
         saveAd();
+        this.setState({ markerSomMinStillingModalErÅpen: false });
     };
 
     render() {
