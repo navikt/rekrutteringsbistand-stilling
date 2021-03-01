@@ -35,7 +35,7 @@ class ContactInfo extends React.Component {
         const hasStillingsinfo = stillingsinfo && stillingsinfo.eierNavident;
         const { reportee, navIdent } = stilling.administration;
 
-        const knappOgModal = () => (
+        const markerSomMinKnappOgModal = () => (
             <>
                 <Knapp
                     className="button-marker_som_min"
@@ -64,7 +64,7 @@ class ContactInfo extends React.Component {
                 </Normaltekst>
                 {innlogget &&
                     innlogget.navIdent !== stilling.administration.navIdent &&
-                    knappOgModal()}
+                    markerSomMinKnappOgModal()}
             </div>
         ) : (
             <>
@@ -77,7 +77,7 @@ class ContactInfo extends React.Component {
                         </Normaltekst>
                         {(!stillingsinfo.eierNavident ||
                             (innlogget && stillingsinfo.eierNavident !== innlogget.navIdent)) &&
-                            knappOgModal()}
+                            markerSomMinKnappOgModal()}
                     </div>
                 )}
             </>
