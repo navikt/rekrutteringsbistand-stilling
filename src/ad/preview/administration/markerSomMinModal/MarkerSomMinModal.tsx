@@ -12,36 +12,31 @@ type Props = {
 
 const MarkerSomMinModal: FunctionComponent<Props> = ({ erÅpen, onAvbryt, onMarkerSomMin }) => {
     return (
-        <>
-            <NavFrontendModal
-                onRequestClose={onAvbryt}
-                isOpen={erÅpen}
-                contentLabel="Marker stillingen som min"
-                portalClassName="rek-stilling"
-                className="MarkerSomMinModal"
-            >
-                <Undertittel className="blokk-s">Marker stillingen som min</Undertittel>
-                <Normaltekst className="blokk-l">
-                    Hvis du markerer stillingen som din, blir du eier av stillingen og tilhørende
-                    kandidatliste. Du vil ha ansvar for kontakt med arbeidsgiver, og kan dele CV-er
-                    med arbeidsgiveren.
-                </Normaltekst>
-                <div>
-                    <Hovedknapp
-                        className="MarkerSomMinModal__bekreftKnapp"
-                        onClick={onMarkerSomMin}
-                    >
-                        Marker som min
-                    </Hovedknapp>
-                    <Flatknapp
-                        className="marker-som-min__avbryt knapp-små-bokstaver"
-                        onClick={onAvbryt}
-                    >
-                        Avbryt
-                    </Flatknapp>
-                </div>
-            </NavFrontendModal>
-        </>
+        <NavFrontendModal
+            onRequestClose={onAvbryt}
+            isOpen={erÅpen}
+            contentLabel="Marker stillingen som min"
+            portalClassName="rek-stilling"
+            className="MarkerSomMinModal"
+        >
+            <Undertittel className="blokk-s">Marker stillingen som min</Undertittel>
+            <Normaltekst className="blokk-l">
+                Hvis du markerer stillingen som din, blir du eier av stillingen og tilhørende
+                kandidatliste. Du vil ha ansvar for kontakt med arbeidsgiver, og kan dele CV-er med
+                arbeidsgiveren.
+            </Normaltekst>
+            <div>
+                <Hovedknapp className="MarkerSomMinModal__bekreftKnapp" onClick={onMarkerSomMin}>
+                    Marker som min
+                </Hovedknapp>
+                <Flatknapp
+                    className="marker-som-min__avbryt knapp-små-bokstaver"
+                    onClick={onAvbryt}
+                >
+                    Avbryt
+                </Flatknapp>
+            </div>
+        </NavFrontendModal>
     );
 };
 
