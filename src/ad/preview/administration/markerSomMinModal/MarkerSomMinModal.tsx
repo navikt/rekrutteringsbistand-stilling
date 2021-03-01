@@ -24,7 +24,7 @@ const MarkerSomMinModal: FunctionComponent<Props> = ({ erÅpen, onAvbryt, onMark
                 <Normaltekst className="blokk-l">
                     Hvis du markerer stillingen som din, blir du eier av stillingen og tilhørende
                     kandidatliste. Du vil ha ansvar for kontakt med arbeidsgiver, og kan dele CV-er
-                    med arbeidsgiveren. Handlingen kan ikke angres.
+                    med arbeidsgiveren.
                 </Normaltekst>
                 <div>
                     <Hovedknapp
