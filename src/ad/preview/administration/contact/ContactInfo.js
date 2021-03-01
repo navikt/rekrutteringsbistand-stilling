@@ -30,17 +30,6 @@ class ContactInfo extends React.Component {
         this.setState({ markerSomMinStillingModalErÅpen: false });
     };
 
-    kanMarkereStillingSomMin = () => {
-        if (isDir) {
-            return innlogget && innlogget.navIdent !== stilling.administration.navIdent;
-        } else {
-            return (
-                !stillingsinfo.eierNavident ||
-                (innlogget && stillingsinfo.eierNavident !== innlogget.navIdent)
-            );
-        }
-    };
-
     render() {
         const { stilling, stillingsinfo } = this.props;
         const isDir = stilling && erDirektemeldtStilling(stilling.source);
@@ -51,6 +40,17 @@ class ContactInfo extends React.Component {
         if (!skalViseStillingsinfo) {
             return null;
         }
+
+        const kanMarkereStillingSomMin = () => {
+            if (isDir) {
+                return innlogget && innlogget.navIdent !== stilling.administration.navIdent;
+            } else {
+                return (
+                    !stillingsinfo.eierNavident ||
+                    (innlogget && stillingsinfo.eierNavident !== innlogget.navIdent)
+                );
+            }
+        };
 
         return (
             <div className="ContactInfo__preview">
@@ -67,7 +67,7 @@ class ContactInfo extends React.Component {
                     </Normaltekst>
                 )}
 
-                {this.kanMarkereStillingSomMin && (
+                {kanMarkereStillingSomMin && (
                     <>
                         <Knapp
                             className="button-marker_som_min"
