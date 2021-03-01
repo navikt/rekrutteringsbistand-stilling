@@ -7,10 +7,19 @@ import { MARKER_SOM_MIN, SAVE_AD } from '../../../adReducer';
 import './ContactInfo.less';
 import { SET_NAV_IDENT, SET_REPORTEE } from '../../../adDataReducer';
 import { erDirektemeldtStilling } from '../../../adUtils';
+import MarkerSomMinModal from '../markerSomMinModal/MarkerSomMinModal';
 
 class ContactInfo extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            modalMarkerSomMinStillingErÅpen: false,
+        };
+    }
+
     onMarkerSomMinKlikkEksternStilling = () => {
         this.props.markerSomMin();
+        this.setState({ markerSomMinStillingModalErÅpen: false });
     };
 
     onMarkerSomMinKlikkInternStilling = () => {
@@ -18,52 +27,47 @@ class ContactInfo extends React.Component {
         setReportee(innlogget.displayName);
         setNavIdent(innlogget.navIdent);
         saveAd();
+        this.setState({ markerSomMinStillingModalErÅpen: false });
     };
 
     render() {
-        const { stilling, stillingsinfo, innlogget } = this.props;
+        const { stilling, stillingsinfo } = this.props;
         const isDir = stilling && erDirektemeldtStilling(stilling.source);
-        const hasStillingsinfo = stillingsinfo && stillingsinfo.eierNavident;
         const { reportee, navIdent } = stilling.administration;
 
-        return isDir ? (
+        return (
             <div className="ContactInfo__preview">
                 <Element>Spørsmål om stillingen?</Element>
-                <Normaltekst>
-                    Kontaktperson hos NAV: {reportee} {navIdent ? ` (${navIdent})` : ''}
-                </Normaltekst>
-                {innlogget && innlogget.navIdent !== stilling.administration.navIdent && (
-                    <Knapp
-                        className="button-marker_som_min"
-                        onClick={this.onMarkerSomMinKlikkInternStilling}
-                        mini
-                    >
-                        Marker som min
-                    </Knapp>
+
+                {isDir ? (
+                    <Normaltekst>
+                        Kontaktperson hos NAV: {reportee} {navIdent ? ` (${navIdent})` : ''}
+                    </Normaltekst>
+                ) : (
+                    <Normaltekst>
+                        Kontaktperson hos NAV: {stillingsinfo.eierNavn}{' '}
+                        {stillingsinfo.eierNavident ? ` (${stillingsinfo.eierNavident})` : ''}
+                    </Normaltekst>
                 )}
+
+                <Knapp
+                    className="button-marker_som_min"
+                    onClick={() => this.setState({ markerSomMinStillingModalErÅpen: true })}
+                    mini
+                >
+                    Marker som min
+                </Knapp>
+
+                <MarkerSomMinModal
+                    erÅpen={this.state.markerSomMinStillingModalErÅpen}
+                    onAvbryt={() => this.setState({ markerSomMinStillingModalErÅpen: false })}
+                    onMarkerSomMin={
+                        isDir
+                            ? this.onMarkerSomMinKlikkInternStilling
+                            : this.onMarkerSomMinKlikkEksternStilling
+                    }
+                />
             </div>
-        ) : (
-            <>
-                {hasStillingsinfo && (
-                    <div className="ContactInfo__preview">
-                        <Element>Spørsmål om stillingen?</Element>
-                        <Normaltekst>
-                            Kontaktperson hos NAV: {stillingsinfo.eierNavn}{' '}
-                            {stillingsinfo.eierNavident ? ` (${stillingsinfo.eierNavident})` : ''}
-                        </Normaltekst>
-                        {(!stillingsinfo.eierNavident ||
-                            (innlogget && stillingsinfo.eierNavident !== innlogget.navIdent)) && (
-                            <Knapp
-                                className="button-marker_som_min"
-                                onClick={this.onMarkerSomMinKlikkEksternStilling}
-                                mini
-                            >
-                                Marker som min
-                            </Knapp>
-                        )}
-                    </div>
-                )}
-            </>
         );
     }
 }
