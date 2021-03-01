@@ -31,7 +31,7 @@ class ContactInfo extends React.Component {
     };
 
     render() {
-        const { stilling, stillingsinfo } = this.props;
+        const { stilling, stillingsinfo, innlogget } = this.props;
         const isDir = stilling && erDirektemeldtStilling(stilling.source);
         const { reportee, navIdent } = stilling.administration;
 
