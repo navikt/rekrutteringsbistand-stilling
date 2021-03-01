@@ -7,6 +7,7 @@ import { MARKER_SOM_MIN, SAVE_AD } from '../../../adReducer';
 import './ContactInfo.less';
 import { SET_NAV_IDENT, SET_REPORTEE } from '../../../adDataReducer';
 import { erDirektemeldtStilling } from '../../../adUtils';
+import MarkerSomMinModal from '../markerSomMinModal/MarkerSomMinModal';
 
 class ContactInfo extends React.Component {
     constructor(props) {
