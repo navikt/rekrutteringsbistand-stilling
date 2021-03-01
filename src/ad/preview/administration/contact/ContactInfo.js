@@ -35,26 +35,36 @@ class ContactInfo extends React.Component {
         const hasStillingsinfo = stillingsinfo && stillingsinfo.eierNavident;
         const { reportee, navIdent } = stilling.administration;
 
+        const knappOgModal = () => (
+            <>
+                <Knapp
+                    className="button-marker_som_min"
+                    onClick={() => this.setState({ markerSomMinStillingModalErÅpen: true })}
+                    mini
+                >
+                    Marker som min
+                </Knapp>
+                <MarkerSomMinModal
+                    erÅpen={this.state.markerSomMinStillingModalErÅpen}
+                    onAvbryt={() => this.setState({ markerSomMinStillingModalErÅpen: false })}
+                    onMarkerSomMin={
+                        isDir
+                            ? this.onMarkerSomMinKlikkInternStilling
+                            : this.onMarkerSomMinKlikkEksternStilling
+                    }
+                />
+            </>
+        );
+
         return isDir ? (
             <div className="ContactInfo__preview">
                 <Element>Spørsmål om stillingen?</Element>
                 <Normaltekst>
                     Kontaktperson hos NAV: {reportee} {navIdent ? ` (${navIdent})` : ''}
                 </Normaltekst>
-                {innlogget && innlogget.navIdent !== stilling.administration.navIdent && (
-                    <Knapp
-                        className="button-marker_som_min"
-                        onClick={() => this.setState({ markerSomMinStillingModalErÅpen: true })}
-                        mini
-                    >
-                        Marker som min
-                    </Knapp>
-                )}
-                <MarkerSomMinModal
-                    erÅpen={this.state.markerSomMinStillingModalErÅpen}
-                    onAvbryt={() => this.setState({ markerSomMinStillingModalErÅpen: false })}
-                    onMarkerSomMin={this.onMarkerSomMinKlikkInternStilling}
-                />
+                {innlogget &&
+                    innlogget.navIdent !== stilling.administration.navIdent &&
+                    knappOgModal()}
             </div>
         ) : (
             <>
@@ -66,24 +76,8 @@ class ContactInfo extends React.Component {
                             {stillingsinfo.eierNavident ? ` (${stillingsinfo.eierNavident})` : ''}
                         </Normaltekst>
                         {(!stillingsinfo.eierNavident ||
-                            (innlogget && stillingsinfo.eierNavident !== innlogget.navIdent)) && (
-                            <Knapp
-                                className="button-marker_som_min"
-                                onClick={() =>
-                                    this.setState({ markerSomMinStillingModalErÅpen: true })
-                                }
-                                mini
-                            >
-                                Marker som min
-                            </Knapp>
-                        )}
-                        <MarkerSomMinModal
-                            erÅpen={this.state.markerSomMinStillingModalErÅpen}
-                            onAvbryt={() =>
-                                this.setState({ markerSomMinStillingModalErÅpen: false })
-                            }
-                            onMarkerSomMin={this.onMarkerSomMinKlikkEksternStilling}
-                        />
+                            (innlogget && stillingsinfo.eierNavident !== innlogget.navIdent)) &&
+                            knappOgModal()}
                     </div>
                 )}
             </>
