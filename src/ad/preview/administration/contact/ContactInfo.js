@@ -41,7 +41,7 @@ class ContactInfo extends React.Component {
                 {innlogget && innlogget.navIdent !== stilling.administration.navIdent && (
                     <Knapp
                         className="button-marker_som_min"
-                        onClick={this.onMarkerSomMinKlikkInternStilling}
+                        onClick={() => this.setState({ markerSomMinStillingModalErÅpen: true })}
                         mini
                     >
                         Marker som min
@@ -50,11 +50,7 @@ class ContactInfo extends React.Component {
                 <MarkerSomMinModal
                     erÅpen={this.state.markerSomMinStillingModalErÅpen}
                     onAvbryt={() => this.setState({ markerSomMinStillingModalErÅpen: false })}
-                    onMarkerSomMin={
-                        isDir
-                            ? this.onMarkerSomMinKlikkInternStilling
-                            : this.onMarkerSomMinKlikkEksternStilling
-                    }
+                    onMarkerSomMin={this.onMarkerSomMinKlikkInternStilling}
                 />
             </div>
         ) : (
@@ -70,7 +66,9 @@ class ContactInfo extends React.Component {
                             (innlogget && stillingsinfo.eierNavident !== innlogget.navIdent)) && (
                             <Knapp
                                 className="button-marker_som_min"
-                                onClick={this.onMarkerSomMinKlikkEksternStilling}
+                                onClick={() =>
+                                    this.setState({ markerSomMinStillingModalErÅpen: true })
+                                }
                                 mini
                             >
                                 Marker som min
@@ -81,11 +79,7 @@ class ContactInfo extends React.Component {
                             onAvbryt={() =>
                                 this.setState({ markerSomMinStillingModalErÅpen: false })
                             }
-                            onMarkerSomMin={
-                                isDir
-                                    ? this.onMarkerSomMinKlikkInternStilling
-                                    : this.onMarkerSomMinKlikkEksternStilling
-                            }
+                            onMarkerSomMin={this.onMarkerSomMinKlikkEksternStilling}
                         />
                     </div>
                 )}
