@@ -35,7 +35,7 @@ class ContactInfo extends React.Component {
         const isDir = stilling && erDirektemeldtStilling(stilling.source);
         const { reportee, navIdent } = stilling.administration;
 
-        const skalViseStillingsinfo = isDir || stillingsinfo;
+        const skalViseStillingsinfo = isDir || (stillingsinfo && stillingsinfo.eierNavident);
 
         if (!skalViseStillingsinfo) {
             return null;
