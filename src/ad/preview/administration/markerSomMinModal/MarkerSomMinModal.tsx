@@ -20,10 +20,13 @@ const MarkerSomMinModal: FunctionComponent<Props> = ({ erÅpen, onAvbryt, onMark
             className="MarkerSomMinModal"
         >
             <Undertittel className="blokk-s">Marker stillingen som min</Undertittel>
-            <Normaltekst className="blokk-l">
+            <Normaltekst className="blokk-s">
                 Hvis du markerer stillingen som din, blir du eier av stillingen og tilhørende
                 kandidatliste. Du vil ha ansvar for kontakt med arbeidsgiver, og kan dele CV-er med
                 arbeidsgiveren.
+            </Normaltekst>
+            <Normaltekst className="blokk-l">
+                Er du sikker på at du vil markere stillingen som din?
             </Normaltekst>
             <div>
                 <Hovedknapp className="MarkerSomMinModal__bekreftKnapp" onClick={onMarkerSomMin}>
