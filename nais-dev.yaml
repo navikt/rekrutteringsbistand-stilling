@@ -35,7 +35,7 @@ spec:
         - name: LOGIN_URL
           value: https://loginservice.nais.preprod.local/login
         - name: STILLING_API_URL
-          value: https://arbeidsgiver.nais.preprod.local/rekrutteringsbistand-api
+          value: https://rekrutteringsbistand-stilling-api.nais.preprod.local
         - name: KANDIDAT_API_URL
           value: https://rekrutteringsbistand-kandidat-api.nais.preprod.local/rekrutteringsbistand-kandidat-api/rest
         - name: STILLINGSOK_PROXY_URL
