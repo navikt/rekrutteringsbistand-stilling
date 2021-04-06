@@ -16,10 +16,7 @@ module.exports = (app) => {
         );
     };
 
-    setupProxy(
-        '/rekrutteringsbistand-stilling/stilling-api',
-        'http://localhost:9501/rekrutteringsbistand-api'
-    );
+    setupProxy('/rekrutteringsbistand-stilling/stilling-api', 'http://localhost:9501');
     setupProxy(
         '/rekrutteringsbistand-stilling/kandidat-api',
         'http://localhost:8766/rekrutteringsbistand-kandidat-api/rest'

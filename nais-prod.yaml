@@ -35,7 +35,7 @@ spec:
         - name: LOGIN_URL
           value: https://loginservice.nais.adeo.no/login
         - name: STILLING_API_URL
-          value: https://arbeidsgiver.nais.adeo.no/rekrutteringsbistand-api
+          value: https://rekrutteringsbistand-stilling-api.nais.adeo.no
         - name: KANDIDAT_API_URL
           value: https://rekrutteringsbistand-kandidat-api.nais.adeo.no/rekrutteringsbistand-kandidat-api/rest
         - name: STILLINGSOK_PROXY_URL
