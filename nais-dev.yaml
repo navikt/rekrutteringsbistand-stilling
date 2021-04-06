@@ -41,6 +41,6 @@ spec:
         - name: STILLINGSOK_PROXY_URL
           value: https://rekrutteringsbistand-stillingssok-proxy.dev.intern.nav.no
         - name: VIS_STILLING_URL
-          value: https://www-q0.nav.no/arbeid/stilling
+          value: https://vis-stilling.dev.nav.no/arbeid/stilling
         - name: NODE_EXTRA_CA_CERTS
           value: /etc/ssl/ca-bundle.pem
