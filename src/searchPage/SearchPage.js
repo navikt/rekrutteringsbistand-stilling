@@ -30,6 +30,11 @@ class SearchPage extends React.Component {
                 <div className="SearchPage__søkeboks-wrapper">
                     <StillingSøkeboks />
                 </div>
+                <AlertStripe type="advarsel" className="SearchPage__slå-av-advarsel">
+                    Dette stillingssøket kommer til å bli fjernet fredag 16. april. Prøv gjerne det
+                    nye stillingssøket innen den tid. Vi har gjort mange forbedringer den siste
+                    tiden.
+                </AlertStripe>
                 <Container className="SearchPage__container">
                     {error && error.statusCode === 412 && (
                         <AlertStripe className="AlertStripe__fullpage" type="advarsel" solid="true">
