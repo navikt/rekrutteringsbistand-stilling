@@ -1,4 +1,4 @@
-import { call, put, takeLatest, delay } from 'redux-saga/effects';
+import { put, takeLatest, delay } from 'redux-saga/effects';
 import {
     fetchKandidatliste,
     fetchKandidatMedFnr,
@@ -230,7 +230,7 @@ function* sjekkError({ error }) {
 
 export function* showAlertStripe(mode) {
     yield put({ type: SHOW_SAVED_KANDIDAT_ALERT_STRIPE, mode });
-    yield call(delay, 3000);
+    yield delay(3000);
     yield put({ type: HIDE_SAVED_KANDIDAT_ALERT_STRIPE });
 }
 

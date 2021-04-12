@@ -34,9 +34,9 @@ const countriesUrl = `${stillingApi}/rekrutteringsbistand/api/v1/geography/count
 const municipalsUrl = `${stillingApi}/rekrutteringsbistand/api/v1/geography/municipals`;
 const categoriesWithAltnamesUrl = `${stillingApi}/rekrutteringsbistand/api/v1/categories-with-altnames/`;
 const postdataUrl = `${stillingApi}/rekrutteringsbistand/api/v1/postdata/`;
-const fnrsokUrl = `express:${kandidatApi}/kandidater/rest/veileder/kandidatsok/fnrsok`;
-const kandidatlisteUrl = `express:${kandidatApi}/kandidater/rest/veileder/stilling/:stillingsId/kandidatliste`;
-const leggKandidatIKandidatlisteUrl = `express:${kandidatApi}/kandidater/rest/veileder/kandidatlister/:kandidatlisteId/kandidater`;
+const fnrsokUrl = `express:${kandidatApi}/veileder/kandidatsok/fnrsok`;
+const kandidatlisteUrl = `express:${kandidatApi}/veileder/stilling/:stillingsId/kandidatliste`;
+const leggKandidatIKandidatlisteUrl = `express:${kandidatApi}/veileder/kandidatlister/:kandidatlisteId/kandidater`;
 
 const identUrl = `${stillingApi}/rekruttering/ident/`;
 const featuresUrl = `${stillingApi}/features/`;
