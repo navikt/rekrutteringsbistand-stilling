@@ -11,7 +11,7 @@ import {
     Hentestatus,
     LEGG_TIL_KANDIDAT,
     SET_FODSELSNUMMER,
-    SET_NOTAT,
+    SET_KANDIDAT_NOTAT,
 } from './kandidatReducer';
 import './LeggTilKandidatModal.less';
 import { sendEvent } from '../../amplitude';
@@ -322,7 +322,7 @@ const mapDispatchToProps = (dispatch: any) => ({
     resetHentKandidatMedFnr: () => dispatch({ type: HENT_KANDIDAT_MED_FNR_RESET }),
     setFodselsnummer: (fodselsnummer: string) =>
         dispatch({ type: SET_FODSELSNUMMER, fodselsnummer }),
-    setNotat: (notat: string) => dispatch({ type: SET_NOTAT, notat }),
+    setNotat: (notat: string) => dispatch({ type: SET_KANDIDAT_NOTAT, notat }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LeggTilKandidatModal);

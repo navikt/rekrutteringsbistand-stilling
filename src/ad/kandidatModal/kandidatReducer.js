@@ -56,7 +56,7 @@ export const LEGG_TIL_KANDIDAT = 'LEGG_TIL_KANDIDAT';
 export const LEGG_TIL_KANDIDAT_FAILURE = 'LEGG_TIL_KANDIDAT_FAILURE';
 export const LEGG_TIL_KANDIDAT_SUCCESS = 'LEGG_TIL_KANDIDAT_SUCCESS';
 export const SET_FODSELSNUMMER = 'SET_FODSELSNUMMER';
-export const SET_NOTAT = 'SET_NOTAT';
+export const SET_KANDIDAT_NOTAT = 'SET_KANDIDAT_NOTAT';
 
 const SHOW_SAVED_KANDIDAT_ALERT_STRIPE = 'SHOW_SAVED_KANDIDAT_ALERT_STRIPE';
 const HIDE_SAVED_KANDIDAT_ALERT_STRIPE = 'HIDE_SAVED_KANDIDAT_ALERT_STRIPE';
@@ -147,7 +147,7 @@ export default function kandidatReducer(state = initialState, action) {
                 ...state,
                 fodselsnummer: action.fodselsnummer,
             };
-        case SET_NOTAT:
+        case SET_KANDIDAT_NOTAT:
             return {
                 ...state,
                 notat: action.notat,
