@@ -42,7 +42,7 @@ Sentry.init({
     release: process.env.REACT_APP_SENTRY_RELEASE || 'unknown',
     enabled: getMiljø() === 'dev-fss' || getMiljø() === 'prod-fss',
     beforeSend: fjernPersonopplysninger,
-    allowUrls: ['/rekrutteringsbistand-stilling'],
+    allowUrls: ['/rekrutteringsbistand-stilling/'],
     autoSessionTracking: false,
     debug: true,
 });
@@ -104,6 +104,13 @@ const App = () => {
 
     return (
         <main>
+            <button
+                onClick={() => {
+                    throw new Error('Trigget feil!');
+                }}
+            >
+                Trykk meg!
+            </button>
             <Switch>
                 <Route exact path="/stillinger/minestillinger" component={MyAds} />
                 <Route exact path="/stillinger/stilling" component={Ad} />
