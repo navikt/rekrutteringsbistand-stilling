@@ -1,13 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { applyMiddleware, createStore, combineReducers, compose } from 'redux';
 import { Provider, useDispatch } from 'react-redux';
 import { Router, Route, Switch } from 'react-router-dom';
-import * as Sentry from '@sentry/react';
 import createSagaMiddleware from 'redux-saga';
 
 import './styles.less'; // Må importeres før andre komponenter
 
-import { fjernPersonopplysninger, getMiljø } from './sentryUtils';
+import { getMiljø } from './sentryUtils';
 import Ad from './ad/Ad';
 import adDataReducer, { adDataSaga } from './ad/adDataReducer';
 import adReducer, { adSaga } from './ad/adReducer.ts';
@@ -35,17 +34,36 @@ import styrkReducer, { styrkSaga } from './ad/edit/jobDetails/styrk/styrkReducer
 import useLoggNavigering from './useLoggNavigering';
 import Modal from 'react-modal';
 import Stillingssøk from './stillingssøk/Stillingssøk';
+import { BrowserClient, Hub } from '@sentry/react';
 
-Sentry.init({
-    dsn: 'https://34e485d3fd9945e29d5f66f11a29f84e@sentry.gc.nav.no/43',
-    environment: getMiljø(),
-    release: process.env.REACT_APP_SENTRY_RELEASE || 'unknown',
-    enabled: getMiljø() === 'dev-fss' || getMiljø() === 'prod-fss',
-    beforeSend: fjernPersonopplysninger,
-    allowUrls: ['/rekrutteringsbistand-stilling/'],
-    autoSessionTracking: false,
-    debug: true,
-});
+const initSentryClient = () => {
+    const client = new BrowserClient({
+        dsn: 'https://34e485d3fd9945e29d5f66f11a29f84e@sentry.gc.nav.no/43',
+        environment: getMiljø(),
+        release: process.env.REACT_APP_SENTRY_RELEASE || 'unknown',
+        enabled: getMiljø() === 'dev-fss' || getMiljø() === 'prod-fss',
+        autoSessionTracking: false,
+        debug: true,
+    });
+
+    return new Hub(client);
+};
+
+class SentryErrorBoundary extends React.Component {
+    componentDidCatch(error, errorInfo) {
+        this.props.hub.run((currentHub) => {
+            currentHub.withScope((scope) => {
+                scope.setExtras(errorInfo);
+                const eventId = currentHub.captureException(error);
+                this.setState({ eventId });
+            });
+        });
+    }
+
+    render = () => this.props.children;
+}
+
+export const hub = initSentryClient();
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -102,11 +120,16 @@ const App = () => {
         dispatch({ type: FETCH_REPORTEE });
     }, [dispatch]);
 
+    const [shouldThrowError, throwError] = useState(false);
+    if (shouldThrowError) {
+        throw new Error('Feil i komponent!');
+    }
+
     return (
         <main>
             <button
                 onClick={() => {
-                    throw new Error('Trigget feil!');
+                    throwError(true);
                 }}
             >
                 Trykk meg!
@@ -124,12 +147,12 @@ const App = () => {
 
 export const Main = ({ history }) => {
     return (
-        <Sentry.ErrorBoundary>
+        <SentryErrorBoundary hub={hub}>
             <Provider store={store}>
                 <Router history={history}>
                     <App />
                 </Router>
             </Provider>
-        </Sentry.ErrorBoundary>
+        </SentryErrorBoundary>
     );
 };
