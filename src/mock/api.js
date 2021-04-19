@@ -4,8 +4,6 @@ import { kandidatApi } from '../ad/kandidatModal/kandidatApi';
 import fnrsok from './data/fnrsok';
 import kandidatliste from './data/kandidatliste';
 
-const ads = require('./data/ads.json');
-const adsReversed = require('./data/ads-reversed.json');
 const putPostAds = require('./data/post-ads.json');
 const reportee = require('./data/reportee.json');
 const ident = require('./data/ident.json');
@@ -62,8 +60,6 @@ const getStilling = (url) => {
 
 fetchMock
     .get(med(mineStillingerUrl), mineStillinger)
-    .get(med(adsUrl), adsReversed, { query: { sort: 'title,asc' } })
-    .get(med(adsUrl), ads)
     .post(med(adsUrl), putPostAds)
     .put(med(adsUrl), putPostAds)
     .delete(med(adsUrl), putPostAds)

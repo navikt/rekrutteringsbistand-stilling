@@ -29,9 +29,6 @@ const Utviklingsapp: FunctionComponent = () => {
                 <header className="utviklingsapp">
                     <Systemtittel>Utviklingsapp for rekrutteringsbistand-stilling</Systemtittel>
                     <div className="utviklingsapp__lenke">
-                        <Link to="/stillinger/">Stilling</Link>
-                    </div>
-                    <div className="utviklingsapp__lenke">
                         <Link to="/stillinger/minestillinger">Mine stillinger</Link>
                     </div>
                 </header>

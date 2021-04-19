@@ -14,7 +14,6 @@ import StopAdModal from '../ad/administration/adStatus/StopAdModal';
 import Count from './result/Count';
 import { FETCH_MY_ADS, RESET_MY_ADS_PAGE } from './myAdsReducer';
 import { CLEAR_COPIED_ADS, CREATE_AD } from '../ad/adReducer';
-import { RESET_SEARCH } from '../searchPage/searchReducer';
 import './MyAds.less';
 import DeleteAdModal from '../ad/administration/adStatus/DeleteAdModal';
 import { useEffect } from 'react';
@@ -27,7 +26,6 @@ const MyAds = (props) => {
         clearCopiedAds,
         resetMyAdsPage,
         isSearching,
-        resetSearch,
         error,
         reportee,
         history,
@@ -39,7 +37,6 @@ const MyAds = (props) => {
             resetMyAdsPage();
         }
 
-        resetSearch();
         getAds();
     };
 
@@ -113,7 +110,6 @@ MyAds.propTypes = {
     isSearching: PropTypes.bool.isRequired,
     getAds: PropTypes.func.isRequired,
     resetMyAdsPage: PropTypes.func.isRequired,
-    resetSearch: PropTypes.func.isRequired,
     error: PropTypes.shape({
         statusCode: PropTypes.number,
     }),
@@ -132,7 +128,6 @@ const mapDispatchToProps = (dispatch) => ({
     resetMyAdsPage: () => dispatch({ type: RESET_MY_ADS_PAGE }),
     createAd: () => dispatch({ type: CREATE_AD }),
     clearCopiedAds: () => dispatch({ type: CLEAR_COPIED_ADS }),
-    resetSearch: () => dispatch({ type: RESET_SEARCH }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyAds);
