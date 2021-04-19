@@ -17,9 +17,6 @@ import featureTogglesReducer, {
     featureTogglesSaga,
     FETCH_FEATURE_TOGGLES,
 } from './featureToggles/featureTogglesReducer';
-import filterLocationReducer, {
-    filterLocationSaga,
-} from './searchPage/filter/location/filterLocationReducer';
 import kandidatReducer, { kandidatSaga } from './ad/kandidatModal/kandidatReducer';
 import locationAreaReducer, { locationAreaSaga } from './ad/edit/location/locationAreaReducer';
 import locationCodeReducer, { locationCodeSaga } from './ad/edit/location/locationCodeReducer';
@@ -27,8 +24,6 @@ import MyAds from './myAds/MyAds';
 import myAdsReducer, { myAdsSaga } from './myAds/myAdsReducer';
 import reporteeReducer, { FETCH_REPORTEE, reporteeSaga } from './reportee/reporteeReducer';
 import savedSearchAlertStripeReducer from './ad/alertstripe/SavedAdAlertStripeReducer';
-import SearchPage from './searchPage/SearchPage';
-import searchReducer, { searchSaga } from './searchPage/searchReducer';
 import stillingsinfoDataReducer from './stillingsinfo/stillingsinfoDataReducer';
 import stillingsinfoReducer, { stillingsinfoSaga } from './stillingsinfo/stillingsinfoReducer';
 import styrkReducer, { styrkSaga } from './ad/edit/jobDetails/styrk/styrkReducer';
@@ -55,13 +50,11 @@ const store = createStore(
         adValidation: adValidationReducer,
         employer: employerReducer,
         kandidat: kandidatReducer,
-        filterLocation: filterLocationReducer,
         locationCode: locationCodeReducer,
         locationArea: locationAreaReducer,
         myAds: myAdsReducer,
         reportee: reporteeReducer,
         savedAdAlertStripe: savedSearchAlertStripeReducer,
-        search: searchReducer,
         styrk: styrkReducer,
         stillingsinfo: stillingsinfoReducer,
         stillingsinfoData: stillingsinfoDataReducer,
@@ -76,8 +69,6 @@ sagaMiddleware.run(employerSaga);
 sagaMiddleware.run(locationCodeSaga);
 sagaMiddleware.run(styrkSaga);
 sagaMiddleware.run(reporteeSaga);
-sagaMiddleware.run(searchSaga);
-sagaMiddleware.run(filterLocationSaga);
 sagaMiddleware.run(myAdsSaga);
 sagaMiddleware.run(adDataSaga);
 sagaMiddleware.run(locationAreaSaga);
@@ -105,7 +96,6 @@ const App = () => {
                 <Route exact path="/stillinger/minestillinger" component={MyAds} />
                 <Route exact path="/stillinger/stilling" component={Ad} />
                 <Route exact path="/stillinger/stilling/:uuid" component={Ad} />
-                <Route exact path="/stillinger" component={SearchPage} />
             </Switch>
         </main>
     );
