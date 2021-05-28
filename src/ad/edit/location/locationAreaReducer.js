@@ -41,7 +41,7 @@ export default function reducer(state = initialState, action) {
                         ? []
                         : state.municipalsCountiesCache
                               .filter((mc) =>
-                                  mc.name.toLowerCase().startsWith(action.value.toLowerCase())
+                                  mc.name.toLowerCase().includes(action.value.toLowerCase())
                               )
                               .slice(0, 5),
                 countries:
