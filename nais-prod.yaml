@@ -31,7 +31,7 @@ spec:
             memory: 128Mi
     ingresses:
         - https://rekrutteringsbistand.nais.adeo.no/rekrutteringsbistand-stilling
-        - https://rekrutteringsbistand.internal.nav.no/rekrutteringsbistand-stilling
+        - https://rekrutteringsbistand.intern.nav.no/rekrutteringsbistand-stilling
     env:
         - name: LOGIN_URL
           value: https://loginservice.nais.adeo.no/login
