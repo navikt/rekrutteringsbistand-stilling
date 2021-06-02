@@ -31,6 +31,7 @@ spec:
             memory: 128Mi
     ingresses:
         - https://rekrutteringsbistand.nais.preprod.local/rekrutteringsbistand-stilling
+        - https://rekrutteringsbistand.dev.internal.nav.no/rekrutteringsbistand-stilling
     env:
         - name: LOGIN_URL
           value: https://loginservice.nais.preprod.local/login
