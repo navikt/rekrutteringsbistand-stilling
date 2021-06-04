@@ -8,7 +8,7 @@ import {
     VALIDATE_CONTACTPERSON_EMAIL,
     VALIDATE_CONTACTPERSON_PHONE,
 } from '../../adValidationReducer';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import Skjemalabel from '../skjemaetikett/Skjemalabel';
 
 class ContactPerson extends React.Component {
@@ -62,15 +62,19 @@ class ContactPerson extends React.Component {
                 border
                 apen
             >
+                <Skjemalabel påkrevd inputId="endre-stilling-navn-kontaktperson">
+                    Navn på kontaktperson
+                </Skjemalabel>
                 <Input
+                    id="endre-stilling-navn-kontaktperson"
                     className="blokk-xs"
-                    label="Navn på kontaktperson"
                     value={contactList[0] && contactList[0].name ? contactList[0].name : ''}
                     onChange={this.onNameChange}
                 />
                 <Skjemalabel
+                    påkrevd
                     inputId="endre-stilling-tittel-kontaktperson"
-                    beskrivelse="For eksempel: leder"
+                    beskrivelse="For eksempel: leder, NAV-ansatt"
                 >
                     Tittel på kontaktperson
                 </Skjemalabel>
