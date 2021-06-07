@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Input } from 'nav-frontend-skjema';
+import { Input, SkjemaGruppe } from 'nav-frontend-skjema';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { SET_CONTACT_PERSON } from '../../adDataReducer';
 import {
@@ -10,6 +10,7 @@ import {
 } from '../../adValidationReducer';
 import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import Skjemalabel from '../skjemaetikett/Skjemalabel';
+import './ContactPerson.less';
 
 class ContactPerson extends React.Component {
     onNameChange = (e) => {
@@ -56,7 +57,6 @@ class ContactPerson extends React.Component {
                 tittel={
                     <>
                         <Undertittel className="blokk-xxxs">Kontaktinformasjon</Undertittel>
-                        <Normaltekst>Din egen eller arbeidsgivers kontaktinformasjon</Normaltekst>
                     </>
                 }
                 border
@@ -85,24 +85,33 @@ class ContactPerson extends React.Component {
                     value={contactList[0] && contactList[0].title ? contactList[0].title : ''}
                     onChange={this.onTitleChange}
                 />
-                <Input
-                    className="blokk-xs"
-                    type="email"
-                    label="E-postadresse"
-                    value={contactList[0] && contactList[0].email ? contactList[0].email : ''}
-                    onChange={this.onEmailChange}
-                    onBlur={this.onEmailBlur}
-                    feil={this.props.validation.contactpersonEmail}
-                />
-                <Input
-                    className="blokk-xs"
-                    type="tel"
-                    label="Telefonnummer"
-                    value={contactList[0] && contactList[0].phone ? contactList[0].phone : ''}
-                    onBlur={this.onPhoneBlur}
-                    feil={this.props.validation.contactpersonPhone}
-                    onChange={this.onPhoneChange}
-                />
+                <SkjemaGruppe
+                    legend={
+                        <h3 className="contact-person__epost-og-telefon-overskrift">
+                            <Element tag="span">E-postadresse og/eller telefonnummer</Element>
+                            <Normaltekst tag="span"> (minst én må fylles ut)</Normaltekst>
+                        </h3>
+                    }
+                >
+                    <Input
+                        className="blokk-xs"
+                        type="email"
+                        label="E-postadresse"
+                        value={contactList[0] && contactList[0].email ? contactList[0].email : ''}
+                        onChange={this.onEmailChange}
+                        onBlur={this.onEmailBlur}
+                        feil={this.props.validation.contactpersonEmail}
+                    />
+                    <Input
+                        className="blokk-xs"
+                        type="tel"
+                        label="Telefonnummer"
+                        value={contactList[0] && contactList[0].phone ? contactList[0].phone : ''}
+                        onBlur={this.onPhoneBlur}
+                        feil={this.props.validation.contactpersonPhone}
+                        onChange={this.onPhoneChange}
+                    />
+                </SkjemaGruppe>
             </Ekspanderbartpanel>
         );
     }
