@@ -232,17 +232,69 @@ function* validateApplicationEmail() {
     }
 }
 
+function* validateContactPersonName() {
+    const contactperson = yield select((state) => state.adData.contactList[0]);
+
+    const error =
+        contactperson === undefined || contactperson === null || valueIsNotSet(contactperson.name);
+
+    if (error) {
+        yield put({
+            type: ADD_VALIDATION_ERROR,
+            field: 'contactPersonName',
+            message: 'Du må oppgi navn på kontaktperson',
+        });
+    } else {
+        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'contactPersonName' });
+    }
+}
+
+function* validateContactPersonTitle() {
+    const contactperson = yield select((state) => state.adData.contactList[0]);
+
+    const error =
+        contactperson === undefined || contactperson === null || valueIsNotSet(contactperson.title);
+
+    if (error) {
+        yield put({
+            type: ADD_VALIDATION_ERROR,
+            field: 'contactPersonTitle',
+            message: 'Du må oppgi tittel på kontaktperson',
+        });
+    } else {
+        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'contactPersonTitle' });
+    }
+}
+
+function* validateContactPersonEmailOrPhoneRequired() {
+    const contactperson = yield select((state) => state.adData.contactList[0]);
+
+    const error =
+        contactperson === undefined ||
+        contactperson === null ||
+        (valueIsNotSet(contactperson.email) && valueIsNotSet(contactperson.phone));
+
+    if (error) {
+        yield put({
+            type: ADD_VALIDATION_ERROR,
+            field: 'contactPersonEmailOrPhone',
+            message: 'Du må oppgi e-postadresse eller telefonnummer',
+        });
+    } else {
+        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'contactPersonEmailOrPhone' });
+    }
+}
+
 function* validateContactpersonEmail() {
     const contactperson = yield select((state) => state.adData.contactList[0]);
 
-    // E-postadressen må inneholde en '@' for å være gyldig
-    const error =
+    const manglerAlfakrøll =
         contactperson &&
         contactperson.email &&
         contactperson.email.length > 0 &&
         contactperson.email.indexOf('@') === -1;
 
-    if (error) {
+    if (manglerAlfakrøll) {
         yield put({
             type: ADD_VALIDATION_ERROR,
             field: 'contactpersonEmail',
@@ -438,7 +490,6 @@ export function* validateAll() {
         yield validateStyrk();
         yield validateAdtext();
         yield validateApplicationEmail();
-        yield validateContactpersonEmail();
         yield validatePostalCode();
         yield validateNotat();
         yield validateApplicationdueDate();
@@ -449,6 +500,9 @@ export function* validateAll() {
         yield validateWorkday();
         yield validateWorkhours();
         yield validateInkluderingsmuligheter();
+        yield validateContactPersonName();
+        yield validateContactPersonTitle();
+        yield validateContactPersonEmailOrPhoneRequired();
     }
 }
 
