@@ -104,8 +104,8 @@ const ContactPerson: FunctionComponent<Props> = ({
             <SkjemaGruppe
                 legend={
                     <h3 className="contact-person__epost-og-telefon-overskrift">
-                        <Element tag="span">E-postadresse og/eller telefonnummer</Element>
-                        <Normaltekst tag="span"> (minst én må fylles ut)</Normaltekst>
+                        <Element tag="div">E-postadresse og/eller telefonnummer</Element>
+                        <Normaltekst tag="div">(minst én må fylles ut)</Normaltekst>
                     </h3>
                 }
                 feil={validation.contactPersonEmailOrPhone}
