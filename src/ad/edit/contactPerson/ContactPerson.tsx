@@ -5,6 +5,7 @@ import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { SET_CONTACT_PERSON } from '../../adDataReducer';
 import {
     VALIDATE_CONTACTPERSON_EMAIL,
+    VALIDATE_CONTACTPERSON_NAME,
     VALIDATE_CONTACTPERSON_PHONE,
 } from '../../adValidationReducer';
 import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
@@ -23,9 +24,11 @@ type Props = {
     setContactPerson: (kontaktperson: any) => void;
     validateEmail: () => void;
     validatePhone: () => void;
+    validateName: () => void;
     validation: {
-        contactpersonEmail: string;
-        contactpersonPhone: string;
+        contactPersonEmail?: string;
+        contactPersonPhone?: string;
+        contactPersonName?: string;
     };
 };
 
@@ -34,6 +37,7 @@ const ContactPerson: FunctionComponent<Props> = ({
     setContactPerson,
     validateEmail,
     validatePhone,
+    validateName,
     validation,
 }) => {
     const onNameChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -89,6 +93,8 @@ const ContactPerson: FunctionComponent<Props> = ({
                 className="blokk-xs"
                 value={kontaktperson?.name ?? ''}
                 onChange={onNameChange}
+                feil={validation.contactPersonName}
+                onBlur={validateName}
             />
             <Skjemalabel
                 påkrevd
@@ -119,7 +125,7 @@ const ContactPerson: FunctionComponent<Props> = ({
                     value={kontaktperson?.email ?? ''}
                     onChange={onEmailChange}
                     onBlur={onEmailBlur}
-                    feil={validation.contactpersonEmail}
+                    feil={validation.contactPersonEmail}
                 />
                 <Input
                     className="blokk-xs"
@@ -127,7 +133,7 @@ const ContactPerson: FunctionComponent<Props> = ({
                     label="Telefonnummer"
                     value={kontaktperson?.phone ?? ''}
                     onBlur={onPhoneBlur}
-                    feil={validation.contactpersonPhone}
+                    feil={validation.contactPersonPhone}
                     onChange={onPhoneChange}
                 />
             </SkjemaGruppe>
@@ -144,6 +150,7 @@ const mapDispatchToProps = (dispatch: (action: any) => void) => ({
     setContactPerson: (contactPerson: any) => dispatch({ type: SET_CONTACT_PERSON, contactPerson }),
     validateEmail: () => dispatch({ type: VALIDATE_CONTACTPERSON_EMAIL }),
     validatePhone: () => dispatch({ type: VALIDATE_CONTACTPERSON_PHONE }),
+    validateName: () => dispatch({ type: VALIDATE_CONTACTPERSON_NAME }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContactPerson);

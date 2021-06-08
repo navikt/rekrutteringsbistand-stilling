@@ -42,14 +42,14 @@ class SaveAdErrorModal extends React.Component {
                                 {validation.applicationEmail}
                             </li>
                         )}
-                        {validation.contactpersonEmail && (
+                        {validation.contactPersonEmail && (
                             <li className="skjemaelement__feilmelding">
-                                {validation.contactpersonEmail}
+                                {validation.contactPersonEmail}
                             </li>
                         )}
-                        {validation.contactpersonPhone && (
+                        {validation.contactPersonPhone && (
                             <li className="skjemaelement__feilmelding">
-                                {validation.contactpersonPhone}
+                                {validation.contactPersonPhone}
                             </li>
                         )}
                         {validation.postalCode && (
@@ -70,8 +70,8 @@ SaveAdErrorModal.propTypes = {
         notat: PropTypes.string,
         styrk: PropTypes.string,
         applicationEmail: PropTypes.string,
-        contactpersonEmail: PropTypes.string,
-        contactpersonPhone: PropTypes.string,
+        contactPersonEmail: PropTypes.string,
+        contactPersonPhone: PropTypes.string,
         postalCode: PropTypes.string,
     }).isRequired,
     closeModal: PropTypes.func.isRequired,

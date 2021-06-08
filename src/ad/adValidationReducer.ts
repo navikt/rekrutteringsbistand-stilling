@@ -44,6 +44,7 @@ export const VALIDATE_ALL = 'VALIDATE_ALL';
 export const VALIDATE_APPLICATION_EMAIL = 'VALIDATE_APPLICATION_EMAIL';
 export const VALIDATE_CONTACTPERSON_EMAIL = 'VALIDATE_CONTACTPERSON_EMAIL';
 export const VALIDATE_CONTACTPERSON_PHONE = 'VALIDATE_CONTACTPERSON_PHONE';
+export const VALIDATE_CONTACTPERSON_NAME = 'VALIDATE_CONTACTPERSON_NAME';
 export const VALIDATE_LOCATION_AREA = 'VALIDATE_LOCATION_AREA';
 export const RESET_VALIDATION_ERROR = 'RESET_VALIDATION_ERROR';
 
@@ -296,7 +297,7 @@ function* validateContactpersonEmail() {
     if (manglerAlfakrøll) {
         yield put({
             type: ADD_VALIDATION_ERROR,
-            field: 'contactpersonEmail',
+            field: 'contactPersonEmail',
             message: 'E-postadressen er ugyldig. Den må minimum inneholde en «@»',
         });
     } else {
@@ -316,7 +317,7 @@ function* validateContactpersonPhone() {
     if (error) {
         yield put({
             type: ADD_VALIDATION_ERROR,
-            field: 'contactpersonPhone',
+            field: 'contactPersonPhone',
             message: 'Ugyldig telefonnummer',
         });
     } else {
@@ -526,6 +527,7 @@ export function hasValidationErrors(validation) {
         validation.workday !== undefined ||
         validation.workhours !== undefined ||
         validation.inkluderingsmuligheter !== undefined
+        // TODO: Husk å legge til mer validering
     );
 }
 
@@ -611,6 +613,7 @@ export const validationSaga = function* saga() {
     yield takeLatest(VALIDATE_APPLICATION_EMAIL, validateApplicationEmail);
     yield takeLatest(VALIDATE_CONTACTPERSON_EMAIL, validateContactpersonEmail);
     yield takeLatest(VALIDATE_CONTACTPERSON_PHONE, validateContactpersonPhone);
+    yield takeLatest(VALIDATE_CONTACTPERSON_NAME, validateContactPersonName);
     yield takeLatest(SET_NOTAT, validateNotat);
     yield takeLatest(SET_APPLICATIONDUE, validateApplicationdueDate);
     yield takeLatest(SET_EMPLOYMENT_STARTTIME, validateEmploymentStartTime);
