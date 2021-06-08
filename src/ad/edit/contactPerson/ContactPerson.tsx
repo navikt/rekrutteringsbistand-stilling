@@ -64,14 +64,6 @@ const ContactPerson: FunctionComponent<Props> = ({
         });
     };
 
-    const onEmailBlur = () => {
-        validateEmail();
-    };
-
-    const onPhoneBlur = () => {
-        validatePhone();
-    };
-
     const kontaktperson = contactList && contactList[0];
 
     return (
@@ -124,7 +116,7 @@ const ContactPerson: FunctionComponent<Props> = ({
                     label="E-postadresse"
                     value={kontaktperson?.email ?? ''}
                     onChange={onEmailChange}
-                    onBlur={onEmailBlur}
+                    onBlur={validateEmail}
                     feil={validation.contactPersonEmail}
                 />
                 <Input
@@ -132,7 +124,7 @@ const ContactPerson: FunctionComponent<Props> = ({
                     type="tel"
                     label="Telefonnummer"
                     value={kontaktperson?.phone ?? ''}
-                    onBlur={onPhoneBlur}
+                    onBlur={validatePhone}
                     feil={validation.contactPersonPhone}
                     onChange={onPhoneChange}
                 />
