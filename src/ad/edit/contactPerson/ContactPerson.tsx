@@ -98,6 +98,7 @@ const ContactPerson: FunctionComponent<Props> = ({
                 aria-describedby="endre-stilling-tittel-kontaktperson-beskrivelse"
                 value={kontaktperson?.title ?? ''}
                 onChange={onTitleChange}
+                feil={validation.contactPersonTitle}
             />
             <SkjemaGruppe
                 legend={
@@ -106,6 +107,7 @@ const ContactPerson: FunctionComponent<Props> = ({
                         <Normaltekst tag="span"> (minst én må fylles ut)</Normaltekst>
                     </h3>
                 }
+                feil={validation.contactPersonEmailOrPhone}
             >
                 <Input
                     className="blokk-xs"
