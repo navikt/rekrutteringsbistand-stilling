@@ -9,7 +9,7 @@ import './Edit.less';
 import PracticalInformation from './practicalInformation/PracticalInformation';
 import Employer from './employer/Employer';
 import JobDetails from './jobDetails/JobDetails';
-import ContactPerson from './contactPerson/ContactPerson';
+import ContactPerson from './contactPerson/ContactPerson.tsx';
 import Application from './application/Application';
 import Location from './location/Location';
 import { formatISOString } from '../../utils.ts';
