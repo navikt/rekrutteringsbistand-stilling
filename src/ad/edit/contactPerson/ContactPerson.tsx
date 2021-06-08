@@ -7,6 +7,7 @@ import {
     VALIDATE_CONTACTPERSON_EMAIL,
     VALIDATE_CONTACTPERSON_NAME,
     VALIDATE_CONTACTPERSON_PHONE,
+    ValidertFelt,
 } from '../../adValidationReducer';
 import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import './ContactPerson.less';
@@ -25,11 +26,7 @@ type Props = {
     validateEmail: () => void;
     validatePhone: () => void;
     validateName: () => void;
-    validation: {
-        contactPersonEmail?: string;
-        contactPersonPhone?: string;
-        contactPersonName?: string;
-    };
+    validation: Record<ValidertFelt, string | undefined>;
 };
 
 const ContactPerson: FunctionComponent<Props> = ({
