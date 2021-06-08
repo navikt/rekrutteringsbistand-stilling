@@ -270,8 +270,7 @@ function* validateContactPersonEmailOrPhoneRequired() {
     const contactperson = yield select((state) => state.adData.contactList[0]);
 
     const error =
-        contactperson === undefined ||
-        contactperson === null ||
+        !contactperson ||
         (valueIsNotSet(contactperson.email) && valueIsNotSet(contactperson.phone));
 
     if (error) {
@@ -292,7 +291,7 @@ function* validateContactpersonEmail() {
         contactperson &&
         contactperson.email &&
         contactperson.email.length > 0 &&
-        contactperson.email.indexOf('@') === -1;
+        !contactperson.email.includes('@');
 
     if (manglerAlfakrøll) {
         yield put({
