@@ -4,9 +4,9 @@ import { Input, SkjemaGruppe } from 'nav-frontend-skjema';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { SET_CONTACT_PERSON } from '../../adDataReducer';
 import {
-    VALIDATE_CONTACTPERSON_EMAIL,
+    VALIDATE_CONTACTPERSON_EMAIL_AND_PHONE,
     VALIDATE_CONTACTPERSON_NAME,
-    VALIDATE_CONTACTPERSON_PHONE,
+    VALIDATE_CONTACTPERSON_TITLE,
     ValidertFelt,
 } from '../../adValidationReducer';
 import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
@@ -23,8 +23,8 @@ type Props = {
     }>;
 
     setContactPerson: (kontaktperson: any) => void;
-    validateEmail: () => void;
-    validatePhone: () => void;
+    validateEmailAndPhone: () => void;
+    validateTitle: () => void;
     validateName: () => void;
     validation: Record<ValidertFelt, string | undefined>;
 };
@@ -32,8 +32,8 @@ type Props = {
 const ContactPerson: FunctionComponent<Props> = ({
     contactList,
     setContactPerson,
-    validateEmail,
-    validatePhone,
+    validateEmailAndPhone,
+    validateTitle,
     validateName,
     validation,
 }) => {
@@ -99,6 +99,7 @@ const ContactPerson: FunctionComponent<Props> = ({
                 value={kontaktperson?.title ?? ''}
                 onChange={onTitleChange}
                 feil={validation.contactPersonTitle}
+                onBlur={validateTitle}
             />
             <SkjemaGruppe
                 legend={
@@ -115,7 +116,7 @@ const ContactPerson: FunctionComponent<Props> = ({
                     label="E-postadresse"
                     value={kontaktperson?.email ?? ''}
                     onChange={onEmailChange}
-                    onBlur={validateEmail}
+                    onBlur={validateEmailAndPhone}
                     feil={validation.contactPersonEmail}
                 />
                 <Input
@@ -123,7 +124,7 @@ const ContactPerson: FunctionComponent<Props> = ({
                     type="tel"
                     label="Telefonnummer"
                     value={kontaktperson?.phone ?? ''}
-                    onBlur={validatePhone}
+                    onBlur={validateEmailAndPhone}
                     feil={validation.contactPersonPhone}
                     onChange={onPhoneChange}
                 />
@@ -139,8 +140,8 @@ const mapStateToProps = (state: State) => ({
 
 const mapDispatchToProps = (dispatch: (action: any) => void) => ({
     setContactPerson: (contactPerson: any) => dispatch({ type: SET_CONTACT_PERSON, contactPerson }),
-    validateEmail: () => dispatch({ type: VALIDATE_CONTACTPERSON_EMAIL }),
-    validatePhone: () => dispatch({ type: VALIDATE_CONTACTPERSON_PHONE }),
+    validateEmailAndPhone: () => dispatch({ type: VALIDATE_CONTACTPERSON_EMAIL_AND_PHONE }),
+    validateTitle: () => dispatch({ type: VALIDATE_CONTACTPERSON_TITLE }),
     validateName: () => dispatch({ type: VALIDATE_CONTACTPERSON_NAME }),
 });
 
