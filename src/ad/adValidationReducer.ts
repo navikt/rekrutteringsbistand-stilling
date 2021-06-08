@@ -3,7 +3,6 @@ import { put, select, takeLatest } from 'redux-saga/effects';
 import { idagMidnatt, isValidISOString } from '../utils';
 import { DEFAULT_TITLE_NEW_AD, SET_KAN_INKLUDERE } from './adReducer';
 import IsJson from './edit/practicalInformation/IsJson';
-
 import {
     SET_STYRK,
     SET_EMPLOYER,
@@ -33,17 +32,45 @@ import {
     UNCHECK_TAG,
     SET_EMPLOYMENT_STARTTIME,
 } from './adDataReducer';
-
 import { SET_NOTAT } from '../stillingsinfo/stillingsinfoDataReducer';
 import State from '../State';
 import { KanInkludere } from './edit/registrer-inkluderingsmuligheter/DirektemeldtStilling';
 
+export type ValidertFelt =
+    | 'location'
+    | 'postalCode'
+    | 'locationArea'
+    | 'styrk'
+    | 'title'
+    | 'adText'
+    | 'employer'
+    | 'expires'
+    | 'published'
+    | 'applicationEmail'
+    | 'contactPersonName'
+    | 'contactPersonTitle'
+    | 'contactPersonEmailOrPhone'
+    | 'contactPersonEmail'
+    | 'contactPersonPhone'
+    | 'notat'
+    | 'applicationdue'
+    | 'starttime'
+    | 'engagementtype'
+    | 'positioncount'
+    | 'extent'
+    | 'sector'
+    | 'workday'
+    | 'workhours'
+    | 'inkluderingsmuligheter';
+
 const ADD_VALIDATION_ERROR = 'ADD_VALIDATION_ERROR';
 const REMOVE_VALIDATION_ERROR = 'REMOVE_VALIDATION_ERROR';
+
 export const VALIDATE_ALL = 'VALIDATE_ALL';
 export const VALIDATE_APPLICATION_EMAIL = 'VALIDATE_APPLICATION_EMAIL';
-export const VALIDATE_CONTACTPERSON_EMAIL = 'VALIDATE_CONTACTPERSON_EMAIL';
-export const VALIDATE_CONTACTPERSON_PHONE = 'VALIDATE_CONTACTPERSON_PHONE';
+export const VALIDATE_CONTACTPERSON_EMAIL_AND_PHONE = 'VALIDATE_CONTACTPERSON_EMAIL_AND_PHONE';
+export const VALIDATE_CONTACTPERSON_NAME = 'VALIDATE_CONTACTPERSON_NAME';
+export const VALIDATE_CONTACTPERSON_TITLE = 'VALIDATE_CONTACTPERSON_TITLE';
 export const VALIDATE_LOCATION_AREA = 'VALIDATE_LOCATION_AREA';
 export const RESET_VALIDATION_ERROR = 'RESET_VALIDATION_ERROR';
 
@@ -51,18 +78,32 @@ export const MAX_LENGTH_NOTAT = 500;
 
 const valueIsNotSet = (value) => value === undefined || value === null || value.length === 0;
 
+function* addValidationError({ field, message }: { field: ValidertFelt; message: string }) {
+    yield put({
+        type: ADD_VALIDATION_ERROR,
+        field,
+        message,
+    });
+}
+
+function* removeValidationError({ field }: { field: ValidertFelt }) {
+    yield put({
+        type: REMOVE_VALIDATION_ERROR,
+        field,
+    });
+}
+
 function* validateLocation() {
     const state = yield select();
     const { locationList } = state.adData;
 
     if (valueIsNotSet(locationList)) {
-        yield put({
-            type: ADD_VALIDATION_ERROR,
+        yield addValidationError({
             field: 'location',
             message: 'Arbeidssted mangler',
         });
     } else {
-        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'location' });
+        yield removeValidationError({ field: 'location' });
     }
 }
 
@@ -72,22 +113,20 @@ function* validatePostalCode() {
     if (typeAheadValue && typeAheadValue.match('^[0-9]{4}$')) {
         const locationByPostalCode = yield findLocationByPostalCode(typeAheadValue);
         if (locationByPostalCode === undefined) {
-            yield put({
-                type: ADD_VALIDATION_ERROR,
+            yield addValidationError({
                 field: 'postalCode',
                 message: 'Ukjent postnummer',
             });
         } else {
-            yield put({ type: REMOVE_VALIDATION_ERROR, field: 'postalCode' });
+            yield removeValidationError({ field: 'postalCode' });
         }
     } else if (typeAheadValue && !typeAheadValue.match('^[0-9]{4}$')) {
-        yield put({
-            type: ADD_VALIDATION_ERROR,
+        yield addValidationError({
             field: 'postalCode',
             message: 'Ugyldig postnummer',
         });
     } else {
-        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'postalCode' });
+        yield removeValidationError({ field: 'postalCode' });
     }
 }
 
@@ -96,13 +135,12 @@ function* validateLocationArea() {
     const { typeaheadValue } = state.locationArea;
 
     if (typeaheadValue) {
-        yield put({
-            type: ADD_VALIDATION_ERROR,
+        yield addValidationError({
             field: 'locationArea',
             message: 'Må være kommune, fylke eller land utenfor Norge',
         });
     } else {
-        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'locationArea' });
+        yield removeValidationError({ field: 'locationArea' });
     }
 }
 
@@ -111,35 +149,33 @@ export function* validateStyrk() {
     const { categoryList } = state.adData;
 
     if (valueIsNotSet(categoryList)) {
-        yield put({ type: ADD_VALIDATION_ERROR, field: 'styrk', message: 'STYRK mangler' });
+        yield addValidationError({ field: 'styrk', message: 'STYRK mangler' });
     } else {
-        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'styrk' });
+        yield removeValidationError({ field: 'styrk' });
     }
 }
 
 export function* validateTitle() {
     const adTitle = yield select((state) => state.adData.title);
     if (valueIsNotSet(adTitle) || adTitle === DEFAULT_TITLE_NEW_AD) {
-        yield put({
-            type: ADD_VALIDATION_ERROR,
+        yield addValidationError({
             field: 'title',
             message: 'Overskrift på stillingen mangler',
         });
     } else {
-        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'title' });
+        yield removeValidationError({ field: 'title' });
     }
 }
 
 function* validateAdtext() {
     const adText = yield select((state) => state.adData.properties.adtext);
     if (valueIsNotSet(adText)) {
-        yield put({
-            type: ADD_VALIDATION_ERROR,
+        yield addValidationError({
             field: 'adText',
             message: 'Stillingstekst mangler',
         });
     } else {
-        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'adText' });
+        yield removeValidationError({ field: 'adText' });
     }
 }
 
@@ -153,13 +189,12 @@ function* validateEmployer() {
         valueIsNotSet(employer.name) ||
         valueIsNotSet(employer.orgnr)
     ) {
-        yield put({
-            type: ADD_VALIDATION_ERROR,
+        yield addValidationError({
             field: 'employer',
             message: 'Bedriftens navn mangler',
         });
     } else {
-        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'employer' });
+        yield removeValidationError({ field: 'employer' });
     }
 }
 
@@ -168,25 +203,22 @@ function* validateExpireDate() {
     const { expires } = state.adData;
 
     if (valueIsNotSet(expires)) {
-        yield put({
-            type: ADD_VALIDATION_ERROR,
+        yield addValidationError({
             field: 'expires',
             message: 'Siste visningsdato mangler',
         });
     } else if (!isValidISOString(expires)) {
-        yield put({
-            type: ADD_VALIDATION_ERROR,
+        yield addValidationError({
             field: 'expires',
             message: 'Siste visningsdato er ugyldig',
         });
     } else if (erSattFørIdag(expires)) {
-        yield put({
-            type: ADD_VALIDATION_ERROR,
+        yield addValidationError({
             field: 'expires',
             message: 'Siste visningsdato kan ikke være før dagens dato',
         });
     } else {
-        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'expires' });
+        yield removeValidationError({ field: 'expires' });
     }
 }
 
@@ -199,19 +231,17 @@ function* validatePublishDate() {
     const { published } = state.adData;
 
     if (valueIsNotSet(published)) {
-        yield put({
-            type: ADD_VALIDATION_ERROR,
+        yield addValidationError({
             field: 'published',
             message: 'Publiseringsdato mangler',
         });
     } else if (!isValidISOString(published)) {
-        yield put({
-            type: ADD_VALIDATION_ERROR,
+        yield addValidationError({
             field: 'published',
             message: 'Publiseringsdato er ugyldig',
         });
     } else {
-        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'published' });
+        yield removeValidationError({ field: 'published' });
     }
 }
 
@@ -222,38 +252,90 @@ function* validateApplicationEmail() {
     const error = email && email.length > 0 && email.indexOf('@') === -1;
 
     if (error) {
-        yield put({
-            type: ADD_VALIDATION_ERROR,
+        yield addValidationError({
             field: 'applicationEmail',
             message: 'E-postadressen er ugyldig. Den må minimum inneholde en «@»',
         });
     } else {
-        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'applicationEmail' });
+        yield removeValidationError({ field: 'applicationEmail' });
     }
 }
 
-function* validateContactpersonEmail() {
+function* validateContactPersonName() {
     const contactperson = yield select((state) => state.adData.contactList[0]);
 
-    // E-postadressen må inneholde en '@' for å være gyldig
     const error =
+        contactperson === undefined || contactperson === null || valueIsNotSet(contactperson.name);
+
+    if (error) {
+        yield addValidationError({
+            field: 'contactPersonName',
+            message: 'Du må oppgi navn på kontaktperson',
+        });
+    } else {
+        yield removeValidationError({ field: 'contactPersonName' });
+    }
+}
+
+function* validateContactPersonTitle() {
+    const contactperson = yield select((state) => state.adData.contactList[0]);
+
+    const error =
+        contactperson === undefined || contactperson === null || valueIsNotSet(contactperson.title);
+
+    if (error) {
+        yield addValidationError({
+            field: 'contactPersonTitle',
+            message: 'Du må oppgi tittel på kontaktperson',
+        });
+    } else {
+        yield removeValidationError({ field: 'contactPersonTitle' });
+    }
+}
+
+function* validateContactPersonEmailOrPhoneRequired() {
+    const contactperson = yield select((state) => state.adData.contactList[0]);
+
+    const error =
+        !contactperson ||
+        (valueIsNotSet(contactperson.email) && valueIsNotSet(contactperson.phone));
+
+    if (error) {
+        yield addValidationError({
+            field: 'contactPersonEmailOrPhone',
+            message: 'Du må oppgi e-postadresse eller telefonnummer',
+        });
+    } else {
+        yield removeValidationError({ field: 'contactPersonEmailOrPhone' });
+    }
+}
+
+function* validateContactpersonEmailAndPhone() {
+    yield validateContactPersonEmailOrPhoneRequired();
+    yield validateContactPersonEmail();
+    yield validateContactPersonPhone();
+}
+
+function* validateContactPersonEmail() {
+    const contactperson = yield select((state) => state.adData.contactList[0]);
+
+    const manglerAlfakrøll =
         contactperson &&
         contactperson.email &&
         contactperson.email.length > 0 &&
-        contactperson.email.indexOf('@') === -1;
+        !contactperson.email.includes('@');
 
-    if (error) {
-        yield put({
-            type: ADD_VALIDATION_ERROR,
-            field: 'contactpersonEmail',
+    if (manglerAlfakrøll) {
+        yield addValidationError({
+            field: 'contactPersonEmail',
             message: 'E-postadressen er ugyldig. Den må minimum inneholde en «@»',
         });
     } else {
-        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'contactpersonEmail' });
+        yield removeValidationError({ field: 'contactPersonEmail' });
     }
 }
 
-function* validateContactpersonPhone() {
+function* validateContactPersonPhone() {
     const contactperson = yield select((state) => state.adData.contactList[0]);
 
     const error =
@@ -263,13 +345,12 @@ function* validateContactpersonPhone() {
         !contactperson.phone.match(/^(\(?\+?[0-9]*\)?)?[0-9_\- ()]*$/);
 
     if (error) {
-        yield put({
-            type: ADD_VALIDATION_ERROR,
-            field: 'contactpersonPhone',
+        yield addValidationError({
+            field: 'contactPersonPhone',
             message: 'Ugyldig telefonnummer',
         });
     } else {
-        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'contactpersonPhone' });
+        yield removeValidationError({ field: 'contactPersonPhone' });
     }
 }
 
@@ -277,13 +358,12 @@ export function* validateNotat() {
     const notat = yield select((state) => state.stillingsinfoData.notat);
 
     if (notat && notat.length > MAX_LENGTH_NOTAT) {
-        yield put({
-            type: ADD_VALIDATION_ERROR,
+        yield addValidationError({
             field: 'notat',
             message: 'Kommentaren inneholder for mange tegn',
         });
     } else {
-        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'notat' });
+        yield removeValidationError({ field: 'notat' });
     }
 }
 
@@ -292,19 +372,17 @@ function* validateApplicationdueDate() {
     const { applicationdue } = state.adData.properties;
 
     if (valueIsNotSet(applicationdue)) {
-        yield put({
-            type: ADD_VALIDATION_ERROR,
+        yield addValidationError({
             field: 'applicationdue',
             message: 'Søknadsfrist mangler',
         });
     } else if (!isValidISOString(applicationdue) && applicationdue !== 'Snarest') {
-        yield put({
-            type: ADD_VALIDATION_ERROR,
+        yield addValidationError({
             field: 'applicationdue',
             message: 'Søknadsfrist er ugyldig',
         });
     } else {
-        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'applicationdue' });
+        yield removeValidationError({ field: 'applicationdue' });
     }
 }
 
@@ -316,10 +394,9 @@ function* validateEmploymentStartTime() {
         starttime === undefined || starttime === 'Etter avtale' || isValidISOString(starttime);
 
     if (erGyldig) {
-        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'starttime' });
+        yield removeValidationError({ field: 'starttime' });
     } else {
-        yield put({
-            type: ADD_VALIDATION_ERROR,
+        yield addValidationError({
             field: 'starttime',
             message: 'Oppstartstidspunkt er ugyldig',
         });
@@ -331,13 +408,12 @@ function* validateEngagementType() {
     const { engagementtype } = state.adData.properties;
 
     if (valueIsNotSet(engagementtype)) {
-        yield put({
-            type: ADD_VALIDATION_ERROR,
+        yield addValidationError({
             field: 'engagementtype',
             message: 'Ansettelsesform mangler',
         });
     } else {
-        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'engagementtype' });
+        yield removeValidationError({ field: 'engagementtype' });
     }
 }
 
@@ -348,13 +424,12 @@ function* validatePositionCount() {
     const error = positioncount && !positioncount.match(/^[1-9]\d*$/);
 
     if (valueIsNotSet(positioncount) || error) {
-        yield put({
-            type: ADD_VALIDATION_ERROR,
+        yield addValidationError({
             field: 'positioncount',
             message: 'Antall stillinger mangler',
         });
     } else {
-        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'positioncount' });
+        yield removeValidationError({ field: 'positioncount' });
     }
 }
 
@@ -363,9 +438,9 @@ function* validateExtent() {
     const { extent } = state.adData.properties;
 
     if (valueIsNotSet(extent)) {
-        yield put({ type: ADD_VALIDATION_ERROR, field: 'extent', message: 'Omfang mangler' });
+        yield addValidationError({ field: 'extent', message: 'Omfang mangler' });
     } else {
-        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'extent' });
+        yield removeValidationError({ field: 'extent' });
     }
 }
 
@@ -374,9 +449,9 @@ function* validateSector() {
     const { sector } = state.adData.properties;
 
     if (valueIsNotSet(sector)) {
-        yield put({ type: ADD_VALIDATION_ERROR, field: 'sector', message: 'Sektor mangler' });
+        yield addValidationError({ field: 'sector', message: 'Sektor mangler' });
     } else {
-        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'sector' });
+        yield removeValidationError({ field: 'sector' });
     }
 }
 
@@ -385,13 +460,12 @@ function* validateWorkday() {
     const { workday } = state.adData.properties;
 
     if (valueIsNotSet(workday) || !IsJson(workday) || valueIsNotSet(JSON.parse(workday))) {
-        yield put({
-            type: ADD_VALIDATION_ERROR,
+        yield addValidationError({
             field: 'workday',
             message: 'Arbeidsdager mangler',
         });
     } else {
-        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'workday' });
+        yield removeValidationError({ field: 'workday' });
     }
 }
 
@@ -400,13 +474,12 @@ function* validateWorkhours() {
     const { workhours } = state.adData.properties;
 
     if (valueIsNotSet(workhours) || !IsJson(workhours) || valueIsNotSet(JSON.parse(workhours))) {
-        yield put({
-            type: ADD_VALIDATION_ERROR,
+        yield addValidationError({
             field: 'workhours',
             message: 'Arbeidstid mangler',
         });
     } else {
-        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'workhours' });
+        yield removeValidationError({ field: 'workhours' });
     }
 }
 
@@ -416,10 +489,9 @@ function* validateInkluderingsmuligheter() {
     const { tags } = state.adData.properties;
 
     if (kanInkludere === KanInkludere.Nei || tagsInneholderInkluderingsmuligheter(tags)) {
-        yield put({ type: REMOVE_VALIDATION_ERROR, field: 'inkluderingsmuligheter' });
+        yield removeValidationError({ field: 'inkluderingsmuligheter' });
     } else {
-        yield put({
-            type: ADD_VALIDATION_ERROR,
+        yield addValidationError({
             field: 'inkluderingsmuligheter',
             message:
                 'Mulighet for inkludering mangler – velg én eller flere inkluderingsmuligheter eller oppgi at arbeidsgiver ikke kan inkludere',
@@ -438,7 +510,6 @@ export function* validateAll() {
         yield validateStyrk();
         yield validateAdtext();
         yield validateApplicationEmail();
-        yield validateContactpersonEmail();
         yield validatePostalCode();
         yield validateNotat();
         yield validateApplicationdueDate();
@@ -449,10 +520,13 @@ export function* validateAll() {
         yield validateWorkday();
         yield validateWorkhours();
         yield validateInkluderingsmuligheter();
+        yield validateContactPersonName();
+        yield validateContactPersonTitle();
+        yield validateContactPersonEmailOrPhoneRequired();
     }
 }
 
-export function hasValidationErrors(validation) {
+export function hasValidationErrors(validation: Record<ValidertFelt, string | undefined>) {
     return (
         validation.styrk !== undefined ||
         validation.location !== undefined ||
@@ -461,8 +535,11 @@ export function hasValidationErrors(validation) {
         validation.title !== undefined ||
         validation.adText !== undefined ||
         validation.applicationEmail !== undefined ||
-        validation.contactpersonEmail !== undefined ||
-        validation.publish !== undefined ||
+        validation.contactPersonEmail !== undefined ||
+        validation.contactPersonEmailOrPhone !== undefined ||
+        validation.contactPersonPhone !== undefined ||
+        validation.contactPersonTitle !== undefined ||
+        validation.published !== undefined ||
         validation.postalCode !== undefined ||
         validation.notat !== undefined ||
         validation.applicationdue !== undefined ||
@@ -482,27 +559,26 @@ export function* validateBeforeSave() {
         yield validateTitle();
         yield validateStyrk();
         yield validateApplicationEmail();
-        yield validateContactpersonEmail();
+        yield validateContactpersonEmailAndPhone();
         yield validateNotat();
         yield validatePostalCode();
-        yield validateContactpersonPhone();
     }
 }
 
-export function hasValidationErrorsOnSave(validation) {
+export function hasValidationErrorsOnSave(validation: Record<ValidertFelt, string | undefined>) {
     return (
         validation.styrk !== undefined ||
         validation.title !== undefined ||
         validation.applicationEmail !== undefined ||
-        validation.contactpersonEmail !== undefined ||
-        validation.contactpersonPhone !== undefined ||
+        validation.contactPersonEmail !== undefined ||
+        validation.contactPersonPhone !== undefined ||
         validation.postalCode !== undefined ||
         validation.notat !== undefined
     );
 }
 
 export type AdValidationState = {
-    errors: Record<string, string | undefined>;
+    errors: Record<ValidertFelt, string | undefined>;
 };
 
 const initialState = {
@@ -556,8 +632,9 @@ export const validationSaga = function* saga() {
     yield takeLatest(SET_AD_TEXT, validateAdtext);
     yield takeLatest(SET_AD_TITLE, validateTitle);
     yield takeLatest(VALIDATE_APPLICATION_EMAIL, validateApplicationEmail);
-    yield takeLatest(VALIDATE_CONTACTPERSON_EMAIL, validateContactpersonEmail);
-    yield takeLatest(VALIDATE_CONTACTPERSON_PHONE, validateContactpersonPhone);
+    yield takeLatest(VALIDATE_CONTACTPERSON_EMAIL_AND_PHONE, validateContactpersonEmailAndPhone);
+    yield takeLatest(VALIDATE_CONTACTPERSON_NAME, validateContactPersonName);
+    yield takeLatest(VALIDATE_CONTACTPERSON_TITLE, validateContactPersonTitle);
     yield takeLatest(SET_NOTAT, validateNotat);
     yield takeLatest(SET_APPLICATIONDUE, validateApplicationdueDate);
     yield takeLatest(SET_EMPLOYMENT_STARTTIME, validateEmploymentStartTime);
