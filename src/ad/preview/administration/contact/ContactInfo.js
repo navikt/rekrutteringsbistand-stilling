@@ -3,9 +3,11 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
 import { Knapp } from 'nav-frontend-knapper';
-import { MARKER_SOM_MIN, SAVE_AD } from '../../../adReducer';
+import {
+    MARKER_EKSTERN_STILLING_SOM_MIN,
+    MARKER_INTERN_STILLING_SOM_MIN,
+} from '../../../adReducer';
 import './ContactInfo.less';
-import { SET_NAV_IDENT, SET_REPORTEE } from '../../../adDataReducer';
 import { erDirektemeldtStilling } from '../../../adUtils';
 import MarkerSomMinModal from '../markerSomMinModal/MarkerSomMinModal';
 
@@ -22,10 +24,7 @@ class ContactInfo extends React.Component {
     };
 
     onMarkerSomMinKlikkInternStilling = () => {
-        const { setReportee, setNavIdent, saveAd, innlogget } = this.props;
-        setReportee(innlogget.displayName);
-        setNavIdent(innlogget.navIdent);
-        saveAd();
+        this.props.markerInternStillingSomMin();
         this.setState({ markerSomMinStillingModalErÅpen: false });
     };
 
@@ -112,10 +111,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    markerSomMin: () => dispatch({ type: MARKER_SOM_MIN }),
-    setReportee: (reportee) => dispatch({ type: SET_REPORTEE, reportee }),
-    setNavIdent: (navIdent) => dispatch({ type: SET_NAV_IDENT, navIdent }),
-    saveAd: () => dispatch({ type: SAVE_AD }),
+    markerEksternStillingSomMin: () => dispatch({ type: MARKER_EKSTERN_STILLING_SOM_MIN }),
+    markerInternStillingSomMin: () => dispatch({ type: MARKER_INTERN_STILLING_SOM_MIN }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContactInfo);
