@@ -19,7 +19,7 @@ class ContactInfo extends React.Component {
         };
     }
     onMarkerSomMinKlikkEksternStilling = () => {
-        this.props.markerSomMin();
+        this.props.markerEksternStillingSomMin();
         this.setState({ markerSomMinStillingModalErÅpen: false });
     };
 
