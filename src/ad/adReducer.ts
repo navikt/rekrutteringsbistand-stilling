@@ -100,7 +100,8 @@ export const CLEAR_COPIED_ADS = 'CLEAR_COPIED_ADS';
 export const DEFAULT_TITLE_NEW_AD = 'Ny stilling';
 
 export const LEGG_TIL_I_MINE_STILLINGER = 'LEGG_TIL_I_MINE_STILLINGER';
-export const MARKER_SOM_MIN = 'MARKER_SOM_MIN';
+export const MARKER_EKSTERN_STILLING_SOM_MIN = 'MARKER_EKSTERN_STILLING_SOM_MIN';
+export const MARKER_INTERN_STILLING_SOM_MIN = 'MARKER_INTERN_STILLING_SOM_MIN';
 
 export const SET_KAN_INKLUDERE = 'SET_KAN_INKLUDERE';
 
@@ -488,6 +489,7 @@ function* stopAdFromMyAds() {
 function* saveAd(action) {
     yield validateBeforeSave();
     const state = yield select();
+
     if (hasValidationErrorsOnSave(state.adValidation.errors)) {
         yield put({ type: SHOW_AD_SAVED_ERROR_MODAL });
     } else {
@@ -619,13 +621,23 @@ function* leggTilIMineStillinger(action) {
     yield put({ type: SAVE_AD, showModal: false });
 }
 
-function* markerSomMinStilling(action) {
+function* markerEksternStillingSomMin(action) {
     let state = yield select();
 
     const { navIdent, displayName } = state.reportee.data;
     yield put({ type: SET_NAV_IDENT_STILLINGSINFO, navIdent, displayName });
     yield put({ type: UPDATE_STILLINGSINFO, uuid: action.uuid });
     yield put({ type: SAVE_AD, showModal: false });
+}
+
+function* markerInternStillingSomMin(action) {
+    let state = yield select();
+
+    const { navIdent, displayName } = state.reportee.data;
+    yield put({ type: SET_NAV_IDENT, navIdent });
+    yield put({ type: SET_REPORTEE, reportee: displayName });
+
+    yield saveRekrutteringsbistandStilling();
 }
 
 export const adSaga = function* saga() {
@@ -642,5 +654,6 @@ export const adSaga = function* saga() {
     yield takeLatest(DELETE_AD_FROM_MY_ADS, deleteAdFromMyAds);
     yield takeLatest(COPY_AD_FROM_MY_ADS, copyAdFromMyAds);
     yield takeLatest(LEGG_TIL_I_MINE_STILLINGER, leggTilIMineStillinger);
-    yield takeLatest(MARKER_SOM_MIN, markerSomMinStilling);
+    yield takeLatest(MARKER_INTERN_STILLING_SOM_MIN, markerInternStillingSomMin);
+    yield takeLatest(MARKER_EKSTERN_STILLING_SOM_MIN, markerEksternStillingSomMin);
 };
