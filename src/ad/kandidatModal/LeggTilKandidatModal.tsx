@@ -43,10 +43,6 @@ export type Kandidat = {
     arenaKandidatnr: string;
     fornavn: string;
     etternavn: string;
-    mestRelevanteYrkeserfaring: {
-        styrkKodeStillingstittel: string;
-        yrkeserfaringManeder: number;
-    };
 };
 
 type Kandidatliste = {
