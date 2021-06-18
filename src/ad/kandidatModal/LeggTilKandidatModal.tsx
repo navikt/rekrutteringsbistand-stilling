@@ -59,7 +59,6 @@ type Kandidatliste = {
 type LeggTilKandidatOutboundDto = {
     notat: string;
     kandidatnr: string;
-    sisteArbeidserfaring: string;
 };
 
 class LeggTilKandidatModal extends React.Component<Props> {
@@ -174,9 +173,6 @@ class LeggTilKandidatModal extends React.Component<Props> {
             const nyKandidat = {
                 kandidatnr: kandidat.arenaKandidatnr,
                 notat,
-                sisteArbeidserfaring: kandidat.mestRelevanteYrkeserfaring
-                    ? kandidat.mestRelevanteYrkeserfaring.styrkKodeStillingstittel
-                    : '',
             };
 
             leggTilKandidatMedFnr(nyKandidat, kandidatliste.kandidatlisteId);
