@@ -58,9 +58,11 @@ export default function reducer(state = initialState, action) {
             const countries = action.response.countries.filter((l) => l.code !== 'NO');
 
             // Fjerner fylker som også er i kommuner: Jan Mayen (22) + Oslo (03)
-            const municipalsCounties = action.response.municipalsCounties.filter(
-                (c) => c.code !== '22' && c.code !== '03'
-            );
+            const municipalsCounties = action.response.municipalsCounties
+                .filter((c) => c.code !== '22' && c.code !== '03')
+                .sort(function compareFn(f1, f2) {
+                    return f1.name.length - f2.name.length;
+                });
 
             return {
                 ...state,
