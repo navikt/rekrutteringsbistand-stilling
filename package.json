@@ -101,7 +101,7 @@
         "react-scripts": "^4.0.2",
         "redux": "^4.0.4",
         "redux-saga": "^1.1.3",
-        "snyk": "^1.456.0",
+        "snyk": "^1.667.0",
         "whatwg-fetch": "^3.5.0"
     },
     "devDependencies": {
