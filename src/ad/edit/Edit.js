@@ -18,9 +18,9 @@ import { hentAnnonselenke, stillingErPublisert } from '../adUtils';
 import CandidateActions from '../candidateActions/CandidateActions';
 import { Knapp } from 'nav-frontend-knapper';
 import KopierTekst from '../kopierTekst/KopierTekst';
-import { Undertittel } from 'nav-frontend-typografi';
+import { Element, Undertittel } from 'nav-frontend-typografi';
 import RegistrerInkluderingsmuligheter from './registrer-inkluderingsmuligheter/DirektemeldtStilling';
-import AlertStripe from 'nav-frontend-alertstriper';
+import AlertStripe, { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import NavigationPrompt from 'react-router-navigation-prompt';
 import { FORKAST_NY_STILLING, NyStillingState } from '../adReducer';
 import BekreftForlatSidenModal from '../bekreft-forlat-siden-modal/BekreftForlatSidenModal.tsx';
@@ -51,7 +51,7 @@ const Edit = ({
     }, [resetValidation]);
 
     // Fra EditHeader
-    const limitedAccess = ad.createdBy !== 'pam-rekrutteringsbistand';
+    const stillingenErIntern = ad.createdBy !== 'pam-rekrutteringsbistand';
     const stillingsLenke = hentAnnonselenke(ad.uuid);
 
     const onForlatSidenClick = (bekreftForlatSiden) => () => {
@@ -81,7 +81,7 @@ const Edit = ({
             <div className="Edit__actions">
                 <CandidateActions />
                 <div className="blokk-xs">
-                    {!limitedAccess && (
+                    {!stillingenErIntern && (
                         <Knapp className="Ad__actions-button" onClick={onPreviewAdClick} mini>
                             Forhåndsvis stillingen
                         </Knapp>
@@ -95,12 +95,21 @@ const Edit = ({
                     )}
                 </div>
             </div>
-            {limitedAccess && (
+            {stillingenErIntern ? (
                 <div className="Ad__info">
                     <AlertStripe className="AdStatusPreview__Alertstripe" type="info" solid="true">
                         Dette er en eksternt utlyst stilling. Du kan <b>ikke</b> endre stillingen.
                     </AlertStripe>
                 </div>
+            ) : (
+                <Column xs="1" md="12" className="blokk-s">
+                    <AlertStripeInfo className="Edit__vil-bli-delt-advarsel">
+                        <Element>
+                            Stillingsannonsen kan bli delt med kandidater. Det er viktig at
+                            annonseteksten er informativ og lett å forstå.
+                        </Element>
+                    </AlertStripeInfo>
+                </Column>
             )}
             <Column xs="12" md="8">
                 <div className="Edit__left">
