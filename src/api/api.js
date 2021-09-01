@@ -134,10 +134,6 @@ async function fetchAdsCommon(query, baseurl) {
     };
 }
 
-export async function fetchAds(query) {
-    return fetchAdsCommon(query, `${stillingApi}/rekrutteringsbistand/api/v1/ads`);
-}
-
 export async function fetchMyAds(query) {
     return fetchAdsCommon(
         query,
