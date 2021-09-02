@@ -2,6 +2,8 @@ import toUrl from '../common/toUrl';
 import Stilling, { AdminStatus, Rekrutteringsbistandstilling, Stillingsinfo } from '../Stilling';
 import { fetchGet, fetchPost } from './apiUtils';
 
+export const stillingApi = '/rekrutteringsbistand-stilling/stilling-api';
+
 // Bruk mock-api hvis app kjører via "npm run mock"
 if (process.env.REACT_APP_MOCK) {
     require('../mock/api');
@@ -12,8 +14,6 @@ export type Side<T> = {
     totalElements: number;
     totalPages: number;
 };
-
-export const stillingApi = '/rekrutteringsbistand-stilling/stilling-api';
 
 export const postStilling = async (stilling: Partial<Stilling>): Promise<Stilling> => {
     const postUrl = `${stillingApi}/rekrutteringsbistand/api/v1/ads?classify=true`;
