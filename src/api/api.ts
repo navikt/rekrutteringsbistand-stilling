@@ -133,11 +133,6 @@ export const hentRekrutteringsbistandstilling = async (
 export const fetchStillingsinfo = async (uuid: string): Promise<Stillingsinfo> =>
     fetchGet(`${stillingApi}/rekruttering/stilling/${uuid}`);
 
-export const fetchRekrutteringsbistandstilling = async (
-    uuid: string
-): Promise<Rekrutteringsbistandstilling> =>
-    fetchGet(`${stillingApi}/rekrutteringsbistandstilling/${uuid}`);
-
 export const fetchStillingsinfoForVeileder = async (navIdent: string): Promise<Stillingsinfo> =>
     fetchGet(`${stillingApi}/rekruttering/ident/${navIdent}`);
 
