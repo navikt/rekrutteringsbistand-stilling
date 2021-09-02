@@ -119,12 +119,10 @@ export function toQuery(search) {
 function* getMyAds() {
     try {
         yield put({ type: FETCH_MY_ADS_BEGIN });
+
         const reportee = yield getReportee();
-
         const state = yield select();
-
         const stillingsinfoResponse = yield fetchStillingsinfoForVeileder(reportee.navIdent);
-
         const stillingsids = stillingsinfoResponse.map((r) => r.stillingsid).join(',');
 
         const search = {
