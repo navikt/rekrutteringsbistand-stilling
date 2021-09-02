@@ -24,7 +24,6 @@ const decorator = require('./data/dekoratør/decorator.json');
 const adsUrl = `${stillingApi}/rekrutteringsbistand/api/v1/ads`;
 const reporteeUrl = `${stillingApi}/rekrutteringsbistand/api/v1/reportee/`;
 const mineStillingerUrl = `${stillingApi}/rekrutteringsbistand/api/v1/ads/rekrutteringsbistand/minestillinger`;
-const stillingUrl = `${stillingApi}/rekrutteringsbistand/api/v1/stilling/`;
 const rekrutteringsbistandstillingUrl = `express:${stillingApi}/rekrutteringsbistandstilling/:stillingsId`;
 const putRekrutteringsbistandstillingUrl = `express:${stillingApi}/rekrutteringsbistandstilling`;
 const countiesUrl = `${stillingApi}/rekrutteringsbistand/api/v1/geography/counties`;
@@ -65,7 +64,6 @@ fetchMock
     .delete(med(adsUrl), putPostAds)
     .get(reporteeUrl, reportee)
     .get(med(identUrl), ident)
-    .get(med(stillingUrl), stilling)
     .get(rekrutteringsbistandstillingUrl, getStilling)
     .put(putRekrutteringsbistandstillingUrl, eksternStilling)
     .get(countiesUrl, counties)

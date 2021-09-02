@@ -1,6 +1,15 @@
 import AdminStatusEnum from '../common/enums/AdminStatusEnum';
 import toUrl from '../common/toUrl';
 import { loginWithRedirectToCurrentLocation } from '../login';
+import Stilling, {
+    Administration,
+    AdminStatus,
+    Kilde,
+    Privacy,
+    Rekrutteringsbistandstilling,
+    Stillingsinfo,
+    System,
+} from '../Stilling';
 
 export const stillingApi = '/rekrutteringsbistand-stilling/stilling-api';
 
@@ -10,14 +19,18 @@ if (process.env.REACT_APP_MOCK) {
 }
 
 export class ApiError {
-    constructor(message, statusCode) {
+    message: string;
+    statusCode: number;
+
+    constructor(message: string, statusCode: number) {
         this.message = message;
         this.statusCode = statusCode;
     }
 }
 
-async function request(url, options) {
-    let response;
+async function request(url: string, options?: RequestInit) {
+    let response: Response;
+
     try {
         response = await fetch(url, options);
     } catch (e) {
@@ -39,7 +52,7 @@ async function request(url, options) {
     return response.json();
 }
 
-export async function fetchGet(url) {
+export async function fetchGet(url: string): Promise<any> {
     return request(url, {
         method: 'GET',
         credentials: 'include',
@@ -50,7 +63,7 @@ export async function fetchGet(url) {
     });
 }
 
-export async function fetchPost(url, body) {
+export async function fetchPost(url: string, body: object) {
     return request(url, {
         body: JSON.stringify(body),
         method: 'POST',
@@ -62,7 +75,7 @@ export async function fetchPost(url, body) {
     });
 }
 
-export async function fetchPut(url, body) {
+export async function fetchPut(url: string, body: object) {
     return request(url, {
         body: JSON.stringify(body),
         method: 'PUT',
@@ -74,7 +87,7 @@ export async function fetchPut(url, body) {
     });
 }
 
-export async function fetchDelete(url) {
+export async function fetchDelete(url: string) {
     return request(url, {
         method: 'DELETE',
         credentials: 'include',
@@ -89,59 +102,67 @@ export async function fetchDelete(url) {
  * TODO: Dette er en workaround, fordi det finnes annonser med ad.administration=null i databasen.
  * Når databasen er migrert og ikke inneholder administration=null kan denne workarounden fjernes.
  */
-function fixMissingAdministration(ad) {
-    return {
-        ...ad,
-        administration: {
-            comments: '',
-            status: AdminStatusEnum.RECEIVED,
-            reportee: '',
-        },
-    };
-}
+const fixMissingAdministration = (ad: Stilling): Stilling => ({
+    ...ad,
+    administration: {
+        comments: '',
+        status: AdminStatus.Received,
+        reportee: '',
+        navIdent: '',
+        remarks: [],
+    },
+});
 
-export async function fetchAd(uuid) {
-    const ad = await fetchGet(`${stillingApi}/rekrutteringsbistand/api/v1/stilling/${uuid}`);
-    if (ad.administration === null) {
-        return fixMissingAdministration(ad);
+export const hentRekrutteringsbistandstilling = async (
+    uuid: string
+): Promise<Rekrutteringsbistandstilling> => {
+    const rekrutteringsbistandstilling: Rekrutteringsbistandstilling = await fetchGet(
+        `${stillingApi}/rekrutteringsbistandstilling/${uuid}`
+    );
+
+    if (rekrutteringsbistandstilling.stilling.administration === null) {
+        return {
+            ...rekrutteringsbistandstilling,
+            stilling: fixMissingAdministration(rekrutteringsbistandstilling.stilling),
+        };
     }
-    return ad;
-}
 
-export async function fetchStillingsinfo(uuid) {
-    return await fetchGet(`${stillingApi}/rekruttering/stilling/${uuid}`);
-}
+    return rekrutteringsbistandstilling;
+};
 
-export async function fetchRekrutteringsbistandstilling(uuid) {
-    return await fetchGet(`${stillingApi}/rekrutteringsbistandstilling/${uuid}`);
-}
+export const fetchStillingsinfo = async (uuid: string): Promise<Stillingsinfo> =>
+    fetchGet(`${stillingApi}/rekruttering/stilling/${uuid}`);
 
-export async function fetchStillingsinfoForVeileder(navIdent) {
-    return await fetchGet(`${stillingApi}/rekruttering/ident/${navIdent}`);
-}
+export const fetchRekrutteringsbistandstilling = async (
+    uuid: string
+): Promise<Rekrutteringsbistandstilling> =>
+    fetchGet(`${stillingApi}/rekrutteringsbistandstilling/${uuid}`);
 
-async function fetchAdsCommon(query, baseurl) {
-    const result = await fetchGet(`${baseurl}${toUrl(query)}`);
+export const fetchStillingsinfoForVeileder = async (navIdent: string): Promise<Stillingsinfo> =>
+    fetchGet(`${stillingApi}/rekruttering/ident/${navIdent}`);
+
+export type Side<T> = {
+    content: T[];
+    totalElements: number;
+    totalPages: number;
+};
+
+export const fetchMyAds = async (query: object): Promise<Side<Rekrutteringsbistandstilling>> => {
+    const baseUrl = `${stillingApi}/rekrutteringsbistand/api/v1/ads/rekrutteringsbistand/minestillinger`;
+    const result = await fetchGet(`${baseUrl}${toUrl(query)}`);
 
     return {
         ...result,
-        content: result.content.map((ad) => {
+        content: result.content.map((ad: Stilling) => {
             if (ad.administration === null) {
                 return fixMissingAdministration(ad);
             }
             return ad;
         }),
     };
-}
+};
 
-export async function fetchMyAds(query) {
-    return fetchAdsCommon(
-        query,
-        `${stillingApi}/rekrutteringsbistand/api/v1/ads/rekrutteringsbistand/minestillinger`
-    );
-}
-
-const employerNameCompletionQueryTemplate = (match) => ({
+const employerNameCompletionQueryTemplate = (match: string) => ({
     query: {
         match_phrase: {
             navn_ngram_completion: {
@@ -153,7 +174,7 @@ const employerNameCompletionQueryTemplate = (match) => ({
     size: 50,
 });
 
-export async function fetchEmployerNameCompletionHits(match) {
+export async function fetchEmployerNameCompletionHits(match: string) {
     const result = await fetchPost(
         `${stillingApi}/search-api/underenhet/_search`,
         employerNameCompletionQueryTemplate(match)
@@ -162,7 +183,7 @@ export async function fetchEmployerNameCompletionHits(match) {
     return {
         match,
         result: [
-            ...result.hits.hits.map((employer) => ({
+            ...result.hits.hits.map((employer: any) => ({
                 name: employer._source.navn,
                 orgnr: employer._source.organisasjonsnummer,
                 location: employer._source.adresse
@@ -177,7 +198,7 @@ export async function fetchEmployerNameCompletionHits(match) {
     };
 }
 
-export async function fetchOrgnrSuggestions(value) {
+export async function fetchOrgnrSuggestions(value: string) {
     const match = value.replace(/\s/g, '');
     const result = await fetchGet(
         `${stillingApi}/search-api/underenhet/_search?q=organisasjonsnummer:${match}*`
@@ -187,7 +208,7 @@ export async function fetchOrgnrSuggestions(value) {
         match,
         result: [
             ...result.hits.hits
-                .map((employer) => ({
+                .map((employer: any) => ({
                     name: employer._source.navn,
                     orgnr: employer._source.organisasjonsnummer,
                     location: employer._source.adresse
@@ -202,3 +223,9 @@ export async function fetchOrgnrSuggestions(value) {
         ],
     };
 }
+
+export const postStilling = async (stilling: Partial<Stilling>): Promise<Stilling> => {
+    const postUrl = `${stillingApi}/rekrutteringsbistand/api/v1/ads?classify=true`;
+
+    return await fetchPost(postUrl, stilling);
+};

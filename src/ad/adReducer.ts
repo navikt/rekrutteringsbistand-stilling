@@ -3,11 +3,10 @@ import deepEqual from 'deep-equal';
 import { put, select, takeLatest } from 'redux-saga/effects';
 import {
     ApiError,
-    fetchAd,
-    fetchRekrutteringsbistandstilling,
+    hentRekrutteringsbistandstilling,
     fetchDelete,
-    fetchPost,
     fetchPut,
+    postStilling,
 } from '../api/api';
 import { stillingApi } from '../api/api';
 import { getReportee } from '../reportee/reporteeReducer';
@@ -43,6 +42,13 @@ import {
 } from '../stillingsinfo/stillingsinfoDataReducer';
 import { loggPubliseringAvStilling } from './adUtils';
 import { tagsInneholderInkluderingsmuligheter } from './tags/utils';
+import Stilling, {
+    AdminStatus,
+    Kilde,
+    Privacy,
+    Rekrutteringsbistandstilling,
+    System,
+} from '../Stilling';
 
 export const FETCH_AD = 'FETCH_AD';
 export const FETCH_AD_BEGIN = 'FETCH_AD_BEGIN';
@@ -339,7 +345,7 @@ export default function adReducer(state = initialState, action: any) {
 function* getRekrutteringsbistandstilling(action) {
     yield put({ type: FETCH_AD_BEGIN });
     try {
-        const response = yield fetchRekrutteringsbistandstilling(action.uuid);
+        const response = yield hentRekrutteringsbistandstilling(action.uuid);
         yield put({ type: FETCH_AD_SUCCESS, response: response.stilling });
         const stillingsinfo = response.stillingsinfo || {
             eierNavident: undefined,
@@ -390,20 +396,20 @@ function* createAd() {
     try {
         const reportee = yield getReportee();
 
-        const postUrl = `${stillingApi}/rekrutteringsbistand/api/v1/ads?classify=true`;
-
-        const response = yield fetchPost(postUrl, {
+        const stillingDto = {
             title: DEFAULT_TITLE_NEW_AD,
-            createdBy: 'pam-rekrutteringsbistand',
-            updatedBy: 'pam-rekrutteringsbistand',
-            source: 'DIR',
-            privacy: PrivacyStatusEnum.INTERNAL_NOT_SHOWN,
+            createdBy: System.Rekrutteringsbistand,
+            updatedBy: System.Rekrutteringsbistand,
+            source: Kilde.Intern,
+            privacy: Privacy.Intern,
             administration: {
-                status: AdminStatusEnum.PENDING,
+                status: AdminStatus.Pending,
                 reportee: reportee.displayName,
                 navIdent: reportee.navIdent,
             },
-        });
+        };
+
+        const response = yield postStilling(stillingDto);
 
         yield put({ type: SET_AD_DATA, data: response });
         yield put({ type: SET_REPORTEE, reportee: reportee.displayName });
@@ -572,33 +578,26 @@ function* showDeleteModalMyAds(action) {
 
 function* copyAdFromMyAds(action) {
     try {
-        const adToCopy = yield fetchAd(action.uuid);
+        const adToCopy: Rekrutteringsbistandstilling = yield hentRekrutteringsbistandstilling(
+            action.uuid
+        );
         const reportee = yield getReportee();
 
-        const postUrl = `${stillingApi}/rekrutteringsbistand/api/v1/ads?classify=true`;
-
-        const response = yield fetchPost(postUrl, {
+        const kopiertStilling = {
             ...adToCopy,
-            title: `Kopi - ${adToCopy.title}`,
-            createdBy: 'pam-rekrutteringsbistand',
-            updatedBy: 'pam-rekrutteringsbistand',
-            source: 'DIR',
+            title: `Kopi - ${adToCopy.stilling.title}`,
+            createdBy: System.Rekrutteringsbistand,
+            updatedBy: System.Rekrutteringsbistand,
+            source: Kilde.Intern,
             privacy: PrivacyStatusEnum.INTERNAL_NOT_SHOWN,
             administration: {
-                status: AdminStatusEnum.PENDING,
+                status: AdminStatus.Pending,
                 reportee: reportee.displayName,
                 navIdent: reportee.navIdent,
             },
-            created: undefined,
-            expires: undefined,
-            id: undefined,
-            uuid: undefined,
-            updated: undefined,
-            status: undefined,
-            published: undefined,
-            publishedByAdmin: undefined,
-            reference: undefined,
-        });
+        };
+
+        const response = yield postStilling(kopiertStilling);
 
         // Mark copied ad in myAds
         yield put({ type: ADD_COPIED_ADS, adUuid: response.uuid });
