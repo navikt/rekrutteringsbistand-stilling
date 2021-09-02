@@ -4,7 +4,6 @@ import { put, select, takeLatest } from 'redux-saga/effects';
 import {
     ApiError,
     hentRekrutteringsbistandstilling,
-    fetchRekrutteringsbistandstilling,
     fetchDelete,
     fetchPut,
     postStilling,
@@ -346,7 +345,7 @@ export default function adReducer(state = initialState, action: any) {
 function* getRekrutteringsbistandstilling(action) {
     yield put({ type: FETCH_AD_BEGIN });
     try {
-        const response = yield fetchRekrutteringsbistandstilling(action.uuid);
+        const response = yield hentRekrutteringsbistandstilling(action.uuid);
         yield put({ type: FETCH_AD_SUCCESS, response: response.stilling });
         const stillingsinfo = response.stillingsinfo || {
             eierNavident: undefined,
