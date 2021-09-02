@@ -1,5 +1,6 @@
 import { put, select, takeLatest } from 'redux-saga/effects';
-import { stillingApi, ApiError, fetchGet } from '../api/api';
+import { stillingApi } from '../api/api';
+import { fetchGet, ApiError } from '../api/apiUtils';
 
 export const FETCH_REPORTEE = 'FETCH_REPORTEE';
 export const FETCH_REPORTEE_BEGIN = 'FETCH_REPORTEE_BEGIN';

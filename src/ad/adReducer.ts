@@ -1,13 +1,7 @@
 import { KanInkludere } from './edit/registrer-inkluderingsmuligheter/DirektemeldtStilling';
 import deepEqual from 'deep-equal';
 import { put, select, takeLatest } from 'redux-saga/effects';
-import {
-    ApiError,
-    hentRekrutteringsbistandstilling,
-    fetchDelete,
-    fetchPut,
-    postStilling,
-} from '../api/api';
+import { hentRekrutteringsbistandstilling, postStilling } from '../api/api';
 import { stillingApi } from '../api/api';
 import { getReportee } from '../reportee/reporteeReducer';
 import {
@@ -42,13 +36,8 @@ import {
 } from '../stillingsinfo/stillingsinfoDataReducer';
 import { loggPubliseringAvStilling } from './adUtils';
 import { tagsInneholderInkluderingsmuligheter } from './tags/utils';
-import Stilling, {
-    AdminStatus,
-    Kilde,
-    Privacy,
-    Rekrutteringsbistandstilling,
-    System,
-} from '../Stilling';
+import { AdminStatus, Kilde, Privacy, Rekrutteringsbistandstilling, System } from '../Stilling';
+import { ApiError, fetchDelete, fetchPut } from '../api/apiUtils';
 
 export const FETCH_AD = 'FETCH_AD';
 export const FETCH_AD_BEGIN = 'FETCH_AD_BEGIN';

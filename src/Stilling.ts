@@ -27,8 +27,9 @@ export type Stilling = {
     /** Når NSS-admin trykker på "publiser" */
     publishedByAdmin: string | null;
     businessName: string | null;
-    deactivatedByExpiry: boolean | null;
+    deactivatedByExpiry?: boolean;
     categoryList: StyrkCategory[];
+    activationOnPublishingDate: boolean;
 };
 
 export enum System {

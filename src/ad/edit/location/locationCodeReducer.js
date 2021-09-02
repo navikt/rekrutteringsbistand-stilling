@@ -1,5 +1,7 @@
 import { put, takeEvery, select } from 'redux-saga/effects';
-import { stillingApi, ApiError, fetchGet } from '../../../api/api';
+import { stillingApi } from '../../../api/api';
+import { fetchGet } from '../../../api/apiUtils';
+import { ApiError } from '../../../api/apiUtils';
 import {
     CREATE_AD_BEGIN,
     FETCH_AD_BEGIN,
