@@ -44,7 +44,13 @@ import {
 } from '../stillingsinfo/stillingsinfoDataReducer';
 import { loggPubliseringAvStilling } from './adUtils';
 import { tagsInneholderInkluderingsmuligheter } from './tags/utils';
-import { AdminStatus, Kilde, Privacy, System } from '../Stilling';
+import Stilling, {
+    AdminStatus,
+    Kilde,
+    Privacy,
+    Rekrutteringsbistandstilling,
+    System,
+} from '../Stilling';
 
 export const FETCH_AD = 'FETCH_AD';
 export const FETCH_AD_BEGIN = 'FETCH_AD_BEGIN';
@@ -574,33 +580,24 @@ function* showDeleteModalMyAds(action) {
 
 function* copyAdFromMyAds(action) {
     try {
-        const adToCopy = yield fetchAd(action.uuid);
+        const adToCopy: Rekrutteringsbistandstilling = yield fetchAd(action.uuid);
         const reportee = yield getReportee();
 
-        const postUrl = `${stillingApi}/rekrutteringsbistand/api/v1/ads?classify=true`;
-
-        const response = yield fetchPost(postUrl, {
+        const kopiertStilling = {
             ...adToCopy,
-            title: `Kopi - ${adToCopy.title}`,
-            createdBy: 'pam-rekrutteringsbistand',
-            updatedBy: 'pam-rekrutteringsbistand',
-            source: 'DIR',
+            title: `Kopi - ${adToCopy.stilling.title}`,
+            createdBy: System.Rekrutteringsbistand,
+            updatedBy: System.Rekrutteringsbistand,
+            source: Kilde.Intern,
             privacy: PrivacyStatusEnum.INTERNAL_NOT_SHOWN,
             administration: {
-                status: AdminStatusEnum.PENDING,
+                status: AdminStatus.Pending,
                 reportee: reportee.displayName,
                 navIdent: reportee.navIdent,
             },
-            created: undefined,
-            expires: undefined,
-            id: undefined,
-            uuid: undefined,
-            updated: undefined,
-            status: undefined,
-            published: undefined,
-            publishedByAdmin: undefined,
-            reference: undefined,
-        });
+        };
+
+        const response = yield postStilling(kopiertStilling);
 
         // Mark copied ad in myAds
         yield put({ type: ADD_COPIED_ADS, adUuid: response.uuid });

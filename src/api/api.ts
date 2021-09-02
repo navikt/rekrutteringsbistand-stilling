@@ -106,21 +106,26 @@ const fixMissingAdministration = (ad: Stilling): Stilling => ({
     ...ad,
     administration: {
         comments: '',
-        status: AdminStatusEnum.RECEIVED,
+        status: AdminStatus.Received,
         reportee: '',
         navIdent: '',
         remarks: [],
     },
 });
 
-export const fetchAd = async (uuid: string): Promise<Stilling> => {
-    const ad = await fetchGet(`${stillingApi}/rekrutteringsbistand/api/v1/stilling/${uuid}`);
+export const fetchAd = async (uuid: string): Promise<Rekrutteringsbistandstilling> => {
+    const rekrutteringsbistandstilling: Rekrutteringsbistandstilling = await fetchGet(
+        `${stillingApi}/rekrutteringsbistandstilling/${uuid}`
+    );
 
-    if (ad.administration === null) {
-        return fixMissingAdministration(ad);
+    if (rekrutteringsbistandstilling.stilling.administration === null) {
+        return {
+            ...rekrutteringsbistandstilling,
+            stilling: fixMissingAdministration(rekrutteringsbistandstilling.stilling),
+        };
     }
 
-    return ad;
+    return rekrutteringsbistandstilling;
 };
 
 export const fetchStillingsinfo = async (uuid: string): Promise<Stillingsinfo> =>
@@ -217,20 +222,16 @@ export async function fetchOrgnrSuggestions(value: string) {
     };
 }
 
-type PostStillingDto = {
+type NyStillingDto = {
     title: string;
     createdBy: System;
     updatedBy: System;
     source: Kilde;
     privacy: Privacy;
-    administration: {
-        status: AdminStatus;
-        reportee: string;
-        navIdent: string;
-    };
+    administration: Administration;
 };
 
-export const postStilling = async (stilling: PostStillingDto): Promise<Stilling> => {
+export const postStilling = async (stilling: NyStillingDto | Stilling): Promise<Stilling> => {
     const postUrl = `${stillingApi}/rekrutteringsbistand/api/v1/ads?classify=true`;
 
     return await fetchPost(postUrl, stilling);

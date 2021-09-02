@@ -92,10 +92,10 @@ export enum AdminStatus {
 
 export type Administration = {
     status: AdminStatus;
-    remarks: string[];
-    comments: string;
     reportee: string;
     navIdent: string;
+    comments?: string;
+    remarks?: string[];
 };
 
 export type Properties = Partial<{
