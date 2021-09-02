@@ -113,7 +113,9 @@ const fixMissingAdministration = (ad: Stilling): Stilling => ({
     },
 });
 
-export const fetchAd = async (uuid: string): Promise<Rekrutteringsbistandstilling> => {
+export const hentRekrutteringsbistandstilling = async (
+    uuid: string
+): Promise<Rekrutteringsbistandstilling> => {
     const rekrutteringsbistandstilling: Rekrutteringsbistandstilling = await fetchGet(
         `${stillingApi}/rekrutteringsbistandstilling/${uuid}`
     );
@@ -222,16 +224,7 @@ export async function fetchOrgnrSuggestions(value: string) {
     };
 }
 
-type NyStillingDto = {
-    title: string;
-    createdBy: System;
-    updatedBy: System;
-    source: Kilde;
-    privacy: Privacy;
-    administration: Administration;
-};
-
-export const postStilling = async (stilling: NyStillingDto | Stilling): Promise<Stilling> => {
+export const postStilling = async (stilling: Partial<Stilling>): Promise<Stilling> => {
     const postUrl = `${stillingApi}/rekrutteringsbistand/api/v1/ads?classify=true`;
 
     return await fetchPost(postUrl, stilling);

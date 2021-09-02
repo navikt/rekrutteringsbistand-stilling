@@ -3,10 +3,9 @@ import deepEqual from 'deep-equal';
 import { put, select, takeLatest } from 'redux-saga/effects';
 import {
     ApiError,
-    fetchAd,
+    hentRekrutteringsbistandstilling,
     fetchRekrutteringsbistandstilling,
     fetchDelete,
-    fetchPost,
     fetchPut,
     postStilling,
 } from '../api/api';
@@ -580,7 +579,9 @@ function* showDeleteModalMyAds(action) {
 
 function* copyAdFromMyAds(action) {
     try {
-        const adToCopy: Rekrutteringsbistandstilling = yield fetchAd(action.uuid);
+        const adToCopy: Rekrutteringsbistandstilling = yield hentRekrutteringsbistandstilling(
+            action.uuid
+        );
         const reportee = yield getReportee();
 
         const kopiertStilling = {
