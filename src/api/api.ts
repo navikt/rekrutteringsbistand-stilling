@@ -1,7 +1,15 @@
 import AdminStatusEnum from '../common/enums/AdminStatusEnum';
 import toUrl from '../common/toUrl';
 import { loginWithRedirectToCurrentLocation } from '../login';
-import Stilling, { Rekrutteringsbistandstilling, Stillingsinfo } from '../Stilling';
+import Stilling, {
+    Administration,
+    AdminStatus,
+    Kilde,
+    Privacy,
+    Rekrutteringsbistandstilling,
+    Stillingsinfo,
+    System,
+} from '../Stilling';
 
 export const stillingApi = '/rekrutteringsbistand-stilling/stilling-api';
 
@@ -208,3 +216,22 @@ export async function fetchOrgnrSuggestions(value: string) {
         ],
     };
 }
+
+type PostStillingDto = {
+    title: string;
+    createdBy: System;
+    updatedBy: System;
+    source: Kilde;
+    privacy: Privacy;
+    administration: {
+        status: AdminStatus;
+        reportee: string;
+        navIdent: string;
+    };
+};
+
+export const postStilling = async (stilling: PostStillingDto): Promise<Stilling> => {
+    const postUrl = `${stillingApi}/rekrutteringsbistand/api/v1/ads?classify=true`;
+
+    return await fetchPost(postUrl, stilling);
+};

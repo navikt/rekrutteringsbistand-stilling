@@ -8,6 +8,7 @@ import {
     fetchDelete,
     fetchPost,
     fetchPut,
+    postStilling,
 } from '../api/api';
 import { stillingApi } from '../api/api';
 import { getReportee } from '../reportee/reporteeReducer';
@@ -43,6 +44,7 @@ import {
 } from '../stillingsinfo/stillingsinfoDataReducer';
 import { loggPubliseringAvStilling } from './adUtils';
 import { tagsInneholderInkluderingsmuligheter } from './tags/utils';
+import { AdminStatus, Kilde, Privacy, System } from '../Stilling';
 
 export const FETCH_AD = 'FETCH_AD';
 export const FETCH_AD_BEGIN = 'FETCH_AD_BEGIN';
@@ -390,20 +392,20 @@ function* createAd() {
     try {
         const reportee = yield getReportee();
 
-        const postUrl = `${stillingApi}/rekrutteringsbistand/api/v1/ads?classify=true`;
-
-        const response = yield fetchPost(postUrl, {
+        const stillingDto = {
             title: DEFAULT_TITLE_NEW_AD,
-            createdBy: 'pam-rekrutteringsbistand',
-            updatedBy: 'pam-rekrutteringsbistand',
-            source: 'DIR',
-            privacy: PrivacyStatusEnum.INTERNAL_NOT_SHOWN,
+            createdBy: System.Rekrutteringsbistand,
+            updatedBy: System.Rekrutteringsbistand,
+            source: Kilde.Intern,
+            privacy: Privacy.Intern,
             administration: {
-                status: AdminStatusEnum.PENDING,
+                status: AdminStatus.Pending,
                 reportee: reportee.displayName,
                 navIdent: reportee.navIdent,
             },
-        });
+        };
+
+        const response = yield postStilling(stillingDto);
 
         yield put({ type: SET_AD_DATA, data: response });
         yield put({ type: SET_REPORTEE, reportee: reportee.displayName });

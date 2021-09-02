@@ -84,8 +84,14 @@ export type Geografi = {
     longitude: string | null;
 };
 
+export enum AdminStatus {
+    Received = 'RECEIVED',
+    Pending = 'PENDING',
+    Done = 'DONE',
+}
+
 export type Administration = {
-    status: string;
+    status: AdminStatus;
     remarks: string[];
     comments: string;
     reportee: string;
