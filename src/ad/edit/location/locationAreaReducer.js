@@ -1,5 +1,6 @@
 import { put, takeLatest } from 'redux-saga/effects';
-import { stillingApi, fetchGet } from '../../../api/api';
+import { stillingApi } from '../../../api/api';
+import { fetchGet } from '../../../api/apiUtils';
 import { ADD_LOCATION_AREA } from '../../adDataReducer';
 
 /** *********************************************************

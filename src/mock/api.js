@@ -23,7 +23,7 @@ const decorator = require('./data/dekoratør/decorator.json');
 
 const adsUrl = `${stillingApi}/rekrutteringsbistand/api/v1/ads`;
 const reporteeUrl = `${stillingApi}/rekrutteringsbistand/api/v1/reportee/`;
-const mineStillingerUrl = `${stillingApi}/rekrutteringsbistand/api/v1/ads/rekrutteringsbistand/minestillinger`;
+const mineStillingerUrl = `${stillingApi}/mine-stillinger`;
 const rekrutteringsbistandstillingUrl = `express:${stillingApi}/rekrutteringsbistandstilling/:stillingsId`;
 const putRekrutteringsbistandstillingUrl = `express:${stillingApi}/rekrutteringsbistandstilling`;
 const countiesUrl = `${stillingApi}/rekrutteringsbistand/api/v1/geography/counties`;

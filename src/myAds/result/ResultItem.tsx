@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Normaltekst } from 'nav-frontend-typografi';
 import getEmployerName from '../../common/getEmployerName';
-import { formatISOString } from '../../utils.ts';
+import { formatISOString } from '../../utils';
 import PrivacyStatusEnum from '../../common/enums/PrivacyStatusEnum';
 import AWithIcon from '../../common/aWithIcon/AWithIcon';
 import './Icons.less';
@@ -15,15 +15,30 @@ import { REDIGERINGSMODUS_QUERY_PARAM } from '../../ad/Ad';
 import MedPopover from '../../common/med-popover/MedPopover';
 import { Hamburgerknapp } from 'nav-frontend-ikonknapper';
 import Popover, { PopoverOrientering } from 'nav-frontend-popover';
+import { FunctionComponent } from 'react';
+import { Rekrutteringsbistandstilling } from '../../Stilling';
+import State from '../../State';
 
-const ResultItem = ({ ad, copiedAds, reportee }) => {
+type Props = {
+    rekrutteringsbistandstilling: Rekrutteringsbistandstilling;
+    copiedAds: string[];
+    reportee: any;
+};
+
+const ResultItem: FunctionComponent<Props> = ({
+    rekrutteringsbistandstilling,
+    copiedAds,
+    reportee,
+}) => {
+    const { stilling, stillingsinfo } = rekrutteringsbistandstilling;
+
     const [dropDownVisible, setDropDownVisible] = useState(false);
-    const [hjelpetekst, setHjelpetekst] = useState({
+    const [hjelpetekst, setHjelpetekst] = useState<{ anker?: any; tekst: string }>({
         tekst: '',
         anker: undefined,
     });
 
-    const toggleHjelpetekst = (nyHjelpetekst) => {
+    const toggleHjelpetekst = (nyHjelpetekst: { anker: any; tekst: string }) => {
         lukkHjelpetekst();
 
         if (hjelpetekst.anker !== nyHjelpetekst.anker) {
@@ -45,28 +60,28 @@ const ResultItem = ({ ad, copiedAds, reportee }) => {
         setDropDownVisible(!dropDownVisible);
     };
 
-    const isCopy = copiedAds.includes(ad.uuid);
+    const isCopy = copiedAds.includes(stilling.uuid);
+
     const isTransferredToOther =
-        ad.rekruttering &&
-        ad.rekruttering.eierNavident &&
-        ad.administration &&
-        ad.administration.navIdent &&
-        ad.rekruttering.eierNavident !== ad.administration.navIdent &&
+        stillingsinfo &&
+        stillingsinfo.eierNavident &&
+        stilling.administration &&
+        stilling.administration.navIdent !== stillingsinfo.eierNavident &&
         reportee &&
-        ad.rekruttering.eierNavident !== reportee.navIdent;
+        stillingsinfo.eierNavident !== reportee.navIdent;
 
     const colTitle = (
         <td className="Col-title">
             <div className="ResultItem__column Col-title-inner">
-                <Link className="typo-normal lenke" to={`/stillinger/stilling/${ad.uuid}`}>
+                <Link className="typo-normal lenke" to={`/stillinger/stilling/${stilling.uuid}`}>
                     {isCopy
                         ? (
                               <div>
-                                  <b>{ad.title.substr(0, 5)}</b>
-                                  {ad.title.substr(5)}
+                                  <b>{stilling.title.substr(0, 5)}</b>
+                                  {stilling.title.substr(5)}
                               </div>
                           ) || ''
-                        : ad.title || ''}
+                        : stilling.title || ''}
                 </Link>
             </div>
         </td>
@@ -74,9 +89,9 @@ const ResultItem = ({ ad, copiedAds, reportee }) => {
 
     const colUpdated = (
         <td className="Col-updated">
-            {ad.updated && (
+            {stilling.updated && (
                 <Normaltekst className="ResultItem__column">
-                    {formatISOString(ad.updated, 'DD.MM.YYYY')}
+                    {formatISOString(stilling.updated, 'DD.MM.YYYY')}
                 </Normaltekst>
             )}
         </td>
@@ -108,37 +123,41 @@ const ResultItem = ({ ad, copiedAds, reportee }) => {
             {colUpdated}
             {colTitle}
             <td className="Col-id">
-                {ad.id && <Normaltekst className="ResultItem__column">{ad.id}</Normaltekst>}
+                {stilling.id && (
+                    <Normaltekst className="ResultItem__column">{stilling.id}</Normaltekst>
+                )}
             </td>
             <td className="Col-employer">
                 <Normaltekst className="ResultItem__column Col-employer-inner">
-                    {getEmployerName(ad)}
+                    {getEmployerName(stilling)}
                 </Normaltekst>
             </td>
             <td className="Col-expires">
-                {ad.expires && (
+                {stilling.expires && (
                     <Normaltekst className="ResultItem__column">
-                        {formatISOString(ad.expires)}
+                        {formatISOString(stilling.expires)}
                     </Normaltekst>
                 )}
             </td>
             <td className="Col-privacy">
-                {ad.privacy && (
+                {stilling.privacy && (
                     <Normaltekst className="ResultItem__column">
-                        {ad.privacy === PrivacyStatusEnum.SHOW_ALL ? 'Arbeidsplassen' : 'Internt'}
+                        {stilling.privacy === PrivacyStatusEnum.SHOW_ALL
+                            ? 'Arbeidsplassen'
+                            : 'Internt'}
                     </Normaltekst>
                 )}
             </td>
             <td className="Col-status">
-                {ad.status && (
+                {stilling.status && (
                     <Normaltekst className="ResultItem__column">
-                        {getAdStatusLabel(ad.status, ad.deactivatedByExpiry)}
+                        {getAdStatusLabel(stilling.status, stilling.deactivatedByExpiry)}
                     </Normaltekst>
                 )}
             </td>
             <td className="Col-candidate">
                 <AWithIcon
-                    href={`/kandidater/lister/stilling/${ad.uuid}/detaljer`}
+                    href={`/kandidater/lister/stilling/${stilling.uuid}/detaljer`}
                     classNameText="typo-normal"
                     classNameLink="CandidateList"
                     text="Se kandidatliste"
@@ -149,7 +168,7 @@ const ResultItem = ({ ad, copiedAds, reportee }) => {
                     className="Icon__button Inner__button"
                     aria-label="Rediger"
                     title="rediger"
-                    to={`/stillinger/stilling/${ad.uuid}?${REDIGERINGSMODUS_QUERY_PARAM}=true`}
+                    to={`/stillinger/stilling/${stilling.uuid}?${REDIGERINGSMODUS_QUERY_PARAM}=true`}
                 >
                     <i className="Edit__icon" />
                 </Link>
@@ -159,9 +178,11 @@ const ResultItem = ({ ad, copiedAds, reportee }) => {
                     className="Inner__button"
                     onPopoverClick={onDropdownClick}
                     hjelpetekst={
-                        <ResultItemDropDown ad={ad} onToggleHjelpetekst={toggleHjelpetekst} />
+                        <ResultItemDropDown
+                            stilling={stilling}
+                            onToggleHjelpetekst={toggleHjelpetekst}
+                        />
                     }
-                    onRequestClose={() => setDropDownVisible(undefined)}
                 >
                     <Hamburgerknapp aria-label="Meny for stilling" />
                 </MedPopover>
@@ -177,16 +198,7 @@ const ResultItem = ({ ad, copiedAds, reportee }) => {
     );
 };
 
-ResultItem.propTypes = {
-    ad: PropTypes.shape({
-        uuid: PropTypes.string,
-        title: PropTypes.string,
-        deactivatedByExpiry: PropTypes.bool,
-    }).isRequired,
-    copiedAds: PropTypes.arrayOf(PropTypes.string).isRequired,
-};
-
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: State) => ({
     copiedAds: state.ad.copiedAds,
 });
 

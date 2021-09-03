@@ -1,5 +1,6 @@
 import { put, select, takeLatest } from 'redux-saga/effects';
-import { ApiError, stillingApi, fetchPost, fetchPut } from '../api/api';
+import { stillingApi } from '../api/api';
+import { ApiError, fetchPost, fetchPut } from '../api/apiUtils';
 
 import { SET_STILLINGSINFO_DATA } from './stillingsinfoDataReducer';
 export const FETCH_STILLINGSINFO = 'FETCH_STILLINGSINFO';

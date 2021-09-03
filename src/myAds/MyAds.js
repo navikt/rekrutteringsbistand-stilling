@@ -87,7 +87,11 @@ const MyAds = (props) => {
                         <tbody>
                             {adsFound &&
                                 ads.map((ad) => (
-                                    <ResultItem key={ad.uuid} ad={ad} reportee={reportee} />
+                                    <ResultItem
+                                        key={ad.uuid}
+                                        rekrutteringsbistandstilling={ad}
+                                        reportee={reportee}
+                                    />
                                 ))}
                         </tbody>
                     </table>

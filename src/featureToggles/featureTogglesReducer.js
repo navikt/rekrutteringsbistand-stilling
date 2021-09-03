@@ -1,5 +1,6 @@
 import { takeEvery, put } from 'redux-saga/effects';
-import { stillingApi, fetchGet } from '../api/api';
+import { stillingApi } from '../api/api';
+import { fetchGet } from '../api/apiUtils';
 
 export const FETCH_FEATURE_TOGGLES = 'FETCH_FEATURE_TOGGLES';
 const FETCH_FEATURE_TOGGLES_COMPLETE = 'FETCH_FEATURE_TOGGLES_COMPLETE';

@@ -1,44 +1,33 @@
 {
     "content": [
         {
-            "id": 213652,
-            "uuid": "b069a07d-acf5-4b61-a254-9bf4f2aa97f7",
-            "created": "2019-12-17T13:12:28.06575",
-            "createdBy": "pam-rekrutteringsbistand",
-            "updated": "2019-12-17T13:13:05.293228",
-            "updatedBy": "pam-rekrutteringsbistand",
-            "mediaList": [],
-            "contactList": [],
-            "title": "Eksempel på ekstern stilling",
-            "status": "ACTIVE",
-            "privacy": "INTERNAL_NOT_SHOWN",
-            "source": "FINN",
-            "medium": "FINN",
-            "reference": "b227936a-fe0d-4d9c-900b-faf9561df49b",
-            "published": "2019-12-17T13:13:04.732855",
-            "expires": "2019-12-17T13:12:28.058029",
-            "employer": {
-                "id": 213653,
-                "uuid": "edbc339a-ace4-4763-8a9c-ddc3cb4c7745",
-                "created": "2019-12-17T13:13:04.654129",
-                "createdBy": "pam-ad",
-                "updated": "2019-12-17T13:13:04.654129",
-                "updatedBy": "pam-ad",
+            "stilling": {
+                "id": 213652,
+                "uuid": "b069a07d-acf5-4b61-a254-9bf4f2aa97f7",
+                "created": "2019-12-17T13:12:28.06575",
+                "createdBy": "pam-rekrutteringsbistand",
+                "updated": "2019-12-17T13:13:05.293228",
+                "updatedBy": "pam-rekrutteringsbistand",
                 "mediaList": [],
                 "contactList": [],
-                "location": {
-                    "address": "c/o Tommy Bloch Sommerseth, Rebbansbakken 20",
-                    "postalCode": "3018",
-                    "county": "VIKEN",
-                    "municipal": "DRAMMEN",
-                    "municipalCode": "3005",
-                    "city": "DRAMMEN",
-                    "country": "NORGE",
-                    "latitude": null,
-                    "longitude": null
-                },
-                "locationList": [
-                    {
+                "title": "Eksempel på ekstern stilling",
+                "status": "ACTIVE",
+                "privacy": "INTERNAL_NOT_SHOWN",
+                "source": "FINN",
+                "medium": "FINN",
+                "reference": "b227936a-fe0d-4d9c-900b-faf9561df49b",
+                "published": "2019-12-17T13:13:04.732855",
+                "expires": "2019-12-17T13:12:28.058029",
+                "employer": {
+                    "id": 213653,
+                    "uuid": "edbc339a-ace4-4763-8a9c-ddc3cb4c7745",
+                    "created": "2019-12-17T13:13:04.654129",
+                    "createdBy": "pam-ad",
+                    "updated": "2019-12-17T13:13:04.654129",
+                    "updatedBy": "pam-ad",
+                    "mediaList": [],
+                    "contactList": [],
+                    "location": {
                         "address": "c/o Tommy Bloch Sommerseth, Rebbansbakken 20",
                         "postalCode": "3018",
                         "county": "VIKEN",
@@ -48,41 +37,41 @@
                         "country": "NORGE",
                         "latitude": null,
                         "longitude": null
-                    }
-                ],
-                "properties": {
-                    "nace2": "[{\"code\":\"71.129\",\"name\":\"Annen teknisk konsulentvirksomhet\"}]"
+                    },
+                    "locationList": [
+                        {
+                            "address": "c/o Tommy Bloch Sommerseth, Rebbansbakken 20",
+                            "postalCode": "3018",
+                            "county": "VIKEN",
+                            "municipal": "DRAMMEN",
+                            "municipalCode": "3005",
+                            "city": "DRAMMEN",
+                            "country": "NORGE",
+                            "latitude": null,
+                            "longitude": null
+                        }
+                    ],
+                    "properties": {
+                        "nace2": "[{\"code\":\"71.129\",\"name\":\"Annen teknisk konsulentvirksomhet\"}]"
+                    },
+                    "name": "ASDF HOLDING AS",
+                    "orgnr": "920265766",
+                    "status": "ACTIVE",
+                    "parentOrgnr": "917995184",
+                    "publicName": "ASDF HOLDING AS",
+                    "deactivated": null,
+                    "orgform": "BEDR",
+                    "employees": 0
                 },
-                "name": "ASDF HOLDING AS",
-                "orgnr": "920265766",
-                "status": "ACTIVE",
-                "parentOrgnr": "917995184",
-                "publicName": "ASDF HOLDING AS",
-                "deactivated": null,
-                "orgform": "BEDR",
-                "employees": 0
-            },
-            "administration": {
-                "id": 190843,
-                "status": "DONE",
-                "comments": null,
-                "reportee": "Joare Mangstuen Mossby",
-                "remarks": [],
-                "navIdent": "A123456"
-            },
-            "location": {
-                "address": null,
-                "postalCode": null,
-                "county": "OSLO",
-                "municipal": "OSLO",
-                "municipalCode": "0301",
-                "city": null,
-                "country": "NORGE",
-                "latitude": null,
-                "longitude": null
-            },
-            "locationList": [
-                {
+                "administration": {
+                    "id": 190843,
+                    "status": "DONE",
+                    "comments": null,
+                    "reportee": "Joare Mangstuen Mossby",
+                    "remarks": [],
+                    "navIdent": "A123456"
+                },
+                "location": {
                     "address": null,
                     "postalCode": null,
                     "county": "OSLO",
@@ -92,80 +81,82 @@
                     "country": "NORGE",
                     "latitude": null,
                     "longitude": null
-                }
-            ],
-            "categoryList": [
-                {
-                    "id": 53,
-                    "code": "1111.01",
-                    "categoryType": "STYRK08NAV",
-                    "name": "Politiker",
-                    "description": null,
-                    "parentId": 52
-                }
-            ],
-            "properties": {
-                "extent": "Heltid",
-                "workhours": "[\"Dagtid\"]",
-                "applicationdue": "Snarest",
-                "workday": "[\"Ukedager\"]",
-                "jobtitle": "Politiker",
-                "positioncount": "1",
-                "engagementtype": "Fast",
-                "employerdescription": "<p>asdf</p>",
-                "starttime": "Etter avtale",
-                "jobarrangement": "Turnus",
-                "adtext": "<p>1</p>",
-                "searchtags": "[{\"label\":\"Politiker\",\"score\":0.9282777},{\"label\":\"Legislator\",\"score\":0.062819526}]",
-                "classification_input_source": "categoryName",
-                "sector": "Privat"
-            },
-            "publishedByAdmin": "2019-12-17T13:13:04.732855",
-            "businessName": "afasd",
-            "firstPublished": true,
-            "deactivatedByExpiry": false,
-            "activationOnPublishingDate": false,
-            "rekruttering": null
-        },
-        {
-            "id": 201846,
-            "uuid": "9e35ade7-f97b-43f5-ab24-dc68b12bd5d5",
-            "created": "2019-11-13T14:56:03.773954",
-            "createdBy": "pam-ad",
-            "updated": "2019-12-17T01:31:25.06329",
-            "updatedBy": "nss-admin",
-            "mediaList": [],
-            "contactList": [],
-            "title": "Eksempel på intern stilling",
-            "status": "INACTIVE",
-            "privacy": "SHOW_ALL",
-            "source": "DEXI",
-            "medium": "Mojob-Pipe",
-            "reference": "https://job.mojob.io/4596/",
-            "published": "2019-11-14T13:59:04.830376",
-            "expires": "2019-12-16T05:00:03.341793",
-            "employer": {
-                "id": 10513,
-                "uuid": "8ff5661a-2536-4383-b6f9-eb3383863685",
-                "created": "2018-11-22T15:05:22.246",
-                "createdBy": "pam-ad",
-                "updated": "2019-12-16T16:10:45.8843",
-                "updatedBy": "pam-ad",
-                "mediaList": [],
-                "contactList": [],
-                "location": {
-                    "address": "Nøstegaten 78",
-                    "postalCode": "5011",
-                    "county": "HORDALAND",
-                    "municipal": "BERGEN",
-                    "municipalCode": "1201",
-                    "city": "BERGEN",
-                    "country": "NORGE",
-                    "latitude": "60.39423783928059",
-                    "longitude": "5.311779302104942"
                 },
                 "locationList": [
                     {
+                        "address": null,
+                        "postalCode": null,
+                        "county": "OSLO",
+                        "municipal": "OSLO",
+                        "municipalCode": "0301",
+                        "city": null,
+                        "country": "NORGE",
+                        "latitude": null,
+                        "longitude": null
+                    }
+                ],
+                "categoryList": [
+                    {
+                        "id": 53,
+                        "code": "1111.01",
+                        "categoryType": "STYRK08NAV",
+                        "name": "Politiker",
+                        "description": null,
+                        "parentId": 52
+                    }
+                ],
+                "properties": {
+                    "extent": "Heltid",
+                    "workhours": "[\"Dagtid\"]",
+                    "applicationdue": "Snarest",
+                    "workday": "[\"Ukedager\"]",
+                    "jobtitle": "Politiker",
+                    "positioncount": "1",
+                    "engagementtype": "Fast",
+                    "employerdescription": "<p>asdf</p>",
+                    "starttime": "Etter avtale",
+                    "jobarrangement": "Turnus",
+                    "adtext": "<p>1</p>",
+                    "searchtags": "[{\"label\":\"Politiker\",\"score\":0.9282777},{\"label\":\"Legislator\",\"score\":0.062819526}]",
+                    "classification_input_source": "categoryName",
+                    "sector": "Privat"
+                },
+                "publishedByAdmin": "2019-12-17T13:13:04.732855",
+                "businessName": "afasd",
+                "firstPublished": true,
+                "deactivatedByExpiry": false,
+                "activationOnPublishingDate": false
+            },
+            "stillingsinfo": null
+        },
+        {
+            "stilling": {
+                "id": 201846,
+                "uuid": "9e35ade7-f97b-43f5-ab24-dc68b12bd5d5",
+                "created": "2019-11-13T14:56:03.773954",
+                "createdBy": "pam-ad",
+                "updated": "2019-12-17T01:31:25.06329",
+                "updatedBy": "nss-admin",
+                "mediaList": [],
+                "contactList": [],
+                "title": "Eksempel på intern stilling",
+                "status": "INACTIVE",
+                "privacy": "SHOW_ALL",
+                "source": "DEXI",
+                "medium": "Mojob-Pipe",
+                "reference": "https://job.mojob.io/4596/",
+                "published": "2019-11-14T13:59:04.830376",
+                "expires": "2019-12-16T05:00:03.341793",
+                "employer": {
+                    "id": 10513,
+                    "uuid": "8ff5661a-2536-4383-b6f9-eb3383863685",
+                    "created": "2018-11-22T15:05:22.246",
+                    "createdBy": "pam-ad",
+                    "updated": "2019-12-16T16:10:45.8843",
+                    "updatedBy": "pam-ad",
+                    "mediaList": [],
+                    "contactList": [],
+                    "location": {
                         "address": "Nøstegaten 78",
                         "postalCode": "5011",
                         "county": "HORDALAND",
@@ -175,41 +166,41 @@
                         "country": "NORGE",
                         "latitude": "60.39423783928059",
                         "longitude": "5.311779302104942"
-                    }
-                ],
-                "properties": {
-                    "nace2": "[{\"code\":\"78.200\",\"name\":\"Utleie av arbeidskraft\"}]"
+                    },
+                    "locationList": [
+                        {
+                            "address": "Nøstegaten 78",
+                            "postalCode": "5011",
+                            "county": "HORDALAND",
+                            "municipal": "BERGEN",
+                            "municipalCode": "1201",
+                            "city": "BERGEN",
+                            "country": "NORGE",
+                            "latitude": "60.39423783928059",
+                            "longitude": "5.311779302104942"
+                        }
+                    ],
+                    "properties": {
+                        "nace2": "[{\"code\":\"78.200\",\"name\":\"Utleie av arbeidskraft\"}]"
+                    },
+                    "name": "PERSONALHUSET STAFFING GROUP AS AVD BERGEN",
+                    "orgnr": "991243593",
+                    "status": "ACTIVE",
+                    "parentOrgnr": "982742765",
+                    "publicName": "PERSONALHUSET STAFFING GROUP AS AVD BERGEN",
+                    "deactivated": null,
+                    "orgform": "BEDR",
+                    "employees": 333
                 },
-                "name": "PERSONALHUSET STAFFING GROUP AS AVD BERGEN",
-                "orgnr": "991243593",
-                "status": "ACTIVE",
-                "parentOrgnr": "982742765",
-                "publicName": "PERSONALHUSET STAFFING GROUP AS AVD BERGEN",
-                "deactivated": null,
-                "orgform": "BEDR",
-                "employees": 333
-            },
-            "administration": {
-                "id": 180243,
-                "status": "DONE",
-                "comments": null,
-                "reportee": "F_Z990746 E_Z990746",
-                "remarks": [],
-                "navIdent": "J"
-            },
-            "location": {
-                "address": null,
-                "postalCode": null,
-                "county": "VESTLAND",
-                "municipal": "BERGEN",
-                "municipalCode": "4601",
-                "city": null,
-                "country": "NORGE",
-                "latitude": null,
-                "longitude": null
-            },
-            "locationList": [
-                {
+                "administration": {
+                    "id": 180243,
+                    "status": "DONE",
+                    "comments": null,
+                    "reportee": "F_Z990746 E_Z990746",
+                    "remarks": [],
+                    "navIdent": "J"
+                },
+                "location": {
                     "address": null,
                     "postalCode": null,
                     "county": "VESTLAND",
@@ -219,40 +210,53 @@
                     "country": "NORGE",
                     "latitude": null,
                     "longitude": null
-                }
-            ],
-            "categoryList": [
-                {
-                    "id": 4314,
-                    "code": "7115.04",
-                    "categoryType": "STYRK08NAV",
-                    "name": "Snekker",
-                    "description": null,
-                    "parentId": 4310
-                }
-            ],
-            "properties": {
-                "extent": "Heltid",
-                "applicationdue": "2019-12-07T23:59:59.184000+00:00",
-                "author": "Personalhuset Bergen",
-                "engagementtype": "Annet",
-                "classification_styrk08_score": "0.35235816",
-                "adtext": "<p>Montering og testing av instrument - elektronikk/elektro/automasjon</p>\n<p>Kvalitetskontroll</p>\n<p>Lodding</p>\n<p>Testing av ferdigprodukt og dokumentering av avvik o.l.</p>\n",
-                "externalref": "https://job.mojob.io/4596/",
-                "sourceurl": "https://job.mojob.io/4596/",
-                "searchtags": "[{\"label\":\"Snekker\",\"score\":1.0},{\"label\":\"MontÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¸r\",\"score\":0.4440093},{\"label\":\"TÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¸mrer\",\"score\":0.33869955},{\"label\":\"Turner\",\"score\":0.30481926},{\"label\":\"Wood Treater\",\"score\":0.29436684}]",
-                "applicationurl": "https://job.mojob.io/4596/",
-                "employer": "Personalhuset Bergen",
-                "location": "Bergen, Norge",
-                "classification_input_source": "categoryName",
-                "sector": "Ikke oppgitt"
+                },
+                "locationList": [
+                    {
+                        "address": null,
+                        "postalCode": null,
+                        "county": "VESTLAND",
+                        "municipal": "BERGEN",
+                        "municipalCode": "4601",
+                        "city": null,
+                        "country": "NORGE",
+                        "latitude": null,
+                        "longitude": null
+                    }
+                ],
+                "categoryList": [
+                    {
+                        "id": 4314,
+                        "code": "7115.04",
+                        "categoryType": "STYRK08NAV",
+                        "name": "Snekker",
+                        "description": null,
+                        "parentId": 4310
+                    }
+                ],
+                "properties": {
+                    "extent": "Heltid",
+                    "applicationdue": "2019-12-07T23:59:59.184000+00:00",
+                    "author": "Personalhuset Bergen",
+                    "engagementtype": "Annet",
+                    "classification_styrk08_score": "0.35235816",
+                    "adtext": "<p>Montering og testing av instrument - elektronikk/elektro/automasjon</p>\n<p>Kvalitetskontroll</p>\n<p>Lodding</p>\n<p>Testing av ferdigprodukt og dokumentering av avvik o.l.</p>\n",
+                    "externalref": "https://job.mojob.io/4596/",
+                    "sourceurl": "https://job.mojob.io/4596/",
+                    "searchtags": "[{\"label\":\"Snekker\",\"score\":1.0},{\"label\":\"MontÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¸r\",\"score\":0.4440093},{\"label\":\"TÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¸mrer\",\"score\":0.33869955},{\"label\":\"Turner\",\"score\":0.30481926},{\"label\":\"Wood Treater\",\"score\":0.29436684}]",
+                    "applicationurl": "https://job.mojob.io/4596/",
+                    "employer": "Personalhuset Bergen",
+                    "location": "Bergen, Norge",
+                    "classification_input_source": "categoryName",
+                    "sector": "Ikke oppgitt"
+                },
+                "publishedByAdmin": "2019-11-14T13:59:04.830376",
+                "businessName": "Personalhuset Bergen",
+                "firstPublished": true,
+                "deactivatedByExpiry": true,
+                "activationOnPublishingDate": false
             },
-            "publishedByAdmin": "2019-11-14T13:59:04.830376",
-            "businessName": "Personalhuset Bergen",
-            "firstPublished": true,
-            "deactivatedByExpiry": true,
-            "activationOnPublishingDate": false,
-            "rekruttering": {
+            "stillingsinfo": {
                 "stillingsinfoid": "35a9f0cd-8512-41fc-90d4-f3048237b3ec",
                 "stillingsid": "f7759dd3-87d2-4058-bbd2-86632da15c67",
                 "eierNavident": "A123456",
@@ -260,44 +264,40 @@
             }
         },
         {
-            "id": 206901,
-            "uuid": "7a1547d0-42ab-4f4c-96e0-f9012391d772",
-            "created": "2019-11-27T07:07:46.450044",
-            "createdBy": "pam-ad",
-            "updated": "2019-12-13T14:33:43.009007",
-            "updatedBy": "nss-admin",
-            "mediaList": [],
-            "contactList": [{ "email": null, "phone": null, "role": null, "title": null }],
-            "title": "Bor du utenfor byen?",
-            "status": "ACTIVE",
-            "privacy": "SHOW_ALL",
-            "source": "FINN",
-            "medium": "FINN",
-            "reference": "164223686",
-            "published": "2019-11-27T10:06:52.888679",
-            "expires": "2020-01-07T18:37:00",
-            "employer": {
-                "id": 206920,
-                "uuid": "4cd48031-6578-4a08-8106-c5464a703b81",
-                "created": "2019-11-27T10:06:52.623557",
+            "stilling": {
+                "id": 206901,
+                "uuid": "7a1547d0-42ab-4f4c-96e0-f9012391d772",
+                "created": "2019-11-27T07:07:46.450044",
                 "createdBy": "pam-ad",
-                "updated": "2019-11-27T10:06:52.623557",
-                "updatedBy": "pam-ad",
+                "updated": "2019-12-13T14:33:43.009007",
+                "updatedBy": "nss-admin",
                 "mediaList": [],
-                "contactList": [],
-                "location": {
-                    "address": "Reichweins gate 1G",
-                    "postalCode": "0254",
-                    "county": "OSLO",
-                    "municipal": "OSLO",
-                    "municipalCode": "0301",
-                    "city": "OSLO",
-                    "country": "NORGE",
-                    "latitude": "59.91217538801476",
-                    "longitude": "10.72016817339675"
-                },
-                "locationList": [
+                "contactList": [
                     {
+                        "email": null,
+                        "phone": null,
+                        "role": null,
+                        "title": null
+                    }
+                ],
+                "title": "Bor du utenfor byen?",
+                "status": "ACTIVE",
+                "privacy": "SHOW_ALL",
+                "source": "FINN",
+                "medium": "FINN",
+                "reference": "164223686",
+                "published": "2019-11-27T10:06:52.888679",
+                "expires": "2020-01-07T18:37:00",
+                "employer": {
+                    "id": 206920,
+                    "uuid": "4cd48031-6578-4a08-8106-c5464a703b81",
+                    "created": "2019-11-27T10:06:52.623557",
+                    "createdBy": "pam-ad",
+                    "updated": "2019-11-27T10:06:52.623557",
+                    "updatedBy": "pam-ad",
+                    "mediaList": [],
+                    "contactList": [],
+                    "location": {
                         "address": "Reichweins gate 1G",
                         "postalCode": "0254",
                         "county": "OSLO",
@@ -307,41 +307,41 @@
                         "country": "NORGE",
                         "latitude": "59.91217538801476",
                         "longitude": "10.72016817339675"
-                    }
-                ],
-                "properties": {
-                    "nace2": "[{\"code\":\"59.110\",\"name\":\"Produksjon av film, video og fjernsynsprogrammer\"}]"
+                    },
+                    "locationList": [
+                        {
+                            "address": "Reichweins gate 1G",
+                            "postalCode": "0254",
+                            "county": "OSLO",
+                            "municipal": "OSLO",
+                            "municipalCode": "0301",
+                            "city": "OSLO",
+                            "country": "NORGE",
+                            "latitude": "59.91217538801476",
+                            "longitude": "10.72016817339675"
+                        }
+                    ],
+                    "properties": {
+                        "nace2": "[{\"code\":\"59.110\",\"name\":\"Produksjon av film, video og fjernsynsprogrammer\"}]"
+                    },
+                    "name": "XIDE AVD OSLO AS",
+                    "orgnr": "919350008",
+                    "status": "ACTIVE",
+                    "parentOrgnr": "919251611",
+                    "publicName": "XIDE AVD OSLO AS",
+                    "deactivated": null,
+                    "orgform": "BEDR",
+                    "employees": 1
                 },
-                "name": "XIDE AVD OSLO AS",
-                "orgnr": "919350008",
-                "status": "ACTIVE",
-                "parentOrgnr": "919251611",
-                "publicName": "XIDE AVD OSLO AS",
-                "deactivated": null,
-                "orgform": "BEDR",
-                "employees": 1
-            },
-            "administration": {
-                "id": 184725,
-                "status": "DONE",
-                "comments": "klask nå\n",
-                "reportee": "Joare Mangstuen Mossby",
-                "remarks": [],
-                "navIdent": "A123456"
-            },
-            "location": {
-                "address": null,
-                "postalCode": "3012",
-                "county": "VIKEN",
-                "municipal": "DRAMMEN",
-                "municipalCode": "3005",
-                "city": "DRAMMEN",
-                "country": "NORGE",
-                "latitude": "59.74230194091797",
-                "longitude": "10.22430419921875"
-            },
-            "locationList": [
-                {
+                "administration": {
+                    "id": 184725,
+                    "status": "DONE",
+                    "comments": "klask nå\n",
+                    "reportee": "Joare Mangstuen Mossby",
+                    "remarks": [],
+                    "navIdent": "A123456"
+                },
+                "location": {
                     "address": null,
                     "postalCode": "3012",
                     "county": "VIKEN",
@@ -351,49 +351,62 @@
                     "country": "NORGE",
                     "latitude": "59.74230194091797",
                     "longitude": "10.22430419921875"
-                }
-            ],
-            "categoryList": [
-                {
-                    "id": 3074,
-                    "code": "3322.34",
-                    "categoryType": "STYRK08NAV",
-                    "name": "Account manager",
-                    "description": null,
-                    "parentId": 3040
-                }
-            ],
-            "properties": {
-                "extent": "Heltid",
-                "logomain": "https://images.finncdn.no/mmo/logo/object/502384099/iad_7932373946235313571logo_-_x-ide.png",
-                "applicationdue": "Snarest",
-                "occupation": "Salg",
-                "address": "3012 Drammen",
-                "jobtitle": "Account Manager",
-                "positioncount": "5",
-                "author": "X-IDE MEDIA AS",
-                "engagementtype": "Fast",
-                "classification_styrk08_score": "0.97328305",
-                "industry": "Tekstil;Forlag og trykkeri;MarkedsfÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¸ring og annonsering",
-                "adtext": "<p>tekst</p>",
-                "externalref": "164223686",
-                "logolisting": "https://images.finncdn.no/mmo/logo/result/502384099/iad_1181278775719972924logo_-_x-ide.png",
-                "sourceurl": "https://www.finn.no/164223686",
-                "sourceupdated": "2019-11-26T18:37:00.000Z",
-                "applicationemail": "bendik@xide.no",
-                "searchtags": "[{\"label\":\"Account manager\",\"score\":0.97328305},{\"label\":\"Account Manager Homecare\",\"score\":0.3093446},{\"label\":\"Real Estate Salesperson\",\"score\":0.28499407},{\"label\":\"Tax Accounting Manager\",\"score\":0.28499407},{\"label\":\"Accounting Manager\",\"score\":0.28493923}]",
-                "applicationurl": "https://www.finn.no/recruitment/hired/frontend/applynow/input.action?adId=164223686",
-                "employer": "X Ide AS",
-                "location": "Drammen",
-                "classification_input_source": "jobtitle",
-                "sector": "Privat"
+                },
+                "locationList": [
+                    {
+                        "address": null,
+                        "postalCode": "3012",
+                        "county": "VIKEN",
+                        "municipal": "DRAMMEN",
+                        "municipalCode": "3005",
+                        "city": "DRAMMEN",
+                        "country": "NORGE",
+                        "latitude": "59.74230194091797",
+                        "longitude": "10.22430419921875"
+                    }
+                ],
+                "categoryList": [
+                    {
+                        "id": 3074,
+                        "code": "3322.34",
+                        "categoryType": "STYRK08NAV",
+                        "name": "Account manager",
+                        "description": null,
+                        "parentId": 3040
+                    }
+                ],
+                "properties": {
+                    "extent": "Heltid",
+                    "logomain": "https://images.finncdn.no/mmo/logo/object/502384099/iad_7932373946235313571logo_-_x-ide.png",
+                    "applicationdue": "Snarest",
+                    "occupation": "Salg",
+                    "address": "3012 Drammen",
+                    "jobtitle": "Account Manager",
+                    "positioncount": "5",
+                    "author": "X-IDE MEDIA AS",
+                    "engagementtype": "Fast",
+                    "classification_styrk08_score": "0.97328305",
+                    "industry": "Tekstil;Forlag og trykkeri;MarkedsfÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¸ring og annonsering",
+                    "adtext": "<p>tekst</p>",
+                    "externalref": "164223686",
+                    "logolisting": "https://images.finncdn.no/mmo/logo/result/502384099/iad_1181278775719972924logo_-_x-ide.png",
+                    "sourceurl": "https://www.finn.no/164223686",
+                    "sourceupdated": "2019-11-26T18:37:00.000Z",
+                    "applicationemail": "bendik@xide.no",
+                    "searchtags": "[{\"label\":\"Account manager\",\"score\":0.97328305},{\"label\":\"Account Manager Homecare\",\"score\":0.3093446},{\"label\":\"Real Estate Salesperson\",\"score\":0.28499407},{\"label\":\"Tax Accounting Manager\",\"score\":0.28499407},{\"label\":\"Accounting Manager\",\"score\":0.28493923}]",
+                    "applicationurl": "https://www.finn.no/recruitment/hired/frontend/applynow/input.action?adId=164223686",
+                    "employer": "X Ide AS",
+                    "location": "Drammen",
+                    "classification_input_source": "jobtitle",
+                    "sector": "Privat"
+                },
+                "publishedByAdmin": "2019-11-27T10:06:52.888679",
+                "businessName": "X Ide AS",
+                "firstPublished": true,
+                "deactivatedByExpiry": false,
+                "activationOnPublishingDate": false
             },
-            "publishedByAdmin": "2019-11-27T10:06:52.888679",
-            "businessName": "X Ide AS",
-            "firstPublished": true,
-            "deactivatedByExpiry": false,
-            "activationOnPublishingDate": false,
-            "rekruttering": {
+            "stillingsinfo": {
                 "stillingsinfoid": "8a77be73-5e79-4d6a-814f-5cd55d68fd2f",
                 "stillingsid": "7a1547d0-42ab-4f4c-96e0-f9012391d772",
                 "eierNavident": "D123456",
@@ -401,81 +414,72 @@
             }
         },
         {
-            "id": 212563,
-            "uuid": "06fb07b8-d898-4433-ae96-0bba8372fa82",
-            "created": "2019-12-13T14:19:07.734709",
-            "createdBy": "pam-rekrutteringsbistand",
-            "updated": "2019-12-13T14:19:07.734709",
-            "updatedBy": "pam-rekrutteringsbistand",
-            "mediaList": [],
-            "contactList": [],
-            "title": "Ny stilling",
-            "status": "INACTIVE",
-            "privacy": "INTERNAL_NOT_SHOWN",
-            "source": "DIR",
-            "medium": "DIR",
-            "reference": "06fb07b8-d898-4433-ae96-0bba8372fa82",
-            "published": "2019-12-13T14:19:07.734529",
-            "expires": "2019-12-13T14:19:07.734531",
-            "employer": null,
-            "administration": {
-                "id": 189855,
-                "status": "PENDING",
-                "comments": null,
-                "reportee": "Joare Mangstuen Mossby",
-                "remarks": [],
-                "navIdent": "A123456"
-            },
-            "location": null,
-            "locationList": [],
-            "categoryList": [],
-            "properties": {},
-            "publishedByAdmin": null,
-            "businessName": null,
-            "firstPublished": false,
-            "deactivatedByExpiry": false,
-            "activationOnPublishingDate": false,
-            "rekruttering": null
-        },
-        {
-            "id": 212099,
-            "uuid": "6106e3fc-f125-4e63-85bd-fccc765f3e18",
-            "created": "2019-12-12T08:54:11.124456",
-            "createdBy": "pam-rekrutteringsbistand",
-            "updated": "2019-12-13T00:00:00.081929",
-            "updatedBy": "pam-rekrutteringsbistand",
-            "mediaList": [],
-            "contactList": [],
-            "title": "Kopi - Tulleskolen søker tøysete tøysekopperz",
-            "status": "INACTIVE",
-            "privacy": "INTERNAL_NOT_SHOWN",
-            "source": "DIR",
-            "medium": "DIR",
-            "reference": "6106e3fc-f125-4e63-85bd-fccc765f3e18",
-            "published": "2019-12-12T08:54:22.482899",
-            "expires": "2019-12-12T08:54:11.12431",
-            "employer": {
-                "id": 203480,
-                "uuid": "c7ebcc88-02a1-4eec-80e1-f7a866744f0e",
-                "created": "2019-11-18T11:42:21.042131",
-                "createdBy": "pam-ad",
-                "updated": "2019-11-18T11:42:21.042131",
-                "updatedBy": "pam-ad",
+            "stilling": {
+                "id": 212563,
+                "uuid": "06fb07b8-d898-4433-ae96-0bba8372fa82",
+                "created": "2019-12-13T14:19:07.734709",
+                "createdBy": "pam-rekrutteringsbistand",
+                "updated": "2019-12-13T14:19:07.734709",
+                "updatedBy": "pam-rekrutteringsbistand",
                 "mediaList": [],
                 "contactList": [],
-                "location": {
-                    "address": "Lilleakerveien 37D",
-                    "postalCode": "0284",
-                    "county": "OSLO",
-                    "municipal": "OSLO",
-                    "municipalCode": "0301",
-                    "city": "OSLO",
-                    "country": "NORGE",
-                    "latitude": "59.92172360812686",
-                    "longitude": "10.637563808231683"
+                "title": "Ny stilling",
+                "status": "INACTIVE",
+                "privacy": "INTERNAL_NOT_SHOWN",
+                "source": "DIR",
+                "medium": "DIR",
+                "reference": "06fb07b8-d898-4433-ae96-0bba8372fa82",
+                "published": "2019-12-13T14:19:07.734529",
+                "expires": "2019-12-13T14:19:07.734531",
+                "employer": null,
+                "administration": {
+                    "id": 189855,
+                    "status": "PENDING",
+                    "comments": null,
+                    "reportee": "Joare Mangstuen Mossby",
+                    "remarks": [],
+                    "navIdent": "A123456"
                 },
-                "locationList": [
-                    {
+                "location": null,
+                "locationList": [],
+                "categoryList": [],
+                "properties": {},
+                "publishedByAdmin": null,
+                "businessName": null,
+                "firstPublished": false,
+                "deactivatedByExpiry": false,
+                "activationOnPublishingDate": false
+            },
+            "stillingsinfo": null
+        },
+        {
+            "stilling": {
+                "id": 212099,
+                "uuid": "6106e3fc-f125-4e63-85bd-fccc765f3e18",
+                "created": "2019-12-12T08:54:11.124456",
+                "createdBy": "pam-rekrutteringsbistand",
+                "updated": "2019-12-13T00:00:00.081929",
+                "updatedBy": "pam-rekrutteringsbistand",
+                "mediaList": [],
+                "contactList": [],
+                "title": "Kopi - Tulleskolen søker tøysete tøysekopperz",
+                "status": "INACTIVE",
+                "privacy": "INTERNAL_NOT_SHOWN",
+                "source": "DIR",
+                "medium": "DIR",
+                "reference": "6106e3fc-f125-4e63-85bd-fccc765f3e18",
+                "published": "2019-12-12T08:54:22.482899",
+                "expires": "2019-12-12T08:54:11.12431",
+                "employer": {
+                    "id": 203480,
+                    "uuid": "c7ebcc88-02a1-4eec-80e1-f7a866744f0e",
+                    "created": "2019-11-18T11:42:21.042131",
+                    "createdBy": "pam-ad",
+                    "updated": "2019-11-18T11:42:21.042131",
+                    "updatedBy": "pam-ad",
+                    "mediaList": [],
+                    "contactList": [],
+                    "location": {
                         "address": "Lilleakerveien 37D",
                         "postalCode": "0284",
                         "county": "OSLO",
@@ -485,41 +489,41 @@
                         "country": "NORGE",
                         "latitude": "59.92172360812686",
                         "longitude": "10.637563808231683"
-                    }
-                ],
-                "properties": {
-                    "nace2": "[{\"code\":\"90.012\",\"name\":\"Utøvende kunstnere og underholdningsvirksomhet innen scenekunst\"}]"
+                    },
+                    "locationList": [
+                        {
+                            "address": "Lilleakerveien 37D",
+                            "postalCode": "0284",
+                            "county": "OSLO",
+                            "municipal": "OSLO",
+                            "municipalCode": "0301",
+                            "city": "OSLO",
+                            "country": "NORGE",
+                            "latitude": "59.92172360812686",
+                            "longitude": "10.637563808231683"
+                        }
+                    ],
+                    "properties": {
+                        "nace2": "[{\"code\":\"90.012\",\"name\":\"Utøvende kunstnere og underholdningsvirksomhet innen scenekunst\"}]"
+                    },
+                    "name": "TULLEKONTORET AS",
+                    "orgnr": "976434099",
+                    "status": "ACTIVE",
+                    "parentOrgnr": "912819973",
+                    "publicName": "TULLEKONTORET AS",
+                    "deactivated": null,
+                    "orgform": "BEDR",
+                    "employees": 1
                 },
-                "name": "TULLEKONTORET AS",
-                "orgnr": "976434099",
-                "status": "ACTIVE",
-                "parentOrgnr": "912819973",
-                "publicName": "TULLEKONTORET AS",
-                "deactivated": null,
-                "orgform": "BEDR",
-                "employees": 1
-            },
-            "administration": {
-                "id": 189428,
-                "status": "DONE",
-                "comments": "11",
-                "reportee": "Joare Mangstuen Mossby",
-                "remarks": [],
-                "navIdent": "A123456"
-            },
-            "location": {
-                "address": null,
-                "postalCode": "0481",
-                "county": "OSLO",
-                "municipal": "OSLO",
-                "municipalCode": "0301",
-                "city": "OSLO",
-                "country": "NORGE",
-                "latitude": null,
-                "longitude": null
-            },
-            "locationList": [
-                {
+                "administration": {
+                    "id": 189428,
+                    "status": "DONE",
+                    "comments": "11",
+                    "reportee": "Joare Mangstuen Mossby",
+                    "remarks": [],
+                    "navIdent": "A123456"
+                },
+                "location": {
                     "address": null,
                     "postalCode": "0481",
                     "county": "OSLO",
@@ -529,79 +533,81 @@
                     "country": "NORGE",
                     "latitude": null,
                     "longitude": null
-                }
-            ],
-            "categoryList": [
-                {
-                    "id": 5,
-                    "code": "0000.01",
-                    "categoryType": "STYRK08NAV",
-                    "name": "Hjelpearbeider (privat/offentlig virksomhet)",
-                    "description": null,
-                    "parentId": 4
-                }
-            ],
-            "properties": {
-                "extent": "Heltid",
-                "workhours": "[\"Dagtid\"]",
-                "applicationdue": "2019-12-11T11:00:00.000Z",
-                "workday": "[\"Ukedager\"]",
-                "jobtitle": "Hjelpearbeider (privat/offentlig virksomhet)",
-                "positioncount": "1",
-                "engagementtype": "Fast",
-                "starttime": "2019-12-12T11:00:00.000Z",
-                "jobarrangement": "Skift",
-                "adtext": "<p>Tøyseskolen forever!</p>",
-                "searchtags": "[{\"label\":\"Siviltjenestearbeider\",\"score\":1.0},{\"label\":\"Miljøarbeider sosiale fagfelt\",\"score\":0.07064377}]",
-                "classification_input_source": "categoryName",
-                "sector": "Privat"
-            },
-            "publishedByAdmin": "2019-12-12T08:54:22.482899",
-            "businessName": "Tulleskolen for alle",
-            "firstPublished": true,
-            "deactivatedByExpiry": true,
-            "activationOnPublishingDate": false,
-            "rekruttering": null
-        },
-        {
-            "id": 212100,
-            "uuid": "5b6e0126-c76e-441a-b935-70dcb6274614",
-            "created": "2019-12-12T09:17:05.482599",
-            "createdBy": "pam-rekrutteringsbistand",
-            "updated": "2019-12-12T09:17:05.482599",
-            "updatedBy": "pam-rekrutteringsbistand",
-            "mediaList": [],
-            "contactList": [],
-            "title": "Kopi - Tulleskolen søker tøysete tøysekopperz",
-            "status": "INACTIVE",
-            "privacy": "INTERNAL_NOT_SHOWN",
-            "source": "DIR",
-            "medium": "DIR",
-            "reference": "5b6e0126-c76e-441a-b935-70dcb6274614",
-            "published": "2019-12-12T09:17:05.482459",
-            "expires": "2019-12-12T09:17:05.48246",
-            "employer": {
-                "id": 203480,
-                "uuid": "c7ebcc88-02a1-4eec-80e1-f7a866744f0e",
-                "created": "2019-11-18T11:42:21.042131",
-                "createdBy": "pam-ad",
-                "updated": "2019-11-18T11:42:21.042131",
-                "updatedBy": "pam-ad",
-                "mediaList": [],
-                "contactList": [],
-                "location": {
-                    "address": "Lilleakerveien 37D",
-                    "postalCode": "0284",
-                    "county": "OSLO",
-                    "municipal": "OSLO",
-                    "municipalCode": "0301",
-                    "city": "OSLO",
-                    "country": "NORGE",
-                    "latitude": "59.92172360812686",
-                    "longitude": "10.637563808231683"
                 },
                 "locationList": [
                     {
+                        "address": null,
+                        "postalCode": "0481",
+                        "county": "OSLO",
+                        "municipal": "OSLO",
+                        "municipalCode": "0301",
+                        "city": "OSLO",
+                        "country": "NORGE",
+                        "latitude": null,
+                        "longitude": null
+                    }
+                ],
+                "categoryList": [
+                    {
+                        "id": 5,
+                        "code": "0000.01",
+                        "categoryType": "STYRK08NAV",
+                        "name": "Hjelpearbeider (privat/offentlig virksomhet)",
+                        "description": null,
+                        "parentId": 4
+                    }
+                ],
+                "properties": {
+                    "extent": "Heltid",
+                    "workhours": "[\"Dagtid\"]",
+                    "applicationdue": "2019-12-11T11:00:00.000Z",
+                    "workday": "[\"Ukedager\"]",
+                    "jobtitle": "Hjelpearbeider (privat/offentlig virksomhet)",
+                    "positioncount": "1",
+                    "engagementtype": "Fast",
+                    "starttime": "2019-12-12T11:00:00.000Z",
+                    "jobarrangement": "Skift",
+                    "adtext": "<p>Tøyseskolen forever!</p>",
+                    "searchtags": "[{\"label\":\"Siviltjenestearbeider\",\"score\":1.0},{\"label\":\"Miljøarbeider sosiale fagfelt\",\"score\":0.07064377}]",
+                    "classification_input_source": "categoryName",
+                    "sector": "Privat"
+                },
+                "publishedByAdmin": "2019-12-12T08:54:22.482899",
+                "businessName": "Tulleskolen for alle",
+                "firstPublished": true,
+                "deactivatedByExpiry": true,
+                "activationOnPublishingDate": false
+            },
+            "stillingsinfo": null
+        },
+        {
+            "stilling": {
+                "id": 212100,
+                "uuid": "5b6e0126-c76e-441a-b935-70dcb6274614",
+                "created": "2019-12-12T09:17:05.482599",
+                "createdBy": "pam-rekrutteringsbistand",
+                "updated": "2019-12-12T09:17:05.482599",
+                "updatedBy": "pam-rekrutteringsbistand",
+                "mediaList": [],
+                "contactList": [],
+                "title": "Kopi - Tulleskolen søker tøysete tøysekopperz",
+                "status": "INACTIVE",
+                "privacy": "INTERNAL_NOT_SHOWN",
+                "source": "DIR",
+                "medium": "DIR",
+                "reference": "5b6e0126-c76e-441a-b935-70dcb6274614",
+                "published": "2019-12-12T09:17:05.482459",
+                "expires": "2019-12-12T09:17:05.48246",
+                "employer": {
+                    "id": 203480,
+                    "uuid": "c7ebcc88-02a1-4eec-80e1-f7a866744f0e",
+                    "created": "2019-11-18T11:42:21.042131",
+                    "createdBy": "pam-ad",
+                    "updated": "2019-11-18T11:42:21.042131",
+                    "updatedBy": "pam-ad",
+                    "mediaList": [],
+                    "contactList": [],
+                    "location": {
                         "address": "Lilleakerveien 37D",
                         "postalCode": "0284",
                         "county": "OSLO",
@@ -611,41 +617,41 @@
                         "country": "NORGE",
                         "latitude": "59.92172360812686",
                         "longitude": "10.637563808231683"
-                    }
-                ],
-                "properties": {
-                    "nace2": "[{\"code\":\"90.012\",\"name\":\"Utøvende kunstnere og underholdningsvirksomhet innen scenekunst\"}]"
+                    },
+                    "locationList": [
+                        {
+                            "address": "Lilleakerveien 37D",
+                            "postalCode": "0284",
+                            "county": "OSLO",
+                            "municipal": "OSLO",
+                            "municipalCode": "0301",
+                            "city": "OSLO",
+                            "country": "NORGE",
+                            "latitude": "59.92172360812686",
+                            "longitude": "10.637563808231683"
+                        }
+                    ],
+                    "properties": {
+                        "nace2": "[{\"code\":\"90.012\",\"name\":\"Utøvende kunstnere og underholdningsvirksomhet innen scenekunst\"}]"
+                    },
+                    "name": "TULLEKONTORET AS",
+                    "orgnr": "976434099",
+                    "status": "ACTIVE",
+                    "parentOrgnr": "912819973",
+                    "publicName": "TULLEKONTORET AS",
+                    "deactivated": null,
+                    "orgform": "BEDR",
+                    "employees": 1
                 },
-                "name": "TULLEKONTORET AS",
-                "orgnr": "976434099",
-                "status": "ACTIVE",
-                "parentOrgnr": "912819973",
-                "publicName": "TULLEKONTORET AS",
-                "deactivated": null,
-                "orgform": "BEDR",
-                "employees": 1
-            },
-            "administration": {
-                "id": 189429,
-                "status": "PENDING",
-                "comments": null,
-                "reportee": "Joare Mangstuen Mossby",
-                "remarks": [],
-                "navIdent": "A123456"
-            },
-            "location": {
-                "address": null,
-                "postalCode": "0481",
-                "county": "OSLO",
-                "municipal": "OSLO",
-                "municipalCode": "0301",
-                "city": "OSLO",
-                "country": "NORGE",
-                "latitude": null,
-                "longitude": null
-            },
-            "locationList": [
-                {
+                "administration": {
+                    "id": 189429,
+                    "status": "PENDING",
+                    "comments": null,
+                    "reportee": "Joare Mangstuen Mossby",
+                    "remarks": [],
+                    "navIdent": "A123456"
+                },
+                "location": {
                     "address": null,
                     "postalCode": "0481",
                     "county": "OSLO",
@@ -655,79 +661,81 @@
                     "country": "NORGE",
                     "latitude": null,
                     "longitude": null
-                }
-            ],
-            "categoryList": [
-                {
-                    "id": 5,
-                    "code": "0000.01",
-                    "categoryType": "STYRK08NAV",
-                    "name": "Hjelpearbeider (privat/offentlig virksomhet)",
-                    "description": null,
-                    "parentId": 4
-                }
-            ],
-            "properties": {
-                "extent": "Heltid",
-                "workhours": "[\"Dagtid\"]",
-                "applicationdue": "2019-12-11T11:00:00.000Z",
-                "workday": "[\"Ukedager\"]",
-                "jobtitle": "Hjelpearbeider (privat/offentlig virksomhet)",
-                "positioncount": "1",
-                "engagementtype": "Fast",
-                "starttime": "2019-12-12T11:00:00.000Z",
-                "jobarrangement": "Skift",
-                "adtext": "<p>Tøyseskolen forever!</p>",
-                "searchtags": "[{\"label\":\"Siviltjenestearbeider\",\"score\":1.0},{\"label\":\"Miljøarbeider sosiale fagfelt\",\"score\":0.07064377}]",
-                "classification_input_source": "categoryName",
-                "sector": "Privat"
-            },
-            "publishedByAdmin": null,
-            "businessName": "Tulleskolen for alle",
-            "firstPublished": false,
-            "deactivatedByExpiry": false,
-            "activationOnPublishingDate": false,
-            "rekruttering": null
-        },
-        {
-            "id": 211270,
-            "uuid": "0bb8c381-ae60-4c3c-9ed9-4a3e5c0f18d3",
-            "created": "2019-12-10T13:39:14.883021",
-            "createdBy": "pam-rekrutteringsbistand",
-            "updated": "2019-12-12T00:00:00.160096",
-            "updatedBy": "pam-rekrutteringsbistand",
-            "mediaList": [],
-            "contactList": [],
-            "title": "Tulleskolen søker tøysete tøysekopperz",
-            "status": "INACTIVE",
-            "privacy": "SHOW_ALL",
-            "source": "DIR",
-            "medium": "DIR",
-            "reference": "0bb8c381-ae60-4c3c-9ed9-4a3e5c0f18d3",
-            "published": "2019-12-10T13:41:16.794604",
-            "expires": "2019-12-11T11:00:00",
-            "employer": {
-                "id": 203480,
-                "uuid": "c7ebcc88-02a1-4eec-80e1-f7a866744f0e",
-                "created": "2019-11-18T11:42:21.042131",
-                "createdBy": "pam-ad",
-                "updated": "2019-11-18T11:42:21.042131",
-                "updatedBy": "pam-ad",
-                "mediaList": [],
-                "contactList": [],
-                "location": {
-                    "address": "Lilleakerveien 37D",
-                    "postalCode": "0284",
-                    "county": "OSLO",
-                    "municipal": "OSLO",
-                    "municipalCode": "0301",
-                    "city": "OSLO",
-                    "country": "NORGE",
-                    "latitude": "59.92172360812686",
-                    "longitude": "10.637563808231683"
                 },
                 "locationList": [
                     {
+                        "address": null,
+                        "postalCode": "0481",
+                        "county": "OSLO",
+                        "municipal": "OSLO",
+                        "municipalCode": "0301",
+                        "city": "OSLO",
+                        "country": "NORGE",
+                        "latitude": null,
+                        "longitude": null
+                    }
+                ],
+                "categoryList": [
+                    {
+                        "id": 5,
+                        "code": "0000.01",
+                        "categoryType": "STYRK08NAV",
+                        "name": "Hjelpearbeider (privat/offentlig virksomhet)",
+                        "description": null,
+                        "parentId": 4
+                    }
+                ],
+                "properties": {
+                    "extent": "Heltid",
+                    "workhours": "[\"Dagtid\"]",
+                    "applicationdue": "2019-12-11T11:00:00.000Z",
+                    "workday": "[\"Ukedager\"]",
+                    "jobtitle": "Hjelpearbeider (privat/offentlig virksomhet)",
+                    "positioncount": "1",
+                    "engagementtype": "Fast",
+                    "starttime": "2019-12-12T11:00:00.000Z",
+                    "jobarrangement": "Skift",
+                    "adtext": "<p>Tøyseskolen forever!</p>",
+                    "searchtags": "[{\"label\":\"Siviltjenestearbeider\",\"score\":1.0},{\"label\":\"Miljøarbeider sosiale fagfelt\",\"score\":0.07064377}]",
+                    "classification_input_source": "categoryName",
+                    "sector": "Privat"
+                },
+                "publishedByAdmin": null,
+                "businessName": "Tulleskolen for alle",
+                "firstPublished": false,
+                "deactivatedByExpiry": false,
+                "activationOnPublishingDate": false
+            },
+            "stillingsinfo": null
+        },
+        {
+            "stilling": {
+                "id": 211270,
+                "uuid": "0bb8c381-ae60-4c3c-9ed9-4a3e5c0f18d3",
+                "created": "2019-12-10T13:39:14.883021",
+                "createdBy": "pam-rekrutteringsbistand",
+                "updated": "2019-12-12T00:00:00.160096",
+                "updatedBy": "pam-rekrutteringsbistand",
+                "mediaList": [],
+                "contactList": [],
+                "title": "Tulleskolen søker tøysete tøysekopperz",
+                "status": "INACTIVE",
+                "privacy": "SHOW_ALL",
+                "source": "DIR",
+                "medium": "DIR",
+                "reference": "0bb8c381-ae60-4c3c-9ed9-4a3e5c0f18d3",
+                "published": "2019-12-10T13:41:16.794604",
+                "expires": "2019-12-11T11:00:00",
+                "employer": {
+                    "id": 203480,
+                    "uuid": "c7ebcc88-02a1-4eec-80e1-f7a866744f0e",
+                    "created": "2019-11-18T11:42:21.042131",
+                    "createdBy": "pam-ad",
+                    "updated": "2019-11-18T11:42:21.042131",
+                    "updatedBy": "pam-ad",
+                    "mediaList": [],
+                    "contactList": [],
+                    "location": {
                         "address": "Lilleakerveien 37D",
                         "postalCode": "0284",
                         "county": "OSLO",
@@ -737,41 +745,41 @@
                         "country": "NORGE",
                         "latitude": "59.92172360812686",
                         "longitude": "10.637563808231683"
-                    }
-                ],
-                "properties": {
-                    "nace2": "[{\"code\":\"90.012\",\"name\":\"Utøvende kunstnere og underholdningsvirksomhet innen scenekunst\"}]"
+                    },
+                    "locationList": [
+                        {
+                            "address": "Lilleakerveien 37D",
+                            "postalCode": "0284",
+                            "county": "OSLO",
+                            "municipal": "OSLO",
+                            "municipalCode": "0301",
+                            "city": "OSLO",
+                            "country": "NORGE",
+                            "latitude": "59.92172360812686",
+                            "longitude": "10.637563808231683"
+                        }
+                    ],
+                    "properties": {
+                        "nace2": "[{\"code\":\"90.012\",\"name\":\"Utøvende kunstnere og underholdningsvirksomhet innen scenekunst\"}]"
+                    },
+                    "name": "TULLEKONTORET AS",
+                    "orgnr": "976434099",
+                    "status": "ACTIVE",
+                    "parentOrgnr": "912819973",
+                    "publicName": "TULLEKONTORET AS",
+                    "deactivated": null,
+                    "orgform": "BEDR",
+                    "employees": 1
                 },
-                "name": "TULLEKONTORET AS",
-                "orgnr": "976434099",
-                "status": "ACTIVE",
-                "parentOrgnr": "912819973",
-                "publicName": "TULLEKONTORET AS",
-                "deactivated": null,
-                "orgform": "BEDR",
-                "employees": 1
-            },
-            "administration": {
-                "id": 188691,
-                "status": "DONE",
-                "comments": null,
-                "reportee": "Joare Mangstuen Mossby",
-                "remarks": [],
-                "navIdent": "A123456"
-            },
-            "location": {
-                "address": null,
-                "postalCode": "0481",
-                "county": "OSLO",
-                "municipal": "OSLO",
-                "municipalCode": "0301",
-                "city": "OSLO",
-                "country": "NORGE",
-                "latitude": null,
-                "longitude": null
-            },
-            "locationList": [
-                {
+                "administration": {
+                    "id": 188691,
+                    "status": "DONE",
+                    "comments": null,
+                    "reportee": "Joare Mangstuen Mossby",
+                    "remarks": [],
+                    "navIdent": "A123456"
+                },
+                "location": {
                     "address": null,
                     "postalCode": "0481",
                     "county": "OSLO",
@@ -781,116 +789,120 @@
                     "country": "NORGE",
                     "latitude": null,
                     "longitude": null
-                }
-            ],
-            "categoryList": [
-                {
-                    "id": 5,
-                    "code": "0000.01",
-                    "categoryType": "STYRK08NAV",
-                    "name": "Hjelpearbeider (privat/offentlig virksomhet)",
-                    "description": null,
-                    "parentId": 4
-                }
-            ],
-            "properties": {
-                "extent": "Heltid",
-                "workhours": "[\"Dagtid\"]",
-                "applicationdue": "2019-12-11T11:00:00.000Z",
-                "workday": "[\"Ukedager\"]",
-                "jobtitle": "Hjelpearbeider (privat/offentlig virksomhet)",
-                "positioncount": "1",
-                "engagementtype": "Fast",
-                "starttime": "2019-12-12T11:00:00.000Z",
-                "jobarrangement": "Skift",
-                "adtext": "<p>Tøyseskolen forever!</p>",
-                "searchtags": "[{\"label\":\"Siviltjenestearbeider\",\"score\":1.0},{\"label\":\"Miljøarbeider sosiale fagfelt\",\"score\":0.07064377}]",
-                "classification_input_source": "categoryName",
-                "sector": "Privat"
-            },
-            "publishedByAdmin": "2019-12-10T13:41:16.794604",
-            "businessName": "Tulleskolen for alle",
-            "firstPublished": true,
-            "deactivatedByExpiry": true,
-            "activationOnPublishingDate": false,
-            "rekruttering": null
-        },
-        {
-            "id": 211733,
-            "uuid": "4da9f880-41d0-47dd-a8ea-dee50a5abcb8",
-            "created": "2019-12-11T16:21:12.758616",
-            "createdBy": "pam-rekrutteringsbistand",
-            "updated": "2019-12-11T16:21:12.758616",
-            "updatedBy": "pam-rekrutteringsbistand",
-            "mediaList": [],
-            "contactList": [],
-            "title": "Ny stilling",
-            "status": "INACTIVE",
-            "privacy": "INTERNAL_NOT_SHOWN",
-            "source": "DIR",
-            "medium": "DIR",
-            "reference": "4da9f880-41d0-47dd-a8ea-dee50a5abcb8",
-            "published": "2019-12-11T16:21:12.758515",
-            "expires": "2019-12-11T16:21:12.758518",
-            "employer": null,
-            "administration": {
-                "id": 189108,
-                "status": "PENDING",
-                "comments": null,
-                "reportee": "Joare Mangstuen Mossby",
-                "remarks": [],
-                "navIdent": "A123456"
-            },
-            "location": null,
-            "locationList": [],
-            "categoryList": [],
-            "properties": {},
-            "publishedByAdmin": null,
-            "businessName": null,
-            "firstPublished": false,
-            "deactivatedByExpiry": false,
-            "activationOnPublishingDate": false,
-            "rekruttering": null
-        },
-        {
-            "id": 211732,
-            "uuid": "c437efa7-d26e-4c5d-8b94-3591bbac48a2",
-            "created": "2019-12-11T16:20:56.569486",
-            "createdBy": "pam-rekrutteringsbistand",
-            "updated": "2019-12-11T16:20:56.569486",
-            "updatedBy": "pam-rekrutteringsbistand",
-            "mediaList": [],
-            "contactList": [],
-            "title": "Kopi - Heisann og sveisann",
-            "status": "INACTIVE",
-            "privacy": "INTERNAL_NOT_SHOWN",
-            "source": "DIR",
-            "medium": "DIR",
-            "reference": "c437efa7-d26e-4c5d-8b94-3591bbac48a2",
-            "published": "2019-12-11T16:20:56.569288",
-            "expires": "2019-12-11T16:20:56.569289",
-            "employer": {
-                "id": 211729,
-                "uuid": "7b4ed2ac-f1be-48cc-aa58-76a5efeaba7f",
-                "created": "2019-12-11T13:27:47.48714",
-                "createdBy": "pam-ad",
-                "updated": "2019-12-11T13:27:47.48714",
-                "updatedBy": "pam-ad",
-                "mediaList": [],
-                "contactList": [],
-                "location": {
-                    "address": "Letnessjøvegen 46",
-                    "postalCode": "7670",
-                    "county": "TRØNDELAG",
-                    "municipal": "INDERØY",
-                    "municipalCode": "5053",
-                    "city": "INDERØY",
-                    "country": "NORGE",
-                    "latitude": "63.89699496675347",
-                    "longitude": "11.114167754954567"
                 },
                 "locationList": [
                     {
+                        "address": null,
+                        "postalCode": "0481",
+                        "county": "OSLO",
+                        "municipal": "OSLO",
+                        "municipalCode": "0301",
+                        "city": "OSLO",
+                        "country": "NORGE",
+                        "latitude": null,
+                        "longitude": null
+                    }
+                ],
+                "categoryList": [
+                    {
+                        "id": 5,
+                        "code": "0000.01",
+                        "categoryType": "STYRK08NAV",
+                        "name": "Hjelpearbeider (privat/offentlig virksomhet)",
+                        "description": null,
+                        "parentId": 4
+                    }
+                ],
+                "properties": {
+                    "extent": "Heltid",
+                    "workhours": "[\"Dagtid\"]",
+                    "applicationdue": "2019-12-11T11:00:00.000Z",
+                    "workday": "[\"Ukedager\"]",
+                    "jobtitle": "Hjelpearbeider (privat/offentlig virksomhet)",
+                    "positioncount": "1",
+                    "engagementtype": "Fast",
+                    "starttime": "2019-12-12T11:00:00.000Z",
+                    "jobarrangement": "Skift",
+                    "adtext": "<p>Tøyseskolen forever!</p>",
+                    "searchtags": "[{\"label\":\"Siviltjenestearbeider\",\"score\":1.0},{\"label\":\"Miljøarbeider sosiale fagfelt\",\"score\":0.07064377}]",
+                    "classification_input_source": "categoryName",
+                    "sector": "Privat"
+                },
+                "publishedByAdmin": "2019-12-10T13:41:16.794604",
+                "businessName": "Tulleskolen for alle",
+                "firstPublished": true,
+                "deactivatedByExpiry": true,
+                "activationOnPublishingDate": false
+            },
+            "stillingsinfo": null
+        },
+        {
+            "stilling": {
+                "id": 211733,
+                "uuid": "4da9f880-41d0-47dd-a8ea-dee50a5abcb8",
+                "created": "2019-12-11T16:21:12.758616",
+                "createdBy": "pam-rekrutteringsbistand",
+                "updated": "2019-12-11T16:21:12.758616",
+                "updatedBy": "pam-rekrutteringsbistand",
+                "mediaList": [],
+                "contactList": [],
+                "title": "Ny stilling",
+                "status": "INACTIVE",
+                "privacy": "INTERNAL_NOT_SHOWN",
+                "source": "DIR",
+                "medium": "DIR",
+                "reference": "4da9f880-41d0-47dd-a8ea-dee50a5abcb8",
+                "published": "2019-12-11T16:21:12.758515",
+                "expires": "2019-12-11T16:21:12.758518",
+                "employer": null,
+                "administration": {
+                    "id": 189108,
+                    "status": "PENDING",
+                    "comments": null,
+                    "reportee": "Joare Mangstuen Mossby",
+                    "remarks": [],
+                    "navIdent": "A123456"
+                },
+                "location": null,
+                "locationList": [],
+                "categoryList": [],
+                "properties": {},
+                "publishedByAdmin": null,
+                "businessName": null,
+                "firstPublished": false,
+                "deactivatedByExpiry": false,
+                "activationOnPublishingDate": false
+            },
+            "stillingsinfo": null
+        },
+        {
+            "stilling": {
+                "id": 211732,
+                "uuid": "c437efa7-d26e-4c5d-8b94-3591bbac48a2",
+                "created": "2019-12-11T16:20:56.569486",
+                "createdBy": "pam-rekrutteringsbistand",
+                "updated": "2019-12-11T16:20:56.569486",
+                "updatedBy": "pam-rekrutteringsbistand",
+                "mediaList": [],
+                "contactList": [],
+                "title": "Kopi - Heisann og sveisann",
+                "status": "INACTIVE",
+                "privacy": "INTERNAL_NOT_SHOWN",
+                "source": "DIR",
+                "medium": "DIR",
+                "reference": "c437efa7-d26e-4c5d-8b94-3591bbac48a2",
+                "published": "2019-12-11T16:20:56.569288",
+                "expires": "2019-12-11T16:20:56.569289",
+                "employer": {
+                    "id": 211729,
+                    "uuid": "7b4ed2ac-f1be-48cc-aa58-76a5efeaba7f",
+                    "created": "2019-12-11T13:27:47.48714",
+                    "createdBy": "pam-ad",
+                    "updated": "2019-12-11T13:27:47.48714",
+                    "updatedBy": "pam-ad",
+                    "mediaList": [],
+                    "contactList": [],
+                    "location": {
                         "address": "Letnessjøvegen 46",
                         "postalCode": "7670",
                         "county": "TRØNDELAG",
@@ -900,41 +912,41 @@
                         "country": "NORGE",
                         "latitude": "63.89699496675347",
                         "longitude": "11.114167754954567"
-                    }
-                ],
-                "properties": {
-                    "nace2": "[{\"code\":\"77.390\",\"name\":\"Utleie og leasing av andre maskiner og annet utstyr og materiell ikke nevnt annet sted\"}]"
+                    },
+                    "locationList": [
+                        {
+                            "address": "Letnessjøvegen 46",
+                            "postalCode": "7670",
+                            "county": "TRØNDELAG",
+                            "municipal": "INDERØY",
+                            "municipalCode": "5053",
+                            "city": "INDERØY",
+                            "country": "NORGE",
+                            "latitude": "63.89699496675347",
+                            "longitude": "11.114167754954567"
+                        }
+                    ],
+                    "properties": {
+                        "nace2": "[{\"code\":\"77.390\",\"name\":\"Utleie og leasing av andre maskiner og annet utstyr og materiell ikke nevnt annet sted\"}]"
+                    },
+                    "name": "HEISTAD AS",
+                    "orgnr": "917959145",
+                    "status": "ACTIVE",
+                    "parentOrgnr": "917890668",
+                    "publicName": "HEISTAD AS",
+                    "deactivated": null,
+                    "orgform": "BEDR",
+                    "employees": 0
                 },
-                "name": "HEISTAD AS",
-                "orgnr": "917959145",
-                "status": "ACTIVE",
-                "parentOrgnr": "917890668",
-                "publicName": "HEISTAD AS",
-                "deactivated": null,
-                "orgform": "BEDR",
-                "employees": 0
-            },
-            "administration": {
-                "id": 189107,
-                "status": "PENDING",
-                "comments": null,
-                "reportee": "Joare Mangstuen Mossby",
-                "remarks": [],
-                "navIdent": "A123456"
-            },
-            "location": {
-                "address": null,
-                "postalCode": "0481",
-                "county": "OSLO",
-                "municipal": "OSLO",
-                "municipalCode": "0301",
-                "city": "OSLO",
-                "country": "NORGE",
-                "latitude": null,
-                "longitude": null
-            },
-            "locationList": [
-                {
+                "administration": {
+                    "id": 189107,
+                    "status": "PENDING",
+                    "comments": null,
+                    "reportee": "Joare Mangstuen Mossby",
+                    "remarks": [],
+                    "navIdent": "A123456"
+                },
+                "location": {
                     "address": null,
                     "postalCode": "0481",
                     "county": "OSLO",
@@ -944,115 +956,119 @@
                     "country": "NORGE",
                     "latitude": null,
                     "longitude": null
-                }
-            ],
-            "categoryList": [
-                {
-                    "id": 5,
-                    "code": "0000.01",
-                    "categoryType": "STYRK08NAV",
-                    "name": "Hjelpearbeider (privat/offentlig virksomhet)",
-                    "description": null,
-                    "parentId": 4
-                }
-            ],
-            "properties": {
-                "extent": "Heltid",
-                "workhours": "[\"Dagtid\"]",
-                "applicationdue": "2019-12-12T11:00:00.000Z",
-                "workday": "[\"Ukedager\"]",
-                "jobtitle": "Hjelpearbeider (privat/offentlig virksomhet)",
-                "searchtags": "[{\"label\":\"Siviltjenestearbeider\",\"score\":1.0},{\"label\":\"Miljøarbeider sosiale fagfelt\",\"score\":0.07064303}]",
-                "positioncount": "1",
-                "engagementtype": "Fast",
-                "starttime": "2019-12-13T11:00:00.000Z",
-                "classification_input_source": "categoryName",
-                "adtext": "<p>Heisann, sveisann</p>",
-                "sector": "Privat"
-            },
-            "publishedByAdmin": null,
-            "businessName": "Heistad",
-            "firstPublished": false,
-            "deactivatedByExpiry": false,
-            "activationOnPublishingDate": false,
-            "rekruttering": null
-        },
-        {
-            "id": 211731,
-            "uuid": "e036397c-548e-4601-a290-293e3cb6b97e",
-            "created": "2019-12-11T16:07:20.97393",
-            "createdBy": "pam-rekrutteringsbistand",
-            "updated": "2019-12-11T16:07:20.97393",
-            "updatedBy": "pam-rekrutteringsbistand",
-            "mediaList": [],
-            "contactList": [],
-            "title": "Ny stilling",
-            "status": "INACTIVE",
-            "privacy": "INTERNAL_NOT_SHOWN",
-            "source": "DIR",
-            "medium": "DIR",
-            "reference": "e036397c-548e-4601-a290-293e3cb6b97e",
-            "published": "2019-12-11T16:07:20.97383",
-            "expires": "2019-12-11T16:07:20.973832",
-            "employer": null,
-            "administration": {
-                "id": 189106,
-                "status": "PENDING",
-                "comments": null,
-                "reportee": "Joare Mangstuen Mossby",
-                "remarks": [],
-                "navIdent": "A123456"
-            },
-            "location": null,
-            "locationList": [],
-            "categoryList": [],
-            "properties": {},
-            "publishedByAdmin": null,
-            "businessName": null,
-            "firstPublished": false,
-            "deactivatedByExpiry": false,
-            "activationOnPublishingDate": false,
-            "rekruttering": null
-        },
-        {
-            "id": 211728,
-            "uuid": "0282e24c-1003-46af-9278-12f0c9856cc9",
-            "created": "2019-12-11T13:26:49.382025",
-            "createdBy": "pam-rekrutteringsbistand",
-            "updated": "2019-12-11T14:18:15.094122",
-            "updatedBy": "pam-rekrutteringsbistand",
-            "mediaList": [],
-            "contactList": [],
-            "title": "Heisann og sveisann",
-            "status": "STOPPED",
-            "privacy": "INTERNAL_NOT_SHOWN",
-            "source": "DIR",
-            "medium": "DIR",
-            "reference": "0282e24c-1003-46af-9278-12f0c9856cc9",
-            "published": "2019-12-11T13:27:47.490968",
-            "expires": "2019-12-12T11:00:00",
-            "employer": {
-                "id": 211729,
-                "uuid": "7b4ed2ac-f1be-48cc-aa58-76a5efeaba7f",
-                "created": "2019-12-11T13:27:47.48714",
-                "createdBy": "pam-ad",
-                "updated": "2019-12-11T13:27:47.48714",
-                "updatedBy": "pam-ad",
-                "mediaList": [],
-                "contactList": [],
-                "location": {
-                    "address": "Letnessjøvegen 46",
-                    "postalCode": "7670",
-                    "county": "TRØNDELAG",
-                    "municipal": "INDERØY",
-                    "municipalCode": "5053",
-                    "city": "INDERØY",
-                    "country": "NORGE",
-                    "latitude": "63.89699496675347",
-                    "longitude": "11.114167754954567"
                 },
                 "locationList": [
                     {
+                        "address": null,
+                        "postalCode": "0481",
+                        "county": "OSLO",
+                        "municipal": "OSLO",
+                        "municipalCode": "0301",
+                        "city": "OSLO",
+                        "country": "NORGE",
+                        "latitude": null,
+                        "longitude": null
+                    }
+                ],
+                "categoryList": [
+                    {
+                        "id": 5,
+                        "code": "0000.01",
+                        "categoryType": "STYRK08NAV",
+                        "name": "Hjelpearbeider (privat/offentlig virksomhet)",
+                        "description": null,
+                        "parentId": 4
+                    }
+                ],
+                "properties": {
+                    "extent": "Heltid",
+                    "workhours": "[\"Dagtid\"]",
+                    "applicationdue": "2019-12-12T11:00:00.000Z",
+                    "workday": "[\"Ukedager\"]",
+                    "jobtitle": "Hjelpearbeider (privat/offentlig virksomhet)",
+                    "searchtags": "[{\"label\":\"Siviltjenestearbeider\",\"score\":1.0},{\"label\":\"Miljøarbeider sosiale fagfelt\",\"score\":0.07064303}]",
+                    "positioncount": "1",
+                    "engagementtype": "Fast",
+                    "starttime": "2019-12-13T11:00:00.000Z",
+                    "classification_input_source": "categoryName",
+                    "adtext": "<p>Heisann, sveisann</p>",
+                    "sector": "Privat"
+                },
+                "publishedByAdmin": null,
+                "businessName": "Heistad",
+                "firstPublished": false,
+                "deactivatedByExpiry": false,
+                "activationOnPublishingDate": false
+            },
+            "stillingsinfo": null
+        },
+        {
+            "stilling": {
+                "id": 211731,
+                "uuid": "e036397c-548e-4601-a290-293e3cb6b97e",
+                "created": "2019-12-11T16:07:20.97393",
+                "createdBy": "pam-rekrutteringsbistand",
+                "updated": "2019-12-11T16:07:20.97393",
+                "updatedBy": "pam-rekrutteringsbistand",
+                "mediaList": [],
+                "contactList": [],
+                "title": "Ny stilling",
+                "status": "INACTIVE",
+                "privacy": "INTERNAL_NOT_SHOWN",
+                "source": "DIR",
+                "medium": "DIR",
+                "reference": "e036397c-548e-4601-a290-293e3cb6b97e",
+                "published": "2019-12-11T16:07:20.97383",
+                "expires": "2019-12-11T16:07:20.973832",
+                "employer": null,
+                "administration": {
+                    "id": 189106,
+                    "status": "PENDING",
+                    "comments": null,
+                    "reportee": "Joare Mangstuen Mossby",
+                    "remarks": [],
+                    "navIdent": "A123456"
+                },
+                "location": null,
+                "locationList": [],
+                "categoryList": [],
+                "properties": {},
+                "publishedByAdmin": null,
+                "businessName": null,
+                "firstPublished": false,
+                "deactivatedByExpiry": false,
+                "activationOnPublishingDate": false
+            },
+            "stillingsinfo": null
+        },
+        {
+            "stilling": {
+                "id": 211728,
+                "uuid": "0282e24c-1003-46af-9278-12f0c9856cc9",
+                "created": "2019-12-11T13:26:49.382025",
+                "createdBy": "pam-rekrutteringsbistand",
+                "updated": "2019-12-11T14:18:15.094122",
+                "updatedBy": "pam-rekrutteringsbistand",
+                "mediaList": [],
+                "contactList": [],
+                "title": "Heisann og sveisann",
+                "status": "STOPPED",
+                "privacy": "INTERNAL_NOT_SHOWN",
+                "source": "DIR",
+                "medium": "DIR",
+                "reference": "0282e24c-1003-46af-9278-12f0c9856cc9",
+                "published": "2019-12-11T13:27:47.490968",
+                "expires": "2019-12-12T11:00:00",
+                "employer": {
+                    "id": 211729,
+                    "uuid": "7b4ed2ac-f1be-48cc-aa58-76a5efeaba7f",
+                    "created": "2019-12-11T13:27:47.48714",
+                    "createdBy": "pam-ad",
+                    "updated": "2019-12-11T13:27:47.48714",
+                    "updatedBy": "pam-ad",
+                    "mediaList": [],
+                    "contactList": [],
+                    "location": {
                         "address": "Letnessjøvegen 46",
                         "postalCode": "7670",
                         "county": "TRØNDELAG",
@@ -1062,41 +1078,41 @@
                         "country": "NORGE",
                         "latitude": "63.89699496675347",
                         "longitude": "11.114167754954567"
-                    }
-                ],
-                "properties": {
-                    "nace2": "[{\"code\":\"77.390\",\"name\":\"Utleie og leasing av andre maskiner og annet utstyr og materiell ikke nevnt annet sted\"}]"
+                    },
+                    "locationList": [
+                        {
+                            "address": "Letnessjøvegen 46",
+                            "postalCode": "7670",
+                            "county": "TRØNDELAG",
+                            "municipal": "INDERØY",
+                            "municipalCode": "5053",
+                            "city": "INDERØY",
+                            "country": "NORGE",
+                            "latitude": "63.89699496675347",
+                            "longitude": "11.114167754954567"
+                        }
+                    ],
+                    "properties": {
+                        "nace2": "[{\"code\":\"77.390\",\"name\":\"Utleie og leasing av andre maskiner og annet utstyr og materiell ikke nevnt annet sted\"}]"
+                    },
+                    "name": "HEISTAD AS",
+                    "orgnr": "917959145",
+                    "status": "ACTIVE",
+                    "parentOrgnr": "917890668",
+                    "publicName": "HEISTAD AS",
+                    "deactivated": null,
+                    "orgform": "BEDR",
+                    "employees": 0
                 },
-                "name": "HEISTAD AS",
-                "orgnr": "917959145",
-                "status": "ACTIVE",
-                "parentOrgnr": "917890668",
-                "publicName": "HEISTAD AS",
-                "deactivated": null,
-                "orgform": "BEDR",
-                "employees": 0
-            },
-            "administration": {
-                "id": 189104,
-                "status": "DONE",
-                "comments": null,
-                "reportee": "Joare Mangstuen Mossby",
-                "remarks": [],
-                "navIdent": "A123456"
-            },
-            "location": {
-                "address": null,
-                "postalCode": "0481",
-                "county": "OSLO",
-                "municipal": "OSLO",
-                "municipalCode": "0301",
-                "city": "OSLO",
-                "country": "NORGE",
-                "latitude": null,
-                "longitude": null
-            },
-            "locationList": [
-                {
+                "administration": {
+                    "id": 189104,
+                    "status": "DONE",
+                    "comments": null,
+                    "reportee": "Joare Mangstuen Mossby",
+                    "remarks": [],
+                    "navIdent": "A123456"
+                },
+                "location": {
                     "address": null,
                     "postalCode": "0481",
                     "county": "OSLO",
@@ -1106,78 +1122,80 @@
                     "country": "NORGE",
                     "latitude": null,
                     "longitude": null
-                }
-            ],
-            "categoryList": [
-                {
-                    "id": 5,
-                    "code": "0000.01",
-                    "categoryType": "STYRK08NAV",
-                    "name": "Hjelpearbeider (privat/offentlig virksomhet)",
-                    "description": null,
-                    "parentId": 4
-                }
-            ],
-            "properties": {
-                "extent": "Heltid",
-                "workhours": "[\"Dagtid\"]",
-                "applicationdue": "2019-12-12T11:00:00.000Z",
-                "workday": "[\"Ukedager\"]",
-                "jobtitle": "Hjelpearbeider (privat/offentlig virksomhet)",
-                "searchtags": "[{\"label\":\"Siviltjenestearbeider\",\"score\":1.0},{\"label\":\"Miljøarbeider sosiale fagfelt\",\"score\":0.07064303}]",
-                "positioncount": "1",
-                "engagementtype": "Fast",
-                "starttime": "2019-12-13T11:00:00.000Z",
-                "classification_input_source": "categoryName",
-                "adtext": "<p>Heisann, sveisann</p>",
-                "sector": "Privat"
-            },
-            "publishedByAdmin": "2019-12-11T13:27:47.490968",
-            "businessName": "Heistad",
-            "firstPublished": true,
-            "deactivatedByExpiry": false,
-            "activationOnPublishingDate": false,
-            "rekruttering": null
-        },
-        {
-            "id": 211267,
-            "uuid": "2272fd68-3d4a-47fa-97ee-c0c2d3944b6a",
-            "created": "2019-12-10T13:37:08.021487",
-            "createdBy": "pam-rekrutteringsbistand",
-            "updated": "2019-12-10T13:44:31.929655",
-            "updatedBy": "pam-rekrutteringsbistand",
-            "mediaList": [],
-            "contactList": [],
-            "title": "asdf",
-            "status": "STOPPED",
-            "privacy": "SHOW_ALL",
-            "source": "DIR",
-            "medium": "DIR",
-            "reference": "2272fd68-3d4a-47fa-97ee-c0c2d3944b6a",
-            "published": "2019-12-10T13:37:48.990049",
-            "expires": "2019-12-10T13:37:08.021325",
-            "employer": {
-                "id": 211269,
-                "uuid": "2f986a2f-4d82-47fb-aa2c-7a0d364378c4",
-                "created": "2019-12-10T13:37:48.987991",
-                "createdBy": "pam-ad",
-                "updated": "2019-12-10T13:37:48.987991",
-                "updatedBy": "pam-ad",
-                "mediaList": [],
-                "contactList": [],
-                "location": {
-                    "address": "Husøystrand 14",
-                    "postalCode": "3132",
-                    "county": "VESTFOLD",
-                    "municipal": "FÆRDER",
-                    "municipalCode": "0729",
-                    "city": "HUSØYSUND",
-                    "country": "NORGE",
-                    "latitude": "59.24216434605233",
-                    "longitude": "10.453086524028079"
                 },
                 "locationList": [
                     {
+                        "address": null,
+                        "postalCode": "0481",
+                        "county": "OSLO",
+                        "municipal": "OSLO",
+                        "municipalCode": "0301",
+                        "city": "OSLO",
+                        "country": "NORGE",
+                        "latitude": null,
+                        "longitude": null
+                    }
+                ],
+                "categoryList": [
+                    {
+                        "id": 5,
+                        "code": "0000.01",
+                        "categoryType": "STYRK08NAV",
+                        "name": "Hjelpearbeider (privat/offentlig virksomhet)",
+                        "description": null,
+                        "parentId": 4
+                    }
+                ],
+                "properties": {
+                    "extent": "Heltid",
+                    "workhours": "[\"Dagtid\"]",
+                    "applicationdue": "2019-12-12T11:00:00.000Z",
+                    "workday": "[\"Ukedager\"]",
+                    "jobtitle": "Hjelpearbeider (privat/offentlig virksomhet)",
+                    "searchtags": "[{\"label\":\"Siviltjenestearbeider\",\"score\":1.0},{\"label\":\"Miljøarbeider sosiale fagfelt\",\"score\":0.07064303}]",
+                    "positioncount": "1",
+                    "engagementtype": "Fast",
+                    "starttime": "2019-12-13T11:00:00.000Z",
+                    "classification_input_source": "categoryName",
+                    "adtext": "<p>Heisann, sveisann</p>",
+                    "sector": "Privat"
+                },
+                "publishedByAdmin": "2019-12-11T13:27:47.490968",
+                "businessName": "Heistad",
+                "firstPublished": true,
+                "deactivatedByExpiry": false,
+                "activationOnPublishingDate": false
+            },
+            "stillingsinfo": null
+        },
+        {
+            "stilling": {
+                "id": 211267,
+                "uuid": "2272fd68-3d4a-47fa-97ee-c0c2d3944b6a",
+                "created": "2019-12-10T13:37:08.021487",
+                "createdBy": "pam-rekrutteringsbistand",
+                "updated": "2019-12-10T13:44:31.929655",
+                "updatedBy": "pam-rekrutteringsbistand",
+                "mediaList": [],
+                "contactList": [],
+                "title": "asdf",
+                "status": "STOPPED",
+                "privacy": "SHOW_ALL",
+                "source": "DIR",
+                "medium": "DIR",
+                "reference": "2272fd68-3d4a-47fa-97ee-c0c2d3944b6a",
+                "published": "2019-12-10T13:37:48.990049",
+                "expires": "2019-12-10T13:37:08.021325",
+                "employer": {
+                    "id": 211269,
+                    "uuid": "2f986a2f-4d82-47fb-aa2c-7a0d364378c4",
+                    "created": "2019-12-10T13:37:48.987991",
+                    "createdBy": "pam-ad",
+                    "updated": "2019-12-10T13:37:48.987991",
+                    "updatedBy": "pam-ad",
+                    "mediaList": [],
+                    "contactList": [],
+                    "location": {
                         "address": "Husøystrand 14",
                         "postalCode": "3132",
                         "county": "VESTFOLD",
@@ -1187,41 +1205,41 @@
                         "country": "NORGE",
                         "latitude": "59.24216434605233",
                         "longitude": "10.453086524028079"
-                    }
-                ],
-                "properties": {
-                    "nace2": "[{\"code\":\"90.031\",\"name\":\"Selvstendig kunstnerisk virksomhet innen visuell kunst\"}]"
+                    },
+                    "locationList": [
+                        {
+                            "address": "Husøystrand 14",
+                            "postalCode": "3132",
+                            "county": "VESTFOLD",
+                            "municipal": "FÆRDER",
+                            "municipalCode": "0729",
+                            "city": "HUSØYSUND",
+                            "country": "NORGE",
+                            "latitude": "59.24216434605233",
+                            "longitude": "10.453086524028079"
+                        }
+                    ],
+                    "properties": {
+                        "nace2": "[{\"code\":\"90.031\",\"name\":\"Selvstendig kunstnerisk virksomhet innen visuell kunst\"}]"
+                    },
+                    "name": "ART BY ASDIS",
+                    "orgnr": "820191552",
+                    "status": "ACTIVE",
+                    "parentOrgnr": "820013492",
+                    "publicName": "ART BY ASDIS",
+                    "deactivated": null,
+                    "orgform": "BEDR",
+                    "employees": 0
                 },
-                "name": "ART BY ASDIS",
-                "orgnr": "820191552",
-                "status": "ACTIVE",
-                "parentOrgnr": "820013492",
-                "publicName": "ART BY ASDIS",
-                "deactivated": null,
-                "orgform": "BEDR",
-                "employees": 0
-            },
-            "administration": {
-                "id": 188689,
-                "status": "DONE",
-                "comments": "asdasd",
-                "reportee": "Joare Mangstuen Mossby",
-                "remarks": [],
-                "navIdent": "A123456"
-            },
-            "location": {
-                "address": null,
-                "postalCode": null,
-                "county": "OSLO",
-                "municipal": "OSLO",
-                "municipalCode": "0301",
-                "city": null,
-                "country": "NORGE",
-                "latitude": null,
-                "longitude": null
-            },
-            "locationList": [
-                {
+                "administration": {
+                    "id": 188689,
+                    "status": "DONE",
+                    "comments": "asdasd",
+                    "reportee": "Joare Mangstuen Mossby",
+                    "remarks": [],
+                    "navIdent": "A123456"
+                },
+                "location": {
                     "address": null,
                     "postalCode": null,
                     "county": "OSLO",
@@ -1231,80 +1249,82 @@
                     "country": "NORGE",
                     "latitude": null,
                     "longitude": null
-                }
-            ],
-            "categoryList": [
-                {
-                    "id": 6,
-                    "code": "0000.02",
-                    "categoryType": "STYRK08NAV",
-                    "name": "Medarbeider (uoppgitt arbeidsområde)",
-                    "description": null,
-                    "parentId": 4
-                }
-            ],
-            "properties": {
-                "extent": "Heltid",
-                "workhours": "[\"Dagtid\"]",
-                "applicationdue": "Snarest",
-                "workday": "[\"Ukedager\"]",
-                "jobtitle": "Medarbeider (uoppgitt arbeidsområde)",
-                "positioncount": "2",
-                "engagementtype": "Engasjement",
-                "employerdescription": "<p>asdf</p>",
-                "starttime": "Etter avtale",
-                "jobarrangement": "Skift",
-                "adtext": "<p>asd</p>",
-                "searchtags": "[{\"label\":\"Worker\",\"score\":0.5236858}]",
-                "classification_input_source": "categoryName",
-                "sector": "Privat"
-            },
-            "publishedByAdmin": "2019-12-10T13:37:48.990049",
-            "businessName": "asdf",
-            "firstPublished": true,
-            "deactivatedByExpiry": false,
-            "activationOnPublishingDate": false,
-            "rekruttering": null
-        },
-        {
-            "id": 208778,
-            "uuid": "6c2a505b-560f-4675-a7f7-8b0d3d6e30d1",
-            "created": "2019-12-03T09:28:20.546598",
-            "createdBy": "nss-admin",
-            "updated": "2019-12-05T00:00:00.424432",
-            "updatedBy": "nss-admin",
-            "mediaList": [],
-            "contactList": [],
-            "title": "Tøyseannonse",
-            "status": "INACTIVE",
-            "privacy": "SHOW_ALL",
-            "source": "ASS",
-            "medium": "ASS",
-            "reference": "6c2a505b-560f-4675-a7f7-8b0d3d6e30d1",
-            "published": "2019-12-03T09:30:26.366696",
-            "expires": "2019-12-04T02:00:00",
-            "employer": {
-                "id": 208779,
-                "uuid": "8e740dfd-fe89-4bec-95a3-6037073a8084",
-                "created": "2019-12-03T09:30:26.350275",
-                "createdBy": "pam-ad",
-                "updated": "2019-12-03T09:30:26.350275",
-                "updatedBy": "pam-ad",
-                "mediaList": [],
-                "contactList": [],
-                "location": {
-                    "address": "Helgesens gate 90",
-                    "postalCode": "0563",
-                    "county": "OSLO",
-                    "municipal": "OSLO",
-                    "municipalCode": "0301",
-                    "city": "OSLO",
-                    "country": "NORGE",
-                    "latitude": "59.919629503516035",
-                    "longitude": "10.779081772572614"
                 },
                 "locationList": [
                     {
+                        "address": null,
+                        "postalCode": null,
+                        "county": "OSLO",
+                        "municipal": "OSLO",
+                        "municipalCode": "0301",
+                        "city": null,
+                        "country": "NORGE",
+                        "latitude": null,
+                        "longitude": null
+                    }
+                ],
+                "categoryList": [
+                    {
+                        "id": 6,
+                        "code": "0000.02",
+                        "categoryType": "STYRK08NAV",
+                        "name": "Medarbeider (uoppgitt arbeidsområde)",
+                        "description": null,
+                        "parentId": 4
+                    }
+                ],
+                "properties": {
+                    "extent": "Heltid",
+                    "workhours": "[\"Dagtid\"]",
+                    "applicationdue": "Snarest",
+                    "workday": "[\"Ukedager\"]",
+                    "jobtitle": "Medarbeider (uoppgitt arbeidsområde)",
+                    "positioncount": "2",
+                    "engagementtype": "Engasjement",
+                    "employerdescription": "<p>asdf</p>",
+                    "starttime": "Etter avtale",
+                    "jobarrangement": "Skift",
+                    "adtext": "<p>asd</p>",
+                    "searchtags": "[{\"label\":\"Worker\",\"score\":0.5236858}]",
+                    "classification_input_source": "categoryName",
+                    "sector": "Privat"
+                },
+                "publishedByAdmin": "2019-12-10T13:37:48.990049",
+                "businessName": "asdf",
+                "firstPublished": true,
+                "deactivatedByExpiry": false,
+                "activationOnPublishingDate": false
+            },
+            "stillingsinfo": null
+        },
+        {
+            "stilling": {
+                "id": 208778,
+                "uuid": "6c2a505b-560f-4675-a7f7-8b0d3d6e30d1",
+                "created": "2019-12-03T09:28:20.546598",
+                "createdBy": "nss-admin",
+                "updated": "2019-12-05T00:00:00.424432",
+                "updatedBy": "nss-admin",
+                "mediaList": [],
+                "contactList": [],
+                "title": "Tøyseannonse",
+                "status": "INACTIVE",
+                "privacy": "SHOW_ALL",
+                "source": "ASS",
+                "medium": "ASS",
+                "reference": "6c2a505b-560f-4675-a7f7-8b0d3d6e30d1",
+                "published": "2019-12-03T09:30:26.366696",
+                "expires": "2019-12-04T02:00:00",
+                "employer": {
+                    "id": 208779,
+                    "uuid": "8e740dfd-fe89-4bec-95a3-6037073a8084",
+                    "created": "2019-12-03T09:30:26.350275",
+                    "createdBy": "pam-ad",
+                    "updated": "2019-12-03T09:30:26.350275",
+                    "updatedBy": "pam-ad",
+                    "mediaList": [],
+                    "contactList": [],
+                    "location": {
                         "address": "Helgesens gate 90",
                         "postalCode": "0563",
                         "county": "OSLO",
@@ -1314,41 +1334,41 @@
                         "country": "NORGE",
                         "latitude": "59.919629503516035",
                         "longitude": "10.779081772572614"
-                    }
-                ],
-                "properties": {
-                    "nace2": "[{\"code\":\"93.110\",\"name\":\"Drift av idrettsanlegg\"}]"
+                    },
+                    "locationList": [
+                        {
+                            "address": "Helgesens gate 90",
+                            "postalCode": "0563",
+                            "county": "OSLO",
+                            "municipal": "OSLO",
+                            "municipalCode": "0301",
+                            "city": "OSLO",
+                            "country": "NORGE",
+                            "latitude": "59.919629503516035",
+                            "longitude": "10.779081772572614"
+                        }
+                    ],
+                    "properties": {
+                        "nace2": "[{\"code\":\"93.110\",\"name\":\"Drift av idrettsanlegg\"}]"
+                    },
+                    "name": "TØYENBADET",
+                    "orgnr": "979594585",
+                    "status": "ACTIVE",
+                    "parentOrgnr": "996922766",
+                    "publicName": "TØYENBADET",
+                    "deactivated": null,
+                    "orgform": "BEDR",
+                    "employees": 109
                 },
-                "name": "TØYENBADET",
-                "orgnr": "979594585",
-                "status": "ACTIVE",
-                "parentOrgnr": "996922766",
-                "publicName": "TØYENBADET",
-                "deactivated": null,
-                "orgform": "BEDR",
-                "employees": 109
-            },
-            "administration": {
-                "id": 186433,
-                "status": "DONE",
-                "comments": "ååååøæ",
-                "reportee": "Joare Mangstuen Mossby",
-                "remarks": [],
-                "navIdent": "A123456"
-            },
-            "location": {
-                "address": null,
-                "postalCode": "0481",
-                "county": "OSLO",
-                "municipal": "OSLO",
-                "municipalCode": "0301",
-                "city": "OSLO",
-                "country": "NORGE",
-                "latitude": null,
-                "longitude": null
-            },
-            "locationList": [
-                {
+                "administration": {
+                    "id": 186433,
+                    "status": "DONE",
+                    "comments": "ååååøæ",
+                    "reportee": "Joare Mangstuen Mossby",
+                    "remarks": [],
+                    "navIdent": "A123456"
+                },
+                "location": {
                     "address": null,
                     "postalCode": "0481",
                     "county": "OSLO",
@@ -1359,46 +1379,59 @@
                     "latitude": null,
                     "longitude": null
                 },
-                {
-                    "address": null,
-                    "postalCode": null,
-                    "county": "OSLO",
-                    "municipal": "OSLO",
-                    "municipalCode": "0301",
-                    "city": null,
-                    "country": "NORGE",
-                    "latitude": null,
-                    "longitude": null
-                }
-            ],
-            "categoryList": [
-                {
-                    "id": 5,
-                    "code": "0000.01",
-                    "categoryType": "STYRK08NAV",
-                    "name": "Hjelpearbeider (privat/offentlig virksomhet)",
-                    "description": null,
-                    "parentId": 4
-                }
-            ],
-            "properties": {
-                "extent": "Heltid",
-                "workhours": "[\"Dagtid\"]",
-                "applicationdue": "10.12.2019",
-                "workday": "[\"Ukedager\"]",
-                "searchtags": "[{\"label\":\"Siviltjenestearbeider\",\"score\":1.0},{\"label\":\"Miljøarbeider sosiale fagfelt\",\"score\":0.07064212}]",
-                "positioncount": "1",
-                "engagementtype": "Fast",
-                "classification_input_source": "categoryName",
-                "adtext": "<p>Dette er en tøyseannonse.</p>",
-                "sector": "Privat"
+                "locationList": [
+                    {
+                        "address": null,
+                        "postalCode": "0481",
+                        "county": "OSLO",
+                        "municipal": "OSLO",
+                        "municipalCode": "0301",
+                        "city": "OSLO",
+                        "country": "NORGE",
+                        "latitude": null,
+                        "longitude": null
+                    },
+                    {
+                        "address": null,
+                        "postalCode": null,
+                        "county": "OSLO",
+                        "municipal": "OSLO",
+                        "municipalCode": "0301",
+                        "city": null,
+                        "country": "NORGE",
+                        "latitude": null,
+                        "longitude": null
+                    }
+                ],
+                "categoryList": [
+                    {
+                        "id": 5,
+                        "code": "0000.01",
+                        "categoryType": "STYRK08NAV",
+                        "name": "Hjelpearbeider (privat/offentlig virksomhet)",
+                        "description": null,
+                        "parentId": 4
+                    }
+                ],
+                "properties": {
+                    "extent": "Heltid",
+                    "workhours": "[\"Dagtid\"]",
+                    "applicationdue": "10.12.2019",
+                    "workday": "[\"Ukedager\"]",
+                    "searchtags": "[{\"label\":\"Siviltjenestearbeider\",\"score\":1.0},{\"label\":\"Miljøarbeider sosiale fagfelt\",\"score\":0.07064212}]",
+                    "positioncount": "1",
+                    "engagementtype": "Fast",
+                    "classification_input_source": "categoryName",
+                    "adtext": "<p>Dette er en tøyseannonse.</p>",
+                    "sector": "Privat"
+                },
+                "publishedByAdmin": "2019-12-03T09:30:26.366696",
+                "businessName": "TØYENBADET",
+                "firstPublished": true,
+                "deactivatedByExpiry": true,
+                "activationOnPublishingDate": false
             },
-            "publishedByAdmin": "2019-12-03T09:30:26.366696",
-            "businessName": "TØYENBADET",
-            "firstPublished": true,
-            "deactivatedByExpiry": true,
-            "activationOnPublishingDate": false,
-            "rekruttering": {
+            "stillingsinfo": {
                 "stillingsinfoid": "c444a3fb-2ba9-4a21-8343-b131ac0c07c3",
                 "stillingsid": "6c2a505b-560f-4675-a7f7-8b0d3d6e30d1",
                 "eierNavident": "Z992782",
@@ -1406,44 +1439,33 @@
             }
         },
         {
-            "id": 209300,
-            "uuid": "d032f069-de3e-4bae-a525-2871e800c0ea",
-            "created": "2019-12-04T13:52:23.96791",
-            "createdBy": "pam-rekrutteringsbistand",
-            "updated": "2019-12-05T00:00:00.366293",
-            "updatedBy": "pam-rekrutteringsbistand",
-            "mediaList": [],
-            "contactList": [],
-            "title": "Batman søker besteforeldre",
-            "status": "INACTIVE",
-            "privacy": "INTERNAL_NOT_SHOWN",
-            "source": "DIR",
-            "medium": "DIR",
-            "reference": "d032f069-de3e-4bae-a525-2871e800c0ea",
-            "published": "2019-12-04T13:54:26.778541",
-            "expires": "2019-12-04T13:52:23.967726",
-            "employer": {
-                "id": 209302,
-                "uuid": "56da32b3-2609-4361-aa44-074da8ccb6b3",
-                "created": "2019-12-04T13:54:26.772467",
-                "createdBy": "pam-ad",
-                "updated": "2019-12-04T13:54:26.772467",
-                "updatedBy": "pam-ad",
+            "stilling": {
+                "id": 209300,
+                "uuid": "d032f069-de3e-4bae-a525-2871e800c0ea",
+                "created": "2019-12-04T13:52:23.96791",
+                "createdBy": "pam-rekrutteringsbistand",
+                "updated": "2019-12-05T00:00:00.366293",
+                "updatedBy": "pam-rekrutteringsbistand",
                 "mediaList": [],
                 "contactList": [],
-                "location": {
-                    "address": "Lysåsvegen 6",
-                    "postalCode": "3947",
-                    "county": "TELEMARK",
-                    "municipal": "PORSGRUNN",
-                    "municipalCode": "0805",
-                    "city": "LANGANGEN",
-                    "country": "NORGE",
-                    "latitude": "59.0823231419484",
-                    "longitude": "9.810950735190227"
-                },
-                "locationList": [
-                    {
+                "title": "Batman søker besteforeldre",
+                "status": "INACTIVE",
+                "privacy": "INTERNAL_NOT_SHOWN",
+                "source": "DIR",
+                "medium": "DIR",
+                "reference": "d032f069-de3e-4bae-a525-2871e800c0ea",
+                "published": "2019-12-04T13:54:26.778541",
+                "expires": "2019-12-04T13:52:23.967726",
+                "employer": {
+                    "id": 209302,
+                    "uuid": "56da32b3-2609-4361-aa44-074da8ccb6b3",
+                    "created": "2019-12-04T13:54:26.772467",
+                    "createdBy": "pam-ad",
+                    "updated": "2019-12-04T13:54:26.772467",
+                    "updatedBy": "pam-ad",
+                    "mediaList": [],
+                    "contactList": [],
+                    "location": {
                         "address": "Lysåsvegen 6",
                         "postalCode": "3947",
                         "county": "TELEMARK",
@@ -1453,41 +1475,41 @@
                         "country": "NORGE",
                         "latitude": "59.0823231419484",
                         "longitude": "9.810950735190227"
-                    }
-                ],
-                "properties": {
-                    "nace2": "[{\"code\":\"46.180\",\"name\":\"Agenturhandel med spesialisert vareutvalg ellers\"}]"
+                    },
+                    "locationList": [
+                        {
+                            "address": "Lysåsvegen 6",
+                            "postalCode": "3947",
+                            "county": "TELEMARK",
+                            "municipal": "PORSGRUNN",
+                            "municipalCode": "0805",
+                            "city": "LANGANGEN",
+                            "country": "NORGE",
+                            "latitude": "59.0823231419484",
+                            "longitude": "9.810950735190227"
+                        }
+                    ],
+                    "properties": {
+                        "nace2": "[{\"code\":\"46.180\",\"name\":\"Agenturhandel med spesialisert vareutvalg ellers\"}]"
+                    },
+                    "name": "BATANGEN",
+                    "orgnr": "982430372",
+                    "status": "ACTIVE",
+                    "parentOrgnr": "982187486",
+                    "publicName": "BATANGEN",
+                    "deactivated": null,
+                    "orgform": "BEDR",
+                    "employees": 0
                 },
-                "name": "BATANGEN",
-                "orgnr": "982430372",
-                "status": "ACTIVE",
-                "parentOrgnr": "982187486",
-                "publicName": "BATANGEN",
-                "deactivated": null,
-                "orgform": "BEDR",
-                "employees": 0
-            },
-            "administration": {
-                "id": 186910,
-                "status": "DONE",
-                "comments": "hhih",
-                "reportee": "Joare Mangstuen Mossby",
-                "remarks": [],
-                "navIdent": "A123456"
-            },
-            "location": {
-                "address": "Mos",
-                "postalCode": "0752",
-                "county": "OSLO",
-                "municipal": "OSLO",
-                "municipalCode": "0301",
-                "city": "OSLO",
-                "country": "NORGE",
-                "latitude": null,
-                "longitude": null
-            },
-            "locationList": [
-                {
+                "administration": {
+                    "id": 186910,
+                    "status": "DONE",
+                    "comments": "hhih",
+                    "reportee": "Joare Mangstuen Mossby",
+                    "remarks": [],
+                    "navIdent": "A123456"
+                },
+                "location": {
                     "address": "Mos",
                     "postalCode": "0752",
                     "county": "OSLO",
@@ -1497,76 +1519,78 @@
                     "country": "NORGE",
                     "latitude": null,
                     "longitude": null
-                }
-            ],
-            "categoryList": [
-                {
-                    "id": 5,
-                    "code": "0000.01",
-                    "categoryType": "STYRK08NAV",
-                    "name": "Hjelpearbeider (privat/offentlig virksomhet)",
-                    "description": null,
-                    "parentId": 4
-                }
-            ],
-            "properties": {
-                "extent": "Heltid",
-                "workhours": "[\"Dagtid\"]",
-                "applicationdue": "Snarest",
-                "workday": "[\"Ukedager\"]",
-                "jobtitle": "Hjelpearbeider (privat/offentlig virksomhet)",
-                "positioncount": "1",
-                "engagementtype": "Fast",
-                "starttime": "Etter avtale",
-                "adtext": "<p>a</p>",
-                "sector": "Privat"
-            },
-            "publishedByAdmin": "2019-12-04T13:54:26.778541",
-            "businessName": "BATANGEN",
-            "firstPublished": true,
-            "deactivatedByExpiry": true,
-            "activationOnPublishingDate": false,
-            "rekruttering": null
-        },
-        {
-            "id": 209289,
-            "uuid": "590c6074-c67c-4ce9-bb7c-e2d07614f7b6",
-            "created": "2019-12-04T13:15:55.207627",
-            "createdBy": "pam-rekrutteringsbistand",
-            "updated": "2019-12-05T00:00:00.357594",
-            "updatedBy": "pam-rekrutteringsbistand",
-            "mediaList": [],
-            "contactList": [],
-            "title": "Edderkoppfabrikken søker mygg",
-            "status": "INACTIVE",
-            "privacy": "INTERNAL_NOT_SHOWN",
-            "source": "DIR",
-            "medium": "DIR",
-            "reference": "590c6074-c67c-4ce9-bb7c-e2d07614f7b6",
-            "published": "2019-12-04T13:17:03.032225",
-            "expires": "2019-12-04T13:15:55.20737",
-            "employer": {
-                "id": 209291,
-                "uuid": "4be1e9ef-6e05-411e-8a3b-a9107885dc1c",
-                "created": "2019-12-04T13:17:03.01318",
-                "createdBy": "pam-ad",
-                "updated": "2019-12-04T13:17:03.01318",
-                "updatedBy": "pam-ad",
-                "mediaList": [],
-                "contactList": [],
-                "location": {
-                    "address": "St. Olavs plass 1",
-                    "postalCode": "0165",
-                    "county": "OSLO",
-                    "municipal": "OSLO",
-                    "municipalCode": "0301",
-                    "city": "OSLO",
-                    "country": "NORGE",
-                    "latitude": "59.91815941140571",
-                    "longitude": "10.739832936523074"
                 },
                 "locationList": [
                     {
+                        "address": "Mos",
+                        "postalCode": "0752",
+                        "county": "OSLO",
+                        "municipal": "OSLO",
+                        "municipalCode": "0301",
+                        "city": "OSLO",
+                        "country": "NORGE",
+                        "latitude": null,
+                        "longitude": null
+                    }
+                ],
+                "categoryList": [
+                    {
+                        "id": 5,
+                        "code": "0000.01",
+                        "categoryType": "STYRK08NAV",
+                        "name": "Hjelpearbeider (privat/offentlig virksomhet)",
+                        "description": null,
+                        "parentId": 4
+                    }
+                ],
+                "properties": {
+                    "extent": "Heltid",
+                    "workhours": "[\"Dagtid\"]",
+                    "applicationdue": "Snarest",
+                    "workday": "[\"Ukedager\"]",
+                    "jobtitle": "Hjelpearbeider (privat/offentlig virksomhet)",
+                    "positioncount": "1",
+                    "engagementtype": "Fast",
+                    "starttime": "Etter avtale",
+                    "adtext": "<p>a</p>",
+                    "sector": "Privat"
+                },
+                "publishedByAdmin": "2019-12-04T13:54:26.778541",
+                "businessName": "BATANGEN",
+                "firstPublished": true,
+                "deactivatedByExpiry": true,
+                "activationOnPublishingDate": false
+            },
+            "stillingsinfo": null
+        },
+        {
+            "stilling": {
+                "id": 209289,
+                "uuid": "590c6074-c67c-4ce9-bb7c-e2d07614f7b6",
+                "created": "2019-12-04T13:15:55.207627",
+                "createdBy": "pam-rekrutteringsbistand",
+                "updated": "2019-12-05T00:00:00.357594",
+                "updatedBy": "pam-rekrutteringsbistand",
+                "mediaList": [],
+                "contactList": [],
+                "title": "Edderkoppfabrikken søker mygg",
+                "status": "INACTIVE",
+                "privacy": "INTERNAL_NOT_SHOWN",
+                "source": "DIR",
+                "medium": "DIR",
+                "reference": "590c6074-c67c-4ce9-bb7c-e2d07614f7b6",
+                "published": "2019-12-04T13:17:03.032225",
+                "expires": "2019-12-04T13:15:55.20737",
+                "employer": {
+                    "id": 209291,
+                    "uuid": "4be1e9ef-6e05-411e-8a3b-a9107885dc1c",
+                    "created": "2019-12-04T13:17:03.01318",
+                    "createdBy": "pam-ad",
+                    "updated": "2019-12-04T13:17:03.01318",
+                    "updatedBy": "pam-ad",
+                    "mediaList": [],
+                    "contactList": [],
+                    "location": {
                         "address": "St. Olavs plass 1",
                         "postalCode": "0165",
                         "county": "OSLO",
@@ -1576,41 +1600,41 @@
                         "country": "NORGE",
                         "latitude": "59.91815941140571",
                         "longitude": "10.739832936523074"
-                    }
-                ],
-                "properties": {
-                    "nace2": "[{\"code\":\"90.040\",\"name\":\"Drift av lokaler tilknyttet kunstnerisk virksomhet\"}]"
+                    },
+                    "locationList": [
+                        {
+                            "address": "St. Olavs plass 1",
+                            "postalCode": "0165",
+                            "county": "OSLO",
+                            "municipal": "OSLO",
+                            "municipalCode": "0301",
+                            "city": "OSLO",
+                            "country": "NORGE",
+                            "latitude": "59.91815941140571",
+                            "longitude": "10.739832936523074"
+                        }
+                    ],
+                    "properties": {
+                        "nace2": "[{\"code\":\"90.040\",\"name\":\"Drift av lokaler tilknyttet kunstnerisk virksomhet\"}]"
+                    },
+                    "name": "EDDERKOPPEN TEATERDRIFT",
+                    "orgnr": "984281773",
+                    "status": "ACTIVE",
+                    "parentOrgnr": "997403258",
+                    "publicName": "EDDERKOPPEN TEATERDRIFT",
+                    "deactivated": null,
+                    "orgform": "BEDR",
+                    "employees": 0
                 },
-                "name": "EDDERKOPPEN TEATERDRIFT",
-                "orgnr": "984281773",
-                "status": "ACTIVE",
-                "parentOrgnr": "997403258",
-                "publicName": "EDDERKOPPEN TEATERDRIFT",
-                "deactivated": null,
-                "orgform": "BEDR",
-                "employees": 0
-            },
-            "administration": {
-                "id": 186903,
-                "status": "DONE",
-                "comments": null,
-                "reportee": "Joare Mangstuen Mossby",
-                "remarks": [],
-                "navIdent": "A123456"
-            },
-            "location": {
-                "address": "Mos",
-                "postalCode": "0752",
-                "county": "OSLO",
-                "municipal": "OSLO",
-                "municipalCode": "0301",
-                "city": "OSLO",
-                "country": "NORGE",
-                "latitude": null,
-                "longitude": null
-            },
-            "locationList": [
-                {
+                "administration": {
+                    "id": 186903,
+                    "status": "DONE",
+                    "comments": null,
+                    "reportee": "Joare Mangstuen Mossby",
+                    "remarks": [],
+                    "navIdent": "A123456"
+                },
+                "location": {
                     "address": "Mos",
                     "postalCode": "0752",
                     "county": "OSLO",
@@ -1620,76 +1644,78 @@
                     "country": "NORGE",
                     "latitude": null,
                     "longitude": null
-                }
-            ],
-            "categoryList": [
-                {
-                    "id": 5,
-                    "code": "0000.01",
-                    "categoryType": "STYRK08NAV",
-                    "name": "Hjelpearbeider (privat/offentlig virksomhet)",
-                    "description": null,
-                    "parentId": 4
-                }
-            ],
-            "properties": {
-                "extent": "Heltid",
-                "workhours": "[\"Dagtid\"]",
-                "applicationdue": "Snarest",
-                "workday": "[\"Ukedager\"]",
-                "jobtitle": "Hjelpearbeider (privat/offentlig virksomhet)",
-                "positioncount": "1",
-                "engagementtype": "Fast",
-                "starttime": "Etter avtale",
-                "adtext": "<p>Hei</p>",
-                "sector": "Privat"
-            },
-            "publishedByAdmin": "2019-12-04T13:17:03.032225",
-            "businessName": "EDDERKOPPEN TEATERDRIFT",
-            "firstPublished": true,
-            "deactivatedByExpiry": true,
-            "activationOnPublishingDate": false,
-            "rekruttering": null
-        },
-        {
-            "id": 209283,
-            "uuid": "0422c2a0-92ea-4e0e-94a7-199d85f38816",
-            "created": "2019-12-04T13:05:13.987208",
-            "createdBy": "pam-rekrutteringsbistand",
-            "updated": "2019-12-05T00:00:00.342121",
-            "updatedBy": "pam-rekrutteringsbistand",
-            "mediaList": [],
-            "contactList": [],
-            "title": "blabla stilling",
-            "status": "INACTIVE",
-            "privacy": "INTERNAL_NOT_SHOWN",
-            "source": "DIR",
-            "medium": "DIR",
-            "reference": "0422c2a0-92ea-4e0e-94a7-199d85f38816",
-            "published": "2019-12-04T13:05:54.370841",
-            "expires": "2019-12-04T13:05:13.986998",
-            "employer": {
-                "id": 209284,
-                "uuid": "cd8f592d-cded-44f9-b4c4-9cf71b7d8cca",
-                "created": "2019-12-04T13:05:54.362468",
-                "createdBy": "pam-ad",
-                "updated": "2019-12-04T13:05:54.362468",
-                "updatedBy": "pam-ad",
-                "mediaList": [],
-                "contactList": [],
-                "location": {
-                    "address": "Øykjetona 17H",
-                    "postalCode": "5916",
-                    "county": "HORDALAND",
-                    "municipal": "LINDÅS",
-                    "municipalCode": "1263",
-                    "city": "ISDALSTØ",
-                    "country": "NORGE",
-                    "latitude": "60.553927145012445",
-                    "longitude": "5.273788400368258"
                 },
                 "locationList": [
                     {
+                        "address": "Mos",
+                        "postalCode": "0752",
+                        "county": "OSLO",
+                        "municipal": "OSLO",
+                        "municipalCode": "0301",
+                        "city": "OSLO",
+                        "country": "NORGE",
+                        "latitude": null,
+                        "longitude": null
+                    }
+                ],
+                "categoryList": [
+                    {
+                        "id": 5,
+                        "code": "0000.01",
+                        "categoryType": "STYRK08NAV",
+                        "name": "Hjelpearbeider (privat/offentlig virksomhet)",
+                        "description": null,
+                        "parentId": 4
+                    }
+                ],
+                "properties": {
+                    "extent": "Heltid",
+                    "workhours": "[\"Dagtid\"]",
+                    "applicationdue": "Snarest",
+                    "workday": "[\"Ukedager\"]",
+                    "jobtitle": "Hjelpearbeider (privat/offentlig virksomhet)",
+                    "positioncount": "1",
+                    "engagementtype": "Fast",
+                    "starttime": "Etter avtale",
+                    "adtext": "<p>Hei</p>",
+                    "sector": "Privat"
+                },
+                "publishedByAdmin": "2019-12-04T13:17:03.032225",
+                "businessName": "EDDERKOPPEN TEATERDRIFT",
+                "firstPublished": true,
+                "deactivatedByExpiry": true,
+                "activationOnPublishingDate": false
+            },
+            "stillingsinfo": null
+        },
+        {
+            "stilling": {
+                "id": 209283,
+                "uuid": "0422c2a0-92ea-4e0e-94a7-199d85f38816",
+                "created": "2019-12-04T13:05:13.987208",
+                "createdBy": "pam-rekrutteringsbistand",
+                "updated": "2019-12-05T00:00:00.342121",
+                "updatedBy": "pam-rekrutteringsbistand",
+                "mediaList": [],
+                "contactList": [],
+                "title": "blabla stilling",
+                "status": "INACTIVE",
+                "privacy": "INTERNAL_NOT_SHOWN",
+                "source": "DIR",
+                "medium": "DIR",
+                "reference": "0422c2a0-92ea-4e0e-94a7-199d85f38816",
+                "published": "2019-12-04T13:05:54.370841",
+                "expires": "2019-12-04T13:05:13.986998",
+                "employer": {
+                    "id": 209284,
+                    "uuid": "cd8f592d-cded-44f9-b4c4-9cf71b7d8cca",
+                    "created": "2019-12-04T13:05:54.362468",
+                    "createdBy": "pam-ad",
+                    "updated": "2019-12-04T13:05:54.362468",
+                    "updatedBy": "pam-ad",
+                    "mediaList": [],
+                    "contactList": [],
+                    "location": {
                         "address": "Øykjetona 17H",
                         "postalCode": "5916",
                         "county": "HORDALAND",
@@ -1699,41 +1725,41 @@
                         "country": "NORGE",
                         "latitude": "60.553927145012445",
                         "longitude": "5.273788400368258"
-                    }
-                ],
-                "properties": {
-                    "nace2": "[{\"code\":\"96.040\",\"name\":\"Virksomhet knyttet til kroppspleie og fysisk velvære\"}]"
+                    },
+                    "locationList": [
+                        {
+                            "address": "Øykjetona 17H",
+                            "postalCode": "5916",
+                            "county": "HORDALAND",
+                            "municipal": "LINDÅS",
+                            "municipalCode": "1263",
+                            "city": "ISDALSTØ",
+                            "country": "NORGE",
+                            "latitude": "60.553927145012445",
+                            "longitude": "5.273788400368258"
+                        }
+                    ],
+                    "properties": {
+                        "nace2": "[{\"code\":\"96.040\",\"name\":\"Virksomhet knyttet til kroppspleie og fysisk velvære\"}]"
+                    },
+                    "name": "THE NAVEBLUES - NAVE PUNDIK",
+                    "orgnr": "916238371",
+                    "status": "ACTIVE",
+                    "parentOrgnr": "997163540",
+                    "publicName": "THE NAVEBLUES - NAVE PUNDIK",
+                    "deactivated": null,
+                    "orgform": "BEDR",
+                    "employees": 0
                 },
-                "name": "THE NAVEBLUES - NAVE PUNDIK",
-                "orgnr": "916238371",
-                "status": "ACTIVE",
-                "parentOrgnr": "997163540",
-                "publicName": "THE NAVEBLUES - NAVE PUNDIK",
-                "deactivated": null,
-                "orgform": "BEDR",
-                "employees": 0
-            },
-            "administration": {
-                "id": 186899,
-                "status": "DONE",
-                "comments": null,
-                "reportee": "Joare Mangstuen Mossby",
-                "remarks": [],
-                "navIdent": "A123456"
-            },
-            "location": {
-                "address": "asd",
-                "postalCode": "0273",
-                "county": "OSLO",
-                "municipal": "OSLO",
-                "municipalCode": "0301",
-                "city": "OSLO",
-                "country": "NORGE",
-                "latitude": null,
-                "longitude": null
-            },
-            "locationList": [
-                {
+                "administration": {
+                    "id": 186899,
+                    "status": "DONE",
+                    "comments": null,
+                    "reportee": "Joare Mangstuen Mossby",
+                    "remarks": [],
+                    "navIdent": "A123456"
+                },
+                "location": {
                     "address": "asd",
                     "postalCode": "0273",
                     "county": "OSLO",
@@ -1743,77 +1769,79 @@
                     "country": "NORGE",
                     "latitude": null,
                     "longitude": null
-                }
-            ],
-            "categoryList": [
-                {
-                    "id": 5,
-                    "code": "0000.01",
-                    "categoryType": "STYRK08NAV",
-                    "name": "Hjelpearbeider (privat/offentlig virksomhet)",
-                    "description": null,
-                    "parentId": 4
-                }
-            ],
-            "properties": {
-                "extent": "Heltid",
-                "workhours": "[\"Dagtid\"]",
-                "applicationdue": "Snarest",
-                "workday": "[\"Ukedager\"]",
-                "jobtitle": "Hjelpearbeider (privat/offentlig virksomhet)",
-                "positioncount": "1",
-                "engagementtype": "Fast",
-                "starttime": "Etter avtale",
-                "employerdescription": "<p>asd</p>",
-                "adtext": "<p>a</p>",
-                "sector": "Privat"
-            },
-            "publishedByAdmin": "2019-12-04T13:05:54.370841",
-            "businessName": "asd",
-            "firstPublished": true,
-            "deactivatedByExpiry": true,
-            "activationOnPublishingDate": false,
-            "rekruttering": null
-        },
-        {
-            "id": 209312,
-            "uuid": "249c84d0-1d09-4cf1-94bc-790d103e38ef",
-            "created": "2019-12-04T14:15:44.778024",
-            "createdBy": "pam-rekrutteringsbistand",
-            "updated": "2019-12-05T00:00:00.324342",
-            "updatedBy": "pam-rekrutteringsbistand",
-            "mediaList": [],
-            "contactList": [],
-            "title": "Ny tittel",
-            "status": "INACTIVE",
-            "privacy": "INTERNAL_NOT_SHOWN",
-            "source": "DIR",
-            "medium": "DIR",
-            "reference": "249c84d0-1d09-4cf1-94bc-790d103e38ef",
-            "published": "2019-12-04T14:17:06.743632",
-            "expires": "2019-12-04T14:15:44.777624",
-            "employer": {
-                "id": 209313,
-                "uuid": "5f8af18d-da36-4a61-b68a-ae33e02e9411",
-                "created": "2019-12-04T14:17:06.737468",
-                "createdBy": "pam-ad",
-                "updated": "2019-12-04T14:17:06.737468",
-                "updatedBy": "pam-ad",
-                "mediaList": [],
-                "contactList": [],
-                "location": {
-                    "address": "Setesdalsvegen 830",
-                    "postalCode": "4715",
-                    "county": "VEST-AGDER",
-                    "municipal": "VENNESLA",
-                    "municipalCode": "1014",
-                    "city": "ØVREBØ",
-                    "country": "NORGE",
-                    "latitude": "58.305138363593926",
-                    "longitude": "7.816985387650289"
                 },
                 "locationList": [
                     {
+                        "address": "asd",
+                        "postalCode": "0273",
+                        "county": "OSLO",
+                        "municipal": "OSLO",
+                        "municipalCode": "0301",
+                        "city": "OSLO",
+                        "country": "NORGE",
+                        "latitude": null,
+                        "longitude": null
+                    }
+                ],
+                "categoryList": [
+                    {
+                        "id": 5,
+                        "code": "0000.01",
+                        "categoryType": "STYRK08NAV",
+                        "name": "Hjelpearbeider (privat/offentlig virksomhet)",
+                        "description": null,
+                        "parentId": 4
+                    }
+                ],
+                "properties": {
+                    "extent": "Heltid",
+                    "workhours": "[\"Dagtid\"]",
+                    "applicationdue": "Snarest",
+                    "workday": "[\"Ukedager\"]",
+                    "jobtitle": "Hjelpearbeider (privat/offentlig virksomhet)",
+                    "positioncount": "1",
+                    "engagementtype": "Fast",
+                    "starttime": "Etter avtale",
+                    "employerdescription": "<p>asd</p>",
+                    "adtext": "<p>a</p>",
+                    "sector": "Privat"
+                },
+                "publishedByAdmin": "2019-12-04T13:05:54.370841",
+                "businessName": "asd",
+                "firstPublished": true,
+                "deactivatedByExpiry": true,
+                "activationOnPublishingDate": false
+            },
+            "stillingsinfo": null
+        },
+        {
+            "stilling": {
+                "id": 209312,
+                "uuid": "249c84d0-1d09-4cf1-94bc-790d103e38ef",
+                "created": "2019-12-04T14:15:44.778024",
+                "createdBy": "pam-rekrutteringsbistand",
+                "updated": "2019-12-05T00:00:00.324342",
+                "updatedBy": "pam-rekrutteringsbistand",
+                "mediaList": [],
+                "contactList": [],
+                "title": "Ny tittel",
+                "status": "INACTIVE",
+                "privacy": "INTERNAL_NOT_SHOWN",
+                "source": "DIR",
+                "medium": "DIR",
+                "reference": "249c84d0-1d09-4cf1-94bc-790d103e38ef",
+                "published": "2019-12-04T14:17:06.743632",
+                "expires": "2019-12-04T14:15:44.777624",
+                "employer": {
+                    "id": 209313,
+                    "uuid": "5f8af18d-da36-4a61-b68a-ae33e02e9411",
+                    "created": "2019-12-04T14:17:06.737468",
+                    "createdBy": "pam-ad",
+                    "updated": "2019-12-04T14:17:06.737468",
+                    "updatedBy": "pam-ad",
+                    "mediaList": [],
+                    "contactList": [],
+                    "location": {
                         "address": "Setesdalsvegen 830",
                         "postalCode": "4715",
                         "county": "VEST-AGDER",
@@ -1823,41 +1851,41 @@
                         "country": "NORGE",
                         "latitude": "58.305138363593926",
                         "longitude": "7.816985387650289"
-                    }
-                ],
-                "properties": {
-                    "nace2": "[{\"code\":\"01.250\",\"name\":\"Dyrking av annen frukt som vokser på trær eller busker samt nøtter\"}]"
+                    },
+                    "locationList": [
+                        {
+                            "address": "Setesdalsvegen 830",
+                            "postalCode": "4715",
+                            "county": "VEST-AGDER",
+                            "municipal": "VENNESLA",
+                            "municipalCode": "1014",
+                            "city": "ØVREBØ",
+                            "country": "NORGE",
+                            "latitude": "58.305138363593926",
+                            "longitude": "7.816985387650289"
+                        }
+                    ],
+                    "properties": {
+                        "nace2": "[{\"code\":\"01.250\",\"name\":\"Dyrking av annen frukt som vokser på trær eller busker samt nøtter\"}]"
+                    },
+                    "name": "NABOSTUA",
+                    "orgnr": "916582633",
+                    "status": "ACTIVE",
+                    "parentOrgnr": "916552629",
+                    "publicName": "NABOSTUA",
+                    "deactivated": null,
+                    "orgform": "BEDR",
+                    "employees": 0
                 },
-                "name": "NABOSTUA",
-                "orgnr": "916582633",
-                "status": "ACTIVE",
-                "parentOrgnr": "916552629",
-                "publicName": "NABOSTUA",
-                "deactivated": null,
-                "orgform": "BEDR",
-                "employees": 0
-            },
-            "administration": {
-                "id": 186917,
-                "status": "DONE",
-                "comments": null,
-                "reportee": "Joare Mangstuen Mossby",
-                "remarks": [],
-                "navIdent": "A123456"
-            },
-            "location": {
-                "address": null,
-                "postalCode": "0270",
-                "county": "OSLO",
-                "municipal": "OSLO",
-                "municipalCode": "0301",
-                "city": "OSLO",
-                "country": "NORGE",
-                "latitude": null,
-                "longitude": null
-            },
-            "locationList": [
-                {
+                "administration": {
+                    "id": 186917,
+                    "status": "DONE",
+                    "comments": null,
+                    "reportee": "Joare Mangstuen Mossby",
+                    "remarks": [],
+                    "navIdent": "A123456"
+                },
+                "location": {
                     "address": null,
                     "postalCode": "0270",
                     "county": "OSLO",
@@ -1867,78 +1895,80 @@
                     "country": "NORGE",
                     "latitude": null,
                     "longitude": null
-                }
-            ],
-            "categoryList": [
-                {
-                    "id": 5,
-                    "code": "0000.01",
-                    "categoryType": "STYRK08NAV",
-                    "name": "Hjelpearbeider (privat/offentlig virksomhet)",
-                    "description": null,
-                    "parentId": 4
-                }
-            ],
-            "properties": {
-                "extent": "Heltid",
-                "workhours": "[\"Dagtid\"]",
-                "applicationdue": "Snarest",
-                "workday": "[\"Ukedager\"]",
-                "jobtitle": "Hjelpearbeider (privat/offentlig virksomhet)",
-                "positioncount": "1",
-                "engagementtype": "Fast",
-                "starttime": "Etter avtale",
-                "employerdescription": "<p>asd</p>",
-                "jobarrangement": "Turnus",
-                "adtext": "<p>asd</p>",
-                "sector": "Privat"
-            },
-            "publishedByAdmin": "2019-12-04T14:17:06.743632",
-            "businessName": "asd",
-            "firstPublished": true,
-            "deactivatedByExpiry": true,
-            "activationOnPublishingDate": false,
-            "rekruttering": null
-        },
-        {
-            "id": 209298,
-            "uuid": "d04ea902-4adf-4d5b-a5a9-84cb4d988114",
-            "created": "2019-12-04T13:50:45.95258",
-            "createdBy": "pam-rekrutteringsbistand",
-            "updated": "2019-12-05T00:00:00.315243",
-            "updatedBy": "pam-rekrutteringsbistand",
-            "mediaList": [],
-            "contactList": [],
-            "title": "asdasdasd",
-            "status": "INACTIVE",
-            "privacy": "INTERNAL_NOT_SHOWN",
-            "source": "DIR",
-            "medium": "DIR",
-            "reference": "d04ea902-4adf-4d5b-a5a9-84cb4d988114",
-            "published": "2019-12-04T13:51:21.59383",
-            "expires": "2019-12-04T13:50:45.952386",
-            "employer": {
-                "id": 14525,
-                "uuid": "e3c8c8bc-292c-4a4b-84ee-7c76f1d5cb45",
-                "created": "2018-11-29T13:58:54.349",
-                "createdBy": "pam-ad",
-                "updated": "2019-12-04T13:02:56.946898",
-                "updatedBy": "pam-ad",
-                "mediaList": [],
-                "contactList": [],
-                "location": {
-                    "address": "Flakstadveien 462",
-                    "postalCode": "8380",
-                    "county": "NORDLAND",
-                    "municipal": "FLAKSTAD",
-                    "municipalCode": "1859",
-                    "city": "RAMBERG",
-                    "country": "NORGE",
-                    "latitude": "68.0885591235344",
-                    "longitude": "13.230171573627281"
                 },
                 "locationList": [
                     {
+                        "address": null,
+                        "postalCode": "0270",
+                        "county": "OSLO",
+                        "municipal": "OSLO",
+                        "municipalCode": "0301",
+                        "city": "OSLO",
+                        "country": "NORGE",
+                        "latitude": null,
+                        "longitude": null
+                    }
+                ],
+                "categoryList": [
+                    {
+                        "id": 5,
+                        "code": "0000.01",
+                        "categoryType": "STYRK08NAV",
+                        "name": "Hjelpearbeider (privat/offentlig virksomhet)",
+                        "description": null,
+                        "parentId": 4
+                    }
+                ],
+                "properties": {
+                    "extent": "Heltid",
+                    "workhours": "[\"Dagtid\"]",
+                    "applicationdue": "Snarest",
+                    "workday": "[\"Ukedager\"]",
+                    "jobtitle": "Hjelpearbeider (privat/offentlig virksomhet)",
+                    "positioncount": "1",
+                    "engagementtype": "Fast",
+                    "starttime": "Etter avtale",
+                    "employerdescription": "<p>asd</p>",
+                    "jobarrangement": "Turnus",
+                    "adtext": "<p>asd</p>",
+                    "sector": "Privat"
+                },
+                "publishedByAdmin": "2019-12-04T14:17:06.743632",
+                "businessName": "asd",
+                "firstPublished": true,
+                "deactivatedByExpiry": true,
+                "activationOnPublishingDate": false
+            },
+            "stillingsinfo": null
+        },
+        {
+            "stilling": {
+                "id": 209298,
+                "uuid": "d04ea902-4adf-4d5b-a5a9-84cb4d988114",
+                "created": "2019-12-04T13:50:45.95258",
+                "createdBy": "pam-rekrutteringsbistand",
+                "updated": "2019-12-05T00:00:00.315243",
+                "updatedBy": "pam-rekrutteringsbistand",
+                "mediaList": [],
+                "contactList": [],
+                "title": "asdasdasd",
+                "status": "INACTIVE",
+                "privacy": "INTERNAL_NOT_SHOWN",
+                "source": "DIR",
+                "medium": "DIR",
+                "reference": "d04ea902-4adf-4d5b-a5a9-84cb4d988114",
+                "published": "2019-12-04T13:51:21.59383",
+                "expires": "2019-12-04T13:50:45.952386",
+                "employer": {
+                    "id": 14525,
+                    "uuid": "e3c8c8bc-292c-4a4b-84ee-7c76f1d5cb45",
+                    "created": "2018-11-29T13:58:54.349",
+                    "createdBy": "pam-ad",
+                    "updated": "2019-12-04T13:02:56.946898",
+                    "updatedBy": "pam-ad",
+                    "mediaList": [],
+                    "contactList": [],
+                    "location": {
                         "address": "Flakstadveien 462",
                         "postalCode": "8380",
                         "county": "NORDLAND",
@@ -1948,41 +1978,41 @@
                         "country": "NORGE",
                         "latitude": "68.0885591235344",
                         "longitude": "13.230171573627281"
-                    }
-                ],
-                "properties": {
-                    "nace2": "[{\"code\":\"71.112\",\"name\":\"Arkitekttjenester vedrørende byggverk\"}]"
+                    },
+                    "locationList": [
+                        {
+                            "address": "Flakstadveien 462",
+                            "postalCode": "8380",
+                            "county": "NORDLAND",
+                            "municipal": "FLAKSTAD",
+                            "municipalCode": "1859",
+                            "city": "RAMBERG",
+                            "country": "NORGE",
+                            "latitude": "68.0885591235344",
+                            "longitude": "13.230171573627281"
+                        }
+                    ],
+                    "properties": {
+                        "nace2": "[{\"code\":\"71.112\",\"name\":\"Arkitekttjenester vedrørende byggverk\"}]"
+                    },
+                    "name": "STUDIO NAVID NAVID",
+                    "orgnr": "915406122",
+                    "status": "ACTIVE",
+                    "parentOrgnr": "998637511",
+                    "publicName": "STUDIO NAVID NAVID",
+                    "deactivated": null,
+                    "orgform": "BEDR",
+                    "employees": 0
                 },
-                "name": "STUDIO NAVID NAVID",
-                "orgnr": "915406122",
-                "status": "ACTIVE",
-                "parentOrgnr": "998637511",
-                "publicName": "STUDIO NAVID NAVID",
-                "deactivated": null,
-                "orgform": "BEDR",
-                "employees": 0
-            },
-            "administration": {
-                "id": 186909,
-                "status": "DONE",
-                "comments": null,
-                "reportee": "Joare Mangstuen Mossby",
-                "remarks": [],
-                "navIdent": "A123456"
-            },
-            "location": {
-                "address": null,
-                "postalCode": "0273",
-                "county": "OSLO",
-                "municipal": "OSLO",
-                "municipalCode": "0301",
-                "city": "OSLO",
-                "country": "NORGE",
-                "latitude": null,
-                "longitude": null
-            },
-            "locationList": [
-                {
+                "administration": {
+                    "id": 186909,
+                    "status": "DONE",
+                    "comments": null,
+                    "reportee": "Joare Mangstuen Mossby",
+                    "remarks": [],
+                    "navIdent": "A123456"
+                },
+                "location": {
                     "address": null,
                     "postalCode": "0273",
                     "county": "OSLO",
@@ -1992,78 +2022,80 @@
                     "country": "NORGE",
                     "latitude": null,
                     "longitude": null
-                }
-            ],
-            "categoryList": [
-                {
-                    "id": 5,
-                    "code": "0000.01",
-                    "categoryType": "STYRK08NAV",
-                    "name": "Hjelpearbeider (privat/offentlig virksomhet)",
-                    "description": null,
-                    "parentId": 4
-                }
-            ],
-            "properties": {
-                "extent": "Heltid",
-                "workhours": "[\"Dagtid\"]",
-                "applicationdue": "Snarest",
-                "workday": "[\"Ukedager\"]",
-                "jobtitle": "Hjelpearbeider (privat/offentlig virksomhet)",
-                "positioncount": "1",
-                "engagementtype": "Fast",
-                "starttime": "Etter avtale",
-                "employerdescription": "<p>asd</p>",
-                "jobarrangement": "Skift",
-                "adtext": "<p>asd</p>",
-                "sector": "Privat"
-            },
-            "publishedByAdmin": "2019-12-04T13:51:21.59383",
-            "businessName": "asd",
-            "firstPublished": true,
-            "deactivatedByExpiry": true,
-            "activationOnPublishingDate": false,
-            "rekruttering": null
-        },
-        {
-            "id": 208786,
-            "uuid": "85c83dab-1c09-441a-94b1-fe67e3e87cb7",
-            "created": "2019-12-03T09:59:09.441956",
-            "createdBy": "nss-admin",
-            "updated": "2019-12-05T00:00:00.305593",
-            "updatedBy": "nss-admin",
-            "mediaList": [],
-            "contactList": [],
-            "title": "Are-test (IKKE RØR FØR 4/12)",
-            "status": "INACTIVE",
-            "privacy": "SHOW_ALL",
-            "source": "ASS",
-            "medium": "ASS",
-            "reference": "85c83dab-1c09-441a-94b1-fe67e3e87cb7",
-            "published": "2019-12-03T10:07:49.819491",
-            "expires": "2019-12-04T02:00:00",
-            "employer": {
-                "id": 208788,
-                "uuid": "5feb6bbf-cddc-41df-bfa9-d6f104991ecd",
-                "created": "2019-12-03T10:07:49.814821",
-                "createdBy": "pam-ad",
-                "updated": "2019-12-03T10:07:49.814821",
-                "updatedBy": "pam-ad",
-                "mediaList": [],
-                "contactList": [],
-                "location": {
-                    "address": "Haugerudveien 38",
-                    "postalCode": "0674",
-                    "county": "OSLO",
-                    "municipal": "OSLO",
-                    "municipalCode": "0301",
-                    "city": "OSLO",
-                    "country": "NORGE",
-                    "latitude": "59.917939647129145",
-                    "longitude": "10.852858357389318"
                 },
                 "locationList": [
                     {
+                        "address": null,
+                        "postalCode": "0273",
+                        "county": "OSLO",
+                        "municipal": "OSLO",
+                        "municipalCode": "0301",
+                        "city": "OSLO",
+                        "country": "NORGE",
+                        "latitude": null,
+                        "longitude": null
+                    }
+                ],
+                "categoryList": [
+                    {
+                        "id": 5,
+                        "code": "0000.01",
+                        "categoryType": "STYRK08NAV",
+                        "name": "Hjelpearbeider (privat/offentlig virksomhet)",
+                        "description": null,
+                        "parentId": 4
+                    }
+                ],
+                "properties": {
+                    "extent": "Heltid",
+                    "workhours": "[\"Dagtid\"]",
+                    "applicationdue": "Snarest",
+                    "workday": "[\"Ukedager\"]",
+                    "jobtitle": "Hjelpearbeider (privat/offentlig virksomhet)",
+                    "positioncount": "1",
+                    "engagementtype": "Fast",
+                    "starttime": "Etter avtale",
+                    "employerdescription": "<p>asd</p>",
+                    "jobarrangement": "Skift",
+                    "adtext": "<p>asd</p>",
+                    "sector": "Privat"
+                },
+                "publishedByAdmin": "2019-12-04T13:51:21.59383",
+                "businessName": "asd",
+                "firstPublished": true,
+                "deactivatedByExpiry": true,
+                "activationOnPublishingDate": false
+            },
+            "stillingsinfo": null
+        },
+        {
+            "stilling": {
+                "id": 208786,
+                "uuid": "85c83dab-1c09-441a-94b1-fe67e3e87cb7",
+                "created": "2019-12-03T09:59:09.441956",
+                "createdBy": "nss-admin",
+                "updated": "2019-12-05T00:00:00.305593",
+                "updatedBy": "nss-admin",
+                "mediaList": [],
+                "contactList": [],
+                "title": "Are-test (IKKE RØR FØR 4/12)",
+                "status": "INACTIVE",
+                "privacy": "SHOW_ALL",
+                "source": "ASS",
+                "medium": "ASS",
+                "reference": "85c83dab-1c09-441a-94b1-fe67e3e87cb7",
+                "published": "2019-12-03T10:07:49.819491",
+                "expires": "2019-12-04T02:00:00",
+                "employer": {
+                    "id": 208788,
+                    "uuid": "5feb6bbf-cddc-41df-bfa9-d6f104991ecd",
+                    "created": "2019-12-03T10:07:49.814821",
+                    "createdBy": "pam-ad",
+                    "updated": "2019-12-03T10:07:49.814821",
+                    "updatedBy": "pam-ad",
+                    "mediaList": [],
+                    "contactList": [],
+                    "location": {
                         "address": "Haugerudveien 38",
                         "postalCode": "0674",
                         "county": "OSLO",
@@ -2073,41 +2105,41 @@
                         "country": "NORGE",
                         "latitude": "59.917939647129145",
                         "longitude": "10.852858357389318"
-                    }
-                ],
-                "properties": {
-                    "nace2": "[{\"code\":\"62.020\",\"name\":\"Konsulentvirksomhet tilknyttet informasjonsteknologi\"}]"
+                    },
+                    "locationList": [
+                        {
+                            "address": "Haugerudveien 38",
+                            "postalCode": "0674",
+                            "county": "OSLO",
+                            "municipal": "OSLO",
+                            "municipalCode": "0301",
+                            "city": "OSLO",
+                            "country": "NORGE",
+                            "latitude": "59.917939647129145",
+                            "longitude": "10.852858357389318"
+                        }
+                    ],
+                    "properties": {
+                        "nace2": "[{\"code\":\"62.020\",\"name\":\"Konsulentvirksomhet tilknyttet informasjonsteknologi\"}]"
+                    },
+                    "name": "ARES DATAHJELP Are Erlandsen",
+                    "orgnr": "993652350",
+                    "status": "ACTIVE",
+                    "parentOrgnr": "884082552",
+                    "publicName": "ARES DATAHJELP Are Erlandsen",
+                    "deactivated": null,
+                    "orgform": "BEDR",
+                    "employees": 0
                 },
-                "name": "ARES DATAHJELP Are Erlandsen",
-                "orgnr": "993652350",
-                "status": "ACTIVE",
-                "parentOrgnr": "884082552",
-                "publicName": "ARES DATAHJELP Are Erlandsen",
-                "deactivated": null,
-                "orgform": "BEDR",
-                "employees": 0
-            },
-            "administration": {
-                "id": 186439,
-                "status": "DONE",
-                "comments": "å",
-                "reportee": "Joare Mangstuen Mossby",
-                "remarks": [],
-                "navIdent": "A123456"
-            },
-            "location": {
-                "address": null,
-                "postalCode": "0001",
-                "county": "OSLO",
-                "municipal": "OSLO",
-                "municipalCode": "0301",
-                "city": "OSLO",
-                "country": "NORGE",
-                "latitude": null,
-                "longitude": null
-            },
-            "locationList": [
-                {
+                "administration": {
+                    "id": 186439,
+                    "status": "DONE",
+                    "comments": "å",
+                    "reportee": "Joare Mangstuen Mossby",
+                    "remarks": [],
+                    "navIdent": "A123456"
+                },
+                "location": {
                     "address": null,
                     "postalCode": "0001",
                     "county": "OSLO",
@@ -2117,36 +2149,49 @@
                     "country": "NORGE",
                     "latitude": null,
                     "longitude": null
-                }
-            ],
-            "categoryList": [
-                {
-                    "id": 5,
-                    "code": "0000.01",
-                    "categoryType": "STYRK08NAV",
-                    "name": "Hjelpearbeider (privat/offentlig virksomhet)",
-                    "description": null,
-                    "parentId": 4
-                }
-            ],
-            "properties": {
-                "extent": "Heltid",
-                "workhours": "[\"Dagtid\"]",
-                "applicationdue": "12.12.2019",
-                "workday": "[\"Ukedager\"]",
-                "searchtags": "[{\"label\":\"Siviltjenestearbeider\",\"score\":1.0},{\"label\":\"Miljøarbeider sosiale fagfelt\",\"score\":0.07064212}]",
-                "positioncount": "1",
-                "engagementtype": "Fast",
-                "classification_input_source": "categoryName",
-                "adtext": "<p>Ikke rør denne.</p>",
-                "sector": "Privat"
+                },
+                "locationList": [
+                    {
+                        "address": null,
+                        "postalCode": "0001",
+                        "county": "OSLO",
+                        "municipal": "OSLO",
+                        "municipalCode": "0301",
+                        "city": "OSLO",
+                        "country": "NORGE",
+                        "latitude": null,
+                        "longitude": null
+                    }
+                ],
+                "categoryList": [
+                    {
+                        "id": 5,
+                        "code": "0000.01",
+                        "categoryType": "STYRK08NAV",
+                        "name": "Hjelpearbeider (privat/offentlig virksomhet)",
+                        "description": null,
+                        "parentId": 4
+                    }
+                ],
+                "properties": {
+                    "extent": "Heltid",
+                    "workhours": "[\"Dagtid\"]",
+                    "applicationdue": "12.12.2019",
+                    "workday": "[\"Ukedager\"]",
+                    "searchtags": "[{\"label\":\"Siviltjenestearbeider\",\"score\":1.0},{\"label\":\"Miljøarbeider sosiale fagfelt\",\"score\":0.07064212}]",
+                    "positioncount": "1",
+                    "engagementtype": "Fast",
+                    "classification_input_source": "categoryName",
+                    "adtext": "<p>Ikke rør denne.</p>",
+                    "sector": "Privat"
+                },
+                "publishedByAdmin": "2019-12-03T10:07:49.819491",
+                "businessName": "ARES DATAHJELP Are Erlandsen",
+                "firstPublished": true,
+                "deactivatedByExpiry": true,
+                "activationOnPublishingDate": false
             },
-            "publishedByAdmin": "2019-12-03T10:07:49.819491",
-            "businessName": "ARES DATAHJELP Are Erlandsen",
-            "firstPublished": true,
-            "deactivatedByExpiry": true,
-            "activationOnPublishingDate": false,
-            "rekruttering": {
+            "stillingsinfo": {
                 "stillingsinfoid": "dd2deebf-ad41-47d8-8441-e76183f149d4",
                 "stillingsid": "85c83dab-1c09-441a-94b1-fe67e3e87cb7",
                 "eierNavident": "Z992782",
@@ -2154,44 +2199,33 @@
             }
         },
         {
-            "id": 209306,
-            "uuid": "0c3c53cb-2528-4e82-baf6-d117bb02f8e8",
-            "created": "2019-12-04T13:59:23.4987",
-            "createdBy": "pam-rekrutteringsbistand",
-            "updated": "2019-12-05T00:00:00.280279",
-            "updatedBy": "pam-rekrutteringsbistand",
-            "mediaList": [],
-            "contactList": [],
-            "title": "Niese søker onkelz",
-            "status": "INACTIVE",
-            "privacy": "INTERNAL_NOT_SHOWN",
-            "source": "DIR",
-            "medium": "DIR",
-            "reference": "0c3c53cb-2528-4e82-baf6-d117bb02f8e8",
-            "published": "2019-12-04T14:00:20.276541",
-            "expires": "2019-12-04T13:59:23.498562",
-            "employer": {
-                "id": 209309,
-                "uuid": "68fd34d9-6d77-40f5-9999-3f28f9eb43e6",
-                "created": "2019-12-04T14:00:20.267954",
-                "createdBy": "pam-ad",
-                "updated": "2019-12-04T14:00:20.267954",
-                "updatedBy": "pam-ad",
+            "stilling": {
+                "id": 209306,
+                "uuid": "0c3c53cb-2528-4e82-baf6-d117bb02f8e8",
+                "created": "2019-12-04T13:59:23.4987",
+                "createdBy": "pam-rekrutteringsbistand",
+                "updated": "2019-12-05T00:00:00.280279",
+                "updatedBy": "pam-rekrutteringsbistand",
                 "mediaList": [],
                 "contactList": [],
-                "location": {
-                    "address": "St. Olavs gate 10",
-                    "postalCode": "0165",
-                    "county": "OSLO",
-                    "municipal": "OSLO",
-                    "municipalCode": "0301",
-                    "city": "OSLO",
-                    "country": "NORGE",
-                    "latitude": "59.91800470010265",
-                    "longitude": "10.741890923143208"
-                },
-                "locationList": [
-                    {
+                "title": "Niese søker onkelz",
+                "status": "INACTIVE",
+                "privacy": "INTERNAL_NOT_SHOWN",
+                "source": "DIR",
+                "medium": "DIR",
+                "reference": "0c3c53cb-2528-4e82-baf6-d117bb02f8e8",
+                "published": "2019-12-04T14:00:20.276541",
+                "expires": "2019-12-04T13:59:23.498562",
+                "employer": {
+                    "id": 209309,
+                    "uuid": "68fd34d9-6d77-40f5-9999-3f28f9eb43e6",
+                    "created": "2019-12-04T14:00:20.267954",
+                    "createdBy": "pam-ad",
+                    "updated": "2019-12-04T14:00:20.267954",
+                    "updatedBy": "pam-ad",
+                    "mediaList": [],
+                    "contactList": [],
+                    "location": {
                         "address": "St. Olavs gate 10",
                         "postalCode": "0165",
                         "county": "OSLO",
@@ -2201,41 +2235,41 @@
                         "country": "NORGE",
                         "latitude": "59.91800470010265",
                         "longitude": "10.741890923143208"
-                    }
-                ],
-                "properties": {
-                    "nace2": "[{\"code\":\"82.990\",\"name\":\"Annen forretningsmessig tjenesteyting ikke nevnt annet sted\"}]"
+                    },
+                    "locationList": [
+                        {
+                            "address": "St. Olavs gate 10",
+                            "postalCode": "0165",
+                            "county": "OSLO",
+                            "municipal": "OSLO",
+                            "municipalCode": "0301",
+                            "city": "OSLO",
+                            "country": "NORGE",
+                            "latitude": "59.91800470010265",
+                            "longitude": "10.741890923143208"
+                        }
+                    ],
+                    "properties": {
+                        "nace2": "[{\"code\":\"82.990\",\"name\":\"Annen forretningsmessig tjenesteyting ikke nevnt annet sted\"}]"
+                    },
+                    "name": "NIELSENCOACHING TOR ÅDNE NIELSEN",
+                    "orgnr": "920209076",
+                    "status": "ACTIVE",
+                    "parentOrgnr": "920183727",
+                    "publicName": "NIELSENCOACHING TOR ÅDNE NIELSEN",
+                    "deactivated": null,
+                    "orgform": "BEDR",
+                    "employees": 0
                 },
-                "name": "NIELSENCOACHING TOR ÅDNE NIELSEN",
-                "orgnr": "920209076",
-                "status": "ACTIVE",
-                "parentOrgnr": "920183727",
-                "publicName": "NIELSENCOACHING TOR ÅDNE NIELSEN",
-                "deactivated": null,
-                "orgform": "BEDR",
-                "employees": 0
-            },
-            "administration": {
-                "id": 186914,
-                "status": "DONE",
-                "comments": null,
-                "reportee": "Joare Mangstuen Mossby",
-                "remarks": [],
-                "navIdent": "A123456"
-            },
-            "location": {
-                "address": "Mos",
-                "postalCode": "0752",
-                "county": "OSLO",
-                "municipal": "OSLO",
-                "municipalCode": "0301",
-                "city": "OSLO",
-                "country": "NORGE",
-                "latitude": null,
-                "longitude": null
-            },
-            "locationList": [
-                {
+                "administration": {
+                    "id": 186914,
+                    "status": "DONE",
+                    "comments": null,
+                    "reportee": "Joare Mangstuen Mossby",
+                    "remarks": [],
+                    "navIdent": "A123456"
+                },
+                "location": {
                     "address": "Mos",
                     "postalCode": "0752",
                     "county": "OSLO",
@@ -2245,36 +2279,49 @@
                     "country": "NORGE",
                     "latitude": null,
                     "longitude": null
-                }
-            ],
-            "categoryList": [
-                {
-                    "id": 5,
-                    "code": "0000.01",
-                    "categoryType": "STYRK08NAV",
-                    "name": "Hjelpearbeider (privat/offentlig virksomhet)",
-                    "description": null,
-                    "parentId": 4
-                }
-            ],
-            "properties": {
-                "extent": "Heltid",
-                "workhours": "[\"Dagtid\"]",
-                "applicationdue": "Snarest",
-                "workday": "[\"Ukedager\"]",
-                "jobtitle": "Hjelpearbeider (privat/offentlig virksomhet)",
-                "positioncount": "1",
-                "engagementtype": "Fast",
-                "starttime": "Etter avtale",
-                "adtext": "<p>Niese</p>",
-                "sector": "Privat"
+                },
+                "locationList": [
+                    {
+                        "address": "Mos",
+                        "postalCode": "0752",
+                        "county": "OSLO",
+                        "municipal": "OSLO",
+                        "municipalCode": "0301",
+                        "city": "OSLO",
+                        "country": "NORGE",
+                        "latitude": null,
+                        "longitude": null
+                    }
+                ],
+                "categoryList": [
+                    {
+                        "id": 5,
+                        "code": "0000.01",
+                        "categoryType": "STYRK08NAV",
+                        "name": "Hjelpearbeider (privat/offentlig virksomhet)",
+                        "description": null,
+                        "parentId": 4
+                    }
+                ],
+                "properties": {
+                    "extent": "Heltid",
+                    "workhours": "[\"Dagtid\"]",
+                    "applicationdue": "Snarest",
+                    "workday": "[\"Ukedager\"]",
+                    "jobtitle": "Hjelpearbeider (privat/offentlig virksomhet)",
+                    "positioncount": "1",
+                    "engagementtype": "Fast",
+                    "starttime": "Etter avtale",
+                    "adtext": "<p>Niese</p>",
+                    "sector": "Privat"
+                },
+                "publishedByAdmin": "2019-12-04T14:00:20.276541",
+                "businessName": "NIELSENCOACHING TOR ÅDNE NIELSEN",
+                "firstPublished": true,
+                "deactivatedByExpiry": true,
+                "activationOnPublishingDate": false
             },
-            "publishedByAdmin": "2019-12-04T14:00:20.276541",
-            "businessName": "NIELSENCOACHING TOR ÅDNE NIELSEN",
-            "firstPublished": true,
-            "deactivatedByExpiry": true,
-            "activationOnPublishingDate": false,
-            "rekruttering": null
+            "stillingsinfo": null
         }
     ],
     "totalPages": 2,

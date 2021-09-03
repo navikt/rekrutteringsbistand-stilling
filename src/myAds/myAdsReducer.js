@@ -1,5 +1,6 @@
 import { put, select, takeLatest } from 'redux-saga/effects';
-import { ApiError, fetchMyAds, fetchStillingsinfoForVeileder } from '../api/api';
+import { hentMineStillinger, hentStillingsinfoForStillingerSomEiesAvVeileder } from '../api/api';
+import { ApiError } from '../api/apiUtils';
 import { getReportee } from '../reportee/reporteeReducer';
 import AdStatusEnum from '../common/enums/AdStatusEnum';
 
@@ -122,17 +123,21 @@ function* getMyAds() {
 
         const reportee = yield getReportee();
         const state = yield select();
-        const stillingsinfoResponse = yield fetchStillingsinfoForVeileder(reportee.navIdent);
-        const stillingsids = stillingsinfoResponse.map((r) => r.stillingsid).join(',');
+        const stillingsinfoForStillingerVeilederHarOvertatt = yield hentStillingsinfoForStillingerSomEiesAvVeileder(
+            reportee.navIdent
+        );
+        const stillingerVeilederHarOvertatt = stillingsinfoForStillingerVeilederHarOvertatt
+            .map((r) => r.stillingsid)
+            .join(',');
 
         const search = {
             ...state.myAds,
             reportee: reportee.displayName,
-            uuid: stillingsids,
+            uuid: stillingerVeilederHarOvertatt,
         };
 
         const query = toQuery(search);
-        const response = yield fetchMyAds(query);
+        const response = yield hentMineStillinger(query);
 
         yield put({ type: FETCH_MY_ADS_SUCCESS, response });
     } catch (e) {

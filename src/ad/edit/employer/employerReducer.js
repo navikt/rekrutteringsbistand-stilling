@@ -1,5 +1,6 @@
 import { put, throttle, select, call } from 'redux-saga/effects';
-import { ApiError, fetchEmployerNameCompletionHits, fetchOrgnrSuggestions } from '../../../api/api';
+import { fetchEmployerNameCompletionHits, fetchOrgnrSuggestions } from '../../../api/api';
+import { ApiError } from '../../../api/apiUtils';
 import {
     CREATE_AD_BEGIN,
     CREATE_AD_SUCCESS,
