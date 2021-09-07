@@ -15,8 +15,10 @@ export type Side<T> = {
     totalPages: number;
 };
 
-export const postStilling = async (stilling: Partial<Stilling>): Promise<Stilling> => {
-    const postUrl = `${stillingApi}/rekrutteringsbistand/api/v1/ads?classify=true`;
+export const postStilling = async (
+    stilling: Partial<Stilling>
+): Promise<Rekrutteringsbistandstilling> => {
+    const postUrl = `${stillingApi}/rekrutteringsbistandstilling?classify=true`;
 
     return await fetchPost(postUrl, stilling);
 };

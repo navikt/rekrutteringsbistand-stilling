@@ -398,12 +398,12 @@ function* createAd() {
             },
         };
 
-        const response = yield postStilling(stillingDto);
+        const response: Rekrutteringsbistandstilling = yield postStilling(stillingDto);
 
-        yield put({ type: SET_AD_DATA, data: response });
+        yield put({ type: SET_AD_DATA, data: response.stilling });
         yield put({ type: SET_REPORTEE, reportee: reportee.displayName });
         yield put({ type: SET_NAV_IDENT, navIdent: reportee.navIdent });
-        yield put({ type: CREATE_AD_SUCCESS, response });
+        yield put({ type: CREATE_AD_SUCCESS, response: response.stilling });
     } catch (e) {
         if (e instanceof ApiError) {
             yield put({ type: CREATE_AD_FAILURE, error: e });
@@ -586,10 +586,10 @@ function* copyAdFromMyAds(action) {
             },
         };
 
-        const response = yield postStilling(kopiertStilling);
+        const response: Rekrutteringsbistandstilling = yield postStilling(kopiertStilling);
 
         // Mark copied ad in myAds
-        yield put({ type: ADD_COPIED_ADS, adUuid: response.uuid });
+        yield put({ type: ADD_COPIED_ADS, adUuid: response.stilling.uuid });
         // Update list with the new ad
         yield put({ type: FETCH_MY_ADS });
     } catch (e) {
