@@ -36,7 +36,13 @@ import {
 } from '../stillingsinfo/stillingsinfoDataReducer';
 import { loggPubliseringAvStilling } from './adUtils';
 import { tagsInneholderInkluderingsmuligheter } from './tags/utils';
-import { AdminStatus, Kilde, Privacy, Rekrutteringsbistandstilling, System } from '../Stilling';
+import Stilling, {
+    AdminStatus,
+    Kilde,
+    Privacy,
+    Rekrutteringsbistandstilling,
+    System,
+} from '../Stilling';
 import { ApiError, fetchDelete, fetchPut } from '../api/apiUtils';
 
 export const FETCH_AD = 'FETCH_AD';
@@ -572,8 +578,8 @@ function* copyAdFromMyAds(action) {
         );
         const reportee = yield getReportee();
 
-        const kopiertStilling = {
-            ...adToCopy,
+        const kopiertStilling: Stilling = {
+            ...adToCopy.stilling,
             title: `Kopi - ${adToCopy.stilling.title}`,
             createdBy: System.Rekrutteringsbistand,
             updatedBy: System.Rekrutteringsbistand,
