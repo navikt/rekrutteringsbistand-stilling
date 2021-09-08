@@ -44,6 +44,7 @@ import Stilling, {
     System,
 } from '../Stilling';
 import { ApiError, fetchDelete, fetchPut } from '../api/apiUtils';
+import { string } from 'prop-types';
 
 export const FETCH_AD = 'FETCH_AD';
 export const FETCH_AD_BEGIN = 'FETCH_AD_BEGIN';
@@ -578,7 +579,7 @@ function* copyAdFromMyAds(action) {
         );
         const reportee = yield getReportee();
 
-        const kopiertStilling: Stilling = {
+        const kopiertStilling = {
             ...adToCopy.stilling,
             title: `Kopi - ${adToCopy.stilling.title}`,
             createdBy: System.Rekrutteringsbistand,
@@ -590,6 +591,15 @@ function* copyAdFromMyAds(action) {
                 reportee: reportee.displayName,
                 navIdent: reportee.navIdent,
             },
+            created: undefined,
+            expires: undefined,
+            id: undefined,
+            uuid: undefined,
+            updated: undefined,
+            status: undefined,
+            published: undefined,
+            publishedByAdmin: undefined,
+            reference: undefined,
         };
 
         const response: Rekrutteringsbistandstilling = yield postStilling(kopiertStilling);
