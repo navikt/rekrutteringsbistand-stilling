@@ -1,7 +1,7 @@
 import { KanInkludere } from './edit/registrer-inkluderingsmuligheter/DirektemeldtStilling';
 import deepEqual from 'deep-equal';
 import { put, select, takeLatest } from 'redux-saga/effects';
-import { hentRekrutteringsbistandstilling, postStilling } from '../api/api';
+import { hentRekrutteringsbistandstilling, kopierStilling, postStilling } from '../api/api';
 import { stillingApi } from '../api/api';
 import { getReportee } from '../reportee/reporteeReducer';
 import {
@@ -23,7 +23,6 @@ import {
     validateAll,
     validateBeforeSave,
 } from './adValidationReducer';
-import PrivacyStatusEnum from '../common/enums/PrivacyStatusEnum';
 import { showAlertStripe } from './alertstripe/SavedAdAlertStripeReducer';
 import AdAlertStripeEnum from './alertstripe/AdAlertStripeEnum';
 import { FETCH_MY_ADS } from '../myAds/myAdsReducer';
@@ -44,7 +43,6 @@ import Stilling, {
     System,
 } from '../Stilling';
 import { ApiError, fetchDelete, fetchPut } from '../api/apiUtils';
-import { string } from 'prop-types';
 
 export const FETCH_AD = 'FETCH_AD';
 export const FETCH_AD_BEGIN = 'FETCH_AD_BEGIN';
@@ -574,35 +572,7 @@ function* showDeleteModalMyAds(action) {
 
 function* copyAdFromMyAds(action) {
     try {
-        const adToCopy: Rekrutteringsbistandstilling = yield hentRekrutteringsbistandstilling(
-            action.uuid
-        );
-        const reportee = yield getReportee();
-
-        const kopiertStilling = {
-            ...adToCopy.stilling,
-            title: `Kopi - ${adToCopy.stilling.title}`,
-            createdBy: System.Rekrutteringsbistand,
-            updatedBy: System.Rekrutteringsbistand,
-            source: Kilde.Intern,
-            privacy: PrivacyStatusEnum.INTERNAL_NOT_SHOWN,
-            administration: {
-                status: AdminStatus.Pending,
-                reportee: reportee.displayName,
-                navIdent: reportee.navIdent,
-            },
-            created: undefined,
-            expires: undefined,
-            id: undefined,
-            uuid: undefined,
-            updated: undefined,
-            status: undefined,
-            published: undefined,
-            publishedByAdmin: undefined,
-            reference: undefined,
-        };
-
-        const response: Rekrutteringsbistandstilling = yield postStilling(kopiertStilling);
+        const response: Rekrutteringsbistandstilling = yield kopierStilling(action.uuid);
 
         // Mark copied ad in myAds
         yield put({ type: ADD_COPIED_ADS, adUuid: response.stilling.uuid });

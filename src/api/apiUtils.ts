@@ -21,7 +21,7 @@ export const fetchGet = async (url: string): Promise<any> => {
     });
 };
 
-export const fetchPost = async (url: string, body: object) => {
+export const fetchPost = async (url: string, body: object = {}) => {
     return request(url, {
         body: JSON.stringify(body),
         method: 'POST',
