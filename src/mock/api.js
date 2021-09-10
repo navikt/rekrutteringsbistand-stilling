@@ -4,7 +4,7 @@ import { kandidatApi } from '../ad/kandidatModal/kandidatApi';
 import fnrsok from './data/fnrsok';
 import kandidatliste from './data/kandidatliste';
 
-const putPostAds = require('./data/post-ads.json');
+const rekrutteringsbistandStilling = require('./data/post-ads.json');
 const reportee = require('./data/reportee.json');
 const ident = require('./data/ident.json');
 const mineStillinger = require('./data/minestillinger.json');
@@ -21,10 +21,13 @@ const aktivEnhet = require('./data/dekoratør/aktivenhet.json');
 const aktivBruker = require('./data/dekoratør/aktivbruker.json');
 const decorator = require('./data/dekoratør/decorator.json');
 
-const adsUrl = `${stillingApi}/rekrutteringsbistand/api/v1/ads`;
+const adsUrl = `express:${stillingApi}/rekrutteringsbistand/api/v1/ads`;
+const slettStillingUrl = `express:${stillingApi}/rekrutteringsbistand/api/v1/ads/:stillingsId`;
 const reporteeUrl = `${stillingApi}/rekrutteringsbistand/api/v1/reportee/`;
-const mineStillingerUrl = `${stillingApi}/mine-stillinger`;
+const mineStillingerUrl = `express:${stillingApi}/mine-stillinger`;
 const rekrutteringsbistandstillingUrl = `express:${stillingApi}/rekrutteringsbistandstilling/:stillingsId`;
+const opprettStillingUrl = `express:${stillingApi}/rekrutteringsbistandstilling`;
+const kopierStillingUrl = `express:${stillingApi}/rekrutteringsbistandstilling/kopier/:stillingsId`;
 const putRekrutteringsbistandstillingUrl = `express:${stillingApi}/rekrutteringsbistandstilling`;
 const countiesUrl = `${stillingApi}/rekrutteringsbistand/api/v1/geography/counties`;
 const countriesUrl = `${stillingApi}/rekrutteringsbistand/api/v1/geography/countries`;
@@ -35,9 +38,9 @@ const fnrsokUrl = `express:${kandidatApi}/veileder/kandidatsok/fnrsok`;
 const kandidatlisteUrl = `express:${kandidatApi}/veileder/stilling/:stillingsId/kandidatliste`;
 const leggKandidatIKandidatlisteUrl = `express:${kandidatApi}/veileder/kandidatlister/:kandidatlisteId/kandidater`;
 
-const identUrl = `${stillingApi}/rekruttering/ident/`;
-const featuresUrl = `${stillingApi}/features/`;
-const searchApiUrl = `${stillingApi}/search-api/`;
+const identUrl = `express:${stillingApi}/rekruttering/ident/:ident`;
+const featuresUrl = `express:${stillingApi}/features/`;
+const searchApiUrl = `express:${stillingApi}/search-api/underenhet/_search`;
 
 const modiacontextholderApiUrl = '/modiacontextholder/api';
 const modiacontextholderAktivEnhetUrl = `${modiacontextholderApiUrl}/context/aktivenhet`;
@@ -46,8 +49,6 @@ const modiacontextholderContextUrl = `${modiacontextholderApiUrl}/context`;
 const modiacontextholderDecoratorUrl = `${modiacontextholderApiUrl}/decorator`;
 
 fetchMock.config.fallbackToNetwork = true;
-
-const med = (begynnelseAvUrl) => (url) => url.startsWith(begynnelseAvUrl);
 
 const getStilling = (url) => {
     const stillingId = url.split('/').pop();
@@ -58,12 +59,13 @@ const getStilling = (url) => {
 };
 
 fetchMock
-    .get(med(mineStillingerUrl), mineStillinger)
-    .post(med(adsUrl), putPostAds)
-    .put(med(adsUrl), putPostAds)
-    .delete(med(adsUrl), putPostAds)
+    .get(mineStillingerUrl, mineStillinger)
+    .post(opprettStillingUrl, rekrutteringsbistandStilling)
+    .post(kopierStillingUrl, rekrutteringsbistandStilling)
+    .put(adsUrl, rekrutteringsbistandStilling)
+    .delete(slettStillingUrl, rekrutteringsbistandStilling)
     .get(reporteeUrl, reportee)
-    .get(med(identUrl), ident)
+    .get(identUrl, ident)
     .get(rekrutteringsbistandstillingUrl, getStilling)
     .put(putRekrutteringsbistandstillingUrl, eksternStilling)
     .get(countiesUrl, counties)
@@ -71,9 +73,9 @@ fetchMock
     .get(municipalsUrl, municipals)
     .get(categoriesWithAltnamesUrl, categoriesWithAltnames)
     .get(postdataUrl, postdata)
-    .get(med(searchApiUrl), search)
-    .post(med(searchApiUrl), search)
-    .get(med(featuresUrl), () => true)
+    .get(searchApiUrl, search)
+    .post(searchApiUrl, search)
+    .get(featuresUrl, () => true)
     .get(modiacontextholderAktivEnhetUrl, aktivEnhet)
     .get(modiacontextholderAktivBrukerUrl, aktivBruker)
     .get(modiacontextholderDecoratorUrl, decorator)

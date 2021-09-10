@@ -18,7 +18,7 @@ export type Side<T> = {
 export const postStilling = async (
     stilling: Partial<Stilling>
 ): Promise<Rekrutteringsbistandstilling> => {
-    const postUrl = `${stillingApi}/rekrutteringsbistandstilling?classify=true`;
+    const postUrl = `${stillingApi}/rekrutteringsbistandstilling`;
 
     return await fetchPost(postUrl, stilling);
 };
@@ -62,6 +62,12 @@ export const hentMineStillinger = async (
 export const hentStillingsinfoForStillingerSomEiesAvVeileder = async (
     navIdent: string
 ): Promise<Stillingsinfo> => fetchGet(`${stillingApi}/rekruttering/ident/${navIdent}`);
+
+export const kopierStilling = async (
+    stillingsId: string
+): Promise<Rekrutteringsbistandstilling> => {
+    return await fetchPost(`${stillingApi}/rekrutteringsbistandstilling/kopier/${stillingsId}`);
+};
 
 const employerNameCompletionQueryTemplate = (match: string) => ({
     query: {
