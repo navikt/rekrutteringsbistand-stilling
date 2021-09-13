@@ -121,8 +121,10 @@ function* saveStillingsinfo() {
 
         let response;
         if (state.stillingsinfoData.stillingsinfoid) {
+            console.log('saveStillingsinfo stillingsinfo finnes');
             response = yield fetchPut(`${stillingApi}/rekruttering`, state.stillingsinfoData);
         } else {
+            console.log('saveStillingsinfo stillingsinfo finnes ikke');
             response = yield fetchPost(
                 `${stillingApi}/rekruttering/kandidatliste`,
                 state.stillingsinfoData
@@ -148,6 +150,7 @@ function* updateStillingsinfo() {
         if (!state.stillingsinfoData.stillingsinfoid) {
             throw new Error('oppdaterer uten å ha id');
         }
+        console.log('updateStillingsinfo stillingsinfo finnes');
         const response = yield fetchPut(`${stillingApi}/rekruttering`, state.stillingsinfoData);
         yield put({ type: UPDATE_STILLINGSINFO_SUCCESS, response });
     } catch (e) {
