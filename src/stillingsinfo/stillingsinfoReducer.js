@@ -116,20 +116,17 @@ function* getStillingsinfo(action) {
 function* saveStillingsinfo() {
     let state = yield select();
     yield put({ type: SAVE_STILLINGSINFO_BEGIN });
+    if (state.stillingsinfoData.stillingsinfoid) {
+        throw new Error('Kan ikke opprette stillingsinfo når den allerede finnes');
+    }
     try {
-        state = yield select();
+        state = yield select(); // Hvorfor yield select to ganger?
 
-        let response;
-        if (state.stillingsinfoData.stillingsinfoid) {
-            console.log('saveStillingsinfo stillingsinfo finnes');
-            response = yield fetchPut(`${stillingApi}/rekruttering`, state.stillingsinfoData);
-        } else {
-            console.log('saveStillingsinfo stillingsinfo finnes ikke');
-            response = yield fetchPost(
-                `${stillingApi}/rekruttering/kandidatliste`,
-                state.stillingsinfoData
-            );
-        }
+        console.log('saveStillingsinfo stillingsinfo finnes ikke');
+        const response = yield fetchPost(
+            `${stillingApi}/rekruttering/kandidatliste`,
+            state.stillingsinfoData
+        );
 
         yield put({ type: SAVE_STILLINGSINFO_SUCCESS, response });
     } catch (e) {
