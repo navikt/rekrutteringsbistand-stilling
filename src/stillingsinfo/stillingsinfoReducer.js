@@ -123,7 +123,10 @@ function* saveStillingsinfo() {
         if (state.stillingsinfoData.stillingsinfoid) {
             response = yield fetchPut(`${stillingApi}/rekruttering`, state.stillingsinfoData);
         } else {
-            response = yield fetchPost(`${stillingApi}/rekruttering`, state.stillingsinfoData);
+            response = yield fetchPost(
+                `${stillingApi}/rekruttering/kandidatliste`,
+                state.stillingsinfoData
+            );
         }
 
         yield put({ type: SAVE_STILLINGSINFO_SUCCESS, response });
