@@ -77,7 +77,7 @@ export type OpprettKandidatlisteForEksternStillingDto = {
 
 export const opprettKandidatlisteForEksternStilling = async (
     dto: OpprettKandidatlisteForEksternStillingDto
-): Promise<Stillingsinfo> => await fetchPost(`${stillingApi}/rekruttering/kandidatliste`, dto);
+): Promise<Stillingsinfo> => await fetchPost(`${stillingApi}/rekruttering`, dto);
 
 const employerNameCompletionQueryTemplate = (match: string) => ({
     query: {
