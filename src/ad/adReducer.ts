@@ -27,7 +27,7 @@ import { showAlertStripe } from './alertstripe/SavedAdAlertStripeReducer';
 import AdAlertStripeEnum from './alertstripe/AdAlertStripeEnum';
 import { FETCH_MY_ADS } from '../myAds/myAdsReducer';
 import { loginWithRedirectToCurrentLocation } from '../login';
-import { SAVE_STILLINGSINFO, UPDATE_STILLINGSINFO } from '../stillingsinfo/stillingsinfoReducer';
+import { OPPRETT_STILLINGSINFO, UPDATE_STILLINGSINFO } from '../stillingsinfo/stillingsinfoReducer';
 import {
     SET_NAV_IDENT_STILLINGSINFO,
     SET_NOTAT,
@@ -591,7 +591,7 @@ function* leggTilIMineStillinger(action) {
 
     const { navIdent, displayName } = state.reportee.data;
     yield put({ type: SET_NAV_IDENT_STILLINGSINFO, navIdent, displayName });
-    yield put({ type: SAVE_STILLINGSINFO, uuid: action.uuid });
+    yield put({ type: OPPRETT_STILLINGSINFO, uuid: action.uuid });
 }
 
 function* markerEksternStillingSomMin(action) {

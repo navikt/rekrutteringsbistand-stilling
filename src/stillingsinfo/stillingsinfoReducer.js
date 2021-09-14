@@ -1,5 +1,5 @@
 import { put, select, takeLatest } from 'redux-saga/effects';
-import { stillingApi } from '../api/api';
+import { opprettKandidatlisteForEksternStilling, stillingApi } from '../api/api';
 import { ApiError, fetchPost, fetchPut } from '../api/apiUtils';
 
 import { SET_STILLINGSINFO_DATA } from './stillingsinfoDataReducer';
@@ -8,10 +8,10 @@ export const FETCH_STILLINGSINFO_BEGIN = 'FETCH_STILLINGSINFO_BEGIN';
 export const FETCH_STILLINGSINFO_SUCCESS = 'FETCH_STILLINGSINFO_SUCCESS';
 export const FETCH_STILLINGSINFO_FAILURE = 'FETCH_STILLINGSINFO_FAILURE';
 
-export const SAVE_STILLINGSINFO = 'SAVE_STILLINGSINFO';
-export const SAVE_STILLINGSINFO_BEGIN = 'SAVE_STILLINGSINFO_BEGIN';
-export const SAVE_STILLINGSINFO_SUCCESS = 'SAVE_STILLINGSINFO_SUCCESS';
-export const SAVE_STILLINGSINFO_FAILURE = 'SAVE_STILLINGSINFO_FAILURE';
+export const OPPRETT_STILLINGSINFO = 'OPPRETT_STILLINGSINFO';
+export const OPPRETT_STILLINGSINFO_BEGIN = 'OPPRETT_STILLINGSINFO_BEGIN';
+export const OPPRETT_STILLINGSINFO_SUCCESS = 'OPPRETT_STILLINGSINFO_SUCCESS';
+export const OPPRETT_STILLINGSINFO_FAILURE = 'OPPRETT_STILLINGSINFO_FAILURE';
 
 export const UPDATE_STILLINGSINFO = 'UPDATE__STILLINGSINFO';
 export const UPDATE_STILLINGSINFO_BEGIN = 'UPDATE__STILLINGSINFO_BEGIN';
@@ -47,14 +47,14 @@ export default function stillingsinfoReducer(state = initialState, action) {
                 error: action.error,
                 isLoadingStillingsinfo: false,
             };
-        case SAVE_STILLINGSINFO_BEGIN:
+        case OPPRETT_STILLINGSINFO_BEGIN:
         case UPDATE_STILLINGSINFO_BEGIN:
             return {
                 ...state,
                 isSavingStillingsinfo: true,
                 hasSavedStillingsinfo: false,
             };
-        case SAVE_STILLINGSINFO_FAILURE:
+        case OPPRETT_STILLINGSINFO_FAILURE:
         case UPDATE_STILLINGSINFO_FAILURE:
             return {
                 ...state,
@@ -62,7 +62,7 @@ export default function stillingsinfoReducer(state = initialState, action) {
                 error: action.error,
                 hasSavedStillingsinfo: false,
             };
-        case SAVE_STILLINGSINFO_SUCCESS:
+        case OPPRETT_STILLINGSINFO_SUCCESS:
             return {
                 ...state,
                 isSavingStillingsinfo: false,
@@ -113,25 +113,23 @@ function* getStillingsinfo(action) {
     }
 }
 
-function* saveStillingsinfo() {
-    let state = yield select();
-    yield put({ type: SAVE_STILLINGSINFO_BEGIN });
-    if (state.stillingsinfoData.stillingsinfoid) {
-        throw new Error('Kan ikke opprette stillingsinfo når den allerede finnes');
-    }
+function* opprettStillingsinfo() {
+    yield put({ type: OPPRETT_STILLINGSINFO_BEGIN });
+
     try {
-        state = yield select(); // Hvorfor yield select to ganger?
+        let state = yield select();
 
-        console.log('saveStillingsinfo stillingsinfo finnes ikke');
-        const response = yield fetchPost(
-            `${stillingApi}/rekruttering/kandidatliste`,
-            state.stillingsinfoData
-        );
+        const { stillingsid, eierNavident, eierNavn } = state.stillingsinfoData;
+        yield opprettKandidatlisteForEksternStilling({
+            stillingsid,
+            eierNavident,
+            eierNavn,
+        });
 
-        yield put({ type: SAVE_STILLINGSINFO_SUCCESS, response });
+        yield put({ type: OPPRETT_STILLINGSINFO_SUCCESS, response });
     } catch (e) {
         if (e instanceof ApiError) {
-            yield put({ type: SAVE_STILLINGSINFO_FAILURE, error: e });
+            yield put({ type: OPPRETT_STILLINGSINFO_FAILURE, error: e });
         } else {
             throw e;
         }
@@ -161,6 +159,6 @@ function* updateStillingsinfo() {
 
 export const stillingsinfoSaga = function* saga() {
     yield takeLatest(FETCH_STILLINGSINFO, getStillingsinfo);
-    yield takeLatest(SAVE_STILLINGSINFO, saveStillingsinfo);
+    yield takeLatest(OPPRETT_STILLINGSINFO, opprettStillingsinfo);
     yield takeLatest(UPDATE_STILLINGSINFO, updateStillingsinfo);
 };
