@@ -120,7 +120,7 @@ function* opprettStillingsinfo() {
         let state = yield select();
 
         const { stillingsid, eierNavident, eierNavn } = state.stillingsinfoData;
-        yield opprettKandidatlisteForEksternStilling({
+        const response = yield opprettKandidatlisteForEksternStilling({
             stillingsid,
             eierNavident,
             eierNavn,
