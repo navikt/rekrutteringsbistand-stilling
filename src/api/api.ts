@@ -69,6 +69,16 @@ export const kopierStilling = async (
     return await fetchPost(`${stillingApi}/rekrutteringsbistandstilling/kopier/${stillingsId}`);
 };
 
+export type OpprettKandidatlisteForEksternStillingDto = {
+    stillingsid: string;
+    eierNavident: string;
+    eierNavn: string;
+};
+
+export const opprettKandidatlisteForEksternStilling = async (
+    dto: OpprettKandidatlisteForEksternStillingDto
+): Promise<Stillingsinfo> => await fetchPost(`${stillingApi}/rekruttering`, dto);
+
 const employerNameCompletionQueryTemplate = (match: string) => ({
     query: {
         match_phrase: {
