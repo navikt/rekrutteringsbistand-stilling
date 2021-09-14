@@ -137,16 +137,18 @@ function* opprettStillingsinfo() {
 }
 
 function* updateStillingsinfo() {
-    let state = yield select();
     yield put({ type: UPDATE_STILLINGSINFO_BEGIN });
-    try {
-        state = yield select();
 
-        if (!state.stillingsinfoData.stillingsinfoid) {
-            throw new Error('oppdaterer uten å ha id');
-        }
-        console.log('updateStillingsinfo stillingsinfo finnes');
-        const response = yield fetchPut(`${stillingApi}/rekruttering`, state.stillingsinfoData);
+    try {
+        let state = yield select();
+
+        const { stillingsid, eierNavident, eierNavn } = state.stillingsinfoData;
+        const response = yield opprettKandidatlisteForEksternStilling({
+            stillingsid,
+            eierNavident,
+            eierNavn,
+        });
+
         yield put({ type: UPDATE_STILLINGSINFO_SUCCESS, response });
     } catch (e) {
         if (e instanceof ApiError) {
