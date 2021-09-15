@@ -1,6 +1,6 @@
 FROM navikt/node-express:12.2.0-alpine
 
-WORKDIR /usr/src/app
+WORKDIR /var/src/app
 
 COPY build/ build/
 COPY server/ ./

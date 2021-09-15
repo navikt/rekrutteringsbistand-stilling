@@ -29,8 +29,6 @@ spec:
         requests:
             cpu: 200m
             memory: 128Mi
-    securityContext:
-        readOnlyRootFilesystem: false
     ingresses:
         - https://rekrutteringsbistand.nais.adeo.no/rekrutteringsbistand-stilling
     env:
