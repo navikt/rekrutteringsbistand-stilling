@@ -61,7 +61,7 @@ export const hentMineStillinger = async (
 
 export const hentStillingsinfoForStillingerSomEiesAvVeileder = async (
     navIdent: string
-): Promise<Stillingsinfo> => fetchGet(`${stillingApi}/rekruttering/ident/${navIdent}`);
+): Promise<Stillingsinfo> => fetchGet(`${stillingApi}/stillingsinfo/ident/${navIdent}`);
 
 export const kopierStilling = async (
     stillingsId: string
@@ -77,7 +77,7 @@ export type OpprettKandidatlisteForEksternStillingDto = {
 
 export const opprettKandidatlisteForEksternStilling = async (
     dto: OpprettKandidatlisteForEksternStillingDto
-): Promise<Stillingsinfo> => await fetchPut(`${stillingApi}/rekruttering`, dto);
+): Promise<Stillingsinfo> => await fetchPut(`${stillingApi}/stillingsinfo`, dto);
 
 const employerNameCompletionQueryTemplate = (match: string) => ({
     query: {
