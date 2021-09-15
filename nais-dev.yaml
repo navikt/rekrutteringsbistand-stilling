@@ -5,6 +5,8 @@ metadata:
     namespace: default
     labels:
         team: arbeidsgiver
+    annotations:
+        nais.io/read-only-file-system: 'false'
 spec:
     # prettier-ignore
     image: {{ image }}
