@@ -1,6 +1,6 @@
 FROM navikt/node-express:12.2.0-alpine
 
-WORKDIR /tmp/src/app
+WORKDIR /tmp
 
 COPY build/ build/
 COPY server/ ./
@@ -10,3 +10,5 @@ RUN npm ci
 EXPOSE 8080
 
 CMD ["node", "server.js"]
+
+
