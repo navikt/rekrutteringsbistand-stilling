@@ -600,7 +600,6 @@ function* markerEksternStillingSomMin(action) {
     const { navIdent, displayName } = state.reportee.data;
     yield put({ type: SET_NAV_IDENT_STILLINGSINFO, navIdent, displayName });
     yield put({ type: UPDATE_STILLINGSINFO, uuid: action.uuid });
-    yield put({ type: SAVE_AD, showModal: false });
 }
 
 function* markerInternStillingSomMin(action) {

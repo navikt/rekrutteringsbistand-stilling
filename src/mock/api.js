@@ -38,7 +38,7 @@ const fnrsokUrl = `express:${kandidatApi}/veileder/kandidatsok/fnrsok`;
 const kandidatlisteUrl = `express:${kandidatApi}/veileder/stilling/:stillingsId/kandidatliste`;
 const leggKandidatIKandidatlisteUrl = `express:${kandidatApi}/veileder/kandidatlister/:kandidatlisteId/kandidater`;
 
-const identUrl = `express:${stillingApi}/rekruttering/ident/:ident`;
+const identUrl = `express:${stillingApi}/stillingsinfo/ident/:ident`;
 const featuresUrl = `express:${stillingApi}/features/`;
 const searchApiUrl = `express:${stillingApi}/search-api/underenhet/_search`;
 
