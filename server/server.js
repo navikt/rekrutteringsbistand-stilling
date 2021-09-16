@@ -7,16 +7,9 @@ const app = express();
 const port = process.env.PORT || 8080;
 
 const envPath = 'static/js/env.js';
-
-const writeEnvironmentVariablesToFile = () => {
-    const fileContent =
-        `window.STILLING_LOGIN_URL="${process.env.LOGIN_URL}";\n` +
-        `window.STILLING_VIS_STILLING_URL="${process.env.VIS_STILLING_URL}";\n`;
-
-    fs.writeFile(path.resolve(__dirname, `build/${envPath}`), fileContent, (err) => {
-        if (err) throw err;
-    });
-};
+const envFile =
+    `window.STILLING_LOGIN_URL="${process.env.LOGIN_URL}";\n` +
+    `window.STILLING_VIS_STILLING_URL="${process.env.VIS_STILLING_URL}";\n`;
 
 const basePath = '/rekrutteringsbistand-stilling';
 const buildPath = path.join(__dirname, 'build');
@@ -45,11 +38,13 @@ const manifestMedEnvpath = () => {
 const manifest = manifestMedEnvpath();
 
 const startServer = () => {
-    writeEnvironmentVariablesToFile();
-
     app.use(setupProxy(`${basePath}/stilling-api`, process.env.STILLING_API_URL));
     app.use(setupProxy(`${basePath}/kandidat-api`, process.env.KANDIDAT_API_URL));
     app.use(setupProxy(`${basePath}/stillingssok-proxy`, process.env.STILLINGSOK_PROXY_URL));
+
+    app.get(`${basePath}/${envPath}`, (req, res) => {
+        res.type('application/javascript').send(envFile);
+    });
 
     app.use(`${basePath}/static`, express.static(buildPath + '/static'));
 
