@@ -3,6 +3,8 @@ import { opprettKandidatlisteForEksternStilling, stillingApi } from '../api/api'
 import { ApiError, fetchPost, fetchPut } from '../api/apiUtils';
 
 import { SET_STILLINGSINFO_DATA } from './stillingsinfoDataReducer';
+import { FETCH_AD } from '../ad/adReducer';
+
 export const FETCH_STILLINGSINFO = 'FETCH_STILLINGSINFO';
 export const FETCH_STILLINGSINFO_BEGIN = 'FETCH_STILLINGSINFO_BEGIN';
 export const FETCH_STILLINGSINFO_SUCCESS = 'FETCH_STILLINGSINFO_SUCCESS';
@@ -127,6 +129,9 @@ function* opprettStillingsinfo() {
         });
 
         yield put({ type: OPPRETT_STILLINGSINFO_SUCCESS, response });
+
+        // Stillingen blir oppdatert når stillingsinfo blir oppdatert, så hent oppdatert stilling
+        yield put({ type: FETCH_AD });
     } catch (e) {
         if (e instanceof ApiError) {
             yield put({ type: OPPRETT_STILLINGSINFO_FAILURE, error: e });
@@ -150,6 +155,9 @@ function* updateStillingsinfo() {
         });
 
         yield put({ type: UPDATE_STILLINGSINFO_SUCCESS, response });
+
+        // Stillingen blir oppdatert når stillingsinfo blir oppdatert, så hent oppdatert stilling
+        yield put({ type: FETCH_AD });
     } catch (e) {
         if (e instanceof ApiError) {
             yield put({ type: UPDATE_STILLINGSINFO_FAILURE, error: e });
