@@ -131,7 +131,7 @@ function* opprettStillingsinfo() {
         yield put({ type: OPPRETT_STILLINGSINFO_SUCCESS, response });
 
         // Stillingen blir oppdatert når stillingsinfo blir oppdatert, så hent oppdatert stilling
-        yield put({ type: FETCH_AD });
+        yield put({ type: FETCH_AD, uuid: stillingsid });
     } catch (e) {
         if (e instanceof ApiError) {
             yield put({ type: OPPRETT_STILLINGSINFO_FAILURE, error: e });
@@ -157,7 +157,7 @@ function* updateStillingsinfo() {
         yield put({ type: UPDATE_STILLINGSINFO_SUCCESS, response });
 
         // Stillingen blir oppdatert når stillingsinfo blir oppdatert, så hent oppdatert stilling
-        yield put({ type: FETCH_AD });
+        yield put({ type: FETCH_AD, uuid: stillingsid });
     } catch (e) {
         if (e instanceof ApiError) {
             yield put({ type: UPDATE_STILLINGSINFO_FAILURE, error: e });
