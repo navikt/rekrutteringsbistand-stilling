@@ -7,6 +7,7 @@ import { CREATE_AD } from '../ad/adReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import State from '../State';
 import { useHistory } from 'react-router';
+import { REDIGERINGSMODUS_QUERY_PARAM } from '../ad/Ad';
 
 export enum Stillingskategori {
     Stilling = 'STILLING',
@@ -26,6 +27,7 @@ const OpprettNyStilling: FunctionComponent = () => {
         if (hasSavedChanges === true && stilling) {
             history.replace({
                 pathname: `/stillinger/stilling/${stilling.uuid}`,
+                search: `${REDIGERINGSMODUS_QUERY_PARAM}=true`,
             });
         }
     }, [hasSavedChanges, stilling]);
