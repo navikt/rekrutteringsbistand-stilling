@@ -43,6 +43,8 @@ import Stilling, {
     System,
 } from '../Stilling';
 import { ApiError, fetchDelete, fetchPut } from '../api/apiUtils';
+import { Stillingskategori } from '../opprett-ny-stilling/OpprettNyStilling';
+import { Action } from 'redux';
 
 export const FETCH_AD = 'FETCH_AD';
 export const FETCH_AD_BEGIN = 'FETCH_AD_BEGIN';
@@ -117,7 +119,7 @@ export type AdState = {
     isSavingAd: boolean;
     isLoadingAd: boolean;
     isEditingAd: boolean;
-    originalData: any;
+    originalData?: Stilling;
     hasSavedChanges: boolean;
     hasChanges: boolean;
     copiedAds: any[];
@@ -383,7 +385,7 @@ function needClassify(originalAdData, adData) {
     return !deepEqual(originalAdData.categoryList, adData.categoryList);
 }
 
-function* createAd() {
+function* createAd(action) {
     yield put({ type: CREATE_AD_BEGIN });
     yield put({ type: SET_NOTAT, notat: undefined });
 
@@ -403,7 +405,10 @@ function* createAd() {
             },
         };
 
-        const response: Rekrutteringsbistandstilling = yield postStilling(stillingDto);
+        const response: Rekrutteringsbistandstilling = yield postStilling(
+            stillingDto,
+            action.kategori
+        );
 
         yield put({ type: SET_AD_DATA, data: response.stilling });
         yield put({ type: SET_REPORTEE, reportee: reportee.displayName });

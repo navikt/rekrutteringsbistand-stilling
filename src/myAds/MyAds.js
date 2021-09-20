@@ -52,8 +52,7 @@ const MyAds = (props) => {
 
     const onCreateAd = () => {
         history.push({
-            pathname: '/stillinger/stilling',
-            state: { isNew: true },
+            pathname: '/stillinger/opprett-ny-stilling',
         });
     };
 

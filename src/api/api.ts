@@ -1,4 +1,5 @@
 import toUrl from '../common/toUrl';
+import { Stillingskategori } from '../opprett-ny-stilling/OpprettNyStilling';
 import Stilling, { AdminStatus, Rekrutteringsbistandstilling, Stillingsinfo } from '../Stilling';
 import { fetchGet, fetchPost, fetchPut } from './apiUtils';
 
@@ -16,11 +17,15 @@ export type Side<T> = {
 };
 
 export const postStilling = async (
-    stilling: Partial<Stilling>
+    stilling: Partial<Stilling>,
+    kategori: Stillingskategori
 ): Promise<Rekrutteringsbistandstilling> => {
     const postUrl = `${stillingApi}/rekrutteringsbistandstilling`;
 
-    return await fetchPost(postUrl, stilling);
+    return await fetchPost(postUrl, {
+        stilling,
+        kategori,
+    });
 };
 
 export const hentRekrutteringsbistandstilling = async (
