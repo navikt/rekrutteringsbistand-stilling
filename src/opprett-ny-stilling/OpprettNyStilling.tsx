@@ -15,7 +15,11 @@ export enum Stillingskategori {
     Formidling = 'FORMIDLING',
 }
 
-const OpprettNyStilling: FunctionComponent = () => {
+type Props = {
+    onClose: () => void;
+};
+
+const OpprettNyStilling: FunctionComponent<Props> = ({ onClose }) => {
     const dispatch = useDispatch();
     const history = useHistory();
     const { hasSavedChanges } = useSelector((state: State) => state.ad);
@@ -46,9 +50,7 @@ const OpprettNyStilling: FunctionComponent = () => {
     return (
         <ModalMedStillingScope
             isOpen
-            closeButton={false}
-            onRequestClose={() => {}}
-            shouldCloseOnEsc={false}
+            onRequestClose={onClose}
             contentLabel="Opprett ny stilling, velg kategori"
         >
             <Systemtittel className="blokk-s">Opprett ny stilling</Systemtittel>

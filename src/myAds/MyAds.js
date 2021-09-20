@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import AlertStripe from 'nav-frontend-alertstriper';
@@ -18,6 +18,7 @@ import './MyAds.less';
 import DeleteAdModal from '../ad/administration/adStatus/DeleteAdModal';
 import { useEffect } from 'react';
 import Filter from './filter/Filter';
+import OpprettNyStilling from '../opprett-ny-stilling/OpprettNyStilling';
 
 const MyAds = (props) => {
     const {
@@ -31,6 +32,8 @@ const MyAds = (props) => {
         history,
     } = props;
     const adsFound = !isSearching && ads && ads.length > 0;
+
+    const [visOpprettStillingModal, setVisOpprettStillingModal] = useState(false);
 
     const onMount = () => {
         if (history.action === 'PUSH') {
@@ -51,9 +54,7 @@ const MyAds = (props) => {
     }, []);
 
     const onCreateAd = () => {
-        history.push({
-            pathname: '/stillinger/opprett-ny-stilling',
-        });
+        setVisOpprettStillingModal(true);
     };
 
     return (
@@ -100,6 +101,9 @@ const MyAds = (props) => {
                     {adsFound && <Pagination />}
                 </div>
             </div>
+            {visOpprettStillingModal && (
+                <OpprettNyStilling onClose={() => setVisOpprettStillingModal(false)} />
+            )}
         </div>
     );
 };
