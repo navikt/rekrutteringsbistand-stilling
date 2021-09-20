@@ -19,6 +19,8 @@ import DeleteAdModal from '../ad/administration/adStatus/DeleteAdModal';
 import { useEffect } from 'react';
 import Filter from './filter/Filter';
 import OpprettNyStilling from '../opprett-ny-stilling/OpprettNyStilling';
+import { useLocation } from 'react-router';
+import queryString from 'query-string';
 
 const MyAds = (props) => {
     const {
@@ -31,9 +33,19 @@ const MyAds = (props) => {
         reportee,
         history,
     } = props;
-    const adsFound = !isSearching && ads && ads.length > 0;
 
-    const [visOpprettStillingModal, setVisOpprettStillingModal] = useState(false);
+    const { search } = useLocation();
+
+    const skalViseOpprettStillingModal = () => {
+        const queryStringValues = queryString.parse(search);
+        return queryStringValues.visOpprettStillingModal;
+    };
+
+    const [visOpprettStillingModal, setVisOpprettStillingModal] = useState(
+        skalViseOpprettStillingModal()
+    );
+
+    const adsFound = !isSearching && ads && ads.length > 0;
 
     const onMount = () => {
         if (history.action === 'PUSH') {
@@ -49,7 +61,10 @@ const MyAds = (props) => {
 
     useEffect(() => {
         onMount();
+        //visOpprettStillingDersomQueryparamErSatt();
+
         return onDismount;
+
         // eslint-disable-next-line
     }, []);
 
