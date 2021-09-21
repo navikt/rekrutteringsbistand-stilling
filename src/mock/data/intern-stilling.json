@@ -4,7 +4,8 @@
         "stillingsinfoid": "8e74803e-6973-4115-befe-6ee1e0f28533",
         "notat": "Testnotat for tøysekopper.",
         "eierNavident": null,
-        "eierNavn": null
+        "eierNavn": null,
+        "stillingskategori": "STILLING"
     },
     "stilling": {
         "id": 298123,

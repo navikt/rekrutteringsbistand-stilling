@@ -2,7 +2,7 @@ import React, { FunctionComponent, useEffect, useState } from 'react';
 import { Element, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import ModalMedStillingScope from '../ModalMedStillingScope';
 import { Radio, RadioGruppe } from 'nav-frontend-skjema';
-import { Hovedknapp } from 'nav-frontend-knapper';
+import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import { CREATE_AD } from '../ad/adReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import State from '../State';
@@ -78,6 +78,7 @@ const OpprettNyStilling: FunctionComponent<Props> = ({ onClose }) => {
                 ))}
             </RadioGruppe>
             <Hovedknapp onClick={onOpprettClick}>Opprett</Hovedknapp>
+            <Knapp onClick={onClose}>Avbryt</Knapp>
         </ModalMedStillingScope>
     );
 };
