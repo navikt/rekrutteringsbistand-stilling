@@ -31,11 +31,9 @@ const AdministrationPreview: FunctionComponent<Props> = ({ source, createdBy, ed
                     <div className="Administration__preview-panel">
                         <Publishing />
                     </div>
-                    {erDirektemeldtStilling(source) && (
-                        <div className="Administration__preview-panel">
-                            <Kategori />
-                        </div>
-                    )}
+                    <div className="Administration__preview-panel">
+                        <Kategori />
+                    </div>
                     <div className="Administration__preview-panel">
                         <ContactInfo />
                     </div>
