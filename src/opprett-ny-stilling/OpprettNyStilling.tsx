@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import ModalMedStillingScope from '../ModalMedStillingScope';
 import State from '../State';
 import './OpprettNyStilling.less';
-import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 
 export enum Stillingskategori {
     Stilling = 'STILLING',
@@ -57,11 +56,6 @@ const OpprettNyStilling: FunctionComponent<Props> = ({ onClose }) => {
             className="opprett-ny-stilling"
         >
             <Systemtittel className="blokk-m">Opprett ny stilling</Systemtittel>
-            <AlertStripeAdvarsel className="blokk-m">
-                NAV har kun lov til å bruke Rekrutteringsbistand til en konkret stilling.
-                <br />
-                Derfor kan du ikke registere arrangement, webinar, jobbtreff og lignende her.
-            </AlertStripeAdvarsel>
             <RadioGruppe
                 className="blokk-m"
                 legend={
