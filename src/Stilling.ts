@@ -1,3 +1,5 @@
+import { Stillingskategori } from './opprett-ny-stilling/OpprettNyStilling';
+
 export type Rekrutteringsbistandstilling = {
     stilling: Stilling;
     stillingsinfo: Stillingsinfo | null;
@@ -61,6 +63,7 @@ export type Stillingsinfo = {
     notat: string | null;
     stillingsid: string;
     stillingsinfoid: string;
+    stillingskategori: Stillingskategori | null;
 };
 
 export type Arbeidsgiver = {

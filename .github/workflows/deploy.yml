@@ -41,7 +41,7 @@ jobs:
     deploy-til-dev:
         name: Deploy til dev
         needs: bygg-og-push-docker-image
-        if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/serve-env-fra-ram'
+        if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/opprett-ny-stilling-med-kategori'
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v1

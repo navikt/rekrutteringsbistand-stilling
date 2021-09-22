@@ -10,6 +10,7 @@ import Notat from './notat/Notat';
 
 import './AdministrationPreview.less';
 import { erDirektemeldtStilling } from '../../adUtils';
+import Kategori from './kategori/Kategori';
 
 type Props = {
     source: string;
@@ -29,6 +30,9 @@ const AdministrationPreview: FunctionComponent<Props> = ({ source, createdBy, ed
                 <div className="Administration__flex__center">
                     <div className="Administration__preview-panel">
                         <Publishing />
+                    </div>
+                    <div className="Administration__preview-panel">
+                        <Kategori />
                     </div>
                     <div className="Administration__preview-panel">
                         <ContactInfo />

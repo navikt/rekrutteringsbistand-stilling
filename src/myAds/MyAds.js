@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { useLocation } from 'react-router';
 import PropTypes from 'prop-types';
 import AlertStripe from 'nav-frontend-alertstriper';
 import { Container } from 'nav-frontend-grid';
@@ -14,10 +15,10 @@ import StopAdModal from '../ad/administration/adStatus/StopAdModal';
 import Count from './result/Count';
 import { FETCH_MY_ADS, RESET_MY_ADS_PAGE } from './myAdsReducer';
 import { CLEAR_COPIED_ADS, CREATE_AD } from '../ad/adReducer';
-import './MyAds.less';
 import DeleteAdModal from '../ad/administration/adStatus/DeleteAdModal';
-import { useEffect } from 'react';
 import Filter from './filter/Filter';
+import OpprettNyStilling from '../opprett-ny-stilling/OpprettNyStilling';
+import './MyAds.less';
 
 const MyAds = (props) => {
     const {
@@ -30,31 +31,38 @@ const MyAds = (props) => {
         reportee,
         history,
     } = props;
+
+    const { search } = useLocation();
+
+    const skalViseOpprettStillingModal = () => {
+        const queryParams = new URLSearchParams(search);
+        return queryParams.has('visOpprettStillingModal');
+    };
+
+    const [visOpprettStillingModal, setVisOpprettStillingModal] = useState(
+        skalViseOpprettStillingModal()
+    );
+
     const adsFound = !isSearching && ads && ads.length > 0;
 
-    const onMount = () => {
+    useEffect(() => {
         if (history.action === 'PUSH') {
             resetMyAdsPage();
         }
 
         getAds();
-    };
 
-    const onDismount = () => {
-        clearCopiedAds();
-    };
-
-    useEffect(() => {
-        onMount();
-        return onDismount;
-        // eslint-disable-next-line
+        return () => {
+            clearCopiedAds();
+        };
     }, []);
 
-    const onCreateAd = () => {
-        history.push({
-            pathname: '/stillinger/stilling',
-            state: { isNew: true },
-        });
+    const onOpprettNyClick = () => {
+        setVisOpprettStillingModal(true);
+    };
+
+    const onOpprettNyStillingClose = () => {
+        setVisOpprettStillingModal(false);
     };
 
     return (
@@ -62,7 +70,7 @@ const MyAds = (props) => {
             <div className="MyAds__header">
                 <Container className="MyAds__header-container">
                     <Sidetittel className="MyAds__header__title">Mine stillinger</Sidetittel>
-                    <Hovedknapp onClick={onCreateAd} className="MyAds__header__button">
+                    <Hovedknapp onClick={onOpprettNyClick} className="MyAds__header__button">
                         Opprett ny
                     </Hovedknapp>
                 </Container>
@@ -101,6 +109,7 @@ const MyAds = (props) => {
                     {adsFound && <Pagination />}
                 </div>
             </div>
+            {visOpprettStillingModal && <OpprettNyStilling onClose={onOpprettNyStillingClose} />}
         </div>
     );
 };

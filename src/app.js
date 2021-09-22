@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import Modal from 'react-modal';
 import { applyMiddleware, createStore, combineReducers, compose } from 'redux';
 import { Provider, useDispatch } from 'react-redux';
 import { Router, Route, Switch } from 'react-router-dom';
@@ -28,7 +29,6 @@ import stillingsinfoDataReducer from './stillingsinfo/stillingsinfoDataReducer';
 import stillingsinfoReducer, { stillingsinfoSaga } from './stillingsinfo/stillingsinfoReducer';
 import styrkReducer, { styrkSaga } from './ad/edit/jobDetails/styrk/styrkReducer';
 import useLoggNavigering from './useLoggNavigering';
-import Modal from 'react-modal';
 
 Sentry.init({
     dsn: 'https://34e485d3fd9945e29d5f66f11a29f84e@sentry.gc.nav.no/43',
@@ -94,7 +94,6 @@ const App = () => {
         <main>
             <Switch>
                 <Route exact path="/stillinger/minestillinger" component={MyAds} />
-                <Route exact path="/stillinger/stilling" component={Ad} />
                 <Route exact path="/stillinger/stilling/:uuid" component={Ad} />
             </Switch>
         </main>
