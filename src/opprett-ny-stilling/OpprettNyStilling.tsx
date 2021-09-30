@@ -16,6 +16,8 @@ export enum Stillingskategori {
     Formidling = 'FORMIDLING',
 }
 
+const stillingskategoriSomIkkeLengerKanVelges = Stillingskategori.Arbeidstrening
+
 type Props = {
     onClose: () => void;
 };
@@ -67,7 +69,11 @@ const OpprettNyStilling: FunctionComponent<Props> = ({ onClose }) => {
                     </>
                 }
             >
-                {Object.entries(Stillingskategori).map(([kategori, verdi]) => (
+                {Object.entries(Stillingskategori)
+                    .filter(([, verdi]) => (
+                        verdi !== stillingskategoriSomIkkeLengerKanVelges
+                    ))
+                    .map(([kategori, verdi]) => (
                     <Radio
                         key={verdi}
                         className="opprett-ny-stilling--kategori"
