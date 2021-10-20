@@ -1,12 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { element } from 'prop-types';
 import { Textarea } from 'nav-frontend-skjema';
 import { connect } from 'react-redux';
 import { SET_NOTAT } from '../../../stillingsinfo/stillingsinfoDataReducer';
 import { MAX_LENGTH_NOTAT } from '../../adValidationReducer';
 import './Notat.less';
 import Skjemalabel from '../../edit/skjemaetikett/Skjemalabel';
-import { Undertittel } from 'nav-frontend-typografi';
+import { Undertittel, Element } from 'nav-frontend-typografi';
 
 class Notat extends React.Component {
     constructor(props) {
@@ -47,7 +47,9 @@ class Notat extends React.Component {
         return (
             <div className="Notat">
                 <Skjemalabel>
-                    <Undertittel>Notater (vises kun internt)</Undertittel>
+                    <Undertittel className="blokk-xs">Notater</Undertittel>
+                    <Element>Notat, vises kun internt</Element>
+                    <Element>Ikke skriv personopplysninger her</Element>
                 </Skjemalabel>
                 <Textarea
                     maxLength={MAX_LENGTH_NOTAT}
