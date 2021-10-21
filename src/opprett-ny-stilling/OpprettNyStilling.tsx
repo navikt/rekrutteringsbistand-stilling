@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ModalMedStillingScope from '../ModalMedStillingScope';
 import State from '../State';
 import './OpprettNyStilling.less';
+import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 
 export enum Stillingskategori {
     Stilling = 'STILLING',
@@ -16,7 +17,7 @@ export enum Stillingskategori {
     Formidling = 'FORMIDLING',
 }
 
-const stillingskategoriSomIkkeLengerKanVelges = Stillingskategori.Arbeidstrening
+const stillingskategoriSomIkkeLengerKanVelges = Stillingskategori.Arbeidstrening;
 
 type Props = {
     onClose: () => void;
@@ -58,6 +59,12 @@ const OpprettNyStilling: FunctionComponent<Props> = ({ onClose }) => {
             className="opprett-ny-stilling"
         >
             <Systemtittel className="blokk-m">Opprett ny stilling</Systemtittel>
+            <AlertStripeAdvarsel className="blokk-m">
+                NAV har på nåværende tidspunkt kun lov til å bruke Rekrutteringsbistand til en
+                konkret stilling. Derfor kan du ikke registrere arrangement, jobbmesser, NAV-kurs,
+                webinar, arbeidstrening og lignende. Det pågår et arbeid med å avklare disse
+                kategoriene.
+            </AlertStripeAdvarsel>
             <RadioGruppe
                 className="blokk-m"
                 legend={
@@ -70,22 +77,20 @@ const OpprettNyStilling: FunctionComponent<Props> = ({ onClose }) => {
                 }
             >
                 {Object.entries(Stillingskategori)
-                    .filter(([, verdi]) => (
-                        verdi !== stillingskategoriSomIkkeLengerKanVelges
-                    ))
+                    .filter(([, verdi]) => verdi !== stillingskategoriSomIkkeLengerKanVelges)
                     .map(([kategori, verdi]) => (
-                    <Radio
-                        key={verdi}
-                        className="opprett-ny-stilling--kategori"
-                        name="stillingskategori"
-                        onChange={(event) =>
-                            setStillingskategori(event.target.value as Stillingskategori)
-                        }
-                        checked={stillingskategori === verdi}
-                        label={kategori}
-                        value={verdi}
-                    />
-                ))}
+                        <Radio
+                            key={verdi}
+                            className="opprett-ny-stilling--kategori"
+                            name="stillingskategori"
+                            onChange={(event) =>
+                                setStillingskategori(event.target.value as Stillingskategori)
+                            }
+                            checked={stillingskategori === verdi}
+                            label={kategori}
+                            value={verdi}
+                        />
+                    ))}
             </RadioGruppe>
             <Hovedknapp onClick={onOpprettClick} className="opprett-ny-stilling--opprett-knapp">
                 Opprett
