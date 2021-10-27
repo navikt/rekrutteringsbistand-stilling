@@ -8,7 +8,6 @@ const rekrutteringsbistandStilling = require('./data/post-ads.json');
 const reportee = require('./data/reportee.json');
 const ident = require('./data/ident.json');
 const mineStillinger = require('./data/minestillinger.json');
-const stilling = require('./data/stilling.json');
 const eksternStilling = require('./data/ekstern-stilling.json');
 const internStilling = require('./data/intern-stilling.json');
 const counties = require('./data/counties.json');

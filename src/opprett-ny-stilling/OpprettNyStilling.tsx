@@ -8,8 +8,8 @@ import { REDIGERINGSMODUS_QUERY_PARAM } from '../ad/Ad';
 import { useDispatch, useSelector } from 'react-redux';
 import ModalMedStillingScope from '../ModalMedStillingScope';
 import State from '../State';
-import './OpprettNyStilling.less';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
+import './OpprettNyStilling.less';
 
 export enum Stillingskategori {
     Stilling = 'STILLING',
@@ -38,6 +38,7 @@ const OpprettNyStilling: FunctionComponent<Props> = ({ onClose }) => {
                 search: `${REDIGERINGSMODUS_QUERY_PARAM}=true`,
             });
         }
+        // eslint-disable-next-line
     }, [hasSavedChanges, stilling]);
 
     const onOpprettClick = () => {

@@ -1,6 +1,6 @@
 import { put, select, takeLatest } from 'redux-saga/effects';
-import { opprettKandidatlisteForEksternStilling, stillingApi } from '../api/api';
-import { ApiError, fetchPost, fetchPut } from '../api/apiUtils';
+import { opprettKandidatlisteForEksternStilling } from '../api/api';
+import { ApiError } from '../api/apiUtils';
 
 import { SET_STILLINGSINFO_DATA } from './stillingsinfoDataReducer';
 import { FETCH_AD } from '../ad/adReducer';

@@ -43,8 +43,6 @@ import Stilling, {
     System,
 } from '../Stilling';
 import { ApiError, fetchDelete, fetchPut } from '../api/apiUtils';
-import { Stillingskategori } from '../opprett-ny-stilling/OpprettNyStilling';
-import { Action } from 'redux';
 
 export const FETCH_AD = 'FETCH_AD';
 export const FETCH_AD_BEGIN = 'FETCH_AD_BEGIN';

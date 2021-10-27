@@ -55,6 +55,7 @@ const MyAds = (props) => {
         return () => {
             clearCopiedAds();
         };
+        // eslint-disable-next-line
     }, []);
 
     const onOpprettNyClick = () => {

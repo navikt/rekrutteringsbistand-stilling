@@ -1,12 +1,12 @@
 import React from 'react';
-import PropTypes, { element } from 'prop-types';
+import PropTypes from 'prop-types';
 import { Textarea } from 'nav-frontend-skjema';
 import { connect } from 'react-redux';
 import { SET_NOTAT } from '../../../stillingsinfo/stillingsinfoDataReducer';
 import { MAX_LENGTH_NOTAT } from '../../adValidationReducer';
-import './Notat.less';
 import Skjemalabel from '../../edit/skjemaetikett/Skjemalabel';
 import { Undertittel, Element } from 'nav-frontend-typografi';
+import './Notat.less';
 
 class Notat extends React.Component {
     constructor(props) {
