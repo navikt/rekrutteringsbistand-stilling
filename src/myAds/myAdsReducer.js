@@ -101,12 +101,13 @@ export default function myAdsReducer(state = initialState, action) {
 }
 
 export function toQuery(search) {
-    const { reportee, filter, page, deactivatedByExpiry, sortField, sortDir, uuid } = search;
+    const { navIdent, reportee, filter, page, deactivatedByExpiry, sortField, sortDir, uuid } = search;
     const { status } = filter;
 
     const query = {
         sort: `${sortField},${sortDir}`,
         page,
+        navIdent,
         reportee,
         deactivatedByExpiry,
         uuid,
