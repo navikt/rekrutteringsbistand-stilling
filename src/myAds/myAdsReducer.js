@@ -101,7 +101,16 @@ export default function myAdsReducer(state = initialState, action) {
 }
 
 export function toQuery(search) {
-    const { navIdent, reportee, filter, page, deactivatedByExpiry, sortField, sortDir, uuid } = search;
+    const {
+        navIdent,
+        reportee,
+        filter,
+        page,
+        deactivatedByExpiry,
+        sortField,
+        sortDir,
+        uuid,
+    } = search;
     const { status } = filter;
 
     const query = {
@@ -133,7 +142,7 @@ function* getMyAds() {
 
         const search = {
             ...state.myAds,
-            navIdent: reportee.navIdent,
+            navIdent: (reportee.navIdent || "").toLowerCase(),
             reportee: reportee.displayName,
             uuid: stillingerVeilederHarOvertatt,
         };
