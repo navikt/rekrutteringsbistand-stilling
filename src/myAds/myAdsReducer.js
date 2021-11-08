@@ -142,7 +142,7 @@ function* getMyAds() {
 
         const search = {
             ...state.myAds,
-            navIdent: (reportee.navIdent || "").toLowerCase(),
+            navIdent: (reportee.navIdent || '').toLowerCase(),
             reportee: reportee.displayName,
             uuid: stillingerVeilederHarOvertatt,
         };
