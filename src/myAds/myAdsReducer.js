@@ -132,6 +132,7 @@ function* getMyAds() {
 
         const search = {
             ...state.myAds,
+            navIdent: reportee.navIdent,
             reportee: reportee.displayName,
             uuid: stillingerVeilederHarOvertatt,
         };
