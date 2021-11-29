@@ -169,9 +169,7 @@ export default function adReducer(state = initialState, action: any) {
                 isLoadingAd: false,
                 isEditingAd: false,
                 originalData: { ...action.response },
-                kanInkludere: tagsInneholderInkluderingsmuligheter(action.response.properties.tags)
-                    ? KanInkludere.Ja
-                    : KanInkludere.Nei,
+                kanInkludere: kanInkludere(action.response.properties.tags),
             };
         case FETCH_AD_FAILURE:
             return {
@@ -334,6 +332,11 @@ export default function adReducer(state = initialState, action: any) {
         default:
             return state;
     }
+}
+
+function kanInkludere(tags) {
+    if (tags == undefined) return null;
+    return tagsInneholderInkluderingsmuligheter(tags) ? KanInkludere.Ja : KanInkludere.Nei;
 }
 
 function* getRekrutteringsbistandstilling(action) {
