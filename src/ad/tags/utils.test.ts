@@ -76,8 +76,8 @@ describe('Parsing av tags og inkluderingsmuligheter', () => {
         expect(tagsInneholderInkluderingsmuligheter('dsa')).toBe(false);
     });
 
-    test('En udefinert variabel skal ikke inneholde inkluderingsmuligheter', () => {
-        expect(tagsInneholderInkluderingsmuligheter(undefined)).toBe(false);
+    test('En udefinert variabel skal være tom', () => {
+        expect(tagsInneholderInkluderingsmuligheter(undefined)).toBe(null);
     });
 
     test('En tom liste skal ikke inneholde inkluderingsmuligheter', () => {
