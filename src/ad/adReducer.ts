@@ -335,7 +335,7 @@ export default function adReducer(state = initialState, action: any) {
 }
 
 function kanInkludere(tags) {
-    if (tags == undefined) return null;
+    if (tags == null) return null;
     return tagsInneholderInkluderingsmuligheter(tags) ? KanInkludere.Ja : KanInkludere.Nei;
 }
 
