@@ -14,6 +14,7 @@ import './OpprettNyStilling.less';
 export enum Stillingskategori {
     Stilling = 'STILLING',
     Arbeidstrening = 'ARBEIDSTRENING',
+    Jobbmesse = 'JOBBMESSE',
     Formidling = 'FORMIDLING',
 }
 
@@ -61,10 +62,9 @@ const OpprettNyStilling: FunctionComponent<Props> = ({ onClose }) => {
         >
             <Systemtittel className="blokk-m">Opprett ny stilling</Systemtittel>
             <AlertStripeAdvarsel className="blokk-m">
-                NAV har på nåværende tidspunkt kun lov til å bruke Rekrutteringsbistand til en
-                konkret stilling. Derfor kan du ikke registrere arrangement, jobbmesser, NAV-kurs,
-                webinar, arbeidstrening og lignende. Det pågår et arbeid med å avklare disse
-                kategoriene.
+                Det arbeides fremdeles med å avklare hva som er lov å registrere i
+                Rekrutteringsbistand. Derfor kan du ikke registrere NAV-kurs, webinar,
+                arbeidstrening og lignende.
             </AlertStripeAdvarsel>
             <RadioGruppe
                 className="blokk-m"
