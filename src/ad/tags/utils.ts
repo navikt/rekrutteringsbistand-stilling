@@ -57,7 +57,6 @@ export const fjernAlleInkluderingstags = (tags: Tag[]): Tag[] => {
 };
 
 export const tagsInneholderInkluderingsmuligheter = (tags?: string) => {
-    console.log('tagsInneholderInkluderingsmuligheter tags', tags);
     if (tags == null) {
         return null;
     } else if (!isJson(tags)) {

@@ -7,10 +7,12 @@ import {
     RichUtils,
     ContentState,
     CompositeDecorator,
+    Entity,
 } from 'draft-js';
 import 'draft-js/dist/Draft.css';
 import { convertToHTML } from 'draft-convert';
 import BlockStyleControls from './BlockStyleControls';
+import EntityStyleControls from './EntityStyleControls';
 import InlineStyleControls from './InlineStyleControls';
 import HeaderStylesDropdown from './HeaderStylesDropdown';
 import UndoRedoButtons from './UndoRedoButtons';
@@ -102,12 +104,17 @@ export default class RichTextEditor extends React.Component {
         const emptyInput = checkIfEmptyInput(editorState.getCurrentContent().getPlainText());
         // If the editor is empty when the user saves, and empty string is saved og not <p></p> which is the default
         if (!emptyInput) {
+            console.log('der');
             const newState = convertToHTML({
                 // All elements styled as links will be returned as <a> tags
                 entityToHTML: (entity, originalText) => {
                     if (entity.type === 'LINK') {
                         return (
-                            <a href={entity.data.url} rel="nofollow">
+                            <a
+                                href={'http://' + entity.data.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
                                 {originalText}
                             </a>
                         );
@@ -123,6 +130,18 @@ export default class RichTextEditor extends React.Component {
 
     onToggleBlockType = (blockType) => {
         this.onChange(RichUtils.toggleBlockType(this.state.editorState, blockType));
+    };
+
+    onToggleEntityType = (entityType) => {
+        const href = window.prompt('Enter a URL');
+        const entity = Entity.create('LINK', 'MUTABLE', { url: href });
+        this.onChange(
+            RichUtils.toggleLink(
+                this.state.editorState,
+                this.state.editorState.getSelection(),
+                entity
+            )
+        );
     };
 
     onToggleInlineStyle = (inlineStyle) => {
@@ -150,6 +169,7 @@ export default class RichTextEditor extends React.Component {
             this.setState({
                 editorState: text,
             });
+            console.log('her');
             const newState = convertToHTML(text.getCurrentContent());
             this.props.onChange(newState);
         }
@@ -170,6 +190,10 @@ export default class RichTextEditor extends React.Component {
                     <BlockStyleControls
                         editorState={this.state.editorState}
                         onToggle={this.onToggleBlockType}
+                    />
+                    <EntityStyleControls
+                        editorState={this.state.editorState}
+                        onToggle={this.onToggleEntityType}
                     />
                     <UndoRedoButtons
                         onRedoClick={this.onRedoButtonClick}

@@ -9,7 +9,6 @@ const InlineStyleControls = ({ editorState, onToggle }) => {
         { label: 'icon-italic', style: 'ITALIC' },
         { label: 'icon-underline', style: 'UNDERLINE' },
         { label: 'icon-code', style: 'CODE' },
-        { label: 'icon-link', style: 'LINK' },
     ];
     const currentStyle = editorState.getCurrentInlineStyle();
     return (
