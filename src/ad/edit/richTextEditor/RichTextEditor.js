@@ -104,14 +104,14 @@ export default class RichTextEditor extends React.Component {
         const emptyInput = checkIfEmptyInput(editorState.getCurrentContent().getPlainText());
         // If the editor is empty when the user saves, and empty string is saved og not <p></p> which is the default
         if (!emptyInput) {
-            console.log('der');
             const newState = convertToHTML({
                 // All elements styled as links will be returned as <a> tags
                 entityToHTML: (entity, originalText) => {
                     if (entity.type === 'LINK') {
+                        const { url } = entity.data;
                         return (
                             <a
-                                href={'http://' + entity.data.url}
+                                href={url.startsWith('http') ? url : 'http://' + url}
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
@@ -133,15 +133,26 @@ export default class RichTextEditor extends React.Component {
     };
 
     onToggleEntityType = (entityType) => {
-        const href = window.prompt('Enter a URL');
-        const entity = Entity.create('LINK', 'MUTABLE', { url: href });
-        this.onChange(
-            RichUtils.toggleLink(
-                this.state.editorState,
-                this.state.editorState.getSelection(),
-                entity
-            )
-        );
+        const { editorState } = this.state;
+        console.log('e', entityType);
+
+        const contentState = editorState.getCurrentContent();
+        const selection = editorState.getSelection();
+        const currentBlock = contentState.getBlockForKey(selection.getStartKey());
+        const startOffset = editorState.getSelection().getStartOffset();
+        const entityKey = currentBlock.getEntityAt(startOffset);
+        var entity;
+        if (entityKey != null) {
+            //const entity = contentState.getEntity(entityKey);
+            //const type = entity.type;
+            //console.log('ssss', type);
+            entity = Entity.create(null, null, null);
+        } else {
+            const href = window.prompt('Enter a URL');
+            entity = Entity.create(entityType, 'MUTABLE', { url: href });
+        }
+
+        this.onChange(RichUtils.toggleLink(editorState, editorState.getSelection(), entity));
     };
 
     onToggleInlineStyle = (inlineStyle) => {
@@ -169,7 +180,6 @@ export default class RichTextEditor extends React.Component {
             this.setState({
                 editorState: text,
             });
-            console.log('her');
             const newState = convertToHTML(text.getCurrentContent());
             this.props.onChange(newState);
         }
