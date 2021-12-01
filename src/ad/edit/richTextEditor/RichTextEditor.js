@@ -111,7 +111,7 @@ export default class RichTextEditor extends React.Component {
                         const { url } = entity.data;
                         return (
                             <a
-                                href={url.startsWith('http') ? url : 'http://' + url}
+                                href={url != null && url.startsWith('http') ? url : 'http://' + url}
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
@@ -146,13 +146,16 @@ export default class RichTextEditor extends React.Component {
             //const entity = contentState.getEntity(entityKey);
             //const type = entity.type;
             //console.log('ssss', type);
-            entity = Entity.create(null, null, null);
+            this.onChange(RichUtils.toggleLink(editorState, editorState.getSelection(), null));
         } else {
             const href = window.prompt('Enter a URL');
-            entity = Entity.create(entityType, 'MUTABLE', { url: href });
+            if (href) {
+                entity = Entity.create(entityType, 'MUTABLE', { url: href });
+                this.onChange(
+                    RichUtils.toggleLink(editorState, editorState.getSelection(), entity)
+                );
+            }
         }
-
-        this.onChange(RichUtils.toggleLink(editorState, editorState.getSelection(), entity));
     };
 
     onToggleInlineStyle = (inlineStyle) => {
