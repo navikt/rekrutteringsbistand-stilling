@@ -4,14 +4,16 @@ import StyleButton from './StyleButton';
 import './RichTextEditor.less';
 
 const LinkControl = ({ editorState, harLinkForSelection, onToggle }) => {
+    const linktype = { label: 'icon-link', style: 'LINK' };
+
     return (
         <div className="RichTextEditor__controls">
             <StyleButton
-                key={'icon-link'}
+                key={linktype.label}
                 active={harLinkForSelection(editorState)}
-                label={'icon-link'}
+                label={linktype.label}
                 onToggle={onToggle}
-                style={'LINK'}
+                style={linktype.style}
             />
         </div>
     );
