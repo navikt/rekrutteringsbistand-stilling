@@ -133,29 +133,34 @@ export default class RichTextEditor extends React.Component {
     };
 
     onToggleEntityType = (entityType) => {
-        const { editorState } = this.state;
-        console.log('e', entityType);
+        const entityKey = this.finnEntityKeyForSelection(this.state.editorState);
+        if (entityKey != null) {
+            this.toggleLink(null);
+        } else {
+            const href = window.prompt('Enter a URL');
+            if (href) {
+                const entity = Entity.create(entityType, 'MUTABLE', { url: href });
+                this.toggleLink(entity);
+            }
+        }
+    };
 
+    finnEntityKeyForSelection = (editorState) => {
         const contentState = editorState.getCurrentContent();
         const selection = editorState.getSelection();
         const currentBlock = contentState.getBlockForKey(selection.getStartKey());
         const startOffset = editorState.getSelection().getStartOffset();
-        const entityKey = currentBlock.getEntityAt(startOffset);
-        var entity;
-        if (entityKey != null) {
-            //const entity = contentState.getEntity(entityKey);
-            //const type = entity.type;
-            //console.log('ssss', type);
-            this.onChange(RichUtils.toggleLink(editorState, editorState.getSelection(), null));
-        } else {
-            const href = window.prompt('Enter a URL');
-            if (href) {
-                entity = Entity.create(entityType, 'MUTABLE', { url: href });
-                this.onChange(
-                    RichUtils.toggleLink(editorState, editorState.getSelection(), entity)
-                );
-            }
-        }
+        return currentBlock.getEntityAt(startOffset);
+    };
+
+    toggleLink = (entity) => {
+        this.onChange(
+            RichUtils.toggleLink(
+                this.state.editorState,
+                this.state.editorState.getSelection(),
+                entity
+            )
+        );
     };
 
     onToggleInlineStyle = (inlineStyle) => {
@@ -205,7 +210,7 @@ export default class RichTextEditor extends React.Component {
                         onToggle={this.onToggleBlockType}
                     />
                     <EntityStyleControls
-                        editorState={this.state.editorState}
+                        entityKey={this.finnEntityKeyForSelection(this.state.editorState)}
                         onToggle={this.onToggleEntityType}
                     />
                     <UndoRedoButtons
