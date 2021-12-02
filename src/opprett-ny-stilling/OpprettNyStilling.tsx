@@ -64,7 +64,7 @@ const OpprettNyStilling: FunctionComponent<Props> = ({ onClose }) => {
             <AlertStripeAdvarsel className="blokk-m">
                 Det arbeides fremdeles med å avklare hva som er lov å registrere i
                 Rekrutteringsbistand. Derfor kan du ikke registrere NAV-kurs, webinar,
-                arbeidstrening og lignende.
+                arbeidstrening og lignende. Det er kun kategoriene nedenfor som skal brukes.
             </AlertStripeAdvarsel>
             <RadioGruppe
                 className="blokk-m"
