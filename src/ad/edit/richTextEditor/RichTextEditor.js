@@ -114,6 +114,7 @@ export default class RichTextEditor extends React.Component {
                                 href={url != null && url.startsWith('http') ? url : 'http://' + url}
                                 target="_blank"
                                 rel="noopener noreferrer"
+                                className="lenke"
                             >
                                 {originalText}
                             </a>
