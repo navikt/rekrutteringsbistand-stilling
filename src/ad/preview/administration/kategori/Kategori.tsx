@@ -23,6 +23,8 @@ const kategoriTilVisningsnavn = (kategori: Stillingskategori | null) => {
             return 'Formidling';
         case Stillingskategori.Arbeidstrening:
             return 'Arbeidstrening';
+        case Stillingskategori.Jobbmesse:
+            return 'Jobbmesse/jobbtreff';
         default:
             return 'Stilling';
     }
