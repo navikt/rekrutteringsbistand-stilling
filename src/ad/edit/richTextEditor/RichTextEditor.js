@@ -12,7 +12,7 @@ import {
 import 'draft-js/dist/Draft.css';
 import { convertToHTML } from 'draft-convert';
 import BlockStyleControls from './BlockStyleControls';
-import EntityStyleControls from './EntityStyleControls';
+import LinkControl from './LinkControl';
 import InlineStyleControls from './InlineStyleControls';
 import HeaderStylesDropdown from './HeaderStylesDropdown';
 import UndoRedoButtons from './UndoRedoButtons';
@@ -132,25 +132,40 @@ export default class RichTextEditor extends React.Component {
         this.onChange(RichUtils.toggleBlockType(this.state.editorState, blockType));
     };
 
-    onToggleEntityType = (entityType) => {
-        const entityKey = this.finnEntityKeyForSelection(this.state.editorState);
-        if (entityKey != null) {
+    onToggleLink = (entityType) => {
+        const { editorState } = this.state;
+
+        if (this.finnSelectionLengde(editorState) < 1) {
+            return;
+        }
+        console.log('opp', this.harLinkForSelection(editorState));
+        if (this.harLinkForSelection(editorState)) {
             this.toggleLink(null);
         } else {
-            const href = window.prompt('Enter a URL');
-            if (href) {
-                const entity = Entity.create(entityType, 'MUTABLE', { url: href });
-                this.toggleLink(entity);
+            const url = this.skrivInnUrlPopup();
+            if (url) {
+                this.toggleLink(Entity.create(entityType, 'MUTABLE', { url }));
             }
         }
     };
 
-    finnEntityKeyForSelection = (editorState) => {
+    finnSelectionLengde = (editorState) => {
+        return (
+            editorState.getSelection().getEndOffset() - editorState.getSelection().getStartOffset()
+        );
+    };
+
+    skrivInnUrlPopup = () => {
+        return window.prompt('Skriv inn lenke');
+    };
+
+    harLinkForSelection = (editorState) => {
         const contentState = editorState.getCurrentContent();
         const selection = editorState.getSelection();
         const currentBlock = contentState.getBlockForKey(selection.getStartKey());
         const startOffset = editorState.getSelection().getStartOffset();
-        return currentBlock.getEntityAt(startOffset);
+        const entity = currentBlock.getEntityAt(startOffset);
+        return entity != null;
     };
 
     toggleLink = (entity) => {
@@ -209,9 +224,10 @@ export default class RichTextEditor extends React.Component {
                         editorState={this.state.editorState}
                         onToggle={this.onToggleBlockType}
                     />
-                    <EntityStyleControls
-                        entityKey={this.finnEntityKeyForSelection(this.state.editorState)}
-                        onToggle={this.onToggleEntityType}
+                    <LinkControl
+                        editorState={this.state.editorState}
+                        harLinkForSelection={this.harLinkForSelection}
+                        onToggle={this.onToggleLink}
                     />
                     <UndoRedoButtons
                         onRedoClick={this.onRedoButtonClick}
