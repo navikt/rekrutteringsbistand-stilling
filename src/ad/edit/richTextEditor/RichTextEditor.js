@@ -7,10 +7,12 @@ import {
     RichUtils,
     ContentState,
     CompositeDecorator,
+    Entity,
 } from 'draft-js';
 import 'draft-js/dist/Draft.css';
 import { convertToHTML } from 'draft-convert';
 import BlockStyleControls from './BlockStyleControls';
+import LinkControl from './LinkControl';
 import InlineStyleControls from './InlineStyleControls';
 import HeaderStylesDropdown from './HeaderStylesDropdown';
 import UndoRedoButtons from './UndoRedoButtons';
@@ -106,8 +108,14 @@ export default class RichTextEditor extends React.Component {
                 // All elements styled as links will be returned as <a> tags
                 entityToHTML: (entity, originalText) => {
                     if (entity.type === 'LINK') {
+                        const { url } = entity.data;
                         return (
-                            <a href={entity.data.url} rel="nofollow">
+                            <a
+                                href={url != null && url.startsWith('http') ? url : 'http://' + url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="lenke"
+                            >
                                 {originalText}
                             </a>
                         );
@@ -123,6 +131,51 @@ export default class RichTextEditor extends React.Component {
 
     onToggleBlockType = (blockType) => {
         this.onChange(RichUtils.toggleBlockType(this.state.editorState, blockType));
+    };
+
+    onToggleLink = (entityType) => {
+        const { editorState } = this.state;
+
+        if (this.finnSelectionLengde(editorState) < 1) {
+            return;
+        }
+        if (this.harLinkForSelection(editorState)) {
+            this.toggleLink(null);
+        } else {
+            const url = this.skrivInnUrlPopup();
+            if (url) {
+                this.toggleLink(Entity.create(entityType, 'MUTABLE', { url }));
+            }
+        }
+    };
+
+    finnSelectionLengde = (editorState) => {
+        return (
+            editorState.getSelection().getEndOffset() - editorState.getSelection().getStartOffset()
+        );
+    };
+
+    skrivInnUrlPopup = () => {
+        return window.prompt('Skriv inn lenke');
+    };
+
+    harLinkForSelection = (editorState) => {
+        const contentState = editorState.getCurrentContent();
+        const selection = editorState.getSelection();
+        const currentBlock = contentState.getBlockForKey(selection.getStartKey());
+        const startOffset = editorState.getSelection().getStartOffset();
+        const entity = currentBlock.getEntityAt(startOffset);
+        return entity != null;
+    };
+
+    toggleLink = (entity) => {
+        this.onChange(
+            RichUtils.toggleLink(
+                this.state.editorState,
+                this.state.editorState.getSelection(),
+                entity
+            )
+        );
     };
 
     onToggleInlineStyle = (inlineStyle) => {
@@ -170,6 +223,11 @@ export default class RichTextEditor extends React.Component {
                     <BlockStyleControls
                         editorState={this.state.editorState}
                         onToggle={this.onToggleBlockType}
+                    />
+                    <LinkControl
+                        editorState={this.state.editorState}
+                        harLinkForSelection={this.harLinkForSelection}
+                        onToggle={this.onToggleLink}
                     />
                     <UndoRedoButtons
                         onRedoClick={this.onRedoButtonClick}
