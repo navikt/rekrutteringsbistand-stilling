@@ -21,16 +21,8 @@ import OpprettNyStilling from '../opprett-ny-stilling/OpprettNyStilling';
 import './MyAds.less';
 
 const MyAds = (props) => {
-    const {
-        ads,
-        getAds,
-        clearCopiedAds,
-        resetMyAdsPage,
-        isSearching,
-        error,
-        reportee,
-        history,
-    } = props;
+    const { ads, getAds, clearCopiedAds, resetMyAdsPage, isSearching, error, reportee, history } =
+        props;
 
     const { search } = useLocation();
 

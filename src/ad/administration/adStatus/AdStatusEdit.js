@@ -93,12 +93,8 @@ class AdStatusEdit extends React.PureComponent {
     };
 
     render() {
-        const {
-            adStatus,
-            activationOnPublishingDate,
-            deactivatedByExpiry,
-            isSavingAd,
-        } = this.props;
+        const { adStatus, activationOnPublishingDate, deactivatedByExpiry, isSavingAd } =
+            this.props;
 
         const isPublished =
             adStatus === AdStatusEnum.ACTIVE ||

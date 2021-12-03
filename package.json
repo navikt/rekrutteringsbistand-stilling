@@ -19,7 +19,9 @@
         "docker-rm": "docker rm rekrutteringsbistand-stilling",
         "docker-stop": "docker stop rekrutteringsbistand-stilling",
         "protect": "npm run snyk-protect",
-        "test:snyk": "snyk test"
+        "test:snyk": "snyk test",
+        "prepare": "husky install",
+        "format": "prettier --write ."
     },
     "eslintConfig": {
         "extends": [
@@ -29,8 +31,9 @@
     },
     "prettier": {
         "tabWidth": 4,
-        "trailingComma": "es5",
         "singleQuote": true,
+        "trailingComma": "es5",
+        "arrowParens": "always",
         "printWidth": 100
     },
     "author": "",
@@ -125,9 +128,11 @@
         "eslint-config-prettier": "^7.1.0",
         "fetch-mock": "^9.11.0",
         "http-proxy-middleware": "^1.0.6",
+        "husky": "^7.0.0",
         "less": "^4.1.0",
         "postcss-prefix-selector": "^1.7.2",
-        "prettier": "^2.2.1",
+        "prettier": "^2.5.0",
+        "pretty-quick": "^3.1.2",
         "ts-jest": "^26.4.1",
         "typescript": "^4.1.3"
     },

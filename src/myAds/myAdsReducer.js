@@ -101,16 +101,8 @@ export default function myAdsReducer(state = initialState, action) {
 }
 
 export function toQuery(search) {
-    const {
-        navIdent,
-        reportee,
-        filter,
-        page,
-        deactivatedByExpiry,
-        sortField,
-        sortDir,
-        uuid,
-    } = search;
+    const { navIdent, reportee, filter, page, deactivatedByExpiry, sortField, sortDir, uuid } =
+        search;
     const { status } = filter;
 
     const query = {
@@ -133,9 +125,8 @@ function* getMyAds() {
 
         const reportee = yield getReportee();
         const state = yield select();
-        const stillingsinfoForStillingerVeilederHarOvertatt = yield hentStillingsinfoForStillingerSomEiesAvVeileder(
-            reportee.navIdent
-        );
+        const stillingsinfoForStillingerVeilederHarOvertatt =
+            yield hentStillingsinfoForStillingerSomEiesAvVeileder(reportee.navIdent);
         const stillingerVeilederHarOvertatt = stillingsinfoForStillingerVeilederHarOvertatt
             .map((r) => r.stillingsid)
             .join(',');

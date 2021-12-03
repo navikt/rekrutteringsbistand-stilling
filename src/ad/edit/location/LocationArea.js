@@ -83,13 +83,8 @@ class LocationArea extends React.Component {
     locationIsCounty = (location) => location && location.county && !location.postalCode;
 
     render() {
-        const {
-            municipalsCounties,
-            countries,
-            typeaheadValue,
-            validation,
-            locationList,
-        } = this.props;
+        const { municipalsCounties, countries, typeaheadValue, validation, locationList } =
+            this.props;
 
         return (
             <div className="LocationArea__typeahead">
