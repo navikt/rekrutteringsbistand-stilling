@@ -139,7 +139,6 @@ export default class RichTextEditor extends React.Component {
         if (this.finnSelectionLengde(editorState) < 1) {
             return;
         }
-        console.log('opp', this.harLinkForSelection(editorState));
         if (this.harLinkForSelection(editorState)) {
             this.toggleLink(null);
         } else {
