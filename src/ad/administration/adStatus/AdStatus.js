@@ -8,13 +8,8 @@ import PrivacyStatusEnum from '../../../common/enums/PrivacyStatusEnum';
 import { formatISOString } from '../../../utils.ts';
 
 function AdStatus(props) {
-    const {
-        adStatus,
-        deactivatedByExpiry,
-        activationOnPublishingDate,
-        originalData,
-        isSavingAd,
-    } = props;
+    const { adStatus, deactivatedByExpiry, activationOnPublishingDate, originalData, isSavingAd } =
+        props;
 
     return isSavingAd ? (
         <Alertstripe className="AdStatusPreview__Alertstripe" type="info" solid="true">
