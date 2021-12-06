@@ -1,14 +1,16 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
 import { Radio, RadioGruppe } from 'nav-frontend-skjema';
 import { Flatknapp, Hovedknapp } from 'nav-frontend-knapper';
 import { Element, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
+
+import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { CREATE_AD } from '../ad/adReducer';
+import { kategoriTilVisningsnavn } from '../ad/preview/administration/kategori/Kategori';
 import { REDIGERINGSMODUS_QUERY_PARAM } from '../ad/Ad';
-import { useDispatch, useSelector } from 'react-redux';
 import ModalMedStillingScope from '../ModalMedStillingScope';
 import State from '../State';
-import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import './OpprettNyStilling.less';
 
 export enum Stillingskategori {
@@ -88,7 +90,7 @@ const OpprettNyStilling: FunctionComponent<Props> = ({ onClose }) => {
                                 setStillingskategori(event.target.value as Stillingskategori)
                             }
                             checked={stillingskategori === verdi}
-                            label={kategori}
+                            label={kategoriTilVisningsnavn(verdi)}
                             value={verdi}
                         />
                     ))}

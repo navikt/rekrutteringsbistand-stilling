@@ -15,7 +15,7 @@ const Kategori: FunctionComponent = () => {
     );
 };
 
-const kategoriTilVisningsnavn = (kategori: Stillingskategori | null) => {
+export const kategoriTilVisningsnavn = (kategori: Stillingskategori | null) => {
     switch (kategori) {
         case Stillingskategori.Stilling:
             return 'Stilling';
