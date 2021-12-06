@@ -79,19 +79,19 @@ const OpprettNyStilling: FunctionComponent<Props> = ({ onClose }) => {
                     </>
                 }
             >
-                {Object.entries(Stillingskategori)
-                    .filter(([, verdi]) => verdi !== stillingskategoriSomIkkeLengerKanVelges)
-                    .map(([kategori, verdi]) => (
+                {Object.values(Stillingskategori)
+                    .filter((kategori) => kategori !== stillingskategoriSomIkkeLengerKanVelges)
+                    .map((kategori) => (
                         <Radio
-                            key={verdi}
+                            key={kategori}
                             className="opprett-ny-stilling--kategori"
                             name="stillingskategori"
                             onChange={(event) =>
                                 setStillingskategori(event.target.value as Stillingskategori)
                             }
-                            checked={stillingskategori === verdi}
-                            label={kategoriTilVisningsnavn(verdi)}
-                            value={verdi}
+                            checked={stillingskategori === kategori}
+                            label={kategoriTilVisningsnavn(kategori)}
+                            value={kategori}
                         />
                     ))}
             </RadioGruppe>
