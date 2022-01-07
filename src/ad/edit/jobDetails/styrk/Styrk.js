@@ -57,14 +57,14 @@ class Styrk extends React.Component {
 
     render() {
         let value;
+        let kategori = this.props.stilling?.categoryList?.find(
+            (kategori) => kategori.categoryType === 'STYRK08NAV'
+        );
+
         if (this.props.typeAheadValue !== undefined) {
             value = this.props.typeAheadValue;
-        } else if (
-            this.props.stilling &&
-            this.props.stilling.categoryList &&
-            this.props.stilling.categoryList[0]
-        ) {
-            value = `${this.props.stilling.categoryList[0].code} ${this.props.stilling.categoryList[0].name}`;
+        } else if (kategori) {
+            value = `${kategori.code} ${kategori.name}`;
         } else {
             value = '';
         }
