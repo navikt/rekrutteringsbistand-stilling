@@ -57,14 +57,20 @@ class Styrk extends React.Component {
 
     render() {
         let value;
-        let kategori = this.props.stilling?.categoryList?.find(
+        let kategoriSTYRK08NAV = this.props.stilling?.categoryList?.find(
             (kategori) => kategori.categoryType === 'STYRK08NAV'
+        );
+        let kategoriSTYRK08 = this.props.stilling?.categoryList?.find(
+            (kategori) => kategori.categoryType === 'STYRK08'
         );
 
         if (this.props.typeAheadValue !== undefined) {
             value = this.props.typeAheadValue;
-        } else if (kategori) {
-            value = `${kategori.code} ${kategori.name}`;
+        } else if (kategoriSTYRK08NAV) {
+            value = `${kategoriSTYRK08NAV.code} ${kategoriSTYRK08NAV.name}`;
+        } else if (kategoriSTYRK08) {
+            // Dette er for å håndtere periode med registrering av feil STYRK type
+            value = `${kategoriSTYRK08.code} ${kategoriSTYRK08.name}`;
         } else {
             value = '';
         }
