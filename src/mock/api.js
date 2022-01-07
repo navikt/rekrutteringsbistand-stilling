@@ -31,7 +31,7 @@ const putRekrutteringsbistandstillingUrl = `express:${stillingApi}/rekrutterings
 const countiesUrl = `${stillingApi}/rekrutteringsbistand/api/v1/geography/counties`;
 const countriesUrl = `${stillingApi}/rekrutteringsbistand/api/v1/geography/countries`;
 const municipalsUrl = `${stillingApi}/rekrutteringsbistand/api/v1/geography/municipals`;
-const categoriesWithAltnamesUrl = `${stillingApi}/rekrutteringsbistand/api/v1/categories-with-altnames/`;
+const categoriesWithAltnamesUrl = `${stillingApi}/rekrutteringsbistand/api/v1/categories-with-altnames/?taxonomy=STYRK08NAV`;
 const postdataUrl = `${stillingApi}/rekrutteringsbistand/api/v1/postdata/`;
 const fnrsokUrl = `express:${kandidatApi}/veileder/kandidatsok/fnrsok`;
 const kandidatlisteUrl = `express:${kandidatApi}/veileder/stilling/:stillingsId/kandidatliste`;
