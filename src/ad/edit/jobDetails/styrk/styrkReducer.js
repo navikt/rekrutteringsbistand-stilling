@@ -200,6 +200,8 @@ function* getStyrk() {
         try {
             const url = `${stillingApi}/rekrutteringsbistand/api/v1/categories-with-altnames/?taxonomy=STYRK08NAV`;
             const response = yield fetchGet(url);
+            console.log('styrkkoder', response);
+            console.log('urlstyrk', url);
             const sorted = response.sort((a, b) => {
                 if (a.code < b.code) return -1;
                 if (a.code > b.code) return 1;
