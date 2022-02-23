@@ -26,7 +26,6 @@ import {
 import { showAlertStripe } from './alertstripe/SavedAdAlertStripeReducer';
 import AdAlertStripeEnum from './alertstripe/AdAlertStripeEnum';
 import { FETCH_MY_ADS } from '../myAds/myAdsReducer';
-import { loginWithRedirectToCurrentLocation } from '../login';
 import { OPPRETT_STILLINGSINFO, UPDATE_STILLINGSINFO } from '../stillingsinfo/stillingsinfoReducer';
 import {
     SET_NAV_IDENT_STILLINGSINFO,
@@ -500,9 +499,7 @@ function* saveAd(action) {
         yield put({ type: SHOW_AD_SAVED_ERROR_MODAL });
     } else {
         yield saveRekrutteringsbistandStilling();
-        if (action.login) {
-            loginWithRedirectToCurrentLocation();
-        }
+
         if (action.showModal) {
             yield showAlertStripe(AdAlertStripeEnum.SAVED);
         }

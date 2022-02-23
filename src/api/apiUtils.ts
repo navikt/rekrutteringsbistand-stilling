@@ -1,5 +1,3 @@
-import { loginWithRedirectToCurrentLocation } from '../login';
-
 export class ApiError {
     message: string;
     statusCode: number;
@@ -70,11 +68,7 @@ const request = async (url: string, options?: RequestInit) => {
     }
 
     if (response.status !== 200 && response.status !== 201) {
-        if (response.status === 401) {
-            loginWithRedirectToCurrentLocation();
-        } else {
-            throw new ApiError(response.statusText, response.status);
-        }
+        throw new ApiError(response.statusText, response.status);
     }
 
     return response.json();
