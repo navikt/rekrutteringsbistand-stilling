@@ -1,4 +1,4 @@
-export const kandidatApi = '/rekrutteringsbistand-stilling/kandidat-api';
+export const kandidatApi = '/kandidat-api';
 
 export class KandidatSokError {
     constructor(error) {

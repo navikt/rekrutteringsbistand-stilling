@@ -1,7 +1,6 @@
 const path = require('path');
 const express = require('express');
 const fs = require('fs');
-const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -13,18 +12,6 @@ const envFile =
 
 const basePath = '/rekrutteringsbistand-stilling';
 const buildPath = path.join(__dirname, 'build');
-
-const setupProxy = (fraPath, tilTarget) =>
-    createProxyMiddleware(fraPath, {
-        target: tilTarget,
-        changeOrigin: true,
-        secure: true,
-        pathRewrite: (path) => {
-            const nyPath = path.replace(fraPath, '');
-            console.log(`Proxy fra '${path}' til '${tilTarget + nyPath}'`);
-            return nyPath;
-        },
-    });
 
 const manifestMedEnvpath = () => {
     const asset = JSON.parse(fs.readFileSync(`${buildPath}/asset-manifest.json`, 'utf8'));
@@ -38,10 +25,6 @@ const manifestMedEnvpath = () => {
 const manifest = manifestMedEnvpath();
 
 const startServer = () => {
-    app.use(setupProxy(`${basePath}/stilling-api`, process.env.STILLING_API_URL));
-    app.use(setupProxy(`${basePath}/kandidat-api`, process.env.KANDIDAT_API_URL));
-    app.use(setupProxy(`${basePath}/stillingssok-proxy`, process.env.STILLINGSOK_PROXY_URL));
-
     app.get(`${basePath}/${envPath}`, (req, res) => {
         res.type('application/javascript').send(envFile);
     });
