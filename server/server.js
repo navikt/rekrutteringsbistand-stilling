@@ -6,9 +6,7 @@ const app = express();
 const port = process.env.PORT || 8080;
 
 const envPath = 'static/js/env.js';
-const envFile =
-    `window.STILLING_LOGIN_URL="${process.env.LOGIN_URL}";\n` +
-    `window.STILLING_VIS_STILLING_URL="${process.env.VIS_STILLING_URL}";\n`;
+const envFile = `window.STILLING_VIS_STILLING_URL="${process.env.VIS_STILLING_URL}";\n`;
 
 const basePath = '/rekrutteringsbistand-stilling';
 const buildPath = path.join(__dirname, 'build');

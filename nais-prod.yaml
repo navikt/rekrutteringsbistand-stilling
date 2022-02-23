@@ -30,16 +30,8 @@ spec:
             cpu: 200m
             memory: 128Mi
     ingresses:
-        - https://rekrutteringsbistand.nais.adeo.no/rekrutteringsbistand-stilling
+        - https://rekrutteringsbistand.intern.nav.no/rekrutteringsbistand-stilling
     env:
-        - name: LOGIN_URL
-          value: https://loginservice.nais.adeo.no/login
-        - name: STILLING_API_URL
-          value: https://rekrutteringsbistand-stilling-api.nais.adeo.no
-        - name: KANDIDAT_API_URL
-          value: https://rekrutteringsbistand-kandidat-api.nais.adeo.no/rekrutteringsbistand-kandidat-api/rest
-        - name: STILLINGSOK_PROXY_URL
-          value: https://rekrutteringsbistand-stillingssok-proxy.intern.nav.no
         - name: VIS_STILLING_URL
           value: https://www.nav.no/arbeid/stilling
         - name: NODE_EXTRA_CA_CERTS
