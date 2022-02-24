@@ -10,22 +10,24 @@ jobs:
         name: Bygg applikasjon
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v1
-            - uses: actions/setup-node@v1
+            - uses: actions/checkout@v2
+            - uses: actions/setup-node@v2
               with:
-                  node-version: 15
-            - uses: actions/cache@v1
-              with:
-                  path: ~/.npm
-                  key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-                  restore-keys: |
-                      ${{ runner.os }}-node-
+                  node-version: 16
+                  cache: 'npm'
+                  cache-dependency-path: |
+                      package-lock.json
+                      server/package-lock.json
             - name: Installer avhengigheter
-              run: npm install
+              run: npm ci
             - name: Kjør tester
               run: npm run test
             - name: Bygg applikasjon
               run: npm run build
+            - name: Installer avhengigheter for server
+              run: cd server && npm ci
+            - name: Bygg server
+              run: cd server && npm run build
             - name: Opprett release med Sentry
               run: npm run sentry-release
               env:
