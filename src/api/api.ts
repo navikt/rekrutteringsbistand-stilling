@@ -3,7 +3,7 @@ import { Stillingskategori } from '../opprett-ny-stilling/OpprettNyStilling';
 import Stilling, { AdminStatus, Rekrutteringsbistandstilling, Stillingsinfo } from '../Stilling';
 import { fetchGet, fetchPost, fetchPut } from './apiUtils';
 
-export const stillingApi = '/rekrutteringsbistand-stilling/stilling-api';
+export const stillingApi = '/stilling-api';
 
 // Bruk mock-api hvis app kjører via "npm run mock"
 if (process.env.REACT_APP_MOCK) {

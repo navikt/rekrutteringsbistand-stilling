@@ -51,13 +51,23 @@ export const maskerPersonopplysninger = (tekst?: string) => {
     return maskert;
 };
 
+export enum Miljø {
+    DevGcp = 'dev-gcp',
+    ProdGcp = 'prod-gcp',
+    LabsGcp = 'labs-gcp',
+    Lokalt = 'local',
+}
+
 export const getMiljø = (): string => {
-    const pathname = window.location.hostname;
-    if (pathname.includes('nais.adeo.no')) {
-        return 'prod-fss';
-    } else if (pathname.includes('nais.preprod.local') || pathname.includes('dev.adeo.no')) {
-        return 'dev-fss';
+    const { hostname } = window.location;
+
+    if (hostname.includes('dev.intern.nav.no')) {
+        return Miljø.DevGcp;
+    } else if (hostname.includes('intern.nav.no')) {
+        return Miljø.ProdGcp;
+    } else if (hostname.includes('labs.nais.io')) {
+        return Miljø.LabsGcp;
     } else {
-        return 'local';
+        return Miljø.Lokalt;
     }
 };
