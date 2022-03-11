@@ -1,4 +1,5 @@
 import { put, takeLatest, delay } from 'redux-saga/effects';
+import { sendEvent } from '../../amplitude';
 import {
     fetchKandidatliste,
     fetchKandidatMedFnr,
@@ -191,6 +192,10 @@ function* hentKandidatMedFnr({ fodselsnummer }) {
     } catch (e) {
         if (e instanceof KandidatSokError) {
             if (e.status === 404) {
+                sendEvent('fødselsnummersøk', 'fant-ingen-kandidat', {
+                    kontekst: 'stilling',
+                });
+
                 yield put({ type: HENT_KANDIDAT_MED_FNR_NOT_FOUND });
             } else {
                 yield put({ type: HENT_KANDIDAT_MED_FNR_FAILURE, error: e });
