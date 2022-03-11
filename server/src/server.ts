@@ -1,6 +1,7 @@
 import path from 'path';
 import fs from 'fs';
 import express from 'express';
+import compression from 'compression';
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -12,6 +13,8 @@ const basePath = '/rekrutteringsbistand-stilling';
 const buildPath = path.join(__dirname, '../build');
 
 const startServer = (manifest: string) => {
+    app.use(compression());
+
     app.get(`${basePath}/${envPath}`, (_, res) => {
         res.type('application/javascript').send(envFile);
     });
