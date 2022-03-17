@@ -1,18 +1,17 @@
-import React, { ChangeEvent, ReactNode } from 'react';
+/*import React, { ChangeEvent, ReactNode } from 'react';
 import { connect } from 'react-redux';
 import { Element, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import { Input, Textarea } from 'nav-frontend-skjema';
 import { Flatknapp, Hovedknapp } from 'nav-frontend-knapper';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
-import {
-    HENT_KANDIDAT_MED_FNR,
-    HENT_KANDIDAT_MED_FNR_RESET,
-    HENT_KANDIDATLISTE,
-    Hentestatus,
-    LEGG_TIL_KANDIDAT,
-    SET_FODSELSNUMMER,
-    SET_KANDIDAT_NOTAT,
-} from './kandidatReducer';
+import // HENT_KANDIDAT_MED_FNR,
+// HENT_KANDIDAT_MED_FNR_RESET,
+// HENT_KANDIDATLISTE,
+// Hentestatus,
+// LEGG_TIL_KANDIDAT,
+// SET_FODSELSNUMMER,
+// SET_KANDIDAT_NOTAT,
+'./kandidatReducer';
 import './LeggTilKandidatModal.less';
 import { sendEvent } from '../../amplitude';
 import ModalMedStillingScope from '../../ModalMedStillingScope';
@@ -38,13 +37,13 @@ type Props = {
     notat: string;
     setNotat: (notat: string) => void;
 };
-
+*/
 export type Kandidat = {
     arenaKandidatnr: string;
     fornavn: string;
     etternavn: string;
 };
-
+/*
 type Kandidatliste = {
     kandidatlisteId: string;
     kandidater: Array<{
@@ -305,16 +304,13 @@ const mapStateToProps = (state: any) => ({
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
-    hentKandidatliste: (stillingsnummer: string) =>
-        dispatch({ type: HENT_KANDIDATLISTE, stillingsnummer }),
-    hentKandidatMedFnr: (fodselsnummer: string) =>
-        dispatch({ type: HENT_KANDIDAT_MED_FNR, fodselsnummer }),
-    leggTilKandidatMedFnr: (kandidat: LeggTilKandidatOutboundDto, kandidatlisteId: string) =>
-        dispatch({ type: LEGG_TIL_KANDIDAT, kandidat, kandidatlisteId }),
-    resetHentKandidatMedFnr: () => dispatch({ type: HENT_KANDIDAT_MED_FNR_RESET }),
-    setFodselsnummer: (fodselsnummer: string) =>
-        dispatch({ type: SET_FODSELSNUMMER, fodselsnummer }),
-    setNotat: (notat: string) => dispatch({ type: SET_KANDIDAT_NOTAT, notat }),
+    hentKandidatliste: (stillingsnummer: string) => {}, // dispatch({ type: HENT_KANDIDATLISTE, stillingsnummer }),
+    hentKandidatMedFnr: (fodselsnummer: string) => {}, //dispatch({ type: HENT_KANDIDAT_MED_FNR, fodselsnummer }),
+    leggTilKandidatMedFnr: (kandidat: LeggTilKandidatOutboundDto, kandidatlisteId: string) => {}, //dispatch({ type: LEGG_TIL_KANDIDAT, kandidat, kandidatlisteId }),
+    resetHentKandidatMedFnr: () => {}, //dispatch({ type: HENT_KANDIDAT_MED_FNR_RESET }),
+    setFodselsnummer: (fodselsnummer: string) => {}, //dispatch({ type: SET_FODSELSNUMMER, fodselsnummer }),
+    setNotat: (notat: string) => {}, //dispatch({ type: SET_KANDIDAT_NOTAT, notat }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LeggTilKandidatModal);
+*/

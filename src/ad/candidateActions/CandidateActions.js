@@ -30,13 +30,14 @@ class CandidateActions extends React.Component {
 
         return (
             <div className="CandidateActions">
-                {this.state.showKandidatModal && (
-                    <LeggTilKandidatModal
+                {this.state.showKandidatModal &&
+                    {
+                        /*<LeggTilKandidatModal
                         vis={this.state.showKandidatModal}
                         onClose={this.toggleKandidatModal}
                         stillingsId={id}
-                    />
-                )}
+                />*/
+                    }}
                 {showCandidateLinks && (
                     <AWithIcon
                         href={`/kandidater/stilling/${uuid}`}
