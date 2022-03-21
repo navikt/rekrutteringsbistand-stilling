@@ -1,7 +1,7 @@
 import amplitudeJs, { AmplitudeClient } from 'amplitude-js';
 
 const getApiKey = () => {
-    return window.location.hostname === 'rekrutteringsbistand.nais.adeo.no'
+    return window.location.hostname === 'rekrutteringsbistand.intern.nav.no'
         ? '3a6fe32c3457e77ce81c356bb14ca886'
         : '55477baea93c5227d8c0f6b813653615';
 };
