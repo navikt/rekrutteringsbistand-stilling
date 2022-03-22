@@ -1,18 +1,19 @@
 import React, { ChangeEvent, FunctionComponent, useState } from 'react';
-import { AlertStripeAdvarsel, AlertStripeInfo } from 'nav-frontend-alertstriper';
+import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { Input } from 'nav-frontend-skjema';
 import NavFrontendSpinner from 'nav-frontend-spinner';
 import { Systemtittel } from 'nav-frontend-typografi';
-import BekreftMedNotat from './BekreftMedNotat';
-import LeggTilEllerAvbryt from './LeggTilEllerAvbryt';
-import { Kandidat, Kandidatliste } from './kandidatlistetyper';
-import { sendEvent } from '../../amplitude';
-import { Nettressurs, ikkeLastet, Nettstatus, lasterInn } from '../../api/Nettressurs';
+
 import { fetchKandidatMedFnr } from './kandidatApi';
-import { Synlighetsevaluering } from './kandidaten-finnes-ikke/Synlighetsevaluering';
-import fnrValidator from '@navikt/fnrvalidator';
 import { fetchSynlighetsevaluering } from './kandidatApi';
+import { Kandidat, Kandidatliste } from './kandidatlistetyper';
+import { Nettressurs, ikkeLastet, Nettstatus, lasterInn } from '../../api/Nettressurs';
+import { sendEvent } from '../../amplitude';
+import { Synlighetsevaluering } from './kandidaten-finnes-ikke/Synlighetsevaluering';
+import BekreftMedNotat from './BekreftMedNotat';
+import fnrValidator from '@navikt/fnrvalidator';
 import KandidatenFinnesIkke from './kandidaten-finnes-ikke/KandidatenFinnesIkke';
+import LeggTilEllerAvbryt from './LeggTilEllerAvbryt';
 
 type Props = {
     kandidatliste: Kandidatliste;
@@ -22,7 +23,6 @@ type Props = {
 const LeggTilKandidat: FunctionComponent<Props> = ({ kandidatliste, onClose }) => {
     const [fnr, setFnr] = useState<string>('');
     const [feilmelding, setFeilmelding] = useState<string | null>(null);
-    const [erAlleredeLagtTil, setAlleredeLagtTil] = useState<boolean>(false);
     const [fnrSøk, setFnrSøk] = useState<Nettressurs<Kandidat>>(ikkeLastet());
     const [synlighetsevaluering, setSynlighetsevaluering] = useState<
         Nettressurs<Synlighetsevaluering>
@@ -30,7 +30,6 @@ const LeggTilKandidat: FunctionComponent<Props> = ({ kandidatliste, onClose }) =
 
     const tilbakestill = (medFeilmelding: string | null = null) => {
         setFeilmelding(medFeilmelding);
-        setAlleredeLagtTil(false);
         setFnrSøk(ikkeLastet());
         setSynlighetsevaluering(ikkeLastet());
     };
@@ -50,10 +49,7 @@ const LeggTilKandidat: FunctionComponent<Props> = ({ kandidatliste, onClose }) =
             if (erGyldig) {
                 setFeilmelding(null);
 
-                const finnesAllerede = erFnrAlleredeIListen(fnr);
-                setAlleredeLagtTil(finnesAllerede);
-
-                if (finnesAllerede) {
+                if (erFnrAlleredeIListen(fnr)) {
                     setFeilmelding('Kandidaten er allerede lagt til i listen');
                 } else {
                     hentKandidatMedFødselsnummer(fnr);
@@ -117,13 +113,6 @@ const LeggTilKandidat: FunctionComponent<Props> = ({ kandidatliste, onClose }) =
                 className="blokk-s"
                 feil={feilmelding || undefined}
             />
-
-            {erAlleredeLagtTil && (
-                <AlertStripeInfo className="LeggTilKandidatModal__advarsel">
-                    Finner du ikke kandidaten i kandidatlisten? Husk å sjekk om kandidaten er
-                    slettet ved å huke av "Vis kun slettede".
-                </AlertStripeInfo>
-            )}
 
             {(fnrSøk.kind === Nettstatus.LasterInn ||
                 synlighetsevaluering.kind === Nettstatus.LasterInn) && (
