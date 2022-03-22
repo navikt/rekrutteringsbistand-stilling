@@ -1,24 +1,24 @@
 import fetchMock from 'fetch-mock';
+import { KANDIDAT_API } from '../ad/legg-til-kandidat-modal/kandidatApi';
 import { stillingApi } from '../api/api';
-import { kandidatApi } from '../ad/kandidatModal/kandidatApi';
 import fnrsok from './data/fnrsok';
 import kandidatliste from './data/kandidatliste';
 
-const rekrutteringsbistandStilling = require('./data/post-ads.json');
-const reportee = require('./data/reportee.json');
-const ident = require('./data/ident.json');
-const mineStillinger = require('./data/minestillinger.json');
-const eksternStilling = require('./data/ekstern-stilling.json');
-const internStilling = require('./data/intern-stilling.json');
-const counties = require('./data/counties.json');
-const countries = require('./data/countries.json');
-const municipals = require('./data/municipals.json');
-const categoriesWithAltnames = require('./data/categories-with-altnames.json');
-const postdata = require('./data/postdata.json');
-const search = require('./data/search.json');
-const aktivEnhet = require('./data/dekoratør/aktivenhet.json');
-const aktivBruker = require('./data/dekoratør/aktivbruker.json');
-const decorator = require('./data/dekoratør/decorator.json');
+import rekrutteringsbistandStilling from './data/post-ads.json';
+import reportee from './data/reportee.json';
+import ident from './data/ident.json';
+import mineStillinger from './data/minestillinger.json';
+import eksternStilling from './data/ekstern-stilling.json';
+import internStilling from './data/intern-stilling.json';
+import counties from './data/counties.json';
+import countries from './data/countries.json';
+import municipals from './data/municipals.json';
+import categoriesWithAltnames from './data/categories-with-altnames.json';
+import postdata from './data/postdata.json';
+import search from './data/search.json';
+import aktivEnhet from './data/dekoratør/aktivenhet.json';
+import aktivBruker from './data/dekoratør/aktivbruker.json';
+import decorator from './data/dekoratør/decorator.json';
 
 const adsUrl = `express:${stillingApi}/rekrutteringsbistand/api/v1/ads`;
 const slettStillingUrl = `express:${stillingApi}/rekrutteringsbistand/api/v1/ads/:stillingsId`;
@@ -33,9 +33,9 @@ const countriesUrl = `${stillingApi}/rekrutteringsbistand/api/v1/geography/count
 const municipalsUrl = `${stillingApi}/rekrutteringsbistand/api/v1/geography/municipals`;
 const categoriesWithAltnamesUrl = `${stillingApi}/rekrutteringsbistand/api/v1/categories-with-altnames/?taxonomy=STYRK08NAV`;
 const postdataUrl = `${stillingApi}/rekrutteringsbistand/api/v1/postdata/`;
-const fnrsokUrl = `express:${kandidatApi}/veileder/kandidatsok/fnrsok`;
-const kandidatlisteUrl = `express:${kandidatApi}/veileder/stilling/:stillingsId/kandidatliste`;
-const leggKandidatIKandidatlisteUrl = `express:${kandidatApi}/veileder/kandidatlister/:kandidatlisteId/kandidater`;
+const fnrsokUrl = `express:${KANDIDAT_API}/veileder/kandidatsok/fnrsok`;
+const kandidatlisteUrl = `express:${KANDIDAT_API}/veileder/stilling/:stillingsId/kandidatliste`;
+const leggKandidatIKandidatlisteUrl = `express:${KANDIDAT_API}/veileder/kandidatlister/:kandidatlisteId/kandidater`;
 
 const identUrl = `express:${stillingApi}/stillingsinfo/ident/:ident`;
 const featuresUrl = `express:${stillingApi}/features/`;

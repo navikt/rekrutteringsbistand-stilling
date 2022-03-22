@@ -7,7 +7,12 @@ const kandidatliste = {
     stillingId: '9eb5cf26-2b78-42b2-b88b-6b1beab29b97',
     opprettetAv: { ident: 'Z992782', navn: 'F_Z992782 E_Z992782' },
     opprettetTidspunkt: '2020-11-05T08:09:43.972',
-    kandidater: [],
+    kandidater: [
+        {
+            fodselsnr: '10101010010',
+            kandidatnr: 'A123456',
+        },
+    ],
     kanEditere: true,
     erMedeier: false,
     erEier: true,
