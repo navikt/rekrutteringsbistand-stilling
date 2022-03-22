@@ -1,23 +1,20 @@
 import React, { ChangeEvent, FunctionComponent, useState } from 'react';
 import { Textarea } from 'nav-frontend-skjema';
 import { Feilmelding, Normaltekst } from 'nav-frontend-typografi';
-import { postKandidaterTilKandidatliste } from '../../../api/api';
-import { Nettressurs, ikkeLastet, senderInn, Nettstatus } from '../../../api/Nettressurs';
-import { Fødselsnummersøk } from '../../../kandidatside/cv/reducer/cv-typer';
-import { Kandidatliste } from '../../domene/Kandidatliste';
-import { KandidatOutboundDto } from './LeggTilKandidatModal';
 import { useDispatch } from 'react-redux';
-import KandidatlisteAction from '../../reducer/KandidatlisteAction';
-import KandidatlisteActionType from '../../reducer/KandidatlisteActionType';
-import { VarslingAction, VarslingActionType } from '../../../common/varsling/varslingReducer';
 import LeggTilEllerAvbryt from './LeggTilEllerAvbryt';
 import { sendEvent } from '../../amplitude';
+import { Kandidat, Kandidatliste } from './kandidatlistetyper';
+import { ikkeLastet, Nettressurs, Nettstatus, senderInn } from '../../api/Nettressurs';
+import { postKandidaterTilKandidatliste } from './kandidatApi';
+import { KandidatOutboundDto } from './LeggTilKandidatModal';
+import { VarslingAction, VarslingActionType } from '../../common/varsling/varslingReducer';
 
 const MAKS_NOTATLENGDE = 2000;
 
 const BekreftMedNotat: FunctionComponent<{
     fnr: string;
-    kandidat: Fødselsnummersøk;
+    kandidat: Kandidat;
     kandidatliste: Kandidatliste;
     onClose: () => void;
 }> = ({ fnr, kandidat, kandidatliste, onClose }) => {
@@ -55,12 +52,6 @@ const BekreftMedNotat: FunctionComponent<{
     };
 
     const varsleKandidatlisteOmNyKandidat = () => {
-        /* 
-                yield put({ type: SHOW_SAVED_KANDIDAT_ALERT_STRIPE, mode });
-                yield delay(3000);
-                yield put({ type: HIDE_SAVED_KANDIDAT_ALERT_STRIPE });
-        */
-
         dispatch<VarslingAction>({
             type: VarslingActionType.VisVarsling,
             innhold: `Kandidat ${kandidat.fornavn} ${kandidat.etternavn} (${fnr}) er lagt til`,

@@ -18,7 +18,6 @@ import featureTogglesReducer, {
     featureTogglesSaga,
     FETCH_FEATURE_TOGGLES,
 } from './featureToggles/featureTogglesReducer';
-import kandidatReducer, { kandidatSaga } from './ad/kandidatModal/kandidatReducer';
 import locationAreaReducer, { locationAreaSaga } from './ad/edit/location/locationAreaReducer';
 import locationCodeReducer, { locationCodeSaga } from './ad/edit/location/locationCodeReducer';
 import MyAds from './myAds/MyAds';
@@ -29,6 +28,8 @@ import stillingsinfoDataReducer from './stillingsinfo/stillingsinfoDataReducer';
 import stillingsinfoReducer, { stillingsinfoSaga } from './stillingsinfo/stillingsinfoReducer';
 import styrkReducer, { styrkSaga } from './ad/edit/jobDetails/styrk/styrkReducer';
 import useLoggNavigering from './useLoggNavigering';
+import varslingReducer, { varslingSaga } from './common/varsling/varslingReducer';
+import Varsling from './common/varsling/Varsling';
 
 Sentry.init({
     dsn: 'https://34e485d3fd9945e29d5f66f11a29f84e@sentry.gc.nav.no/43',
@@ -49,7 +50,6 @@ const store = createStore(
         adData: adDataReducer,
         adValidation: adValidationReducer,
         employer: employerReducer,
-        kandidat: kandidatReducer,
         locationCode: locationCodeReducer,
         locationArea: locationAreaReducer,
         myAds: myAdsReducer,
@@ -59,6 +59,7 @@ const store = createStore(
         stillingsinfo: stillingsinfoReducer,
         stillingsinfoData: stillingsinfoDataReducer,
         featureToggles: featureTogglesReducer,
+        varsling: varslingReducer,
     }),
     composeEnhancers(applyMiddleware(sagaMiddleware))
 );
@@ -72,9 +73,9 @@ sagaMiddleware.run(reporteeSaga);
 sagaMiddleware.run(myAdsSaga);
 sagaMiddleware.run(adDataSaga);
 sagaMiddleware.run(locationAreaSaga);
-sagaMiddleware.run(kandidatSaga);
 sagaMiddleware.run(stillingsinfoSaga);
 sagaMiddleware.run(featureTogglesSaga);
+sagaMiddleware.run(varslingSaga);
 
 const appElement =
     document.getElementById('rekrutteringsbistand-container') ||
@@ -92,6 +93,7 @@ const App = () => {
 
     return (
         <main>
+            <Varsling />
             <Switch>
                 <Route exact path="/stillinger/minestillinger" component={MyAds} />
                 <Route exact path="/stillinger/stilling/:uuid" component={Ad} />

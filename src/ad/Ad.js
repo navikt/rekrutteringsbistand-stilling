@@ -16,7 +16,6 @@ import AdministrationPreview from './preview/administration/AdministrationPrevie
 import SavedAdAlertStripe from './alertstripe/SavedAdAlertStripe';
 import PreviewHeader from './preview/header/PreviewHeader';
 import AdStatusEnum from '../common/enums/AdStatusEnum';
-import LeggTilKandidatAlertStripe from './kandidatModal/LeggTilKandidatAlertStripe';
 import './Ad.less';
 
 export const REDIGERINGSMODUS_QUERY_PARAM = 'redigeringsmodus';
@@ -90,7 +89,6 @@ class Ad extends React.Component {
 
         return (
             <div className="Ad">
-                <LeggTilKandidatAlertStripe />
                 <SavedAdAlertStripe />
                 <Faded>
                     <div className="Ad__flex">

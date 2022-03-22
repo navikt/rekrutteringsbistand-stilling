@@ -2,10 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import AWithIcon from '../../common/aWithIcon/AWithIcon';
-import LeggTilKandidatModal from '../kandidatModal/LeggTilKandidatModal';
+import LeggTilKandidatModal from '../legg-til-kandidat-modal/LeggTilKandidatModal';
 import ButtonWithIcon from '../../common/buttonWithIcon/ButtonWithIcon';
-import './CandidateActions.less';
 import { erDirektemeldtStilling } from '../adUtils';
+import './CandidateActions.less';
 
 class CandidateActions extends React.Component {
     constructor(props) {
@@ -30,14 +30,13 @@ class CandidateActions extends React.Component {
 
         return (
             <div className="CandidateActions">
-                {this.state.showKandidatModal &&
-                    {
-                        /*<LeggTilKandidatModal
+                {this.state.showKandidatModal && (
+                    <LeggTilKandidatModal
                         vis={this.state.showKandidatModal}
                         onClose={this.toggleKandidatModal}
                         stillingsId={id}
-                />*/
-                    }}
+                    />
+                )}
                 {showCandidateLinks && (
                     <AWithIcon
                         href={`/kandidater/stilling/${uuid}`}
