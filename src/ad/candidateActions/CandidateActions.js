@@ -22,7 +22,7 @@ class CandidateActions extends React.Component {
     };
 
     render() {
-        const { uuid, source, publishedByAdmin, id } = this.props.ad;
+        const { uuid, source, publishedByAdmin } = this.props.ad;
         const { stillingsinfo } = this.props;
 
         const showCandidateLinks =
@@ -34,7 +34,7 @@ class CandidateActions extends React.Component {
                     <LeggTilKandidatModal
                         vis={this.state.showKandidatModal}
                         onClose={this.toggleKandidatModal}
-                        stillingsId={id}
+                        stillingsId={uuid}
                     />
                 )}
                 {showCandidateLinks && (
