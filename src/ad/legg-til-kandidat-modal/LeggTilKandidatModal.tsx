@@ -2,7 +2,14 @@ import React, { FunctionComponent, useEffect, useState } from 'react';
 import NavFrontendSpinner from 'nav-frontend-spinner';
 import { Feilmelding } from 'nav-frontend-typografi';
 
-import { feil, ikkeLastet, Nettressurs, Nettstatus, suksess } from '../../api/Nettressurs';
+import {
+    feil,
+    ikkeLastet,
+    lasterInn,
+    Nettressurs,
+    Nettstatus,
+    suksess,
+} from '../../api/Nettressurs';
 import ModalMedStillingScope from '../../ModalMedStillingScope';
 import { fetchKandidatliste, putKandidatliste } from './kandidatApi';
 import { Kandidatliste } from './kandidatlistetyper';
@@ -25,6 +32,8 @@ const LeggTilKandidatModal: FunctionComponent<Props> = ({ vis, onClose, stilling
 
     useEffect(() => {
         const hentKandidatliste = async () => {
+            setKandidatliste(lasterInn());
+
             let kandidatliste: Nettressurs<Kandidatliste>;
 
             try {
