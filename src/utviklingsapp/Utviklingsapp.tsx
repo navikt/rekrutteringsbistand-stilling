@@ -4,7 +4,7 @@ import { Link, Router } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 
 import { cssScopeForApp } from '../index';
-import { Main } from '../app';
+import App from '../App';
 import './Utviklingsapp.less';
 
 const history = createBrowserHistory();
@@ -32,9 +32,7 @@ const Utviklingsapp: FunctionComponent = () => {
                         <Link to="/stillinger/minestillinger">Mine stillinger</Link>
                     </div>
                 </header>
-                <main>
-                    <Main history={history} />
-                </main>
+                <App history={history} />
             </Router>
         </div>
     );

@@ -14,7 +14,7 @@ const SavedAdAlertStripe = ({
     limitedAccess,
 }) => {
     if (isSavingAd) {
-        return <div />;
+        return null;
     }
     if (showAlertStripe && alertStripeMode === AdAlertStripeEnum.SAVED) {
         return (
