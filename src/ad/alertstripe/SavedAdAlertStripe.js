@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import AlertStripe from 'nav-frontend-alertstriper';
 import AdAlertStripeEnum from './AdAlertStripeEnum';
-import { formatISOString } from '../../utils.ts';
+import { formatISOString } from '../../datoUtils.ts';
 import './SavedAdAlertStripe.less';
 
 const SavedAdAlertStripe = ({

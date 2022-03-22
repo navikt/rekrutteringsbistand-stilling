@@ -5,7 +5,7 @@ import Alertstripe from 'nav-frontend-alertstriper';
 import AdStatusEnum from '../../../common/enums/AdStatusEnum';
 import './AdStatus.less';
 import PrivacyStatusEnum from '../../../common/enums/PrivacyStatusEnum';
-import { formatISOString } from '../../../utils.ts';
+import { formatISOString } from '../../../datoUtils.ts';
 
 function AdStatus(props) {
     const { adStatus, deactivatedByExpiry, activationOnPublishingDate, originalData, isSavingAd } =

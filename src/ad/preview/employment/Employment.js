@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Undertittel } from 'nav-frontend-typografi';
-import { formatISOString, isValidISOString } from '../../../utils.ts';
+import { formatISOString, isValidISOString } from '../../../datoUtils.ts';
 import { getWorkLocationsAsString } from '../../../common/getWorkLocation';
 import worktimeParser from './worktimeParser';
 

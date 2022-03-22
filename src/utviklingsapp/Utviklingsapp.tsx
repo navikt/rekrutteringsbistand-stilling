@@ -11,7 +11,7 @@ const history = createBrowserHistory();
 
 const Utviklingsapp: FunctionComponent = () => {
     // eslint-disable-next-line
-    const [navKontor, setNavKontor] = useState<string | null>(null);
+    const [_, setNavKontor] = useState<string | null>(null);
 
     useEffect(() => {
         const timeout = setTimeout(() => {

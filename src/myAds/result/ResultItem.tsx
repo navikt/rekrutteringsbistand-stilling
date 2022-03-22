@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Normaltekst } from 'nav-frontend-typografi';
 import getEmployerName from '../../common/getEmployerName';
-import { formatISOString } from '../../utils';
+import { formatISOString } from '../../datoUtils';
 import PrivacyStatusEnum from '../../common/enums/PrivacyStatusEnum';
 import AWithIcon from '../../common/aWithIcon/AWithIcon';
 import './Icons.less';

@@ -7,7 +7,7 @@ import {
     fjernTidspunktFraISOString,
     isValidISOString,
     leggTilTimerPåISOString,
-} from '../../../utils.ts';
+} from '../../../datoUtils.ts';
 import { SET_PUBLISHED, SET_EXPIRATION_DATE } from '../../adDataReducer';
 import Skjemalabel from '../../edit/skjemaetikett/Skjemalabel';
 import './Publishing.less';

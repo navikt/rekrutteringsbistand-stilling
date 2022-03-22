@@ -10,7 +10,7 @@ import {
     fjernTidspunktFraISOString,
     isValidISOString,
     leggTilTimerPåISOString,
-} from '../../../utils.ts';
+} from '../../../datoUtils.ts';
 import {
     SET_EMPLOYMENT_EXTENT,
     CHECK_EMPLOYMENT_WORKDAY,

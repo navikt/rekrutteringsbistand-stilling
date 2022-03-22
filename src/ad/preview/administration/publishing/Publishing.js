@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
-import { formatISOString } from '../../../../utils.ts';
+import { formatISOString } from '../../../../datoUtils.ts';
 import './Publishing.less';
 
 class Publishing extends React.Component {

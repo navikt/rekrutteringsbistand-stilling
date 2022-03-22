@@ -11,7 +11,7 @@ import { FETCH_LOCATIONS, FETCH_LOCATIONS_SUCCESS } from './edit/location/locati
 import AdStatusEnum from '../common/enums/AdStatusEnum';
 import PrivacyStatusEnum from '../common/enums/PrivacyStatusEnum';
 import IsJson from './edit/practicalInformation/IsJson';
-import { isValidISOString } from '../utils';
+import { isValidISOString } from '../datoUtils';
 import { leggTilTagUnderRegistrering, fjernTagUnderRegistrering } from '../ad/tags/utils';
 import Stilling from '../Stilling';
 

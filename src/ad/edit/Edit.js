@@ -12,7 +12,7 @@ import JobDetails from './jobDetails/JobDetails';
 import ContactPerson from './contactPerson/ContactPerson.tsx';
 import Application from './application/Application';
 import Location from './location/Location';
-import { formatISOString } from '../../utils.ts';
+import { formatISOString } from '../../datoUtils.ts';
 import EditHeader from './header/EditHeader';
 import { hentAnnonselenke, stillingErPublisert } from '../adUtils';
 import CandidateActions from '../candidateActions/CandidateActions';
