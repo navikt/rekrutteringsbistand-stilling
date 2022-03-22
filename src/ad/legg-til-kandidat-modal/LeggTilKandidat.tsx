@@ -133,7 +133,7 @@ const LeggTilKandidat: FunctionComponent<Props> = ({ kandidatliste, onClose }) =
                     <KandidatenFinnesIkke synlighetsevaluering={synlighetsevaluering.data} />
                 )}
 
-            {fnrSøk.kind !== Nettstatus.Suksess && fnrSøk.kind !== Nettstatus.FinnesIkke && (
+            {fnrSøk.kind !== Nettstatus.Suksess && (
                 <LeggTilEllerAvbryt leggTilDisabled onAvbrytClick={onClose} />
             )}
         </>
