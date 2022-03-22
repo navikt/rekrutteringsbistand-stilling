@@ -1,5 +1,6 @@
 import { sendEvent } from '../amplitude';
-import { VIS_STILLING_URL } from '../fasitProperties';
+
+const VIS_STILLING_URL = (window as any).STILLING_VIS_STILLING_URL;
 
 export const stillingErPublisert = (ad: any) => {
     if (ad.status === 'INACTIVE' && ad.deactivatedByExpiry === false) {
