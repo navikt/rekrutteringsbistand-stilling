@@ -1,30 +1,35 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { useLocation } from 'react-router';
-import PropTypes from 'prop-types';
-import AlertStripe from 'nav-frontend-alertstriper';
+import React, { useState, useEffect, FunctionComponent } from 'react';
 import { Container } from 'nav-frontend-grid';
+import { History } from 'history';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { Sidetittel } from 'nav-frontend-typografi';
-import Loading from '../common/loading/Loading';
-import ResultHeader from './result/ResultHeader';
-import ResultItem from './result/ResultItem';
-import NoResults from './noResults/NoResults';
-import Pagination from './pagination/Pagination.tsx';
-import StopAdModal from '../ad/administration/adStatus/StopAdModal';
-import Count from './result/Count';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router';
+import AlertStripe from 'nav-frontend-alertstriper';
+
+import { CLEAR_COPIED_ADS } from '../ad/adReducer';
 import { FETCH_MY_ADS, RESET_MY_ADS_PAGE } from './mineStillingerReducer';
-import { CLEAR_COPIED_ADS, CREATE_AD } from '../ad/adReducer';
+import { State } from '../reduxStore';
+import Count from './result/Count';
 import DeleteAdModal from '../ad/administration/adStatus/DeleteAdModal';
 import Filter from './filter/Filter';
+import Loading from '../common/loading/Loading';
+import NoResults from './noResults/NoResults';
 import OpprettNyStilling from '../opprett-ny-stilling/OpprettNyStilling';
+import Pagination from './pagination/Pagination';
+import ResultHeader from './result/ResultHeader';
+import ResultItem from './result/ResultItem';
+import StopAdModal from '../ad/administration/adStatus/StopAdModal';
 import './MineStillinger.less';
 
-const MineStillinger = (props) => {
-    const { ads, getAds, clearCopiedAds, resetMyAdsPage, isSearching, error, reportee, history } =
-        props;
+type Props = {
+    history: History;
+};
 
+const MineStillinger: FunctionComponent<Props> = ({ history }) => {
+    const dispatch = useDispatch();
     const { search } = useLocation();
+    const { items: ads, isSearching, error } = useSelector((state: State) => state.mineStillinger);
 
     const skalViseOpprettStillingModal = () => {
         const queryParams = new URLSearchParams(search);
@@ -39,16 +44,15 @@ const MineStillinger = (props) => {
 
     useEffect(() => {
         if (history.action === 'PUSH') {
-            resetMyAdsPage();
+            dispatch({ type: RESET_MY_ADS_PAGE });
         }
 
-        getAds();
+        dispatch({ type: FETCH_MY_ADS });
 
         return () => {
-            clearCopiedAds();
+            dispatch({ type: CLEAR_COPIED_ADS });
         };
-        // eslint-disable-next-line
-    }, []);
+    }, [dispatch, history.action]);
 
     const onOpprettNyClick = () => {
         setVisOpprettStillingModal(true);
@@ -77,7 +81,7 @@ const MineStillinger = (props) => {
                 <StopAdModal fromMyAds />
                 <DeleteAdModal />
                 {error && (
-                    <AlertStripe className="AlertStripe__fullpage" type="advarsel" solid="true">
+                    <AlertStripe className="AlertStripe__fullpage" type="advarsel">
                         Det oppsto en feil. Forsøk å laste siden på nytt
                     </AlertStripe>
                 )}
@@ -94,9 +98,8 @@ const MineStillinger = (props) => {
                             {adsFound &&
                                 ads.map((ad) => (
                                     <ResultItem
-                                        key={ad.uuid}
+                                        key={ad.stilling.uuid}
                                         rekrutteringsbistandstilling={ad}
-                                        reportee={reportee}
                                     />
                                 ))}
                         </tbody>
@@ -112,33 +115,4 @@ const MineStillinger = (props) => {
     );
 };
 
-MineStillinger.defaultProps = {
-    error: undefined,
-};
-
-MineStillinger.propTypes = {
-    ads: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-    isSearching: PropTypes.bool.isRequired,
-    getAds: PropTypes.func.isRequired,
-    resetMyAdsPage: PropTypes.func.isRequired,
-    error: PropTypes.shape({
-        statusCode: PropTypes.number,
-    }),
-    clearCopiedAds: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-    ads: state.mineStillinger.items,
-    reportee: state.reportee.data,
-    isSearching: state.mineStillinger.isSearching,
-    error: state.mineStillinger.error,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-    getAds: () => dispatch({ type: FETCH_MY_ADS }),
-    resetMyAdsPage: () => dispatch({ type: RESET_MY_ADS_PAGE }),
-    createAd: () => dispatch({ type: CREATE_AD }),
-    clearCopiedAds: () => dispatch({ type: CLEAR_COPIED_ADS }),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(MineStillinger);
+export default MineStillinger;

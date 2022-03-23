@@ -1,5 +1,5 @@
 import React, { useState, FunctionComponent } from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Hamburgerknapp } from 'nav-frontend-ikonknapper';
 import { Link } from 'react-router-dom';
 import { Normaltekst } from 'nav-frontend-typografi';
@@ -20,15 +20,12 @@ import './Result.less';
 
 type Props = {
     rekrutteringsbistandstilling: Rekrutteringsbistandstilling;
-    copiedAds: string[];
-    reportee: any;
 };
 
-const ResultItem: FunctionComponent<Props> = ({
-    rekrutteringsbistandstilling,
-    copiedAds,
-    reportee,
-}) => {
+const ResultItem: FunctionComponent<Props> = ({ rekrutteringsbistandstilling }) => {
+    const reportee = useSelector((state: State) => state.reportee.data);
+    const copiedAds = useSelector((state: State) => state.ad.copiedAds);
+
     const { stilling, stillingsinfo } = rekrutteringsbistandstilling;
 
     const [dropDownVisible, setDropDownVisible] = useState(false);
@@ -197,8 +194,4 @@ const ResultItem: FunctionComponent<Props> = ({
     );
 };
 
-const mapStateToProps = (state: State) => ({
-    copiedAds: state.ad.copiedAds,
-});
-
-export default connect(mapStateToProps)(ResultItem);
+export default ResultItem;

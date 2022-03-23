@@ -14,6 +14,7 @@ import reporteeReducer, { reporteeSaga, ReporteeState } from './reportee/reporte
 import stillingsinfoDataReducer from './stillingsinfo/stillingsinfoDataReducer';
 import stillingsinfoReducer, { stillingsinfoSaga } from './stillingsinfo/stillingsinfoReducer';
 import { Rekrutteringsbistandstilling, Stillingsinfo } from './Stilling';
+import { ApiError } from './api/apiUtils';
 
 export type State = {
     ad: AdState;
@@ -21,8 +22,10 @@ export type State = {
     adValidation: AdValidationState;
     mineStillinger: {
         items: Rekrutteringsbistandstilling[];
+        isSearching: boolean;
         totalPages: number;
         page: number;
+        error?: ApiError;
     };
     stillingsinfoData: Stillingsinfo;
     varsling: VarslingState;
