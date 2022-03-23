@@ -8,7 +8,6 @@ import { useLocation } from 'react-router';
 import AlertStripe from 'nav-frontend-alertstriper';
 
 import { CLEAR_COPIED_ADS } from '../ad/adReducer';
-import { FETCH_MY_ADS, RESET_MY_ADS_PAGE } from './mineStillingerReducer';
 import { State } from '../reduxStore';
 import Count from './result/Count';
 import DeleteAdModal from '../ad/administration/adStatus/DeleteAdModal';
@@ -20,6 +19,7 @@ import Pagination from './pagination/Pagination';
 import ResultHeader from './result/ResultHeader';
 import ResultItem from './result/ResultItem';
 import StopAdModal from '../ad/administration/adStatus/StopAdModal';
+import { MineStillingerActionType } from './MineStillingerAction';
 import './MineStillinger.less';
 
 type Props = {
@@ -30,6 +30,7 @@ const MineStillinger: FunctionComponent<Props> = ({ history }) => {
     const dispatch = useDispatch();
     const { search } = useLocation();
     const { items: ads, isSearching, error } = useSelector((state: State) => state.mineStillinger);
+    const reportee = useSelector((state: State) => state.reportee.data);
 
     const skalViseOpprettStillingModal = () => {
         const queryParams = new URLSearchParams(search);
@@ -43,11 +44,15 @@ const MineStillinger: FunctionComponent<Props> = ({ history }) => {
     const adsFound = !isSearching && ads && ads.length > 0;
 
     useEffect(() => {
-        if (history.action === 'PUSH') {
-            dispatch({ type: RESET_MY_ADS_PAGE });
+        if (reportee) {
+            dispatch({ type: MineStillingerActionType.FetchMyAds });
         }
+    }, [reportee, dispatch]);
 
-        dispatch({ type: FETCH_MY_ADS });
+    useEffect(() => {
+        if (history.action === 'PUSH') {
+            dispatch({ type: MineStillingerActionType.ResetMyAdsPage });
+        }
 
         return () => {
             dispatch({ type: CLEAR_COPIED_ADS });

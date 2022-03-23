@@ -25,7 +25,6 @@ import {
 } from './adValidationReducer';
 import { showAlertStripe } from './alertstripe/SavedAdAlertStripeReducer';
 import AdAlertStripeEnum from './alertstripe/AdAlertStripeEnum';
-import { FETCH_MY_ADS } from '../mine-stillinger/mineStillingerReducer';
 import { OPPRETT_STILLINGSINFO, UPDATE_STILLINGSINFO } from '../stillingsinfo/stillingsinfoReducer';
 import {
     SET_NAV_IDENT_STILLINGSINFO,
@@ -42,6 +41,7 @@ import Stilling, {
     System,
 } from '../Stilling';
 import { ApiError, fetchDelete, fetchPut } from '../api/apiUtils';
+import { MineStillingerActionType } from '../mine-stillinger/MineStillingerAction';
 
 export const FETCH_AD = 'FETCH_AD';
 export const FETCH_AD_BEGIN = 'FETCH_AD_BEGIN';
@@ -487,8 +487,7 @@ function* stopAd() {
 
 function* stopAdFromMyAds() {
     yield stopAd();
-    // Update list with the new status
-    yield put({ type: FETCH_MY_ADS });
+    yield put({ type: MineStillingerActionType.FetchMyAds });
 }
 
 function* saveAd(action) {
@@ -548,7 +547,7 @@ function* deleteAd() {
 function* deleteAdFromMyAds() {
     yield deleteAd();
     // Update list with the new status
-    yield put({ type: FETCH_MY_ADS });
+    yield put({ type: MineStillingerActionType.FetchMyAds });
 }
 
 function* forkastNyStilling() {
@@ -580,7 +579,7 @@ function* copyAdFromMyAds(action) {
         // Mark copied ad in mineStillinger
         yield put({ type: ADD_COPIED_ADS, adUuid: response.stilling.uuid });
         // Update list with the new ad
-        yield put({ type: FETCH_MY_ADS });
+        yield put({ type: MineStillingerActionType.FetchMyAds });
     } catch (e) {
         if (e instanceof ApiError) {
             yield put({ type: CREATE_AD_FAILURE, error: e });

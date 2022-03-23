@@ -1,11 +1,18 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { CHANGE_MY_ADS_SORTING } from '../mineStillingerReducer';
-import useSorting from '../../common/sort/useSorting';
+import React, { FunctionComponent } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { MineStillingerActionType } from '../MineStillingerAction';
+import { State } from '../../reduxStore';
+import useSorting from './useSorting';
 import './Result.less';
+import './Sort.less';
 
-function ResultHeader({ changeSorting, sortDir, sortField }) {
+const ResultHeader: FunctionComponent = () => {
+    const dispatch = useDispatch();
+    const { sortDir, sortField } = useSelector((state: State) => state.mineStillinger);
+
+    const changeSorting = (field: string, dir: string) =>
+        dispatch({ type: MineStillingerActionType.ChangeMyAdsSorting, field, dir });
+
     const [sort, toggleSorting, className] = useSorting(
         { field: sortField, dir: sortDir },
         changeSorting
@@ -76,21 +83,6 @@ function ResultHeader({ changeSorting, sortDir, sortField }) {
             </tr>
         </thead>
     );
-}
-
-ResultHeader.propTypes = {
-    changeSorting: PropTypes.func.isRequired,
-    sortDir: PropTypes.string.isRequired,
-    sortField: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-    sortDir: state.mineStillinger.sortDir,
-    sortField: state.mineStillinger.sortField,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-    changeSorting: (field, dir) => dispatch({ type: CHANGE_MY_ADS_SORTING, field, dir }),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ResultHeader);
+export default ResultHeader;

@@ -9,25 +9,20 @@ import styrkReducer, { styrkSaga } from './ad/edit/jobDetails/styrk/styrkReducer
 import locationAreaReducer, { locationAreaSaga } from './ad/edit/location/locationAreaReducer';
 import locationCodeReducer, { locationCodeSaga } from './ad/edit/location/locationCodeReducer';
 import varslingReducer, { varslingSaga, VarslingState } from './common/varsling/varslingReducer';
-import mineStillingerReducer from './mine-stillinger/mineStillingerReducer';
+import mineStillingerReducer, {
+    MineStillingerState,
+} from './mine-stillinger/mineStillingerReducer';
 import reporteeReducer, { reporteeSaga, ReporteeState } from './reportee/reporteeReducer';
 import stillingsinfoDataReducer from './stillingsinfo/stillingsinfoDataReducer';
 import stillingsinfoReducer, { stillingsinfoSaga } from './stillingsinfo/stillingsinfoReducer';
-import { Rekrutteringsbistandstilling, Stillingsinfo } from './Stilling';
-import { ApiError } from './api/apiUtils';
+import { Stillingsinfo } from './Stilling';
 import { mineStillingerSaga } from './mine-stillinger/mineStillingerSagas';
 
 export type State = {
     ad: AdState;
     adData: AdDataState;
     adValidation: AdValidationState;
-    mineStillinger: {
-        items: Rekrutteringsbistandstilling[];
-        isSearching: boolean;
-        totalPages: number;
-        page: number;
-        error?: ApiError;
-    };
+    mineStillinger: MineStillingerState;
     stillingsinfoData: Stillingsinfo;
     varsling: VarslingState;
     reportee: ReporteeState;

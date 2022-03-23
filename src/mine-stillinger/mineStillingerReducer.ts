@@ -1,14 +1,29 @@
+import { ApiError } from '../api/apiUtils';
 import AdStatusEnum from '../common/enums/AdStatusEnum';
+import { Rekrutteringsbistandstilling } from '../Stilling';
+import { MineStillingerAction, MineStillingerActionType } from './MineStillingerAction';
 
-export const FETCH_MY_ADS = 'FETCH_MY_ADS';
-export const FETCH_MY_ADS_BEGIN = 'FETCH_MY_ADS_BEGIN';
-export const FETCH_MY_ADS_SUCCESS = 'FETCH_MY_ADS_SUCCESS';
-export const FETCH_MY_ADS_FAILURE = 'FETCH_MY_ADS_FAILURE';
-export const CHANGE_MY_ADS_PAGE = 'CHANGE_MY_ADS_PAGE';
-export const RESET_MY_ADS_PAGE = 'RESET_MY_ADS_PAGE';
-export const CHANGE_MY_ADS_STATUS_FILTER = 'CHANGE_MY_ADS_STATUS_FILTER';
-export const CHANGE_MY_ADS_DEACTIVATED_FILTER = 'CHANGE_MY_ADS_DEACTIVATED_FILTER';
-export const CHANGE_MY_ADS_SORTING = 'CHANGE_MY_ADS_SORTING';
+export type MineStillingerResultat = {
+    content: Rekrutteringsbistandstilling[];
+    totalElements: number;
+    totalPages: number;
+};
+
+export type MineStillingerState = {
+    error?: ApiError;
+    isSearching: boolean;
+    page: number;
+    deactivatedByExpiry: boolean;
+    sortField: string;
+    sortDir: string;
+    filter: {
+        status: string[];
+    };
+
+    items: Rekrutteringsbistandstilling[];
+    totalElements: number;
+    totalPages: number;
+};
 
 const initialState = {
     items: [],
@@ -17,25 +32,26 @@ const initialState = {
     totalElements: 0,
     totalPages: 0,
     page: 0,
-    source: 'DIR',
-    reportee: '',
     sortField: 'updated',
     sortDir: 'desc',
+    deactivatedByExpiry: false,
     filter: {
         status: [AdStatusEnum.ACTIVE, AdStatusEnum.INACTIVE],
     },
-    deactivatedByExpiry: false,
 };
 
-export default function mineStillingerReducer(state = initialState, action) {
+export default function mineStillingerReducer(
+    state: MineStillingerState = initialState,
+    action: MineStillingerAction
+): MineStillingerState {
     switch (action.type) {
-        case FETCH_MY_ADS_BEGIN:
+        case MineStillingerActionType.FetchMyAdsBegin:
             return {
                 ...state,
                 isSearching: true,
                 error: undefined,
             };
-        case FETCH_MY_ADS_SUCCESS:
+        case MineStillingerActionType.FetchMyAdsSuccess:
             return {
                 ...state,
                 items: action.response.content,
@@ -43,13 +59,13 @@ export default function mineStillingerReducer(state = initialState, action) {
                 totalElements: action.response.totalElements,
                 totalPages: action.response.totalPages,
             };
-        case FETCH_MY_ADS_FAILURE:
+        case MineStillingerActionType.FetchMyAdsFailure:
             return {
                 ...state,
                 error: action.error,
                 isSearching: false,
             };
-        case CHANGE_MY_ADS_STATUS_FILTER:
+        case MineStillingerActionType.ChangeMyAdsStatusFilter:
             const deactivatedByExpiry =
                 action.status.length > 0 ? false : state.deactivatedByExpiry;
 
@@ -61,7 +77,7 @@ export default function mineStillingerReducer(state = initialState, action) {
                 },
                 deactivatedByExpiry,
             };
-        case CHANGE_MY_ADS_DEACTIVATED_FILTER:
+        case MineStillingerActionType.ChangeMyAdsDeactivatedFilter:
             const status = action.deactivatedByExpiry ? [] : state.filter.status;
 
             return {
@@ -72,17 +88,17 @@ export default function mineStillingerReducer(state = initialState, action) {
                 },
                 deactivatedByExpiry: action.deactivatedByExpiry,
             };
-        case CHANGE_MY_ADS_PAGE:
+        case MineStillingerActionType.ChangeMyAdsPage:
             return {
                 ...state,
                 page: action.page,
             };
-        case RESET_MY_ADS_PAGE:
+        case MineStillingerActionType.ResetMyAdsPage:
             return {
                 ...state,
                 page: 0,
             };
-        case CHANGE_MY_ADS_SORTING:
+        case MineStillingerActionType.ChangeMyAdsSorting:
             return {
                 ...state,
                 page: 0,

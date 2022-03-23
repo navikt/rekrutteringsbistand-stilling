@@ -1,12 +1,9 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-    CHANGE_MY_ADS_STATUS_FILTER,
-    CHANGE_MY_ADS_DEACTIVATED_FILTER,
-} from '../mineStillingerReducer';
 import AdStatusEnum, { ActiveAdStatusEnum } from '../../common/enums/AdStatusEnum';
 import { Checkbox, Radio } from 'nav-frontend-skjema';
 import { getAdStatusLabel } from '../../common/enums/getEnumLabels';
+import { MineStillingerActionType } from '../MineStillingerAction';
 
 const Synlighet = {
     Aktive: false,
@@ -25,14 +22,14 @@ const Filter = () => {
             : [...status, statusToToggle];
 
         dispatch({
-            type: CHANGE_MY_ADS_STATUS_FILTER,
+            type: MineStillingerActionType.ChangeMyAdsStatusFilter,
             status: nyttFilter,
         });
     };
 
     const onExpiredChange = (e) => {
         dispatch({
-            type: CHANGE_MY_ADS_DEACTIVATED_FILTER,
+            type: MineStillingerActionType.ChangeMyAdsDeactivatedFilter,
             deactivatedByExpiry: Synlighet[e.target.value],
         });
     };

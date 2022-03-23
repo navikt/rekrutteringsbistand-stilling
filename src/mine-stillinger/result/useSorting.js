@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import './Sort.less';
 import { shallowEqual } from 'react-redux';
 
 function useSorting(initialState, changeSorting) {

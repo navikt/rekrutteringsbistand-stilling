@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import Chevron from 'nav-frontend-chevron';
 import { Flatknapp } from 'nav-frontend-knapper';
 import { Normaltekst } from 'nav-frontend-typografi';
-import { CHANGE_MY_ADS_PAGE } from '../mineStillingerReducer';
 import { State } from '../../reduxStore';
 import './Pagination.less';
+import { MineStillingerAction, MineStillingerActionType } from '../MineStillingerAction';
 
 type Props = {
     totalPages: number;
@@ -56,8 +56,9 @@ const mapStateToProps = (state: State) => ({
     page: state.mineStillinger.page,
 });
 
-const mapDispatchToProps = (dispatch: (action: any) => void) => ({
-    changePage: (page: number) => dispatch({ type: CHANGE_MY_ADS_PAGE, page }),
+const mapDispatchToProps = (dispatch: (action: MineStillingerAction) => void) => ({
+    changePage: (page: number) =>
+        dispatch({ type: MineStillingerActionType.ChangeMyAdsPage, page }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Pagination);
