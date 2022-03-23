@@ -8,7 +8,7 @@ import { fetchKandidatMedFnr } from './kandidatApi';
 import { fetchSynlighetsevaluering } from './kandidatApi';
 import { Kandidat, Kandidatliste } from './kandidatlistetyper';
 import { Nettressurs, ikkeLastet, Nettstatus, lasterInn } from '../../api/Nettressurs';
-import { sendEvent } from '../../amplitude';
+import { sendEvent } from '../../verktøy/amplitude';
 import { Synlighetsevaluering } from './kandidaten-finnes-ikke/Synlighetsevaluering';
 import BekreftMedNotat from './BekreftMedNotat';
 import fnrValidator from '@navikt/fnrvalidator';

@@ -1,4 +1,4 @@
-import { sendEvent } from '../amplitude';
+import { sendEvent } from '../verktøy/amplitude';
 
 const VIS_STILLING_URL = (window as any).STILLING_VIS_STILLING_URL;
 

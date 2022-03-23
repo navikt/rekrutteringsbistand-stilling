@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { Normaltekst } from 'nav-frontend-typografi';
 import Popover, { PopoverOrientering } from 'nav-frontend-popover';
 
-import { formatISOString } from '../../datoUtils';
+import { formatISOString } from '../../utils/datoUtils';
 import { getAdStatusLabel } from '../../common/enums/getEnumLabels';
 import { REDIGERINGSMODUS_QUERY_PARAM } from '../../ad/Ad';
 import { Rekrutteringsbistandstilling } from '../../Stilling';

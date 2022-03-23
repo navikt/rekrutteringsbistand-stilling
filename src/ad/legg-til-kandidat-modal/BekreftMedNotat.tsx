@@ -3,7 +3,7 @@ import { Textarea } from 'nav-frontend-skjema';
 import { Feilmelding, Normaltekst } from 'nav-frontend-typografi';
 import { useDispatch } from 'react-redux';
 import LeggTilEllerAvbryt from './LeggTilEllerAvbryt';
-import { sendEvent } from '../../amplitude';
+import { sendEvent } from '../../verktøy/amplitude';
 import { Kandidat, Kandidatliste } from './kandidatlistetyper';
 import { ikkeLastet, Nettressurs, Nettstatus, senderInn } from '../../api/Nettressurs';
 import { postKandidaterTilKandidatliste } from './kandidatApi';

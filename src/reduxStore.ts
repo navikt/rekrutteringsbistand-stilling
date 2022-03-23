@@ -10,17 +10,21 @@ import locationAreaReducer, { locationAreaSaga } from './ad/edit/location/locati
 import locationCodeReducer, { locationCodeSaga } from './ad/edit/location/locationCodeReducer';
 import varslingReducer, { varslingSaga, VarslingState } from './common/varsling/varslingReducer';
 import myAdsReducer, { myAdsSaga } from './myAds/myAdsReducer';
-import reporteeReducer, { reporteeSaga } from './reportee/reporteeReducer';
+import reporteeReducer, { reporteeSaga, ReporteeState } from './reportee/reporteeReducer';
 import stillingsinfoDataReducer from './stillingsinfo/stillingsinfoDataReducer';
 import stillingsinfoReducer, { stillingsinfoSaga } from './stillingsinfo/stillingsinfoReducer';
-import { Stillingsinfo } from './Stilling';
+import { Rekrutteringsbistandstilling, Stillingsinfo } from './Stilling';
 
 export type State = {
     ad: AdState;
     adData: AdDataState;
     adValidation: AdValidationState;
+    myAds: {
+        items: Rekrutteringsbistandstilling[];
+    };
     stillingsinfoData: Stillingsinfo;
     varsling: VarslingState;
+    reportee: ReporteeState;
 };
 
 const sagaMiddleware = createSagaMiddleware();

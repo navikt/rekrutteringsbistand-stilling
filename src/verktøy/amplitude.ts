@@ -1,5 +1,5 @@
 import amplitudeJs, { AmplitudeClient } from 'amplitude-js';
-import { getMiljø, Miljø } from './sentryUtils';
+import { getMiljø, Miljø } from './sentry';
 
 const getApiKey = () => {
     return getMiljø() === Miljø.ProdGcp
