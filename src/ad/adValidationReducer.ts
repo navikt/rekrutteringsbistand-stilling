@@ -33,7 +33,7 @@ import {
     SET_EMPLOYMENT_STARTTIME,
 } from './adDataReducer';
 import { SET_NOTAT } from '../stillingsinfo/stillingsinfoDataReducer';
-import State from '../State';
+import { State } from '../reduxStore';
 import { KanInkludere } from './edit/registrer-inkluderingsmuligheter/DirektemeldtStilling';
 
 export type ValidertFelt =

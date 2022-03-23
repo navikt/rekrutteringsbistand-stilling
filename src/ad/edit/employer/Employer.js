@@ -16,7 +16,7 @@ import {
     SET_TWITTER_ADDRESS,
 } from '../../adDataReducer';
 import EmployerName from './EmployerName';
-import { adjustUrl } from '../../../common/utils';
+import { adjustUrl } from '../../../common/urlUtils';
 import Skjemalabel from '../skjemaetikett/Skjemalabel';
 
 function adjustTwitterLink(url) {

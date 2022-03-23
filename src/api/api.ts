@@ -1,4 +1,4 @@
-import toUrl from '../common/toUrl';
+import { queryObjectToUrl } from '../common/urlUtils';
 import { Stillingskategori } from '../opprett-ny-stilling/OpprettNyStilling';
 import Stilling, { AdminStatus, Rekrutteringsbistandstilling, Stillingsinfo } from '../Stilling';
 import { fetchGet, fetchPost, fetchPut } from './apiUtils';
@@ -49,7 +49,7 @@ export const hentMineStillinger = async (
     query: object
 ): Promise<Side<Rekrutteringsbistandstilling>> => {
     const baseUrl = `${stillingApi}/mine-stillinger`;
-    const queryParametre = toUrl(query);
+    const queryParametre = queryObjectToUrl(query);
     const result = await fetchGet(`${baseUrl}${queryParametre}`);
 
     return {

@@ -1,7 +1,8 @@
 import React, { ChangeEvent, FunctionComponent, useState } from 'react';
+import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { connect } from 'react-redux';
-import { Radio, RadioGruppe } from 'nav-frontend-skjema';
 import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { Radio, RadioGruppe } from 'nav-frontend-skjema';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 
 import { CHECK_TAG, SET_TAGS, UNCHECK_TAG } from '../../adDataReducer';
@@ -10,12 +11,11 @@ import { HjelpetekstForInkluderingsmulighet } from './HjelpetekstForInkluderings
 import { Inkluderingsmulighet as AlleInkluderingsmuligheter } from '../../../ad/tags/hierarkiAvTags';
 import { InkluderingsmulighetForDirektemeldtStilling, Tag } from '../../tags/hierarkiAvTags';
 import { SET_KAN_INKLUDERE } from '../../adReducer';
+import { State } from '../../../reduxStore';
 import Inkluderingsmulighet from './Inkluderingsmulighet';
 import isJson from '../practicalInformation/IsJson';
-import State from '../../../State';
-import './DirektemeldtStilling.less';
 import Skjemalegend from '../skjemaetikett/Skjemalegend';
-import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
+import './DirektemeldtStilling.less';
 
 export enum KanInkludere {
     Ja = 'ja',

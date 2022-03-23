@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, FunctionComponent } from 'react';
 import { connect } from 'react-redux';
+import { Hamburgerknapp } from 'nav-frontend-ikonknapper';
 import { Link } from 'react-router-dom';
 import { Normaltekst } from 'nav-frontend-typografi';
-import getEmployerName from '../../common/getEmployerName';
+import Popover, { PopoverOrientering } from 'nav-frontend-popover';
+
 import { formatISOString } from '../../datoUtils';
-import PrivacyStatusEnum from '../../common/enums/PrivacyStatusEnum';
+import { getAdStatusLabel } from '../../common/enums/getEnumLabels';
+import { REDIGERINGSMODUS_QUERY_PARAM } from '../../ad/Ad';
+import { Rekrutteringsbistandstilling } from '../../Stilling';
+import { State } from '../../reduxStore';
 import AWithIcon from '../../common/aWithIcon/AWithIcon';
+import getEmployerName from '../../common/getEmployerName';
+import MedPopover from '../../common/med-popover/MedPopover';
+import PrivacyStatusEnum from '../../common/enums/PrivacyStatusEnum';
+import ResultItemDropDown from './ResultItemDropDown';
 import './Icons.less';
 import './Result.less';
-import { getAdStatusLabel } from '../../common/enums/getEnumLabels';
-import ResultItemDropDown from './ResultItemDropDown';
-import { REDIGERINGSMODUS_QUERY_PARAM } from '../../ad/Ad';
-import MedPopover from '../../common/med-popover/MedPopover';
-import { Hamburgerknapp } from 'nav-frontend-ikonknapper';
-import Popover, { PopoverOrientering } from 'nav-frontend-popover';
-import { FunctionComponent } from 'react';
-import { Rekrutteringsbistandstilling } from '../../Stilling';
-import State from '../../State';
 
 type Props = {
     rekrutteringsbistandstilling: Rekrutteringsbistandstilling;

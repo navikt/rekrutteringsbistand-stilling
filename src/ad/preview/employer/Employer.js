@@ -2,7 +2,7 @@ import React from 'react';
 import ReactHtmlParser from 'react-html-parser';
 import { Undertittel } from 'nav-frontend-typografi';
 import './Employer.less';
-import { isValidUrl } from '../../../common/utils';
+import { isValidUrl } from '../../../common/urlUtils';
 
 export default function Employer({ properties, businessName }) {
     return (

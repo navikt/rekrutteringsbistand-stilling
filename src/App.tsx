@@ -6,7 +6,6 @@ import * as Sentry from '@sentry/react';
 
 import './styles.less'; // Må importeres før andre komponenter
 
-import { FETCH_FEATURE_TOGGLES } from './featureToggles/featureTogglesReducer';
 import { FETCH_REPORTEE } from './reportee/reporteeReducer';
 import { fjernPersonopplysninger, getMiljø, Miljø } from './sentryUtils';
 import Ad from './ad/Ad';
@@ -38,7 +37,6 @@ const MedRouter: FunctionComponent = () => {
     useLoggNavigering();
 
     useEffect(() => {
-        dispatch({ type: FETCH_FEATURE_TOGGLES });
         dispatch({ type: FETCH_REPORTEE });
     }, [dispatch]);
 

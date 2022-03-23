@@ -2,7 +2,7 @@ import { Element, Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent } from 'react';
 import { useSelector } from 'react-redux';
 import { Stillingskategori } from '../../../../opprett-ny-stilling/OpprettNyStilling';
-import State from '../../../../State';
+import { State } from '../../../../reduxStore';
 
 const Kategori: FunctionComponent = () => {
     const { stillingskategori } = useSelector((state: State) => state.stillingsinfoData);

@@ -38,7 +38,6 @@ const kandidatlisteUrl = `express:${KANDIDAT_API}/veileder/stilling/:stillingsId
 const leggKandidatIKandidatlisteUrl = `express:${KANDIDAT_API}/veileder/kandidatlister/:kandidatlisteId/kandidater`;
 
 const identUrl = `express:${stillingApi}/stillingsinfo/ident/:ident`;
-const featuresUrl = `express:${stillingApi}/features/`;
 const searchApiUrl = `express:${stillingApi}/search-api/underenhet/_search`;
 
 const modiacontextholderApiUrl = '/modiacontextholder/api';
@@ -74,7 +73,6 @@ fetchMock
     .get(postdataUrl, postdata)
     .get(searchApiUrl, search)
     .post(searchApiUrl, search)
-    .get(featuresUrl, () => true)
     .get(modiacontextholderAktivEnhetUrl, aktivEnhet)
     .get(modiacontextholderAktivBrukerUrl, aktivBruker)
     .get(modiacontextholderDecoratorUrl, decorator)
