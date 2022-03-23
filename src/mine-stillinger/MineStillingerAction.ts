@@ -71,4 +71,5 @@ export type MineStillingerAction =
     | ResetMyAdsPage
     | ChangeMyAdsStatusFilter
     | ChangeMyAdsDeactivatedFilter
-    | ChangeMyAdsSorting;
+    | ChangeMyAdsSorting
+    | SetStillingerVeilederHarOvertatt;

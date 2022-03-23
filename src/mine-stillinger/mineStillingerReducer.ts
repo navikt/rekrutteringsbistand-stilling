@@ -92,6 +92,12 @@ export default function mineStillingerReducer(
                 sortField: action.field,
                 sortDir: action.dir,
             };
+        case MineStillingerActionType.SetStillingerVeilederHarOvertatt:
+            return {
+                ...state,
+                stillingerVeilederHarOvertatt: action.stillingerVeilederHarOvertatt,
+            };
+
         default:
             return state;
     }
