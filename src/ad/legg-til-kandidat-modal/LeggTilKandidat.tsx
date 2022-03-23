@@ -12,6 +12,7 @@ import BekreftMedNotat from './BekreftMedNotat';
 import fnrValidator from '@navikt/fnrvalidator';
 import KandidatenFinnesIkke from './kandidaten-finnes-ikke/KandidatenFinnesIkke';
 import LeggTilEllerAvbryt from './LeggTilEllerAvbryt';
+import { ApiError } from '../../api/apiUtils';
 
 type Props = {
     kandidatliste: Kandidatliste;
@@ -85,9 +86,7 @@ const LeggTilKandidat: FunctionComponent<Props> = ({ kandidatliste, onClose }) =
         } catch (e) {
             setFnrSøk({
                 kind: Nettstatus.Feil,
-                error: {
-                    message: 'Klarte ikke å hente kandidat med fødselsnummer',
-                },
+                error: new ApiError('Klarte ikke å hente kandidat med fødselsnummer', 0),
             });
         }
     };

@@ -1,4 +1,4 @@
-import { ApiError } from '../api/apiUtils';
+import { feil, ikkeLastet, lasterInn, Nettressurs, suksess } from '../api/Nettressurs';
 import AdStatusEnum from '../common/enums/AdStatusEnum';
 import { Rekrutteringsbistandstilling } from '../Stilling';
 import { MineStillingerAction, MineStillingerActionType } from './MineStillingerAction';
@@ -10,27 +10,18 @@ export type MineStillingerResultat = {
 };
 
 export type MineStillingerState = {
-    error?: ApiError;
-    isSearching: boolean;
+    resultat: Nettressurs<MineStillingerResultat>;
     page: number;
-    deactivatedByExpiry: boolean;
     sortField: string;
     sortDir: string;
+    deactivatedByExpiry: boolean;
     filter: {
         status: string[];
     };
-
-    items: Rekrutteringsbistandstilling[];
-    totalElements: number;
-    totalPages: number;
 };
 
 const initialState = {
-    items: [],
-    error: undefined,
-    isSearching: false,
-    totalElements: 0,
-    totalPages: 0,
+    resultat: ikkeLastet(),
     page: 0,
     sortField: 'updated',
     sortDir: 'desc',
@@ -48,22 +39,17 @@ export default function mineStillingerReducer(
         case MineStillingerActionType.FetchMyAdsBegin:
             return {
                 ...state,
-                isSearching: true,
-                error: undefined,
+                resultat: lasterInn(),
             };
         case MineStillingerActionType.FetchMyAdsSuccess:
             return {
                 ...state,
-                items: action.response.content,
-                isSearching: false,
-                totalElements: action.response.totalElements,
-                totalPages: action.response.totalPages,
+                resultat: suksess(action.response),
             };
         case MineStillingerActionType.FetchMyAdsFailure:
             return {
                 ...state,
-                error: action.error,
-                isSearching: false,
+                resultat: feil(action.error),
             };
         case MineStillingerActionType.ChangeMyAdsStatusFilter:
             const deactivatedByExpiry =

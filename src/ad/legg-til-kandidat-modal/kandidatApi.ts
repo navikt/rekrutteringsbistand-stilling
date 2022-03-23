@@ -1,3 +1,4 @@
+import { ApiError } from '../../api/apiUtils';
 import { Nettressurs, Nettstatus } from '../../api/Nettressurs';
 import { Kandidat, Kandidatliste, Synlighetsevaluering } from './kandidatlistetyper';
 import { KandidatOutboundDto } from './LeggTilKandidatModal';
@@ -23,20 +24,19 @@ export const fetchSynlighetsevaluering = async (
                 data: body,
             };
         } else {
-            return {
-                kind: Nettstatus.Feil,
-                error: {
-                    message: await response.text(),
-                },
-            };
+            throw new ApiError(await response.text(), response.status);
         }
     } catch (e) {
+        if (e instanceof ApiError) {
+            return {
+                kind: Nettstatus.Feil,
+                error: e,
+            };
+        }
+
         return {
             kind: Nettstatus.Feil,
-            error: {
-                message: e.message,
-                status: e.status,
-            },
+            error: new ApiError('Ukjent feil', 0),
         };
     }
 };

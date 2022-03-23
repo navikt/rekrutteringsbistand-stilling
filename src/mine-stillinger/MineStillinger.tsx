@@ -21,6 +21,7 @@ import ResultItem from './result/ResultItem';
 import StopAdModal from '../ad/administration/adStatus/StopAdModal';
 import { MineStillingerActionType } from './MineStillingerAction';
 import './MineStillinger.less';
+import { Nettstatus } from '../api/Nettressurs';
 
 type Props = {
     history: History;
@@ -29,7 +30,7 @@ type Props = {
 const MineStillinger: FunctionComponent<Props> = ({ history }) => {
     const dispatch = useDispatch();
     const { search } = useLocation();
-    const { items: ads, isSearching, error } = useSelector((state: State) => state.mineStillinger);
+    const { resultat, page } = useSelector((state: State) => state.mineStillinger);
     const reportee = useSelector((state: State) => state.reportee.data);
 
     const skalViseOpprettStillingModal = () => {
@@ -40,8 +41,6 @@ const MineStillinger: FunctionComponent<Props> = ({ history }) => {
     const [visOpprettStillingModal, setVisOpprettStillingModal] = useState(
         skalViseOpprettStillingModal()
     );
-
-    const adsFound = !isSearching && ads && ads.length > 0;
 
     useEffect(() => {
         if (reportee) {
@@ -85,13 +84,13 @@ const MineStillinger: FunctionComponent<Props> = ({ history }) => {
             <div className="MineStillinger__content">
                 <StopAdModal fromMyAds />
                 <DeleteAdModal />
-                {error && (
+                {resultat.kind === Nettstatus.Feil && (
                     <AlertStripe className="AlertStripe__fullpage" type="advarsel">
                         Det oppsto en feil. Forsøk å laste siden på nytt
                     </AlertStripe>
                 )}
                 <div className="MineStillinger__status-row">
-                    <Count />
+                    <Count resultat={resultat} />
                 </div>
                 <aside className="MineStillinger__filter">
                     <Filter />
@@ -100,19 +99,27 @@ const MineStillinger: FunctionComponent<Props> = ({ history }) => {
                     <table className="Result__table">
                         <ResultHeader />
                         <tbody>
-                            {adsFound &&
-                                ads.map((ad) => (
+                            {resultat.kind === Nettstatus.Suksess &&
+                                resultat.data.content.map((rekrutteringsbistandstilling) => (
                                     <ResultItem
-                                        key={ad.stilling.uuid}
-                                        rekrutteringsbistandstilling={ad}
+                                        key={rekrutteringsbistandstilling.stilling.uuid}
+                                        rekrutteringsbistandstilling={rekrutteringsbistandstilling}
                                     />
                                 ))}
                         </tbody>
                     </table>
 
-                    {isSearching && <Loading />}
-                    {!isSearching && ads && ads.length === 0 && <NoResults />}
-                    {adsFound && <Pagination />}
+                    {resultat.kind === Nettstatus.LasterInn && <Loading />}
+
+                    {resultat.kind === Nettstatus.Suksess && (
+                        <>
+                            {resultat.data.content.length > 0 ? (
+                                <Pagination resultat={resultat.data} page={page} />
+                            ) : (
+                                <NoResults />
+                            )}
+                        </>
+                    )}
                 </div>
             </div>
             {visOpprettStillingModal && <OpprettNyStilling onClose={onOpprettNyStillingClose} />}

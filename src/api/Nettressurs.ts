@@ -1,3 +1,5 @@
+import { ApiError } from './apiUtils';
+
 export enum Nettstatus {
     IkkeLastet = 'IkkeLastet',
     LasterInn = 'LasterInn',
@@ -30,10 +32,7 @@ interface FinnesIkke {
 
 interface Feil {
     kind: Nettstatus.Feil;
-    error: {
-        message: string;
-        status?: number;
-    };
+    error: ApiError;
 }
 
 export const ikkeLastet = (): IkkeLastet => ({
@@ -57,7 +56,7 @@ export const finnesIkke = (): FinnesIkke => ({
     kind: Nettstatus.FinnesIkke,
 });
 
-export const feil = (error: { message: string; status?: number }): Feil => ({
+export const feil = (error: ApiError): Feil => ({
     kind: Nettstatus.Feil,
     error,
 });
