@@ -15,6 +15,7 @@ export type MineStillingerState = {
     sortField: string;
     sortDir: string;
     deactivatedByExpiry: boolean;
+    stillingerVeilederHarOvertatt?: string;
     filter: {
         status: string[];
     };

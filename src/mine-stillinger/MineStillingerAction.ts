@@ -11,6 +11,7 @@ export enum MineStillingerActionType {
     ChangeMyAdsStatusFilter = 'CHANGE_MY_ADS_STATUS_FILTER',
     ChangeMyAdsDeactivatedFilter = 'CHANGE_MY_ADS_DEACTIVATED_FILTER',
     ChangeMyAdsSorting = 'CHANGE_MY_ADS_SORTING',
+    SetStillingerVeilederHarOvertatt = 'SET_STILLINGER_VEILEDER_HAR_OVERTATT',
 }
 
 export type FetchMyAds = {
@@ -54,6 +55,11 @@ export type ChangeMyAdsSorting = {
     type: MineStillingerActionType.ChangeMyAdsSorting;
     field: string;
     dir: string;
+};
+
+export type SetStillingerVeilederHarOvertatt = {
+    type: MineStillingerActionType.SetStillingerVeilederHarOvertatt;
+    stillingerVeilederHarOvertatt: string;
 };
 
 export type MineStillingerAction =

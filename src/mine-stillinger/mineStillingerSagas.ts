@@ -28,12 +28,21 @@ function* getMyAds() {
             return;
         }
 
-        const stillingsinfoForStillingerVeilederHarOvertatt: Stillingsinfo[] =
-            yield hentStillingsinfoForStillingerSomEiesAvVeileder(reportee.navIdent);
+        let stillingerVeilederHarOvertatt = state.mineStillinger.stillingerVeilederHarOvertatt;
 
-        const stillingerVeilederHarOvertatt = stillingsinfoForStillingerVeilederHarOvertatt
-            .map((info) => info.stillingsid)
-            .join(',');
+        if (!stillingerVeilederHarOvertatt) {
+            const stillingsinfoForStillingerVeilederHarOvertatt: Stillingsinfo[] =
+                yield hentStillingsinfoForStillingerSomEiesAvVeileder(reportee.navIdent);
+
+            stillingerVeilederHarOvertatt = stillingsinfoForStillingerVeilederHarOvertatt
+                .map((info) => info.stillingsid)
+                .join(',');
+
+            yield put({
+                type: MineStillingerActionType.SetStillingerVeilederHarOvertatt,
+                stillingerVeilederHarOvertatt,
+            });
+        }
 
         const { page, deactivatedByExpiry, sortDir, sortField, filter } = state.mineStillinger;
         const status = filter.status.length === 0 ? INGEN_AVVISTE_ELLER_SLETTEDE : filter.status;
