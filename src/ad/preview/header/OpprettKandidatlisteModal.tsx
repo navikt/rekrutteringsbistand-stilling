@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import { Hovedknapp, Flatknapp } from 'nav-frontend-knapper';
-import ModalMedStillingScope from '../../../ModalMedStillingScope';
+import ModalMedStillingScope from '../../../common/ModalMedStillingScope';
 import './OpprettKandidatlisteModal.less';
 
 type Props = {

@@ -25,7 +25,7 @@ import {
 } from './adValidationReducer';
 import { showAlertStripe } from './alertstripe/SavedAdAlertStripeReducer';
 import AdAlertStripeEnum from './alertstripe/AdAlertStripeEnum';
-import { FETCH_MY_ADS } from '../myAds/myAdsReducer';
+import { FETCH_MY_ADS } from '../mine-stillinger/mineStillingerReducer';
 import { OPPRETT_STILLINGSINFO, UPDATE_STILLINGSINFO } from '../stillingsinfo/stillingsinfoReducer';
 import {
     SET_NAV_IDENT_STILLINGSINFO,
@@ -577,7 +577,7 @@ function* copyAdFromMyAds(action) {
     try {
         const response: Rekrutteringsbistandstilling = yield kopierStilling(action.uuid);
 
-        // Mark copied ad in myAds
+        // Mark copied ad in mineStillinger
         yield put({ type: ADD_COPIED_ADS, adUuid: response.stilling.uuid });
         // Update list with the new ad
         yield put({ type: FETCH_MY_ADS });

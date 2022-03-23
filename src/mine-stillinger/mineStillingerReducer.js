@@ -33,7 +33,7 @@ const initialState = {
     deactivatedByExpiry: false,
 };
 
-export default function myAdsReducer(state = initialState, action) {
+export default function mineStillingerReducer(state = initialState, action) {
     switch (action.type) {
         case FETCH_MY_ADS_BEGIN:
             return {
@@ -132,7 +132,7 @@ function* getMyAds() {
             .join(',');
 
         const search = {
-            ...state.myAds,
+            ...state.mineStillinger,
             navIdent: (reportee.navIdent || '').toLowerCase(),
             reportee: reportee.displayName,
             uuid: stillingerVeilederHarOvertatt,
@@ -155,7 +155,7 @@ function* resetMyAdsPage() {
     yield put({ type: RESET_MY_ADS_PAGE });
 }
 
-export const myAdsSaga = function* saga() {
+export const mineStillingerSaga = function* saga() {
     yield takeLatest(
         [
             CHANGE_MY_ADS_STATUS_FILTER,

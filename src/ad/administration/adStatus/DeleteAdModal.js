@@ -5,7 +5,7 @@ import { Flatknapp, Hovedknapp } from 'nav-frontend-knapper';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import './DeleteAdModal.less';
 import { DELETE_AD_FROM_MY_ADS, HIDE_DELETE_AD_MODAL } from '../../adReducer';
-import ModalMedStillingScope from '../../../ModalMedStillingScope';
+import ModalMedStillingScope from '../../../common/ModalMedStillingScope';
 
 class DeleteAdModal extends React.Component {
     onClose = () => {

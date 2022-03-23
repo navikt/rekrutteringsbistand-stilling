@@ -1,13 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import Chevron from 'nav-frontend-chevron';
 import { Flatknapp } from 'nav-frontend-knapper';
 import { Normaltekst } from 'nav-frontend-typografi';
-import { CHANGE_MY_ADS_PAGE } from '../myAdsReducer';
+import { CHANGE_MY_ADS_PAGE } from '../mineStillingerReducer';
+import { State } from '../../reduxStore';
 import './Pagination.less';
 
-class Pagination extends React.Component {
+type Props = {
+    totalPages: number;
+    page: number;
+    changePage: (page: number) => void;
+};
+
+class Pagination extends React.Component<Props> {
     onPreviousPage = () => {
         this.props.changePage(this.props.page - 1);
     };
@@ -45,19 +51,13 @@ class Pagination extends React.Component {
     }
 }
 
-Pagination.propTypes = {
-    totalPages: PropTypes.number.isRequired,
-    page: PropTypes.number.isRequired,
-    changePage: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-    totalPages: state.myAds.totalPages,
-    page: state.myAds.page,
+const mapStateToProps = (state: State) => ({
+    totalPages: state.mineStillinger.totalPages,
+    page: state.mineStillinger.page,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    changePage: (page) => dispatch({ type: CHANGE_MY_ADS_PAGE, page }),
+const mapDispatchToProps = (dispatch: (action: any) => void) => ({
+    changePage: (page: number) => dispatch({ type: CHANGE_MY_ADS_PAGE, page }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Pagination);

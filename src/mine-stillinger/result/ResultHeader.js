@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { CHANGE_MY_ADS_SORTING } from '../myAdsReducer';
+import { CHANGE_MY_ADS_SORTING } from '../mineStillingerReducer';
 import useSorting from '../../common/sort/useSorting';
 import './Result.less';
 
@@ -85,8 +85,8 @@ ResultHeader.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    sortDir: state.myAds.sortDir,
-    sortField: state.myAds.sortField,
+    sortDir: state.mineStillinger.sortDir,
+    sortField: state.mineStillinger.sortField,
 });
 
 const mapDispatchToProps = (dispatch) => ({

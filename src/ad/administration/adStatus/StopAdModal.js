@@ -6,7 +6,7 @@ import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import { HIDE_STOP_AD_MODAL, STOP_AD, STOP_AD_FROM_MY_ADS } from '../../adReducer';
 import './StopAdModal.less';
 import Notat from '../notat/Notat';
-import ModalMedStillingScope from '../../../ModalMedStillingScope';
+import ModalMedStillingScope from '../../../common/ModalMedStillingScope';
 
 class StopAdModal extends React.Component {
     onClose = () => {

@@ -10,17 +10,17 @@ import Loading from '../common/loading/Loading';
 import ResultHeader from './result/ResultHeader';
 import ResultItem from './result/ResultItem';
 import NoResults from './noResults/NoResults';
-import Pagination from './pagination/Pagination';
+import Pagination from './pagination/Pagination.tsx';
 import StopAdModal from '../ad/administration/adStatus/StopAdModal';
 import Count from './result/Count';
-import { FETCH_MY_ADS, RESET_MY_ADS_PAGE } from './myAdsReducer';
+import { FETCH_MY_ADS, RESET_MY_ADS_PAGE } from './mineStillingerReducer';
 import { CLEAR_COPIED_ADS, CREATE_AD } from '../ad/adReducer';
 import DeleteAdModal from '../ad/administration/adStatus/DeleteAdModal';
 import Filter from './filter/Filter';
 import OpprettNyStilling from '../opprett-ny-stilling/OpprettNyStilling';
-import './MyAds.less';
+import './MineStillinger.less';
 
-const MyAds = (props) => {
+const MineStillinger = (props) => {
     const { ads, getAds, clearCopiedAds, resetMyAdsPage, isSearching, error, reportee, history } =
         props;
 
@@ -59,16 +59,21 @@ const MyAds = (props) => {
     };
 
     return (
-        <div className="MyAds">
-            <div className="MyAds__header">
-                <Container className="MyAds__header-container">
-                    <Sidetittel className="MyAds__header__title">Mine stillinger</Sidetittel>
-                    <Hovedknapp onClick={onOpprettNyClick} className="MyAds__header__button">
+        <div className="MineStillinger">
+            <div className="MineStillinger__header">
+                <Container className="MineStillinger__header-container">
+                    <Sidetittel className="MineStillinger__header__title">
+                        Mine stillinger
+                    </Sidetittel>
+                    <Hovedknapp
+                        onClick={onOpprettNyClick}
+                        className="MineStillinger__header__button"
+                    >
                         Opprett ny
                     </Hovedknapp>
                 </Container>
             </div>
-            <div className="MyAds__content">
+            <div className="MineStillinger__content">
                 <StopAdModal fromMyAds />
                 <DeleteAdModal />
                 {error && (
@@ -76,13 +81,13 @@ const MyAds = (props) => {
                         Det oppsto en feil. Forsøk å laste siden på nytt
                     </AlertStripe>
                 )}
-                <div className="MyAds__status-row">
+                <div className="MineStillinger__status-row">
                     <Count />
                 </div>
-                <aside className="MyAds__filter">
+                <aside className="MineStillinger__filter">
                     <Filter />
                 </aside>
-                <div className="MyAds__table">
+                <div className="MineStillinger__table">
                     <table className="Result__table">
                         <ResultHeader />
                         <tbody>
@@ -107,11 +112,11 @@ const MyAds = (props) => {
     );
 };
 
-MyAds.defaultProps = {
+MineStillinger.defaultProps = {
     error: undefined,
 };
 
-MyAds.propTypes = {
+MineStillinger.propTypes = {
     ads: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
     isSearching: PropTypes.bool.isRequired,
     getAds: PropTypes.func.isRequired,
@@ -123,10 +128,10 @@ MyAds.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    ads: state.myAds.items,
+    ads: state.mineStillinger.items,
     reportee: state.reportee.data,
-    isSearching: state.myAds.isSearching,
-    error: state.myAds.error,
+    isSearching: state.mineStillinger.isSearching,
+    error: state.mineStillinger.error,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -136,4 +141,4 @@ const mapDispatchToProps = (dispatch) => ({
     clearCopiedAds: () => dispatch({ type: CLEAR_COPIED_ADS }),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(MyAds);
+export default connect(mapStateToProps, mapDispatchToProps)(MineStillinger);

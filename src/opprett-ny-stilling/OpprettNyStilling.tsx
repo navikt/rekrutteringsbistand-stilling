@@ -10,7 +10,7 @@ import { CREATE_AD } from '../ad/adReducer';
 import { kategoriTilVisningsnavn } from '../ad/preview/administration/kategori/Kategori';
 import { REDIGERINGSMODUS_QUERY_PARAM } from '../ad/Ad';
 import { State } from '../reduxStore';
-import ModalMedStillingScope from '../ModalMedStillingScope';
+import ModalMedStillingScope from '../common/ModalMedStillingScope';
 import './OpprettNyStilling.less';
 
 export enum Stillingskategori {

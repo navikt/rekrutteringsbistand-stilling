@@ -28,8 +28,8 @@ Count.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    count: state.myAds.totalElements,
-    isSearching: state.myAds.isSearching,
+    count: state.mineStillinger.totalElements,
+    isSearching: state.mineStillinger.isSearching,
 });
 
 const mapDispatchToProps = () => ({});

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Normaltekst } from 'nav-frontend-typografi';
 import './Error.less';
 import { Hovedknapp } from 'nav-frontend-knapper';
-import ModalMedStillingScope from '../../ModalMedStillingScope';
+import ModalMedStillingScope from '../../common/ModalMedStillingScope';
 
 function Error({ error }) {
     if (error) {

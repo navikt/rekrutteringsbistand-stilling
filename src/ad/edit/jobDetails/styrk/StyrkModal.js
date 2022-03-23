@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { RESET_STYRK_THREE, SET_STRYK_SEARCH_STRING, TOGGLE_STYRK_MODAL } from './styrkReducer';
 import StyrkThree from './StyrkThree';
 import './StyrkModal.less';
-import ModalMedStillingScope from '../../../../ModalMedStillingScope';
+import ModalMedStillingScope from '../../../../common/ModalMedStillingScope';
 
 class StyrkModal extends React.Component {
     onInputChange = (e) => {

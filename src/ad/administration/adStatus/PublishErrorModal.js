@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import { HIDE_PUBLISH_ERROR_MODAL } from '../../adReducer';
-import ModalMedStillingScope from '../../../ModalMedStillingScope';
+import ModalMedStillingScope from '../../../common/ModalMedStillingScope';
 import './PublishErrorModal.less';
 
 class PublishErrorModal extends React.Component {

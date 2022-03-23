@@ -9,7 +9,7 @@ import styrkReducer, { styrkSaga } from './ad/edit/jobDetails/styrk/styrkReducer
 import locationAreaReducer, { locationAreaSaga } from './ad/edit/location/locationAreaReducer';
 import locationCodeReducer, { locationCodeSaga } from './ad/edit/location/locationCodeReducer';
 import varslingReducer, { varslingSaga, VarslingState } from './common/varsling/varslingReducer';
-import myAdsReducer, { myAdsSaga } from './myAds/myAdsReducer';
+import mineStillingerReducer, { mineStillingerSaga } from './mine-stillinger/mineStillingerReducer';
 import reporteeReducer, { reporteeSaga, ReporteeState } from './reportee/reporteeReducer';
 import stillingsinfoDataReducer from './stillingsinfo/stillingsinfoDataReducer';
 import stillingsinfoReducer, { stillingsinfoSaga } from './stillingsinfo/stillingsinfoReducer';
@@ -19,8 +19,10 @@ export type State = {
     ad: AdState;
     adData: AdDataState;
     adValidation: AdValidationState;
-    myAds: {
+    mineStillinger: {
         items: Rekrutteringsbistandstilling[];
+        totalPages: number;
+        page: number;
     };
     stillingsinfoData: Stillingsinfo;
     varsling: VarslingState;
@@ -39,7 +41,7 @@ const reduxStore = createStore(
         employer: employerReducer,
         locationCode: locationCodeReducer,
         locationArea: locationAreaReducer,
-        myAds: myAdsReducer,
+        mineStillinger: mineStillingerReducer,
         reportee: reporteeReducer,
         savedAdAlertStripe: savedSearchAlertStripeReducer,
         styrk: styrkReducer,
@@ -56,7 +58,7 @@ sagaMiddleware.run(employerSaga);
 sagaMiddleware.run(locationCodeSaga);
 sagaMiddleware.run(styrkSaga);
 sagaMiddleware.run(reporteeSaga);
-sagaMiddleware.run(myAdsSaga);
+sagaMiddleware.run(mineStillingerSaga);
 sagaMiddleware.run(adDataSaga);
 sagaMiddleware.run(locationAreaSaga);
 sagaMiddleware.run(stillingsinfoSaga);

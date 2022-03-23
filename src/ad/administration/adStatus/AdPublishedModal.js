@@ -7,7 +7,7 @@ import { HIDE_AD_PUBLISHED_MODAL } from '../../adReducer';
 import { formatISOString } from '../../../utils/datoUtils.ts';
 import './AdPublishedModal.less';
 import AdStatusEnum from '../../../common/enums/AdStatusEnum';
-import ModalMedStillingScope from '../../../ModalMedStillingScope';
+import ModalMedStillingScope from '../../../common/ModalMedStillingScope';
 
 class AdPublishedModal extends React.Component {
     onClose = () => {

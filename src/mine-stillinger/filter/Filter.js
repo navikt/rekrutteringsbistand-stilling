@@ -1,6 +1,9 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { CHANGE_MY_ADS_STATUS_FILTER, CHANGE_MY_ADS_DEACTIVATED_FILTER } from '../myAdsReducer';
+import {
+    CHANGE_MY_ADS_STATUS_FILTER,
+    CHANGE_MY_ADS_DEACTIVATED_FILTER,
+} from '../mineStillingerReducer';
 import AdStatusEnum, { ActiveAdStatusEnum } from '../../common/enums/AdStatusEnum';
 import { Checkbox, Radio } from 'nav-frontend-skjema';
 import { getAdStatusLabel } from '../../common/enums/getEnumLabels';
@@ -11,7 +14,7 @@ const Synlighet = {
 };
 
 const Filter = () => {
-    const { filter, deactivatedByExpiry } = useSelector((state) => state.myAds);
+    const { filter, deactivatedByExpiry } = useSelector((state) => state.mineStillinger);
     const dispatch = useDispatch();
     const { status } = filter;
 

@@ -10,7 +10,7 @@ import {
     Nettstatus,
     suksess,
 } from '../../api/Nettressurs';
-import ModalMedStillingScope from '../../ModalMedStillingScope';
+import ModalMedStillingScope from '../../common/ModalMedStillingScope';
 import { fetchKandidatliste, putKandidatliste } from './kandidatApi';
 import { Kandidatliste } from './kandidatlistetyper';
 import LeggTilKandidat from './LeggTilKandidat';

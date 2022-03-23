@@ -5,7 +5,7 @@ import { Hovedknapp } from 'nav-frontend-knapper';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import { HIDE_AD_SAVED_ERROR_MODAL } from '../../adReducer';
 import './SaveAdErrorModal.less';
-import ModalMedStillingScope from '../../../ModalMedStillingScope';
+import ModalMedStillingScope from '../../../common/ModalMedStillingScope';
 
 class SaveAdErrorModal extends React.Component {
     onClose = () => {
