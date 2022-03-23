@@ -1,7 +1,3 @@
-import { put, select, takeLatest } from 'redux-saga/effects';
-import { hentMineStillinger, hentStillingsinfoForStillingerSomEiesAvVeileder } from '../api/api';
-import { ApiError } from '../api/apiUtils';
-import { getReportee } from '../reportee/reporteeReducer';
 import AdStatusEnum from '../common/enums/AdStatusEnum';
 
 export const FETCH_MY_ADS = 'FETCH_MY_ADS';
@@ -13,8 +9,6 @@ export const RESET_MY_ADS_PAGE = 'RESET_MY_ADS_PAGE';
 export const CHANGE_MY_ADS_STATUS_FILTER = 'CHANGE_MY_ADS_STATUS_FILTER';
 export const CHANGE_MY_ADS_DEACTIVATED_FILTER = 'CHANGE_MY_ADS_DEACTIVATED_FILTER';
 export const CHANGE_MY_ADS_SORTING = 'CHANGE_MY_ADS_SORTING';
-
-const FALLBACK_STATUS = '!REJECTED,DELETED';
 
 const initialState = {
     items: [],
@@ -99,72 +93,3 @@ export default function mineStillingerReducer(state = initialState, action) {
             return state;
     }
 }
-
-export function toQuery(search) {
-    const { navIdent, reportee, filter, page, deactivatedByExpiry, sortField, sortDir, uuid } =
-        search;
-    const { status } = filter;
-
-    const query = {
-        sort: `${sortField},${sortDir}`,
-        page,
-        navIdent,
-        reportee,
-        deactivatedByExpiry,
-        uuid,
-        // Hvis ingen annen status er valgt, utelat avviste og slettede stillinger
-        status: status.length === 0 ? FALLBACK_STATUS : status,
-    };
-
-    return query;
-}
-
-function* getMyAds() {
-    try {
-        yield put({ type: FETCH_MY_ADS_BEGIN });
-
-        const reportee = yield getReportee();
-        const state = yield select();
-        const stillingsinfoForStillingerVeilederHarOvertatt =
-            yield hentStillingsinfoForStillingerSomEiesAvVeileder(reportee.navIdent);
-        const stillingerVeilederHarOvertatt = stillingsinfoForStillingerVeilederHarOvertatt
-            .map((r) => r.stillingsid)
-            .join(',');
-
-        const search = {
-            ...state.mineStillinger,
-            navIdent: (reportee.navIdent || '').toLowerCase(),
-            reportee: reportee.displayName,
-            uuid: stillingerVeilederHarOvertatt,
-        };
-
-        const query = toQuery(search);
-        const response = yield hentMineStillinger(query);
-
-        yield put({ type: FETCH_MY_ADS_SUCCESS, response });
-    } catch (e) {
-        if (e instanceof ApiError) {
-            yield put({ type: FETCH_MY_ADS_FAILURE, error: e });
-        } else {
-            throw e;
-        }
-    }
-}
-
-function* resetMyAdsPage() {
-    yield put({ type: RESET_MY_ADS_PAGE });
-}
-
-export const mineStillingerSaga = function* saga() {
-    yield takeLatest(
-        [
-            CHANGE_MY_ADS_STATUS_FILTER,
-            CHANGE_MY_ADS_DEACTIVATED_FILTER,
-            CHANGE_MY_ADS_PAGE,
-            FETCH_MY_ADS,
-            CHANGE_MY_ADS_SORTING,
-        ],
-        getMyAds
-    );
-    yield takeLatest([CHANGE_MY_ADS_STATUS_FILTER, CHANGE_MY_ADS_SORTING], resetMyAdsPage);
-};

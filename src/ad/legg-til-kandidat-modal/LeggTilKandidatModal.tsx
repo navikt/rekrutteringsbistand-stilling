@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import NavFrontendSpinner from 'nav-frontend-spinner';
-import { Feilmelding } from 'nav-frontend-typografi';
+import { Feilmelding, Systemtittel } from 'nav-frontend-typografi';
 
 import {
     feil,
@@ -14,6 +14,7 @@ import ModalMedStillingScope from '../../common/ModalMedStillingScope';
 import { fetchKandidatliste, putKandidatliste } from './kandidatApi';
 import { Kandidatliste } from './kandidatlistetyper';
 import LeggTilKandidat from './LeggTilKandidat';
+import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import './LeggTilKandidatModal.less';
 
 export type KandidatOutboundDto = {
@@ -60,8 +61,13 @@ const LeggTilKandidatModal: FunctionComponent<Props> = ({ vis, onClose, stilling
             contentClass="LeggTilKandidatModal__innhold"
             onRequestClose={onClose}
         >
+            <Systemtittel className="LeggTilKandidatModal__tittel">Legg til kandidat</Systemtittel>
+            <AlertStripeAdvarsel className="LeggTilKandidatModal__advarsel">
+                Før du legger en kandidat på kandidatlisten må du undersøke om personen oppfyller
+                kravene som er nevnt i stillingen.
+            </AlertStripeAdvarsel>
             {kandidatliste.kind === Nettstatus.LasterInn && (
-                <NavFrontendSpinner className="LeggTilKandidatModal__spinner" />
+                <NavFrontendSpinner className="LeggTilKandidatModal__spinner LeggTilKandidatModal__spinner--vertikal" />
             )}
 
             {kandidatliste.kind === Nettstatus.Feil && (

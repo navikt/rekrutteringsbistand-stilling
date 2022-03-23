@@ -9,12 +9,13 @@ import styrkReducer, { styrkSaga } from './ad/edit/jobDetails/styrk/styrkReducer
 import locationAreaReducer, { locationAreaSaga } from './ad/edit/location/locationAreaReducer';
 import locationCodeReducer, { locationCodeSaga } from './ad/edit/location/locationCodeReducer';
 import varslingReducer, { varslingSaga, VarslingState } from './common/varsling/varslingReducer';
-import mineStillingerReducer, { mineStillingerSaga } from './mine-stillinger/mineStillingerReducer';
+import mineStillingerReducer from './mine-stillinger/mineStillingerReducer';
 import reporteeReducer, { reporteeSaga, ReporteeState } from './reportee/reporteeReducer';
 import stillingsinfoDataReducer from './stillingsinfo/stillingsinfoDataReducer';
 import stillingsinfoReducer, { stillingsinfoSaga } from './stillingsinfo/stillingsinfoReducer';
 import { Rekrutteringsbistandstilling, Stillingsinfo } from './Stilling';
 import { ApiError } from './api/apiUtils';
+import { mineStillingerSaga } from './mine-stillinger/mineStillingerSagas';
 
 export type State = {
     ad: AdState;

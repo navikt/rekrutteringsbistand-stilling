@@ -48,7 +48,7 @@ const modiacontextholderDecoratorUrl = `${modiacontextholderApiUrl}/decorator`;
 
 fetchMock.config.fallbackToNetwork = true;
 
-const getStilling = (url) => {
+const getStilling = (url: string) => {
     const stillingId = url.split('/').pop();
     if (stillingId === eksternStilling.stilling.uuid) return eksternStilling;
     else {
@@ -78,5 +78,7 @@ fetchMock
     .get(modiacontextholderDecoratorUrl, decorator)
     .post(modiacontextholderContextUrl, 200)
     .post(fnrsokUrl, fnrsok)
-    .get(kandidatlisteUrl, kandidatliste)
+    .get(kandidatlisteUrl, kandidatliste, {
+        delay: 500,
+    })
     .post(leggKandidatIKandidatlisteUrl, kandidatliste);

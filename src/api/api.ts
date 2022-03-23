@@ -66,7 +66,7 @@ export const hentMineStillinger = async (
 
 export const hentStillingsinfoForStillingerSomEiesAvVeileder = async (
     navIdent: string
-): Promise<Stillingsinfo> => fetchGet(`${stillingApi}/stillingsinfo/ident/${navIdent}`);
+): Promise<Stillingsinfo[]> => fetchGet(`${stillingApi}/stillingsinfo/ident/${navIdent}`);
 
 export const kopierStilling = async (
     stillingsId: string

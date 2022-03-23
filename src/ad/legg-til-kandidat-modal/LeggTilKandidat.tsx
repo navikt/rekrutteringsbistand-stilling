@@ -1,8 +1,6 @@
 import React, { ChangeEvent, FunctionComponent, useState } from 'react';
-import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { Input } from 'nav-frontend-skjema';
 import NavFrontendSpinner from 'nav-frontend-spinner';
-import { Systemtittel } from 'nav-frontend-typografi';
 
 import { fetchKandidatMedFnr } from './kandidatApi';
 import { fetchSynlighetsevaluering } from './kandidatApi';
@@ -96,12 +94,6 @@ const LeggTilKandidat: FunctionComponent<Props> = ({ kandidatliste, onClose }) =
 
     return (
         <>
-            <Systemtittel className="LeggTilKandidatModal__tittel">Legg til kandidat</Systemtittel>
-            <AlertStripeAdvarsel className="LeggTilKandidatModal__advarsel">
-                Før du legger en kandidat på kandidatlisten må du undersøke om personen oppfyller
-                kravene som er nevnt i stillingen.
-            </AlertStripeAdvarsel>
-
             <Input
                 autoFocus
                 bredde="S"
