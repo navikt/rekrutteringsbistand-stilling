@@ -33,11 +33,7 @@ if (appElement) {
     Modal.setAppElement(appElement);
 }
 
-export type AppProps = {
-    history: History;
-};
-
-const Inner: FunctionComponent = () => {
+const MedRouter: FunctionComponent = () => {
     const dispatch = useDispatch();
     useLoggNavigering();
 
@@ -57,12 +53,16 @@ const Inner: FunctionComponent = () => {
     );
 };
 
+export type AppProps = {
+    history: History;
+};
+
 const App: FunctionComponent<AppProps> = ({ history }) => {
     return (
         <Sentry.ErrorBoundary>
             <Provider store={reduxStore}>
                 <Router history={history}>
-                    <Inner />
+                    <MedRouter />
                 </Router>
             </Provider>
         </Sentry.ErrorBoundary>
