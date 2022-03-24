@@ -75,7 +75,7 @@ const LeggTilKandidat: FunctionComponent<Props> = ({ kandidatliste, onClose }) =
                 setFeilmelding('Kandidaten er ikke synlig i Rekrutteringsbistand');
 
                 sendEvent('fødselsnummersøk', 'fant-ingen-kandidat', {
-                    kontekst: 'kandidatliste',
+                    kontekst: 'stilling',
                 });
 
                 setSynlighetsevaluering(lasterInn());
