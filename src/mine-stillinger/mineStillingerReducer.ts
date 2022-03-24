@@ -84,6 +84,7 @@ export default function mineStillingerReducer(
             return {
                 ...state,
                 page: 0,
+                stillingerVeilederHarOvertatt: undefined,
             };
         case MineStillingerActionType.ChangeMyAdsSorting:
             return {
