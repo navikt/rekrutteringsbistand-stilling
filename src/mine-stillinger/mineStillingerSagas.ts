@@ -17,6 +17,28 @@ export type HentMineStillingerQuery = {
     uuid: string;
 };
 
+function* hentStillingerVeilederHarOvertatt(navIdent: string) {
+    const state: State = yield select();
+    const stillingerIState = state.mineStillinger.stillingerVeilederHarOvertatt;
+
+    if (stillingerIState) {
+        return stillingerIState;
+    }
+
+    const stillingerFraApi: Stillingsinfo[] = yield hentStillingsinfoForStillingerSomEiesAvVeileder(
+        navIdent
+    );
+
+    const stillingsUuids = stillingerFraApi.map((info) => info.stillingsid).join(',');
+
+    yield put({
+        type: MineStillingerActionType.SetStillingerVeilederHarOvertatt,
+        stillingerVeilederHarOvertatt: stillingsUuids,
+    });
+
+    return stillingsUuids;
+}
+
 function* getMyAds() {
     try {
         yield put({ type: MineStillingerActionType.FetchMyAdsBegin });
@@ -28,21 +50,9 @@ function* getMyAds() {
             return;
         }
 
-        let stillingerVeilederHarOvertatt = state.mineStillinger.stillingerVeilederHarOvertatt;
-
-        if (!stillingerVeilederHarOvertatt) {
-            const stillingsinfoForStillingerVeilederHarOvertatt: Stillingsinfo[] =
-                yield hentStillingsinfoForStillingerSomEiesAvVeileder(reportee.navIdent);
-
-            stillingerVeilederHarOvertatt = stillingsinfoForStillingerVeilederHarOvertatt
-                .map((info) => info.stillingsid)
-                .join(',');
-
-            yield put({
-                type: MineStillingerActionType.SetStillingerVeilederHarOvertatt,
-                stillingerVeilederHarOvertatt,
-            });
-        }
+        const stillingerVeilederHarOvertatt = yield hentStillingerVeilederHarOvertatt(
+            reportee.navIdent
+        );
 
         const { page, deactivatedByExpiry, sortDir, sortField, filter } = state.mineStillinger;
         const status = filter.status.length === 0 ? INGEN_AVVISTE_ELLER_SLETTEDE : filter.status;
