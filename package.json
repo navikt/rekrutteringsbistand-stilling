@@ -42,7 +42,7 @@
         "@navikt/fnrvalidator": "^1.1.4",
         "@navikt/navspa": "^3.0.1",
         "@sentry/react": "^5.30.0",
-        "amplitude-js": "^7.4.2",
+        "amplitude-js": "^8.17.0",
         "classnames": "^2.3.1",
         "dayjs": "^1.10.7",
         "draft-convert": "^2.1.12",
