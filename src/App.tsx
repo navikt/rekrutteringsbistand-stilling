@@ -14,6 +14,7 @@ import useLoggNavigering from './verktøy/useLoggNavigering';
 import Varsling from './common/varsling/Varsling';
 import { startSentry } from './verktøy/sentry';
 import { ReporteeAction, ReporteeActionType } from './reportee/ReporteeAction';
+import { setNavKontorIAmplitude } from './verktøy/amplitude';
 
 startSentry();
 
@@ -25,10 +26,21 @@ if (appElement) {
     Modal.setAppElement(appElement);
 }
 
-const MedRouter: FunctionComponent = () => {
+export type AppProps = {
+    history: History;
+    navKontor: string | null;
+};
+
+const MedRouter: FunctionComponent<AppProps> = ({ navKontor }) => {
     const dispatch = useDispatch();
 
     useLoggNavigering();
+
+    useEffect(() => {
+        if (navKontor !== null) {
+            setNavKontorIAmplitude(navKontor);
+        }
+    }, [navKontor]);
 
     useEffect(() => {
         dispatch<ReporteeAction>({ type: ReporteeActionType.FetchReportee });
@@ -45,16 +57,12 @@ const MedRouter: FunctionComponent = () => {
     );
 };
 
-export type AppProps = {
-    history: History;
-};
-
-const App: FunctionComponent<AppProps> = ({ history }) => {
+const App: FunctionComponent<AppProps> = ({ history, navKontor }) => {
     return (
         <Sentry.ErrorBoundary>
             <Provider store={reduxStore}>
                 <Router history={history}>
-                    <MedRouter />
+                    <MedRouter history={history} navKontor={navKontor} />
                 </Router>
             </Provider>
         </Sentry.ErrorBoundary>

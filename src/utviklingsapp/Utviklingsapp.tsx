@@ -10,8 +10,7 @@ import './Utviklingsapp.less';
 const history = createBrowserHistory();
 
 const Utviklingsapp: FunctionComponent = () => {
-    // eslint-disable-next-line
-    const [_, setNavKontor] = useState<string | null>(null);
+    const [navKontor, setNavKontor] = useState<string | null>(null);
 
     useEffect(() => {
         const timeout = setTimeout(() => {
@@ -32,7 +31,7 @@ const Utviklingsapp: FunctionComponent = () => {
                         <Link to="/stillinger/minestillinger">Mine stillinger</Link>
                     </div>
                 </header>
-                <App history={history} />
+                <App navKontor={navKontor} history={history} />
             </Router>
         </div>
     );
