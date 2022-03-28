@@ -3,11 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import AdStatusEnum from '../../common/enums/AdStatusEnum';
-import {
-    COPY_AD_FROM_MY_ADS,
-    SHOW_DELETE_MODAL_MY_ADS,
-    SHOW_STOP_MODAL_MY_ADS,
-} from '../../ad/adReducer';
+import { COPY_AD_FROM_MY_ADS, SHOW_STOP_MODAL_MY_ADS } from '../../ad/adReducer';
 import { getAdStatusLabel } from '../../common/enums/getEnumLabels';
 import { Flatknapp } from 'nav-frontend-knapper';
 import Stilling from '../../Stilling';
@@ -49,7 +45,6 @@ type ResultItemDropDownProps = {
     stilling: Stilling;
     onToggleHjelpetekst: (nyHjelpetekst: any) => void;
     stopAd: (uuid: string) => void;
-    deleteAd: (uuid: string) => void;
     copyAd: (uuid: string) => void;
 };
 
@@ -57,7 +52,6 @@ const ResultItemDropDown: FunctionComponent<ResultItemDropDownProps> = ({
     stilling,
     copyAd,
     stopAd,
-    deleteAd,
     onToggleHjelpetekst,
 }) => {
     const willBePublished =
@@ -89,15 +83,6 @@ const ResultItemDropDown: FunctionComponent<ResultItemDropDownProps> = ({
                     ).toLowerCase()}"`}
                     onToggleHjelpetekst={onToggleHjelpetekst}
                 />
-                <DropDownItem
-                    label="Slett"
-                    onClick={() => onItemClick(deleteAd)}
-                    active={!stilling.publishedByAdmin}
-                    helpText={`Du kan ikke slette en stilling som har status: "${
-                        willBePublished ? 'blir publisert frem i tid' : 'publisert'
-                    }"`}
-                    onToggleHjelpetekst={onToggleHjelpetekst}
-                />
             </ul>
         </div>
     );
@@ -105,7 +90,6 @@ const ResultItemDropDown: FunctionComponent<ResultItemDropDownProps> = ({
 
 const mapDispatchToProps = (dispatch) => ({
     stopAd: (uuid: string) => dispatch({ type: SHOW_STOP_MODAL_MY_ADS, uuid }),
-    deleteAd: (uuid: string) => dispatch({ type: SHOW_DELETE_MODAL_MY_ADS, uuid }),
     copyAd: (uuid: string) => dispatch({ type: COPY_AD_FROM_MY_ADS, uuid }),
 });
 

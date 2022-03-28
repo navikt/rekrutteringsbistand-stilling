@@ -8,6 +8,7 @@ import {
     SAVE_AD,
     PUBLISH_AD_CHANGES,
     SHOW_STOP_AD_MODAL,
+    SHOW_DELETE_AD_MODAL,
     PREVIEW_EDIT_AD,
     FETCH_AD,
 } from '../../adReducer';
@@ -25,6 +26,7 @@ const ButtonEnum = {
     STOP: 'STOP',
     CANCEL: 'CANCEL',
     SAVE: 'SAVE',
+    DELETE: 'DELETE',
 };
 
 const ButtonGroupEnum = {
@@ -70,6 +72,13 @@ class AdStatusEdit extends React.PureComponent {
         });
     };
 
+    onDeleteClick = () => {
+        this.props.delete();
+        this.setState({
+            buttonClicked: ButtonEnum.DELETE,
+        });
+    };
+
     onSaveAdClick = () => {
         this.props.saveAd();
         this.setState({
@@ -101,6 +110,7 @@ class AdStatusEdit extends React.PureComponent {
             (adStatus === AdStatusEnum.INACTIVE && activationOnPublishingDate);
         const isExpired = adStatus === AdStatusEnum.INACTIVE && deactivatedByExpiry;
         const isStopping = this.state.buttonClicked === ButtonEnum.STOP && isSavingAd;
+        const isDeleting = this.state.buttonClicked === ButtonEnum.DELETE && isSavingAd;
         const isPublishing = this.state.buttonClicked === ButtonEnum.PUBLISH && isSavingAd;
         const isRePublishing = this.state.buttonClicked === ButtonEnum.REPUBLISH && isSavingAd;
         const isPublishingChanges =
@@ -153,6 +163,14 @@ class AdStatusEdit extends React.PureComponent {
                         >
                             Publiser
                         </Hovedknapp>
+                        <Knapp
+                            mini
+                            className="AdStatusEdit__buttons__button AdStatusEdit__DeleteAd__button"
+                            onClick={this.onDeleteClick}
+                            spinner={isDeleting}
+                        >
+                            Slett stilling
+                        </Knapp>
                         <AvbrytKnapp />
                     </div>
                 )}
@@ -166,6 +184,15 @@ class AdStatusEdit extends React.PureComponent {
                         >
                             Republiser stilling
                         </Hovedknapp>
+                        <Knapp
+                            mini
+                            className="AdStatusEdit__buttons__button AdStatusEdit__DeleteAd__button"
+                            onClick={this.onDeleteClick}
+                            spinner={isDeleting}
+                        >
+                            Slett stilling
+                        </Knapp>
+
                         <AvbrytKnapp />
                     </div>
                 )}
@@ -187,6 +214,14 @@ class AdStatusEdit extends React.PureComponent {
                                 spinner={isStopping}
                             >
                                 Stopp stilling
+                            </Knapp>
+                            <Knapp
+                                mini
+                                className="AdStatusEdit__buttons__button AdStatusEdit__DeleteAd__button"
+                                onClick={this.onDeleteClick}
+                                spinner={isDeleting}
+                            >
+                                Slett stilling
                             </Knapp>
                         </div>
                         <div className="AdStatusEdit__buttons-mini AdStatusEdit__lagre-stilling">
@@ -215,6 +250,7 @@ AdStatusEdit.propTypes = {
     adStatus: PropTypes.string.isRequired,
     publish: PropTypes.func.isRequired,
     stop: PropTypes.func.isRequired,
+    delete: PropTypes.func.isRequired,
     saveAd: PropTypes.func.isRequired,
     publishAdChanges: PropTypes.func.isRequired,
     activationOnPublishingDate: PropTypes.bool.isRequired,
@@ -238,6 +274,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     publish: () => dispatch({ type: PUBLISH_AD }),
     stop: () => dispatch({ type: SHOW_STOP_AD_MODAL }),
+    delete: () => dispatch({ type: SHOW_DELETE_AD_MODAL }),
     saveAd: () => dispatch({ type: SAVE_AD, showModal: true }),
     publishAdChanges: () => dispatch({ type: PUBLISH_AD_CHANGES }),
     previewAd: () => dispatch({ type: PREVIEW_EDIT_AD }),
