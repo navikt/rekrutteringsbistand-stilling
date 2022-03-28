@@ -10,7 +10,6 @@ import './styles.less'; // Må importeres før andre komponenter
 import Ad from './ad/Ad';
 import MineStillinger from './mine-stillinger/MineStillinger';
 import reduxStore from './reduxStore';
-import useLoggNavigering from './verktøy/useLoggNavigering';
 import Varsling from './common/varsling/Varsling';
 import { startSentry } from './verktøy/sentry';
 import { ReporteeAction, ReporteeActionType } from './reportee/ReporteeAction';
@@ -33,8 +32,6 @@ export type AppProps = {
 
 const MedRouter: FunctionComponent<AppProps> = ({ navKontor }) => {
     const dispatch = useDispatch();
-
-    useLoggNavigering();
 
     useEffect(() => {
         if (navKontor !== null) {
