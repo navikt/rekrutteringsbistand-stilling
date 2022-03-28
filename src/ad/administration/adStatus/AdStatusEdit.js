@@ -18,6 +18,7 @@ import StopAdModal from './StopAdModal';
 import AdPublishedModal from './AdPublishedModal';
 import SaveAdErrorModal from './SaveAdErrorModal';
 import { Link } from 'react-router-dom';
+import DeleteAdModal from './DeleteAdModal';
 
 const ButtonEnum = {
     PUBLISH: 'PUBLISH',
@@ -133,6 +134,7 @@ class AdStatusEdit extends React.PureComponent {
             <div className="AdStatusEdit">
                 <PublishErrorModal />
                 <StopAdModal />
+                <DeleteAdModal />
                 <AdPublishedModal />
                 <SaveAdErrorModal />
                 {buttonState === ButtonGroupEnum.LIMITED_ACCESS && (
