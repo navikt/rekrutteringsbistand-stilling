@@ -129,6 +129,7 @@ export type AdState = {
     showAdSavedErrorModal: boolean;
     kanInkludere: KanInkludere;
     nyStillingState: NyStillingState;
+    hasDeletedAd?: boolean;
 };
 
 const initialState: AdState = {

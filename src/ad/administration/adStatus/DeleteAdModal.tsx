@@ -1,12 +1,13 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
 import { useHistory } from 'react-router';
-import { connect, useSelector } from 'react-redux';
+import { connect, useSelector, useDispatch } from 'react-redux';
 import { Flatknapp, Hovedknapp } from 'nav-frontend-knapper';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import './DeleteAdModal.less';
 import { DELETE_AD, HIDE_DELETE_AD_MODAL } from '../../adReducer';
 import ModalMedStillingScope from '../../../common/ModalMedStillingScope';
 import { State } from '../../../reduxStore';
+import { VarslingAction, VarslingActionType } from '../../../common/varsling/varslingReducer';
 
 type Props = {
     closeModal: () => void;
@@ -15,9 +16,23 @@ type Props = {
 
 const DeleteAdModal: FunctionComponent<Props> = ({ closeModal, deleteAd }) => {
     const history = useHistory();
+    const dispatch = useDispatch();
 
-    const showDeleteAdModal = useSelector((state: State) => state.ad.showDeleteAdModal);
+    const { showDeleteAdModal, hasDeletedAd } = useSelector((state: State) => state.ad);
     const title = useSelector((state: State) => state.adData.title);
+
+    useEffect(() => {
+        if (hasDeletedAd) {
+            history.replace({
+                pathname: `/stillinger/minestillinger`,
+                search: '',
+            });
+            dispatch<VarslingAction>({
+                type: VarslingActionType.VisVarsling,
+                innhold: `Slettet stilling ${title}`,
+            });
+        }
+    }, [hasDeletedAd]);
 
     const onClose = () => {
         closeModal();
@@ -25,10 +40,6 @@ const DeleteAdModal: FunctionComponent<Props> = ({ closeModal, deleteAd }) => {
 
     const onDeleteAdClick = () => {
         deleteAd();
-        history.replace({
-            pathname: `/stillinger/minestillinger`,
-            search: '',
-        });
     };
 
     return (
