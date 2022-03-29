@@ -10,7 +10,6 @@ import AlertStripe from 'nav-frontend-alertstriper';
 import { CLEAR_COPIED_ADS } from '../ad/adReducer';
 import { State } from '../reduxStore';
 import Count from './result/Count';
-import DeleteAdModal from '../ad/administration/adStatus/DeleteAdModal';
 import Filter from './filter/Filter';
 import Loading from '../common/loading/Loading';
 import NoResults from './noResults/NoResults';
@@ -83,7 +82,6 @@ const MineStillinger: FunctionComponent<Props> = ({ history }) => {
             </div>
             <div className="MineStillinger__content">
                 <StopAdModal fromMyAds />
-                <DeleteAdModal />
                 {resultat.kind === Nettstatus.Feil && (
                     <AlertStripe className="AlertStripe__fullpage" type="advarsel">
                         Det oppsto en feil. Forsøk å laste siden på nytt

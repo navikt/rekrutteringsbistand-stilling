@@ -88,6 +88,7 @@ export type AdDataState = {
     updated?: any;
     created?: any;
     stilling?: Stilling;
+    title?: string;
 };
 
 const initialState: AdDataState = {
@@ -153,7 +154,6 @@ export default function adDataReducer(state = initialState, action) {
             return initialState;
         case FETCH_AD_SUCCESS:
         case SAVE_AD_SUCCESS:
-        case DELETE_AD_SUCCESS:
             return {
                 ...action.response,
                 locationList: action.response.locationList.filter(
@@ -162,6 +162,8 @@ export default function adDataReducer(state = initialState, action) {
                 ), // filtrer vekk object med kun Norge
                 location: null,
             };
+        case DELETE_AD_SUCCESS:
+            return state;
         case SET_AD_DATA:
             return action.data;
         case SET_STYRK:

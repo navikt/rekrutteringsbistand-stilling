@@ -65,7 +65,6 @@ export const FORKAST_NY_STILLING = 'FORKAST_NY_STILLING';
 export const FORKAST_NY_STILLING_SUCCESS = 'FORKAST_NY_STILLING_SUCCESS';
 export const FORKAST_NY_STILLING_FAILURE = 'FORKAST_NY_STILLING_FAILURE';
 
-export const DELETE_AD_FROM_MY_ADS = 'DELETE_AD_FROM_MY_ADS';
 export const SHOW_DELETE_AD_MODAL = 'SHOW_DELETE_AD_MODAL';
 export const HIDE_DELETE_AD_MODAL = 'HIDE_DELETE_AD_MODAL';
 
@@ -538,6 +537,7 @@ function* deleteAd() {
         const deleteUrl = `${stillingApi}/rekrutteringsbistandstilling/api/${state.adData.uuid}`;
 
         const response = yield fetchDelete(deleteUrl);
+
         yield put({ type: DELETE_AD_SUCCESS, response });
     } catch (e) {
         if (e instanceof ApiError) {
