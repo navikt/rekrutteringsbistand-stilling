@@ -25,14 +25,13 @@ const DeleteAdModal: FunctionComponent<Props> = ({ closeModal, deleteAd }) => {
         if (hasDeletedAd) {
             history.replace({
                 pathname: `/stillinger/minestillinger`,
-                search: '',
             });
             dispatch<VarslingAction>({
                 type: VarslingActionType.VisVarsling,
                 innhold: `Slettet stilling ${title}`,
             });
         }
-    }, [hasDeletedAd]);
+    }, [hasDeletedAd, title, dispatch, history]);
 
     const onClose = () => {
         closeModal();

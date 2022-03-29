@@ -103,8 +103,14 @@ class AdStatusEdit extends React.PureComponent {
     };
 
     render() {
-        const { adStatus, activationOnPublishingDate, deactivatedByExpiry, isSavingAd } =
-            this.props;
+        const {
+            adStatus,
+            activationOnPublishingDate,
+            deactivatedByExpiry,
+            isSavingAd,
+            innlogget,
+            navIdent,
+        } = this.props;
 
         const isPublished =
             adStatus === AdStatusEnum.ACTIVE ||
@@ -129,6 +135,18 @@ class AdStatusEdit extends React.PureComponent {
                 buttonState = ButtonGroupEnum.IS_PUBLISHED_NOW;
             }
         }
+
+        const sletteKnapp = innlogget && innlogget.navIdent === navIdent && (
+            <Knapp
+                mini
+                className="AdStatusEdit__buttons__button AdStatusEdit__DeleteAd__button"
+                onClick={this.onDeleteClick}
+                spinner={isDeleting}
+            >
+                Slett stilling
+            </Knapp>
+        );
+        console.log('jjj', innlogget, navIdent);
 
         return (
             <div className="AdStatusEdit">
@@ -165,14 +183,7 @@ class AdStatusEdit extends React.PureComponent {
                         >
                             Publiser
                         </Hovedknapp>
-                        <Knapp
-                            mini
-                            className="AdStatusEdit__buttons__button AdStatusEdit__DeleteAd__button"
-                            onClick={this.onDeleteClick}
-                            spinner={isDeleting}
-                        >
-                            Slett stilling
-                        </Knapp>
+                        {sletteKnapp}
                         <AvbrytKnapp />
                     </div>
                 )}
@@ -186,14 +197,7 @@ class AdStatusEdit extends React.PureComponent {
                         >
                             Republiser stilling
                         </Hovedknapp>
-                        <Knapp
-                            mini
-                            className="AdStatusEdit__buttons__button AdStatusEdit__DeleteAd__button"
-                            onClick={this.onDeleteClick}
-                            spinner={isDeleting}
-                        >
-                            Slett stilling
-                        </Knapp>
+                        {sletteKnapp}
 
                         <AvbrytKnapp />
                     </div>
@@ -217,14 +221,7 @@ class AdStatusEdit extends React.PureComponent {
                             >
                                 Stopp stilling
                             </Knapp>
-                            <Knapp
-                                mini
-                                className="AdStatusEdit__buttons__button AdStatusEdit__DeleteAd__button"
-                                onClick={this.onDeleteClick}
-                                spinner={isDeleting}
-                            >
-                                Slett stilling
-                            </Knapp>
+                            {sletteKnapp}
                         </div>
                         <div className="AdStatusEdit__buttons-mini AdStatusEdit__lagre-stilling">
                             <Link
@@ -271,6 +268,8 @@ const mapStateToProps = (state) => ({
     isSavingAd: state.ad.isSavingAd,
     uuid: state.adData.uuid,
     validation: state.adValidation.errors,
+    innlogget: state.reportee.data,
+    navIdent: state.adData.administration.navIdent,
 });
 
 const mapDispatchToProps = (dispatch) => ({
