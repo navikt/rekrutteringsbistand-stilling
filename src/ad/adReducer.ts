@@ -31,7 +31,6 @@ import {
     SET_NOTAT,
     SET_STILLINGSINFO_DATA,
 } from '../stillingsinfo/stillingsinfoDataReducer';
-import { loggPubliseringAvStilling } from './adUtils';
 import { tagsInneholderInkluderingsmuligheter } from './tags/utils';
 import Stilling, {
     AdminStatus,
@@ -42,6 +41,7 @@ import Stilling, {
 } from '../Stilling';
 import { ApiError, fetchDelete, fetchPut } from '../api/apiUtils';
 import { MineStillingerActionType } from '../mine-stillinger/MineStillingerAction';
+import { sendEvent } from '../verktøy/amplitude';
 
 export const FETCH_AD = 'FETCH_AD';
 export const FETCH_AD_BEGIN = 'FETCH_AD_BEGIN';
@@ -410,6 +410,10 @@ function* createAd(action) {
             action.kategori
         );
 
+        sendEvent('stilling', 'opprett', {
+            stillingskategori: response.stillingsinfo?.stillingskategori,
+        });
+
         yield put({ type: SET_AD_DATA, data: response.stilling });
         yield put({ type: SET_REPORTEE, reportee: reportee.displayName });
         yield put({ type: SET_NAV_IDENT, navIdent: reportee.navIdent });
@@ -422,7 +426,7 @@ function* createAd(action) {
     }
 }
 
-function* saveRekrutteringsbistandStilling(loggPublisering?: boolean) {
+function* saveRekrutteringsbistandStilling() {
     let state = yield select();
     yield put({ type: SAVE_AD_BEGIN });
     try {
@@ -450,10 +454,6 @@ function* saveRekrutteringsbistandStilling(loggPublisering?: boolean) {
         const response = yield fetchPut(putUrl, data);
 
         yield put({ type: SAVE_AD_SUCCESS, response: response.stilling });
-
-        if (loggPublisering) {
-            loggPubliseringAvStilling(state.adData.uuid, state.adData.properties.tags);
-        }
     } catch (e) {
         if (e instanceof ApiError) {
             yield put({ type: SAVE_AD_FAILURE, error: e });
@@ -475,7 +475,7 @@ function* publishAd() {
             yield put({ type: SET_FIRST_PUBLISHED });
         }
         yield put({ type: SHOW_AD_PUBLISHED_MODAL });
-        yield saveRekrutteringsbistandStilling(true);
+        yield saveRekrutteringsbistandStilling();
     }
 }
 
@@ -513,7 +513,7 @@ function* publishAdChanges() {
     } else {
         yield put({ type: SET_ADMIN_STATUS, status: AdminStatusEnum.DONE });
         yield put({ type: SET_AD_STATUS, status: AdStatusEnum.ACTIVE });
-        yield saveRekrutteringsbistandStilling(true);
+        yield saveRekrutteringsbistandStilling();
         state = yield select();
         if (
             state.adData.activationOnPublishingDate &&
