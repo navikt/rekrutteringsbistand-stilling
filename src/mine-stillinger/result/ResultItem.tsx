@@ -10,7 +10,7 @@ import { getAdStatusLabel } from '../../common/enums/getEnumLabels';
 import { REDIGERINGSMODUS_QUERY_PARAM } from '../../ad/Ad';
 import { Rekrutteringsbistandstilling } from '../../Stilling';
 import { State } from '../../reduxStore';
-import AWithIcon from '../../common/aWithIcon/AWithIcon';
+import LenkeMedIkon from '../../common/lenke-med-ikon/LenkeMedIkon';
 import getEmployerName from '../../common/getEmployerName';
 import MedPopover from '../../common/med-popover/MedPopover';
 import PrivacyStatusEnum from '../../common/enums/PrivacyStatusEnum';
@@ -152,7 +152,7 @@ const ResultItem: FunctionComponent<Props> = ({ rekrutteringsbistandstilling }) 
                 )}
             </td>
             <td className="Col-candidate">
-                <AWithIcon
+                <LenkeMedIkon
                     href={`/kandidater/lister/stilling/${stilling.uuid}/detaljer`}
                     classNameText="typo-normal"
                     classNameLink="CandidateList"

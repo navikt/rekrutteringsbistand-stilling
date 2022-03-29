@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import AWithIcon from '../../common/aWithIcon/AWithIcon';
+import LenkeMedIkon from '../../common/lenke-med-ikon/LenkeMedIkon.tsx';
 import LeggTilKandidatModal from '../legg-til-kandidat-modal/LeggTilKandidatModal';
 import ButtonWithIcon from '../../common/buttonWithIcon/ButtonWithIcon';
 import { erDirektemeldtStilling } from '../adUtils';
+import { sendGenerellEvent } from '../../verktøy/amplitude';
 import './CandidateActions.less';
 
 class CandidateActions extends React.Component {
@@ -18,6 +19,12 @@ class CandidateActions extends React.Component {
     toggleKandidatModal = () => {
         this.setState({
             showKandidatModal: !this.state.showKandidatModal,
+        });
+    };
+
+    loggKnappeklikk = () => {
+        sendGenerellEvent('knapp', {
+            label: 'Se kandidater',
         });
     };
 
@@ -38,7 +45,7 @@ class CandidateActions extends React.Component {
                     />
                 )}
                 {showCandidateLinks && (
-                    <AWithIcon
+                    <LenkeMedIkon
                         href={`/kandidater/stilling/${uuid}`}
                         classNameText="typo-element"
                         classNameLink="Ad__actions-link FindCandidate"
@@ -54,7 +61,8 @@ class CandidateActions extends React.Component {
                     />
                 )}
                 {showCandidateLinks && (
-                    <AWithIcon
+                    <LenkeMedIkon
+                        onClick={this.loggKnappeklikk}
                         href={`/kandidater/lister/stilling/${uuid}/detaljer`}
                         classNameText="typo-element"
                         classNameLink="Ad__actions-link CandidateList"
