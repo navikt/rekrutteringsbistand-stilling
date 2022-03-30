@@ -198,7 +198,6 @@ class AdStatusEdit extends React.PureComponent {
                             Republiser stilling
                         </Hovedknapp>
                         {sletteKnapp}
-
                         <AvbrytKnapp />
                     </div>
                 )}
@@ -221,6 +220,8 @@ class AdStatusEdit extends React.PureComponent {
                             >
                                 Stopp stilling
                             </Knapp>
+                        </div>
+                        <div className="AdStatusEdit__buttons AdStatusEdit__slett-stilling">
                             {sletteKnapp}
                         </div>
                         <div className="AdStatusEdit__buttons-mini AdStatusEdit__lagre-stilling">
