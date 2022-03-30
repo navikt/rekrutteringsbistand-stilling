@@ -146,7 +146,6 @@ class AdStatusEdit extends React.PureComponent {
                 Slett stilling
             </Knapp>
         );
-        console.log('jjj', innlogget, navIdent);
 
         return (
             <div className="AdStatusEdit">
@@ -183,7 +182,9 @@ class AdStatusEdit extends React.PureComponent {
                         >
                             Publiser
                         </Hovedknapp>
-                        {sletteKnapp}
+                        <div className="AdStatusEdit__buttons AdStatusEdit__slett-stilling">
+                            <sletteKnapp />
+                        </div>
                         <AvbrytKnapp />
                     </div>
                 )}
@@ -197,7 +198,9 @@ class AdStatusEdit extends React.PureComponent {
                         >
                             Republiser stilling
                         </Hovedknapp>
-                        {sletteKnapp}
+                        <div className="AdStatusEdit__buttons AdStatusEdit__slett-stilling">
+                            {sletteKnapp}
+                        </div>
                         <AvbrytKnapp />
                     </div>
                 )}
