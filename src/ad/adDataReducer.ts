@@ -78,7 +78,7 @@ export type AdDataState = {
         tags?: string;
     };
     status: string;
-    administration: object;
+    administration: Adminsitration;
     privacy: string;
     locationList?: any;
     expires?: any;
@@ -89,6 +89,10 @@ export type AdDataState = {
     created?: any;
     stilling?: Stilling;
     title?: string;
+};
+
+export type Adminsitration = {
+    navIdent?: string;
 };
 
 const initialState: AdDataState = {

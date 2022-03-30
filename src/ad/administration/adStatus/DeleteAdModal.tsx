@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect } from 'react';
 import { useHistory } from 'react-router';
-import { connect, useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Flatknapp, Hovedknapp } from 'nav-frontend-knapper';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import './DeleteAdModal.less';
@@ -9,12 +9,7 @@ import ModalMedStillingScope from '../../../common/ModalMedStillingScope';
 import { State } from '../../../reduxStore';
 import { VarslingAction, VarslingActionType } from '../../../common/varsling/varslingReducer';
 
-type Props = {
-    closeModal: () => void;
-    deleteAd: () => void;
-};
-
-const DeleteAdModal: FunctionComponent<Props> = ({ closeModal, deleteAd }) => {
+const DeleteAdModal: FunctionComponent = () => {
     const history = useHistory();
     const dispatch = useDispatch();
 
@@ -34,11 +29,11 @@ const DeleteAdModal: FunctionComponent<Props> = ({ closeModal, deleteAd }) => {
     }, [hasDeletedAd, title, dispatch, history]);
 
     const onClose = () => {
-        closeModal();
+        dispatch({ type: HIDE_DELETE_AD_MODAL });
     };
 
     const onDeleteAdClick = () => {
-        deleteAd();
+        dispatch({ type: DELETE_AD });
     };
 
     return (
@@ -62,14 +57,4 @@ const DeleteAdModal: FunctionComponent<Props> = ({ closeModal, deleteAd }) => {
     );
 };
 
-const mapStateToProps = (state) => ({
-    showDeleteAdModal: state.ad.showDeleteAdModal,
-    title: state.adData.title,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-    closeModal: () => dispatch({ type: HIDE_DELETE_AD_MODAL }),
-    deleteAd: () => dispatch({ type: DELETE_AD }),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(DeleteAdModal);
+export default DeleteAdModal;

@@ -19,6 +19,7 @@ import AdPublishedModal from './AdPublishedModal';
 import SaveAdErrorModal from './SaveAdErrorModal';
 import { Link } from 'react-router-dom';
 import DeleteAdModal from './DeleteAdModal';
+import Sletteknapp from './Sletteknapp';
 
 const ButtonEnum = {
     PUBLISH: 'PUBLISH',
@@ -103,14 +104,8 @@ class AdStatusEdit extends React.PureComponent {
     };
 
     render() {
-        const {
-            adStatus,
-            activationOnPublishingDate,
-            deactivatedByExpiry,
-            isSavingAd,
-            innlogget,
-            navIdent,
-        } = this.props;
+        const { adStatus, activationOnPublishingDate, deactivatedByExpiry, isSavingAd } =
+            this.props;
 
         const isPublished =
             adStatus === AdStatusEnum.ACTIVE ||
@@ -135,17 +130,6 @@ class AdStatusEdit extends React.PureComponent {
                 buttonState = ButtonGroupEnum.IS_PUBLISHED_NOW;
             }
         }
-
-        const sletteKnapp = innlogget && innlogget.navIdent === navIdent && (
-            <Knapp
-                mini
-                className="AdStatusEdit__buttons__button AdStatusEdit__DeleteAd__button"
-                onClick={this.onDeleteClick}
-                spinner={isDeleting}
-            >
-                Slett stilling
-            </Knapp>
-        );
 
         return (
             <div className="AdStatusEdit">
@@ -183,7 +167,10 @@ class AdStatusEdit extends React.PureComponent {
                             Publiser
                         </Hovedknapp>
                         <div className="AdStatusEdit__buttons AdStatusEdit__slett-stilling">
-                            <sletteKnapp />
+                            <Sletteknapp
+                                onDeleteClick={this.onDeleteClick}
+                                isDeleting={isDeleting}
+                            />
                         </div>
                         <AvbrytKnapp />
                     </div>
@@ -199,7 +186,10 @@ class AdStatusEdit extends React.PureComponent {
                             Republiser stilling
                         </Hovedknapp>
                         <div className="AdStatusEdit__buttons AdStatusEdit__slett-stilling">
-                            {sletteKnapp}
+                            <Sletteknapp
+                                onDeleteClick={this.onDeleteClick}
+                                isDeleting={isDeleting}
+                            />
                         </div>
                         <AvbrytKnapp />
                     </div>
@@ -225,7 +215,10 @@ class AdStatusEdit extends React.PureComponent {
                             </Knapp>
                         </div>
                         <div className="AdStatusEdit__buttons AdStatusEdit__slett-stilling">
-                            {sletteKnapp}
+                            <Sletteknapp
+                                onDeleteClick={this.onDeleteClick}
+                                isDeleting={isDeleting}
+                            />
                         </div>
                         <div className="AdStatusEdit__buttons-mini AdStatusEdit__lagre-stilling">
                             <Link
@@ -272,8 +265,6 @@ const mapStateToProps = (state) => ({
     isSavingAd: state.ad.isSavingAd,
     uuid: state.adData.uuid,
     validation: state.adValidation.errors,
-    innlogget: state.reportee.data,
-    navIdent: state.adData.administration.navIdent,
 });
 
 const mapDispatchToProps = (dispatch) => ({
