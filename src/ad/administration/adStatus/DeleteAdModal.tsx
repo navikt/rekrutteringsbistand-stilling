@@ -46,8 +46,8 @@ const DeleteAdModal: FunctionComponent = () => {
         >
             <Undertittel className="blokk-s">Slett stilling og kandidatliste</Undertittel>
             <Normaltekst className="blokk-l">
-                {`Er du sikker på at du ønsker å slette "${title}" og tilhørende kandidatliste?
-                Stillinger og kandidatlister som er slettet vises ikke i løsningen.`}
+                Er du sikker på at du ønsker å slette {title} og tilhørende kandidatliste?
+                Stillinger og kandidatlister som er slettet vises ikke i løsningen.
             </Normaltekst>
             <div className="DeleteAdModal__buttons">
                 <Hovedknapp onClick={onDeleteAdClick}>Slett</Hovedknapp>
