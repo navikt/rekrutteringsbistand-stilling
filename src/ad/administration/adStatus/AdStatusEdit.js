@@ -157,42 +157,46 @@ class AdStatusEdit extends React.PureComponent {
                     </div>
                 )}
                 {buttonState === ButtonGroupEnum.NEW_AD && (
-                    <div className="AdStatusEdit__buttons">
-                        <Hovedknapp
-                            mini
-                            className="AdStatusEdit__buttons__button"
-                            onClick={this.onPublishClick}
-                            spinner={isPublishing}
-                        >
-                            Publiser
-                        </Hovedknapp>
+                    <>
+                        <div className="AdStatusEdit__buttons">
+                            <Hovedknapp
+                                mini
+                                className="AdStatusEdit__buttons__button"
+                                onClick={this.onPublishClick}
+                                spinner={isPublishing}
+                            >
+                                Publiser
+                            </Hovedknapp>
+                            <AvbrytKnapp />
+                        </div>
                         <div className="AdStatusEdit__buttons AdStatusEdit__slett-stilling">
                             <Sletteknapp
                                 onDeleteClick={this.onDeleteClick}
                                 isDeleting={isDeleting}
                             />
                         </div>
-                        <AvbrytKnapp />
-                    </div>
+                    </>
                 )}
                 {buttonState === ButtonGroupEnum.PUBLISHED_BEFORE && (
-                    <div className="AdStatusEdit__buttons">
-                        <Hovedknapp
-                            mini
-                            className="AdStatusEdit__buttons__button"
-                            onClick={this.onRePublishClick}
-                            spinner={isRePublishing}
-                        >
-                            Republiser stilling
-                        </Hovedknapp>
+                    <>
+                        <div className="AdStatusEdit__buttons">
+                            <Hovedknapp
+                                mini
+                                className="AdStatusEdit__buttons__button"
+                                onClick={this.onRePublishClick}
+                                spinner={isRePublishing}
+                            >
+                                Republiser stilling
+                            </Hovedknapp>
+                            <AvbrytKnapp />
+                        </div>
                         <div className="AdStatusEdit__buttons AdStatusEdit__slett-stilling">
                             <Sletteknapp
                                 onDeleteClick={this.onDeleteClick}
                                 isDeleting={isDeleting}
                             />
                         </div>
-                        <AvbrytKnapp />
-                    </div>
+                    </>
                 )}
                 {buttonState === ButtonGroupEnum.IS_PUBLISHED_NOW && (
                     <>
