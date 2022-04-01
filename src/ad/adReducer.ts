@@ -535,7 +535,7 @@ function* deleteAd() {
         yield put({ type: SET_UPDATED_BY });
 
         const state = yield select();
-        const deleteUrl = `${stillingApi}/rekrutteringsbistandstilling/api/${state.adData.uuid}`;
+        const deleteUrl = `${stillingApi}/rekrutteringsbistandstilling/${state.adData.uuid}`;
 
         const response = yield fetchDelete(deleteUrl);
 
