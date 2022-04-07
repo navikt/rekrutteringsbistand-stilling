@@ -168,7 +168,7 @@ class AdStatusEdit extends React.PureComponent {
                                 Publiser
                             </Hovedknapp>
                         </div>
-                        <div className="AdStatusEdit__buttons">
+                        <div className="AdStatusEdit__buttons AdStatusEdit__buttons_secondary">
                             <AvbrytKnapp />
                             <Sletteknapp
                                 onDeleteClick={this.onDeleteClick}
@@ -189,7 +189,7 @@ class AdStatusEdit extends React.PureComponent {
                                 Republiser stilling
                             </Hovedknapp>
                         </div>
-                        <div className="AdStatusEdit__buttons">
+                        <div className="AdStatusEdit__buttons AdStatusEdit__buttons_secondary">
                             <AvbrytKnapp />
                             <Sletteknapp
                                 onDeleteClick={this.onDeleteClick}
@@ -210,7 +210,7 @@ class AdStatusEdit extends React.PureComponent {
                                 Publiser endringer
                             </Hovedknapp>
                         </div>
-                        <div className="AdStatusEdit__buttons ">
+                        <div className="AdStatusEdit__buttons AdStatusEdit__buttons_secondary">
                             <Knapp
                                 mini
                                 className="AdStatusEdit__buttons__button AdStatusEdit__StopAd__button"
