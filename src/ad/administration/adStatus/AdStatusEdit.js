@@ -283,7 +283,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const AvbrytKnapp = () => (
     <Link
-        className="knapp knapp--mini AdStatusEdit__buttons__button"
+        className="knapp knapp--mini AdStatusEdit__buttons__button knapp--standard"
         to="/stillinger/minestillinger"
     >
         Avbryt
