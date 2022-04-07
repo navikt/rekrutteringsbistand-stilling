@@ -167,9 +167,9 @@ class AdStatusEdit extends React.PureComponent {
                             >
                                 Publiser
                             </Hovedknapp>
-                            <AvbrytKnapp />
                         </div>
-                        <div className="AdStatusEdit__buttons AdStatusEdit__slett-stilling">
+                        <div className="AdStatusEdit__buttons">
+                            <AvbrytKnapp />
                             <Sletteknapp
                                 onDeleteClick={this.onDeleteClick}
                                 isDeleting={isDeleting}
@@ -188,9 +188,9 @@ class AdStatusEdit extends React.PureComponent {
                             >
                                 Republiser stilling
                             </Hovedknapp>
-                            <AvbrytKnapp />
                         </div>
-                        <div className="AdStatusEdit__buttons AdStatusEdit__slett-stilling">
+                        <div className="AdStatusEdit__buttons">
+                            <AvbrytKnapp />
                             <Sletteknapp
                                 onDeleteClick={this.onDeleteClick}
                                 isDeleting={isDeleting}
@@ -209,6 +209,8 @@ class AdStatusEdit extends React.PureComponent {
                             >
                                 Publiser endringer
                             </Hovedknapp>
+                        </div>
+                        <div className="AdStatusEdit__buttons ">
                             <Knapp
                                 mini
                                 className="AdStatusEdit__buttons__button AdStatusEdit__StopAd__button"
@@ -217,8 +219,6 @@ class AdStatusEdit extends React.PureComponent {
                             >
                                 Stopp stilling
                             </Knapp>
-                        </div>
-                        <div className="AdStatusEdit__buttons AdStatusEdit__slett-stilling">
                             <Sletteknapp
                                 onDeleteClick={this.onDeleteClick}
                                 isDeleting={isDeleting}
