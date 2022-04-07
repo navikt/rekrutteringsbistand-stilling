@@ -553,7 +553,7 @@ function* forkastNyStilling() {
         yield put({ type: SET_UPDATED_BY });
 
         const state = yield select();
-        const deleteUrl = `${stillingApi}/rekrutteringsbistand/api/v1/ads/${state.adData.uuid}`;
+        const deleteUrl = `${stillingApi}/rekrutteringsbistandstilling/${state.adData.uuid}`;
 
         const response = yield fetchDelete(deleteUrl);
         yield put({ type: FORKAST_NY_STILLING_SUCCESS, response });
