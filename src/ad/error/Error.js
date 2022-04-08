@@ -8,7 +8,8 @@ import ModalMedStillingScope from '../../common/ModalMedStillingScope';
 
 function Error({ error }) {
     if (error) {
-        const showDefaultError = error.statusCode !== 404 && error.statusCode !== 412;
+        const showDefaultError =
+            error.statusCode !== 404 && error.statusCode !== 412 && error.statusCode !== 401;
         return (
             <div>
                 <ModalMedStillingScope
