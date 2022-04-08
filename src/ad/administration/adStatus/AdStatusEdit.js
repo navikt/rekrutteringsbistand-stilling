@@ -8,6 +8,7 @@ import {
     SAVE_AD,
     PUBLISH_AD_CHANGES,
     SHOW_STOP_AD_MODAL,
+    SHOW_DELETE_AD_MODAL,
     PREVIEW_EDIT_AD,
     FETCH_AD,
 } from '../../adReducer';
@@ -17,6 +18,8 @@ import StopAdModal from './StopAdModal';
 import AdPublishedModal from './AdPublishedModal';
 import SaveAdErrorModal from './SaveAdErrorModal';
 import { Link } from 'react-router-dom';
+import DeleteAdModal from './DeleteAdModal';
+import Sletteknapp from './Sletteknapp';
 
 const ButtonEnum = {
     PUBLISH: 'PUBLISH',
@@ -25,6 +28,7 @@ const ButtonEnum = {
     STOP: 'STOP',
     CANCEL: 'CANCEL',
     SAVE: 'SAVE',
+    DELETE: 'DELETE',
 };
 
 const ButtonGroupEnum = {
@@ -70,6 +74,13 @@ class AdStatusEdit extends React.PureComponent {
         });
     };
 
+    onDeleteClick = () => {
+        this.props.delete();
+        this.setState({
+            buttonClicked: ButtonEnum.DELETE,
+        });
+    };
+
     onSaveAdClick = () => {
         this.props.saveAd();
         this.setState({
@@ -101,6 +112,7 @@ class AdStatusEdit extends React.PureComponent {
             (adStatus === AdStatusEnum.INACTIVE && activationOnPublishingDate);
         const isExpired = adStatus === AdStatusEnum.INACTIVE && deactivatedByExpiry;
         const isStopping = this.state.buttonClicked === ButtonEnum.STOP && isSavingAd;
+        const isDeleting = this.state.buttonClicked === ButtonEnum.DELETE && isSavingAd;
         const isPublishing = this.state.buttonClicked === ButtonEnum.PUBLISH && isSavingAd;
         const isRePublishing = this.state.buttonClicked === ButtonEnum.REPUBLISH && isSavingAd;
         const isPublishingChanges =
@@ -123,6 +135,7 @@ class AdStatusEdit extends React.PureComponent {
             <div className="AdStatusEdit">
                 <PublishErrorModal />
                 <StopAdModal />
+                <DeleteAdModal />
                 <AdPublishedModal />
                 <SaveAdErrorModal />
                 {buttonState === ButtonGroupEnum.LIMITED_ACCESS && (
@@ -144,30 +157,46 @@ class AdStatusEdit extends React.PureComponent {
                     </div>
                 )}
                 {buttonState === ButtonGroupEnum.NEW_AD && (
-                    <div className="AdStatusEdit__buttons">
-                        <Hovedknapp
-                            mini
-                            className="AdStatusEdit__buttons__button"
-                            onClick={this.onPublishClick}
-                            spinner={isPublishing}
-                        >
-                            Publiser
-                        </Hovedknapp>
-                        <AvbrytKnapp />
-                    </div>
+                    <>
+                        <div className="AdStatusEdit__buttons">
+                            <Hovedknapp
+                                mini
+                                className="AdStatusEdit__buttons__button"
+                                onClick={this.onPublishClick}
+                                spinner={isPublishing}
+                            >
+                                Publiser
+                            </Hovedknapp>
+                        </div>
+                        <div className="AdStatusEdit__buttons AdStatusEdit__buttons_secondary">
+                            <AvbrytKnapp />
+                            <Sletteknapp
+                                onDeleteClick={this.onDeleteClick}
+                                isDeleting={isDeleting}
+                            />
+                        </div>
+                    </>
                 )}
                 {buttonState === ButtonGroupEnum.PUBLISHED_BEFORE && (
-                    <div className="AdStatusEdit__buttons">
-                        <Hovedknapp
-                            mini
-                            className="AdStatusEdit__buttons__button"
-                            onClick={this.onRePublishClick}
-                            spinner={isRePublishing}
-                        >
-                            Republiser stilling
-                        </Hovedknapp>
-                        <AvbrytKnapp />
-                    </div>
+                    <>
+                        <div className="AdStatusEdit__buttons">
+                            <Hovedknapp
+                                mini
+                                className="AdStatusEdit__buttons__button"
+                                onClick={this.onRePublishClick}
+                                spinner={isRePublishing}
+                            >
+                                Republiser stilling
+                            </Hovedknapp>
+                        </div>
+                        <div className="AdStatusEdit__buttons AdStatusEdit__buttons_secondary">
+                            <AvbrytKnapp />
+                            <Sletteknapp
+                                onDeleteClick={this.onDeleteClick}
+                                isDeleting={isDeleting}
+                            />
+                        </div>
+                    </>
                 )}
                 {buttonState === ButtonGroupEnum.IS_PUBLISHED_NOW && (
                     <>
@@ -180,6 +209,8 @@ class AdStatusEdit extends React.PureComponent {
                             >
                                 Publiser endringer
                             </Hovedknapp>
+                        </div>
+                        <div className="AdStatusEdit__buttons AdStatusEdit__buttons_secondary">
                             <Knapp
                                 mini
                                 className="AdStatusEdit__buttons__button AdStatusEdit__StopAd__button"
@@ -188,6 +219,10 @@ class AdStatusEdit extends React.PureComponent {
                             >
                                 Stopp stilling
                             </Knapp>
+                            <Sletteknapp
+                                onDeleteClick={this.onDeleteClick}
+                                isDeleting={isDeleting}
+                            />
                         </div>
                         <div className="AdStatusEdit__buttons-mini AdStatusEdit__lagre-stilling">
                             <Link
@@ -215,6 +250,7 @@ AdStatusEdit.propTypes = {
     adStatus: PropTypes.string.isRequired,
     publish: PropTypes.func.isRequired,
     stop: PropTypes.func.isRequired,
+    delete: PropTypes.func.isRequired,
     saveAd: PropTypes.func.isRequired,
     publishAdChanges: PropTypes.func.isRequired,
     activationOnPublishingDate: PropTypes.bool.isRequired,
@@ -238,6 +274,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     publish: () => dispatch({ type: PUBLISH_AD }),
     stop: () => dispatch({ type: SHOW_STOP_AD_MODAL }),
+    delete: () => dispatch({ type: SHOW_DELETE_AD_MODAL }),
     saveAd: () => dispatch({ type: SAVE_AD, showModal: true }),
     publishAdChanges: () => dispatch({ type: PUBLISH_AD_CHANGES }),
     previewAd: () => dispatch({ type: PREVIEW_EDIT_AD }),
@@ -246,7 +283,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const AvbrytKnapp = () => (
     <Link
-        className="knapp knapp--mini AdStatusEdit__buttons__button"
+        className="knapp knapp--mini AdStatusEdit__buttons__button knapp--standard"
         to="/stillinger/minestillinger"
     >
         Avbryt

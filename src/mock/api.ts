@@ -21,7 +21,7 @@ import aktivBruker from './data/dekoratør/aktivbruker.json';
 import decorator from './data/dekoratør/decorator.json';
 
 const adsUrl = `express:${stillingApi}/rekrutteringsbistand/api/v1/ads`;
-const slettStillingUrl = `express:${stillingApi}/rekrutteringsbistand/api/v1/ads/:stillingsId`;
+const slettStillingUrl = `express:${stillingApi}/rekrutteringsbistandstilling/:stillingsId`;
 const reporteeUrl = `${stillingApi}/rekrutteringsbistand/api/v1/reportee/`;
 const mineStillingerUrl = `express:${stillingApi}/mine-stillinger`;
 const rekrutteringsbistandstillingUrl = `express:${stillingApi}/rekrutteringsbistandstilling/:stillingsId`;

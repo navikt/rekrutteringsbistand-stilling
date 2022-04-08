@@ -65,7 +65,6 @@ export const FORKAST_NY_STILLING = 'FORKAST_NY_STILLING';
 export const FORKAST_NY_STILLING_SUCCESS = 'FORKAST_NY_STILLING_SUCCESS';
 export const FORKAST_NY_STILLING_FAILURE = 'FORKAST_NY_STILLING_FAILURE';
 
-export const DELETE_AD_FROM_MY_ADS = 'DELETE_AD_FROM_MY_ADS';
 export const SHOW_DELETE_AD_MODAL = 'SHOW_DELETE_AD_MODAL';
 export const HIDE_DELETE_AD_MODAL = 'HIDE_DELETE_AD_MODAL';
 
@@ -79,6 +78,10 @@ export const HIDE_PUBLISH_ERROR_MODAL = 'HIDE_PUBLISH_ERROR_MODAL';
 
 export const STOP_AD = 'STOP_AD';
 export const STOP_AD_FROM_MY_ADS = 'STOP_AD_FROM_MY_ADS';
+
+export const DELETE_AD = 'DELETE_AD';
+export const SHOW_DELETE_MODAL = 'SHOW_DELETE_MODAL';
+
 export const SHOW_STOP_AD_MODAL = 'SHOW_STOP_AD_MODAL';
 export const HIDE_STOP_AD_MODAL = 'HIDE_STOP_AD_MODAL';
 
@@ -91,7 +94,6 @@ export const SHOW_AD_SAVED_ERROR_MODAL = 'SHOW_AD_SAVED_ERROR_MODAL';
 export const HIDE_AD_SAVED_ERROR_MODAL = 'HIDE_AD_SAVED_ERROR_MODAL';
 
 export const SHOW_STOP_MODAL_MY_ADS = 'SHOW_STOP_MODAL_MY_ADS';
-export const SHOW_DELETE_MODAL_MY_ADS = 'SHOW_DELETE_MODAL_MY_ADS';
 
 export const ADD_COPIED_ADS = 'ADD_COPIED_ADS';
 export const CLEAR_COPIED_ADS = 'CLEAR_COPIED_ADS';
@@ -127,6 +129,7 @@ export type AdState = {
     showAdSavedErrorModal: boolean;
     kanInkludere: KanInkludere;
     nyStillingState: NyStillingState;
+    hasDeletedAd?: boolean;
 };
 
 const initialState: AdState = {
@@ -532,9 +535,10 @@ function* deleteAd() {
         yield put({ type: SET_UPDATED_BY });
 
         const state = yield select();
-        const deleteUrl = `${stillingApi}/rekrutteringsbistand/api/v1/ads/${state.adData.uuid}`;
+        const deleteUrl = `${stillingApi}/rekrutteringsbistandstilling/${state.adData.uuid}`;
 
         const response = yield fetchDelete(deleteUrl);
+
         yield put({ type: DELETE_AD_SUCCESS, response });
     } catch (e) {
         if (e instanceof ApiError) {
@@ -544,18 +548,12 @@ function* deleteAd() {
     }
 }
 
-function* deleteAdFromMyAds() {
-    yield deleteAd();
-    // Update list with the new status
-    yield put({ type: MineStillingerActionType.FetchMyAds });
-}
-
 function* forkastNyStilling() {
     try {
         yield put({ type: SET_UPDATED_BY });
 
         const state = yield select();
-        const deleteUrl = `${stillingApi}/rekrutteringsbistand/api/v1/ads/${state.adData.uuid}`;
+        const deleteUrl = `${stillingApi}/rekrutteringsbistandstilling/${state.adData.uuid}`;
 
         const response = yield fetchDelete(deleteUrl);
         yield put({ type: FORKAST_NY_STILLING_SUCCESS, response });
@@ -567,7 +565,7 @@ function* forkastNyStilling() {
     }
 }
 
-function* showDeleteModalMyAds(action) {
+function* showDeleteModal(action) {
     yield getRekrutteringsbistandstilling(action);
     yield put({ type: SHOW_DELETE_AD_MODAL });
 }
@@ -623,9 +621,9 @@ export const adSaga = function* saga() {
     yield takeLatest(PUBLISH_AD_CHANGES, publishAdChanges);
     yield takeLatest(FORKAST_NY_STILLING, forkastNyStilling);
     yield takeLatest(SHOW_STOP_MODAL_MY_ADS, showStopModalMyAds);
-    yield takeLatest(SHOW_DELETE_MODAL_MY_ADS, showDeleteModalMyAds);
+    yield takeLatest(SHOW_DELETE_MODAL, showDeleteModal);
     yield takeLatest(STOP_AD_FROM_MY_ADS, stopAdFromMyAds);
-    yield takeLatest(DELETE_AD_FROM_MY_ADS, deleteAdFromMyAds);
+    yield takeLatest(DELETE_AD, deleteAd);
     yield takeLatest(COPY_AD_FROM_MY_ADS, copyAdFromMyAds);
     yield takeLatest(LEGG_TIL_I_MINE_STILLINGER, leggTilIMineStillinger);
     yield takeLatest(MARKER_INTERN_STILLING_SOM_MIN, markerInternStillingSomMin);
