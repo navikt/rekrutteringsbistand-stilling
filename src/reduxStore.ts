@@ -17,6 +17,7 @@ import stillingsinfoDataReducer from './stillingsinfo/stillingsinfoDataReducer';
 import stillingsinfoReducer, { stillingsinfoSaga } from './stillingsinfo/stillingsinfoReducer';
 import { Stillingsinfo } from './Stilling';
 import { mineStillingerSaga } from './mine-stillinger/mineStillingerSagas';
+import { EmployerState } from './ad/edit/employer/EmployerName2';
 
 export type State = {
     ad: AdState;
@@ -26,6 +27,7 @@ export type State = {
     stillingsinfoData: Stillingsinfo;
     varsling: VarslingState;
     reportee: ReporteeState;
+    employer: EmployerState;
 };
 
 const sagaMiddleware = createSagaMiddleware();

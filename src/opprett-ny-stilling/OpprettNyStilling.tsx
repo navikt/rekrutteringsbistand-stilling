@@ -12,6 +12,8 @@ import { REDIGERINGSMODUS_QUERY_PARAM } from '../ad/Ad';
 import { State } from '../reduxStore';
 import ModalMedStillingScope from '../common/ModalMedStillingScope';
 import './OpprettNyStilling.less';
+import EmployerName from '../ad/edit/employer/EmployerName';
+import EmployerName2 from '../ad/edit/employer/EmployerName2';
 
 export enum Stillingskategori {
     Stilling = 'STILLING',
@@ -31,8 +33,13 @@ const OpprettNyStilling: FunctionComponent<Props> = ({ onClose }) => {
     const history = useHistory();
     const { hasSavedChanges } = useSelector((state: State) => state.ad);
     const stilling = useSelector((state: State) => state.ad.originalData);
+    //const employer = useSelector((state: State) => state.adData.employer)
 
     const [stillingskategori, setStillingskategori] = useState<Stillingskategori | null>(null);
+    const [arbeidsgiver, setArbeidsgiver] = useState<string | null>(null);
+    const [arbeidsgiverTypeaheadVerdi, setArbeidsgiverTypeaheadVerdi] = useState<string | null>(
+        null
+    );
 
     useEffect(() => {
         if (hasSavedChanges === true && stilling) {
@@ -45,7 +52,7 @@ const OpprettNyStilling: FunctionComponent<Props> = ({ onClose }) => {
     }, [hasSavedChanges, stilling]);
 
     const onOpprettClick = () => {
-        if (stillingskategori == null) {
+        if (stillingskategori == null || arbeidsgiver == null) {
             return;
         }
 
@@ -95,6 +102,12 @@ const OpprettNyStilling: FunctionComponent<Props> = ({ onClose }) => {
                         />
                     ))}
             </RadioGruppe>
+            <EmployerName2
+                arbeidsgiver={arbeidsgiver}
+                setArbeidsgiver={setArbeidsgiver}
+                arbeidsgiverTypeaheadVerdi={arbeidsgiverTypeaheadVerdi}
+                setArbeidsgiverTypeaheadVerdi={setArbeidsgiverTypeaheadVerdi}
+            />
             <Hovedknapp onClick={onOpprettClick} className="opprett-ny-stilling--opprett-knapp">
                 Opprett
             </Hovedknapp>
