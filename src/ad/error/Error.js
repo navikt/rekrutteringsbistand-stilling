@@ -23,16 +23,14 @@ function Error({ error }) {
                         {error.statusCode === 412 && (
                             <div>
                                 <Normaltekst>Annonsen har blitt redigert av noen andre</Normaltekst>
-                                <Hovedknapp
-                                    className="Error__button"
-                                    onClick={() => window.location.reload()}
-                                >
-                                    Last siden på nytt
-                                </Hovedknapp>
+                                <LastInnPåNytt />
                             </div>
                         )}
                         {error.statusCode === 401 && (
-                            <Normaltekst>Du er ikke logget inn</Normaltekst>
+                            <>
+                                <Normaltekst>Du er ikke logget inn</Normaltekst>
+                                <LastInnPåNytt />
+                            </>
                         )}
                         {showDefaultError && (
                             <Normaltekst>
@@ -48,6 +46,12 @@ function Error({ error }) {
     }
     return null;
 }
+
+const LastInnPåNytt = () => (
+    <Hovedknapp className="Error__button" onClick={() => window.location.reload()}>
+        Last siden på nytt
+    </Hovedknapp>
+);
 
 Error.defaultProps = {
     error: undefined,
