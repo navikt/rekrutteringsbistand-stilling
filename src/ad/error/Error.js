@@ -31,6 +31,9 @@ function Error({ error }) {
                                 </Hovedknapp>
                             </div>
                         )}
+                        {error.statusCode === 401 && (
+                            <Normaltekst>Du er ikke logget inn</Normaltekst>
+                        )}
                         {showDefaultError && (
                             <Normaltekst>
                                 Det oppsto en feil, forsøk å laste siden på nytt
