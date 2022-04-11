@@ -1,51 +1,66 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import './Error.less';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import ModalMedStillingScope from '../../common/ModalMedStillingScope';
+import { FJERN_ERROR } from '../adReducer';
 
-function Error({ error }) {
-    if (error) {
+class Error extends React.Component {
+    render() {
+        const error = this.props.error;
         const showDefaultError =
-            error.statusCode !== 404 && error.statusCode !== 412 && error.statusCode !== 401;
-        return (
-            <div>
-                <ModalMedStillingScope
-                    isOpen
-                    closeButton={false}
-                    onRequestClose={() => {}}
-                    contentLabel="Feilmelding"
-                    appElement={document.getElementById('app')}
-                >
-                    <div className="Error">
-                        {error.statusCode === 404 && <Normaltekst>Fant ikke annonsen</Normaltekst>}
-                        {error.statusCode === 412 && (
-                            <div>
-                                <Normaltekst>Annonsen har blitt redigert av noen andre</Normaltekst>
-                                <LastInnPåNytt />
-                            </div>
-                        )}
-                        {error.statusCode === 401 && (
-                            <>
-                                <Normaltekst>Du er ikke logget inn</Normaltekst>
-                                <LastInnPåNytt />
-                            </>
-                        )}
-                        {showDefaultError && (
-                            <Normaltekst>
-                                Det oppsto en feil, forsøk å laste siden på nytt
+            error &&
+            error.statusCode !== 404 &&
+            error.statusCode !== 412 &&
+            error.statusCode !== 401;
+        const muligÅLukkeModal = error && error.statusCode === 401;
+
+        return error ? (
+            <ModalMedStillingScope
+                isOpen
+                closeButton={muligÅLukkeModal}
+                onRequestClose={() => this.props.closeModal()}
+                contentLabel="Feilmelding"
+                appElement={document.getElementById('app')}
+            >
+                <div className="Error">
+                    {error.statusCode === 404 && <Normaltekst>Fant ikke annonsen</Normaltekst>}
+                    {error.statusCode === 412 && (
+                        <div>
+                            <Normaltekst>Annonsen har blitt redigert av noen andre</Normaltekst>
+                            <LastInnPåNytt />
+                        </div>
+                    )}
+                    {error.statusCode === 401 && (
+                        <div className="Error__utlogget">
+                            <Undertittel className="blokk-s">Du er ikke logget inn</Undertittel>
+                            <Normaltekst className="blokk-s">
+                                Stillingen ble ikke lagret.
                                 <br />
-                                {error.statusCode}: {error.message}
+                                Dersom det er arbeid du ikke ønsker å miste kan du:
                             </Normaltekst>
-                        )}
-                    </div>
-                </ModalMedStillingScope>
-            </div>
-        );
+                            <Normaltekst tag="ul" className="blokk-l">
+                                <li>
+                                    Åpne Rekrutteringsbistand i ny fane for å bli logget inn på nytt
+                                </li>
+                                <li>Komme tilbake til denne fanen</li>
+                                <li>Lukke dette modalvinduet</li>
+                            </Normaltekst>
+                        </div>
+                    )}
+                    {showDefaultError && (
+                        <Normaltekst>
+                            Det oppsto en feil, forsøk å laste siden på nytt
+                            <br />
+                            {error.statusCode}: {error.message}
+                        </Normaltekst>
+                    )}
+                </div>
+            </ModalMedStillingScope>
+        ) : null;
     }
-    return null;
 }
 
 const LastInnPåNytt = () => (
@@ -56,6 +71,7 @@ const LastInnPåNytt = () => (
 
 Error.defaultProps = {
     error: undefined,
+    closeModal: () => {},
 };
 
 Error.propTypes = {
@@ -63,10 +79,17 @@ Error.propTypes = {
         statusCode: PropTypes.number,
         message: PropTypes.string,
     }),
+    closeModal: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
     error: state.ad.error,
 });
 
-export default connect(mapStateToProps)(Error);
+const mapDispatchToProps = (dispatch) => ({
+    closeModal: () => {
+        dispatch({ type: FJERN_ERROR });
+    },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Error);
