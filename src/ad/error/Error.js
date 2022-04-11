@@ -5,7 +5,7 @@ import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import './Error.less';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import ModalMedStillingScope from '../../common/ModalMedStillingScope';
-import { FJERN_ERROR } from '../adReducer';
+import { FJERN_NETTVERKSERROR_FRA_STATE } from '../adReducer';
 
 class Error extends React.Component {
     render() {
@@ -88,7 +88,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     closeModal: () => {
-        dispatch({ type: FJERN_ERROR });
+        dispatch({ type: FJERN_NETTVERKSERROR_FRA_STATE });
     },
 });
 
