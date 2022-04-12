@@ -43,10 +43,11 @@ class Error extends React.Component {
                             </Normaltekst>
                             <Normaltekst tag="ul" className="blokk-l">
                                 <li>
-                                    Åpne Rekrutteringsbistand i ny fane for å bli logget inn på nytt
+                                    Åpne Rekrutteringsbistand i ny fane i nettleseren for å bli
+                                    logget inn på nytt
                                 </li>
-                                <li>Komme tilbake til denne fanen</li>
-                                <li>Lukke dette modalvinduet</li>
+                                <li>Komme tilbake til denne nettleserfanen</li>
+                                <li>Lukke denne meldingsboksen</li>
                             </Normaltekst>
                         </div>
                     )}
