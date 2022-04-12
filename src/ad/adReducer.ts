@@ -106,6 +106,8 @@ export const MARKER_INTERN_STILLING_SOM_MIN = 'MARKER_INTERN_STILLING_SOM_MIN';
 
 export const SET_KAN_INKLUDERE = 'SET_KAN_INKLUDERE';
 
+export const FJERN_NETTVERKSERROR_FRA_STATE = 'FJERN_NETTVERKSERROR_FRA_STATE';
+
 export enum NyStillingState {
     SkalBeholdes = 'skalBeholdes',
     Forkastes = 'forkastes',
@@ -329,6 +331,11 @@ export default function adReducer(state = initialState, action: any) {
             return {
                 ...state,
                 kanInkludere: KanInkludere.Ja,
+            };
+        case FJERN_NETTVERKSERROR_FRA_STATE:
+            return {
+                ...state,
+                error: undefined,
             };
 
         default:
