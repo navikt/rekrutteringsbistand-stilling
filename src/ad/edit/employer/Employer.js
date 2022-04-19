@@ -15,7 +15,6 @@ import {
     SET_LINKEDIN_PAGE,
     SET_TWITTER_ADDRESS,
 } from '../../adDataReducer';
-import EmployerName from './EmployerName';
 import { adjustUrl } from '../../../common/urlUtils';
 import Skjemalabel from '../skjemaetikett/Skjemalabel';
 
@@ -99,7 +98,7 @@ class Employer extends React.Component {
                 border
                 apen
             >
-                <EmployerName />
+                {/*<EmployerName /> TODO: Vis employer name*/}
                 <Skjemalabel
                     inputId="endre-stilling-navnet-bedriften-bruker"
                     beskrivelse="Navnet bedriften bruker"

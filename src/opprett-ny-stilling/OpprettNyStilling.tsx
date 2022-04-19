@@ -12,7 +12,7 @@ import { REDIGERINGSMODUS_QUERY_PARAM } from '../ad/Ad';
 import { State } from '../reduxStore';
 import ModalMedStillingScope from '../common/ModalMedStillingScope';
 import './OpprettNyStilling.less';
-import VelgArbeidsgiver, { Arbeidsgiverforslag } from '../ad/edit/employer/VelgArbeidsgiver';
+import VelgArbeidsgiver, { Arbeidsgiverforslag } from './VelgArbeidsgiver';
 
 export enum Stillingskategori {
     Stilling = 'STILLING',
@@ -36,7 +36,6 @@ const OpprettNyStilling: FunctionComponent<Props> = ({ onClose }) => {
 
     const [stillingskategori, setStillingskategori] = useState<Stillingskategori | null>(null);
     const [arbeidsgiver, setArbeidsgiver] = useState<Arbeidsgiverforslag | null>(null);
-    const [arbeidsgiverTypeaheadVerdi, setArbeidsgiverTypeaheadVerdi] = useState<string>('');
 
     useEffect(() => {
         if (hasSavedChanges === true && stilling) {
@@ -99,12 +98,7 @@ const OpprettNyStilling: FunctionComponent<Props> = ({ onClose }) => {
                         />
                     ))}
             </RadioGruppe>
-            <VelgArbeidsgiver
-                arbeidsgiver={arbeidsgiver}
-                setArbeidsgiver={setArbeidsgiver}
-                arbeidsgiverTypeaheadVerdi={arbeidsgiverTypeaheadVerdi}
-                setArbeidsgiverTypeaheadVerdi={setArbeidsgiverTypeaheadVerdi}
-            />
+            <VelgArbeidsgiver arbeidsgiver={arbeidsgiver} setArbeidsgiver={setArbeidsgiver} />
             <Hovedknapp onClick={onOpprettClick} className="opprett-ny-stilling--opprett-knapp">
                 Opprett
             </Hovedknapp>
