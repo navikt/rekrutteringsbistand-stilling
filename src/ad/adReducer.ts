@@ -509,7 +509,7 @@ function* saveAd(action) {
     } else {
         yield saveRekrutteringsbistandStilling();
 
-        if (action.showModal) {
+        if (state.error !== undefined && action.showModal) {
             yield showAlertStripe(AdAlertStripeEnum.SAVED);
         }
     }
