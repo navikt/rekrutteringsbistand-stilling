@@ -1,4 +1,4 @@
-export default function capitalizeEmployerName(text) {
+export default function capitalizeEmployerName(text: string | null) {
     const separators = [' ', '-', '(', '/'];
 
     const ignore = ['i', 'og', 'for', 'på', 'avd', 'av'];

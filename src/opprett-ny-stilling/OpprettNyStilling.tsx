@@ -12,8 +12,7 @@ import { REDIGERINGSMODUS_QUERY_PARAM } from '../ad/Ad';
 import { State } from '../reduxStore';
 import ModalMedStillingScope from '../common/ModalMedStillingScope';
 import './OpprettNyStilling.less';
-import EmployerName from '../ad/edit/employer/EmployerName';
-import EmployerName2 from '../ad/edit/employer/EmployerName2';
+import VelgArbeidsgiver, { Arbeidsgiverforslag } from '../ad/edit/employer/VelgArbeidsgiver';
 
 export enum Stillingskategori {
     Stilling = 'STILLING',
@@ -36,10 +35,8 @@ const OpprettNyStilling: FunctionComponent<Props> = ({ onClose }) => {
     //const employer = useSelector((state: State) => state.adData.employer)
 
     const [stillingskategori, setStillingskategori] = useState<Stillingskategori | null>(null);
-    const [arbeidsgiver, setArbeidsgiver] = useState<string | null>(null);
-    const [arbeidsgiverTypeaheadVerdi, setArbeidsgiverTypeaheadVerdi] = useState<string | null>(
-        null
-    );
+    const [arbeidsgiver, setArbeidsgiver] = useState<Arbeidsgiverforslag | null>(null);
+    const [arbeidsgiverTypeaheadVerdi, setArbeidsgiverTypeaheadVerdi] = useState<string>('');
 
     useEffect(() => {
         if (hasSavedChanges === true && stilling) {
@@ -102,7 +99,7 @@ const OpprettNyStilling: FunctionComponent<Props> = ({ onClose }) => {
                         />
                     ))}
             </RadioGruppe>
-            <EmployerName2
+            <VelgArbeidsgiver
                 arbeidsgiver={arbeidsgiver}
                 setArbeidsgiver={setArbeidsgiver}
                 arbeidsgiverTypeaheadVerdi={arbeidsgiverTypeaheadVerdi}

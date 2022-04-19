@@ -9,27 +9,29 @@ import capitalizeEmployerName from './capitalizeEmployerName';
 import { FETCH_EMPLOYER_SUGGESTIONS } from './employerReducer';
 
 type Props = {
-    arbeidsgiver: string | null;
-    setArbeidsgiver: (verdi: string | null) => void;
+    arbeidsgiver: Arbeidsgiverforslag | null;
+    setArbeidsgiver: (verdi: Arbeidsgiverforslag | null) => void;
     arbeidsgiverTypeaheadVerdi: string | null;
-    setArbeidsgiverTypeaheadVerdi: (verdi: string | null) => void;
+    setArbeidsgiverTypeaheadVerdi: (verdi: string) => void;
 };
 
 export type EmployerState = {
-    suggestions: Suggestion[];
+    suggestions: Arbeidsgiverforslag[];
 };
 
-type Suggestion = {
-    location: Location;
+export type Arbeidsgiverforslag = {
+    location?: Location;
     name: string;
-    orgnr: string;
+    orgnr?: string;
 };
 
 type Location = {
     address: string;
+    postalCode: string;
+    city: string;
 };
 
-const EmployerName2: FunctionComponent<Props> = ({
+const VelgArbeidsgiver: FunctionComponent<Props> = ({
     arbeidsgiver,
     setArbeidsgiver,
     arbeidsgiverTypeaheadVerdi,
@@ -40,6 +42,7 @@ const EmployerName2: FunctionComponent<Props> = ({
     const suggestions = useSelector((state: State) => state.employer.suggestions);
 
     const onTypeAheadValueChange = (value) => {
+        console.log('onTypeAheadValueChange', value);
         setArbeidsgiverTypeaheadVerdi(value);
         dispatch({ type: FETCH_EMPLOYER_SUGGESTIONS });
     };
@@ -54,14 +57,14 @@ const EmployerName2: FunctionComponent<Props> = ({
         if (employer) {
             const found = lookUpEmployer(employer.value);
             setArbeidsgiver(found || null);
-            setArbeidsgiverTypeaheadVerdi(capitalizeEmployerName(found.name));
+            setArbeidsgiverTypeaheadVerdi(capitalizeEmployerName(found ? found.name : null) || '');
         } else {
             setArbeidsgiver(null);
         }
     };
 
     const getEmployerSuggestionLabel = (suggestion) => {
-        let commaSeparate = [];
+        let commaSeparate: string[] = [];
         if (suggestion.location) {
             if (suggestion.location.address) {
                 commaSeparate = [...commaSeparate, suggestion.location.address];
@@ -87,14 +90,17 @@ const EmployerName2: FunctionComponent<Props> = ({
 
     const lookUpEmployer = (value) =>
         suggestions.find(
-            (employer) =>
-                employer.name.toLowerCase() === value.toLowerCase() ||
-                employer.orgnr === value.replace(/\s/g, '')
+            (arbeidsgiver) =>
+                arbeidsgiver.name.toLowerCase() === value.toLowerCase() ||
+                arbeidsgiver.orgnr === value.replace(/\s/g, '')
         );
+
+    const location = arbeidsgiver ? arbeidsgiver.location : undefined;
+
+    const harArbeidsgiver = arbeidsgiver && arbeidsgiver.name && arbeidsgiver.orgnr;
 
     return (
         <>
-            const location = employer ? employer.location : undefined; return (
             <div className="EmployerName">
                 <Normaltekst className="blokk-s">
                     <b>Obs!</b> For at arbeidsgiver skal få CV-er du sender må virksomhetsnummeret
@@ -119,25 +125,22 @@ const EmployerName2: FunctionComponent<Props> = ({
                         value: suggestion.orgnr,
                         label: getEmployerSuggestionLabel(suggestion),
                     }))}
-                    ref={(instance) => {
-                        this.inputRef = instance;
-                    }}
-                    error={this.props.validation.employer !== undefined}
+                    /*ref={(instance) => {
+                        //this.inputRef = instance;
+                    }}*/
+                    error={!arbeidsgiver || !arbeidsgiver.name || !arbeidsgiver.orgnr}
                 />
-                {employer && location && (
+                {arbeidsgiver && location && (
                     <Undertekst className="EmployerName__valgt-bedrift">
-                        {capitalizeEmployerName(employer.name)}, {location.address},{' '}
+                        {capitalizeEmployerName(arbeidsgiver.name)}, {location.address},{' '}
                         {location.postalCode} {capitalizeLocation(location.city)},
-                        Virksomhetsnummer: {employer.orgnr.match(/.{1,3}/g).join(' ')}
+                        Virksomhetsnummer: {arbeidsgiver.orgnr?.match(/.{1,3}/g)?.join(' ')}
                     </Undertekst>
                 )}
-                {this.props.validation.employer && (
-                    <Feilmelding>{this.props.validation.employer}</Feilmelding>
-                )}
+                {!harArbeidsgiver && <Feilmelding>Bedriftens navn mangler</Feilmelding>}
             </div>
-            );
         </>
     );
 };
 
-export default EmployerName2;
+export default VelgArbeidsgiver;

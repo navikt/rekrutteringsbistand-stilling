@@ -17,7 +17,7 @@ import stillingsinfoDataReducer from './stillingsinfo/stillingsinfoDataReducer';
 import stillingsinfoReducer, { stillingsinfoSaga } from './stillingsinfo/stillingsinfoReducer';
 import { Stillingsinfo } from './Stilling';
 import { mineStillingerSaga } from './mine-stillinger/mineStillingerSagas';
-import { EmployerState } from './ad/edit/employer/EmployerName2';
+import { EmployerState } from './ad/edit/employer/VelgArbeidsgiver';
 
 export type State = {
     ad: AdState;
