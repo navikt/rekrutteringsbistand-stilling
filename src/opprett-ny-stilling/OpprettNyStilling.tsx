@@ -36,6 +36,7 @@ const OpprettNyStilling: FunctionComponent<Props> = ({ onClose }) => {
 
     const [stillingskategori, setStillingskategori] = useState<Stillingskategori | null>(null);
     const [arbeidsgiver, setArbeidsgiver] = useState<Arbeidsgiverforslag | null>(null);
+    const [arbeidsgiverfeilmelding, setArbeidsgiverfeilmelding] = useState<string | null>(null);
 
     useEffect(() => {
         if (hasSavedChanges === true && stilling) {
@@ -48,6 +49,9 @@ const OpprettNyStilling: FunctionComponent<Props> = ({ onClose }) => {
     }, [hasSavedChanges, stilling]);
 
     const onOpprettClick = () => {
+        if (arbeidsgiver == null) {
+            setArbeidsgiverfeilmelding('Bedriftens navn mangler');
+        }
         if (stillingskategori == null || arbeidsgiver == null) {
             return;
         }
@@ -98,7 +102,12 @@ const OpprettNyStilling: FunctionComponent<Props> = ({ onClose }) => {
                         />
                     ))}
             </RadioGruppe>
-            <VelgArbeidsgiver arbeidsgiver={arbeidsgiver} setArbeidsgiver={setArbeidsgiver} />
+            <VelgArbeidsgiver
+                arbeidsgiver={arbeidsgiver}
+                setArbeidsgiver={setArbeidsgiver}
+                arbeidsgiverfeilmelding={arbeidsgiverfeilmelding}
+                setArbeidsgiverfeilmelding={setArbeidsgiverfeilmelding}
+            />
             <Hovedknapp onClick={onOpprettClick} className="opprett-ny-stilling--opprett-knapp">
                 Opprett
             </Hovedknapp>

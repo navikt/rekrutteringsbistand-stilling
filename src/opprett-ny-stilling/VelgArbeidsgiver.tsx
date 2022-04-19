@@ -10,6 +10,8 @@ import { fetchEmployerNameCompletionHits, fetchOrgnrSuggestions } from '../api/a
 type Props = {
     arbeidsgiver: Arbeidsgiverforslag | null;
     setArbeidsgiver: (verdi: Arbeidsgiverforslag | null) => void;
+    arbeidsgiverfeilmelding: string | null;
+    setArbeidsgiverfeilmelding: (verdi: string | null) => void;
 };
 
 export type EmployerState = {
@@ -28,7 +30,12 @@ type Location = {
     city: string;
 };
 
-const VelgArbeidsgiver: FunctionComponent<Props> = ({ arbeidsgiver, setArbeidsgiver }) => {
+const VelgArbeidsgiver: FunctionComponent<Props> = ({
+    arbeidsgiver,
+    setArbeidsgiver,
+    arbeidsgiverfeilmelding,
+    setArbeidsgiverfeilmelding,
+}) => {
     const [input, setInput] = useState<string>('');
     const [alleForslag, setAlleForslag] = useState<Nettressurs<Arbeidsgiverforslag[]>>(
         ikkeLastet()
@@ -67,6 +74,7 @@ const VelgArbeidsgiver: FunctionComponent<Props> = ({ arbeidsgiver, setArbeidsgi
     }, [input]);
 
     const onInputChange = (value: string) => {
+        setArbeidsgiverfeilmelding(null);
         setInput(value);
     };
 
@@ -86,6 +94,8 @@ const VelgArbeidsgiver: FunctionComponent<Props> = ({ arbeidsgiver, setArbeidsgi
             } else {
                 setArbeidsgiver(null);
             }
+        } else {
+            setArbeidsgiverfeilmelding('Kunne ikke å hente forslag');
         }
     };
 
@@ -124,7 +134,7 @@ const VelgArbeidsgiver: FunctionComponent<Props> = ({ arbeidsgiver, setArbeidsgi
                         Virksomhetsnummer: {arbeidsgiver.orgnr?.match(/.{1,3}/g)?.join(' ')}
                     </Undertekst>
                 )}
-                {!harArbeidsgiver && <Feilmelding>Bedriftens navn mangler</Feilmelding>}
+                {!harArbeidsgiver && <Feilmelding>{arbeidsgiverfeilmelding}</Feilmelding>}
             </div>
         </>
     );
