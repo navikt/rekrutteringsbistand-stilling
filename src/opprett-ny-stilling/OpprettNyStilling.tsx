@@ -58,6 +58,7 @@ const OpprettNyStilling: FunctionComponent<Props> = ({ onClose }) => {
         dispatch({
             type: CREATE_AD,
             kategori: stillingskategori,
+            arbeidsgiver: arbeidsgiver,
         });
     };
 
