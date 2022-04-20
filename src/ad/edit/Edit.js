@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { RESET_VALIDATION_ERROR } from '../adValidationReducer';
 import './Edit.less';
 import PracticalInformation from './practicalInformation/PracticalInformation';
-import Employer from './employer/Employer';
+import EndreArbeidsgiver from './endre-arbeidsgiver/EndreArbeidsgiver';
 import JobDetails from './jobDetails/JobDetails';
 import ContactPerson from './contactPerson/ContactPerson.tsx';
 import Application from './application/Application';
@@ -114,7 +114,7 @@ const Edit = ({
             <Column xs="12" md="8">
                 <div className="Edit__left">
                     <EditHeader isNew={isNew} onPreviewAdClick={onPreviewAdClick} />
-                    <Employer />
+                    <EndreArbeidsgiver />
                     <RegistrerInkluderingsmuligheter />
                     <JobDetails isNew={isNew} />
                 </div>

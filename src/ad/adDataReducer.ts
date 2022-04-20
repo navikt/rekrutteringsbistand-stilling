@@ -76,7 +76,14 @@ export type AdDataState = {
         workday?: any;
         workhours?: any;
         tags?: string;
+        employer?: string;
+        employerdescription?: string;
+        employerhomepage?: string;
+        facebookpage?: string;
+        linkedinpage?: string;
+        twitteraddress?: string;
     };
+    businessName?: string;
     status: string;
     administration: Adminsitration;
     privacy: string;
