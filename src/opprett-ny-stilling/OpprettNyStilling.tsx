@@ -53,11 +53,11 @@ const OpprettNyStilling: FunctionComponent<Props> = ({ onClose }) => {
     const onOpprettClick = () => {
         if (stillingskategori == null || arbeidsgiver == null) {
             if (arbeidsgiver == null) {
-                setArbeidsgiverfeilmelding('Bedriftens navn mangler');
+                setArbeidsgiverfeilmelding('Du må velge en arbeidsgiver');
             }
 
             if (stillingskategori == null) {
-                setStillingskatergorifeilmelding('Stillingskategori mangler');
+                setStillingskatergorifeilmelding('Du må velge en stillingskategori');
             }
             return;
         }
