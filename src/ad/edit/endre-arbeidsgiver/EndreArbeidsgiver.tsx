@@ -80,7 +80,7 @@ const EndreArbeidsgiver: FunctionComponent = () => {
             <div className="blokk-xs">
                 <Element>Informasjon fra enhetsregisteret</Element>
                 {arbeidsgiver && location && (
-                    <Normaltekst className="opprett-ny-stilling__valgt-arbeidsgiver">
+                    <Normaltekst>
                         {capitalizeEmployerName(arbeidsgiver.name)}, {location.address},{' '}
                         {location.postalCode} {capitalizeLocation(location.city)},
                         Virksomhetsnummer: {arbeidsgiver.orgnr?.match(/.{1,3}/g)?.join(' ')}
