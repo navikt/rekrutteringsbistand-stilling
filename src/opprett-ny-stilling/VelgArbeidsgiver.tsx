@@ -24,7 +24,7 @@ export type Arbeidsgiverforslag = {
     orgnr?: string;
 };
 
-type Location = {
+export type Location = {
     address: string;
     postalCode: string;
     city: string;
@@ -152,7 +152,7 @@ const konverterTilTypeaheadFormat = (alleForslag: Nettressurs<Arbeidsgiverforsla
     }
 };
 
-const getEmployerSuggestionLabel = (forslag: Arbeidsgiverforslag) => {
+export const getEmployerSuggestionLabel = (forslag: Arbeidsgiverforslag) => {
     let commaSeparate: string[] = [];
     if (forslag.location) {
         if (forslag.location.address) {

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Flatknapp } from 'nav-frontend-knapper';
 import { Column, Row } from 'nav-frontend-grid';
 import { Input } from 'nav-frontend-skjema';
-import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { Element, Normaltekst, Undertekst, Undertittel } from 'nav-frontend-typografi';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import RichTextEditor from '../richTextEditor/RichTextEditor';
 import {
@@ -17,6 +17,9 @@ import {
 import { adjustUrl } from '../../../common/urlUtils';
 import Skjemalabel from '../skjemaetikett/Skjemalabel';
 import { State } from '../../../reduxStore';
+import { Arbeidsgiverforslag, Location } from '../../../opprett-ny-stilling/VelgArbeidsgiver';
+import capitalizeEmployerName from '../../../ad/edit/endre-arbeidsgiver/capitalizeEmployerName';
+import capitalizeLocation from '../location/capitalizeLocation';
 
 const EndreArbeidsgiver: FunctionComponent = () => {
     const ad = useSelector((state: State) => state.adData);
@@ -64,6 +67,9 @@ const EndreArbeidsgiver: FunctionComponent = () => {
     const hideOnlineAddresses =
         facebookpage === undefined && linkedinpage === undefined && twitteraddress === undefined;
 
+    const arbeidsgiver: Arbeidsgiverforslag = ad.employer;
+    const location: Location | undefined = arbeidsgiver.location;
+
     return (
         <Ekspanderbartpanel
             apen
@@ -71,8 +77,17 @@ const EndreArbeidsgiver: FunctionComponent = () => {
             className="blokk-s"
             tittel={<Undertittel>Om bedriften</Undertittel>}
         >
-            <Element>Arbeidsgiverens navn</Element>
-            <Normaltekst>TODO</Normaltekst>
+            <div className="blokk-xs">
+                <Element>Arbeidsgiverens navn</Element>
+                <Normaltekst>{ad.employer?.name}</Normaltekst>
+                {arbeidsgiver && location && (
+                    <Undertekst className="opprett-ny-stilling__valgt-arbeidsgiver">
+                        {capitalizeEmployerName(arbeidsgiver.name)}, {location.address},{' '}
+                        {location.postalCode} {capitalizeLocation(location.city)},
+                        Virksomhetsnummer: {arbeidsgiver.orgnr?.match(/.{1,3}/g)?.join(' ')}
+                    </Undertekst>
+                )}
+            </div>
             <Skjemalabel
                 inputId="endre-stilling-navnet-bedriften-bruker"
                 beskrivelse="Navnet bedriften bruker"
@@ -83,7 +98,7 @@ const EndreArbeidsgiver: FunctionComponent = () => {
                 className="blokk-s"
                 id="endre-stilling-navnet-bedriften-bruker"
                 aria-describedby="endre-stilling-navnet-bedriften-bruker-beskrivelse"
-                value={ad.properties.employer || ad.businessName || ''} // todo: remove ad.properties.employer when depricated
+                value={ad.properties.employer || ad.businessName || ''}
                 onChange={(e) => setEmployerName(e.target.value)}
             />
             <Skjemalabel
