@@ -104,11 +104,10 @@ const VelgArbeidsgiver: FunctionComponent<Props> = ({
     return (
         <>
             <Skjemalabel
-                påkrevd
                 inputId="endre-stilling-bedriftens-navn"
-                beskrivelse="Skriv inn arbeidsgivernavn eller virksomhetsnummer"
+                beskrivelse="Informasjonen hentes fra enhetsregisteret"
             >
-                Bedriftens navn hentet fra Enhetsregisteret
+                Arbeidsgivers navn eller virksomhetsnummer
             </Skjemalabel>
             <Typeahead
                 id="endre-stilling-bedriftens-navn"
@@ -127,10 +126,7 @@ const VelgArbeidsgiver: FunctionComponent<Props> = ({
                 </Undertekst>
             )}
             {feilmeldingTilBruker && <Feilmelding>{feilmeldingTilBruker}</Feilmelding>}
-            <Normaltekst className="opprett-ny-stilling__arbeidsgiver-advarsel">
-                <b>Obs!</b> For at arbeidsgiver skal få CV-er du sender må virksomhetsnummeret du
-                registrerer stillingen på samsvare med arbeidsgivers virksomhetsnummer.
-            </Normaltekst>
+            <div className="blokk-s" />
         </>
     );
 };

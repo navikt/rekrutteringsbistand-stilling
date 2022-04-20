@@ -3,7 +3,7 @@ import { useHistory } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { Radio, RadioGruppe } from 'nav-frontend-skjema';
 import { Flatknapp, Hovedknapp } from 'nav-frontend-knapper';
-import { Element, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
+import { Element, Systemtittel } from 'nav-frontend-typografi';
 
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { CREATE_AD } from '../ad/adReducer';
@@ -11,8 +11,8 @@ import { kategoriTilVisningsnavn } from '../ad/preview/administration/kategori/K
 import { REDIGERINGSMODUS_QUERY_PARAM } from '../ad/Ad';
 import { State } from '../reduxStore';
 import ModalMedStillingScope from '../common/ModalMedStillingScope';
-import './OpprettNyStilling.less';
 import VelgArbeidsgiver, { Arbeidsgiverforslag } from './VelgArbeidsgiver';
+import './OpprettNyStilling.less';
 
 export enum Stillingskategori {
     Stilling = 'STILLING',
@@ -74,17 +74,14 @@ const OpprettNyStilling: FunctionComponent<Props> = ({ onClose }) => {
                 Det arbeides fremdeles med å avklare hva som er lov å registrere i
                 Rekrutteringsbistand. Derfor kan du ikke registrere NAV-kurs, webinar,
                 arbeidstrening og lignende. Det er kun kategoriene nedenfor som skal brukes.
+                <br />
+                <br />
+                Du kan ikke endre stillingskategori eller arbeidsgiver etter stillingen er
+                opprettet.
             </AlertStripeAdvarsel>
             <RadioGruppe
                 className="blokk-m"
-                legend={
-                    <>
-                        <Element tag="span">Hva skal du bruke stillingen til? </Element>
-                        <Normaltekst tag="span">
-                            Du kan ikke endre kategori i etterkant.
-                        </Normaltekst>
-                    </>
-                }
+                legend={<Element tag="span">Hva skal du bruke stillingen til? </Element>}
             >
                 {Object.values(Stillingskategori)
                     .filter((kategori) => kategori !== stillingskategoriSomIkkeLengerKanVelges)
