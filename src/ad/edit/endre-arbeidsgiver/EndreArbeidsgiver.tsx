@@ -17,10 +17,7 @@ import {
 import { adjustUrl } from '../../../common/urlUtils';
 import Skjemalabel from '../skjemaetikett/Skjemalabel';
 import { State } from '../../../reduxStore';
-import {
-    Arbeidsgiverforslag,
-    formaterDataFraEnhetsregisteret,
-} from '../../../opprett-ny-stilling/VelgArbeidsgiver';
+import { formaterDataFraEnhetsregisteret } from '../../../opprett-ny-stilling/VelgArbeidsgiver';
 
 const EndreArbeidsgiver: FunctionComponent = () => {
     const ad = useSelector((state: State) => state.adData);
