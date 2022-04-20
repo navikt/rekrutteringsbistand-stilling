@@ -3,7 +3,7 @@ import { useHistory } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { Radio, RadioGruppe } from 'nav-frontend-skjema';
 import { Flatknapp, Hovedknapp } from 'nav-frontend-knapper';
-import { Element, Systemtittel } from 'nav-frontend-typografi';
+import { Element, Feilmelding, Systemtittel } from 'nav-frontend-typografi';
 
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { CREATE_AD } from '../ad/adReducer';
@@ -34,6 +34,9 @@ const OpprettNyStilling: FunctionComponent<Props> = ({ onClose }) => {
     const stilling = useSelector((state: State) => state.ad.originalData);
 
     const [stillingskategori, setStillingskategori] = useState<Stillingskategori | null>(null);
+    const [stillingskategorifeilmelding, setStillingskatergorifeilmelding] = useState<
+        string | null
+    >(null);
     const [arbeidsgiver, setArbeidsgiver] = useState<Arbeidsgiverforslag | null>(null);
     const [arbeidsgiverfeilmelding, setArbeidsgiverfeilmelding] = useState<string | null>(null);
 
@@ -48,10 +51,14 @@ const OpprettNyStilling: FunctionComponent<Props> = ({ onClose }) => {
     }, [hasSavedChanges, stilling]);
 
     const onOpprettClick = () => {
-        if (arbeidsgiver == null) {
-            setArbeidsgiverfeilmelding('Bedriftens navn mangler');
-        }
         if (stillingskategori == null || arbeidsgiver == null) {
+            if (arbeidsgiver == null) {
+                setArbeidsgiverfeilmelding('Bedriftens navn mangler');
+            }
+
+            if (stillingskategori == null) {
+                setStillingskatergorifeilmelding('Stillingskategori mangler');
+            }
             return;
         }
 
@@ -90,14 +97,18 @@ const OpprettNyStilling: FunctionComponent<Props> = ({ onClose }) => {
                             key={kategori}
                             className="opprett-ny-stilling--kategori"
                             name="stillingskategori"
-                            onChange={(event) =>
-                                setStillingskategori(event.target.value as Stillingskategori)
-                            }
+                            onChange={(event) => {
+                                setStillingskatergorifeilmelding(null);
+                                setStillingskategori(event.target.value as Stillingskategori);
+                            }}
                             checked={stillingskategori === kategori}
                             label={kategoriTilVisningsnavn(kategori)}
                             value={kategori}
                         />
                     ))}
+                {stillingskategorifeilmelding && (
+                    <Feilmelding>{stillingskategorifeilmelding}</Feilmelding>
+                )}
             </RadioGruppe>
             <VelgArbeidsgiver
                 arbeidsgiver={arbeidsgiver}

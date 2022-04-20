@@ -179,25 +179,6 @@ function* validateAdtext() {
     }
 }
 
-function* validateEmployer() {
-    const state = yield select();
-    const { employer } = state.adData;
-
-    if (
-        employer === null ||
-        employer === undefined ||
-        valueIsNotSet(employer.name) ||
-        valueIsNotSet(employer.orgnr)
-    ) {
-        yield addValidationError({
-            field: 'employer',
-            message: 'Bedriftens navn mangler',
-        });
-    } else {
-        yield removeValidationError({ field: 'employer' });
-    }
-}
-
 function* validateExpireDate() {
     const state = yield select();
     const { expires } = state.adData;
@@ -503,7 +484,6 @@ export function* validateAll() {
     const state = yield select();
     if (state.adData !== null) {
         yield validateLocation();
-        yield validateEmployer();
         yield validateExpireDate();
         yield validatePublishDate();
         yield validateTitle();
@@ -612,7 +592,6 @@ export default function adValidationReducer(state = initialState, action) {
 export const validationSaga = function* saga() {
     yield takeLatest(VALIDATE_ALL, validateAll);
     yield takeLatest(SET_STYRK, validateStyrk);
-    yield takeLatest(SET_EMPLOYER, validateEmployer);
     yield takeLatest(SET_EXPIRATION_DATE, validateExpireDate);
     yield takeLatest(SET_PUBLISHED, validatePublishDate);
     yield takeLatest(ADD_POSTAL_CODE_BEGIN, validatePostalCode);
