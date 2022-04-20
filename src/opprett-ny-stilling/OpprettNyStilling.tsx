@@ -89,6 +89,7 @@ const OpprettNyStilling: FunctionComponent<Props> = ({ onClose }) => {
             <RadioGruppe
                 className="blokk-m"
                 legend={<Element tag="span">Hva skal du bruke stillingen til? </Element>}
+                feil={stillingskategorifeilmelding ? stillingskategorifeilmelding : null}
             >
                 {Object.values(Stillingskategori)
                     .filter((kategori) => kategori !== stillingskategoriSomIkkeLengerKanVelges)
@@ -106,9 +107,6 @@ const OpprettNyStilling: FunctionComponent<Props> = ({ onClose }) => {
                             value={kategori}
                         />
                     ))}
-                {stillingskategorifeilmelding && (
-                    <Feilmelding>{stillingskategorifeilmelding}</Feilmelding>
-                )}
             </RadioGruppe>
             <VelgArbeidsgiver
                 arbeidsgiver={arbeidsgiver}
