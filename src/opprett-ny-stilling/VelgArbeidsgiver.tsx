@@ -10,8 +10,8 @@ import { fetchEmployerNameCompletionHits, fetchOrgnrSuggestions } from '../api/a
 type Props = {
     arbeidsgiver: Arbeidsgiverforslag | null;
     setArbeidsgiver: (verdi: Arbeidsgiverforslag | null) => void;
-    arbeidsgiverfeilmelding: string | null;
-    setArbeidsgiverfeilmelding: (verdi: string | null) => void;
+    feilmelding: string | null;
+    setFeilmelding: (verdi: string | null) => void;
 };
 
 export type EmployerState = {
@@ -33,8 +33,8 @@ type Location = {
 const VelgArbeidsgiver: FunctionComponent<Props> = ({
     arbeidsgiver,
     setArbeidsgiver,
-    arbeidsgiverfeilmelding,
-    setArbeidsgiverfeilmelding,
+    feilmelding,
+    setFeilmelding,
 }) => {
     const [input, setInput] = useState<string>('');
     const [alleForslag, setAlleForslag] = useState<Nettressurs<Arbeidsgiverforslag[]>>(
@@ -74,7 +74,7 @@ const VelgArbeidsgiver: FunctionComponent<Props> = ({
     }, [input]);
 
     const onInputChange = (value: string) => {
-        setArbeidsgiverfeilmelding(null);
+        setFeilmelding(null);
         setInput(value);
     };
 
@@ -94,48 +94,45 @@ const VelgArbeidsgiver: FunctionComponent<Props> = ({
             } else {
                 setArbeidsgiver(null);
             }
-        } else {
-            setArbeidsgiverfeilmelding('Kunne ikke å hente forslag');
         }
     };
 
     const location = arbeidsgiver ? arbeidsgiver.location : undefined;
-    const harArbeidsgiver = arbeidsgiver && arbeidsgiver.name && arbeidsgiver.orgnr;
+    const feilmeldingTilBruker =
+        feilmelding || (alleForslag.kind === Nettstatus.Feil && alleForslag.error.message);
 
     return (
         <>
-            <div className="EmployerName">
-                <Normaltekst className="blokk-s">
-                    <b>Obs!</b> For at arbeidsgiver skal få CV-er du sender må virksomhetsnummeret
-                    du registrerer stillingen på samsvare med arbeidsgivers virksomhetsnummer.
-                </Normaltekst>
-                <Skjemalabel
-                    påkrevd
-                    inputId="endre-stilling-bedriftens-navn"
-                    beskrivelse="Skriv inn arbeidsgivernavn eller virksomhetsnummer"
-                >
-                    Bedriftens navn hentet fra Enhetsregisteret
-                </Skjemalabel>
-                <Typeahead
-                    id="endre-stilling-bedriftens-navn"
-                    aria-describedby="endre-stilling-bedriftens-navn-beskrivelse"
-                    className="EmployerName__typeahead"
-                    value={input}
-                    onBlur={onInputBlur}
-                    onSelect={onForslagValgt}
-                    onChange={onInputChange}
-                    suggestions={konverterTilTypeaheadFormat(alleForslag)}
-                    error={alleForslag.kind === Nettstatus.Feil || !harArbeidsgiver}
-                />
-                {arbeidsgiver && location && (
-                    <Undertekst className="EmployerName__valgt-bedrift">
-                        {capitalizeEmployerName(arbeidsgiver.name)}, {location.address},{' '}
-                        {location.postalCode} {capitalizeLocation(location.city)},
-                        Virksomhetsnummer: {arbeidsgiver.orgnr?.match(/.{1,3}/g)?.join(' ')}
-                    </Undertekst>
-                )}
-                {!harArbeidsgiver && <Feilmelding>{arbeidsgiverfeilmelding}</Feilmelding>}
-            </div>
+            <Skjemalabel
+                påkrevd
+                inputId="endre-stilling-bedriftens-navn"
+                beskrivelse="Skriv inn arbeidsgivernavn eller virksomhetsnummer"
+            >
+                Bedriftens navn hentet fra Enhetsregisteret
+            </Skjemalabel>
+            <Typeahead
+                id="endre-stilling-bedriftens-navn"
+                aria-describedby="endre-stilling-bedriftens-navn-beskrivelse"
+                className="opprett-ny-stilling__velg-arbeidsgiver-input"
+                value={input}
+                onBlur={onInputBlur}
+                onSelect={onForslagValgt}
+                onChange={onInputChange}
+                suggestions={konverterTilTypeaheadFormat(alleForslag)}
+                error={!!feilmeldingTilBruker}
+            />
+            {arbeidsgiver && location && (
+                <Undertekst className="opprett-ny-stilling__valgt-arbeidsgiver">
+                    {capitalizeEmployerName(arbeidsgiver.name)}, {location.address},{' '}
+                    {location.postalCode} {capitalizeLocation(location.city)}, Virksomhetsnummer:{' '}
+                    {arbeidsgiver.orgnr?.match(/.{1,3}/g)?.join(' ')}
+                </Undertekst>
+            )}
+            {feilmeldingTilBruker && <Feilmelding>{feilmeldingTilBruker}</Feilmelding>}
+            <Normaltekst className="opprett-ny-stilling__arbeidsgiver-advarsel">
+                <b>Obs!</b> For at arbeidsgiver skal få CV-er du sender må virksomhetsnummeret du
+                registrerer stillingen på samsvare med arbeidsgivers virksomhetsnummer.
+            </Normaltekst>
         </>
     );
 };

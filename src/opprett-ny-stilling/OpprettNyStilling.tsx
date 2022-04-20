@@ -32,7 +32,6 @@ const OpprettNyStilling: FunctionComponent<Props> = ({ onClose }) => {
     const history = useHistory();
     const { hasSavedChanges } = useSelector((state: State) => state.ad);
     const stilling = useSelector((state: State) => state.ad.originalData);
-    //const employer = useSelector((state: State) => state.adData.employer)
 
     const [stillingskategori, setStillingskategori] = useState<Stillingskategori | null>(null);
     const [arbeidsgiver, setArbeidsgiver] = useState<Arbeidsgiverforslag | null>(null);
@@ -105,8 +104,8 @@ const OpprettNyStilling: FunctionComponent<Props> = ({ onClose }) => {
             <VelgArbeidsgiver
                 arbeidsgiver={arbeidsgiver}
                 setArbeidsgiver={setArbeidsgiver}
-                arbeidsgiverfeilmelding={arbeidsgiverfeilmelding}
-                setArbeidsgiverfeilmelding={setArbeidsgiverfeilmelding}
+                feilmelding={arbeidsgiverfeilmelding}
+                setFeilmelding={setArbeidsgiverfeilmelding}
             />
             <Hovedknapp onClick={onOpprettClick} className="opprett-ny-stilling--opprett-knapp">
                 Opprett
