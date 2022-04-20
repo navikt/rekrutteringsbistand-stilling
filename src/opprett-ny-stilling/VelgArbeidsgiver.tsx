@@ -6,6 +6,7 @@ import capitalizeLocation from '../ad/edit/location/capitalizeLocation';
 import Skjemalabel from '../ad/edit/skjemaetikett/Skjemalabel';
 import { ikkeLastet, Nettressurs, Nettstatus } from '../api/Nettressurs';
 import { fetchEmployerNameCompletionHits, fetchOrgnrSuggestions } from '../api/api';
+import { Arbeidsgiver } from '../Stilling';
 
 type Props = {
     arbeidsgiver: Arbeidsgiverforslag | null;
@@ -97,7 +98,6 @@ const VelgArbeidsgiver: FunctionComponent<Props> = ({
         }
     };
 
-    const location = arbeidsgiver ? arbeidsgiver.location : undefined;
     const feilmeldingTilBruker =
         feilmelding || (alleForslag.kind === Nettstatus.Feil && alleForslag.error.message);
 
@@ -121,11 +121,9 @@ const VelgArbeidsgiver: FunctionComponent<Props> = ({
                 suggestions={konverterTilTypeaheadFormat(alleForslag)}
                 error={!!feilmeldingTilBruker}
             />
-            {arbeidsgiver && location && (
+            {arbeidsgiver && (
                 <Undertekst className="opprett-ny-stilling__valgt-arbeidsgiver">
-                    {capitalizeEmployerName(arbeidsgiver.name)}, {location.address},{' '}
-                    {location.postalCode} {capitalizeLocation(location.city)}, Virksomhetsnummer:{' '}
-                    {arbeidsgiver.orgnr?.match(/.{1,3}/g)?.join(' ')}
+                    {formaterDataFraEnhetsregisteret(arbeidsgiver)}
                 </Undertekst>
             )}
             {feilmeldingTilBruker && <Feilmelding>{feilmeldingTilBruker}</Feilmelding>}
@@ -150,6 +148,18 @@ const konverterTilTypeaheadFormat = (alleForslag: Nettressurs<Arbeidsgiverforsla
     } else {
         return [];
     }
+};
+
+export const formaterDataFraEnhetsregisteret = (
+    arbeidsgiver: Arbeidsgiverforslag | Arbeidsgiver
+) => {
+    const location = arbeidsgiver.location;
+    const navn = capitalizeEmployerName(arbeidsgiver.name);
+    const virksomhetsnummer = arbeidsgiver.orgnr?.match(/.{1,3}/g)?.join(' ');
+    if (!location) return navn;
+    return `${navn}, ${location.address}, ${location.postalCode} ${capitalizeLocation(
+        location.city
+    )}, Virksomhetsnummer: ${virksomhetsnummer}`;
 };
 
 export const getEmployerSuggestionLabel = (forslag: Arbeidsgiverforslag) => {

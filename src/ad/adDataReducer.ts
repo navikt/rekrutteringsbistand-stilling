@@ -13,7 +13,7 @@ import PrivacyStatusEnum from '../common/enums/PrivacyStatusEnum';
 import IsJson from './edit/practicalInformation/IsJson';
 import { isValidISOString } from '../utils/datoUtils';
 import { leggTilTagUnderRegistrering, fjernTagUnderRegistrering } from '../ad/tags/utils';
-import Stilling from '../Stilling';
+import Stilling, { Arbeidsgiver } from '../Stilling';
 
 export const SET_AD_DATA = 'SET_AD_DATA';
 export const REMOVE_AD_DATA = 'REMOVE_AD_DATA';
@@ -89,7 +89,7 @@ export type AdDataState = {
     privacy: string;
     locationList?: any;
     expires?: any;
-    employer?: any;
+    employer?: Arbeidsgiver;
     contactList?: any;
     source?: string;
     updated?: any;

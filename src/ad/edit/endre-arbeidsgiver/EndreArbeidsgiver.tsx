@@ -17,9 +17,10 @@ import {
 import { adjustUrl } from '../../../common/urlUtils';
 import Skjemalabel from '../skjemaetikett/Skjemalabel';
 import { State } from '../../../reduxStore';
-import { Arbeidsgiverforslag, Location } from '../../../opprett-ny-stilling/VelgArbeidsgiver';
-import capitalizeEmployerName from '../../../ad/edit/endre-arbeidsgiver/capitalizeEmployerName';
-import capitalizeLocation from '../location/capitalizeLocation';
+import {
+    Arbeidsgiverforslag,
+    formaterDataFraEnhetsregisteret,
+} from '../../../opprett-ny-stilling/VelgArbeidsgiver';
 
 const EndreArbeidsgiver: FunctionComponent = () => {
     const ad = useSelector((state: State) => state.adData);
@@ -67,9 +68,6 @@ const EndreArbeidsgiver: FunctionComponent = () => {
     const hideOnlineAddresses =
         facebookpage === undefined && linkedinpage === undefined && twitteraddress === undefined;
 
-    const arbeidsgiver: Arbeidsgiverforslag = ad.employer;
-    const location: Location | undefined = arbeidsgiver.location;
-
     return (
         <Ekspanderbartpanel
             apen
@@ -77,16 +75,12 @@ const EndreArbeidsgiver: FunctionComponent = () => {
             className="blokk-s"
             tittel={<Undertittel>Om bedriften</Undertittel>}
         >
-            <div className="blokk-xs">
-                <Element>Informasjon fra enhetsregisteret</Element>
-                {arbeidsgiver && location && (
-                    <Normaltekst>
-                        {capitalizeEmployerName(arbeidsgiver.name)}, {location.address},{' '}
-                        {location.postalCode} {capitalizeLocation(location.city)},
-                        Virksomhetsnummer: {arbeidsgiver.orgnr?.match(/.{1,3}/g)?.join(' ')}
-                    </Normaltekst>
-                )}
-            </div>
+            {ad.employer && (
+                <div className="blokk-xs">
+                    <Element>Informasjon fra enhetsregisteret</Element>
+                    <Normaltekst>{formaterDataFraEnhetsregisteret(ad.employer)}</Normaltekst>
+                </div>
+            )}
             <Skjemalabel
                 inputId="endre-stilling-navnet-bedriften-bruker"
                 beskrivelse="Navnet bedriften bruker"
