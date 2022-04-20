@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Flatknapp } from 'nav-frontend-knapper';
 import { Column, Row } from 'nav-frontend-grid';
 import { Input } from 'nav-frontend-skjema';
-import { Element, Normaltekst, Undertekst, Undertittel } from 'nav-frontend-typografi';
+import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import RichTextEditor from '../richTextEditor/RichTextEditor';
 import {
@@ -78,14 +78,13 @@ const EndreArbeidsgiver: FunctionComponent = () => {
             tittel={<Undertittel>Om bedriften</Undertittel>}
         >
             <div className="blokk-xs">
-                <Element>Arbeidsgiverens navn</Element>
-                <Normaltekst>{ad.employer?.name}</Normaltekst>
+                <Element>Informasjon fra enhetsregisteret</Element>
                 {arbeidsgiver && location && (
-                    <Undertekst className="opprett-ny-stilling__valgt-arbeidsgiver">
+                    <Normaltekst className="opprett-ny-stilling__valgt-arbeidsgiver">
                         {capitalizeEmployerName(arbeidsgiver.name)}, {location.address},{' '}
                         {location.postalCode} {capitalizeLocation(location.city)},
                         Virksomhetsnummer: {arbeidsgiver.orgnr?.match(/.{1,3}/g)?.join(' ')}
-                    </Undertekst>
+                    </Normaltekst>
                 )}
             </div>
             <Skjemalabel
