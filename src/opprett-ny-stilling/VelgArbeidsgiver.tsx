@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { Feilmelding, Normaltekst, Undertekst } from 'nav-frontend-typografi';
 import Typeahead from '../common/typeahead/Typeahead';
-import capitalizeEmployerName from '../ad/edit/employer/capitalizeEmployerName';
+import capitalizeEmployerName from '../ad/edit/endre-arbeidsgiver/capitalizeEmployerName';
 import capitalizeLocation from '../ad/edit/location/capitalizeLocation';
 import Skjemalabel from '../ad/edit/skjemaetikett/Skjemalabel';
 import { ikkeLastet, Nettressurs, Nettstatus } from '../api/Nettressurs';
