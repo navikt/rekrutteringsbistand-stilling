@@ -1,27 +1,17 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { Radio, RadioGruppe } from 'nav-frontend-skjema';
 import { Flatknapp, Hovedknapp } from 'nav-frontend-knapper';
-import { Element, Feilmelding, Systemtittel } from 'nav-frontend-typografi';
+import { Systemtittel } from 'nav-frontend-typografi';
 
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { CREATE_AD } from '../ad/adReducer';
-import { kategoriTilVisningsnavn } from '../ad/preview/administration/kategori/Kategori';
 import { REDIGERINGSMODUS_QUERY_PARAM } from '../ad/Ad';
 import { State } from '../reduxStore';
 import ModalMedStillingScope from '../common/ModalMedStillingScope';
 import VelgArbeidsgiver, { Arbeidsgiverforslag } from './VelgArbeidsgiver';
+import VelgStillingskategori, { Stillingskategori } from './VelgStillingskategori';
 import './OpprettNyStilling.less';
-
-export enum Stillingskategori {
-    Stilling = 'STILLING',
-    Arbeidstrening = 'ARBEIDSTRENING',
-    Jobbmesse = 'JOBBMESSE',
-    Formidling = 'FORMIDLING',
-}
-
-const stillingskategoriSomIkkeLengerKanVelges = Stillingskategori.Arbeidstrening;
 
 type Props = {
     onClose: () => void;
@@ -51,22 +41,22 @@ const OpprettNyStilling: FunctionComponent<Props> = ({ onClose }) => {
     }, [hasSavedChanges, stilling]);
 
     const onOpprettClick = () => {
-        if (stillingskategori == null || arbeidsgiver == null) {
-            if (arbeidsgiver == null) {
-                setArbeidsgiverfeilmelding('Du må velge en arbeidsgiver');
-            }
-
-            if (stillingskategori == null) {
-                setStillingskatergorifeilmelding('Du må velge en stillingskategori');
-            }
-            return;
+        if (stillingskategori === null) {
+            setStillingskatergorifeilmelding('Du må velge en stillingskategori');
+        } else if (arbeidsgiver === null) {
+            setArbeidsgiverfeilmelding('Du må velge en arbeidsgiver');
+        } else {
+            dispatch({
+                type: CREATE_AD,
+                kategori: stillingskategori,
+                arbeidsgiver: arbeidsgiver,
+            });
         }
+    };
 
-        dispatch({
-            type: CREATE_AD,
-            kategori: stillingskategori,
-            arbeidsgiver: arbeidsgiver,
-        });
+    const onStillingkategoriChange = (valgtKategori: Stillingskategori) => {
+        setStillingskatergorifeilmelding(null);
+        setStillingskategori(valgtKategori);
     };
 
     return (
@@ -86,28 +76,11 @@ const OpprettNyStilling: FunctionComponent<Props> = ({ onClose }) => {
                 Du kan ikke endre stillingskategori eller arbeidsgiver etter stillingen er
                 opprettet.
             </AlertStripeAdvarsel>
-            <RadioGruppe
-                className="blokk-m"
-                legend={<Element tag="span">Hva skal du bruke stillingen til? </Element>}
-                feil={stillingskategorifeilmelding ? stillingskategorifeilmelding : null}
-            >
-                {Object.values(Stillingskategori)
-                    .filter((kategori) => kategori !== stillingskategoriSomIkkeLengerKanVelges)
-                    .map((kategori) => (
-                        <Radio
-                            key={kategori}
-                            className="opprett-ny-stilling--kategori"
-                            name="stillingskategori"
-                            onChange={(event) => {
-                                setStillingskatergorifeilmelding(null);
-                                setStillingskategori(event.target.value as Stillingskategori);
-                            }}
-                            checked={stillingskategori === kategori}
-                            label={kategoriTilVisningsnavn(kategori)}
-                            value={kategori}
-                        />
-                    ))}
-            </RadioGruppe>
+            <VelgStillingskategori
+                stillingskategori={stillingskategori}
+                onChange={onStillingkategoriChange}
+                feilmelding={stillingskategorifeilmelding}
+            />
             <VelgArbeidsgiver
                 arbeidsgiver={arbeidsgiver}
                 setArbeidsgiver={setArbeidsgiver}

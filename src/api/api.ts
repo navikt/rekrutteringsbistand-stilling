@@ -1,7 +1,7 @@
 import { queryObjectToUrl } from '../common/urlUtils';
 import { HentMineStillingerQuery } from '../mine-stillinger/mineStillingerSagas';
-import { Stillingskategori } from '../opprett-ny-stilling/OpprettNyStilling';
 import { Arbeidsgiverforslag } from '../opprett-ny-stilling/VelgArbeidsgiver';
+import { Stillingskategori } from '../opprett-ny-stilling/VelgStillingskategori';
 import Stilling, { AdminStatus, Rekrutteringsbistandstilling, Stillingsinfo } from '../Stilling';
 import { fetchGet, fetchPost, fetchPut } from './apiUtils';
 

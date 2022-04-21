@@ -5,7 +5,6 @@ import { DEFAULT_TITLE_NEW_AD, SET_KAN_INKLUDERE } from './adReducer';
 import IsJson from './edit/practicalInformation/IsJson';
 import {
     SET_STYRK,
-    SET_EMPLOYER,
     ADD_POSTAL_CODE,
     ADD_POSTAL_CODE_BEGIN,
     REMOVE_POSTAL_CODE,
@@ -43,7 +42,6 @@ export type ValidertFelt =
     | 'styrk'
     | 'title'
     | 'adText'
-    | 'employer'
     | 'expires'
     | 'published'
     | 'applicationEmail'
@@ -510,7 +508,6 @@ export function hasValidationErrors(validation: Record<ValidertFelt, string | un
     return (
         validation.styrk !== undefined ||
         validation.location !== undefined ||
-        validation.employer !== undefined ||
         validation.expires !== undefined ||
         validation.title !== undefined ||
         validation.adText !== undefined ||
