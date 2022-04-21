@@ -1,4 +1,4 @@
-import capitalizeEmployerName from '../ad/edit/employer/capitalizeEmployerName';
+import capitalizeEmployerName from '../ad/edit/endre-arbeidsgiver/capitalizeEmployerName';
 
 export default function getEmployerName(ad) {
     if (ad.employer && ad.employer.name) {

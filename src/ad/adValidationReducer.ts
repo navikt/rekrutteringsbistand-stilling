@@ -5,7 +5,6 @@ import { DEFAULT_TITLE_NEW_AD, SET_KAN_INKLUDERE } from './adReducer';
 import IsJson from './edit/practicalInformation/IsJson';
 import {
     SET_STYRK,
-    SET_EMPLOYER,
     ADD_POSTAL_CODE,
     ADD_POSTAL_CODE_BEGIN,
     REMOVE_POSTAL_CODE,
@@ -43,7 +42,6 @@ export type ValidertFelt =
     | 'styrk'
     | 'title'
     | 'adText'
-    | 'employer'
     | 'expires'
     | 'published'
     | 'applicationEmail'
@@ -176,25 +174,6 @@ function* validateAdtext() {
         });
     } else {
         yield removeValidationError({ field: 'adText' });
-    }
-}
-
-function* validateEmployer() {
-    const state = yield select();
-    const { employer } = state.adData;
-
-    if (
-        employer === null ||
-        employer === undefined ||
-        valueIsNotSet(employer.name) ||
-        valueIsNotSet(employer.orgnr)
-    ) {
-        yield addValidationError({
-            field: 'employer',
-            message: 'Bedriftens navn mangler',
-        });
-    } else {
-        yield removeValidationError({ field: 'employer' });
     }
 }
 
@@ -503,7 +482,6 @@ export function* validateAll() {
     const state = yield select();
     if (state.adData !== null) {
         yield validateLocation();
-        yield validateEmployer();
         yield validateExpireDate();
         yield validatePublishDate();
         yield validateTitle();
@@ -530,7 +508,6 @@ export function hasValidationErrors(validation: Record<ValidertFelt, string | un
     return (
         validation.styrk !== undefined ||
         validation.location !== undefined ||
-        validation.employer !== undefined ||
         validation.expires !== undefined ||
         validation.title !== undefined ||
         validation.adText !== undefined ||
@@ -612,7 +589,6 @@ export default function adValidationReducer(state = initialState, action) {
 export const validationSaga = function* saga() {
     yield takeLatest(VALIDATE_ALL, validateAll);
     yield takeLatest(SET_STYRK, validateStyrk);
-    yield takeLatest(SET_EMPLOYER, validateEmployer);
     yield takeLatest(SET_EXPIRATION_DATE, validateExpireDate);
     yield takeLatest(SET_PUBLISHED, validatePublishDate);
     yield takeLatest(ADD_POSTAL_CODE_BEGIN, validatePostalCode);

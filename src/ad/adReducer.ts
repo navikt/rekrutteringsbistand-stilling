@@ -413,6 +413,7 @@ function* createAd(action) {
                 reportee: reportee.displayName,
                 navIdent: reportee.navIdent,
             },
+            employer: action.arbeidsgiver,
         };
 
         const response: Rekrutteringsbistandstilling = yield postStilling(

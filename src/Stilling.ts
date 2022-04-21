@@ -1,4 +1,5 @@
-import { Stillingskategori } from './opprett-ny-stilling/OpprettNyStilling';
+import { Location } from './opprett-ny-stilling/VelgArbeidsgiver';
+import { Stillingskategori } from './opprett-ny-stilling/VelgStillingskategori';
 
 export type Rekrutteringsbistandstilling = {
     stilling: Stilling;
@@ -72,6 +73,7 @@ export type Arbeidsgiver = {
     orgnr: string | null;
     parentOrgnr: string | null;
     orgform: string;
+    location: Location;
 };
 
 export type StyrkCategory = {

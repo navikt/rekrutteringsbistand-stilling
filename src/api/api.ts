@@ -1,6 +1,7 @@
 import { queryObjectToUrl } from '../common/urlUtils';
 import { HentMineStillingerQuery } from '../mine-stillinger/mineStillingerSagas';
-import { Stillingskategori } from '../opprett-ny-stilling/OpprettNyStilling';
+import { Arbeidsgiverforslag } from '../opprett-ny-stilling/VelgArbeidsgiver';
+import { Stillingskategori } from '../opprett-ny-stilling/VelgStillingskategori';
 import Stilling, { AdminStatus, Rekrutteringsbistandstilling, Stillingsinfo } from '../Stilling';
 import { fetchGet, fetchPost, fetchPut } from './apiUtils';
 
@@ -97,16 +98,38 @@ const employerNameCompletionQueryTemplate = (match: string) => ({
     size: 50,
 });
 
-export async function fetchEmployerNameCompletionHits(match: string) {
+export const fetchEmployerNameCompletionHits = async (
+    input: string
+): Promise<Arbeidsgiverforslag[]> => {
     const result = await fetchPost(
         `${stillingApi}/search-api/underenhet/_search`,
-        employerNameCompletionQueryTemplate(match)
+        employerNameCompletionQueryTemplate(input)
     );
 
-    return {
-        match,
-        result: [
-            ...result.hits.hits.map((employer: any) => ({
+    return [
+        ...result.hits.hits.map((employer: any) => ({
+            name: employer._source.navn,
+            orgnr: employer._source.organisasjonsnummer,
+            location: employer._source.adresse
+                ? {
+                      address: employer._source.adresse.adresse,
+                      postalCode: employer._source.adresse.postnummer,
+                      city: employer._source.adresse.poststed,
+                  }
+                : undefined,
+        })),
+    ];
+};
+
+export const fetchOrgnrSuggestions = async (orgnummer: string): Promise<Arbeidsgiverforslag[]> => {
+    const utenMellomrom = orgnummer.replace(/\s/g, '');
+    const result = await fetchGet(
+        `${stillingApi}/search-api/underenhet/_search?q=organisasjonsnummer:${utenMellomrom}*`
+    );
+
+    return [
+        ...result.hits.hits
+            .map((employer: any) => ({
                 name: employer._source.navn,
                 orgnr: employer._source.organisasjonsnummer,
                 location: employer._source.adresse
@@ -116,36 +139,10 @@ export async function fetchEmployerNameCompletionHits(match: string) {
                           city: employer._source.adresse.poststed,
                       }
                     : undefined,
-            })),
-        ],
-    };
-}
-
-export async function fetchOrgnrSuggestions(value: string) {
-    const match = value.replace(/\s/g, '');
-    const result = await fetchGet(
-        `${stillingApi}/search-api/underenhet/_search?q=organisasjonsnummer:${match}*`
-    );
-
-    return {
-        match,
-        result: [
-            ...result.hits.hits
-                .map((employer: any) => ({
-                    name: employer._source.navn,
-                    orgnr: employer._source.organisasjonsnummer,
-                    location: employer._source.adresse
-                        ? {
-                              address: employer._source.adresse.adresse,
-                              postalCode: employer._source.adresse.postnummer,
-                              city: employer._source.adresse.poststed,
-                          }
-                        : undefined,
-                }))
-                .sort(),
-        ],
-    };
-}
+            }))
+            .sort(),
+    ];
+};
 
 /**
  * TODO: Dette er en workaround, fordi det finnes annonser med ad.administration=null i databasen.
