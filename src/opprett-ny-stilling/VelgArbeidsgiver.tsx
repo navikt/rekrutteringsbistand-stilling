@@ -104,14 +104,14 @@ const VelgArbeidsgiver: FunctionComponent<Props> = ({
     return (
         <>
             <Skjemalabel
-                inputId="endre-stilling-bedriftens-navn"
+                inputId="velg-arbeidsgiver"
                 beskrivelse="Informasjonen hentes fra enhetsregisteret"
             >
                 Arbeidsgivers navn eller virksomhetsnummer
             </Skjemalabel>
             <Typeahead
-                id="endre-stilling-bedriftens-navn"
-                aria-describedby="endre-stilling-bedriftens-navn-beskrivelse"
+                id="velg-arbeidsgiver"
+                aria-describedby="velg-arbeidsgiver-beskrivelse"
                 className="opprett-ny-stilling__velg-arbeidsgiver-input"
                 value={input}
                 onBlur={onInputBlur}

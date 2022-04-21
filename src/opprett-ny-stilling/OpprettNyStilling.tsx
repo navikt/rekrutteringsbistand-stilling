@@ -41,17 +41,22 @@ const OpprettNyStilling: FunctionComponent<Props> = ({ onClose }) => {
     }, [hasSavedChanges, stilling]);
 
     const onOpprettClick = () => {
-        if (stillingskategori === null) {
-            setStillingskatergorifeilmelding('Du må velge en stillingskategori');
-        } else if (arbeidsgiver === null) {
-            setArbeidsgiverfeilmelding('Du må velge en arbeidsgiver');
-        } else {
-            dispatch({
-                type: CREATE_AD,
-                kategori: stillingskategori,
-                arbeidsgiver: arbeidsgiver,
-            });
+        if (stillingskategori === null || arbeidsgiver === null) {
+            if (stillingskategori === null) {
+                setStillingskatergorifeilmelding('Du må velge en stillingskategori');
+            }
+
+            if (arbeidsgiver === null) {
+                setArbeidsgiverfeilmelding('Du må velge en arbeidsgiver');
+            }
+
+            return;
         }
+        dispatch({
+            type: CREATE_AD,
+            kategori: stillingskategori,
+            arbeidsgiver: arbeidsgiver,
+        });
     };
 
     const onStillingkategoriChange = (valgtKategori: Stillingskategori) => {

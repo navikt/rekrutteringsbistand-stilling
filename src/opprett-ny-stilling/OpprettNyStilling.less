@@ -2,16 +2,27 @@
     padding: 2rem;
     max-width: 40.5rem;
 
-    &.modal {
-        overflow: visible;
-    }
-
     &--kategori {
         margin-bottom: 0.5rem !important;
     }
 
     &--opprett-knapp {
         margin-right: 0.5rem;
+    }
+
+    &__velg-arbeidsgiver-input {
+        li {
+            padding: 0.25rem 0;
+        }
+
+        ul li {
+            white-space: normal;
+        }
+
+        ul {
+            overflow-y: auto;
+            max-height: 20rem;
+        }
     }
 
     &__valgt-arbeidsgiver {
