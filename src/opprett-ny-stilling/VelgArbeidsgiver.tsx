@@ -6,7 +6,7 @@ import capitalizeLocation from '../ad/edit/location/capitalizeLocation';
 import Skjemalabel from '../ad/edit/skjemaetikett/Skjemalabel';
 import { ikkeLastet, Nettressurs, Nettstatus } from '../api/Nettressurs';
 import { fetchEmployerNameCompletionHits, fetchOrgnrSuggestions } from '../api/api';
-import { Arbeidsgiver } from '../Stilling';
+import { Arbeidsgiver, Location } from '../Stilling';
 
 type Props = {
     arbeidsgiver: Arbeidsgiverforslag | null;
@@ -23,14 +23,6 @@ export type Arbeidsgiverforslag = {
     location?: Location;
     name: string;
     orgnr?: string;
-};
-
-export type Location = {
-    address: string;
-    postalCode: string;
-    city?: string;
-    municipal?: string;
-    country?: string;
 };
 
 const VelgArbeidsgiver: FunctionComponent<Props> = ({

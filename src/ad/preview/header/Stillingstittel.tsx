@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { Sidetittel, Normaltekst } from 'nav-frontend-typografi';
 import capitalizeLocation from '../../edit/location/capitalizeLocation';
-import { Location } from '../../../opprett-ny-stilling/VelgArbeidsgiver';
+import { Location } from '../../../Stilling';
 import './Stillingstittel.less';
 
 type Props = {
