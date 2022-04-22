@@ -7,7 +7,7 @@ import Popover, { PopoverOrientering } from 'nav-frontend-popover';
 
 import { formatISOString } from '../../utils/datoUtils';
 import { getAdStatusLabel } from '../../common/enums/getEnumLabels';
-import { REDIGERINGSMODUS_QUERY_PARAM } from '../../ad/Ad';
+import { REDIGERINGSMODUS_QUERY_PARAM } from '../../stilling/Stilling';
 import { Rekrutteringsbistandstilling } from '../../Stilling';
 import { State } from '../../reduxStore';
 import LenkeMedIkon from '../../common/lenke-med-ikon/LenkeMedIkon';

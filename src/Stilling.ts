@@ -92,6 +92,7 @@ export type Geografi = {
     address: string | null;
     postalCode: string | null;
     county: string | null;
+    country: string | null;
     municipal: string | null;
     latitue: string | null;
     longitude: string | null;

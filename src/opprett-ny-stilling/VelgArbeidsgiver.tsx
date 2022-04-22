@@ -1,9 +1,9 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { Feilmelding, Normaltekst, Undertekst } from 'nav-frontend-typografi';
 import Typeahead from '../common/typeahead/Typeahead';
-import capitalizeEmployerName from '../ad/edit/endre-arbeidsgiver/capitalizeEmployerName';
-import capitalizeLocation from '../ad/edit/location/capitalizeLocation';
-import Skjemalabel from '../ad/edit/skjemaetikett/Skjemalabel';
+import capitalizeEmployerName from '../stilling/edit/endre-arbeidsgiver/capitalizeEmployerName';
+import capitalizeLocation from '../stilling/edit/location/capitalizeLocation';
+import Skjemalabel from '../stilling/edit/skjemaetikett/Skjemalabel';
 import { ikkeLastet, Nettressurs, Nettstatus } from '../api/Nettressurs';
 import { fetchEmployerNameCompletionHits, fetchOrgnrSuggestions } from '../api/api';
 import { Arbeidsgiver, Location } from '../Stilling';

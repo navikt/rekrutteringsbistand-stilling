@@ -1,5 +1,5 @@
 import fetchMock from 'fetch-mock';
-import { KANDIDAT_API } from '../ad/legg-til-kandidat-modal/kandidatApi';
+import { KANDIDAT_API } from '../stilling/legg-til-kandidat-modal/kandidatApi';
 import { stillingApi } from '../api/api';
 import fnrsok from './data/fnrsok';
 import kandidatliste from './data/kandidatliste';

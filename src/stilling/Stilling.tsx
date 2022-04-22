@@ -1,29 +1,45 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { Link } from 'react-router-dom';
 import Faded from '../common/faded/Faded';
 import DelayedSpinner from '../common/DelayedSpinner';
-import { REMOVE_AD_DATA } from './adDataReducer';
+import { AdDataState, REMOVE_AD_DATA } from './adDataReducer';
 import { CREATE_AD, FETCH_AD, PREVIEW_EDIT_AD } from './adReducer';
 import Edit from './edit/Edit';
 import Error from './error/Error';
 import Preview from './preview/Preview';
-import Administration from './administration/Administration.tsx';
+import Administration from './administration/Administration';
 import AdministrationLimited from './administration/limited/AdministrationLimited';
-import AdministrationPreview from './preview/administration/AdministrationPreview.tsx';
+import AdministrationPreview from './preview/administration/AdministrationPreview';
 import SavedAdAlertStripe from './alertstripe/SavedAdAlertStripe';
 import PreviewHeader from './preview/header/PreviewHeader';
 import AdStatusEnum from '../common/enums/AdStatusEnum';
-import './Ad.less';
+import { RouteChildrenProps } from 'react-router';
+import { State } from '../reduxStore';
+import './Stilling.less';
 
 export const REDIGERINGSMODUS_QUERY_PARAM = 'redigeringsmodus';
 
-class Ad extends React.Component {
+type QueryParams = { uuid: string };
+type LocationState = { isNew?: boolean };
+
+type Props = {
+    stilling: AdDataState;
+    getStilling: (uuid: string, redigeringsmodus: boolean) => void;
+    createAd: () => void;
+    previewAd: () => void;
+    isEditingAd: boolean;
+    removeAdData: () => void;
+    isLoadingAd?: boolean;
+} & RouteChildrenProps<QueryParams, LocationState>;
+
+class Stilling extends React.Component<Props> {
+    uuid?: string;
+
     componentDidMount() {
         window.scrollTo(0, 0);
-        if (this.props.match.params.uuid) {
+        if (this.props.match?.params.uuid) {
             this.uuid = this.props.match.params.uuid;
 
             const queryParams = new URLSearchParams(this.props.location.search);
@@ -65,8 +81,8 @@ class Ad extends React.Component {
 
     render() {
         const { stilling, isEditingAd, isLoadingAd } = this.props;
-        const { isNew } = this.props.location.state || { isNew: false };
-        const limitedAccess = stilling.createdBy !== 'pam-rekrutteringsbistand';
+        const isNew = this.props.location.state?.isNew || false;
+        const erEksternStilling = stilling.createdBy !== 'pam-rekrutteringsbistand';
 
         if (isLoadingAd || !stilling) {
             return (
@@ -98,7 +114,7 @@ class Ad extends React.Component {
                                 <div>
                                     {isEditingAd ? (
                                         <div className="Ad__edit__inner">
-                                            {limitedAccess ? (
+                                            {erEksternStilling ? (
                                                 <div>
                                                     <PreviewHeader />
                                                     <Preview ad={stilling} />
@@ -122,7 +138,11 @@ class Ad extends React.Component {
                         {isEditingAd ? (
                             <div className="Ad__flex__right">
                                 <div className="Ad__flex__right__inner">
-                                    {limitedAccess ? <AdministrationLimited /> : <Administration />}
+                                    {erEksternStilling ? (
+                                        <AdministrationLimited />
+                                    ) : (
+                                        <Administration />
+                                    )}
                                 </div>
                             </div>
                         ) : (
@@ -140,38 +160,17 @@ class Ad extends React.Component {
     }
 }
 
-Ad.defaultProps = {
-    stilling: undefined,
-    isLoadingAd: false,
-};
-
-Ad.propTypes = {
-    stilling: PropTypes.shape({
-        title: PropTypes.string,
-        uuid: PropTypes.string,
-        source: PropTypes.string,
-        status: PropTypes.string,
-        createdBy: PropTypes.string,
-    }),
-    getStilling: PropTypes.func.isRequired,
-    createAd: PropTypes.func.isRequired,
-    previewAd: PropTypes.func.isRequired,
-    isEditingAd: PropTypes.bool.isRequired,
-    removeAdData: PropTypes.func.isRequired,
-    isLoadingAd: PropTypes.bool,
-};
-
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: State) => ({
     stilling: state.adData,
     isEditingAd: state.ad.isEditingAd,
     isLoadingAd: state.ad.isLoadingAd,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    getStilling: (uuid, edit) => dispatch({ type: FETCH_AD, uuid, edit }),
+const mapDispatchToProps = (dispatch: (action: any) => void) => ({
+    getStilling: (uuid: string, edit: boolean) => dispatch({ type: FETCH_AD, uuid, edit }),
     createAd: () => dispatch({ type: CREATE_AD }),
     previewAd: () => dispatch({ type: PREVIEW_EDIT_AD }),
     removeAdData: () => dispatch({ type: REMOVE_AD_DATA }),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Ad);
+export default connect(mapStateToProps, mapDispatchToProps)(Stilling);

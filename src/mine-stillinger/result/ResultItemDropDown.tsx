@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import AdStatusEnum from '../../common/enums/AdStatusEnum';
-import { COPY_AD_FROM_MY_ADS, SHOW_STOP_MODAL_MY_ADS } from '../../ad/adReducer';
+import { COPY_AD_FROM_MY_ADS, SHOW_STOP_MODAL_MY_ADS } from '../../stilling/adReducer';
 import { getAdStatusLabel } from '../../common/enums/getEnumLabels';
 import { Flatknapp } from 'nav-frontend-knapper';
 import Stilling from '../../Stilling';

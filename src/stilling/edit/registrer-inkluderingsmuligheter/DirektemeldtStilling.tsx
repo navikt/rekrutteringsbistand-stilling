@@ -8,7 +8,7 @@ import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { CHECK_TAG, SET_TAGS, UNCHECK_TAG } from '../../adDataReducer';
 import { fjernAlleInkluderingstags } from '../../tags/utils';
 import { HjelpetekstForInkluderingsmulighet } from './HjelpetekstForInkluderingsmulighet';
-import { Inkluderingsmulighet as AlleInkluderingsmuligheter } from '../../../ad/tags/hierarkiAvTags';
+import { Inkluderingsmulighet as AlleInkluderingsmuligheter } from '../../tags/hierarkiAvTags';
 import { InkluderingsmulighetForDirektemeldtStilling, Tag } from '../../tags/hierarkiAvTags';
 import { SET_KAN_INKLUDERE } from '../../adReducer';
 import { State } from '../../../reduxStore';

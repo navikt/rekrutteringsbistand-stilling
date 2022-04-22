@@ -6,7 +6,7 @@ import isJson from '../practicalInformation/IsJson';
 import { CHECK_TAG, UNCHECK_TAG } from '../../adDataReducer';
 import { InkluderingsmulighetForEksternStilling } from '../../tags/hierarkiAvTags';
 import Inkluderingsmulighet from './Inkluderingsmulighet';
-import { Inkluderingsmulighet as AlleInkluderingsmuligheter } from '../../../ad/tags/hierarkiAvTags';
+import { Inkluderingsmulighet as AlleInkluderingsmuligheter } from '../../tags/hierarkiAvTags';
 import { HjelpetekstForInkluderingsmulighet } from './HjelpetekstForInkluderingsmulighet';
 import './EksternStilling.less';
 

@@ -7,7 +7,7 @@ import * as Sentry from '@sentry/react';
 
 import './styles.less'; // Må importeres før andre komponenter
 
-import Ad from './ad/Ad';
+import Stilling from './stilling/Stilling';
 import MineStillinger from './mine-stillinger/MineStillinger';
 import reduxStore from './reduxStore';
 import Varsling from './common/varsling/Varsling';
@@ -48,7 +48,7 @@ const MedRouter: FunctionComponent<AppProps> = ({ navKontor }) => {
             <Varsling />
             <Switch>
                 <Route exact path="/stillinger/minestillinger" component={MineStillinger} />
-                <Route exact path="/stillinger/stilling/:uuid" component={Ad} />
+                <Route exact path="/stillinger/stilling/:uuid" component={Stilling} />
             </Switch>
         </>
     );

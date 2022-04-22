@@ -27,7 +27,7 @@ const Stillingstittel: FunctionComponent<Props> = ({ tittel, employer, location 
     return (
         <div className="stillingstittel">
             <Normaltekst>{formatertSted}</Normaltekst>
-            <Sidetittel>{tittel}</Sidetittel>
+            <Sidetittel>{tittel || ''}</Sidetittel>
         </div>
     );
 };

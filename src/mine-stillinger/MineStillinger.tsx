@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 import AlertStripe from 'nav-frontend-alertstriper';
 
-import { CLEAR_COPIED_ADS } from '../ad/adReducer';
+import { CLEAR_COPIED_ADS } from '../stilling/adReducer';
 import { State } from '../reduxStore';
 import Count from './result/Count';
 import Filter from './filter/Filter';
@@ -17,7 +17,7 @@ import OpprettNyStilling from '../opprett-ny-stilling/OpprettNyStilling';
 import Pagination from './pagination/Pagination';
 import ResultHeader from './result/ResultHeader';
 import ResultItem from './result/ResultItem';
-import StopAdModal from '../ad/administration/adStatus/StopAdModal';
+import StopAdModal from '../stilling/administration/adStatus/StopAdModal';
 import { MineStillingerActionType } from './MineStillingerAction';
 import './MineStillinger.less';
 import { Nettstatus } from '../api/Nettressurs';

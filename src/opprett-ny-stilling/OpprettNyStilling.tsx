@@ -5,8 +5,8 @@ import { Flatknapp, Hovedknapp } from 'nav-frontend-knapper';
 import { Systemtittel } from 'nav-frontend-typografi';
 
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
-import { CREATE_AD } from '../ad/adReducer';
-import { REDIGERINGSMODUS_QUERY_PARAM } from '../ad/Ad';
+import { CREATE_AD } from '../stilling/adReducer';
+import { REDIGERINGSMODUS_QUERY_PARAM } from '../stilling/Stilling';
 import { State } from '../reduxStore';
 import ModalMedStillingScope from '../common/ModalMedStillingScope';
 import VelgArbeidsgiver, { Arbeidsgiverforslag } from './VelgArbeidsgiver';

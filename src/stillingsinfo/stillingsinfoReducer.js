@@ -3,7 +3,7 @@ import { opprettKandidatlisteForEksternStilling } from '../api/api';
 import { ApiError } from '../api/apiUtils';
 
 import { SET_STILLINGSINFO_DATA } from './stillingsinfoDataReducer';
-import { FETCH_AD } from '../ad/adReducer';
+import { FETCH_AD } from '../stilling/adReducer';
 
 export const FETCH_STILLINGSINFO = 'FETCH_STILLINGSINFO';
 export const FETCH_STILLINGSINFO_BEGIN = 'FETCH_STILLINGSINFO_BEGIN';

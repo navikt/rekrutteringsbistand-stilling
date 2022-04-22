@@ -1,12 +1,19 @@
 import { compose, createStore, combineReducers, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import adDataReducer, { adDataSaga, AdDataState } from './ad/adDataReducer';
-import adReducer, { adSaga, AdState } from './ad/adReducer';
-import adValidationReducer, { AdValidationState, validationSaga } from './ad/adValidationReducer';
-import savedSearchAlertStripeReducer from './ad/alertstripe/SavedAdAlertStripeReducer';
-import styrkReducer, { styrkSaga } from './ad/edit/jobDetails/styrk/styrkReducer';
-import locationAreaReducer, { locationAreaSaga } from './ad/edit/location/locationAreaReducer';
-import locationCodeReducer, { locationCodeSaga } from './ad/edit/location/locationCodeReducer';
+import adDataReducer, { adDataSaga, AdDataState } from './stilling/adDataReducer';
+import adReducer, { adSaga, AdState } from './stilling/adReducer';
+import adValidationReducer, {
+    AdValidationState,
+    validationSaga,
+} from './stilling/adValidationReducer';
+import savedSearchAlertStripeReducer from './stilling/alertstripe/SavedAdAlertStripeReducer';
+import styrkReducer, { styrkSaga } from './stilling/edit/jobDetails/styrk/styrkReducer';
+import locationAreaReducer, {
+    locationAreaSaga,
+} from './stilling/edit/location/locationAreaReducer';
+import locationCodeReducer, {
+    locationCodeSaga,
+} from './stilling/edit/location/locationCodeReducer';
 import varslingReducer, { varslingSaga, VarslingState } from './common/varsling/varslingReducer';
 import mineStillingerReducer, {
     MineStillingerState,

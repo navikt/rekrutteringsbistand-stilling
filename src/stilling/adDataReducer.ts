@@ -12,7 +12,7 @@ import AdStatusEnum from '../common/enums/AdStatusEnum';
 import PrivacyStatusEnum from '../common/enums/PrivacyStatusEnum';
 import IsJson from './edit/practicalInformation/IsJson';
 import { isValidISOString } from '../utils/datoUtils';
-import { leggTilTagUnderRegistrering, fjernTagUnderRegistrering } from '../ad/tags/utils';
+import { leggTilTagUnderRegistrering, fjernTagUnderRegistrering } from './tags/utils';
 import Stilling, { Arbeidsgiver } from '../Stilling';
 
 export const SET_AD_DATA = 'SET_AD_DATA';
@@ -72,6 +72,7 @@ export const SET_TAGS = 'SET_TAGS';
 export const SET_CONTACT_PERSON = 'SET_CONTACT_PERSON';
 
 export type AdDataState = {
+    uuid?: string;
     properties: {
         workday?: any;
         workhours?: any;
@@ -96,6 +97,7 @@ export type AdDataState = {
     created?: any;
     stilling?: Stilling;
     title?: string;
+    createdBy?: string;
 };
 
 export type Adminsitration = {
