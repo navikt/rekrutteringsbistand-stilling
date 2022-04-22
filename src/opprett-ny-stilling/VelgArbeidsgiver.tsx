@@ -28,7 +28,9 @@ export type Arbeidsgiverforslag = {
 export type Location = {
     address: string;
     postalCode: string;
-    city: string;
+    city?: string;
+    municipal?: string;
+    country?: string;
 };
 
 const VelgArbeidsgiver: FunctionComponent<Props> = ({

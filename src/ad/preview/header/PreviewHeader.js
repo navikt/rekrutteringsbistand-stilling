@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import { EDIT_AD, LEGG_TIL_I_MINE_STILLINGER } from '../../adReducer';
 import { CLOSE_TRANSFERRED_ALERT } from '../../../stillingsinfo/stillingsinfoReducer';
-import AdTitle from './AdTitle';
+import Stillingstittel from './Stillingstittel';
 import CandidateActions from '../../candidateActions/CandidateActions';
 import Alertstripe from 'nav-frontend-alertstriper';
 import { Xknapp } from 'nav-frontend-ikonknapper';
@@ -137,8 +137,8 @@ class PreviewMenu extends React.Component {
                         </div>
                     </div>
                 )}
-                <AdTitle
-                    title={stilling.title}
+                <Stillingstittel
+                    tittel={stilling.title}
                     employer={stilling.properties.employer}
                     location={stilling.location}
                 />
