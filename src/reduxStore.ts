@@ -1,4 +1,4 @@
-import { compose, createStore, combineReducers, applyMiddleware } from 'redux';
+import { compose, createStore, combineReducers, applyMiddleware, PreloadedState } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import adDataReducer, { adDataSaga, AdDataState } from './stilling/adDataReducer';
 import adReducer, { adSaga, AdState } from './stilling/adReducer';
@@ -34,9 +34,26 @@ export type State = {
     reportee: ReporteeState;
 };
 
+export const lagreStateILocalStorage = () => {
+    const state = reduxStore.getState();
+    localStorage.setItem('state', JSON.stringify(state));
+};
+
+const hentStateFraLocalStorage = (): PreloadedState<State> | undefined => {
+    const appState = localStorage.getItem('state');
+    if (appState === null) {
+        return undefined;
+    }
+
+    localStorage.removeItem('state');
+    return JSON.parse(appState);
+};
+
 const sagaMiddleware = createSagaMiddleware();
 
 const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const stateFraLocalStorage = hentStateFraLocalStorage();
 
 const reduxStore = createStore(
     combineReducers({
@@ -53,6 +70,7 @@ const reduxStore = createStore(
         stillingsinfoData: stillingsinfoDataReducer,
         varsling: varslingReducer,
     }),
+    stateFraLocalStorage,
     composeEnhancers(applyMiddleware(sagaMiddleware))
 );
 
