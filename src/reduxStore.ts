@@ -53,8 +53,6 @@ const sagaMiddleware = createSagaMiddleware();
 
 const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const stateFraLocalStorage = hentStateFraLocalStorage();
-
 const reduxStore = createStore(
     combineReducers({
         ad: adReducer,
@@ -70,7 +68,7 @@ const reduxStore = createStore(
         stillingsinfoData: stillingsinfoDataReducer,
         varsling: varslingReducer,
     }),
-    stateFraLocalStorage,
+    hentStateFraLocalStorage(),
     composeEnhancers(applyMiddleware(sagaMiddleware))
 );
 
