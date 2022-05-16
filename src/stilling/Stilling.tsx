@@ -52,7 +52,7 @@ class Stilling extends React.Component<Props> {
             if (this.props.isEditingAd && this.props.isSavingAd) {
                 this.props.enableEditMode();
                 this.props.showRecoveryMessage(
-                    'Endringene dine ble ikke lagret fordi sesjonen din utløp.'
+                    'Vi beholdt endringene dine, men de er ennå ikke publisert fordi sesjonen din utløp'
                 );
             } else {
                 this.props.getStilling(this.uuid, redigeringsmodus);
@@ -189,7 +189,6 @@ const mapDispatchToProps = (dispatch: (action: any) => void) => ({
         dispatch({
             type: VarslingActionType.VisVarsling,
             innhold: message,
-            alertType: 'info',
         }),
 });
 
