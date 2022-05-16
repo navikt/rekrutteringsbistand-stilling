@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Faded from '../common/faded/Faded';
 import DelayedSpinner from '../common/DelayedSpinner';
 import { AdDataState, REMOVE_AD_DATA } from './adDataReducer';
-import { CREATE_AD, FETCH_AD, PREVIEW_EDIT_AD } from './adReducer';
+import { CREATE_AD, EDIT_AD, FETCH_AD, PREVIEW_EDIT_AD } from './adReducer';
 import Edit from './edit/Edit';
 import Error from './error/Error';
 import Preview from './preview/Preview';
@@ -16,8 +16,9 @@ import SavedAdAlertStripe from './alertstripe/SavedAdAlertStripe';
 import PreviewHeader from './preview/header/PreviewHeader';
 import AdStatusEnum from '../common/enums/AdStatusEnum';
 import { RouteChildrenProps } from 'react-router';
-import { State } from '../reduxStore';
+import { State } from '../redux/store';
 import './Stilling.less';
+import { VarslingActionType } from '../common/varsling/varslingReducer';
 
 export const REDIGERINGSMODUS_QUERY_PARAM = 'redigeringsmodus';
 
@@ -30,8 +31,11 @@ type Props = {
     createAd: () => void;
     previewAd: () => void;
     isEditingAd: boolean;
+    isSavingAd: boolean;
     removeAdData: () => void;
     isLoadingAd?: boolean;
+    enableEditMode: () => void;
+    showRecoveryMessage: (message: string) => void;
 } & RouteChildrenProps<QueryParams, LocationState>;
 
 class Stilling extends React.Component<Props> {
@@ -44,7 +48,15 @@ class Stilling extends React.Component<Props> {
 
             const queryParams = new URLSearchParams(this.props.location.search);
             const redigeringsmodus = queryParams.get(REDIGERINGSMODUS_QUERY_PARAM) === 'true';
-            this.props.getStilling(this.uuid, redigeringsmodus);
+
+            if (this.props.isEditingAd && this.props.isSavingAd) {
+                this.props.enableEditMode();
+                this.props.showRecoveryMessage(
+                    'Vi beholdt endringene dine, men de er ennå ikke publisert fordi sesjonen din utløp'
+                );
+            } else {
+                this.props.getStilling(this.uuid, redigeringsmodus);
+            }
         } else {
             this.props.createAd();
         }
@@ -163,6 +175,7 @@ class Stilling extends React.Component<Props> {
 const mapStateToProps = (state: State) => ({
     stilling: state.adData,
     isEditingAd: state.ad.isEditingAd,
+    isSavingAd: state.ad.isSavingAd,
     isLoadingAd: state.ad.isLoadingAd,
 });
 
@@ -171,6 +184,12 @@ const mapDispatchToProps = (dispatch: (action: any) => void) => ({
     createAd: () => dispatch({ type: CREATE_AD }),
     previewAd: () => dispatch({ type: PREVIEW_EDIT_AD }),
     removeAdData: () => dispatch({ type: REMOVE_AD_DATA }),
+    enableEditMode: () => dispatch({ type: EDIT_AD }),
+    showRecoveryMessage: (message: string) =>
+        dispatch({
+            type: VarslingActionType.VisVarsling,
+            innhold: message,
+        }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Stilling);

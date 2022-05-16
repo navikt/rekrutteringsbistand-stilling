@@ -9,13 +9,15 @@ import './styles.less'; // Må importeres før andre komponenter
 
 import Stilling from './stilling/Stilling';
 import MineStillinger from './mine-stillinger/MineStillinger';
-import reduxStore from './reduxStore';
 import Varsling from './common/varsling/Varsling';
 import { startSentry } from './verktøy/sentry';
 import { ReporteeAction, ReporteeActionType } from './reportee/ReporteeAction';
 import { setNavKontorIAmplitude } from './verktøy/amplitude';
+import createReduxStore from './redux/store';
 
 startSentry();
+
+export const store = createReduxStore();
 
 const appElement =
     document.getElementById('rekrutteringsbistand-container') ||
@@ -57,7 +59,7 @@ const MedRouter: FunctionComponent<AppProps> = ({ navKontor }) => {
 const App: FunctionComponent<AppProps> = ({ history, navKontor }) => {
     return (
         <Sentry.ErrorBoundary>
-            <Provider store={reduxStore}>
+            <Provider store={store}>
                 <Router history={history}>
                     <MedRouter history={history} navKontor={navKontor} />
                 </Router>

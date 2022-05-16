@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { useSelector } from 'react-redux';
 import AlertStripe from 'nav-frontend-alertstriper';
-import { State } from '../../reduxStore';
+import { State } from '../../redux/store';
 import './Varsling.less';
 
 const Varsling: FunctionComponent = () => {

@@ -7,7 +7,7 @@ import NavFrontendSpinner from 'nav-frontend-spinner';
 import { NyStillingState } from '../adReducer';
 import LinkButton from '../../common/linkbutton/LinkButton';
 import ModalMedStillingScope from '../../common/ModalMedStillingScope';
-import { State } from '../../reduxStore';
+import { State } from '../../redux/store';
 import { AlertStripeFeil } from 'nav-frontend-alertstriper';
 import './BekreftForlatSidenModal.less';
 

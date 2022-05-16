@@ -11,7 +11,7 @@ import {
 } from '../../adValidationReducer';
 import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import './ContactPerson.less';
-import { State } from '../../../reduxStore';
+import { State } from '../../../redux/store';
 import Skjemalabel from '../skjemaetikett/Skjemalabel';
 
 type Props = {

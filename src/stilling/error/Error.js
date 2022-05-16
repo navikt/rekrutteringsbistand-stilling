@@ -1,26 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import './Error.less';
+import { Normaltekst } from 'nav-frontend-typografi';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import ModalMedStillingScope from '../../common/ModalMedStillingScope';
 import { FJERN_NETTVERKSERROR_FRA_STATE } from '../adReducer';
+import './Error.less';
 
 class Error extends React.Component {
     render() {
         const error = this.props.error;
-        const showDefaultError =
-            error &&
-            error.statusCode !== 404 &&
-            error.statusCode !== 412 &&
-            error.statusCode !== 401;
-        const muligÅLukkeModal = error && error.statusCode === 401;
+        const showError = error && error.statusCode !== 401;
+        const showDefaultError = error && error.statusCode !== 404 && error.statusCode !== 412;
 
-        return error ? (
+        return error && showError ? (
             <ModalMedStillingScope
                 isOpen
-                closeButton={muligÅLukkeModal}
+                closeButton={false}
                 onRequestClose={() => this.props.closeModal()}
                 contentLabel="Feilmelding"
                 appElement={document.getElementById('app')}
@@ -31,24 +27,6 @@ class Error extends React.Component {
                         <div>
                             <Normaltekst>Annonsen har blitt redigert av noen andre</Normaltekst>
                             <LastInnPåNytt />
-                        </div>
-                    )}
-                    {error.statusCode === 401 && (
-                        <div className="Error__utlogget">
-                            <Undertittel className="blokk-s">Du er ikke logget inn</Undertittel>
-                            <Normaltekst className="blokk-s">
-                                Stillingen ble ikke lagret.
-                                <br />
-                                Dersom det er arbeid du ikke ønsker å miste kan du:
-                            </Normaltekst>
-                            <Normaltekst tag="ul" className="blokk-l">
-                                <li>
-                                    Åpne Rekrutteringsbistand i ny fane i nettleseren for å bli
-                                    logget inn på nytt
-                                </li>
-                                <li>Komme tilbake til denne nettleserfanen</li>
-                                <li>Lukke denne meldingsboksen</li>
-                            </Normaltekst>
                         </div>
                     )}
                     {showDefaultError && (

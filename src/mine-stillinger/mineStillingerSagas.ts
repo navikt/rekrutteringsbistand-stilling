@@ -1,7 +1,7 @@
 import { put, select, takeLatest } from 'redux-saga/effects';
 import { hentStillingsinfoForStillingerSomEiesAvVeileder, hentMineStillinger } from '../api/api';
 import { ApiError } from '../api/apiUtils';
-import { State } from '../reduxStore';
+import { State } from '../redux/store';
 import { Stillingsinfo } from '../Stilling';
 import { MineStillingerActionType } from './MineStillingerAction';
 

@@ -1,3 +1,5 @@
+import { lagreStateILocalStorage } from '../redux/localStorage';
+
 export class ApiError {
     message: string;
     statusCode: number;
@@ -61,6 +63,11 @@ const request = async (url: string, options?: RequestInit) => {
         response = await fetch(url, options);
     } catch (e) {
         throw new ApiError('Network Error', 0);
+    }
+
+    if (response.status === 401) {
+        lagreStateILocalStorage();
+        window.location.href = `/oauth2/login?redirect=${window.location.pathname}`;
     }
 
     if (response.status === 204) {

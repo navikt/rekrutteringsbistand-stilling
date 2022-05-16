@@ -8,7 +8,7 @@ import { useLocation } from 'react-router';
 import AlertStripe from 'nav-frontend-alertstriper';
 
 import { CLEAR_COPIED_ADS } from '../stilling/adReducer';
-import { State } from '../reduxStore';
+import { State } from '../redux/store';
 import Count from './result/Count';
 import Filter from './filter/Filter';
 import Loading from '../common/loading/Loading';
