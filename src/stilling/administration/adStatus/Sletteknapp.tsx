@@ -1,7 +1,7 @@
 import { Knapp } from 'nav-frontend-knapper';
 import React, { FunctionComponent } from 'react';
 import { useSelector } from 'react-redux';
-import { State } from '../../../reduxStore';
+import { State } from '../../../redux/store';
 
 type Props = {
     onDeleteClick: () => void;

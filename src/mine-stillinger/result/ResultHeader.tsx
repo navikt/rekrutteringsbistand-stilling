@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { MineStillingerActionType } from '../MineStillingerAction';
-import { State } from '../../reduxStore';
+import { State } from '../../redux/store';
 import useSorting from './useSorting';
 import './Result.less';
 import './Sort.less';

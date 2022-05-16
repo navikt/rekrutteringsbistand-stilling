@@ -16,7 +16,7 @@ import SavedAdAlertStripe from './alertstripe/SavedAdAlertStripe';
 import PreviewHeader from './preview/header/PreviewHeader';
 import AdStatusEnum from '../common/enums/AdStatusEnum';
 import { RouteChildrenProps } from 'react-router';
-import { State } from '../reduxStore';
+import { State } from '../redux/store';
 import './Stilling.less';
 
 export const REDIGERINGSMODUS_QUERY_PARAM = 'redigeringsmodus';

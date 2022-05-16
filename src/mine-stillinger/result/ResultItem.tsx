@@ -9,7 +9,7 @@ import { formatISOString } from '../../utils/datoUtils';
 import { getAdStatusLabel } from '../../common/enums/getEnumLabels';
 import { REDIGERINGSMODUS_QUERY_PARAM } from '../../stilling/Stilling';
 import { Rekrutteringsbistandstilling } from '../../Stilling';
-import { State } from '../../reduxStore';
+import { State } from '../../redux/store';
 import LenkeMedIkon from '../../common/lenke-med-ikon/LenkeMedIkon';
 import getEmployerName from '../../common/getEmployerName';
 import MedPopover from '../../common/med-popover/MedPopover';

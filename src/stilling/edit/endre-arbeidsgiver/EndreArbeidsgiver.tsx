@@ -16,7 +16,7 @@ import {
 } from '../../adDataReducer';
 import { adjustUrl } from '../../../common/urlUtils';
 import Skjemalabel from '../skjemaetikett/Skjemalabel';
-import { State } from '../../../reduxStore';
+import { State } from '../../../redux/store';
 import { formaterDataFraEnhetsregisteret } from '../../../opprett-ny-stilling/VelgArbeidsgiver';
 
 const EndreArbeidsgiver: FunctionComponent = () => {

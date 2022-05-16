@@ -11,7 +11,7 @@ import { HjelpetekstForInkluderingsmulighet } from './HjelpetekstForInkluderings
 import { Inkluderingsmulighet as AlleInkluderingsmuligheter } from '../../tags/hierarkiAvTags';
 import { InkluderingsmulighetForDirektemeldtStilling, Tag } from '../../tags/hierarkiAvTags';
 import { SET_KAN_INKLUDERE } from '../../adReducer';
-import { State } from '../../../reduxStore';
+import { State } from '../../../redux/store';
 import Inkluderingsmulighet from './Inkluderingsmulighet';
 import isJson from '../practicalInformation/IsJson';
 import Skjemalegend from '../skjemaetikett/Skjemalegend';

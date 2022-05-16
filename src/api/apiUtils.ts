@@ -1,4 +1,4 @@
-import reduxStore, { lagreStateILocalStorage } from '../reduxStore';
+import { lagreStateILocalStorage } from '../redux/localStorage';
 
 export class ApiError {
     message: string;

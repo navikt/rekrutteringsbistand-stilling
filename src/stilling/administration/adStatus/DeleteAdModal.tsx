@@ -6,7 +6,7 @@ import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import './DeleteAdModal.less';
 import { DELETE_AD, HIDE_DELETE_AD_MODAL } from '../../adReducer';
 import ModalMedStillingScope from '../../../common/ModalMedStillingScope';
-import { State } from '../../../reduxStore';
+import { State } from '../../../redux/store';
 import { VarslingAction, VarslingActionType } from '../../../common/varsling/varslingReducer';
 
 const DeleteAdModal: FunctionComponent = () => {

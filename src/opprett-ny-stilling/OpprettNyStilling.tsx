@@ -7,7 +7,7 @@ import { Systemtittel } from 'nav-frontend-typografi';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { CREATE_AD } from '../stilling/adReducer';
 import { REDIGERINGSMODUS_QUERY_PARAM } from '../stilling/Stilling';
-import { State } from '../reduxStore';
+import { State } from '../redux/store';
 import ModalMedStillingScope from '../common/ModalMedStillingScope';
 import VelgArbeidsgiver, { Arbeidsgiverforslag } from './VelgArbeidsgiver';
 import VelgStillingskategori, { Stillingskategori } from './VelgStillingskategori';
