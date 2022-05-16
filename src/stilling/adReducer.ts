@@ -186,6 +186,7 @@ export default function adReducer(state = initialState, action: any) {
                 ...state,
                 isSavingAd: true,
                 hasSavedChanges: false,
+                hasChanges: false,
             };
         case CREATE_AD_BEGIN:
         case DELETE_AD_BEGIN:
@@ -234,7 +235,6 @@ export default function adReducer(state = initialState, action: any) {
                 ...state,
                 isSavingAd: false,
                 hasSavedChanges: true,
-                hasChanges: false,
                 originalData: { ...action.response },
             };
         case CREATE_AD_FAILURE:
