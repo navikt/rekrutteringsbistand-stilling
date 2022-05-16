@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { AlertStripeType } from 'nav-frontend-alertstriper';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { Link } from 'react-router-dom';
 import Faded from '../common/faded/Faded';
@@ -52,7 +53,7 @@ class Stilling extends React.Component<Props> {
             if (this.props.isEditingAd && this.props.isSavingAd) {
                 this.props.enableEditMode();
                 this.props.showRecoveryMessage(
-                    'Gjenopprettet ulagrede endringer i stillingsskjemaet'
+                    'Endringene dine ble ikke lagret fordi sesjonen din utløp. Husk å lagre endringene dine.'
                 );
             } else {
                 this.props.getStilling(this.uuid, redigeringsmodus);
@@ -186,7 +187,11 @@ const mapDispatchToProps = (dispatch: (action: any) => void) => ({
     removeAdData: () => dispatch({ type: REMOVE_AD_DATA }),
     enableEditMode: () => dispatch({ type: EDIT_AD }),
     showRecoveryMessage: (message: string) =>
-        dispatch({ type: VarslingActionType.VisVarsling, innhold: message }),
+        dispatch({
+            type: VarslingActionType.VisVarsling,
+            innhold: message,
+            alertType: 'info',
+        }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Stilling);
