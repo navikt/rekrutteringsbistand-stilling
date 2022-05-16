@@ -52,7 +52,7 @@ class Stilling extends React.Component<Props> {
             if (this.props.isEditingAd && this.props.isSavingAd) {
                 this.props.enableEditMode();
                 this.props.showRecoveryMessage(
-                    'Endringene dine ble ikke lagret fordi sesjonen din utløp. Husk å lagre endringene dine.'
+                    'Endringene dine ble ikke lagret fordi sesjonen din utløp.'
                 );
             } else {
                 this.props.getStilling(this.uuid, redigeringsmodus);
