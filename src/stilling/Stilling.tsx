@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { AlertStripeType } from 'nav-frontend-alertstriper';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { Link } from 'react-router-dom';
 import Faded from '../common/faded/Faded';
