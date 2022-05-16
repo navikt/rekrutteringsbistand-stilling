@@ -44,7 +44,10 @@ class Stilling extends React.Component<Props> {
 
             const queryParams = new URLSearchParams(this.props.location.search);
             const redigeringsmodus = queryParams.get(REDIGERINGSMODUS_QUERY_PARAM) === 'true';
-            this.props.getStilling(this.uuid, redigeringsmodus);
+
+            if (!this.props.isEditingAd) {
+                this.props.getStilling(this.uuid, redigeringsmodus);
+            }
         } else {
             this.props.createAd();
         }

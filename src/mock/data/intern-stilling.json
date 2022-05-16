@@ -17,11 +17,11 @@
         "mediaList": [],
         "contactList": [
             {
-                "name": null,
+                "name": "Test",
                 "email": "test@nav.no",
                 "phone": null,
                 "role": null,
-                "title": null
+                "title": "Tester"
             }
         ],
         "title": "Eksempel på intern stilling",
@@ -30,8 +30,8 @@
         "source": "DIR",
         "medium": "DIR",
         "reference": "9e35ade7-f97b-43f5-ab24-dc68b12bd5d5",
-        "published": "2020-09-30T01:00:00",
-        "expires": "2020-11-20T02:00:00",
+        "published": "2023-09-30T01:00:00",
+        "expires": "2023-11-20T02:00:00",
         "employer": {
             "id": 203480,
             "uuid": "c7ebcc88-02a1-4eec-80e1-f7a866744f0e",
