@@ -6,6 +6,7 @@ import LeggTilKandidatModal from '../legg-til-kandidat-modal/LeggTilKandidatModa
 import ButtonWithIcon from '../../common/buttonWithIcon/ButtonWithIcon';
 import { erDirektemeldtStilling } from '../adUtils';
 import { sendGenerellEvent } from '../../verktøy/amplitude';
+import ForeslåKandidaterLenke from './ForeslåKandidaterLenke';
 import './CandidateActions.less';
 
 class CandidateActions extends React.Component {
@@ -60,6 +61,7 @@ class CandidateActions extends React.Component {
                         text="Legg til kandidat"
                     />
                 )}
+                {showCandidateLinks && <ForeslåKandidaterLenke stillingsId={uuid} />}
                 {showCandidateLinks && (
                     <LenkeMedIkon
                         onClick={this.loggKnappeklikk}
