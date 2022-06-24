@@ -1,6 +1,6 @@
-import React, { useState, MouseEvent } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from '@navikt/ds-react';
+import { Link } from 'react-router-dom';
 import { Search, AddCircle, AutomaticSystem, CoApplicant } from '@navikt/ds-icons';
 
 import { State } from '../../redux/store';
@@ -16,15 +16,9 @@ const Kandidathandlinger = () => {
     const [visLeggTilKandidatModal, setVisLeggTilKandidatModal] = useState(false);
     const visForeslåKandidaterLenke = useVisForeslåKandidaterLenke();
 
-    const onSeKandidatlisteClick = (event: MouseEvent<HTMLAnchorElement>) => {
-        event.preventDefault();
-
-        const amplitudeEventData = {
+    const onSeKandidatlisteClick = () => {
+        sendGenerellEvent('knapp', {
             label: 'Se kandidater',
-        };
-
-        sendGenerellEvent('knapp', amplitudeEventData, () => {
-            window.location.href = event.currentTarget.href;
         });
     };
 
@@ -49,7 +43,7 @@ const Kandidathandlinger = () => {
             )}
             {visHandlingerKnyttetTilKandidatlisten && (
                 <>
-                    <Link href={`/kandidater/stilling/${stillingsdata.uuid}`}>
+                    <Link className="navds-lenke" to={`/kandidater/stilling/${stillingsdata.uuid}`}>
                         <Search />
                         Finn kandidater
                     </Link>
@@ -61,14 +55,18 @@ const Kandidathandlinger = () => {
                         Legg til kandidat
                     </button>
                     {visForeslåKandidaterLenke && (
-                        <Link href={`/prototype/stilling/${stillingsdata.uuid}`}>
+                        <Link
+                            className="navds-lenke"
+                            to={`/prototype/stilling/${stillingsdata.uuid}`}
+                        >
                             <AutomaticSystem />
                             Foreslå kandidater
                         </Link>
                     )}
                     <Link
+                        className="navds-lenke"
+                        to={`/kandidater/lister/stilling/${stillingsdata.uuid}/detaljer`}
                         onClick={onSeKandidatlisteClick}
-                        href={`/kandidater/lister/stilling/${stillingsdata.uuid}/detaljer`}
                     >
                         <CoApplicant />
                         Se kandidatliste
