@@ -5,9 +5,10 @@ import { Link } from 'react-router-dom';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import { HIDE_AD_PUBLISHED_MODAL } from '../../adReducer';
 import { formatISOString } from '../../../utils/datoUtils.ts';
-import './AdPublishedModal.less';
+import { Search, FileContent } from '@navikt/ds-icons';
 import AdStatusEnum from '../../../common/enums/AdStatusEnum';
 import ModalMedStillingScope from '../../../common/ModalMedStillingScope';
+import './AdPublishedModal.less';
 
 class AdPublishedModal extends React.Component {
     onClose = () => {
@@ -46,16 +47,18 @@ class AdPublishedModal extends React.Component {
                     <div className="AdPublishedModal__links typo-normal">
                         <Link
                             to={`/kandidater/stilling/${uuid}`}
-                            className="lenke"
+                            className="navds-lenke"
                             onClick={this.onClose}
                         >
+                            <Search />
                             Finn kandidater
                         </Link>
                         <Link
                             to="/stillinger/minestillinger"
-                            className="lenke"
+                            className="navds-lenke"
                             onClick={this.onClose}
                         >
+                            <FileContent />
                             Til mine stillinger
                         </Link>
                     </div>

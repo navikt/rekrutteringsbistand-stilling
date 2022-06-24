@@ -87,6 +87,7 @@ export type AdDataState = {
     businessName?: string;
     status: string;
     administration: Adminsitration;
+    publishedByAdmin?: string;
     privacy: string;
     locationList?: any;
     expires?: any;

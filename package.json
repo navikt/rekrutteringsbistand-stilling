@@ -7,7 +7,7 @@
     "scripts": {
         "start": "craco start",
         "start:export": "BROWSER=none REACT_APP_EXPORT=true craco start",
-        "start:mock": "REACT_APP_MOCK=true craco start",
+        "start:mock": "REACT_APP_MOCK=true BROWSER=none craco start",
         "start:mock:export": "BROWSER=none REACT_APP_EXPORT=true REACT_APP_MOCK=true craco start",
         "build": "REACT_APP_SENTRY_RELEASE=$(git rev-parse --short HEAD) craco build",
         "sentry-release": "(export SENTRY_RELEASE=$(git rev-parse --short HEAD); node scripts/sentry-release)",
@@ -39,6 +39,9 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "@navikt/ds-css": "^0.18.16",
+        "@navikt/ds-icons": "^0.8.17",
+        "@navikt/ds-react": "^0.19.14",
         "@navikt/fnrvalidator": "^1.1.4",
         "@navikt/navspa": "^3.0.1",
         "@sentry/react": "^5.30.0",

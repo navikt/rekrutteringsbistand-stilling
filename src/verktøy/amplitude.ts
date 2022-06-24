@@ -27,9 +27,10 @@ export const sendEvent = (område: string, hendelse: string, data?: Object): voi
     client.logEvent(['#rekrutteringsbistand', område, hendelse].join('-'), data);
 };
 
-export const sendGenerellEvent = (event: string, data?: object) => {
+export const sendGenerellEvent = (event: string, data?: object, callback?: () => void) => {
     client.logEvent(event, {
         app: 'rekrutteringsbistand',
         ...data,
+        callback,
     });
 };

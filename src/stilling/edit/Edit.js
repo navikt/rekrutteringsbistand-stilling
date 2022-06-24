@@ -15,7 +15,6 @@ import Location from './location/Location';
 import { formatISOString } from '../../utils/datoUtils.ts';
 import EditHeader from './header/EditHeader';
 import { hentAnnonselenke, stillingErPublisert } from '../adUtils';
-import CandidateActions from '../candidateActions/CandidateActions';
 import { Knapp } from 'nav-frontend-knapper';
 import KopierTekst from '../kopierTekst/KopierTekst';
 import { Element, Undertittel } from 'nav-frontend-typografi';
@@ -24,6 +23,7 @@ import AlertStripe, { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import NavigationPrompt from 'react-router-navigation-prompt';
 import { FORKAST_NY_STILLING, NyStillingState } from '../adReducer';
 import BekreftForlatSidenModal from '../bekreft-forlat-siden-modal/BekreftForlatSidenModal.tsx';
+import Kandidathandlinger from '../kandidathandlinger/Kandidathandlinger.tsx';
 
 const Edit = ({
     ad,
@@ -79,7 +79,7 @@ const Edit = ({
                 )}
             </NavigationPrompt>
             <div className="Edit__actions">
-                <CandidateActions />
+                <Kandidathandlinger />
                 <div className="blokk-xs">
                     {!stillingenErIntern && (
                         <Knapp className="Ad__actions-button" onClick={onPreviewAdClick} mini>
