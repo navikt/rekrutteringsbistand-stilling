@@ -43,7 +43,7 @@ const Kandidathandlinger = () => {
             )}
             {visHandlingerKnyttetTilKandidatlisten && (
                 <>
-                    <Link className="navds-lenke" to={`/kandidater/stilling/${stillingsdata.uuid}`}>
+                    <Link className="navds-link" to={`/kandidater/stilling/${stillingsdata.uuid}`}>
                         <Search />
                         Finn kandidater
                     </Link>
@@ -56,7 +56,7 @@ const Kandidathandlinger = () => {
                     </button>
                     {visForeslåKandidaterLenke && (
                         <Link
-                            className="navds-lenke"
+                            className="navds-link"
                             to={`/prototype/stilling/${stillingsdata.uuid}`}
                         >
                             <AutomaticSystem />
@@ -64,7 +64,7 @@ const Kandidathandlinger = () => {
                         </Link>
                     )}
                     <Link
-                        className="navds-lenke"
+                        className="navds-link"
                         to={`/kandidater/lister/stilling/${stillingsdata.uuid}/detaljer`}
                         onClick={onSeKandidatlisteClick}
                     >
