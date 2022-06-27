@@ -47,7 +47,7 @@ class AdPublishedModal extends React.Component {
                     <div className="AdPublishedModal__links typo-normal">
                         <Link
                             to={`/kandidater/stilling/${uuid}`}
-                            className="navds-lenke"
+                            className="navds-link"
                             onClick={this.onClose}
                         >
                             <Search />
@@ -55,7 +55,7 @@ class AdPublishedModal extends React.Component {
                         </Link>
                         <Link
                             to="/stillinger/minestillinger"
-                            className="navds-lenke"
+                            className="navds-link"
                             onClick={this.onClose}
                         >
                             <FileContent />
