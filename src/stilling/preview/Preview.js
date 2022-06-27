@@ -1,7 +1,7 @@
 import React from 'react';
 import { Element } from 'nav-frontend-typografi';
 import { Column, Row } from 'nav-frontend-grid';
-import ReactHtmlParser from 'react-html-parser';
+import parse from 'html-react-parser';
 import Application from './application/Application';
 import ContactPerson from './contactPerson/ContactPerson';
 import Employer from './employer/Employer';
@@ -27,9 +27,7 @@ export default function Preview({ ad }) {
         <div className="AdText">
             <Row>
                 <Column xs="12" md="8">
-                    <article className="AdText__body">
-                        {ad.properties.adtext && ReactHtmlParser(ad.properties.adtext)}
-                    </article>
+                    <article className="AdText__body">{parse(ad.properties.adtext || '')}</article>
                     {hardrequirements && (
                         <div className="HardRequirements">
                             <div className="HardRequirements__label">

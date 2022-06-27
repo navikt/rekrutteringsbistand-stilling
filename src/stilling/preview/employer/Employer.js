@@ -1,8 +1,8 @@
 import React from 'react';
-import ReactHtmlParser from 'react-html-parser';
+import parse from 'html-react-parser';
 import { Undertittel } from 'nav-frontend-typografi';
-import './Employer.less';
 import { isValidUrl } from '../../../common/urlUtils';
+import './Employer.less';
 
 export default function Employer({ properties, businessName }) {
     return (
@@ -93,7 +93,7 @@ export default function Employer({ properties, businessName }) {
             <div>
                 {properties.employerdescription && (
                     <div className="EmployerDetails__description">
-                        {ReactHtmlParser(properties.employerdescription)}
+                        {parse(properties.employerdescription || '')}
                     </div>
                 )}
             </div>

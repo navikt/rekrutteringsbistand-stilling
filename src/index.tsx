@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import ReactDOM from 'react-dom';
 import Navspa from '@navikt/navspa';
+import '@navikt/ds-css';
 
 import App, { AppProps } from './App';
 import Utviklingsapp from './utviklingsapp/Utviklingsapp';

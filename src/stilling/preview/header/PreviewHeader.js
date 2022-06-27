@@ -5,12 +5,12 @@ import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import { EDIT_AD, LEGG_TIL_I_MINE_STILLINGER } from '../../adReducer';
 import { CLOSE_TRANSFERRED_ALERT } from '../../../stillingsinfo/stillingsinfoReducer';
 import Stillingstittel from './Stillingstittel';
-import CandidateActions from '../../candidateActions/CandidateActions';
 import Alertstripe from 'nav-frontend-alertstriper';
 import { Xknapp } from 'nav-frontend-ikonknapper';
 import KopierTekst from '../../kopierTekst/KopierTekst';
 import { hentAnnonselenke, stillingErPublisert } from '../../adUtils';
 import OpprettKandidatlisteModal from './OpprettKandidatlisteModal';
+import Kandidathandlinger from '../../kandidathandlinger/Kandidathandlinger';
 import './PreviewHeader.less';
 
 class PreviewMenu extends React.Component {
@@ -70,7 +70,7 @@ class PreviewMenu extends React.Component {
         return (
             <div>
                 <div className="Ad__actions">
-                    <CandidateActions />
+                    <Kandidathandlinger />
                     <div className="blokk-xs">
                         {!limitedAccess && (
                             <Hovedknapp

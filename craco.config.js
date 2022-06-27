@@ -7,7 +7,7 @@ module.exports = {
             plugins: [
                 cssprefixer({
                     prefix: '.rek-stilling',
-                    exclude: ['html', 'body', '.rek-stilling'],
+                    exclude: ['html', 'body', '.rek-stilling', ':root'],
                     transform: function (prefix, selector, prefixedSelector) {
                         if (selector.startsWith('body ')) {
                             return `body ${prefix} ${selector.slice(5)}`;
