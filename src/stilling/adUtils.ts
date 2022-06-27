@@ -13,12 +13,12 @@ export const hentAnnonselenke = (uuid: string) => `${VIS_STILLING_URL}/${uuid}`;
 export const erDirektemeldtStilling = (source?: string): boolean => source === 'DIR';
 
 export const stillingenHarKandidatliste = (
-    eierNavident: string | null,
+    eierNavident?: string | null,
     publishedByAdmin?: string,
     source?: string
 ) => {
     const erPublisertOgDirektemeldt = publishedByAdmin && erDirektemeldtStilling(source);
-    const noenHarTattEierskapTilStillingen = eierNavident !== null;
+    const noenHarTattEierskapTilStillingen = typeof eierNavident === 'string';
 
     return erPublisertOgDirektemeldt || noenHarTattEierskapTilStillingen;
 };
