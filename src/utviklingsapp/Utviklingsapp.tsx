@@ -1,12 +1,11 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { Systemtittel } from 'nav-frontend-typografi';
-import { Link, Router } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 
-import { cssScopeForApp } from '../index';
-import App from '../App';
-import './Utviklingsapp.less';
+import { AppMedStore, cssScopeForApp } from '../index';
 import CustomRouter from './CustomRouter';
+import './Utviklingsapp.less';
 
 const history = createBrowserHistory();
 
@@ -32,7 +31,7 @@ const Utviklingsapp: FunctionComponent = () => {
                         <Link to="/stillinger/minestillinger">Mine stillinger</Link>
                     </div>
                 </header>
-                <App navKontor={navKontor} history={history} />
+                <AppMedStore navKontor={navKontor} history={history} />
             </CustomRouter>
         </div>
     );

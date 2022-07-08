@@ -20,9 +20,9 @@ import KopierTekst from '../kopierTekst/KopierTekst';
 import { Element, Undertittel } from 'nav-frontend-typografi';
 import RegistrerInkluderingsmuligheter from './registrer-inkluderingsmuligheter/DirektemeldtStilling';
 import AlertStripe, { AlertStripeInfo } from 'nav-frontend-alertstriper';
-import NavigationPrompt from 'react-router-navigation-prompt';
+// import NavigationPrompt from 'react-router-navigation-prompt';
 import { FORKAST_NY_STILLING, NyStillingState } from '../adReducer';
-import BekreftForlatSidenModal from '../bekreft-forlat-siden-modal/BekreftForlatSidenModal.tsx';
+// import BekreftForlatSidenModal from '../bekreft-forlat-siden-modal/BekreftForlatSidenModal.tsx';
 import Kandidathandlinger from '../kandidathandlinger/Kandidathandlinger.tsx';
 
 const Edit = ({
@@ -54,6 +54,7 @@ const Edit = ({
     const stillingenErIntern = ad.createdBy !== 'pam-rekrutteringsbistand';
     const stillingsLenke = hentAnnonselenke(ad.uuid);
 
+    /*
     const onForlatSidenClick = (bekreftForlatSiden) => () => {
         const stillingenErTom = updated === created;
 
@@ -66,10 +67,11 @@ const Edit = ({
             bekreftForlatSiden();
         }
     };
+    */
 
     return (
         <div className="Edit">
-            <NavigationPrompt when={hasChanges}>
+            {/*<NavigationPrompt when={hasChanges}>
                 {({ isActive, onConfirm, onCancel }) => (
                     <BekreftForlatSidenModal
                         vis={isActive}
@@ -77,7 +79,7 @@ const Edit = ({
                         onForlatSidenClick={onForlatSidenClick(onConfirm)}
                     />
                 )}
-            </NavigationPrompt>
+                </NavigationPrompt>*/}
             <div className="Edit__actions">
                 <Kandidathandlinger />
                 <div className="blokk-xs">

@@ -1,8 +1,7 @@
 import React, { FunctionComponent, useEffect } from 'react';
 import Modal from 'react-modal';
 import { History } from 'history';
-import { Provider, useDispatch } from 'react-redux';
-import * as Sentry from '@sentry/react';
+import { useDispatch } from 'react-redux';
 
 import './styles.less'; // Må importeres før andre komponenter
 
@@ -13,7 +12,7 @@ import { startSentry } from './verktøy/sentry';
 import { ReporteeAction, ReporteeActionType } from './reportee/ReporteeAction';
 import { setNavKontorIAmplitude } from './verktøy/amplitude';
 import createReduxStore from './redux/store';
-import { Route, Router, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 startSentry();
 
@@ -32,7 +31,7 @@ export type AppProps = {
     navKontor: string | null;
 };
 
-const MedRouter: FunctionComponent<AppProps> = ({ navKontor, history }) => {
+const App: FunctionComponent<AppProps> = ({ navKontor, history }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -56,18 +55,6 @@ const MedRouter: FunctionComponent<AppProps> = ({ navKontor, history }) => {
                 <Route path="/stillinger/stilling/:uuid" element={<Stilling />} />
             </Routes>
         </>
-    );
-};
-
-const App: FunctionComponent<AppProps> = ({ history, navKontor }) => {
-    return (
-        <Sentry.ErrorBoundary>
-            <Provider store={store}>
-                <Router navigator={history} location={history.location}>
-                    <MedRouter history={history} navKontor={navKontor} />
-                </Router>
-            </Provider>
-        </Sentry.ErrorBoundary>
     );
 };
 
