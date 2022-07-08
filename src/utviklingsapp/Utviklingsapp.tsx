@@ -6,6 +6,7 @@ import { createBrowserHistory } from 'history';
 import { cssScopeForApp } from '../index';
 import App from '../App';
 import './Utviklingsapp.less';
+import CustomRouter from './CustomRouter';
 
 const history = createBrowserHistory();
 
@@ -24,7 +25,7 @@ const Utviklingsapp: FunctionComponent = () => {
 
     return (
         <div className={cssScopeForApp}>
-            <Router history={history}>
+            <CustomRouter history={history}>
                 <header className="utviklingsapp">
                     <Systemtittel>Utviklingsapp for rekrutteringsbistand-stilling</Systemtittel>
                     <div className="utviklingsapp__lenke">
@@ -32,7 +33,7 @@ const Utviklingsapp: FunctionComponent = () => {
                     </div>
                 </header>
                 <App navKontor={navKontor} history={history} />
-            </Router>
+            </CustomRouter>
         </div>
     );
 };

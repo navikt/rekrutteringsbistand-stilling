@@ -2,7 +2,6 @@ import React, { FunctionComponent, useEffect } from 'react';
 import Modal from 'react-modal';
 import { History } from 'history';
 import { Provider, useDispatch } from 'react-redux';
-import { Router, Route, Switch } from 'react-router-dom';
 import * as Sentry from '@sentry/react';
 
 import './styles.less'; // Må importeres før andre komponenter
@@ -14,6 +13,7 @@ import { startSentry } from './verktøy/sentry';
 import { ReporteeAction, ReporteeActionType } from './reportee/ReporteeAction';
 import { setNavKontorIAmplitude } from './verktøy/amplitude';
 import createReduxStore from './redux/store';
+import { Route, Router, Routes } from 'react-router-dom';
 
 startSentry();
 
@@ -32,7 +32,7 @@ export type AppProps = {
     navKontor: string | null;
 };
 
-const MedRouter: FunctionComponent<AppProps> = ({ navKontor }) => {
+const MedRouter: FunctionComponent<AppProps> = ({ navKontor, history }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -48,10 +48,13 @@ const MedRouter: FunctionComponent<AppProps> = ({ navKontor }) => {
     return (
         <>
             <Varsling />
-            <Switch>
-                <Route exact path="/stillinger/minestillinger" component={MineStillinger} />
-                <Route exact path="/stillinger/stilling/:uuid" component={Stilling} />
-            </Switch>
+            <Routes>
+                <Route
+                    path="/stillinger/minestillinger"
+                    element={<MineStillinger history={history} />}
+                />
+                <Route path="/stillinger/stilling/:uuid" element={<Stilling />} />
+            </Routes>
         </>
     );
 };
@@ -60,7 +63,7 @@ const App: FunctionComponent<AppProps> = ({ history, navKontor }) => {
     return (
         <Sentry.ErrorBoundary>
             <Provider store={store}>
-                <Router history={history}>
+                <Router navigator={history} location={history.location}>
                     <MedRouter history={history} navKontor={navKontor} />
                 </Router>
             </Provider>

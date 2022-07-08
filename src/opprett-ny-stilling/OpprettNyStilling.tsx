@@ -1,5 +1,4 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { Flatknapp, Hovedknapp } from 'nav-frontend-knapper';
 import { Systemtittel } from 'nav-frontend-typografi';
@@ -11,6 +10,7 @@ import { State } from '../redux/store';
 import ModalMedStillingScope from '../common/ModalMedStillingScope';
 import VelgArbeidsgiver, { Arbeidsgiverforslag } from './VelgArbeidsgiver';
 import VelgStillingskategori, { Stillingskategori } from './VelgStillingskategori';
+import { useNavigate } from 'react-router-dom';
 import './OpprettNyStilling.less';
 
 type Props = {
@@ -19,7 +19,8 @@ type Props = {
 
 const OpprettNyStilling: FunctionComponent<Props> = ({ onClose }) => {
     const dispatch = useDispatch();
-    const history = useHistory();
+    const navigate = useNavigate();
+
     const { hasSavedChanges } = useSelector((state: State) => state.ad);
     const stilling = useSelector((state: State) => state.ad.originalData);
 
@@ -32,10 +33,15 @@ const OpprettNyStilling: FunctionComponent<Props> = ({ onClose }) => {
 
     useEffect(() => {
         if (hasSavedChanges === true && stilling) {
-            history.replace({
-                pathname: `/stillinger/stilling/${stilling.uuid}`,
-                search: `${REDIGERINGSMODUS_QUERY_PARAM}=true`,
-            });
+            navigate(
+                {
+                    pathname: `/stillinger/stilling/${stilling.uuid}`,
+                    search: `${REDIGERINGSMODUS_QUERY_PARAM}=true`,
+                },
+                {
+                    replace: true,
+                }
+            );
         }
         // eslint-disable-next-line
     }, [hasSavedChanges, stilling]);
