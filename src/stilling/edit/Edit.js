@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Input } from 'nav-frontend-skjema';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
@@ -20,30 +20,10 @@ import KopierTekst from '../kopierTekst/KopierTekst';
 import { Element, Undertittel } from 'nav-frontend-typografi';
 import RegistrerInkluderingsmuligheter from './registrer-inkluderingsmuligheter/DirektemeldtStilling';
 import AlertStripe, { AlertStripeInfo } from 'nav-frontend-alertstriper';
-// import NavigationPrompt from 'react-router-navigation-prompt';
-import { FORKAST_NY_STILLING, NyStillingState } from '../adReducer';
-// import BekreftForlatSidenModal from '../bekreft-forlat-siden-modal/BekreftForlatSidenModal.tsx';
+import { FORKAST_NY_STILLING } from '../adReducer';
 import Kandidathandlinger from '../kandidathandlinger/Kandidathandlinger.tsx';
 
-const Edit = ({
-    ad,
-    isNew,
-    onPreviewAdClick,
-    hasChanges,
-    resetValidation,
-    updated,
-    created,
-    nyStillingState,
-    forkastNyStilling,
-}) => {
-    const [forlatSiden, setForlatSiden] = useState(null);
-
-    useEffect(() => {
-        if (nyStillingState === NyStillingState.ErForkastet && forlatSiden) {
-            forlatSiden.bekreft();
-        }
-    }, [nyStillingState, forlatSiden]);
-
+const Edit = ({ ad, isNew, onPreviewAdClick, resetValidation }) => {
     useEffect(() => {
         return () => {
             resetValidation();
@@ -54,32 +34,8 @@ const Edit = ({
     const stillingenErIntern = ad.createdBy !== 'pam-rekrutteringsbistand';
     const stillingsLenke = hentAnnonselenke(ad.uuid);
 
-    /*
-    const onForlatSidenClick = (bekreftForlatSiden) => () => {
-        const stillingenErTom = updated === created;
-
-        if (stillingenErTom) {
-            forkastNyStilling();
-            setForlatSiden({
-                bekreft: bekreftForlatSiden,
-            });
-        } else {
-            bekreftForlatSiden();
-        }
-    };
-    */
-
     return (
         <div className="Edit">
-            {/*<NavigationPrompt when={hasChanges}>
-                {({ isActive, onConfirm, onCancel }) => (
-                    <BekreftForlatSidenModal
-                        vis={isActive}
-                        onBliPåSidenClick={onCancel}
-                        onForlatSidenClick={onForlatSidenClick(onConfirm)}
-                    />
-                )}
-                </NavigationPrompt>*/}
             <div className="Edit__actions">
                 <Kandidathandlinger />
                 <div className="blokk-xs">
