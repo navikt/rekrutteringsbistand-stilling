@@ -17,6 +17,9 @@ jobs:
                   cache: 'npm'
                   cache-dependency-path: |
                       package-lock.json
+                      server/package-lock.json
+            - name: Oppdater lock fil
+              run: npm install
             - name: Installer avhengigheter
               run: npm ci
             - name: Kjør tester
