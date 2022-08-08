@@ -1,10 +1,10 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { Systemtittel } from 'nav-frontend-typografi';
-import { Link, Router } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 
-import { cssScopeForApp } from '../index';
-import App from '../App';
+import { AppMedStore, cssScopeForApp } from '../index';
+import CustomRouter from './CustomRouter';
 import './Utviklingsapp.less';
 
 const history = createBrowserHistory();
@@ -24,15 +24,15 @@ const Utviklingsapp: FunctionComponent = () => {
 
     return (
         <div className={cssScopeForApp}>
-            <Router history={history}>
+            <CustomRouter history={history}>
                 <header className="utviklingsapp">
                     <Systemtittel>Utviklingsapp for rekrutteringsbistand-stilling</Systemtittel>
                     <div className="utviklingsapp__lenke">
                         <Link to="/stillinger/minestillinger">Mine stillinger</Link>
                     </div>
                 </header>
-                <App navKontor={navKontor} history={history} />
-            </Router>
+                <AppMedStore navKontor={navKontor} history={history} />
+            </CustomRouter>
         </div>
     );
 };
