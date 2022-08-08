@@ -3,7 +3,7 @@ name: Bygg og deploy
 on: [push]
 
 env:
-    IMAGE: docker.pkg.github.com/${{ github.repository }}/rekrutteringsbistand-stilling:${{ github.sha }}
+    IMAGE: ghcr.io/${{ github.repository }}/rekrutteringsbistand-stilling:${{ github.sha }}
 
 jobs:
     bygg-og-push-docker-image:
@@ -18,6 +18,8 @@ jobs:
                   cache-dependency-path: |
                       package-lock.json
                       server/package-lock.json
+            - name: Oppdater lock fil
+              run: npm install
             - name: Installer avhengigheter
               run: npm ci
             - name: Kjør tester
@@ -32,13 +34,18 @@ jobs:
               run: npm run sentry-release
               env:
                   SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+            - name: Logg inn til Github
+              uses: docker/login-action@v1
+              with:
+                  registry: ghcr.io
+                  username: ${{ github.actor }}
+                  password: ${{ secrets.GITHUB_TOKEN }}
             - name: Bygg og publiser Docker-image
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-              run: |
-                  docker build --tag ${IMAGE} .
-                  echo ${GITHUB_TOKEN} | docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY} --password-stdin
-                  docker push ${IMAGE}
+              uses: docker/build-push-action@v2
+              with:
+                  context: .
+                  push: true
+                  tags: ${{ env.IMAGE }}
 
     deploy-til-dev:
         name: Deploy til dev-gcp
