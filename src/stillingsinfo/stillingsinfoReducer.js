@@ -105,7 +105,7 @@ function* getStillingsinfo(action) {
                   };
 
         yield put({ type: FETCH_STILLINGSINFO_SUCCESS });
-        yield put({ type: SET_STILLINGSINFO_DATA, data: saveResponse });
+        yield put({ type: SET_STILLINGSINFO_DATA, uuid: action.uuid, data: saveResponse });
     } catch (e) {
         if (e instanceof ApiError) {
             yield put({ type: FETCH_STILLINGSINFO_FAILURE, error: e });
