@@ -18,3 +18,41 @@ export const hentStateFraLocalStorage = (): PreloadedState<State> | undefined =>
 
     return stateFraLocalStorage;
 };
+
+const hentKeyForStillingsendring = (stillingsId: string) => `stillingsendringer.${stillingsId}`;
+
+export const lagreStillingsendringerILocalStorage = () => {
+    const state = store.getState();
+
+    const stillingsendringer = {
+        stilling: state.adData,
+        stillingsinfo: state.stillingsinfoData,
+    };
+
+    localStorage.setItem(
+        hentKeyForStillingsendring(state.adData.uuid),
+        JSON.stringify(stillingsendringer)
+    );
+};
+
+export const gjenopprettStillingsendringerFraLocalStorage = () => {
+    const state = store.getState();
+    const stillingsId = state.adData.uuid;
+    const stillingsendringer = localStorage.getItem(hentKeyForStillingsendring(stillingsId));
+
+    if (stillingsendringer === null) {
+        return undefined;
+    }
+
+    slettStillingsendringerFraLocalStorage();
+
+    const stillingsendringerData = JSON.parse(stillingsendringer);
+    return stillingsendringerData;
+};
+
+export const slettStillingsendringerFraLocalStorage = () => {
+    const state = store.getState();
+    const stillingsId = state.adData.uuid;
+
+    localStorage.removeItem(hentKeyForStillingsendring(stillingsId));
+};

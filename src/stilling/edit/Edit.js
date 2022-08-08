@@ -1,38 +1,61 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { Input } from 'nav-frontend-skjema';
-import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Column } from 'nav-frontend-grid';
 import { connect } from 'react-redux';
+import { Element, Undertittel } from 'nav-frontend-typografi';
+import { Input } from 'nav-frontend-skjema';
+import { Knapp } from 'nav-frontend-knapper';
+import AlertStripe, { AlertStripeInfo } from 'nav-frontend-alertstriper';
+import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
+import PropTypes from 'prop-types';
+
+import { formatISOString } from '../../utils/datoUtils.ts';
+import { gjenopprettStillingsendringerFraLocalStorage } from '../../redux/localStorage';
+import { hentAnnonselenke, stillingErPublisert } from '../adUtils';
 import { RESET_VALIDATION_ERROR } from '../adValidationReducer';
-import './Edit.less';
-import PracticalInformation from './practicalInformation/PracticalInformation';
+import Application from './application/Application';
+import ContactPerson from './contactPerson/ContactPerson.tsx';
+import EditHeader from './header/EditHeader';
 import EndreArbeidsgiver from './endre-arbeidsgiver/EndreArbeidsgiver';
 import JobDetails from './jobDetails/JobDetails';
-import ContactPerson from './contactPerson/ContactPerson.tsx';
-import Application from './application/Application';
-import Location from './location/Location';
-import { formatISOString } from '../../utils/datoUtils.ts';
-import EditHeader from './header/EditHeader';
-import { hentAnnonselenke, stillingErPublisert } from '../adUtils';
-import { Knapp } from 'nav-frontend-knapper';
-import KopierTekst from '../kopierTekst/KopierTekst';
-import { Element, Undertittel } from 'nav-frontend-typografi';
-import RegistrerInkluderingsmuligheter from './registrer-inkluderingsmuligheter/DirektemeldtStilling';
-import AlertStripe, { AlertStripeInfo } from 'nav-frontend-alertstriper';
-import { FORKAST_NY_STILLING } from '../adReducer';
 import Kandidathandlinger from '../kandidathandlinger/Kandidathandlinger.tsx';
+import KopierTekst from '../kopierTekst/KopierTekst';
+import Location from './location/Location';
+import PracticalInformation from './practicalInformation/PracticalInformation';
+import RegistrerInkluderingsmuligheter from './registrer-inkluderingsmuligheter/DirektemeldtStilling';
+import './Edit.less';
+import { SET_AD_DATA } from '../adDataReducer';
+import { SET_STILLINGSINFO_DATA } from '../../stillingsinfo/stillingsinfoDataReducer';
+import { VarslingActionType } from '../../common/varsling/varslingReducer';
 
-const Edit = ({ ad, isNew, onPreviewAdClick, resetValidation }) => {
+const Edit = ({
+    ad,
+    isNew,
+    onPreviewAdClick,
+    resetValidation,
+    gjenopprettAdData,
+    gjenopprettStillingsinfoData,
+    visVarsling,
+}) => {
+    // Fra EditHeader
+    const stillingenErIntern = ad.createdBy !== 'pam-rekrutteringsbistand';
+    const stillingsLenke = hentAnnonselenke(ad.uuid);
+
+    useEffect(() => {
+        const ulagredeEndringer = gjenopprettStillingsendringerFraLocalStorage();
+
+        if (ulagredeEndringer) {
+            gjenopprettAdData(ulagredeEndringer.stilling);
+            gjenopprettStillingsinfoData(ulagredeEndringer.stillingsinfo);
+
+            visVarsling('Endringene dine ble gjenopprettet fra en tidligere økt.');
+        }
+    }, [ad.uuid, gjenopprettAdData, gjenopprettStillingsinfoData, visVarsling]);
+
     useEffect(() => {
         return () => {
             resetValidation();
         };
     }, [resetValidation]);
-
-    // Fra EditHeader
-    const stillingenErIntern = ad.createdBy !== 'pam-rekrutteringsbistand';
-    const stillingsLenke = hentAnnonselenke(ad.uuid);
 
     return (
         <div className="Edit">
@@ -145,7 +168,9 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     resetValidation: () => dispatch({ type: RESET_VALIDATION_ERROR }),
-    forkastNyStilling: () => dispatch({ type: FORKAST_NY_STILLING }),
+    gjenopprettAdData: (data) => dispatch({ type: SET_AD_DATA, data }),
+    gjenopprettStillingsinfoData: (data) => dispatch({ type: SET_STILLINGSINFO_DATA, data }),
+    visVarsling: (melding) => dispatch({ type: VarslingActionType.VisVarsling, innhold: melding }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Edit);

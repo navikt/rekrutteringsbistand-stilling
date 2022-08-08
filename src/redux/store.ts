@@ -19,11 +19,12 @@ import mineStillingerReducer, {
     MineStillingerState,
 } from '../mine-stillinger/mineStillingerReducer';
 import reporteeReducer, { reporteeSaga, ReporteeState } from '../reportee/reporteeReducer';
-import stillingsinfoDataReducer from '../stillingsinfo/stillingsinfoDataReducer';
 import stillingsinfoReducer, { stillingsinfoSaga } from '../stillingsinfo/stillingsinfoReducer';
 import { Stillingsinfo } from '../Stilling';
 import { mineStillingerSaga } from '../mine-stillinger/mineStillingerSagas';
 import { hentStateFraLocalStorage } from './localStorage';
+import { lagreEndringerSaga } from './lagreEndringerSaga';
+import stillingsinfoDataReducer from '../stillingsinfo/stillingsinfoDataReducer';
 
 export type State = {
     ad: AdState;
@@ -69,6 +70,7 @@ const createReduxStore = () => {
     sagaMiddleware.run(locationAreaSaga);
     sagaMiddleware.run(stillingsinfoSaga);
     sagaMiddleware.run(varslingSaga);
+    sagaMiddleware.run(lagreEndringerSaga);
 
     return reduxStore;
 };
