@@ -47,7 +47,7 @@ const Edit = ({
             gjenopprettAdData(ulagredeEndringer.stilling);
             gjenopprettStillingsinfoData(ulagredeEndringer.stillingsinfo);
 
-            visVarsling('Endringene dine ble gjenopprettet fra en tidligere økt.');
+            visVarsling('Endringene dine ble gjenopprettet fra en tidligere økt.', 'advarsel');
         }
     }, [ad.uuid, gjenopprettAdData, gjenopprettStillingsinfoData, visVarsling]);
 
@@ -170,7 +170,8 @@ const mapDispatchToProps = (dispatch) => ({
     resetValidation: () => dispatch({ type: RESET_VALIDATION_ERROR }),
     gjenopprettAdData: (data) => dispatch({ type: SET_AD_DATA, data }),
     gjenopprettStillingsinfoData: (data) => dispatch({ type: SET_STILLINGSINFO_DATA, data }),
-    visVarsling: (melding) => dispatch({ type: VarslingActionType.VisVarsling, innhold: melding }),
+    visVarsling: (innhold, alertType) =>
+        dispatch({ type: VarslingActionType.VisVarsling, innhold, alertType }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Edit);

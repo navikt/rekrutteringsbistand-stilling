@@ -44,8 +44,6 @@ export const gjenopprettStillingsendringerFraLocalStorage = () => {
         return undefined;
     }
 
-    slettStillingsendringerFraLocalStorage();
-
     const stillingsendringerData = JSON.parse(stillingsendringer);
     return stillingsendringerData;
 };
