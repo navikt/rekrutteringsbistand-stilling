@@ -50,7 +50,14 @@ const DeleteAdModal: FunctionComponent = () => {
             closeButton
             className="DeleteAdModal"
         >
-            <Undertittel className="blokk-s">Slett stilling og kandidatliste</Undertittel>
+            <Undertittel className="blokk-s">
+                Slett feilregistrert stilling og kandidatliste
+            </Undertittel>
+            <Normaltekst className="blokk-s">
+                Denne funksjonen skal brukes når det er valgt feil bedrift. Stillinger og
+                kandidatlister som er slettet vises ikke i løsningen, og stillingen og kandidatene
+                vil ikke telles i statistikken.
+            </Normaltekst>
             <Normaltekst className="blokk-l">
                 Er du sikker på at du ønsker å slette {title} og tilhørende kandidatliste?
                 Stillinger og kandidatlister som er slettet vises ikke i løsningen.
