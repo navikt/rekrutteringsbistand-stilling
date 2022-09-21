@@ -9,7 +9,6 @@ import { Search, FileContent } from '@navikt/ds-icons';
 import AdStatusEnum from '../../../common/enums/AdStatusEnum';
 import ModalMedStillingScope from '../../../common/ModalMedStillingScope';
 import './AdPublishedModal.less';
-import { erIkkeProd } from '../../../utils/featureToggleUtils';
 
 class AdPublishedModal extends React.Component {
     onClose = () => {
@@ -48,11 +47,7 @@ class AdPublishedModal extends React.Component {
                     </Normaltekst>
                     <div className="AdPublishedModal__links typo-normal">
                         <Link
-                            to={
-                                erIkkeProd
-                                    ? `/kandidatsok?kandidatliste=${kandidatlisteId}`
-                                    : `/kandidater/stilling/${uuid}`
-                            }
+                            to={`/kandidatsok?kandidatliste=${kandidatlisteId}`}
                             className="navds-link"
                             onClick={this.onClose}
                         >

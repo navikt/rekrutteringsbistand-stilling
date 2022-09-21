@@ -11,7 +11,6 @@ import { useVisForeslåKandidaterLenke } from './useVisForeslåKandidaterLenke';
 import { Nettressurs, Nettstatus } from '../../api/Nettressurs';
 import './Kandidathandlinger.less';
 import { Kandidatliste } from '../legg-til-kandidat-modal/kandidatlistetyper';
-import { erIkkeProd } from '../../utils/featureToggleUtils';
 
 type Props = {
     kandidatliste: Nettressurs<Kandidatliste>;
@@ -53,11 +52,7 @@ const Kandidathandlinger: FunctionComponent<Props> = ({ kandidatliste }) => {
                 <>
                     <Link
                         className="navds-link"
-                        to={
-                            erIkkeProd
-                                ? `/kandidatsok?kandidatliste=${kandidatliste.data.kandidatlisteId}`
-                                : `/kandidater/stilling/${stillingsdata.uuid}`
-                        }
+                        to={`/kandidatsok?kandidatliste=${kandidatliste.data.kandidatlisteId}`}
                     >
                         <Search />
                         Finn kandidater
