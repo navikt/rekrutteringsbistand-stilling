@@ -18,6 +18,8 @@ import AdStatusEnum from '../common/enums/AdStatusEnum';
 import { State } from '../redux/store';
 import { VarslingActionType } from '../common/varsling/varslingReducer';
 import './Stilling.less';
+import useHentEllerOpprettKandidatliste from './kandidathandlinger/useHentEllerOpprettKandidatliste';
+import { Nettstatus } from '../api/Nettressurs';
 
 export const REDIGERINGSMODUS_QUERY_PARAM = 'redigeringsmodus';
 
@@ -32,6 +34,7 @@ const Stilling = () => {
     const navigate = useNavigate();
     const stilling = useSelector((state: State) => state.adData);
     const { isEditingAd, isSavingAd, isLoadingAd } = useSelector((state: State) => state.ad);
+    const kandidatliste = useHentEllerOpprettKandidatliste(stilling.uuid);
 
     const getStilling = (uuid: string, edit: boolean) => {
         dispatch({ type: FETCH_AD, uuid, edit });
@@ -126,6 +129,9 @@ const Stilling = () => {
         );
     }
 
+    const kandidatlisteId =
+        kandidatliste.kind === Nettstatus.Suksess ? kandidatliste.data.kandidatlisteId : '';
+
     return (
         <div className="Ad">
             <SavedAdAlertStripe />
@@ -145,6 +151,7 @@ const Stilling = () => {
                                         ) : (
                                             <Edit
                                                 isNew={isNew}
+                                                kandidatliste={kandidatliste}
                                                 onPreviewAdClick={onPreviewAdClick}
                                             />
                                         )}
@@ -161,7 +168,11 @@ const Stilling = () => {
                     {isEditingAd ? (
                         <div className="Ad__flex__right">
                             <div className="Ad__flex__right__inner">
-                                {erEksternStilling ? <AdministrationLimited /> : <Administration />}
+                                {erEksternStilling ? (
+                                    <AdministrationLimited kandidatlisteId={kandidatlisteId} />
+                                ) : (
+                                    <Administration kandidatlisteId={kandidatlisteId} />
+                                )}
                             </div>
                         </div>
                     ) : (
