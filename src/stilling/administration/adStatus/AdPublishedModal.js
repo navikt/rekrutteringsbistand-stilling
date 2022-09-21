@@ -9,6 +9,7 @@ import { Search, FileContent } from '@navikt/ds-icons';
 import AdStatusEnum from '../../../common/enums/AdStatusEnum';
 import ModalMedStillingScope from '../../../common/ModalMedStillingScope';
 import './AdPublishedModal.less';
+import { erIkkeProd } from '../../../utils/featureToggleUtils';
 
 class AdPublishedModal extends React.Component {
     onClose = () => {
@@ -23,6 +24,7 @@ class AdPublishedModal extends React.Component {
             activationOnPublishingDate,
             published,
             isSavingAd,
+            kandidatlisteId,
         } = this.props;
 
         return isSavingAd ? null : (
@@ -46,7 +48,11 @@ class AdPublishedModal extends React.Component {
                     </Normaltekst>
                     <div className="AdPublishedModal__links typo-normal">
                         <Link
-                            to={`/kandidater/stilling/${uuid}`}
+                            to={
+                                erIkkeProd
+                                    ? `/kandidatsok?kandidatliste=${kandidatlisteId}`
+                                    : `/kandidater/stilling/${uuid}`
+                            }
                             className="navds-link"
                             onClick={this.onClose}
                         >
@@ -81,6 +87,7 @@ AdPublishedModal.propTypes = {
     adStatus: PropTypes.string.isRequired,
     activationOnPublishingDate: PropTypes.bool,
     published: PropTypes.string,
+    kandidatlisteId: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({

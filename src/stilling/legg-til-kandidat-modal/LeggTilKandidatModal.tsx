@@ -1,17 +1,9 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, { FunctionComponent } from 'react';
 import NavFrontendSpinner from 'nav-frontend-spinner';
 import { Feilmelding, Systemtittel } from 'nav-frontend-typografi';
 
-import {
-    feil,
-    ikkeLastet,
-    lasterInn,
-    Nettressurs,
-    Nettstatus,
-    suksess,
-} from '../../api/Nettressurs';
+import { Nettressurs, Nettstatus } from '../../api/Nettressurs';
 import ModalMedStillingScope from '../../common/ModalMedStillingScope';
-import { fetchKandidatliste, putKandidatliste } from './kandidatApi';
 import { Kandidatliste } from './kandidatlistetyper';
 import LeggTilKandidat from './LeggTilKandidat';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
@@ -24,35 +16,11 @@ export type KandidatOutboundDto = {
 
 type Props = {
     vis: boolean;
-    stillingsId: string;
     onClose: () => void;
+    kandidatliste: Nettressurs<Kandidatliste>;
 };
 
-const LeggTilKandidatModal: FunctionComponent<Props> = ({ vis, onClose, stillingsId }) => {
-    const [kandidatliste, setKandidatliste] = useState<Nettressurs<Kandidatliste>>(ikkeLastet());
-
-    useEffect(() => {
-        const hentKandidatliste = async () => {
-            setKandidatliste(lasterInn());
-
-            let kandidatliste: Nettressurs<Kandidatliste>;
-
-            try {
-                kandidatliste = suksess(await fetchKandidatliste(stillingsId));
-            } catch (e) {
-                if (e.status === 404) {
-                    kandidatliste = suksess(await putKandidatliste(stillingsId));
-                } else {
-                    kandidatliste = feil(e.message);
-                }
-            }
-
-            setKandidatliste(kandidatliste);
-        };
-
-        hentKandidatliste();
-    }, [stillingsId]);
-
+const LeggTilKandidatModal: FunctionComponent<Props> = ({ vis, onClose, kandidatliste }) => {
     return (
         <ModalMedStillingScope
             isOpen={vis}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Search, AddCircle, AutomaticSystem, CoApplicant } from '@navikt/ds-icons';
@@ -8,11 +8,19 @@ import { sendGenerellEvent } from '../../verktøy/amplitude';
 import { stillingenHarKandidatliste } from '../adUtils';
 import LeggTilKandidatModal from '../legg-til-kandidat-modal/LeggTilKandidatModal';
 import { useVisForeslåKandidaterLenke } from './useVisForeslåKandidaterLenke';
+import { Nettressurs, Nettstatus } from '../../api/Nettressurs';
 import './Kandidathandlinger.less';
+import { Kandidatliste } from '../legg-til-kandidat-modal/kandidatlistetyper';
+import { erIkkeProd } from '../../utils/featureToggleUtils';
 
-const Kandidathandlinger = () => {
+type Props = {
+    kandidatliste: Nettressurs<Kandidatliste>;
+};
+
+const Kandidathandlinger: FunctionComponent<Props> = ({ kandidatliste }) => {
     const stillingsdata = useSelector((state: State) => state.adData);
     const stillingsinfo = useSelector((state: State) => state.stillingsinfoData);
+
     const [visLeggTilKandidatModal, setVisLeggTilKandidatModal] = useState(false);
     const visForeslåKandidaterLenke = useVisForeslåKandidaterLenke();
 
@@ -34,16 +42,23 @@ const Kandidathandlinger = () => {
 
     return (
         <div className="kandidathandlinger">
-            {stillingsdata.uuid && (
+            {kandidatliste.kind === Nettstatus.Suksess && (
                 <LeggTilKandidatModal
                     vis={visLeggTilKandidatModal}
                     onClose={toggleLeggTilKandidatModal}
-                    stillingsId={stillingsdata.uuid}
+                    kandidatliste={kandidatliste}
                 />
             )}
-            {visHandlingerKnyttetTilKandidatlisten && (
+            {visHandlingerKnyttetTilKandidatlisten && kandidatliste.kind === Nettstatus.Suksess && (
                 <>
-                    <Link className="navds-link" to={`/kandidater/stilling/${stillingsdata.uuid}`}>
+                    <Link
+                        className="navds-link"
+                        to={
+                            erIkkeProd
+                                ? `/kandidatsok?kandidatliste=${kandidatliste.data.kandidatlisteId}`
+                                : `/kandidater/stilling/${stillingsdata.uuid}`
+                        }
+                    >
                         <Search />
                         Finn kandidater
                     </Link>

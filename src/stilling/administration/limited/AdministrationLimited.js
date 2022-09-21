@@ -5,7 +5,7 @@ import RegistrerInkluderingsmuligheter from '../../edit/registrer-inkluderingsmu
 import Notat from '../notat/Notat';
 import '../Administration.less';
 
-function AdministrationLimited() {
+const AdministrationLimited = ({ kandidatlisteId }) => {
     function editFields() {
         return (
             <div className="Administration__elements">
@@ -25,11 +25,11 @@ function AdministrationLimited() {
                 </div>
                 <div className="Administration__flex__center">{editFields()}</div>
                 <div className="Administration__flex__bottom">
-                    <AdStatusEdit />
+                    <AdStatusEdit kandidatlisteId={kandidatlisteId} />
                 </div>
             </div>
         </div>
     );
-}
+};
 
 export default AdministrationLimited;

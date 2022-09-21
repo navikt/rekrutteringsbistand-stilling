@@ -35,6 +35,7 @@ const Edit = ({
     gjenopprettAdData,
     gjenopprettStillingsinfoData,
     visVarsling,
+    kandidatliste,
 }) => {
     // Fra EditHeader
     const stillingenErIntern = ad.createdBy !== 'pam-rekrutteringsbistand';
@@ -60,7 +61,7 @@ const Edit = ({
     return (
         <div className="Edit">
             <div className="Edit__actions">
-                <Kandidathandlinger />
+                <Kandidathandlinger kandidatliste={kandidatliste} />
                 <div className="blokk-xs">
                     {!stillingenErIntern && (
                         <Knapp className="Ad__actions-button" onClick={onPreviewAdClick} mini>
@@ -156,6 +157,7 @@ Edit.propTypes = {
     resetValidation: PropTypes.func.isRequired,
     isNew: PropTypes.bool,
     onPreviewAdClick: PropTypes.func.isRequired,
+    kandidatliste: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({

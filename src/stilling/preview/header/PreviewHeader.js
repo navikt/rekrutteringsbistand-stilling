@@ -70,7 +70,7 @@ class PreviewMenu extends React.Component {
         return (
             <div>
                 <div className="Ad__actions">
-                    <Kandidathandlinger />
+                    <Kandidathandlinger kandidatliste={this.props.kandidatliste} />
                     <div className="blokk-xs">
                         {!limitedAccess && (
                             <Hovedknapp
@@ -178,6 +178,7 @@ PreviewMenu.propTypes = {
         showAdTransferredAlert: PropTypes.bool,
         showAdMarkedAlert: PropTypes.bool,
     }),
+    kandidatliste: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
