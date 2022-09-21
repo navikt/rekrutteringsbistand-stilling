@@ -17,9 +17,9 @@ import PreviewHeader from './preview/header/PreviewHeader';
 import AdStatusEnum from '../common/enums/AdStatusEnum';
 import { State } from '../redux/store';
 import { VarslingActionType } from '../common/varsling/varslingReducer';
-import './Stilling.less';
 import useHentEllerOpprettKandidatliste from './kandidathandlinger/useHentEllerOpprettKandidatliste';
 import { Nettstatus } from '../api/Nettressurs';
+import './Stilling.less';
 
 export const REDIGERINGSMODUS_QUERY_PARAM = 'redigeringsmodus';
 
@@ -145,7 +145,7 @@ const Stilling = () => {
                                     <div className="Ad__edit__inner">
                                         {erEksternStilling ? (
                                             <div>
-                                                <PreviewHeader />
+                                                <PreviewHeader kandidatliste={kandidatliste} />
                                                 <Preview ad={stilling} />
                                             </div>
                                         ) : (
@@ -158,7 +158,7 @@ const Stilling = () => {
                                     </div>
                                 ) : (
                                     <div className="Ad__preview">
-                                        <PreviewHeader />
+                                        <PreviewHeader kandidatliste={kandidatliste} />
                                         <Preview ad={stilling} />
                                     </div>
                                 )}
