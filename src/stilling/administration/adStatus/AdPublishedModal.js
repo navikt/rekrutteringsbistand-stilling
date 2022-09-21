@@ -18,7 +18,6 @@ class AdPublishedModal extends React.Component {
     render() {
         const {
             showAdPublishedModal,
-            uuid,
             adStatus,
             activationOnPublishingDate,
             published,
