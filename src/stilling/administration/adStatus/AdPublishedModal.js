@@ -48,6 +48,9 @@ class AdPublishedModal extends React.Component {
                         <Link
                             to={`/kandidatsok?kandidatliste=${kandidatlisteId}`}
                             className="navds-link"
+                            state={{
+                                brukKriterierFraStillingen: true,
+                            }}
                             onClick={this.onClose}
                         >
                             <Search />

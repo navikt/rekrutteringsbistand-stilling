@@ -52,6 +52,9 @@ const Kandidathandlinger: FunctionComponent<Props> = ({ kandidatliste }) => {
                 <>
                     <Link
                         className="navds-link"
+                        state={{
+                            brukKriterierFraStillingen: true,
+                        }}
                         to={`/kandidatsok?kandidatliste=${kandidatliste.data.kandidatlisteId}`}
                     >
                         <Search />
