@@ -46,11 +46,8 @@ class AdPublishedModal extends React.Component {
                     </Normaltekst>
                     <div className="AdPublishedModal__links typo-normal">
                         <Link
-                            to={`/kandidatsok?kandidatliste=${kandidatlisteId}`}
+                            to={`/kandidatsok?kandidatliste=${kandidatlisteId}&brukKriterierFraStillingen=true`}
                             className="navds-link"
-                            state={{
-                                brukKriterierFraStillingen: true,
-                            }}
                             onClick={this.onClose}
                         >
                             <Search />
