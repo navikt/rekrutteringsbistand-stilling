@@ -7,6 +7,10 @@ Applikasjonsfrontend for rekrutteringsbistand.
 
 - Stillingsdatabase-api, [pam-ad-api](https://github.com/navikt/pam-ad-api)
 
+## Virksomheter i dev
+
+Arbeidsgivere som man kan opprette stillinger for i dev er hentet fra [Tenor](https://www.skatteetaten.no/skjema/testdata/).
+
 ## Installasjon
 
 ```
