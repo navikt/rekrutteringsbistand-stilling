@@ -105,7 +105,7 @@ export const fetchEmployerNameCompletionHits = async (
 ): Promise<Arbeidsgiverforslag[]> => {
     if (Miljø.DevGcp) {
         const matchendeVirksomheter = devVirksomheter.filter((virksomhet: Arbeidsgiverforslag) =>
-            virksomhet.name.includes(input)
+            virksomhet.name.toLowerCase().includes(input.toLowerCase())
         );
         return Promise.resolve(matchendeVirksomheter);
     }
