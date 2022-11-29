@@ -103,12 +103,12 @@ const employerNameCompletionQueryTemplate = (match: string) => ({
 export const fetchEmployerNameCompletionHits = async (
     input: string
 ): Promise<Arbeidsgiverforslag[]> => {
-    if (Miljø.DevGcp) {
-        const matchendeVirksomheter = devVirksomheter.filter((virksomhet: Arbeidsgiverforslag) =>
-            virksomhet.name.toLowerCase().includes(input.toLowerCase())
-        );
-        return Promise.resolve(matchendeVirksomheter);
-    }
+    // if (Miljø.DevGcp) {
+    //     const matchendeVirksomheter = devVirksomheter.filter((virksomhet: Arbeidsgiverforslag) =>
+    //         virksomhet.name.toLowerCase().includes(input.toLowerCase())
+    //     );
+    //     return Promise.resolve(matchendeVirksomheter);
+    // }
 
     const result = await fetchPost(
         `${stillingApi}/search-api/underenhet/_search`,
@@ -133,12 +133,12 @@ export const fetchEmployerNameCompletionHits = async (
 export const fetchOrgnrSuggestions = async (orgnummer: string): Promise<Arbeidsgiverforslag[]> => {
     const utenMellomrom = orgnummer.replace(/\s/g, '');
 
-    if (Miljø.DevGcp) {
-        const matchendeVirksomheter = devVirksomheter.filter((virksomhet: Arbeidsgiverforslag) =>
-            virksomhet.orgnr?.includes(orgnummer)
-        );
-        return Promise.resolve(matchendeVirksomheter);
-    }
+    // if (Miljø.DevGcp) {
+    //     const matchendeVirksomheter = devVirksomheter.filter((virksomhet: Arbeidsgiverforslag) =>
+    //         virksomhet.orgnr?.includes(orgnummer)
+    //     );
+    //     return Promise.resolve(matchendeVirksomheter);
+    // }
 
     const result = await fetchGet(
         `${stillingApi}/search-api/underenhet/_search?q=organisasjonsnummer:${utenMellomrom}*`
