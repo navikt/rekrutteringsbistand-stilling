@@ -11,6 +11,8 @@ Applikasjonsfrontend for rekrutteringsbistand.
 
 Arbeidsgivere som man kan opprette stillinger for i dev er hentet fra [Tenor](https://www.skatteetaten.no/skjema/testdata/).
 
+Les mer om dette [her](https://github.com/navikt/arbeidsgiver-inkludering/blob/master/arbeidsgivere-i-dev.md).
+
 ## Installasjon
 
 ```
