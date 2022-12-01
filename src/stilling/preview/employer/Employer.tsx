@@ -2,9 +2,12 @@ import React from 'react';
 import parse from 'html-react-parser';
 import { Undertittel } from 'nav-frontend-typografi';
 import { isValidUrl } from '../../../common/urlUtils';
+import Stilling from '../../../Stilling';
 import './Employer.less';
 
-export default function Employer({ properties, businessName }) {
+export default function Employer({ ad }: { ad: Stilling }) {
+    const { businessName, properties, employer } = ad;
+
     return (
         <div className="detail-section">
             <Undertittel className="detail-section__head">Om bedriften</Undertittel>
@@ -12,6 +15,10 @@ export default function Employer({ properties, businessName }) {
                 {(properties.employer || businessName) && [
                     <dt key="dt">Bedriftens navn:</dt>,
                     <dd key="dd">{properties.employer || businessName}</dd>, // todo: remove ad.properties.employer when depricated
+                ]}
+                {employer?.orgnr && [
+                    <dt key="dt">Virksomhetsnr:</dt>,
+                    <dd key="dd">{employer?.orgnr}</dd>,
                 ]}
                 {properties.employerhomepage &&
                     isValidUrl(properties.employerhomepage) && [
