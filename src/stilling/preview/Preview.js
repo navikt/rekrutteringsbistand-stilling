@@ -4,7 +4,7 @@ import { Column, Row } from 'nav-frontend-grid';
 import parse from 'html-react-parser';
 import Application from './application/Application';
 import ContactPerson from './contactPerson/ContactPerson';
-import Employer from './employer/Employer';
+import Employer from './employer/Employer.tsx';
 import Employment from './employment/Employment';
 import Summary from './summary/Summary';
 
@@ -85,7 +85,7 @@ export default function Preview({ ad }) {
                         <Application source={ad.source} properties={ad.properties} />
                         <Employment properties={ad.properties} locationList={ad.locationList} />
                         <ContactPerson contactList={ad.contactList} />
-                        <Employer businessName={ad.businessName} properties={ad.properties} />
+                        <Employer ad={ad} />
                         <Summary ad={ad} />
                     </div>
                 </Column>
