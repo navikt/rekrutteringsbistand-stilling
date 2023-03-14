@@ -152,12 +152,14 @@ const ResultItem: FunctionComponent<Props> = ({ rekrutteringsbistandstilling }) 
                 )}
             </td>
             <td className="Col-candidate">
-                <LenkeMedIkon
-                    href={`/kandidater/lister/stilling/${stilling.uuid}/detaljer`}
-                    classNameText="typo-normal"
-                    classNameLink="CandidateList"
-                    text="Se kandidatliste"
-                />
+                {stilling.publishedByAdmin && (
+                    <LenkeMedIkon
+                        href={`/kandidater/lister/stilling/${stilling.uuid}/detaljer`}
+                        classNameText="typo-normal"
+                        classNameLink="CandidateList"
+                        text="Se kandidatliste"
+                    />
+                )}
             </td>
             <td className="Col-edit center">
                 <Link
