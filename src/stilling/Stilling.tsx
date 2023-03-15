@@ -17,7 +17,7 @@ import PreviewHeader from './preview/header/PreviewHeader';
 import AdStatusEnum from '../common/enums/AdStatusEnum';
 import { State } from '../redux/store';
 import { VarslingActionType } from '../common/varsling/varslingReducer';
-import useHentEllerOpprettKandidatliste from './kandidathandlinger/useHentEllerOpprettKandidatliste';
+import useHentKandidatliste from './kandidathandlinger/useHentKandidatliste';
 import { Nettstatus } from '../api/Nettressurs';
 import './Stilling.less';
 
@@ -34,7 +34,7 @@ const Stilling = () => {
     const navigate = useNavigate();
     const stilling = useSelector((state: State) => state.adData);
     const { isEditingAd, isSavingAd, isLoadingAd } = useSelector((state: State) => state.ad);
-    const kandidatliste = useHentEllerOpprettKandidatliste(stilling.uuid);
+    const kandidatliste = useHentKandidatliste(stilling.uuid);
 
     const getStilling = (uuid: string, edit: boolean) => {
         dispatch({ type: FETCH_AD, uuid, edit });
