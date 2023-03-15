@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Nettressurs, ikkeLastet, lasterInn, suksess, feil } from '../../api/Nettressurs';
-import { fetchKandidatliste, putKandidatliste } from '../legg-til-kandidat-modal/kandidatApi';
+import { fetchKandidatliste } from '../legg-til-kandidat-modal/kandidatApi';
 import { Kandidatliste } from '../legg-til-kandidat-modal/kandidatlistetyper';
 
-const useHentEllerOpprettKandidatliste = (stillingsId?: string) => {
+const useHentKandidatliste = (stillingsId?: string) => {
     const [kandidatliste, setKandidatliste] = useState<Nettressurs<Kandidatliste>>(ikkeLastet());
 
     useEffect(() => {
@@ -15,13 +15,7 @@ const useHentEllerOpprettKandidatliste = (stillingsId?: string) => {
             try {
                 kandidatliste = suksess(await fetchKandidatliste(stillingsId));
             } catch (e) {
-                if (e.status === 404) {
-                    /* TODO: Dette kallet feiler på eksterne stillinger.
-                     * Er det riktig at vi prøver å opprette en kandidatliste uansett? */
-                    kandidatliste = suksess(await putKandidatliste(stillingsId));
-                } else {
-                    kandidatliste = feil(e.message);
-                }
+                kandidatliste = feil(e.message);
             }
 
             setKandidatliste(kandidatliste);
@@ -35,4 +29,4 @@ const useHentEllerOpprettKandidatliste = (stillingsId?: string) => {
     return kandidatliste;
 };
 
-export default useHentEllerOpprettKandidatliste;
+export default useHentKandidatliste;
