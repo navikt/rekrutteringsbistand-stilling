@@ -34,7 +34,7 @@ const Stilling = () => {
     const navigate = useNavigate();
     const stilling = useSelector((state: State) => state.adData);
     const { isEditingAd, isSavingAd, isLoadingAd } = useSelector((state: State) => state.ad);
-    const kandidatliste = useHentKandidatliste(stilling.uuid);
+    const kandidatliste = useHentKandidatliste(stilling.uuid); // TODO Trenger vi å hente kandiadtlista
 
     const getStilling = (uuid: string, edit: boolean) => {
         dispatch({ type: FETCH_AD, uuid, edit });
@@ -171,7 +171,7 @@ const Stilling = () => {
                                 {erEksternStilling ? (
                                     <AdministrationLimited kandidatlisteId={kandidatlisteId} />
                                 ) : (
-                                    <Administration kandidatlisteId={kandidatlisteId} />
+                                    <Administration />
                                 )}
                             </div>
                         </div>
