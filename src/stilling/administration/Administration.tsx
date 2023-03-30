@@ -9,11 +9,7 @@ import Privacy from './publishing/Privacy';
 import Publishing from './publishing/Publishing';
 import './Administration.less';
 
-type Props = {
-    kandidatlisteId: string;
-};
-
-const Administration: FunctionComponent<Props> = ({ kandidatlisteId }) => (
+const Administration: FunctionComponent = () => (
     <div className="Administration">
         <div className="Administration__flex">
             <div className="Administration__flex__top">
@@ -37,7 +33,7 @@ const Administration: FunctionComponent<Props> = ({ kandidatlisteId }) => (
             </div>
             <div className="Administration__flex__bottom">
                 <AdminStatusPreview />
-                <AdStatusEdit kandidatlisteId={kandidatlisteId} />
+                <AdStatusEdit />
             </div>
         </div>
     </div>
