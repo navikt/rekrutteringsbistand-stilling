@@ -104,7 +104,7 @@ class AdStatusEdit extends React.PureComponent {
     };
 
     render() {
-        const { adStatus, activationOnPublishingDate, deactivatedByExpiry, isSavingAd, uuid } =
+        const { adStatus, activationOnPublishingDate, deactivatedByExpiry, isSavingAd } =
             this.props;
 
         const isPublished =
@@ -136,7 +136,7 @@ class AdStatusEdit extends React.PureComponent {
                 <PublishErrorModal />
                 <StopAdModal />
                 <DeleteAdModal />
-                <AdPublishedModal stillingId={uuid} />
+                <AdPublishedModal kandidatlisteId={this.props.kandidatlisteId} />
                 <SaveAdErrorModal />
                 {buttonState === ButtonGroupEnum.LIMITED_ACCESS && (
                     <div className="AdStatusEdit__buttons">
@@ -259,6 +259,7 @@ AdStatusEdit.propTypes = {
     createdBy: PropTypes.string.isRequired,
     previewAd: PropTypes.func.isRequired,
     reload: PropTypes.func.isRequired,
+    kandidatlisteId: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({

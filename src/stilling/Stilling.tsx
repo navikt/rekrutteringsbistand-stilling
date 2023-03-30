@@ -171,7 +171,7 @@ const Stilling = () => {
                                 {erEksternStilling ? (
                                     <AdministrationLimited kandidatlisteId={kandidatlisteId} />
                                 ) : (
-                                    <Administration />
+                                    <Administration kandidatlisteId={kandidatlisteId} />
                                 )}
                             </div>
                         </div>

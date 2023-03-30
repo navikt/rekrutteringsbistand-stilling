@@ -22,7 +22,7 @@ class AdPublishedModal extends React.Component {
             activationOnPublishingDate,
             published,
             isSavingAd,
-            stillingId,
+            kandidatlisteId,
         } = this.props;
 
         return isSavingAd ? null : (
@@ -46,7 +46,7 @@ class AdPublishedModal extends React.Component {
                     </Normaltekst>
                     <div className="AdPublishedModal__links typo-normal">
                         <Link
-                            to={`/kandidatsok?stilling=${stillingId}&brukKriterierFraStillingen=true`}
+                            to={`/kandidatsok?kandidatliste=${kandidatlisteId}&brukKriterierFraStillingen=true`}
                             className="navds-link"
                             onClick={this.onClose}
                         >

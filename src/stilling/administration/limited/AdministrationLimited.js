@@ -25,7 +25,7 @@ const AdministrationLimited = ({ kandidatlisteId }) => {
                 </div>
                 <div className="Administration__flex__center">{editFields()}</div>
                 <div className="Administration__flex__bottom">
-                    <AdStatusEdit stillingId={kandidatlisteId} />
+                    <AdStatusEdit kandidatlisteId={kandidatlisteId} />
                 </div>
             </div>
         </div>
