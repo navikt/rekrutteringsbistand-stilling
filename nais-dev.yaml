@@ -33,6 +33,6 @@ spec:
         - https://rekrutteringsbistand.intern.dev.nav.no/rekrutteringsbistand-stilling
     env:
         - name: VIS_STILLING_URL
-          value: https://vis-stilling.dev.nav.no/arbeid/stilling
+          value: https://vis-stilling.intern.dev.nav.no/arbeid/stilling
         - name: NODE_EXTRA_CA_CERTS
           value: /etc/ssl/ca-bundle.pem
