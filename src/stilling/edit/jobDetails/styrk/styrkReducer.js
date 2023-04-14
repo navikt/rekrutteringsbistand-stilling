@@ -198,7 +198,7 @@ export default function styrkReducer(state = initialState, action) {
 function* getStyrk() {
     if (!originalStyrkThree) {
         try {
-            const url = `${stillingApi}/rekrutteringsbistand/api/v1/categories-with-altnames/?taxonomy=STYRK08NAV`;
+            const url = `${stillingApi}/rekrutteringsbistand/api/v1/categories-with-altnames?taxonomy=STYRK08NAV`;
             const response = yield fetchGet(url);
             const sorted = response.sort((a, b) => {
                 if (a.code < b.code) return -1;
