@@ -106,7 +106,7 @@ export const fetchKandidatMedFnr = async (fnr: string): Promise<Nettressurs<Kand
 };
 
 export const putKandidatliste = (stillingsId: string): Promise<Kandidatliste> =>
-    putRequest(`${KANDIDAT_API}/veileder/stilling/${stillingsId}/kandidatliste/`);
+    putRequest(`${KANDIDAT_API}/veileder/stilling/${stillingsId}/kandidatliste`);
 
 export const fetchKandidatliste = (stillingsId: string): Promise<Kandidatliste> =>
     fetchJson(`${KANDIDAT_API}/veileder/stilling/${stillingsId}/kandidatliste`);

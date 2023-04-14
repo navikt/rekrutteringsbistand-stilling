@@ -61,7 +61,7 @@ export function* getReportee() {
 
         try {
             const response: Reportee = yield fetchGet(
-                `${stillingApi}/rekrutteringsbistand/api/v1/reportee/`
+                `${stillingApi}/rekrutteringsbistand/api/v1/reportee`
             );
 
             yield putAction({ type: ReporteeActionType.FetchReporteeSuccess, response });
