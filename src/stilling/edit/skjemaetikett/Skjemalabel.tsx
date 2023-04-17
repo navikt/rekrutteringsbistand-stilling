@@ -6,6 +6,7 @@ type Props = {
     inputId?: string;
     beskrivelse?: string;
     etterLabel?: ReactNode;
+    children?: ReactNode;
 };
 
 const Skjemalabel: FunctionComponent<Props> = ({

@@ -10,6 +10,7 @@ type Props = {
     beskrivelse?: string;
     className?: string;
     hjelpetekst?: ReactNode;
+    children?: ReactNode;
 };
 
 const Skjemalegend: FunctionComponent<Props> = ({

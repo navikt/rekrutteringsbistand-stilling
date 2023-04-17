@@ -10,6 +10,7 @@ type Props = {
     orientering?: PopoverOrientering;
     onPopoverClick?: () => void;
     className?: string;
+    children?: ReactNode;
 };
 
 const MedPopover: FunctionComponent<Props> = ({
