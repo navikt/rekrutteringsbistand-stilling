@@ -1,4 +1,4 @@
-import { Element, Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort, Label } from '@navikt/ds-react';
 import React, { FunctionComponent, ReactNode } from 'react';
 
 type Props = {
@@ -19,11 +19,22 @@ const Skjemalabel: FunctionComponent<Props> = ({
     return (
         <div className="blokk-xxs">
             <label htmlFor={inputId}>
-                <Element tag="span">{children}</Element>
-                {påkrevd && <Normaltekst tag="span"> (må fylles ut)</Normaltekst>}
+                <Label size="small" as="span">
+                    {children}
+                </Label>
+                {påkrevd && (
+                    <BodyShort size="small" as="span">
+                        {' '}
+                        (må fylles ut)
+                    </BodyShort>
+                )}
             </label>
             {etterLabel}
-            {beskrivelse && <Normaltekst id={`${inputId}-beskrivelse`}>{beskrivelse}</Normaltekst>}
+            {beskrivelse && (
+                <BodyShort size="small" id={`${inputId}-beskrivelse`}>
+                    {beskrivelse}
+                </BodyShort>
+            )}
         </div>
     );
 };
