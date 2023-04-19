@@ -1,5 +1,5 @@
-import React, { BaseSyntheticEvent, FunctionComponent, useState } from 'react';
-import { connect } from 'react-redux';
+import React, { BaseSyntheticEvent, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { leggTilTimerPåISOString } from '../../../utils/datoUtils';
 import { SET_PUBLISHED, SET_EXPIRATION_DATE } from '../../adDataReducer';
 import {
@@ -16,21 +16,13 @@ export type Validation = {
     published: string;
 };
 
-type Props = {
-    published: string;
-    expires: string;
-    setExpirationDate: (date: String) => void;
-    setPublished: (date: String) => void;
-    validation: Validation;
-};
+export default function Publishing() {
+    const dispatch = useDispatch();
 
-const Publishing: FunctionComponent<Props> = ({
-    published,
-    expires,
-    setExpirationDate,
-    setPublished,
-    validation,
-}) => {
+    const published = useSelector((state: any) => state.adData.published);
+    const expires = useSelector((state: any) => state.adData.expires);
+    const validation = useSelector((state: any) => state.adValidation.errors);
+
     const [publishDateInput, setPublishDateInput] = useState<Date | undefined>(new Date(published));
     const [expirationDateInput, setExpirationDateInput] = useState<Date | undefined>(
         new Date(expires)
@@ -46,20 +38,26 @@ const Publishing: FunctionComponent<Props> = ({
         const dateString = input.target.value;
 
         if (!dateString || !publishDateInput) {
-            setPublished(dateString);
+            dispatch({ type: SET_PUBLISHED, published: dateString });
             return;
         }
-        setPublished(leggTilTimerPåISOString(publishDateInput.toISOString(), 3));
+        dispatch({
+            type: SET_PUBLISHED,
+            published: leggTilTimerPåISOString(publishDateInput.toISOString(), 3),
+        });
     };
 
     const onBlurExpirationDate = (input: BaseSyntheticEvent) => {
         const dateString = input.target.value;
 
         if (!dateString || !expirationDateInput) {
-            setExpirationDate(dateString);
+            dispatch({ type: SET_EXPIRATION_DATE, expires: dateString });
             return;
         }
-        setExpirationDate(leggTilTimerPåISOString(expirationDateInput.toISOString(), 3));
+        dispatch({
+            type: SET_EXPIRATION_DATE,
+            expires: leggTilTimerPåISOString(expirationDateInput.toISOString(), 3),
+        });
     };
 
     const onPublishChange = (date: Date) => {
@@ -146,17 +144,4 @@ const Publishing: FunctionComponent<Props> = ({
             </div>
         </div>
     );
-};
-
-const mapStateToProps = (state: any) => ({
-    published: state.adData.published,
-    expires: state.adData.expires,
-    validation: state.adValidation.errors,
-});
-
-const mapDispatchToProps = (dispatch: any) => ({
-    setPublished: (published: string) => dispatch({ type: SET_PUBLISHED, published }),
-    setExpirationDate: (expires: string) => dispatch({ type: SET_EXPIRATION_DATE, expires }),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Publishing);
+}
