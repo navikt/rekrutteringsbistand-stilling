@@ -1,12 +1,9 @@
 import React from 'react';
-import { Radio, RadioGruppe } from 'nav-frontend-skjema';
 import { SET_PRIVACY } from '../../adDataReducer';
 import PrivacyStatusEnum from '../../../common/enums/PrivacyStatusEnum';
-import Skjemalegend from '../../edit/skjemaetikett/Skjemalegend';
-import { Undertittel } from 'nav-frontend-typografi';
 import { useDispatch, useSelector } from 'react-redux';
 
-import './Privacy.less';
+import { Radio, RadioGroup } from '@navikt/ds-react';
 
 export default function Privacy() {
     const dispatch = useDispatch();
@@ -18,26 +15,27 @@ export default function Privacy() {
     };
 
     return (
-        <RadioGruppe className="Privacy">
-            <Skjemalegend className="Privacy__legend" påkrevd>
-                <Undertittel className="Privacy__tittel">
-                    Hvor skal stillingen publiseres?
-                </Undertittel>
-            </Skjemalegend>
+        <RadioGroup
+            legend="Hvor skal stillingen publiseres?"
+            value={privacy}
+            defaultValue={PrivacyStatusEnum.INTERNAL_NOT_SHOWN}
+        >
             <Radio
-                label="Kun internt i NAV"
                 value={PrivacyStatusEnum.INTERNAL_NOT_SHOWN}
                 name="privacy"
-                checked={privacy === PrivacyStatusEnum.INTERNAL_NOT_SHOWN}
                 onChange={onPrivacyChange}
-            />
+                size="small"
+            >
+                Kun internt i NAV
+            </Radio>
             <Radio
-                label="Eksternt på Arbeidsplassen"
                 value={PrivacyStatusEnum.SHOW_ALL}
                 name="privacy"
-                checked={privacy === PrivacyStatusEnum.SHOW_ALL}
                 onChange={onPrivacyChange}
-            />
-        </RadioGruppe>
+                size="small"
+            >
+                Eksternt på Arbeidsplassen
+            </Radio>
+        </RadioGroup>
     );
 }

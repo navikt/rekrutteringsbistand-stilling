@@ -18,7 +18,7 @@ const Administration: FunctionComponent = () => (
             <div className="Administration__flex__center">
                 <div className="Tab__area Administration__elements">
                     <div className="Administration__panel">
-                        <Heading level="2" size="small" spacing>
+                        <Heading level="2" size="xsmall" spacing>
                             Når skal stillingen vises?
                         </Heading>
                         <Publishing />

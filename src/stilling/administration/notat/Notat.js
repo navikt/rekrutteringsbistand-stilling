@@ -5,8 +5,9 @@ import { connect } from 'react-redux';
 import { SET_NOTAT } from '../../../stillingsinfo/stillingsinfoDataReducer';
 import { MAX_LENGTH_NOTAT } from '../../adValidationReducer';
 import Skjemalabel from '../../edit/skjemaetikett/Skjemalabel';
-import { Undertittel, Element } from 'nav-frontend-typografi';
+import { Element } from 'nav-frontend-typografi';
 import './Notat.less';
+import { Heading } from '@navikt/ds-react';
 
 class Notat extends React.Component {
     constructor(props) {
@@ -47,7 +48,9 @@ class Notat extends React.Component {
         return (
             <div className="Notat">
                 <Skjemalabel>
-                    <Undertittel className="blokk-xs">Notater</Undertittel>
+                    <Heading level="2" size="xsmall" spacing>
+                        Notater
+                    </Heading>
                     <Element>Notat, vises kun internt</Element>
                     <Element>Ikke skriv personopplysninger her</Element>
                 </Skjemalabel>
