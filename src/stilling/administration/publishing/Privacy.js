@@ -6,7 +6,7 @@ import { SET_PRIVACY } from '../../adDataReducer';
 import PrivacyStatusEnum from '../../../common/enums/PrivacyStatusEnum';
 import Skjemalegend from '../../edit/skjemaetikett/Skjemalegend';
 import { Undertittel } from 'nav-frontend-typografi';
-import './Publishing.less';
+import './Privacy.less';
 
 class Privacy extends React.Component {
     onPrivacyChange = (e) => {

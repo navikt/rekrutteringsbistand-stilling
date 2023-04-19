@@ -9,7 +9,6 @@ import {
     Label,
     UNSAFE_useDatepicker as useDatepicker,
 } from '@navikt/ds-react';
-import './Publishing.less';
 import css from './Publishing.module.css';
 
 export type Validation = {
