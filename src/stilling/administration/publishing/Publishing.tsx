@@ -10,6 +10,7 @@ import {
     UNSAFE_useDatepicker as useDatepicker,
 } from '@navikt/ds-react';
 import './Publishing.less';
+import css from './Publishing.module.css';
 
 export type Validation = {
     expires: string;
@@ -119,8 +120,8 @@ const Publishing: FunctionComponent<Props> = ({
     });
 
     return (
-        <div className="Publishing">
-            <div className="Publishing__datepicker Publishing__datepicker-publishing-date">
+        <div className={css.publishing}>
+            <div>
                 <DatePicker {...datepickerPropsPublished.datepickerProps}>
                     <DatePicker.Input
                         {...datepickerPropsPublished.inputProps}
@@ -132,7 +133,7 @@ const Publishing: FunctionComponent<Props> = ({
                     />
                 </DatePicker>
             </div>
-            <div className="Publishing__datepicker Publishing__datepicker-expires">
+            <div>
                 <DatePicker {...datepickerPropsExpirationDate.datepickerProps}>
                     <DatePicker.Input
                         {...datepickerPropsExpirationDate.inputProps}

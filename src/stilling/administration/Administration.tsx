@@ -1,5 +1,4 @@
 import React, { FunctionComponent } from 'react';
-import { Undertittel } from 'nav-frontend-typografi';
 
 import AdminStatusPreview from './adminStatus/AdminStatusPreview';
 import AdStatus from './adStatus/AdStatus';
@@ -8,6 +7,7 @@ import Notat from './notat/Notat';
 import Privacy from './publishing/Privacy';
 import Publishing from './publishing/Publishing';
 import './Administration.less';
+import { Heading } from '@navikt/ds-react';
 
 const Administration: FunctionComponent = () => (
     <div className="Administration">
@@ -18,9 +18,9 @@ const Administration: FunctionComponent = () => (
             <div className="Administration__flex__center">
                 <div className="Tab__area Administration__elements">
                     <div className="Administration__panel">
-                        <Undertittel className="Administration__panel__title">
+                        <Heading level="2" size="small" spacing>
                             Når skal stillingen vises?
-                        </Undertittel>
+                        </Heading>
                         <Publishing />
                     </div>
                     <div className="Administration__panel">
