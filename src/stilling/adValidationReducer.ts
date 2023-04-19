@@ -207,7 +207,6 @@ const erSattFørIdag = (datoString: string): boolean => {
 function* validatePublishDate() {
     const state = yield select();
     const { published } = state.adData;
-    console.log('published', published, erSattFørIdag(published));
 
     if (valueIsNotSet(published)) {
         yield addValidationError({
