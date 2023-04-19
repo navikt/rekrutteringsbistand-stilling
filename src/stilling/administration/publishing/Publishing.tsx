@@ -19,8 +19,8 @@ export type Validation = {
 type Props = {
     published: string;
     expires: string;
-    setExpirationDate: (Date) => void;
-    setPublished: (Date) => void;
+    setExpirationDate: (date: String) => void;
+    setPublished: (date: String) => void;
     validation: Validation;
 };
 
@@ -155,8 +155,8 @@ const mapStateToProps = (state: any) => ({
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
-    setPublished: (published) => dispatch({ type: SET_PUBLISHED, published }),
-    setExpirationDate: (expires) => dispatch({ type: SET_EXPIRATION_DATE, expires }),
+    setPublished: (published: string) => dispatch({ type: SET_PUBLISHED, published }),
+    setExpirationDate: (expires: string) => dispatch({ type: SET_EXPIRATION_DATE, expires }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Publishing);
