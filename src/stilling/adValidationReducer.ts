@@ -180,7 +180,6 @@ function* validateAdtext() {
 function* validateExpireDate() {
     const state = yield select();
     const { expires } = state.adData;
-
     if (valueIsNotSet(expires)) {
         yield addValidationError({
             field: 'expires',
@@ -208,6 +207,7 @@ const erSattFørIdag = (datoString: string): boolean => {
 function* validatePublishDate() {
     const state = yield select();
     const { published } = state.adData;
+    console.log('published', published, erSattFørIdag(published));
 
     if (valueIsNotSet(published)) {
         yield addValidationError({
@@ -218,6 +218,11 @@ function* validatePublishDate() {
         yield addValidationError({
             field: 'published',
             message: 'Publiseringsdato er ugyldig',
+        });
+    } else if (erSattFørIdag(published)) {
+        yield addValidationError({
+            field: 'published',
+            message: 'Publiseringsdato kan ikke være før dagens dato',
         });
     } else {
         yield removeValidationError({ field: 'published' });

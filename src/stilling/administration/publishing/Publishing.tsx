@@ -68,7 +68,7 @@ const Publishing: FunctionComponent<Props> = ({
 
     const onValidatePublished = (validation: DateValidationT) => {
         if (validation.isBefore) {
-            setPublishDateInput(new Date());
+            setPublishDateInput(iGår());
         }
     };
 
