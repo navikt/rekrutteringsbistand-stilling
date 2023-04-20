@@ -7,8 +7,8 @@ import { Detail, Heading, Textarea } from '@navikt/ds-react';
 
 const Notat = ({ placeholder }) => {
     const [hasChanged, setHasChanged] = useState<boolean>(false);
-    const [notat, setNotat] = useState<string>('');
-
+    const [notat, setNotat] = useState<string>();
+    const lagretNotat = useSelector((state: any) => state.stillingsinfoData.notat);
     const validation = useSelector((state: any) => state.adValidation.errors);
 
     const dispatch = useDispatch();
@@ -50,9 +50,9 @@ const Notat = ({ placeholder }) => {
             <Textarea
                 maxLength={MAX_LENGTH_NOTAT}
                 onChange={onChange}
+                defaultValue={lagretNotat}
                 onBlur={onBlur}
                 value={notat || ''}
-                className="typo-normal Notat__textarea"
                 error={validation.notat}
                 label={label}
                 placeholder={placeholder}
