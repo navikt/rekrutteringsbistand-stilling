@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { SET_NOTAT } from '../../../stillingsinfo/stillingsinfoDataReducer';
 import { MAX_LENGTH_NOTAT } from '../../adValidationReducer';
-import './Notat.less';
 import { Detail, Heading, Textarea } from '@navikt/ds-react';
 
 const Notat = ({ placeholder }) => {
@@ -46,7 +45,7 @@ const Notat = ({ placeholder }) => {
     );
 
     return (
-        <div className="Notat">
+        <div>
             <Textarea
                 maxLength={MAX_LENGTH_NOTAT}
                 onChange={onChange}
