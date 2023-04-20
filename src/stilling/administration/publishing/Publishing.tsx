@@ -16,7 +16,7 @@ export type Validation = {
     published: string;
 };
 
-export default function Publishing() {
+const Publishing = () => {
     const dispatch = useDispatch();
 
     const published = useSelector((state: any) => state.adData.published);
@@ -144,4 +144,6 @@ export default function Publishing() {
             </div>
         </div>
     );
-}
+};
+
+export default Publishing;
