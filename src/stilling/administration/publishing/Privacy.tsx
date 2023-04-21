@@ -15,11 +15,7 @@ export default function Privacy() {
     };
 
     return (
-        <RadioGroup
-            legend="Hvor skal stillingen publiseres?"
-            value={privacy}
-            defaultValue={PrivacyStatusEnum.INTERNAL_NOT_SHOWN}
-        >
+        <RadioGroup legend="Hvor skal stillingen publiseres?" value={privacy}>
             <Radio
                 value={PrivacyStatusEnum.INTERNAL_NOT_SHOWN}
                 name="privacy"
