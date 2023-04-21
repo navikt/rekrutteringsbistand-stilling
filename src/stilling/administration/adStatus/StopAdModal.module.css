@@ -1,0 +1,10 @@
+.stopAdModal {
+    padding: 2rem;
+    width: 40rem;
+}
+
+.knapper {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}

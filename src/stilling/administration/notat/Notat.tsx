@@ -4,7 +4,7 @@ import { SET_NOTAT } from '../../../stillingsinfo/stillingsinfoDataReducer';
 import { MAX_LENGTH_NOTAT } from '../../adValidationReducer';
 import { Detail, Heading, Textarea } from '@navikt/ds-react';
 
-const Notat = ({ placeholder }) => {
+const Notat = ({ placeholder }: { placeholder?: string }) => {
     const lagretNotat = useSelector((state: any) => state.stillingsinfoData.notat);
     const validation = useSelector((state: any) => state.adValidation.errors);
     const [hasChanged, setHasChanged] = useState<boolean>(false);
