@@ -1,0 +1,9 @@
+.adPublishedModal {
+    padding: 2rem;
+    width: 40rem;
+}
+
+.lenker {
+    display: flex;
+    gap: 1rem;
+}
