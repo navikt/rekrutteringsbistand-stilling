@@ -1,7 +1,8 @@
-import { Knapp } from 'nav-frontend-knapper';
 import React, { FunctionComponent } from 'react';
 import { useSelector } from 'react-redux';
 import { State } from '../../../redux/store';
+import { Button } from '@navikt/ds-react';
+import css from './AdStatusEdit.module.css';
 
 type Props = {
     onDeleteClick: () => void;
@@ -16,14 +17,14 @@ const Sletteknapp: FunctionComponent<Props> = ({ onDeleteClick, isDeleting }) =>
     if (!erEier) return null;
 
     return (
-        <Knapp
-            mini
-            className="AdStatusEdit__buttons__button AdStatusEdit__DeleteAd__button"
+        <Button
+            variant="secondary"
             onClick={onDeleteClick}
-            spinner={isDeleting}
+            loading={isDeleting}
+            className={css.knapp}
         >
             Slett stilling
-        </Knapp>
+        </Button>
     );
 };
 
