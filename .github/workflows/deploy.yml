@@ -57,7 +57,7 @@ jobs:
     deploy-til-dev:
         name: Deploy til dev-gcp
         needs: bygg-og-push-docker-image
-        if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/notat-til-nytt-designsystem'
+        if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/fiks-vedier-for-notat-og-privacy'
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
