@@ -1,15 +1,13 @@
-import React, { FunctionComponent, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { Flatknapp, Hovedknapp } from 'nav-frontend-knapper';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import { DELETE_AD, HIDE_DELETE_AD_MODAL } from '../../adReducer';
-import ModalMedStillingScope from '../../../common/ModalMedStillingScope';
 import { State } from '../../../redux/store';
 import { VarslingAction, VarslingActionType } from '../../../common/varsling/varslingReducer';
-import './DeleteAdModal.less';
+import css from './DeleteAdModal.module.css';
+import { BodyLong, Button, Heading, Modal } from '@navikt/ds-react';
 
-const DeleteAdModal: FunctionComponent = () => {
+const DeleteAdModal = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -43,30 +41,28 @@ const DeleteAdModal: FunctionComponent = () => {
     };
 
     return (
-        <ModalMedStillingScope
-            isOpen={showDeleteAdModal}
-            contentLabel="Fortsett"
-            onRequestClose={onClose}
-            closeButton
-            className="DeleteAdModal"
-        >
-            <Undertittel className="blokk-s">
+        <Modal open={showDeleteAdModal} onClose={onClose} closeButton className={css.deleteAdModal}>
+            <Heading level="2" size="small" spacing>
                 Slett feilregistrert stilling og kandidatliste
-            </Undertittel>
-            <Normaltekst className="blokk-s">
+            </Heading>
+            <BodyLong spacing>
                 Denne funksjonen skal brukes når det er valgt feil bedrift. Stillinger og
                 kandidatlister som er slettet vises ikke i løsningen, og stillingen og kandidatene
                 vil ikke telles i statistikken.
-            </Normaltekst>
-            <Normaltekst className="blokk-l">
+            </BodyLong>
+            <BodyLong spacing>
                 Er du sikker på at du ønsker å slette {title} og tilhørende kandidatliste?
                 Stillinger og kandidatlister som er slettet vises ikke i løsningen.
-            </Normaltekst>
-            <div className="DeleteAdModal__buttons">
-                <Hovedknapp onClick={onDeleteAdClick}>Slett</Hovedknapp>
-                <Flatknapp onClick={onClose}>Avbryt</Flatknapp>
+            </BodyLong>
+            <div className={css.knapper}>
+                <Button variant="primary" onClick={onDeleteAdClick}>
+                    Slett
+                </Button>
+                <Button variant="secondary" onClick={onClose}>
+                    Avbryt
+                </Button>
             </div>
-        </ModalMedStillingScope>
+        </Modal>
     );
 };
 
