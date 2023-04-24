@@ -88,7 +88,7 @@ const Stilling = () => {
         };
 
         /* eslint-disable react-hooks/exhaustive-deps */
-    }, []);
+    }, [uuid]);
 
     useEffect(() => {
         const manglerUuidIUrl = !uuid && stilling?.uuid;

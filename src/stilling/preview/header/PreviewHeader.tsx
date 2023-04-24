@@ -20,7 +20,7 @@ import { AdDataState } from '../../adDataReducer';
 import OpprettKandidatlisteModal from './OpprettKandidatlisteModal';
 import Stillingstittel from './Stillingstittel';
 import Stillingsheader from '../../header/Stillingsheader';
-import './PreviewHeader.less';
+import css from './PreviewHeader.module.css';
 
 type Props = {
     stilling: AdDataState;
@@ -98,6 +98,11 @@ class PreviewMenu extends React.Component<Props> {
                             Rediger stillingen
                         </Button>
                     )}
+                    {kanOverfoereStilling && (
+                        <Button onClick={this.onLeggTilIMineStillingerClick} size="small">
+                            Opprett kandidatliste
+                        </Button>
+                    )}
                     {stillingErPublisert(stilling) && (
                         <CopyToClipboard
                             popoverText="Kopierte annonselenken til clipboard!"
@@ -107,15 +112,6 @@ class PreviewMenu extends React.Component<Props> {
                         >
                             Kopier annonselenke
                         </CopyToClipboard>
-                    )}
-                    {kanOverfoereStilling && (
-                        <Button
-                            variant="secondary"
-                            onClick={this.onLeggTilIMineStillingerClick}
-                            size="small"
-                        >
-                            Opprett kandidatliste
-                        </Button>
                     )}
                     <Button
                         variant="secondary"
@@ -127,7 +123,7 @@ class PreviewMenu extends React.Component<Props> {
                     </Button>
                 </Stillingsheader>
                 {limitedAccess && (
-                    <div>
+                    <>
                         {(showAdTransferredAlert || showAdMarkedAlert) && (
                             <div className="Ad__info">
                                 <Alertstripe className="Adtransferred__Alertstripe" type="suksess">
@@ -151,7 +147,7 @@ class PreviewMenu extends React.Component<Props> {
                                 stillingen.
                             </Alertstripe>
                         </div>
-                    </div>
+                    </>
                 )}
                 <Stillingstittel
                     tittel={stilling.title}

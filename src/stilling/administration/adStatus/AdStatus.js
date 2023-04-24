@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Alertstripe from 'nav-frontend-alertstriper';
 import AdStatusEnum from '../../../common/enums/AdStatusEnum';
-import './AdStatus.less';
 import PrivacyStatusEnum from '../../../common/enums/PrivacyStatusEnum';
 import { formatISOString } from '../../../utils/datoUtils.ts';
 

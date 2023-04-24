@@ -79,7 +79,7 @@ const ResultItemDropDown: FunctionComponent<ResultItemDropDownProps> = ({
                     }
                     helpText={`Du kan ikke stoppe en stilling som har status: "${getAdStatusLabel(
                         stilling.status,
-                        stilling.deactivatedByExpiry
+                        stilling.deactivatedByExpiry!
                     ).toLowerCase()}"`}
                     onToggleHjelpetekst={onToggleHjelpetekst}
                 />

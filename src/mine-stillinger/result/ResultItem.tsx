@@ -147,7 +147,7 @@ const ResultItem: FunctionComponent<Props> = ({ rekrutteringsbistandstilling }) 
             <td className="Col-status">
                 {stilling.status && (
                     <Normaltekst className="ResultItem__column">
-                        {getAdStatusLabel(stilling.status, stilling.deactivatedByExpiry)}
+                        {getAdStatusLabel(stilling.status, stilling.deactivatedByExpiry!)}
                     </Normaltekst>
                 )}
             </td>

@@ -417,7 +417,7 @@ function* createAd(action) {
         };
 
         const response: Rekrutteringsbistandstilling = yield postStilling(
-            stillingDto,
+            stillingDto as Stilling,
             action.kategori
         );
 

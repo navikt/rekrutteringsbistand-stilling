@@ -6,7 +6,7 @@ export type Rekrutteringsbistandstilling = {
 };
 
 export type Stilling = {
-    id: string;
+    id: number;
     uuid: string;
     created: string;
     createdBy: System;
@@ -29,7 +29,7 @@ export type Stilling = {
     /** Når NSS-admin trykker på "publiser" */
     publishedByAdmin: string | null;
     businessName: string | null;
-    deactivatedByExpiry?: boolean;
+    deactivatedByExpiry: boolean | null;
     categoryList: StyrkCategory[];
     activationOnPublishingDate: boolean;
 };
@@ -78,9 +78,9 @@ export type Arbeidsgiver = {
 export type Location = {
     address: string;
     postalCode: string;
-    city?: string;
-    municipal?: string;
-    country?: string;
+    city: string | null;
+    municipal: string | null;
+    country: string | null;
 };
 
 export type StyrkCategory = {
@@ -94,7 +94,7 @@ export type Geografi = {
     county: string | null;
     country: string | null;
     municipal: string | null;
-    latitue: string | null;
+    latitude: string | null;
     longitude: string | null;
 };
 
@@ -105,11 +105,11 @@ export enum AdminStatus {
 }
 
 export type Administration = {
-    status: AdminStatus;
+    status: AdminStatus | null;
     reportee: string;
     navIdent: string;
-    comments?: string;
-    remarks?: string[];
+    comments: string | null;
+    remarks: string[] | null;
 };
 
 export type Properties = Partial<{

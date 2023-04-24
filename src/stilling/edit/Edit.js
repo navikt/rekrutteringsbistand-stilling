@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Button } from '@navikt/ds-react';
+import { Alert, Button } from '@navikt/ds-react';
 import { CopyToClipboard } from '@navikt/ds-react-internal';
 import { NewspaperIcon } from '@navikt/aksel-icons';
 
@@ -81,9 +81,9 @@ const Edit = ({
             </Stillingsheader>
             {stillingenErIntern ? (
                 <div className="Ad__info">
-                    <AlertStripe className="AdStatusPreview__Alertstripe" type="info" solid="true">
+                    <Alert variant="info">
                         Dette er en eksternt utlyst stilling. Du kan <b>ikke</b> endre stillingen.
-                    </AlertStripe>
+                    </Alert>
                 </div>
             ) : (
                 <Column xs="1" md="12" className="blokk-s">
