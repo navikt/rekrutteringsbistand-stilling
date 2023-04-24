@@ -3,7 +3,6 @@ import { Column } from 'nav-frontend-grid';
 import { connect } from 'react-redux';
 import { Element, Undertittel } from 'nav-frontend-typografi';
 import { Input } from 'nav-frontend-skjema';
-import { Knapp } from 'nav-frontend-knapper';
 import AlertStripe, { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import PropTypes from 'prop-types';
@@ -26,6 +25,7 @@ import './Edit.less';
 import { SET_AD_DATA } from '../adDataReducer';
 import { SET_STILLINGSINFO_DATA } from '../../stillingsinfo/stillingsinfoDataReducer';
 import { VarslingActionType } from '../../common/varsling/varslingReducer';
+import { Button } from '@navikt/ds-react';
 
 const Edit = ({
     ad,
@@ -62,11 +62,11 @@ const Edit = ({
         <div className="Edit">
             <div className="Edit__actions">
                 <Kandidathandlinger kandidatliste={kandidatliste} />
-                <div className="blokk-xs">
+                <div className="Edit__knapper">
                     {!stillingenErIntern && (
-                        <Knapp className="Ad__actions-button" onClick={onPreviewAdClick} mini>
+                        <Button onClick={onPreviewAdClick} size="small">
                             Forhåndsvis stillingen
-                        </Knapp>
+                        </Button>
                     )}
                     {stillingErPublisert(ad) && (
                         <KopierTekst

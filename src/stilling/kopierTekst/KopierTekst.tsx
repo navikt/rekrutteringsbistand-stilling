@@ -1,50 +1,25 @@
-import React, { FunctionComponent, useRef, useState } from 'react';
-import Popover, { PopoverOrientering } from 'nav-frontend-popover';
-import { Normaltekst } from 'nav-frontend-typografi';
-import './KopierTekst.less';
+import React, { FunctionComponent } from 'react';
+import { CopyToClipboard } from '@navikt/ds-react-internal';
 
-interface Props {
+type Props = {
     className: string;
     tooltipTekst: string;
-    skalKopieres?: string;
-}
+    skalKopieres: string;
+};
 
-const KopierTekst: FunctionComponent<Props> = ({ className, tooltipTekst, skalKopieres }) => {
-    const buttonRef = useRef<HTMLButtonElement>(null);
-    const [erKopiertPopup, toggleErKopiertPopup] = useState<HTMLButtonElement | undefined>(
-        undefined
-    );
-
-    const kopier = () => {
-        if (skalKopieres) {
-            toggleErKopiertPopup(buttonRef.current || undefined);
-            navigator.clipboard.writeText(skalKopieres);
-
-            setTimeout(() => {
-                toggleErKopiertPopup(undefined);
-            }, 2000);
-        }
-    };
-
+const KopierTekst: FunctionComponent<Props> = ({ tooltipTekst, skalKopieres, className }) => {
     return (
-        <>
-            <button
-                ref={buttonRef}
-                className={className + ' knapp knapp--mini'}
-                type="button"
-                onClick={kopier}
+        <span>
+            <CopyToClipboard
+                className={className}
+                copyText={skalKopieres}
+                popoverText="Annonselenken ble kopiert"
+                variant={'secondary' as 'tertiary'}
+                size="small"
             >
                 {tooltipTekst}
-            </button>
-            <Popover
-                orientering={PopoverOrientering.UnderHoyre}
-                autoFokus={false}
-                ankerEl={erKopiertPopup}
-                onRequestClose={() => toggleErKopiertPopup(undefined)}
-            >
-                <Normaltekst className="kopier-tekst__popup">Annonselenken ble kopiert</Normaltekst>
-            </Popover>
-        </>
+            </CopyToClipboard>
+        </span>
     );
 };
 

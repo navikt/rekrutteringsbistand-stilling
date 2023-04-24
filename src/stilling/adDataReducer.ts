@@ -99,6 +99,7 @@ export type AdDataState = {
     stilling?: Stilling;
     title?: string;
     createdBy?: string;
+    location?: any;
 };
 
 export type Adminsitration = {

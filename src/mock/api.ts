@@ -19,7 +19,6 @@ import search from './data/search.json';
 import aktivEnhet from './data/dekoratør/aktivenhet.json';
 import aktivBruker from './data/dekoratør/aktivbruker.json';
 import decorator from './data/dekoratør/decorator.json';
-import { FEATURE_TOGGLE_API } from '../stilling/kandidathandlinger/useVisForeslåKandidaterLenke';
 
 const adsUrl = `express:${stillingApi}/rekrutteringsbistand/api/v1/ads`;
 const slettStillingUrl = `express:${stillingApi}/rekrutteringsbistandstilling/:stillingsId`;
@@ -37,7 +36,6 @@ const postdataUrl = `${stillingApi}/rekrutteringsbistand/api/v1/postdata`;
 const fnrsokUrl = `express:${KANDIDAT_API}/veileder/kandidatsok/fnrsok`;
 const kandidatlisteUrl = `express:${KANDIDAT_API}/veileder/stilling/:stillingsId/kandidatliste`;
 const leggKandidatIKandidatlisteUrl = `express:${KANDIDAT_API}/veileder/kandidatlister/:kandidatlisteId/kandidater`;
-const featureToggleUrl = `express:${FEATURE_TOGGLE_API}/:feature`;
 
 const identUrl = `express:${stillingApi}/stillingsinfo/ident/:ident`;
 const searchApiUrl = `express:${stillingApi}/search-api/underenhet/_search`;
@@ -83,5 +81,4 @@ fetchMock
     .get(kandidatlisteUrl, kandidatliste, {
         delay: 500,
     })
-    .post(leggKandidatIKandidatlisteUrl, kandidatliste)
-    .get(featureToggleUrl, true);
+    .post(leggKandidatIKandidatlisteUrl, kandidatliste);

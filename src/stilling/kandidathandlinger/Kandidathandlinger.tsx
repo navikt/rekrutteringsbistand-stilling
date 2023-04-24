@@ -1,16 +1,15 @@
 import React, { FunctionComponent, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Search, AddCircle, AutomaticSystem, CoApplicant } from '@navikt/ds-icons';
+import { Search, AddCircle, CoApplicant } from '@navikt/ds-icons';
 
 import { State } from '../../redux/store';
 import { sendGenerellEvent } from '../../verktøy/amplitude';
 import { stillingenHarKandidatliste } from '../adUtils';
 import LeggTilKandidatModal from '../legg-til-kandidat-modal/LeggTilKandidatModal';
-import { useVisForeslåKandidaterLenke } from './useVisForeslåKandidaterLenke';
 import { Nettressurs, Nettstatus } from '../../api/Nettressurs';
-import './Kandidathandlinger.less';
 import { Kandidatliste } from '../legg-til-kandidat-modal/kandidatlistetyper';
+import './Kandidathandlinger.less';
 
 type Props = {
     kandidatliste: Nettressurs<Kandidatliste>;
@@ -21,7 +20,6 @@ const Kandidathandlinger: FunctionComponent<Props> = ({ kandidatliste }) => {
     const stillingsinfo = useSelector((state: State) => state.stillingsinfoData);
 
     const [visLeggTilKandidatModal, setVisLeggTilKandidatModal] = useState(false);
-    const visForeslåKandidaterLenke = useVisForeslåKandidaterLenke();
 
     const onSeKandidatlisteClick = () => {
         sendGenerellEvent('knapp', {
@@ -64,15 +62,6 @@ const Kandidathandlinger: FunctionComponent<Props> = ({ kandidatliste }) => {
                         <AddCircle />
                         Legg til kandidat
                     </button>
-                    {visForeslåKandidaterLenke && (
-                        <Link
-                            className="navds-link"
-                            to={`/prototype/stilling/${stillingsdata.uuid}`}
-                        >
-                            <AutomaticSystem />
-                            Foreslå kandidater
-                        </Link>
-                    )}
                     <Link
                         className="navds-link"
                         to={`/kandidater/lister/stilling/${stillingsdata.uuid}/detaljer`}

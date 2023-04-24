@@ -1,20 +1,44 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
-import { EDIT_AD, LEGG_TIL_I_MINE_STILLINGER } from '../../adReducer';
-import { CLOSE_TRANSFERRED_ALERT } from '../../../stillingsinfo/stillingsinfoReducer';
-import Stillingstittel from './Stillingstittel';
-import Alertstripe from 'nav-frontend-alertstriper';
+import { Button } from '@navikt/ds-react';
+import { CopyToClipboard } from '@navikt/ds-react-internal';
 import { Xknapp } from 'nav-frontend-ikonknapper';
-import KopierTekst from '../../kopierTekst/KopierTekst';
+import Alertstripe from 'nav-frontend-alertstriper';
+
+import {
+    CLOSE_TRANSFERRED_ALERT,
+    StillingsinfoState,
+} from '../../../stillingsinfo/stillingsinfoReducer';
+import { EDIT_AD, LEGG_TIL_I_MINE_STILLINGER } from '../../adReducer';
 import { hentAnnonselenke, stillingErPublisert } from '../../adUtils';
-import OpprettKandidatlisteModal from './OpprettKandidatlisteModal';
+import { Kandidatliste } from '../../legg-til-kandidat-modal/kandidatlistetyper';
+import { Nettressurs } from '../../../api/Nettressurs';
+import { State } from '../../../redux/store';
+import { Stillingsinfo } from '../../../Stilling';
+import { AdDataState } from '../../adDataReducer';
 import Kandidathandlinger from '../../kandidathandlinger/Kandidathandlinger';
+import OpprettKandidatlisteModal from './OpprettKandidatlisteModal';
+import Stillingstittel from './Stillingstittel';
 import './PreviewHeader.less';
 
-class PreviewMenu extends React.Component {
-    constructor(props) {
+type Props = {
+    stilling: AdDataState;
+    stillingsinfoData: Stillingsinfo;
+    stillingsinfo: StillingsinfoState;
+    kandidatliste: Nettressurs<Kandidatliste>;
+    limitedAccess: boolean;
+
+    editAd: () => void;
+    leggTilIMineStillinger: () => void;
+    closeAlertstripe: () => void;
+};
+
+class PreviewMenu extends React.Component<Props> {
+    state: {
+        opprettKandidatlisteModalÅpen: boolean;
+    };
+
+    constructor(props: Props) {
         super(props);
         this.state = {
             opprettKandidatlisteModalÅpen: false,
@@ -65,52 +89,45 @@ class PreviewMenu extends React.Component {
         const kanOverfoereStilling =
             stillingsinfoData && limitedAccess && !stillingsinfoData.eierNavident;
 
-        const stillingsLenke = hentAnnonselenke(stilling.uuid);
-
         return (
             <div>
                 <div className="Ad__actions">
                     <Kandidathandlinger kandidatliste={this.props.kandidatliste} />
-                    <div className="blokk-xs">
+                    <div className="PreviewHeader__knapper">
                         {!limitedAccess && (
-                            <Hovedknapp
-                                className="Ad__actions-button"
-                                onClick={this.onEditAdClick}
-                                mini
-                            >
+                            <Button onClick={this.onEditAdClick} size="small">
                                 Rediger stillingen
-                            </Hovedknapp>
+                            </Button>
                         )}
                         {stillingErPublisert(stilling) && (
-                            <KopierTekst
-                                className="PreviewHeader__kopier-lenke-knapp"
-                                tooltipTekst="Kopier stillingslenke"
-                                skalKopieres={stillingsLenke}
-                            />
+                            <CopyToClipboard
+                                popoverText="Kopier annonselenke"
+                                copyText={hentAnnonselenke(stilling.uuid)}
+                                variant={'secondary' as 'tertiary'}
+                                size="small"
+                            >
+                                Kopier annonselenke
+                            </CopyToClipboard>
                         )}
                         {kanOverfoereStilling && (
-                            <Knapp
-                                className="button-legg-i-mine-stillinger"
+                            <Button
+                                variant="secondary"
                                 onClick={this.onLeggTilIMineStillingerClick}
-                                mini
+                                size="small"
                             >
                                 Opprett kandidatliste
-                            </Knapp>
+                            </Button>
                         )}
-                        <Knapp className="button-print" onClick={this.onPrintClick} mini>
+                        <Button variant="secondary" onClick={this.onPrintClick} size="small">
                             Skriv ut
-                        </Knapp>
+                        </Button>
                     </div>
                 </div>
                 {limitedAccess && (
                     <div>
                         {(showAdTransferredAlert || showAdMarkedAlert) && (
                             <div className="Ad__info">
-                                <Alertstripe
-                                    className="Adtransferred__Alertstripe"
-                                    type="suksess"
-                                    solid="true"
-                                >
+                                <Alertstripe className="Adtransferred__Alertstripe" type="suksess">
                                     <div className="Adtransferred_text">
                                         {(showAdTransferredAlert
                                             ? 'Kandidatlisten er opprettet.'
@@ -126,11 +143,7 @@ class PreviewMenu extends React.Component {
                             </div>
                         )}
                         <div className="Ad__info">
-                            <Alertstripe
-                                className="AdStatusPreview__Alertstripe"
-                                type="info"
-                                solid="true"
-                            >
+                            <Alertstripe className="AdStatusPreview__Alertstripe" type="info">
                                 Dette er en eksternt utlyst stilling. Du kan <b>ikke</b> endre
                                 stillingen.
                             </Alertstripe>
@@ -152,43 +165,14 @@ class PreviewMenu extends React.Component {
     }
 }
 
-PreviewMenu.defaultProps = {
-    stilling: undefined,
-};
-
-PreviewMenu.propTypes = {
-    stilling: PropTypes.shape({
-        title: PropTypes.string,
-        location: PropTypes.shape({
-            address: PropTypes.string,
-            municipal: PropTypes.string,
-            country: PropTypes.string,
-        }),
-        properties: PropTypes.shape({
-            employer: PropTypes.string,
-        }),
-    }),
-    editAd: PropTypes.func.isRequired,
-    stillingsinfoData: PropTypes.shape({
-        stillingsid: PropTypes.string,
-        eierNavident: PropTypes.string,
-        eierNavn: PropTypes.string,
-    }),
-    stilingsinfo: PropTypes.shape({
-        showAdTransferredAlert: PropTypes.bool,
-        showAdMarkedAlert: PropTypes.bool,
-    }),
-    kandidatliste: PropTypes.object.isRequired,
-};
-
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: State) => ({
     stillingsinfoData: state.stillingsinfoData,
     stillingsinfo: state.stillingsinfo,
     stilling: state.adData,
     limitedAccess: state.adData.createdBy !== 'pam-rekrutteringsbistand',
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch: (action: any) => void) => ({
     editAd: () => dispatch({ type: EDIT_AD }),
     leggTilIMineStillinger: () => dispatch({ type: LEGG_TIL_I_MINE_STILLINGER }),
     closeAlertstripe: () => dispatch({ type: CLOSE_TRANSFERRED_ALERT }),
