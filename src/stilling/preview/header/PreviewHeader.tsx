@@ -1,10 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Button } from '@navikt/ds-react';
+import { Alert, BodyShort, Button } from '@navikt/ds-react';
 import { CopyToClipboard } from '@navikt/ds-react-internal';
-import { Xknapp } from 'nav-frontend-ikonknapper';
-import { DocPencilIcon, PrinterSmallIcon } from '@navikt/aksel-icons';
-import Alertstripe from 'nav-frontend-alertstriper';
+import { DocPencilIcon, PrinterSmallIcon, XMarkIcon } from '@navikt/aksel-icons';
 
 import {
     CLOSE_TRANSFERRED_ALERT,
@@ -126,26 +124,28 @@ class PreviewMenu extends React.Component<Props> {
                     <>
                         {(showAdTransferredAlert || showAdMarkedAlert) && (
                             <div className="Ad__info">
-                                <Alertstripe className="Adtransferred__Alertstripe" type="suksess">
-                                    <div className="Adtransferred_text">
+                                <Alert className={css.stillingBleOverførtAlert} variant="success">
+                                    <BodyShort>
                                         {(showAdTransferredAlert
                                             ? 'Kandidatlisten er opprettet.'
                                             : 'Kandidatlisten er markert som din.') +
                                             ' Du er nå eier av stillingen og kandidatlisten.'}
-                                    </div>
-                                    <Xknapp
-                                        className="alertstripe-lukk-knapp"
+                                    </BodyShort>
+                                    <Button
+                                        variant="secondary-neutral"
+                                        className={css.stillingBleOverførtKnapp}
                                         onClick={this.onCloseAlertstripe}
-                                        mini={true}
-                                    />
-                                </Alertstripe>
+                                        size="small"
+                                        icon={<XMarkIcon />}
+                                    ></Button>
+                                </Alert>
                             </div>
                         )}
                         <div className="Ad__info">
-                            <Alertstripe className="AdStatusPreview__Alertstripe" type="info">
+                            <Alert variant="info">
                                 Dette er en eksternt utlyst stilling. Du kan <b>ikke</b> endre
                                 stillingen.
-                            </Alertstripe>
+                            </Alert>
                         </div>
                     </>
                 )}
