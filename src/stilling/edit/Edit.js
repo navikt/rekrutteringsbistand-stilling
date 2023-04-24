@@ -7,7 +7,7 @@ import { NewspaperIcon } from '@navikt/aksel-icons';
 import { Column } from 'nav-frontend-grid';
 import { Element, Undertittel } from 'nav-frontend-typografi';
 import { Input } from 'nav-frontend-skjema';
-import AlertStripe, { AlertStripeInfo } from 'nav-frontend-alertstriper';
+import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import PropTypes from 'prop-types';
 
