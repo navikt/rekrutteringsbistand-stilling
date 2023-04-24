@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Button } from '@navikt/ds-react';
 import { CopyToClipboard } from '@navikt/ds-react-internal';
 import { Xknapp } from 'nav-frontend-ikonknapper';
+import { DocPencilIcon, PrinterSmallIcon } from '@navikt/aksel-icons';
 import Alertstripe from 'nav-frontend-alertstriper';
 
 import {
@@ -16,9 +17,9 @@ import { Nettressurs } from '../../../api/Nettressurs';
 import { State } from '../../../redux/store';
 import { Stillingsinfo } from '../../../Stilling';
 import { AdDataState } from '../../adDataReducer';
-import Kandidathandlinger from '../../kandidathandlinger/Kandidathandlinger';
 import OpprettKandidatlisteModal from './OpprettKandidatlisteModal';
 import Stillingstittel from './Stillingstittel';
+import Stillingsheader from '../../header/Stillingsheader';
 import './PreviewHeader.less';
 
 type Props = {
@@ -90,39 +91,41 @@ class PreviewMenu extends React.Component<Props> {
             stillingsinfoData && limitedAccess && !stillingsinfoData.eierNavident;
 
         return (
-            <div>
-                <div className="Ad__actions">
-                    <Kandidathandlinger kandidatliste={this.props.kandidatliste} />
-                    <div className="PreviewHeader__knapper">
-                        {!limitedAccess && (
-                            <Button onClick={this.onEditAdClick} size="small">
-                                Rediger stillingen
-                            </Button>
-                        )}
-                        {stillingErPublisert(stilling) && (
-                            <CopyToClipboard
-                                popoverText="Kopier annonselenke"
-                                copyText={hentAnnonselenke(stilling.uuid)}
-                                variant={'secondary' as 'tertiary'}
-                                size="small"
-                            >
-                                Kopier annonselenke
-                            </CopyToClipboard>
-                        )}
-                        {kanOverfoereStilling && (
-                            <Button
-                                variant="secondary"
-                                onClick={this.onLeggTilIMineStillingerClick}
-                                size="small"
-                            >
-                                Opprett kandidatliste
-                            </Button>
-                        )}
-                        <Button variant="secondary" onClick={this.onPrintClick} size="small">
-                            Skriv ut
+            <>
+                <Stillingsheader kandidatliste={this.props.kandidatliste}>
+                    {!limitedAccess && (
+                        <Button onClick={this.onEditAdClick} size="small" icon={<DocPencilIcon />}>
+                            Rediger stillingen
                         </Button>
-                    </div>
-                </div>
+                    )}
+                    {stillingErPublisert(stilling) && (
+                        <CopyToClipboard
+                            popoverText="Kopierte annonselenken til clipboard!"
+                            copyText={hentAnnonselenke(stilling.uuid)}
+                            variant={'secondary' as 'tertiary'}
+                            size="small"
+                        >
+                            Kopier annonselenke
+                        </CopyToClipboard>
+                    )}
+                    {kanOverfoereStilling && (
+                        <Button
+                            variant="secondary"
+                            onClick={this.onLeggTilIMineStillingerClick}
+                            size="small"
+                        >
+                            Opprett kandidatliste
+                        </Button>
+                    )}
+                    <Button
+                        variant="secondary"
+                        onClick={this.onPrintClick}
+                        size="small"
+                        icon={<PrinterSmallIcon />}
+                    >
+                        Skriv ut
+                    </Button>
+                </Stillingsheader>
                 {limitedAccess && (
                     <div>
                         {(showAdTransferredAlert || showAdMarkedAlert) && (
@@ -160,7 +163,7 @@ class PreviewMenu extends React.Component<Props> {
                     onClose={this.lukkOpprettKandidatlisteModal}
                     onBekreft={this.bekreftOpprettKandidatliste}
                 />
-            </div>
+            </>
         );
     }
 }

@@ -1,6 +1,10 @@
 import React, { useEffect } from 'react';
-import { Column } from 'nav-frontend-grid';
 import { connect } from 'react-redux';
+import { Button } from '@navikt/ds-react';
+import { CopyToClipboard } from '@navikt/ds-react-internal';
+import { NewspaperIcon } from '@navikt/aksel-icons';
+
+import { Column } from 'nav-frontend-grid';
 import { Element, Undertittel } from 'nav-frontend-typografi';
 import { Input } from 'nav-frontend-skjema';
 import AlertStripe, { AlertStripeInfo } from 'nav-frontend-alertstriper';
@@ -16,16 +20,14 @@ import ContactPerson from './contactPerson/ContactPerson.tsx';
 import EditHeader from './header/EditHeader';
 import EndreArbeidsgiver from './endre-arbeidsgiver/EndreArbeidsgiver';
 import JobDetails from './jobDetails/JobDetails';
-import Kandidathandlinger from '../kandidathandlinger/Kandidathandlinger.tsx';
-import KopierTekst from '../kopierTekst/KopierTekst';
 import Location from './location/Location';
 import PracticalInformation from './practicalInformation/PracticalInformation';
 import RegistrerInkluderingsmuligheter from './registrer-inkluderingsmuligheter/DirektemeldtStilling';
-import './Edit.less';
 import { SET_AD_DATA } from '../adDataReducer';
 import { SET_STILLINGSINFO_DATA } from '../../stillingsinfo/stillingsinfoDataReducer';
 import { VarslingActionType } from '../../common/varsling/varslingReducer';
-import { Button } from '@navikt/ds-react';
+import Stillingsheader from '../header/Stillingsheader.tsx';
+import './Edit.less';
 
 const Edit = ({
     ad,
@@ -60,23 +62,23 @@ const Edit = ({
 
     return (
         <div className="Edit">
-            <div className="Edit__actions">
-                <Kandidathandlinger kandidatliste={kandidatliste} />
-                <div className="Edit__knapper">
-                    {!stillingenErIntern && (
-                        <Button onClick={onPreviewAdClick} size="small">
-                            Forhåndsvis stillingen
-                        </Button>
-                    )}
-                    {stillingErPublisert(ad) && (
-                        <KopierTekst
-                            className=""
-                            tooltipTekst="Kopier stillingslenke"
-                            skalKopieres={stillingsLenke}
-                        />
-                    )}
-                </div>
-            </div>
+            <Stillingsheader kandidatliste={kandidatliste}>
+                {!stillingenErIntern && (
+                    <Button onClick={onPreviewAdClick} size="small" icon={<NewspaperIcon />}>
+                        Forhåndsvis stillingen
+                    </Button>
+                )}
+                {stillingErPublisert(ad) && (
+                    <CopyToClipboard
+                        copyText={stillingsLenke}
+                        popoverText="Kopierte annonselenken til clipboard"
+                        variant="secondary"
+                        size="small"
+                    >
+                        Kopier annonselenke
+                    </CopyToClipboard>
+                )}
+            </Stillingsheader>
             {stillingenErIntern ? (
                 <div className="Ad__info">
                     <AlertStripe className="AdStatusPreview__Alertstripe" type="info" solid="true">

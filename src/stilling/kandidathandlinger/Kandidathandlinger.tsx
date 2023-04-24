@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Search, AddCircle, CoApplicant } from '@navikt/ds-icons';
+import { MagnifyingGlassIcon, PersonPlusIcon, PersonGroupIcon } from '@navikt/aksel-icons';
 
 import { State } from '../../redux/store';
 import { sendGenerellEvent } from '../../verktøy/amplitude';
@@ -37,29 +37,30 @@ const Kandidathandlinger: FunctionComponent<Props> = ({ kandidatliste }) => {
         stillingsdata.source
     );
 
+    const kandidatlisteId =
+        kandidatliste.kind === Nettstatus.Suksess ? kandidatliste.data.kandidatlisteId : '';
+
     return (
         <div className="kandidathandlinger">
-            {kandidatliste.kind === Nettstatus.Suksess && (
-                <LeggTilKandidatModal
-                    vis={visLeggTilKandidatModal}
-                    onClose={toggleLeggTilKandidatModal}
-                    kandidatliste={kandidatliste}
-                />
-            )}
-            {visHandlingerKnyttetTilKandidatlisten && kandidatliste.kind === Nettstatus.Suksess && (
+            <LeggTilKandidatModal
+                vis={visLeggTilKandidatModal}
+                onClose={toggleLeggTilKandidatModal}
+                kandidatliste={kandidatliste}
+            />
+            {visHandlingerKnyttetTilKandidatlisten && (
                 <>
                     <Link
                         className="navds-link"
-                        to={`/kandidatsok?kandidatliste=${kandidatliste.data.kandidatlisteId}&brukKriterierFraStillingen=true`}
+                        to={`/kandidatsok?kandidatliste=${kandidatlisteId}&brukKriterierFraStillingen=true`}
                     >
-                        <Search />
+                        <MagnifyingGlassIcon />
                         Finn kandidater
                     </Link>
                     <button
                         className="navds-link kandidathandlinger__legg-til-kandidat-knapp"
                         onClick={toggleLeggTilKandidatModal}
                     >
-                        <AddCircle />
+                        <PersonPlusIcon />
                         Legg til kandidat
                     </button>
                     <Link
@@ -67,7 +68,7 @@ const Kandidathandlinger: FunctionComponent<Props> = ({ kandidatliste }) => {
                         to={`/kandidater/lister/stilling/${stillingsdata.uuid}/detaljer`}
                         onClick={onSeKandidatlisteClick}
                     >
-                        <CoApplicant />
+                        <PersonGroupIcon />
                         Se kandidatliste
                     </Link>
                 </>
