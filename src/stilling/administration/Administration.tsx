@@ -11,30 +11,22 @@ import { Heading } from '@navikt/ds-react';
 
 const Administration: FunctionComponent = () => (
     <div>
-        <div>
+        <AdStatus />
+        <div className={css.elements}>
             <div>
-                <AdStatus />
+                <Heading level="2" size="xsmall" spacing>
+                    Når skal stillingen vises?
+                </Heading>
+                <Publishing />
             </div>
-            <div>
-                <div className={css.elements}>
-                    <div>
-                        <Heading level="2" size="xsmall" spacing>
-                            Når skal stillingen vises?
-                        </Heading>
-                        <Publishing />
-                    </div>
-                    <div className={css.panel}>
-                        <Privacy />
-                    </div>
-                    <div>
-                        <Notat placeholder="Legg inn notat" />
-                    </div>
-                </div>
+            <div className={css.panel}>
+                <Privacy />
             </div>
-            <div className={css.bottom}>
-                <AdminStatusPreview />
-                <AdStatusEdit />
-            </div>
+            <Notat placeholder="Legg inn notat" />
+        </div>
+        <div className={css.bottom}>
+            <AdminStatusPreview />
+            <AdStatusEdit />
         </div>
     </div>
 );
