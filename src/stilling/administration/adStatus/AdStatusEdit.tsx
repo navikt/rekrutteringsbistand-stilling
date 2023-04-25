@@ -182,7 +182,7 @@ const AdStatusEdit = () => {
                         </Button>
                         <Sletteknapp onDeleteClick={onDeleteClick} isDeleting={isDeleting} />
                     </div>
-                    <div className={css.knapp}>
+                    <div>
                         <AvbrytKnapp />
                     </div>
                 </>

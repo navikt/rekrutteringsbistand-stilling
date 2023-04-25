@@ -1,0 +1,24 @@
+.elements {
+    overflow: hidden;
+    padding: 1.5rem;
+}
+
+.panel {
+    margin-bottom: 2rem;
+}
+
+.bottom {
+    position: fixed;
+    bottom: 0;
+    width: 25rem;
+    background: #d9e8f7;
+    border-top: 1px solid #b7b1a9;
+    padding: 0.5rem 1.5rem;
+}
+
+@media (min-width: 1400px) {
+    .bottom {
+        padding: 1.5rem 2.5rem 1.5rem;
+        width: 32rem;
+    }
+}

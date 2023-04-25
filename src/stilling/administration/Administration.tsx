@@ -6,32 +6,32 @@ import AdStatusEdit from './adStatus/AdStatusEdit';
 import Notat from './notat/Notat';
 import Privacy from './publishing/Privacy';
 import Publishing from './publishing/Publishing';
-import './Administration.less';
+import css from './Administration.module.css';
 import { Heading } from '@navikt/ds-react';
 
 const Administration: FunctionComponent = () => (
-    <div className="Administration">
-        <div className="Administration__flex">
-            <div className="Administration__flex__top">
+    <div>
+        <div>
+            <div>
                 <AdStatus />
             </div>
-            <div className="Administration__flex__center">
-                <div className="Tab__area Administration__elements">
-                    <div className="Administration__panel">
+            <div>
+                <div className={css.elements}>
+                    <div>
                         <Heading level="2" size="xsmall" spacing>
                             Når skal stillingen vises?
                         </Heading>
                         <Publishing />
                     </div>
-                    <div className="Administration__panel">
+                    <div className={css.panel}>
                         <Privacy />
                     </div>
-                    <div className="Administration__panel">
+                    <div>
                         <Notat placeholder="Legg inn notat" />
                     </div>
                 </div>
             </div>
-            <div className="Administration__flex__bottom">
+            <div className={css.bottom}>
                 <AdminStatusPreview />
                 <AdStatusEdit />
             </div>
