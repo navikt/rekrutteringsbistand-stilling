@@ -25,8 +25,6 @@ import stillingsinfoReducer, {
 } from '../stillingsinfo/stillingsinfoReducer';
 import { Stillingsinfo } from '../Stilling';
 import { mineStillingerSaga } from '../mine-stillinger/mineStillingerSagas';
-import { hentStateFraLocalStorage } from './localStorage';
-import { lagreEndringerSaga } from './lagreEndringerSaga';
 import stillingsinfoDataReducer from '../stillingsinfo/stillingsinfoDataReducer';
 
 export type State = {
@@ -60,7 +58,6 @@ const createReduxStore = () => {
             stillingsinfoData: stillingsinfoDataReducer,
             varsling: varslingReducer,
         }),
-        hentStateFraLocalStorage(),
         composeEnhancers(applyMiddleware(sagaMiddleware))
     );
 
@@ -74,7 +71,6 @@ const createReduxStore = () => {
     sagaMiddleware.run(locationAreaSaga);
     sagaMiddleware.run(stillingsinfoSaga);
     sagaMiddleware.run(varslingSaga);
-    sagaMiddleware.run(lagreEndringerSaga);
 
     return reduxStore;
 };

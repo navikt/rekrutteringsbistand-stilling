@@ -12,9 +12,7 @@ import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import PropTypes from 'prop-types';
 
 import { formatISOString } from '../../utils/datoUtils.ts';
-import { gjenopprettStillingsendringerFraLocalStorage } from '../../redux/localStorage';
 import { hentAnnonselenke, stillingErPublisert } from '../adUtils';
-import { RESET_VALIDATION_ERROR } from '../adValidationReducer';
 import Application from './application/Application';
 import ContactPerson from './contactPerson/ContactPerson.tsx';
 import EditHeader from './header/EditHeader';
@@ -23,36 +21,14 @@ import JobDetails from './jobDetails/JobDetails';
 import Location from './location/Location';
 import PracticalInformation from './practicalInformation/PracticalInformation';
 import RegistrerInkluderingsmuligheter from './registrer-inkluderingsmuligheter/DirektemeldtStilling';
-import { SET_AD_DATA } from '../adDataReducer';
-import { SET_STILLINGSINFO_DATA } from '../../stillingsinfo/stillingsinfoDataReducer';
-import { VarslingActionType } from '../../common/varsling/varslingReducer';
 import Stillingsheader from '../header/Stillingsheader.tsx';
 import './Edit.less';
+import { RESET_VALIDATION_ERROR } from '../adValidationReducer';
 
-const Edit = ({
-    ad,
-    isNew,
-    onPreviewAdClick,
-    resetValidation,
-    gjenopprettAdData,
-    gjenopprettStillingsinfoData,
-    visVarsling,
-    kandidatliste,
-}) => {
+const Edit = ({ ad, isNew, onPreviewAdClick, resetValidation, kandidatliste }) => {
     // Fra EditHeader
     const stillingenErIntern = ad.createdBy !== 'pam-rekrutteringsbistand';
     const stillingsLenke = hentAnnonselenke(ad.uuid);
-
-    useEffect(() => {
-        const ulagredeEndringer = gjenopprettStillingsendringerFraLocalStorage();
-
-        if (ulagredeEndringer) {
-            gjenopprettAdData(ulagredeEndringer.stilling);
-            gjenopprettStillingsinfoData(ulagredeEndringer.stillingsinfo);
-
-            visVarsling('Endringene dine ble gjenopprettet fra en tidligere økt.', 'advarsel');
-        }
-    }, [ad.uuid, gjenopprettAdData, gjenopprettStillingsinfoData, visVarsling]);
 
     useEffect(() => {
         return () => {
@@ -172,10 +148,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     resetValidation: () => dispatch({ type: RESET_VALIDATION_ERROR }),
-    gjenopprettAdData: (data) => dispatch({ type: SET_AD_DATA, data }),
-    gjenopprettStillingsinfoData: (data) => dispatch({ type: SET_STILLINGSINFO_DATA, data }),
-    visVarsling: (innhold, alertType) =>
-        dispatch({ type: VarslingActionType.VisVarsling, innhold, alertType }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Edit);
