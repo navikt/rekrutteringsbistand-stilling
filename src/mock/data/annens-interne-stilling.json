@@ -1,6 +1,6 @@
 {
     "stillingsinfo": {
-        "stillingsid": "9e35ade7-f97b-43f5-ab24-dc68b12bd5d5",
+        "stillingsid": "622f9df6-ec92-4cc8-94a5-62a0e49def59",
         "stillingsinfoid": "8e74803e-6973-4115-befe-6ee1e0f28533",
         "notat": "Testnotat for tøysekopper.",
         "eierNavident": null,
@@ -9,10 +9,10 @@
     },
     "stilling": {
         "id": 298123,
-        "uuid": "9e35ade7-f97b-43f5-ab24-dc68b12bd5d5",
-        "created": "2020-09-29T14:38:27.225324",
+        "uuid": "622f9df6-ec92-4cc8-94a5-62a0e49def59",
+        "created": "2023-03-29T12:00:00.000000",
         "createdBy": "pam-rekrutteringsbistand",
-        "updated": "2020-09-30T12:15:42.784718",
+        "updated": "2023-03-30T12:00:00.000000",
         "updatedBy": "pam-rekrutteringsbistand",
         "mediaList": [],
         "contactList": [
@@ -24,12 +24,12 @@
                 "title": "Tester"
             }
         ],
-        "title": "Min interne stilling",
+        "title": "En kollegas interne stilling",
         "status": "ACTIVE",
         "privacy": "INTERNAL_NOT_SHOWN",
         "source": "DIR",
         "medium": "DIR",
-        "reference": "9e35ade7-f97b-43f5-ab24-dc68b12bd5d5",
+        "reference": "622f9df6-ec92-4cc8-94a5-62a0e49def59",
         "published": "2023-09-30T01:00:00",
         "expires": "2023-11-20T02:00:00",
         "employer": {
@@ -78,12 +78,12 @@
             "employees": 1
         },
         "administration": {
-            "id": 268789,
+            "id": 268788,
             "status": "DONE",
             "comments": null,
-            "reportee": "F_Z992776 E_Z992776",
+            "reportee": "Annen Veileder",
             "remarks": [],
-            "navIdent": "A123456"
+            "navIdent": "B123456"
         },
         "location": {
             "address": null,

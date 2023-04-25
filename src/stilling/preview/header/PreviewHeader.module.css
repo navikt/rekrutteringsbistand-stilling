@@ -1,0 +1,9 @@
+.stillingBleOverførtAlert {
+    position: relative;
+}
+
+.stillingBleOverførtKnapp {
+    position: absolute;
+    right: 1rem;
+    top: calc(1rem - 2px);
+}

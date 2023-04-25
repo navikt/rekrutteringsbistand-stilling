@@ -19,7 +19,10 @@ import mineStillingerReducer, {
     MineStillingerState,
 } from '../mine-stillinger/mineStillingerReducer';
 import reporteeReducer, { reporteeSaga, ReporteeState } from '../reportee/reporteeReducer';
-import stillingsinfoReducer, { stillingsinfoSaga } from '../stillingsinfo/stillingsinfoReducer';
+import stillingsinfoReducer, {
+    StillingsinfoState,
+    stillingsinfoSaga,
+} from '../stillingsinfo/stillingsinfoReducer';
 import { Stillingsinfo } from '../Stilling';
 import { mineStillingerSaga } from '../mine-stillinger/mineStillingerSagas';
 import { hentStateFraLocalStorage } from './localStorage';
@@ -32,6 +35,7 @@ export type State = {
     adValidation: AdValidationState;
     mineStillinger: MineStillingerState;
     stillingsinfoData: Stillingsinfo;
+    stillingsinfo: StillingsinfoState;
     varsling: VarslingState;
     reportee: ReporteeState;
 };

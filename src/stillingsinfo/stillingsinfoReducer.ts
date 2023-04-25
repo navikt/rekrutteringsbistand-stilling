@@ -22,6 +22,14 @@ export const UPDATE_STILLINGSINFO_FAILURE = 'UPDATE__STILLINGSINFO_FAILURE';
 
 export const CLOSE_TRANSFERRED_ALERT = 'CLOSE_TRANSFERRED_ALERT';
 
+export type StillingsinfoState = {
+    isSavingStillingsinfo: boolean;
+    hasSavedStillingsinfo: boolean;
+    isLoadingStillingsinfo: boolean;
+    showAdTransferredAlert: boolean;
+    showAdMarkedAlert: boolean;
+};
+
 const initialState = {
     isSavingStillingsinfo: false,
     hasSavedStillingsinfo: false,
@@ -30,7 +38,7 @@ const initialState = {
     showAdMarkedAlert: false,
 };
 
-export default function stillingsinfoReducer(state = initialState, action) {
+export default function stillingsinfoReducer(state: StillingsinfoState = initialState, action) {
     switch (action.type) {
         case FETCH_STILLINGSINFO_BEGIN:
             return {

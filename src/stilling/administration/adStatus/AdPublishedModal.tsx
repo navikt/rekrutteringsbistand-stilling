@@ -1,12 +1,13 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { BodyLong, Heading, Modal } from '@navikt/ds-react';
+import { MagnifyingGlassIcon, BriefcaseIcon } from '@navikt/aksel-icons';
+
 import { HIDE_AD_PUBLISHED_MODAL } from '../../adReducer';
 import { formatISOString } from '../../../utils/datoUtils';
-import { Search, FileContent } from '@navikt/ds-icons';
 import AdStatusEnum from '../../../common/enums/AdStatusEnum';
 import css from './AdPublishedModal.module.css';
-import { BodyLong, Heading, Modal } from '@navikt/ds-react';
 
 const AdPublishedModal = ({ stillingId }) => {
     const dispatch = useDispatch();
@@ -49,11 +50,11 @@ const AdPublishedModal = ({ stillingId }) => {
                         className="navds-link"
                         onClick={onClose}
                     >
-                        <Search />
+                        <MagnifyingGlassIcon />
                         Finn kandidater
                     </Link>
                     <Link to="/stillinger/minestillinger" className="navds-link" onClick={onClose}>
-                        <FileContent />
+                        <BriefcaseIcon />
                         Til mine stillinger
                     </Link>
                 </div>

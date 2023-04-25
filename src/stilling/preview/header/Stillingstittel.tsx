@@ -1,13 +1,13 @@
 import React, { FunctionComponent } from 'react';
-import { Sidetittel, Normaltekst } from 'nav-frontend-typografi';
-import capitalizeLocation from '../../edit/location/capitalizeLocation';
 import { Location } from '../../../Stilling';
+import capitalizeLocation from '../../edit/location/capitalizeLocation';
+import { BodyShort, Heading } from '@navikt/ds-react';
 import './Stillingstittel.less';
 
 type Props = {
-    tittel: string;
-    employer: string;
-    location: Location;
+    tittel?: string;
+    employer?: string;
+    location?: Location;
 };
 
 const Stillingstittel: FunctionComponent<Props> = ({ tittel, employer, location }) => {
@@ -26,13 +26,15 @@ const Stillingstittel: FunctionComponent<Props> = ({ tittel, employer, location 
 
     return (
         <div className="stillingstittel">
-            <Normaltekst>{formatertSted}</Normaltekst>
-            <Sidetittel>{tittel || ''}</Sidetittel>
+            <BodyShort>{formatertSted}</BodyShort>
+            <Heading level="2" size="large">
+                {tittel || ''}
+            </Heading>
         </div>
     );
 };
 
-function commaSeparate(...strings: string[]) {
+function commaSeparate(...strings: Array<string | undefined>) {
     const onlyStrings = strings.filter((string) => typeof string === 'string' && string !== '');
     return onlyStrings.join(', ');
 }

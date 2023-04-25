@@ -8,7 +8,7 @@ export const stillingErPublisert = (ad: any) => {
     return true;
 };
 
-export const hentAnnonselenke = (uuid: string) => `${VIS_STILLING_URL}/${uuid}`;
+export const hentAnnonselenke = (uuid?: string) => `${VIS_STILLING_URL}/${uuid}`;
 
 export const erDirektemeldtStilling = (source?: string): boolean => source === 'DIR';
 

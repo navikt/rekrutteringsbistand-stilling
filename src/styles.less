@@ -9,6 +9,11 @@ body {
     background-color: #f1f1f1;
 }
 
+// Endre teksten på kopieringsknappen fra svart til blå.
+.navdsi-copy-to-clipboard:not(:hover):not(:active) {
+    color: var(--a-text-action);
+}
+
 #top {
     background: #333;
     height: 40px;
@@ -103,7 +108,6 @@ input::-ms-clear {
     .TopMenu,
     .Ad__actions-button,
     .Ad__preview__menu,
-    .button-print,
     .AdStatusPreview,
     .Preview__Notat {
         display: none !important;

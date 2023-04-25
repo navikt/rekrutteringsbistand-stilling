@@ -1,15 +1,21 @@
 {
-    "stillingsinfo": null,
+    "stillingsinfo": {
+        "stillingsid": "b069a07d-acf5-4b61-a254-9bf4f2aa97f7",
+        "stillingsinfoid": "19caad45-dbd5-4168-94e2-b432050a7aaa",
+        "notat": "tester",
+        "eierNavident": "Z990281",
+        "eierNavn": "F_Z990281 E_Z990281"
+    },
     "stilling": {
         "id": 7026,
-        "uuid": "876df0d4-d0c8-41a2-85c5-23a25595e6db",
+        "uuid": "b069a07d-acf5-4b61-a254-9bf4f2aa97f7",
         "created": "2018-11-20T12:58:03.965",
         "createdBy": "pam-ad",
-        "updated": "2022-06-03T07:18:26.335927",
+        "updated": "2020-06-03T07:18:26.335927",
         "updatedBy": "nss-admin",
         "mediaList": [],
         "contactList": [],
-        "title": "Ekstern stilling uten kandidatliste",
+        "title": "Ekstern stilling med kandidatliste",
         "status": "ACTIVE",
         "privacy": "SHOW_ALL",
         "source": "FINN",

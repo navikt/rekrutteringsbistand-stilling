@@ -1,16 +1,15 @@
 import React, { FunctionComponent, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Search, AddCircle, AutomaticSystem, CoApplicant } from '@navikt/ds-icons';
+import { MagnifyingGlassIcon, PersonPlusIcon, PersonGroupIcon } from '@navikt/aksel-icons';
 
 import { State } from '../../redux/store';
 import { sendGenerellEvent } from '../../verktøy/amplitude';
 import { stillingenHarKandidatliste } from '../adUtils';
 import LeggTilKandidatModal from '../legg-til-kandidat-modal/LeggTilKandidatModal';
-import { useVisForeslåKandidaterLenke } from './useVisForeslåKandidaterLenke';
 import { Nettressurs, Nettstatus } from '../../api/Nettressurs';
-import './Kandidathandlinger.less';
 import { Kandidatliste } from '../legg-til-kandidat-modal/kandidatlistetyper';
+import './Kandidathandlinger.less';
 
 type Props = {
     kandidatliste: Nettressurs<Kandidatliste>;
@@ -21,7 +20,6 @@ const Kandidathandlinger: FunctionComponent<Props> = ({ kandidatliste }) => {
     const stillingsinfo = useSelector((state: State) => state.stillingsinfoData);
 
     const [visLeggTilKandidatModal, setVisLeggTilKandidatModal] = useState(false);
-    const visForeslåKandidaterLenke = useVisForeslåKandidaterLenke();
 
     const onSeKandidatlisteClick = () => {
         sendGenerellEvent('knapp', {
@@ -39,46 +37,38 @@ const Kandidathandlinger: FunctionComponent<Props> = ({ kandidatliste }) => {
         stillingsdata.source
     );
 
+    const kandidatlisteId =
+        kandidatliste.kind === Nettstatus.Suksess ? kandidatliste.data.kandidatlisteId : '';
+
     return (
         <div className="kandidathandlinger">
-            {kandidatliste.kind === Nettstatus.Suksess && (
-                <LeggTilKandidatModal
-                    vis={visLeggTilKandidatModal}
-                    onClose={toggleLeggTilKandidatModal}
-                    kandidatliste={kandidatliste}
-                />
-            )}
-            {visHandlingerKnyttetTilKandidatlisten && kandidatliste.kind === Nettstatus.Suksess && (
+            <LeggTilKandidatModal
+                vis={visLeggTilKandidatModal}
+                onClose={toggleLeggTilKandidatModal}
+                kandidatliste={kandidatliste}
+            />
+            {visHandlingerKnyttetTilKandidatlisten && (
                 <>
                     <Link
                         className="navds-link"
-                        to={`/kandidatsok?kandidatliste=${kandidatliste.data.kandidatlisteId}&brukKriterierFraStillingen=true`}
+                        to={`/kandidatsok?kandidatliste=${kandidatlisteId}&brukKriterierFraStillingen=true`}
                     >
-                        <Search />
+                        <MagnifyingGlassIcon />
                         Finn kandidater
                     </Link>
                     <button
                         className="navds-link kandidathandlinger__legg-til-kandidat-knapp"
                         onClick={toggleLeggTilKandidatModal}
                     >
-                        <AddCircle />
+                        <PersonPlusIcon />
                         Legg til kandidat
                     </button>
-                    {visForeslåKandidaterLenke && (
-                        <Link
-                            className="navds-link"
-                            to={`/prototype/stilling/${stillingsdata.uuid}`}
-                        >
-                            <AutomaticSystem />
-                            Foreslå kandidater
-                        </Link>
-                    )}
                     <Link
                         className="navds-link"
                         to={`/kandidater/lister/stilling/${stillingsdata.uuid}/detaljer`}
                         onClick={onSeKandidatlisteClick}
                     >
-                        <CoApplicant />
+                        <PersonGroupIcon />
                         Se kandidatliste
                     </Link>
                 </>
