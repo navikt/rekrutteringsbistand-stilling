@@ -1,6 +1,5 @@
-import React, { ChangeEvent, FunctionComponent } from 'react';
-import { connect } from 'react-redux';
-import { Undertittel } from 'nav-frontend-typografi';
+import React, { ChangeEvent } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import isJson from '../practicalInformation/IsJson';
 import { CHECK_TAG, UNCHECK_TAG } from '../../adDataReducer';
@@ -8,26 +7,26 @@ import { InkluderingsmulighetForEksternStilling } from '../../tags/hierarkiAvTag
 import Inkluderingsmulighet from './Inkluderingsmulighet';
 import { Inkluderingsmulighet as AlleInkluderingsmuligheter } from '../../tags/hierarkiAvTags';
 import { HjelpetekstForInkluderingsmulighet } from './HjelpetekstForInkluderingsmulighet';
-import './EksternStilling.less';
+import { Heading } from '@navikt/ds-react';
 
-type Props = {
-    tags?: string;
-    checkTag: (tag: string) => void;
-    uncheckTag: (tag: string) => void;
-};
+const EksternStilling = () => {
+    const dispatch = useDispatch();
 
-const EksternStilling: FunctionComponent<Props> = ({ tags, checkTag, uncheckTag }) => {
+    const tags = useSelector((state: any) => state.adData.properties.tags || '[]');
+
     const onTagChange = (e: ChangeEvent<HTMLInputElement>) => {
-        e.target.checked ? checkTag(e.target.value) : uncheckTag(e.target.value);
+        const value = e.target.value;
+        const checked = e.target.checked;
+        checked ? dispatch({ type: CHECK_TAG, value }) : dispatch({ type: UNCHECK_TAG, value });
     };
 
     const tagIsChecked = (tag: string) => tags && isJson(tags) && JSON.parse(tags).includes(tag);
 
     return (
-        <div className="registrer-inkluderingsmuligheter-ekstern-stilling">
-            <Undertittel className="registrer-inkluderingsmuligheter-ekstern-stilling__tittel">
+        <div>
+            <Heading level="2" size="small" spacing>
                 Muligheter for inkludering
-            </Undertittel>
+            </Heading>
             <Inkluderingsmulighet
                 eksternStilling
                 tittel="Arbeidsgiver ønsker å tilrettelegge"
@@ -55,14 +54,4 @@ const EksternStilling: FunctionComponent<Props> = ({ tags, checkTag, uncheckTag 
     );
 };
 
-const mapStateToProps = (state) => ({
-    tags: state.adData.properties.tags || '[]',
-    source: state.adData.source,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-    checkTag: (value: string) => dispatch({ type: CHECK_TAG, value }),
-    uncheckTag: (value: string) => dispatch({ type: UNCHECK_TAG, value }),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(EksternStilling);
+export default EksternStilling;
