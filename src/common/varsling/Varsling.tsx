@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from 'react';
+import { Alert } from '@navikt/ds-react';
 import { useSelector } from 'react-redux';
-import AlertStripe from 'nav-frontend-alertstriper';
 import { State } from '../../redux/store';
-import './Varsling.less';
+import css from './Varsling.module.css';
 
 const Varsling: FunctionComponent = () => {
     const { innhold, alertType } = useSelector((state: State) => state.varsling);
@@ -12,9 +12,9 @@ const Varsling: FunctionComponent = () => {
     }
 
     return (
-        <AlertStripe className="varsling" type={alertType} aria-live="assertive">
+        <Alert fullWidth className={css.varsling} variant={alertType} aria-live="assertive">
             {innhold}
-        </AlertStripe>
+        </Alert>
     );
 };
 

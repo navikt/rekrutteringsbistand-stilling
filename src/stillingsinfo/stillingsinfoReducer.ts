@@ -4,6 +4,7 @@ import { ApiError } from '../api/apiUtils';
 
 import { SET_STILLINGSINFO_DATA } from './stillingsinfoDataReducer';
 import { FETCH_AD } from '../stilling/adReducer';
+import { VarslingAction, VarslingActionType } from '../common/varsling/varslingReducer';
 
 export const FETCH_STILLINGSINFO = 'FETCH_STILLINGSINFO';
 export const FETCH_STILLINGSINFO_BEGIN = 'FETCH_STILLINGSINFO_BEGIN';
@@ -20,22 +21,16 @@ export const UPDATE_STILLINGSINFO_BEGIN = 'UPDATE__STILLINGSINFO_BEGIN';
 export const UPDATE_STILLINGSINFO_SUCCESS = 'UPDATE__STILLINGSINFO_SUCCESS';
 export const UPDATE_STILLINGSINFO_FAILURE = 'UPDATE__STILLINGSINFO_FAILURE';
 
-export const CLOSE_TRANSFERRED_ALERT = 'CLOSE_TRANSFERRED_ALERT';
-
 export type StillingsinfoState = {
     isSavingStillingsinfo: boolean;
     hasSavedStillingsinfo: boolean;
     isLoadingStillingsinfo: boolean;
-    showAdTransferredAlert: boolean;
-    showAdMarkedAlert: boolean;
 };
 
 const initialState = {
     isSavingStillingsinfo: false,
     hasSavedStillingsinfo: false,
     isLoadingStillingsinfo: false,
-    showAdTransferredAlert: false,
-    showAdMarkedAlert: false,
 };
 
 export default function stillingsinfoReducer(state: StillingsinfoState = initialState, action) {
@@ -69,30 +64,20 @@ export default function stillingsinfoReducer(state: StillingsinfoState = initial
             return {
                 ...state,
                 isSavingStillingsinfo: false,
-                error: action.error,
                 hasSavedStillingsinfo: false,
+                error: action.error,
             };
         case OPPRETT_STILLINGSINFO_SUCCESS:
             return {
                 ...state,
                 isSavingStillingsinfo: false,
                 hasSavedStillingsinfo: true,
-                showAdTransferredAlert: true,
-                showAdMarkedAlert: false,
             };
         case UPDATE_STILLINGSINFO_SUCCESS:
             return {
                 ...state,
                 isSavingStillingsinfo: false,
                 hasSavedStillingsinfo: true,
-                showAdTransferredAlert: false,
-                showAdMarkedAlert: true,
-            };
-        case CLOSE_TRANSFERRED_ALERT:
-            return {
-                ...state,
-                showAdTransferredAlert: false,
-                showAdMarkedAlert: false,
             };
         default:
             return state;
@@ -137,6 +122,10 @@ function* opprettStillingsinfo() {
         });
 
         yield put({ type: OPPRETT_STILLINGSINFO_SUCCESS, response });
+        yield put<VarslingAction>({
+            type: VarslingActionType.VisVarsling,
+            innhold: 'Kandidatlisten er opprettet. Du er nå eier av stillingen og kandidatlisten.',
+        });
 
         // Stillingen blir oppdatert når stillingsinfo blir oppdatert, så hent oppdatert stilling
         yield put({ type: FETCH_AD, uuid: stillingsid });
@@ -163,6 +152,11 @@ function* updateStillingsinfo() {
         });
 
         yield put({ type: UPDATE_STILLINGSINFO_SUCCESS, response });
+        yield put<VarslingAction>({
+            type: VarslingActionType.VisVarsling,
+            innhold:
+                'Kandidatlisten er markert som din. Du er nå eier av stillingen og kandidatlisten.',
+        });
 
         // Stillingen blir oppdatert når stillingsinfo blir oppdatert, så hent oppdatert stilling
         yield put({ type: FETCH_AD, uuid: stillingsid });
