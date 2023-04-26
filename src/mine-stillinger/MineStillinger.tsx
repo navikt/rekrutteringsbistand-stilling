@@ -16,9 +16,10 @@ import ResultHeader from './result/ResultHeader';
 import ResultItem from './result/ResultItem';
 import StopAdModal from '../stilling/administration/adStatus/StopAdModal';
 import { MineStillingerActionType } from './MineStillingerAction';
-import './MineStillinger.less';
+import './MineStillinger.module.css';
 import { Nettstatus } from '../api/Nettressurs';
 import MineStillingerHeader from './header/MineStillingerHeader';
+import css from './MineStillinger.module.css';
 
 type Props = {
     history: History;
@@ -64,22 +65,22 @@ const MineStillinger: FunctionComponent<Props> = ({ history }) => {
     };
 
     return (
-        <div className="MineStillinger">
+        <div className={css.mineStillinger}>
             <MineStillingerHeader>
                 <Button onClick={onOpprettNyClick}>Opprett ny</Button>
             </MineStillingerHeader>
-            <div className="MineStillinger__content">
+            <div className={css.innhold}>
                 <StopAdModal fromMyAds />
-                <div className="MineStillinger__status-row">
+                <div className={css.statusRad}>
                     <Count resultat={resultat} />
                 </div>
                 <Filter />
-                <div className="MineStillinger__table">
+                <div className={css.tabell}>
                     <table className="Result__table">
                         <ResultHeader />
                         <tbody>
                             {resultat.kind === Nettstatus.Feil && (
-                                <ErrorMessage className="MineStillinger__feilmelding">
+                                <ErrorMessage className={css.feilmelding}>
                                     Klarte ikke hente mine stillinger
                                 </ErrorMessage>
                             )}

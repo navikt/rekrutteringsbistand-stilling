@@ -10,10 +10,5 @@
     padding: var(--a-spacing-6) 1rem var(--a-spacing-6) 15.5rem;
     align-items: center;
     justify-content: space-between;
-}
-
-@media (min-width: 1280px) {
-    .container {
-        max-width: 1800px;
-    }
+    max-width: 1800px;
 }
