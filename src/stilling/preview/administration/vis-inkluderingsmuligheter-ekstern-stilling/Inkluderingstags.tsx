@@ -30,7 +30,7 @@ const Inkluderingstags: FunctionComponent<Props> = ({ tittel, tags }) => {
                 <Label size="small">{tittel}</Label>
             </BodyShort>
             {tags.map((tag: string) => (
-                <Tag size="small" variant="info" className={css.inkluderingstag}>
+                <Tag size="small" variant="info" className={css.inkluderingstag} key={tag}>
                     {formatterTittel(visningsnavnForRegistrering[tag])}
                 </Tag>
             ))}

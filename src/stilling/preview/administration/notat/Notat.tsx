@@ -12,11 +12,12 @@ const Notat = () => {
                   {
                       regex: /(http|https):\/\/(\S+)\.([a-z]{2,}?)(.*?)( |,|$|\.)/gim,
                       fn: (key, result) => (
-                          <span key={key} className="Notat__text__link">
+                          <span key={key}>
                               <a
                                   target="_blank"
                                   rel="noopener noreferrer"
                                   href={`${result[1]}://${result[2]}.${result[3]}${result[4]}`}
+                                  className="navds-link"
                               >
                                   {result[2]}.{result[3]}
                                   {result[4]}
