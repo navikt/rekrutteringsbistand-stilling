@@ -33,6 +33,21 @@ const Inkluderingsmulighet: FunctionComponent<Props> = ({
         ? hentSubtagsForMulighetForEksternStilling(inkluderingsmulighet)
         : hentSubtagsForMulighetForDirektemeldtStilling(inkluderingsmulighet);
 
+    const formatterTittel = (tekst?: string) => {
+        if (!tekst) return;
+        const start = tekst.indexOf('(');
+        if (start !== -1) {
+            return (
+                <>
+                    {tekst.substring(0, start)} <br></br>
+                    {tekst.substring(start)}
+                </>
+            );
+        } else {
+            return tekst;
+        }
+    };
+
     return (
         <CheckboxGroup
             legend={<Skjemalegend hjelpetekst={hjelpetekst}>{tittel}</Skjemalegend>}
@@ -47,7 +62,7 @@ const Inkluderingsmulighet: FunctionComponent<Props> = ({
                     value={subtag}
                     onChange={onTagChange}
                 >
-                    {visningsnavnForRegistrering[subtag]}
+                    {formatterTittel(visningsnavnForRegistrering[subtag])}
                 </Checkbox>
             ))}
         </CheckboxGroup>
