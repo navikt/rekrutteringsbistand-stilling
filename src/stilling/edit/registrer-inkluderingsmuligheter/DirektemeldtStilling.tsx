@@ -1,6 +1,6 @@
-import React, { ChangeEvent, FunctionComponent, useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import { Radio, RadioGruppe } from 'nav-frontend-skjema';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
@@ -11,7 +11,6 @@ import { HjelpetekstForInkluderingsmulighet } from './HjelpetekstForInkluderings
 import { Inkluderingsmulighet as AlleInkluderingsmuligheter } from '../../tags/hierarkiAvTags';
 import { InkluderingsmulighetForDirektemeldtStilling, Tag } from '../../tags/hierarkiAvTags';
 import { SET_KAN_INKLUDERE } from '../../adReducer';
-import { State } from '../../../redux/store';
 import Inkluderingsmulighet from './Inkluderingsmulighet';
 import isJson from '../practicalInformation/IsJson';
 import Skjemalegend from '../skjemaetikett/Skjemalegend';
@@ -22,33 +21,25 @@ export enum KanInkludere {
     Nei = 'nei',
 }
 
-type Props = {
-    tags?: string;
-    setTags: (tags: string) => void;
-    checkTag: (tag: Tag) => void;
-    uncheckTag: (tag: Tag) => void;
-    kanInkludere: KanInkludere;
-    setKanInkludere: (kanInkludere: KanInkludere) => void;
-    feilmelding?: string;
-    source: string;
-};
+const DirektemeldtStilling = () => {
+    const dispatch = useDispatch();
 
-const DirektemeldtStilling: FunctionComponent<Props> = ({
-    tags,
-    setTags,
-    checkTag,
-    uncheckTag,
-    kanInkludere,
-    setKanInkludere,
-    feilmelding,
-}) => {
+    const tags = useSelector((state: any) => state.adData.properties.tags || '[]');
+    const kanInkludere = useSelector((state: any) => state.ad.kanInkludere);
+    const feilmelding = useSelector(
+        (state: any) => state.adValidation.errors.inkluderingsmuligheter
+    );
+
     const [registrerteTags, setRegistrerteTags] = useState<string | undefined>(undefined);
 
     const onTagChange = (e: ChangeEvent<HTMLInputElement>) => {
         setRegistrerteTags(undefined);
 
         const { checked, value } = e.target;
-        checked ? checkTag(value as Tag) : uncheckTag(value as Tag);
+
+        const tag = value as Tag;
+
+        checked ? dispatch({ type: CHECK_TAG, tag }) : dispatch({ type: UNCHECK_TAG, tag });
     };
 
     const fjernInkluderingstags = () => {
@@ -58,13 +49,13 @@ const DirektemeldtStilling: FunctionComponent<Props> = ({
             const parsedeTags: Tag[] = JSON.parse(tags === undefined ? '[]' : tags);
             utenInkluderingstags = fjernAlleInkluderingstags(parsedeTags);
         }
-
-        setTags(JSON.stringify(utenInkluderingstags));
+        const json = JSON.stringify(utenInkluderingstags);
+        dispatch({ type: SET_TAGS, json });
     };
 
     const brukRegistrerteTags = () => {
         if (registrerteTags) {
-            setTags(registrerteTags);
+            dispatch({ type: SET_TAGS, registrerteTags });
         }
     };
 
@@ -78,7 +69,7 @@ const DirektemeldtStilling: FunctionComponent<Props> = ({
             brukRegistrerteTags();
         }
 
-        setKanInkludere(kanInkludere);
+        dispatch({ type: SET_KAN_INKLUDERE, kanInkludere });
     };
 
     const tagIsChecked = (tag: string) => tags && isJson(tags) && JSON.parse(tags).includes(tag);
@@ -204,19 +195,4 @@ const DirektemeldtStilling: FunctionComponent<Props> = ({
     );
 };
 
-const mapStateToProps = (state: State) => ({
-    tags: state.adData.properties.tags || '[]',
-    kanInkludere: state.ad.kanInkludere,
-    feilmelding: state.adValidation.errors.inkluderingsmuligheter,
-    source: state.adData.source,
-});
-
-const mapDispatchToProps = (dispatch: any) => ({
-    setTags: (tags: string) => dispatch({ type: SET_TAGS, tags }),
-    checkTag: (value: Tag) => dispatch({ type: CHECK_TAG, value }),
-    uncheckTag: (value: Tag) => dispatch({ type: UNCHECK_TAG, value }),
-    setKanInkludere: (kanInkludere: KanInkludere) =>
-        dispatch({ type: SET_KAN_INKLUDERE, kanInkludere }),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(DirektemeldtStilling);
+export default DirektemeldtStilling;
