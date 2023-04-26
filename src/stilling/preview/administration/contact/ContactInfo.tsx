@@ -50,7 +50,7 @@ const ContactInfo = () => {
     );
 
     return isDir ? (
-        <div>
+        <div className="Administration__preview-panel">
             <BodyShort size="small" spacing>
                 <Label size="small">Spørsmål om stillingen?</Label>
             </BodyShort>
@@ -64,7 +64,7 @@ const ContactInfo = () => {
     ) : (
         <>
             {hasStillingsinfo && (
-                <div>
+                <div className="Administration__preview-panel">
                     <BodyShort size="small" spacing>
                         <Label size="small">Spørsmål om stillingen?</Label>
                     </BodyShort>

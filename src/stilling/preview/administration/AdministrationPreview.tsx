@@ -34,9 +34,7 @@ const AdministrationPreview: FunctionComponent<Props> = ({ source, createdBy, ed
                     <div className="Administration__preview-panel">
                         <Kategori />
                     </div>
-                    <div className="Administration__preview-panel">
-                        <ContactInfo />
-                    </div>
+                    <ContactInfo />
                     {!erDirektemeldtStilling(source) && <Inkludering />}
                     <div className="Administration__preview-panel">
                         <Notat />
