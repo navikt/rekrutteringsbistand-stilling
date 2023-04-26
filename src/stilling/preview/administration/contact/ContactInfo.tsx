@@ -7,6 +7,7 @@ import {
 import { erDirektemeldtStilling } from '../../../adUtils';
 import MarkerSomMinModal from '../markerSomMinModal/MarkerSomMinModal';
 import { BodyShort, Button, Label } from '@navikt/ds-react';
+import previewcss from '../AdministrationPreview.module.css';
 
 const ContactInfo = () => {
     const dispatch = useDispatch();
@@ -50,7 +51,7 @@ const ContactInfo = () => {
     );
 
     return isDir ? (
-        <div className="Administration__preview-panel">
+        <div className={previewcss.previewPanel}>
             <BodyShort size="small" spacing>
                 <Label size="small">Spørsmål om stillingen?</Label>
             </BodyShort>
@@ -64,7 +65,7 @@ const ContactInfo = () => {
     ) : (
         <>
             {hasStillingsinfo && (
-                <div className="Administration__preview-panel">
+                <div className={previewcss.previewPanel}>
                     <BodyShort size="small" spacing>
                         <Label size="small">Spørsmål om stillingen?</Label>
                     </BodyShort>

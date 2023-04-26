@@ -1,6 +1,5 @@
-import React, { FunctionComponent } from 'react';
-import { connect } from 'react-redux';
-import { Hovedknapp } from 'nav-frontend-knapper';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import AdStatus from '../../administration/adStatus/AdStatus';
 import { EDIT_AD } from '../../adReducer';
 import Inkludering from './vis-inkluderingsmuligheter-ekstern-stilling/VisInkuderingsmuligheterForEksternStilling';
@@ -8,57 +7,48 @@ import Publishing from './publishing/Publishing';
 import ContactInfo from './contact/ContactInfo';
 import Notat from './notat/Notat';
 
-import './AdministrationPreview.less';
+import css from './AdministrationPreview.module.css';
 import { erDirektemeldtStilling } from '../../adUtils';
 import Kategori from './kategori/Kategori';
+import { Button } from '@navikt/ds-react';
 
-type Props = {
-    source: string;
-    createdBy: string;
-    editAd: () => void;
-};
+const AdministrationPreview = () => {
+    const dispatch = useDispatch();
 
-const AdministrationPreview: FunctionComponent<Props> = ({ source, createdBy, editAd }) => {
-    const limitedAccess = createdBy !== 'pam-rekrutteringsbistand';
+    const source = useSelector((state: any) => state.adData.source);
+
+    const limitedAccess =
+        useSelector((state: any) => state.adData.createdBy) !== 'pam-rekrutteringsbistand';
 
     return (
-        <div className="Preview__Administration">
-            <div className="Administration__flex">
-                <div className="Administration__flex__top">
-                    <AdStatus />
+        <div>
+            <div>
+                <AdStatus />
+            </div>
+            <div>
+                <div className={css.previewPanel}>
+                    <Publishing />
                 </div>
-                <div className="Administration__flex__center">
-                    <div className="Administration__preview-panel">
-                        <Publishing />
-                    </div>
-                    <div className="Administration__preview-panel">
-                        <Kategori />
-                    </div>
-                    <ContactInfo />
-                    {!erDirektemeldtStilling(source) && <Inkludering />}
-                    <div className="Administration__preview-panel">
-                        <Notat />
-                    </div>
-                    {limitedAccess && (
-                        <div className="Administration__preview-panel">
-                            <Hovedknapp className="Ad__actions-button" onClick={editAd} mini>
-                                Rediger
-                            </Hovedknapp>
-                        </div>
-                    )}
+                <div className={css.previewPanel}>
+                    <Kategori />
                 </div>
+                <ContactInfo />
+                {!erDirektemeldtStilling(source) && <Inkludering />}
+                <div className={css.previewPanel}>
+                    <Notat />
+                </div>
+                {limitedAccess && (
+                    <Button
+                        variant="primary"
+                        onClick={() => dispatch({ type: EDIT_AD })}
+                        className={css.previewPanel}
+                    >
+                        Rediger
+                    </Button>
+                )}
             </div>
         </div>
     );
 };
 
-const mapStateToProps = (state: any) => ({
-    source: state.adData.source,
-    createdBy: state.adData.createdBy,
-});
-
-const mapDispatchToProps = (dispatch: any) => ({
-    editAd: () => dispatch({ type: EDIT_AD }),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(AdministrationPreview);
+export default AdministrationPreview;

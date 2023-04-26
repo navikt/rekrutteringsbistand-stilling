@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { visningsnavnForRegistrering } from '../../../tags/visningsnavnForTags';
 import css from './Inkluderingstags.module.css';
+import previewcss from '../AdministrationPreview.module.css';
 import { BodyShort, Label, Tag } from '@navikt/ds-react';
 
 type Props = {
@@ -24,7 +25,7 @@ const Inkluderingstags: FunctionComponent<Props> = ({ tittel, tags }) => {
     };
 
     return (
-        <div className="Administration__preview-panel">
+        <div className={previewcss.previewPanel}>
             <BodyShort size="small" spacing>
                 <Label size="small">{tittel}</Label>
             </BodyShort>
