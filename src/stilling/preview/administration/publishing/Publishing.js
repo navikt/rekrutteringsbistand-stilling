@@ -1,43 +1,30 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Element, Normaltekst } from 'nav-frontend-typografi';
+import { useSelector } from 'react-redux';
 import { formatISOString } from '../../../../utils/datoUtils.ts';
-import './Publishing.less';
+import { BodyShort, Label } from '@navikt/ds-react';
+import css from './Publishing.module.css';
 
-class Publishing extends React.Component {
-    render() {
-        const { published, expires } = this.props;
+const Publishing = () => {
+    const published = useSelector((state) => state.adData.published);
+    const expires = useSelector((state) => state.adData.expires);
 
-        return (
-            <div>
-                <div className="Publishing__preview">
-                    {(published || expires) && <Element>Publisering</Element>}
-                    {published && (
-                        <Normaltekst>Publiseringsdato: {formatISOString(published)}</Normaltekst>
-                    )}
-                    {expires && (
-                        <Normaltekst>Siste visningsdato: {formatISOString(expires)}</Normaltekst>
-                    )}
-                </div>
+    return (
+        <div>
+            {(published || expires) && <Label size="small">Publisering</Label>}
+            <div className={css.innhold}>
+                {published && (
+                    <BodyShort size="small" spacing>
+                        Publiseringsdato: {formatISOString(published)}
+                    </BodyShort>
+                )}
+                {expires && (
+                    <BodyShort size="small">
+                        Siste visningsdato: {formatISOString(expires)}
+                    </BodyShort>
+                )}
             </div>
-        );
-    }
-}
-
-Publishing.defaultProps = {
-    published: undefined,
-    expires: undefined,
+        </div>
+    );
 };
 
-Publishing.propTypes = {
-    published: PropTypes.string,
-    expires: PropTypes.string,
-};
-
-const mapStateToProps = (state) => ({
-    published: state.adData.published,
-    expires: state.adData.expires,
-});
-
-export default connect(mapStateToProps)(Publishing);
+export default Publishing;
