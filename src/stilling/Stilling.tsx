@@ -166,7 +166,7 @@ const Stilling = () => {
                         </div>
                     </div>
                     {isEditingAd ? (
-                        <div className="Ad__flex__right">
+                        <aside className="Ad__flex__right">
                             <div className="Ad__flex__right__inner">
                                 {erEksternStilling ? (
                                     <AdministrationLimited kandidatlisteId={kandidatlisteId} />
@@ -174,13 +174,13 @@ const Stilling = () => {
                                     <Administration />
                                 )}
                             </div>
-                        </div>
+                        </aside>
                     ) : (
-                        <div className="Ad__flex__right">
+                        <aside className="Ad__flex__right">
                             <div className="Ad__flex__right__inner">
                                 <AdministrationPreview />
                             </div>
-                        </div>
+                        </aside>
                     )}
                 </div>
             </Faded>

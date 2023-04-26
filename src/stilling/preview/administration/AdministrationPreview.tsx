@@ -41,7 +41,7 @@ const AdministrationPreview = () => {
                     <Button
                         variant="primary"
                         onClick={() => dispatch({ type: EDIT_AD })}
-                        className={css.previewPanel}
+                        className={css.previewPanelButton}
                     >
                         Rediger
                     </Button>
