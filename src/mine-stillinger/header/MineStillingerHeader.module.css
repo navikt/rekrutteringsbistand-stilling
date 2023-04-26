@@ -1,0 +1,14 @@
+.mineStillingerHeader {
+    background-color: var(--rekrutteringsbistand-blue);
+    border-bottom: var(--a-spacing-05) solid var(--a-border-subtle);
+}
+
+.container {
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    padding: var(--a-spacing-6) 1rem var(--a-spacing-6) 15.5rem;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1800px;
+}
