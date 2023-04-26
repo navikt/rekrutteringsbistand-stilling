@@ -1,6 +1,6 @@
 import React, { useState, useEffect, FunctionComponent } from 'react';
 import { History } from 'history';
-import { Alert, Button } from '@navikt/ds-react';
+import { Button, ErrorMessage } from '@navikt/ds-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 
@@ -70,11 +70,6 @@ const MineStillinger: FunctionComponent<Props> = ({ history }) => {
             </MineStillingerHeader>
             <div className="MineStillinger__content">
                 <StopAdModal fromMyAds />
-                {resultat.kind === Nettstatus.Feil && (
-                    <Alert className="AlertStripe__fullpage" variant="warning">
-                        Det oppsto en feil. Forsøk å laste siden på nytt
-                    </Alert>
-                )}
                 <div className="MineStillinger__status-row">
                     <Count resultat={resultat} />
                 </div>
@@ -83,6 +78,11 @@ const MineStillinger: FunctionComponent<Props> = ({ history }) => {
                     <table className="Result__table">
                         <ResultHeader />
                         <tbody>
+                            {resultat.kind === Nettstatus.Feil && (
+                                <ErrorMessage className="MineStillinger__feilmelding">
+                                    Klarte ikke hente mine stillinger
+                                </ErrorMessage>
+                            )}
                             {resultat.kind === Nettstatus.Suksess &&
                                 resultat.data.content.map((rekrutteringsbistandstilling) => (
                                     <ResultItem
