@@ -37,9 +37,7 @@ const DirektemeldtStilling = () => {
 
         const { checked, value } = e.target;
 
-        const tag = value as Tag;
-
-        checked ? dispatch({ type: CHECK_TAG, tag }) : dispatch({ type: UNCHECK_TAG, tag });
+        checked ? dispatch({ type: CHECK_TAG, value }) : dispatch({ type: UNCHECK_TAG, value });
     };
 
     const fjernInkluderingstags = () => {
