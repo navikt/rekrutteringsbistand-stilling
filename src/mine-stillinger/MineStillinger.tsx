@@ -1,9 +1,8 @@
 import React, { useState, useEffect, FunctionComponent } from 'react';
 import { History } from 'history';
-import { Button } from '@navikt/ds-react';
+import { Alert, Button } from '@navikt/ds-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
-import AlertStripe from 'nav-frontend-alertstriper';
 
 import { CLEAR_COPIED_ADS } from '../stilling/adReducer';
 import { State } from '../redux/store';
@@ -73,9 +72,9 @@ const MineStillinger: FunctionComponent<Props> = ({ history }) => {
             <div className="MineStillinger__content">
                 <StopAdModal fromMyAds />
                 {resultat.kind === Nettstatus.Feil && (
-                    <AlertStripe className="AlertStripe__fullpage" type="advarsel">
+                    <Alert className="AlertStripe__fullpage" variant="warning">
                         Det oppsto en feil. Forsøk å laste siden på nytt
-                    </AlertStripe>
+                    </Alert>
                 )}
                 <div className="MineStillinger__status-row">
                     <Count resultat={resultat} />
