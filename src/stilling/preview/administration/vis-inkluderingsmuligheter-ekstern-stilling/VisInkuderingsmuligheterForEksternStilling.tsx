@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import isJson from '../../../edit/practicalInformation/IsJson';
 import {
@@ -8,7 +8,11 @@ import {
 } from '../../../tags/hierarkiAvTags';
 import Inkluderingstags from './Inkluderingstags';
 
-const VisInkuderingsmuligheterForEksternStilling = ({ tags }) => {
+const VisInkuderingsmuligheterForEksternStilling = () => {
+    const tagsString = useSelector((state: any) => state.adData.properties.tags);
+
+    const tags = tagsString !== undefined && isJson(tagsString) ? JSON.parse(tagsString) : [];
+
     const tagsForTilretteleggingsmuligheter = hentSubtagsForMulighetForEksternStilling(
         InkluderingsmulighetForEksternStilling.Tilrettelegging
     ).filter((subtag) => tags.includes(subtag));
@@ -35,18 +39,4 @@ const VisInkuderingsmuligheterForEksternStilling = ({ tags }) => {
     );
 };
 
-const mapStateToProps = (state: any) => {
-    const tagsString = state.adData.properties.tags;
-    const tags = tagsString !== undefined && isJson(tagsString) ? JSON.parse(tagsString) : [];
-
-    return {
-        tags,
-    };
-};
-
-const mapDispatchToProps = (dispatch: any) => ({});
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(VisInkuderingsmuligheterForEksternStilling);
+export default VisInkuderingsmuligheterForEksternStilling;

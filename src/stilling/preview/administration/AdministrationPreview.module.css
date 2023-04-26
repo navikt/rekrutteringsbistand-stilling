@@ -1,0 +1,9 @@
+.previewPanel {
+    margin: 1.5rem;
+}
+
+@media (min-width: 1400px) {
+    .previewPanel {
+        margin: 2rem 2rem 0;
+    }
+}

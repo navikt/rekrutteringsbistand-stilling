@@ -1,8 +1,6 @@
 import React, { FunctionComponent } from 'react';
-import NavFrontendModal from 'nav-frontend-modal';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import { Flatknapp, Hovedknapp } from 'nav-frontend-knapper';
-import './MarkerSomMinModal.less';
+import css from './MarkerSomMinModal.module.css';
+import { BodyLong, Button, Heading, Modal } from '@navikt/ds-react';
 
 type Props = {
     erÅpen: boolean;
@@ -12,34 +10,25 @@ type Props = {
 
 const MarkerSomMinModal: FunctionComponent<Props> = ({ erÅpen, onAvbryt, onMarkerSomMin }) => {
     return (
-        <NavFrontendModal
-            onRequestClose={onAvbryt}
-            isOpen={erÅpen}
-            contentLabel="Marker stillingen som min"
-            portalClassName="rek-stilling"
-            className="MarkerSomMinModal"
-        >
-            <Undertittel className="blokk-s">Marker stillingen som min</Undertittel>
-            <Normaltekst className="blokk-s">
+        <Modal open={erÅpen} onClose={onAvbryt} closeButton className={css.modal}>
+            <Heading level="2" size="small" spacing>
+                Marker stillingen som min
+            </Heading>
+            <BodyLong size="small" spacing>
                 Hvis du markerer stillingen som din, blir du eier av stillingen og tilhørende
                 kandidatliste. Du vil ha ansvar for kontakt med arbeidsgiver, og kan dele CV-er med
                 arbeidsgiveren.
-            </Normaltekst>
-            <Normaltekst className="blokk-l">
+            </BodyLong>
+            <BodyLong size="small" spacing>
                 Er du sikker på at du vil markere stillingen som din?
-            </Normaltekst>
-            <div>
-                <Hovedknapp className="MarkerSomMinModal__bekreftKnapp" onClick={onMarkerSomMin}>
-                    Marker som min
-                </Hovedknapp>
-                <Flatknapp
-                    className="marker-som-min__avbryt knapp-små-bokstaver"
-                    onClick={onAvbryt}
-                >
+            </BodyLong>
+            <div className={css.knapper}>
+                <Button onClick={onMarkerSomMin}>Marker som min</Button>
+                <Button variant="secondary" onClick={onAvbryt}>
                     Avbryt
-                </Flatknapp>
+                </Button>
             </div>
-        </NavFrontendModal>
+        </Modal>
     );
 };
 

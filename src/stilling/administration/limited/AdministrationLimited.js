@@ -3,7 +3,7 @@ import AdStatus from '../adStatus/AdStatus';
 import AdStatusEdit from '../adStatus/AdStatusEdit';
 import RegistrerInkluderingsmuligheter from '../../edit/registrer-inkluderingsmuligheter/EksternStilling';
 import Notat from '../notat/Notat';
-import '../Administration.less';
+import '../Administration.less'; // Todo fjern når preview går over til css module
 import css from '../Administration.module.css';
 
 const AdministrationLimited = ({ kandidatlisteId }) => {

@@ -50,7 +50,7 @@ const Notat = ({ placeholder }: { placeholder?: string }) => {
                 maxLength={MAX_LENGTH_NOTAT}
                 onChange={onChange}
                 onBlur={onBlur}
-                value={lagretNotat}
+                value={lagretNotat == null ? undefined : lagretNotat}
                 error={validation.notat}
                 label={label}
                 placeholder={placeholder}

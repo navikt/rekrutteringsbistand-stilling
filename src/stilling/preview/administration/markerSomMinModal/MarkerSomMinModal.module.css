@@ -1,0 +1,9 @@
+.knapper {
+    display: flex;
+    gap: 1rem;
+}
+
+.modal {
+    padding: 2rem;
+    width: 40rem;
+}
