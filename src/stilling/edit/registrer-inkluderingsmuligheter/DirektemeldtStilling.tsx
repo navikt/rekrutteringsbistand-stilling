@@ -1,8 +1,5 @@
 import React, { ChangeEvent, useState } from 'react';
-import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { useDispatch, useSelector } from 'react-redux';
-import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import { Radio, RadioGruppe } from 'nav-frontend-skjema';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 
 import { CHECK_TAG, SET_TAGS, UNCHECK_TAG } from '../../adDataReducer';
@@ -13,8 +10,9 @@ import { InkluderingsmulighetForDirektemeldtStilling, Tag } from '../../tags/hie
 import { SET_KAN_INKLUDERE } from '../../adReducer';
 import Inkluderingsmulighet from './Inkluderingsmulighet';
 import isJson from '../practicalInformation/IsJson';
-import Skjemalegend from '../skjemaetikett/Skjemalegend';
 import './DirektemeldtStilling.less';
+import css from './DirektemeldtStilling.module.css';
+import { Alert, BodyLong, BodyShort, Heading, Label, Radio, RadioGroup } from '@navikt/ds-react';
 
 export enum KanInkludere {
     Ja = 'ja',
@@ -79,41 +77,46 @@ const DirektemeldtStilling = () => {
             className="registrer-inkluderingsmuligheter-direktemeldt-stilling blokk-s"
             tittel={
                 <>
-                    <Undertittel className="blokk-xxxs">
-                        <Undertittel id="endre-stilling-muligheter-for-å-inkludere" tag="span">
-                            Muligheter for å inkludere
-                        </Undertittel>
-                        <Normaltekst tag="span"> (må fylles ut)</Normaltekst>
-                    </Undertittel>
-                    <Normaltekst>
+                    <Heading level="3" size="small" spacing>
+                        <span>Muligheter for å inkludere</span>
+                        <BodyShort as="span" size="small">
+                            {' '}
+                            (må fylles ut)
+                        </BodyShort>
+                    </Heading>
+
+                    <BodyLong size="small">
                         Arbeidsgiver er åpen for å inkludere personer som har behov for
                         tilrettelegging og/eller har nedsatt funksjonsevne.
-                    </Normaltekst>
+                    </BodyLong>
                 </>
             }
         >
-            <RadioGruppe
-                className="registrer-inkluderingsmuligheter-direktemeldt-stilling__radiogruppe"
-                feil={feilmelding}
+            <RadioGroup
+                error={feilmelding}
+                legend={<Label size="small"> Kan arbeidsgiver inkludere?</Label>}
+                className={css.radiogruppe}
+                value={kanInkludere}
             >
-                <Skjemalegend>Kan arbeidsgiver inkludere?</Skjemalegend>
                 <Radio
                     name="muligheter-for-inkludering"
-                    label="Ja, arbeidsgiver kan inkludere"
                     value={KanInkludere.Ja}
-                    checked={kanInkludere === KanInkludere.Ja}
                     onChange={onKanInkludereChange}
-                />
+                    size="small"
+                >
+                    Ja, arbeidsgiver kan inkludere
+                </Radio>
                 <Radio
                     name="muligheter-for-inkludering"
-                    label="Nei, arbeidsgiver kan ikke inkludere"
                     value={KanInkludere.Nei}
-                    checked={kanInkludere === KanInkludere.Nei}
                     onChange={onKanInkludereChange}
-                />
-            </RadioGruppe>
+                    size="small"
+                >
+                    Nei, arbeidsgiver kan ikke inkludere
+                </Radio>
+            </RadioGroup>
             {kanInkludere === KanInkludere.Ja && (
-                <div className="registrer-inkluderingsmuligheter-direktemeldt-stilling__inkluderingsmuligheter">
+                <div>
                     <div>
                         <Inkluderingsmulighet
                             tittel="Arbeidsgiver kan tilrettelegge for"
@@ -181,13 +184,13 @@ const DirektemeldtStilling = () => {
                 </div>
             )}
             {kanInkludere === KanInkludere.Nei && (
-                <AlertStripeAdvarsel>
-                    <Element>Kan ikke arbeidsgiveren inkludere?</Element>
-                    <Normaltekst>
+                <Alert variant="warning">
+                    <Label>Kan ikke arbeidsgiveren inkludere?</Label>
+                    <BodyLong>
                         Hør om arbeidsgiveren kan tenke seg å registrere en annonse selv på
                         Arbeidsplassen.
-                    </Normaltekst>
-                </AlertStripeAdvarsel>
+                    </BodyLong>
+                </Alert>
             )}
         </Ekspanderbartpanel>
     );
