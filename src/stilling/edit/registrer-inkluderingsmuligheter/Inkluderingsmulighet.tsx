@@ -1,6 +1,4 @@
 import React, { ChangeEvent, FunctionComponent, ReactNode } from 'react';
-import { Checkbox, CheckboxGruppe } from 'nav-frontend-skjema';
-import classnames from 'classnames';
 
 import {
     Tag,
@@ -9,6 +7,8 @@ import {
 } from '../../tags/hierarkiAvTags';
 import Skjemalegend from '../skjemaetikett/Skjemalegend';
 import { visningsnavnForRegistrering } from '../../tags/visningsnavnForTags';
+import { CheckboxGroup, Checkbox } from '@navikt/ds-react';
+import css from './Inkluderingsmulighet.module.css';
 import './Inkluderingsmulighet.less';
 
 type Props = {
@@ -28,27 +28,29 @@ const Inkluderingsmulighet: FunctionComponent<Props> = ({
     tagIsChecked,
     onTagChange,
     hjelpetekst,
-    className,
 }) => {
     const subtags = eksternStilling
         ? hentSubtagsForMulighetForEksternStilling(inkluderingsmulighet)
         : hentSubtagsForMulighetForDirektemeldtStilling(inkluderingsmulighet);
 
     return (
-        <CheckboxGruppe className={classnames('inkluderingsmulighet', className)}>
-            <Skjemalegend hjelpetekst={hjelpetekst}>{tittel}</Skjemalegend>
+        <CheckboxGroup
+            legend={<Skjemalegend hjelpetekst={hjelpetekst}>{tittel}</Skjemalegend>}
+            size="small"
+            className={css.sjekkboksgruppe}
+            value={subtags.filter((subtag) => tagIsChecked(subtag))}
+        >
             {subtags.map((subtag) => (
                 <Checkbox
                     key={subtag}
-                    className="inkluderingsmulighet__tag"
                     id={`tag.${subtag}-checkbox`}
-                    label={visningsnavnForRegistrering[subtag]}
                     value={subtag}
-                    checked={tagIsChecked(subtag)}
                     onChange={onTagChange}
-                />
+                >
+                    {visningsnavnForRegistrering[subtag]}
+                </Checkbox>
             ))}
-        </CheckboxGruppe>
+        </CheckboxGroup>
     );
 };
 
