@@ -79,9 +79,7 @@ const MineStillinger: FunctionComponent<Props> = ({ history }) => {
                 <div className="MineStillinger__status-row">
                     <Count resultat={resultat} />
                 </div>
-                <aside className="MineStillinger__filter">
-                    <Filter />
-                </aside>
+                <Filter />
                 <div className="MineStillinger__table">
                     <table className="Result__table">
                         <ResultHeader />

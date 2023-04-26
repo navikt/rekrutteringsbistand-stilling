@@ -7,28 +7,6 @@
     min-width: 1200px;
     background-color: @navLysGra;
 
-    &__header {
-        background-color: @arbeidsgiverBla;
-
-        &-container {
-            display: flex;
-            flex-wrap: wrap;
-            height: 7.5rem;
-            align-items: center;
-            position: relative;
-        }
-
-        &__title {
-            position: absolute; /* new */
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        &__button {
-            margin-left: auto;
-        }
-    }
-
     &__status-row {
         grid-area: resultCount;
         display: flex;
@@ -37,6 +15,7 @@
     }
 
     &__content {
+        padding: 0 1rem;
         margin: 0 auto;
         width: 100%;
         display: grid;
@@ -48,18 +27,6 @@
         grid-gap: 2rem;
     }
 
-    &__filter {
-        grid-area: filter;
-
-        fieldset {
-            border: none;
-
-            .skjemaelement {
-                margin-bottom: 0.5rem;
-            }
-        }
-    }
-
     &__table {
         grid-area: result;
     }
@@ -67,23 +34,6 @@
     @media (min-width: @screen-lg) {
         &__content {
             max-width: 1800px;
-        }
-    }
-
-    @media (max-width: 991px) {
-        &__header {
-            height: 8.75rem;
-
-            &__title {
-                flex-basis: 100%;
-                position: relative;
-                display: flex;
-                justify-content: center;
-            }
-
-            &__button {
-                margin: auto;
-            }
         }
     }
 }

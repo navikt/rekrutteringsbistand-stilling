@@ -1,7 +1,5 @@
-@import '@navikt/ds-tokens';
-
 .mineStillingerHeader {
-    background-color: var(--a-blue-50);
+    background-color: var(--rekrutteringsbistand-blue);
     border-bottom: var(--a-spacing-05) solid var(--a-border-subtle);
 }
 
