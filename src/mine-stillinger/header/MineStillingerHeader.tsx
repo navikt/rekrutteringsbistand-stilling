@@ -1,7 +1,6 @@
 import React, { ReactNode } from 'react';
 import css from './MineStillingerHeader.module.css';
 import { Heading } from '@navikt/ds-react';
-import '@navikt/ds-css';
 
 type Props = {
     children: ReactNode;

@@ -19,7 +19,6 @@ import { MineStillingerActionType } from './MineStillingerAction';
 import './MineStillinger.less';
 import { Nettstatus } from '../api/Nettressurs';
 import MineStillingerHeader from './header/MineStillingerHeader';
-import '@navikt/ds-css';
 
 type Props = {
     history: History;
