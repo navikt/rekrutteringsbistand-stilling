@@ -1,8 +1,6 @@
 import React, { useState, useEffect, FunctionComponent } from 'react';
-import { Container } from 'nav-frontend-grid';
 import { History } from 'history';
-import { Hovedknapp } from 'nav-frontend-knapper';
-import { Sidetittel } from 'nav-frontend-typografi';
+import { Button } from '@navikt/ds-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 import AlertStripe from 'nav-frontend-alertstriper';
@@ -21,6 +19,8 @@ import StopAdModal from '../stilling/administration/adStatus/StopAdModal';
 import { MineStillingerActionType } from './MineStillingerAction';
 import './MineStillinger.less';
 import { Nettstatus } from '../api/Nettressurs';
+import MineStillingerHeader from './header/MineStillingerHeader';
+import '@navikt/ds-css';
 
 type Props = {
     history: History;
@@ -67,19 +67,9 @@ const MineStillinger: FunctionComponent<Props> = ({ history }) => {
 
     return (
         <div className="MineStillinger">
-            <div className="MineStillinger__header">
-                <Container className="MineStillinger__header-container">
-                    <Sidetittel className="MineStillinger__header__title">
-                        Mine stillinger
-                    </Sidetittel>
-                    <Hovedknapp
-                        onClick={onOpprettNyClick}
-                        className="MineStillinger__header__button"
-                    >
-                        Opprett ny
-                    </Hovedknapp>
-                </Container>
-            </div>
+            <MineStillingerHeader>
+                <Button onClick={onOpprettNyClick}>Opprett ny</Button>
+            </MineStillingerHeader>
             <div className="MineStillinger__content">
                 <StopAdModal fromMyAds />
                 {resultat.kind === Nettstatus.Feil && (
