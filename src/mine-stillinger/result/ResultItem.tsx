@@ -2,7 +2,6 @@ import React, { useState, FunctionComponent } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { BodyShort } from '@navikt/ds-react';
-import Popover, { PopoverOrientering } from 'nav-frontend-popover';
 
 import { formatISOString } from '../../utils/datoUtils';
 import { getAdStatusLabel } from '../../common/enums/getEnumLabels';
@@ -25,18 +24,6 @@ const ResultItem: FunctionComponent<Props> = ({ rekrutteringsbistandstilling }) 
     const copiedAds = useSelector((state: State) => state.ad.copiedAds);
 
     const { stilling, stillingsinfo } = rekrutteringsbistandstilling;
-
-    const [hjelpetekst, setHjelpetekst] = useState<{ anker?: any; tekst: string }>({
-        tekst: '',
-        anker: undefined,
-    });
-
-    const lukkHjelpetekst = () => {
-        setHjelpetekst({
-            tekst: '',
-            anker: undefined,
-        });
-    };
 
     const isCopy = copiedAds.includes(stilling.uuid);
 
@@ -154,13 +141,6 @@ const ResultItem: FunctionComponent<Props> = ({ rekrutteringsbistandstilling }) 
             <td className="Col-menu">
                 <ResultItemDropDown stilling={stilling} />
             </td>
-            <Popover
-                ankerEl={hjelpetekst.anker}
-                orientering={PopoverOrientering.Venstre}
-                onRequestClose={lukkHjelpetekst}
-            >
-                <BodyShort className="ResultItem__hjelpetekst">{hjelpetekst.tekst}</BodyShort>
-            </Popover>
         </tr>
     );
 };
