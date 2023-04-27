@@ -1,15 +1,10 @@
 import React, { FunctionComponent } from 'react';
+import { BodyShort, Button, ErrorMessage, Heading, Modal } from '@navikt/ds-react';
 import { connect } from 'react-redux';
-import { Hovedknapp } from 'nav-frontend-knapper';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import NavFrontendSpinner from 'nav-frontend-spinner';
 
 import { NyStillingState } from '../adReducer';
-import LinkButton from '../../common/linkbutton/LinkButton';
-import ModalMedStillingScope from '../../common/ModalMedStillingScope';
 import { State } from '../../redux/store';
-import { AlertStripeFeil } from 'nav-frontend-alertstriper';
-import './BekreftForlatSidenModal.less';
+import css from './BekreftForlatSidenModal.module.css';
 
 type Props = {
     vis: boolean;
@@ -24,41 +19,35 @@ const BekreftForlatSidenModal: FunctionComponent<Props> = (props) => {
     const { vis, updated, created, onBliPåSidenClick, onForlatSidenClick, nyStillingState } = props;
 
     return (
-        <ModalMedStillingScope
-            isOpen={vis}
-            contentLabel="Fortsett"
-            onRequestClose={onBliPåSidenClick}
-            closeButton
-            className="BekreftForlatSidenModal"
-        >
+        <Modal open={vis} className={css.modal} onClose={onBliPåSidenClick}>
             {updated === created ? (
-                <Undertittel className="blokk-s">
+                <Heading level="2" size="medium" spacing>
                     Du har startet registrering av en ny stilling
-                </Undertittel>
+                </Heading>
             ) : (
-                <Undertittel className="blokk-s">Du har gjort endringer på stillingen</Undertittel>
+                <Heading level="2" size="medium" spacing>
+                    Du har gjort endringer på stillingen
+                </Heading>
             )}
             <div>
-                <Normaltekst className="blokk-l">
+                <BodyShort spacing>
                     Hvis du navigerer bort fra denne siden uten å lagre så mister du informasjonen.
-                </Normaltekst>
-                <Hovedknapp onClick={onBliPåSidenClick}>Bli på siden</Hovedknapp>
-                <LinkButton
-                    className="lenke BekreftForlatSidenModal__forlat-siden-knapp"
+                </BodyShort>
+                <Button onClick={onBliPåSidenClick}>Bli på siden</Button>
+                <Button
+                    variant="secondary"
+                    loading={nyStillingState === NyStillingState.Forkastes}
                     onClick={onForlatSidenClick}
                 >
                     Forlat siden
-                    {nyStillingState === NyStillingState.Forkastes && (
-                        <NavFrontendSpinner className="BekreftForlatSidenModal__forkaster-stilling-spinner" />
-                    )}
-                </LinkButton>
+                </Button>
             </div>
             {nyStillingState === NyStillingState.Feil && (
-                <AlertStripeFeil className="BekreftForlatSidenModal__forkast-stilling-feil">
+                <ErrorMessage className={css.forkastStillingFeil}>
                     Klarte ikke å forkaste den nye stillingen.
-                </AlertStripeFeil>
+                </ErrorMessage>
             )}
-        </ModalMedStillingScope>
+        </Modal>
     );
 };
 
