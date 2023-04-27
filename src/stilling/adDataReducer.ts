@@ -217,7 +217,7 @@ const manipulateAdReducer = (state: Stilling, action) => {
             return {
                 ...state,
                 location: null,
-                locationList: (state.locationList ?? []).filter((loc) => !loc.postalCode),
+                locationList: state.locationList.filter((loc) => !loc.postalCode),
             };
         }
         case REMOVE_POSTAL_CODE_ADDRESS: {
@@ -244,7 +244,7 @@ const manipulateAdReducer = (state: Stilling, action) => {
             return {
                 ...state,
                 location: null,
-                locationList: (state.locationList ?? []).filter((loc) => !loc.address),
+                locationList: state.locationList.filter((loc) => !loc.address),
             };
         }
         case SET_EMPLOYMENT_JOBTITLE:
@@ -296,7 +296,7 @@ const manipulateAdReducer = (state: Stilling, action) => {
                 },
             };
         case CHECK_EMPLOYMENT_WORKDAY:
-            const workday = state.properties?.workday;
+            const { workday } = state.properties;
 
             return {
                 ...state,
@@ -316,14 +316,14 @@ const manipulateAdReducer = (state: Stilling, action) => {
                 properties: {
                     ...state.properties,
                     workday: JSON.stringify(
-                        JSON.parse(state.properties?.workday ?? '[]').filter(
+                        JSON.parse(state.properties.workday ?? '[]').filter(
                             (m) => m !== action.value
                         )
                     ),
                 },
             };
         case CHECK_EMPLOYMENT_WORKHOURS:
-            const workhours = state.properties?.workhours;
+            const { workhours } = state.properties;
 
             return {
                 ...state,
@@ -343,7 +343,7 @@ const manipulateAdReducer = (state: Stilling, action) => {
                 properties: {
                     ...state.properties,
                     workhours: JSON.stringify(
-                        JSON.parse(state.properties?.workhours ?? '[]').filter(
+                        JSON.parse(state.properties.workhours ?? '[]').filter(
                             (m) => m !== action.value
                         )
                     ),
@@ -547,7 +547,7 @@ const manipulateAdReducer = (state: Stilling, action) => {
             };
         case CHECK_TAG: {
             const tags = leggTilTagUnderRegistrering(
-                IsJson(state.properties?.tags) ? JSON.parse(state.properties?.tags || '') : [],
+                IsJson(state.properties.tags) ? JSON.parse(state.properties.tags || '') : [],
                 action.value
             );
 
@@ -561,7 +561,7 @@ const manipulateAdReducer = (state: Stilling, action) => {
         }
         case UNCHECK_TAG:
             const tags = fjernTagUnderRegistrering(
-                JSON.parse(state.properties?.tags || ''),
+                JSON.parse(state.properties.tags || ''),
                 action.value
             );
 
