@@ -20,8 +20,6 @@ import Loading from '../common/loading/Loading';
 import NoResults from './noResults/NoResults';
 import classNames from 'classnames';
 
-const SIDESTØRRELSE = 20;
-
 type Props = {
     history: History;
 };
