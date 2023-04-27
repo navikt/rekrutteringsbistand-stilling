@@ -1,6 +1,6 @@
 import React, { useState, useEffect, FunctionComponent } from 'react';
 import { History } from 'history';
-import { Button, ErrorMessage } from '@navikt/ds-react';
+import { Button, Pagination } from '@navikt/ds-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 
@@ -8,18 +8,19 @@ import { CLEAR_COPIED_ADS } from '../stilling/adReducer';
 import { State } from '../redux/store';
 import Count from './result/Count';
 import Filter from './filter/Filter';
-import Loading from '../common/loading/Loading';
-import NoResults from './noResults/NoResults';
 import OpprettNyStilling from '../opprett-ny-stilling/OpprettNyStilling';
-import Pagination from './pagination/Pagination';
-import ResultHeader from './result/ResultHeader';
-import ResultItem from './result/ResultItem';
 import StopAdModal from '../stilling/administration/adStatus/StopAdModal';
-import { MineStillingerActionType } from './MineStillingerAction';
+import { MineStillingerAction, MineStillingerActionType } from './MineStillingerAction';
 import './MineStillinger.module.css';
-import { Nettstatus } from '../api/Nettressurs';
 import MineStillingerHeader from './header/MineStillingerHeader';
 import css from './MineStillinger.module.css';
+import ResultTable from './result/ResultTable';
+import { Nettstatus } from '../api/Nettressurs';
+import Loading from '../common/loading/Loading';
+import NoResults from './noResults/NoResults';
+import classNames from 'classnames';
+
+const SIDESTØRRELSE = 20;
 
 type Props = {
     history: History;
@@ -64,6 +65,11 @@ const MineStillinger: FunctionComponent<Props> = ({ history }) => {
         setVisOpprettStillingModal(false);
     };
 
+    const onPageChange = (page: number) => {
+        page = page - 1;
+        dispatch<MineStillingerAction>({ type: MineStillingerActionType.ChangeMyAdsPage, page });
+    };
+
     return (
         <div className={css.mineStillinger}>
             <MineStillingerHeader>
@@ -75,37 +81,22 @@ const MineStillinger: FunctionComponent<Props> = ({ history }) => {
                     <Count resultat={resultat} />
                 </div>
                 <Filter />
-                <div className={css.tabell}>
-                    <table className="Result__table">
-                        <ResultHeader />
-                        <tbody>
-                            {resultat.kind === Nettstatus.Feil && (
-                                <ErrorMessage className={css.feilmelding}>
-                                    Klarte ikke hente mine stillinger
-                                </ErrorMessage>
-                            )}
-                            {resultat.kind === Nettstatus.Suksess &&
-                                resultat.data.content.map((rekrutteringsbistandstilling) => (
-                                    <ResultItem
-                                        key={rekrutteringsbistandstilling.stilling.uuid}
-                                        rekrutteringsbistandstilling={rekrutteringsbistandstilling}
-                                    />
-                                ))}
-                        </tbody>
-                    </table>
-
-                    {resultat.kind === Nettstatus.LasterInn && <Loading />}
-
-                    {resultat.kind === Nettstatus.Suksess && (
-                        <>
-                            {resultat.data.content.length > 0 ? (
-                                <Pagination resultat={resultat.data} page={page} />
-                            ) : (
-                                <NoResults />
-                            )}
-                        </>
-                    )}
-                </div>
+                <ResultTable resultat={resultat} page={page} />
+                {resultat.kind === Nettstatus.LasterInn && <Loading />}
+                {resultat.kind === Nettstatus.Suksess && (
+                    <>
+                        {resultat.data.content.length > 0 ? (
+                            <Pagination
+                                page={page + 1}
+                                count={resultat.data.totalPages}
+                                onPageChange={onPageChange}
+                                className={classNames(css.underTabell, css.paginering)}
+                            />
+                        ) : (
+                            <NoResults />
+                        )}
+                    </>
+                )}
             </div>
             {visOpprettStillingModal && <OpprettNyStilling onClose={onOpprettNyStillingClose} />}
         </div>

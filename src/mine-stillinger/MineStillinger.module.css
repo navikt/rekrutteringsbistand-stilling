@@ -13,6 +13,12 @@
     margin-top: var(--a-spacing-10);
 }
 
+.paginering {
+    display: flex;
+    justify-content: center;
+    grid-area: under-tabell;
+}
+
 .innhold {
     padding: 0 var(--a-spacing-4);
     margin: 0 auto;
@@ -22,7 +28,8 @@
     grid-template-rows: auto auto;
     grid-template-areas:
         'aboveFilter resultCount'
-        'filter result';
+        'filter result'
+        'under-filter under-tabell';
     grid-gap: var(--a-spacing-8);
     max-width: 1800px;
 }
