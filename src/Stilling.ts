@@ -25,6 +25,7 @@ export type Stilling = {
     location: Geografi;
     locationList: Geografi[];
     properties: Properties & Record<string, any>;
+    contactList: any;
 
     /** Når NSS-admin trykker på "publiser" */
     publishedByAdmin: string | null;
@@ -123,7 +124,7 @@ export type Properties = Partial<{
     extent: Omfang;
     engagementtype: Ansettelsesform;
     positioncount: number;
-    tags: Array<string>;
+    tags: string;
     workday: string;
     workhours: string;
 }>;

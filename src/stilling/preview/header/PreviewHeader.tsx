@@ -10,7 +10,7 @@ import { hentAnnonselenke, stillingErPublisert } from '../../adUtils';
 import { Kandidatliste } from '../../legg-til-kandidat-modal/kandidatlistetyper';
 import { Nettressurs } from '../../../api/Nettressurs';
 import { State } from '../../../redux/store';
-import { Stillingsinfo } from '../../../Stilling';
+import { Stillingsinfo, System } from '../../../Stilling';
 import { AdDataState } from '../../adDataReducer';
 import OpprettKandidatlisteModal from './OpprettKandidatlisteModal';
 import Stillingstittel from './Stillingstittel';
@@ -123,7 +123,7 @@ const mapStateToProps = (state: State) => ({
     stillingsinfoData: state.stillingsinfoData,
     stillingsinfo: state.stillingsinfo,
     stilling: state.adData,
-    limitedAccess: state.adData.createdBy !== 'pam-rekrutteringsbistand',
+    limitedAccess: state.adData.createdBy !== System.Rekrutteringsbistand,
 });
 
 const mapDispatchToProps = (dispatch: (action: any) => void) => ({

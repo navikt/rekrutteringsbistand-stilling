@@ -20,6 +20,7 @@ import DeleteAdModal from './DeleteAdModal';
 import Sletteknapp from './Sletteknapp';
 import { Button } from '@navikt/ds-react';
 import classNames from 'classnames';
+import { System } from '../../../Stilling';
 
 enum ButtonEnum {
     PUBLISH = 'PUBLISH',
@@ -107,7 +108,7 @@ const AdStatusEdit = () => {
     const isRePublishing = buttonClicked === ButtonEnum.REPUBLISH && isSavingAd;
     const isPublishingChanges = buttonClicked === ButtonEnum.PUBLISH_CHANGES && isSavingAd;
     const canSave = !isPublished && !isExpired && !isSavingAd;
-    const publishingRights = createdBy === 'pam-rekrutteringsbistand';
+    const publishingRights = createdBy === System.Rekrutteringsbistand;
 
     let buttonState = ButtonGroupEnum.NEW_AD;
     if (!publishingRights) {

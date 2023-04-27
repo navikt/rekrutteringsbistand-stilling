@@ -515,7 +515,7 @@ function* saveAd(action) {
             yield put<VarslingAction>({
                 type: VarslingActionType.VisVarsling,
                 innhold:
-                    state.adData.createdBy === 'pam-rekrutteringsbistand'
+                    state.adData.createdBy === System.Rekrutteringsbistand
                         ? 'Stillingen er lagret i mine stillinger'
                         : 'Endringene er lagret',
             });

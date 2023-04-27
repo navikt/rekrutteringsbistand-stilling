@@ -19,6 +19,7 @@ import Preview from './preview/Preview';
 import PreviewHeader from './preview/header/PreviewHeader';
 import useHentKandidatliste from './kandidathandlinger/useHentKandidatliste';
 import css from './Stilling.module.css';
+import { System } from '../Stilling';
 
 export const REDIGERINGSMODUS_QUERY_PARAM = 'redigeringsmodus';
 
@@ -107,7 +108,7 @@ const Stilling = () => {
     }, [uuid]);
 
     const isNew = (state as LocationState)?.isNew || false;
-    const erEksternStilling = stilling.createdBy !== 'pam-rekrutteringsbistand';
+    const erEksternStilling = stilling.createdBy !== System.Rekrutteringsbistand;
 
     if (isLoadingAd || !stilling) {
         return (
@@ -142,7 +143,7 @@ const Stilling = () => {
                                 {erEksternStilling ? (
                                     <>
                                         <PreviewHeader kandidatliste={kandidatliste} />
-                                        <Preview ad={stilling} />
+                                        <Preview stilling={stilling} />
                                     </>
                                 ) : (
                                     <Edit
@@ -155,7 +156,7 @@ const Stilling = () => {
                         ) : (
                             <>
                                 <PreviewHeader kandidatliste={kandidatliste} />
-                                <Preview ad={stilling} />
+                                <Preview stilling={stilling} />
                             </>
                         )}
                     </div>
