@@ -1,49 +1,17 @@
-import React, { FunctionComponent, MouseEvent } from 'react';
+import React, { FunctionComponent } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 
 import AdStatusEnum from '../../common/enums/AdStatusEnum';
 import { COPY_AD_FROM_MY_ADS, SHOW_STOP_MODAL_MY_ADS } from '../../stilling/adReducer';
 import { getAdStatusLabel } from '../../common/enums/getEnumLabels';
-import { Flatknapp } from 'nav-frontend-knapper';
+import { Dropdown } from '@navikt/ds-react-internal';
 import Stilling from '../../Stilling';
-import './ResultItemDropDown.less';
-
-const DropDownItem = ({ label, onClick, active, helpText, onToggleHjelpetekst }) => {
-    const onHjelpetekstClick = (event: MouseEvent<HTMLDivElement>) => {
-        onToggleHjelpetekst({ anker: event.currentTarget, tekst: helpText });
-        event.stopPropagation();
-    };
-
-    return active ? (
-        <Flatknapp mini onClick={onClick} className="ResultItemDropDown__knapp">
-            {label}
-        </Flatknapp>
-    ) : (
-        <>
-            <div className="ResultItemDropDown__item" onClick={onHjelpetekstClick}>
-                {label}
-            </div>
-        </>
-    );
-};
-
-DropDownItem.propTypes = {
-    label: PropTypes.string.isRequired,
-    active: PropTypes.bool.isRequired,
-    onClick: PropTypes.func.isRequired,
-    helpText: PropTypes.string,
-    refProp: PropTypes.object,
-};
-
-DropDownItem.defaultProps = {
-    helpText: '',
-    refProp: undefined,
-};
+import { Button, Tooltip } from '@navikt/ds-react';
+import { MenuHamburgerIcon } from '@navikt/aksel-icons';
+import css from './ResultItemDropDown.module.css';
 
 type ResultItemDropDownProps = {
     stilling: Stilling;
-    onToggleHjelpetekst: (nyHjelpetekst: any) => void;
     stopAd: (uuid: string) => void;
     copyAd: (uuid: string) => void;
 };
@@ -52,7 +20,6 @@ const ResultItemDropDown: FunctionComponent<ResultItemDropDownProps> = ({
     stilling,
     copyAd,
     stopAd,
-    onToggleHjelpetekst,
 }) => {
     const willBePublished =
         stilling.status === AdStatusEnum.INACTIVE && stilling.activationOnPublishingDate;
@@ -60,31 +27,42 @@ const ResultItemDropDown: FunctionComponent<ResultItemDropDownProps> = ({
     const onItemClick = (action) => {
         action(stilling.uuid);
     };
+    const kanStoppeStilling =
+        stilling.status === AdStatusEnum.ACTIVE ||
+        (stilling.status === AdStatusEnum.INACTIVE && willBePublished);
 
     return (
-        <div>
-            <ul className="ResultItemDropDown">
-                <DropDownItem
-                    label="Kopier"
-                    onClick={() => onItemClick(copyAd)}
-                    active
-                    onToggleHjelpetekst={onToggleHjelpetekst}
-                />
-                <DropDownItem
-                    label="Stopp"
-                    onClick={() => onItemClick(stopAd)}
-                    active={
-                        stilling.status === AdStatusEnum.ACTIVE ||
-                        (stilling.status === AdStatusEnum.INACTIVE && willBePublished)
-                    }
-                    helpText={`Du kan ikke stoppe en stilling som har status: "${getAdStatusLabel(
-                        stilling.status,
-                        stilling.deactivatedByExpiry!
-                    ).toLowerCase()}"`}
-                    onToggleHjelpetekst={onToggleHjelpetekst}
-                />
-            </ul>
-        </div>
+        <Dropdown closeOnSelect={false}>
+            <Button
+                as={Dropdown.Toggle}
+                variant="tertiary"
+                icon={<MenuHamburgerIcon />}
+                aria-label="Meny for stilling"
+            />
+            <Dropdown.Menu>
+                <Dropdown.Menu.GroupedList>
+                    <Dropdown.Menu.GroupedList.Item onClick={() => onItemClick(copyAd)}>
+                        Kopier
+                    </Dropdown.Menu.GroupedList.Item>
+                    {!kanStoppeStilling ? (
+                        <Tooltip
+                            content={`Du kan ikke stoppe en stilling som har status: "${getAdStatusLabel(
+                                stilling.status,
+                                stilling.deactivatedByExpiry!
+                            ).toLowerCase()}"`}
+                        >
+                            <Dropdown.Menu.GroupedList.Item className={css.disabledValg}>
+                                Stopp
+                            </Dropdown.Menu.GroupedList.Item>
+                        </Tooltip>
+                    ) : (
+                        <Dropdown.Menu.GroupedList.Item onClick={() => onItemClick(stopAd)}>
+                            Stopp
+                        </Dropdown.Menu.GroupedList.Item>
+                    )}
+                </Dropdown.Menu.GroupedList>
+            </Dropdown.Menu>
+        </Dropdown>
     );
 };
 

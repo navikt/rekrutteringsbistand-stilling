@@ -1,8 +1,7 @@
 import React, { useState, FunctionComponent } from 'react';
 import { useSelector } from 'react-redux';
-import { Hamburgerknapp } from 'nav-frontend-ikonknapper';
 import { Link } from 'react-router-dom';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort } from '@navikt/ds-react';
 import Popover, { PopoverOrientering } from 'nav-frontend-popover';
 
 import { formatISOString } from '../../utils/datoUtils';
@@ -12,7 +11,6 @@ import { Rekrutteringsbistandstilling } from '../../Stilling';
 import { State } from '../../redux/store';
 import LenkeMedIkon from '../../common/lenke-med-ikon/LenkeMedIkon';
 import getEmployerName from '../../common/getEmployerName';
-import MedPopover from '../../common/med-popover/MedPopover';
 import PrivacyStatusEnum from '../../common/enums/PrivacyStatusEnum';
 import ResultItemDropDown from './ResultItemDropDown';
 import './Icons.less';
@@ -28,32 +26,16 @@ const ResultItem: FunctionComponent<Props> = ({ rekrutteringsbistandstilling }) 
 
     const { stilling, stillingsinfo } = rekrutteringsbistandstilling;
 
-    const [dropDownVisible, setDropDownVisible] = useState(false);
     const [hjelpetekst, setHjelpetekst] = useState<{ anker?: any; tekst: string }>({
         tekst: '',
         anker: undefined,
     });
-
-    const toggleHjelpetekst = (nyHjelpetekst: { anker: any; tekst: string }) => {
-        lukkHjelpetekst();
-
-        if (hjelpetekst.anker !== nyHjelpetekst.anker) {
-            setTimeout(() => {
-                setHjelpetekst(nyHjelpetekst);
-            }, 0);
-        }
-    };
 
     const lukkHjelpetekst = () => {
         setHjelpetekst({
             tekst: '',
             anker: undefined,
         });
-    };
-
-    const onDropdownClick = () => {
-        lukkHjelpetekst();
-        setDropDownVisible(!dropDownVisible);
     };
 
     const isCopy = copiedAds.includes(stilling.uuid);
@@ -86,9 +68,9 @@ const ResultItem: FunctionComponent<Props> = ({ rekrutteringsbistandstilling }) 
     const colUpdated = (
         <td className="Col-updated">
             {stilling.updated && (
-                <Normaltekst className="ResultItem__column">
+                <BodyShort className="ResultItem__column">
                     {formatISOString(stilling.updated, 'DD.MM.YYYY')}
-                </Normaltekst>
+                </BodyShort>
             )}
         </td>
     );
@@ -99,9 +81,9 @@ const ResultItem: FunctionComponent<Props> = ({ rekrutteringsbistandstilling }) 
                 {colUpdated}
                 {colTitle}
                 <td className="Col-id Col-transferred">
-                    <Normaltekst className="ResultItem__column">
+                    <BodyShort className="ResultItem__column">
                         Overført til annen veileder.
-                    </Normaltekst>
+                    </BodyShort>
                 </td>
                 <td className="Col-employer"></td>
                 <td className="Col-expires"></td>
@@ -119,36 +101,34 @@ const ResultItem: FunctionComponent<Props> = ({ rekrutteringsbistandstilling }) 
             {colUpdated}
             {colTitle}
             <td className="Col-id">
-                {stilling.id && (
-                    <Normaltekst className="ResultItem__column">{stilling.id}</Normaltekst>
-                )}
+                {stilling.id && <BodyShort className="ResultItem__column">{stilling.id}</BodyShort>}
             </td>
             <td className="Col-employer">
-                <Normaltekst className="ResultItem__column Col-employer-inner">
+                <BodyShort className="ResultItem__column Col-employer-inner">
                     {getEmployerName(stilling)}
-                </Normaltekst>
+                </BodyShort>
             </td>
             <td className="Col-expires">
                 {stilling.expires && (
-                    <Normaltekst className="ResultItem__column">
+                    <BodyShort className="ResultItem__column">
                         {formatISOString(stilling.expires)}
-                    </Normaltekst>
+                    </BodyShort>
                 )}
             </td>
             <td className="Col-privacy">
                 {stilling.privacy && (
-                    <Normaltekst className="ResultItem__column">
+                    <BodyShort className="ResultItem__column">
                         {stilling.privacy === PrivacyStatusEnum.SHOW_ALL
                             ? 'Arbeidsplassen'
                             : 'Internt'}
-                    </Normaltekst>
+                    </BodyShort>
                 )}
             </td>
             <td className="Col-status">
                 {stilling.status && (
-                    <Normaltekst className="ResultItem__column">
+                    <BodyShort className="ResultItem__column">
                         {getAdStatusLabel(stilling.status, stilling.deactivatedByExpiry!)}
-                    </Normaltekst>
+                    </BodyShort>
                 )}
             </td>
             <td className="Col-candidate">
@@ -172,25 +152,14 @@ const ResultItem: FunctionComponent<Props> = ({ rekrutteringsbistandstilling }) 
                 </Link>
             </td>
             <td className="Col-menu">
-                <MedPopover
-                    className="Inner__button"
-                    onPopoverClick={onDropdownClick}
-                    hjelpetekst={
-                        <ResultItemDropDown
-                            stilling={stilling}
-                            onToggleHjelpetekst={toggleHjelpetekst}
-                        />
-                    }
-                >
-                    <Hamburgerknapp aria-label="Meny for stilling" />
-                </MedPopover>
+                <ResultItemDropDown stilling={stilling} />
             </td>
             <Popover
                 ankerEl={hjelpetekst.anker}
                 orientering={PopoverOrientering.Venstre}
                 onRequestClose={lukkHjelpetekst}
             >
-                <Normaltekst className="ResultItem__hjelpetekst">{hjelpetekst.tekst}</Normaltekst>
+                <BodyShort className="ResultItem__hjelpetekst">{hjelpetekst.tekst}</BodyShort>
             </Popover>
         </tr>
     );

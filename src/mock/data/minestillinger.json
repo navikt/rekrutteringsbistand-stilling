@@ -262,8 +262,98 @@
                 "eierNavident": "A123456",
                 "eierNavn": "Joare Mangstuen Mossby"
             }
+        },
+        {
+            "stillingsinfo": {
+                "stillingsid": "11b047ef-112c-4e82-9066-6ee292aea15b",
+                "stillingsinfoid": "7f183a4f-d25a-4bdf-806f-ace6df5900be",
+                "notat": null,
+                "eierNavident": null,
+                "eierNavn": null,
+                "stillingskategori": "JOBBMESSE"
+            },
+            "stilling": {
+                "id": 807446,
+                "uuid": "11b047ef-112c-4e82-9066-6ee292aea15b",
+                "created": "2023-03-28T15:24:01.283446",
+                "createdBy": "pam-rekrutteringsbistand",
+                "updated": "2023-03-28T15:24:01.283446",
+                "updatedBy": "pam-rekrutteringsbistand",
+                "title": "Ny stilling",
+                "status": "INACTIVE",
+                "administration": {
+                    "id": 586600,
+                    "status": "PENDING",
+                    "comments": null,
+                    "reportee": "F_Z994241 E_Z994241",
+                    "remarks": [],
+                    "navIdent": "Z994241"
+                },
+                "mediaList": [],
+                "contactList": [],
+                "privacy": "INTERNAL_NOT_SHOWN",
+                "source": "DIR",
+                "medium": "DIR",
+                "reference": "11b047ef-112c-4e82-9066-6ee292aea15b",
+                "published": "2023-03-28T15:24:01.283221",
+                "expires": "2023-03-28T15:24:01.283222",
+                "employer": {
+                    "id": 769294,
+                    "uuid": "31c42c49-f6bf-4152-8eda-baf57b14e7b0",
+                    "created": "2022-11-30T13:24:08.526224",
+                    "createdBy": "pam-rekrutteringsbistand",
+                    "updated": "2023-04-13T14:23:00.30382",
+                    "updatedBy": "pam-ad",
+                    "mediaList": [],
+                    "contactList": [],
+                    "location": {
+                        "address": "",
+                        "postalCode": "",
+                        "county": null,
+                        "municipal": null,
+                        "municipalCode": null,
+                        "city": "",
+                        "country": "",
+                        "latitude": null,
+                        "longitude": null
+                    },
+                    "locationList": [
+                        {
+                            "address": "",
+                            "postalCode": "",
+                            "county": null,
+                            "municipal": null,
+                            "municipalCode": null,
+                            "city": "",
+                            "country": "",
+                            "latitude": null,
+                            "longitude": null
+                        }
+                    ],
+                    "properties": {
+                        "nace2": "[]"
+                    },
+                    "name": "ORDKNAPP BLOMSTRETE TIGER AS",
+                    "orgnr": "312113341",
+                    "status": "ACTIVE",
+                    "parentOrgnr": "311185268",
+                    "publicName": "ORDKNAPP BLOMSTRETE TIGER AS",
+                    "deactivated": null,
+                    "orgform": "BEDR",
+                    "employees": 4
+                },
+                "location": null,
+                "locationList": [],
+                "categoryList": [],
+                "properties": {},
+                "publishedByAdmin": null,
+                "businessName": "ORDKNAPP BLOMSTRETE TIGER AS",
+                "firstPublished": false,
+                "deactivatedByExpiry": false,
+                "activationOnPublishingDate": false
+            }
         }
     ],
     "totalPages": 2,
-    "totalElements": 2
+    "totalElements": 3
 }
