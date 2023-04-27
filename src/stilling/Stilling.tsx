@@ -18,7 +18,6 @@ import Error from './error/Error';
 import Preview from './preview/Preview';
 import PreviewHeader from './preview/header/PreviewHeader';
 import useHentKandidatliste from './kandidathandlinger/useHentKandidatliste';
-import './Stilling.less';
 import css from './Stilling.module.css';
 
 export const REDIGERINGSMODUS_QUERY_PARAM = 'redigeringsmodus';
