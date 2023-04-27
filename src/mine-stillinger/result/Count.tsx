@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
-import { Systemtittel } from 'nav-frontend-typografi';
 import { Nettressurs, Nettstatus } from '../../api/Nettressurs';
 import { MineStillingerResultat } from '../mineStillingerReducer';
+import { Heading } from '@navikt/ds-react';
 
 type Props = {
     resultat: Nettressurs<MineStillingerResultat>;
@@ -9,7 +9,11 @@ type Props = {
 
 const Count: FunctionComponent<Props> = ({ resultat }) => {
     if (resultat.kind !== Nettstatus.Suksess) {
-        return <Systemtittel>&nbsp;</Systemtittel>;
+        return (
+            <Heading level="2" size="medium">
+                &nbsp;
+            </Heading>
+        );
     }
 
     const antallStillinger = resultat.data.totalElements;
@@ -21,7 +25,11 @@ const Count: FunctionComponent<Props> = ({ resultat }) => {
         text += ' stillinger';
     }
 
-    return <Systemtittel>{text}</Systemtittel>;
+    return (
+        <Heading level="2" size="medium">
+            {text}
+        </Heading>
+    );
 };
 
 export default Count;
