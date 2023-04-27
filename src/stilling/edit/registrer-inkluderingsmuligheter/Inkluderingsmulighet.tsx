@@ -9,7 +9,6 @@ import Skjemalegend from '../skjemaetikett/Skjemalegend';
 import { visningsnavnForRegistrering } from '../../tags/visningsnavnForTags';
 import { CheckboxGroup, Checkbox } from '@navikt/ds-react';
 import css from './Inkluderingsmulighet.module.css';
-import './Inkluderingsmulighet.less';
 
 type Props = {
     tittel: string;

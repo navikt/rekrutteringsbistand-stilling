@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Button } from '@navikt/ds-react';
+import { Accordion, Button } from '@navikt/ds-react';
 import { CopyToClipboard } from '@navikt/ds-react-internal';
 import { NewspaperIcon } from '@navikt/aksel-icons';
 
@@ -22,6 +22,8 @@ import Location from './location/Location';
 import PracticalInformation from './practicalInformation/PracticalInformation';
 import RegistrerInkluderingsmuligheter from './registrer-inkluderingsmuligheter/DirektemeldtStilling';
 import Stillingsheader from '../header/Stillingsheader.tsx';
+import './Edit.less';
+import css from './Edit.module.css';
 import { RESET_VALIDATION_ERROR } from '../adValidationReducer';
 import EksternStillingAdvarsel from '../preview/header/EksternStillingAdvarsel.tsx';
 import './Edit.less';
@@ -70,10 +72,23 @@ const Edit = ({ ad, isNew, onPreviewAdClick, resetValidation, kandidatliste }) =
             )}
             <Column xs="12" md="8">
                 <div className="Edit__left">
-                    <EditHeader isNew={isNew} onPreviewAdClick={onPreviewAdClick} />
-                    <EndreArbeidsgiver stilling={ad} />
-                    <RegistrerInkluderingsmuligheter />
-                    <JobDetails isNew={isNew} />
+                    <Accordion className={css.editAccordion}>
+                        <Accordion.Item defaultOpen className={css.accordionWhite}>
+                            <EditHeader isNew={isNew} onPreviewAdClick={onPreviewAdClick} />
+                        </Accordion.Item>
+                        <Accordion.Item defaultOpen className={css.accordionWhite}>
+                            <EndreArbeidsgiver />
+                        </Accordion.Item>
+                        <Accordion.Item
+                            defaultOpen
+                            className={css.accordionRekrutteringsbistandblue}
+                        >
+                            <RegistrerInkluderingsmuligheter />
+                        </Accordion.Item>
+                        <Accordion.Item defaultOpen className={css.accordionWhite}>
+                            <JobDetails isNew={isNew} />
+                        </Accordion.Item>
+                    </Accordion>
                 </div>
             </Column>
             <Column xs="12" md="4">

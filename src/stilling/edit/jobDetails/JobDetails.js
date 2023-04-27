@@ -2,12 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Input } from 'nav-frontend-skjema';
-import { Undertittel } from 'nav-frontend-typografi';
-import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import RichTextEditor from '../richTextEditor/RichTextEditor';
 import { SET_AD_TEXT, SET_EMPLOYMENT_JOBTITLE } from '../../adDataReducer';
 import Styrk from './styrk/Styrk';
 import Skjemalabel from '../skjemaetikett/Skjemalabel';
+import { Accordion } from '@navikt/ds-react';
 
 class JobDetails extends React.Component {
     onJobtitleChange = (e) => {
@@ -27,32 +26,30 @@ class JobDetails extends React.Component {
     render() {
         const { ad } = this.props;
         return (
-            <Ekspanderbartpanel
-                tittel={<Undertittel>Om stillingen</Undertittel>}
-                className="blokk-s"
-                border
-                apen
-            >
-                <Styrk />
-                <Input
-                    className="blokk-xs"
-                    label="Yrkestittel som vises på stillingen (du kan overskrive)"
-                    value={ad.properties.jobtitle || ''}
-                    onChange={this.onJobtitleChange}
-                />
-                <Skjemalabel påkrevd inputId="endre-stilling-annonsetekst">
-                    Annonsetekst
-                </Skjemalabel>
-                <div className="Edit__JobDetails__rteEditor-content">
-                    <RichTextEditor
-                        id="endre-stilling-annonsetekst"
-                        text={ad.properties.adtext || ''}
-                        onChange={this.onAdTextChange}
-                        errorMessage={this.props.validation.adText}
-                        ariaDescribedBy="stillingstekst"
+            <>
+                <Accordion.Header title="Om stillingen">Om stillingen</Accordion.Header>
+                <Accordion.Content>
+                    <Styrk />
+                    <Input
+                        className="blokk-xs"
+                        label="Yrkestittel som vises på stillingen (du kan overskrive)"
+                        value={ad.properties.jobtitle || ''}
+                        onChange={this.onJobtitleChange}
                     />
-                </div>
-            </Ekspanderbartpanel>
+                    <Skjemalabel påkrevd inputId="endre-stilling-annonsetekst">
+                        Annonsetekst
+                    </Skjemalabel>
+                    <div className="Edit__JobDetails__rteEditor-content">
+                        <RichTextEditor
+                            id="endre-stilling-annonsetekst"
+                            text={ad.properties.adtext || ''}
+                            onChange={this.onAdTextChange}
+                            errorMessage={this.props.validation.adText}
+                            ariaDescribedBy="stillingstekst"
+                        />
+                    </div>
+                </Accordion.Content>
+            </>
         );
     }
 }

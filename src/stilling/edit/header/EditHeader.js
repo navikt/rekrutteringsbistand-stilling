@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Input } from 'nav-frontend-skjema';
-import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import PropTypes from 'prop-types';
 
 import { DEFAULT_TITLE_NEW_AD } from '../../adReducer';
 import { SET_AD_TITLE } from '../../adDataReducer';
 import Skjemalabel from '../skjemaetikett/Skjemalabel';
+import { Accordion } from '@navikt/ds-react';
 
 class EditHeader extends React.Component {
     onTitleChange = (e) => {
@@ -25,23 +25,27 @@ class EditHeader extends React.Component {
         const { validation } = this.props;
 
         return (
-            <Ekspanderbartpanel apen border tittel="Tittel på annonsen" className="blokk-s">
-                <Skjemalabel
-                    påkrevd
-                    inputId="endre-stilling-tittel"
-                    beskrivelse={`For eksempel «engasjert barnehagelærer til Oslo-skole»`}
-                >
-                    Overskrift på annonsen
-                </Skjemalabel>
-                <Input
-                    id="endre-stilling-tittel"
-                    className="blokk-xs"
-                    value={this.getAdTitle()}
-                    onChange={this.onTitleChange}
-                    aria-describedby="endre-stilling-tittel-beskrivelse"
-                    feil={validation.title}
-                />
-            </Ekspanderbartpanel>
+            <>
+                <Accordion.Header title="Tittel på annonsen">Tittel på annonsen</Accordion.Header>
+                <Accordion.Content>
+                    <Skjemalabel
+                        påkrevd
+                        inputId="endre-stilling-tittel"
+                        beskrivelse={`For eksempel «engasjert barnehagelærer til Oslo-skole»`}
+                        className="blokk-s"
+                    >
+                        Overskrift på annonsen
+                    </Skjemalabel>
+                    <Input
+                        id="endre-stilling-tittel"
+                        className="blokk-xs"
+                        value={this.getAdTitle()}
+                        onChange={this.onTitleChange}
+                        aria-describedby="endre-stilling-tittel-beskrivelse"
+                        feil={validation.title}
+                    />
+                </Accordion.Content>
+            </>
         );
     }
 }
