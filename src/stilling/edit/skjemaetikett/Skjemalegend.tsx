@@ -1,9 +1,7 @@
-import { Element, Normaltekst } from 'nav-frontend-typografi';
 import React, { FunctionComponent, ReactNode } from 'react';
 import classnames from 'classnames';
-import './Skjemalegend.less';
-import Hjelpetekst from 'nav-frontend-hjelpetekst';
-import { PopoverOrientering } from 'nav-frontend-popover';
+import css from './Skjemalegend.module.css';
+import { BodyLong, BodyShort, HelpText, Label } from '@navikt/ds-react';
 
 type Props = {
     påkrevd?: boolean;
@@ -22,19 +20,19 @@ const Skjemalegend: FunctionComponent<Props> = ({
 }) => {
     return (
         <>
-            <legend className={classnames('skjemalegend', className)}>
-                <Element tag="span">{children}</Element>
-                {påkrevd && <Normaltekst tag="span"> (må fylles ut)</Normaltekst>}
-                {hjelpetekst && (
-                    <Hjelpetekst
-                        className="skjemalegend__hjelpetekst"
-                        type={PopoverOrientering.Under}
-                    >
-                        {hjelpetekst}
-                    </Hjelpetekst>
+            <legend className={classnames(css.skjemalegend, className)}>
+                <Label as="span" size="small">
+                    {children}
+                </Label>
+                {påkrevd && (
+                    <BodyShort as="span" size="small">
+                        {' '}
+                        (må fylles ut)
+                    </BodyShort>
                 )}
+                {hjelpetekst && <HelpText className={css.hjelpetekst}>{hjelpetekst}</HelpText>}
             </legend>
-            {beskrivelse && <Normaltekst>{beskrivelse}</Normaltekst>}
+            {beskrivelse && <BodyLong>{beskrivelse}</BodyLong>}
         </>
     );
 };
