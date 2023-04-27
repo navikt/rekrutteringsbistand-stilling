@@ -11,14 +11,15 @@ import css from './AdministrationPreview.module.css';
 import { erDirektemeldtStilling } from '../../adUtils';
 import Kategori from './kategori/Kategori';
 import { Button } from '@navikt/ds-react';
+import { System } from '../../../Stilling';
 
 const AdministrationPreview = () => {
     const dispatch = useDispatch();
 
-    const source = useSelector((state: any) => state.adData.source);
+    const source = useSelector((state: any) => state.adData?.source);
 
     const limitedAccess =
-        useSelector((state: any) => state.adData.createdBy) !== 'pam-rekrutteringsbistand';
+        useSelector((state: any) => state.adData?.createdBy) !== System.Rekrutteringsbistand;
 
     return (
         <div>

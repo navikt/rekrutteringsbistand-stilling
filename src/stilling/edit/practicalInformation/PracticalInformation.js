@@ -363,8 +363,8 @@ PracticalInformation.propTypes = {
 };
 const mapStateToProps = (state) => ({
     ad: state.adData,
-    workday: state.adData.properties.workday,
-    workhours: state.adData.properties.workhours,
+    workday: state.adData?.properties.workday,
+    workhours: state.adData?.properties.workhours,
     validation: state.adValidation.errors,
 });
 

@@ -28,7 +28,7 @@ export enum KanInkludere {
 const DirektemeldtStilling = () => {
     const dispatch = useDispatch();
 
-    const tags = useSelector((state: any) => state.adData.properties.tags || '[]');
+    const tags = useSelector((state: any) => state.adData?.properties.tags || '[]');
     const kanInkludere = useSelector((state: any) => state.ad.kanInkludere);
     const feilmelding = useSelector(
         (state: any) => state.adValidation.errors.inkluderingsmuligheter

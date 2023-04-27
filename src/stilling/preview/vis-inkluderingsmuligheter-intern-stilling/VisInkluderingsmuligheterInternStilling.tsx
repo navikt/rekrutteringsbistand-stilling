@@ -5,9 +5,9 @@ import isJson from '../../edit/practicalInformation/IsJson';
 import { tagsInneholderInkluderingsmuligheter } from '../../tags/utils';
 import './VisInkluderingsmuligheterInternStilling.less';
 
-interface Props {
-    tags: string;
-}
+type Props = {
+    tags?: string;
+};
 
 const VisInkluderingsmuligheterInternStilling: FunctionComponent<Props> = ({ tags }) => {
     if (tags === undefined) {

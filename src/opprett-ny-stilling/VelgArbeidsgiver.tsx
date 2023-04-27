@@ -6,7 +6,7 @@ import capitalizeLocation from '../stilling/edit/location/capitalizeLocation';
 import Skjemalabel from '../stilling/edit/skjemaetikett/Skjemalabel';
 import { ikkeLastet, Nettressurs, Nettstatus } from '../api/Nettressurs';
 import { fetchEmployerNameCompletionHits, fetchOrgnrSuggestions } from '../api/api';
-import { Arbeidsgiver, Location } from '../Stilling';
+import { Arbeidsgiver, Geografi } from '../Stilling';
 
 type Props = {
     arbeidsgiver: Arbeidsgiverforslag | null;
@@ -20,7 +20,7 @@ export type EmployerState = {
 };
 
 export type Arbeidsgiverforslag = {
-    location?: Location;
+    location?: Geografi;
     name: string;
     orgnr?: string;
 };

@@ -19,8 +19,8 @@ export type Validation = {
 const Publishing = () => {
     const dispatch = useDispatch();
 
-    const published = useSelector((state: any) => state.adData.published);
-    const expires = useSelector((state: any) => state.adData.expires);
+    const published = useSelector((state: any) => state.adData?.published);
+    const expires = useSelector((state: any) => state.adData?.expires);
     const validation = useSelector((state: any) => state.adValidation.errors);
 
     const [publishDateInput, setPublishDateInput] = useState<Date | undefined>(new Date(published));

@@ -4,7 +4,7 @@ import { BodyShort } from '@navikt/ds-react';
 import css from './AdminStatusPreview.module.css';
 
 const AdminStatusPreview = () => {
-    const administration = useSelector((state: any) => state.adData.administration);
+    const administration = useSelector((state: any) => state.adData?.administration);
 
     return (
         <div className={css.AdminStatusPreview}>

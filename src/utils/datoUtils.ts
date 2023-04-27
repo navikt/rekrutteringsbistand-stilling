@@ -1,13 +1,15 @@
 const ISO_8601_DATE = /^\d{4}(-\d\d(-\d\d(T\d\d:\d\d(:\d\d)?(\.\d+)?(([+-]\d\d:\d\d)|Z)?)?)?)?$/i;
 
-export function isValidISOString(isoString: string) {
+export function isValidISOString(isoString?: string | null) {
+    if (!isoString) return false;
+
     return ISO_8601_DATE.test(isoString);
 }
 
-export function formatISOString(isoString: string, format: string = 'DD.MM.YYYY') {
+export function formatISOString(isoString?: string | null, format: string = 'DD.MM.YYYY') {
     try {
         if (isValidISOString(isoString)) {
-            const dt = isoString.split('-');
+            const dt = isoString!.split('-');
             if (format === 'DD.MM.YYYY') {
                 const day = dt[2].split('T')[0];
                 return `${day}.${dt[1]}.${dt[0]}`;

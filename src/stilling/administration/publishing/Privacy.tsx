@@ -8,7 +8,7 @@ import { Radio, RadioGroup } from '@navikt/ds-react';
 export default function Privacy() {
     const dispatch = useDispatch();
 
-    const privacy = useSelector((state: any) => state.adData.privacy);
+    const privacy = useSelector((state: any) => state.adData?.privacy);
 
     const onPrivacyChange = (e) => {
         dispatch({ type: SET_PRIVACY, privacy: e.target.value });

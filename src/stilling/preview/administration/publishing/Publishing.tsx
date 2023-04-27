@@ -4,8 +4,8 @@ import { formatISOString } from '../../../../utils/datoUtils';
 import { BodyShort, Label } from '@navikt/ds-react';
 
 const Publishing = () => {
-    const published = useSelector((state: any) => state.adData.published);
-    const expires = useSelector((state: any) => state.adData.expires);
+    const published = useSelector((state: any) => state.adData?.published);
+    const expires = useSelector((state: any) => state.adData?.expires);
 
     return (
         <div>

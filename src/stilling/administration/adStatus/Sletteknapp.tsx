@@ -11,7 +11,9 @@ type Props = {
 
 const Sletteknapp: FunctionComponent<Props> = ({ onDeleteClick, isDeleting }) => {
     const innloggetBrukerident = useSelector((state: State) => state.reportee.data)?.navIdent;
-    const stillingensNavIdent = useSelector((state: State) => state.adData.administration.navIdent);
+    const stillingensNavIdent = useSelector(
+        (state: State) => state.adData?.administration?.navIdent
+    );
     const erEier = innloggetBrukerident === stillingensNavIdent;
 
     if (!erEier) return null;

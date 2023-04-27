@@ -48,7 +48,7 @@ JobArrangement.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    jobArrangement: state.adData.properties.jobarrangement,
+    jobArrangement: state.adData?.properties.jobarrangement,
 });
 
 const mapDispatchToProps = (dispatch) => ({

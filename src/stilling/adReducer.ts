@@ -15,8 +15,6 @@ import {
     REMOVE_AD_DATA,
     CHECK_TAG,
 } from './adDataReducer';
-import AdminStatusEnum from '../common/enums/AdminStatusEnum';
-import AdStatusEnum from '../common/enums/AdStatusEnum';
 import {
     hasValidationErrors,
     hasValidationErrorsOnSave,
@@ -35,6 +33,7 @@ import Stilling, {
     Kilde,
     Privacy,
     Rekrutteringsbistandstilling,
+    Status,
     System,
 } from '../Stilling';
 import { ApiError, fetchDelete, fetchPut } from '../api/apiUtils';
@@ -477,13 +476,13 @@ function* saveRekrutteringsbistandStilling() {
 
 function* publishAd() {
     yield validateAll();
-    const state = yield select();
+    const state: State = yield select();
     if (hasValidationErrors(state.adValidation.errors)) {
         yield put({ type: SHOW_PUBLISH_ERROR_MODAL });
     } else {
-        yield put({ type: SET_ADMIN_STATUS, status: AdminStatusEnum.DONE });
-        yield put({ type: SET_AD_STATUS, status: AdStatusEnum.ACTIVE });
-        if (state.adData.firstPublished === false) {
+        yield put({ type: SET_ADMIN_STATUS, status: AdminStatus.Done });
+        yield put({ type: SET_AD_STATUS, status: Status.Aktiv });
+        if (state.adData?.firstPublished === false) {
             yield put({ type: SET_FIRST_PUBLISHED });
         }
         yield put({ type: SHOW_AD_PUBLISHED_MODAL });
@@ -492,8 +491,8 @@ function* publishAd() {
 }
 
 function* stopAd() {
-    yield put({ type: SET_ADMIN_STATUS, status: AdminStatusEnum.DONE });
-    yield put({ type: SET_AD_STATUS, status: AdStatusEnum.STOPPED });
+    yield put({ type: SET_ADMIN_STATUS, status: AdminStatus.Done });
+    yield put({ type: SET_AD_STATUS, status: Status.Stoppet });
     yield saveRekrutteringsbistandStilling();
 }
 
@@ -515,7 +514,7 @@ function* saveAd(action) {
             yield put<VarslingAction>({
                 type: VarslingActionType.VisVarsling,
                 innhold:
-                    state.adData.createdBy === 'pam-rekrutteringsbistand'
+                    state.adData?.createdBy === System.Rekrutteringsbistand
                         ? 'Stillingen er lagret i mine stillinger'
                         : 'Endringene er lagret',
             });
@@ -525,21 +524,19 @@ function* saveAd(action) {
 
 function* publishAdChanges() {
     yield validateAll();
-    let state = yield select();
+    let state: State = yield select();
+
     if (hasValidationErrors(state.adValidation.errors)) {
         yield put({ type: SHOW_PUBLISH_ERROR_MODAL });
     } else {
-        yield put({ type: SET_ADMIN_STATUS, status: AdminStatusEnum.DONE });
-        yield put({ type: SET_AD_STATUS, status: AdStatusEnum.ACTIVE });
+        yield put({ type: SET_ADMIN_STATUS, status: AdminStatus.Done });
+        yield put({ type: SET_AD_STATUS, status: Status.Aktiv });
         yield saveRekrutteringsbistandStilling();
         state = yield select();
-        if (
-            state.adData.activationOnPublishingDate &&
-            state.adData.status === AdStatusEnum.INACTIVE
-        ) {
+        if (state.adData?.activationOnPublishingDate && state.adData?.status === Status.Inaktiv) {
             yield put<VarslingAction>({
                 type: VarslingActionType.VisVarsling,
-                innhold: `Endringene blir publisert ${formatISOString(state.adData.published)}`,
+                innhold: `Endringene blir publisert ${formatISOString(state.adData?.published)}`,
             });
         } else {
             yield put<VarslingAction>({
@@ -555,8 +552,8 @@ function* deleteAd() {
     try {
         yield put({ type: SET_UPDATED_BY });
 
-        const state = yield select();
-        const deleteUrl = `${stillingApi}/rekrutteringsbistandstilling/${state.adData.uuid}`;
+        const state: State = yield select();
+        const deleteUrl = `${stillingApi}/rekrutteringsbistandstilling/${state.adData?.uuid}`;
 
         const response = yield fetchDelete(deleteUrl);
 
@@ -574,7 +571,7 @@ function* forkastNyStilling() {
         yield put({ type: SET_UPDATED_BY });
 
         const state = yield select();
-        const deleteUrl = `${stillingApi}/rekrutteringsbistandstilling/${state.adData.uuid}`;
+        const deleteUrl = `${stillingApi}/rekrutteringsbistandstilling/${state.adData?.uuid}`;
 
         const response = yield fetchDelete(deleteUrl);
         yield put({ type: FORKAST_NY_STILLING_SUCCESS, response });

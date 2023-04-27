@@ -1,9 +1,9 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import AdStatusEnum from '../../common/enums/AdStatusEnum';
 import { Checkbox, CheckboxGroup, Radio, RadioGroup } from '@navikt/ds-react';
 import { MineStillingerActionType } from '../MineStillingerAction';
 import { State } from '../../redux/store';
+import { Status } from '../../Stilling';
 import css from './Filter.module.css';
 
 const Synlighet = {
@@ -38,9 +38,9 @@ const Filter = () => {
             </RadioGroup>
             {!deactivatedByExpiry && (
                 <CheckboxGroup legend="Status" onChange={onStatusToggle} value={status}>
-                    <Checkbox value={AdStatusEnum.ACTIVE}>Publisert</Checkbox>
-                    <Checkbox value={AdStatusEnum.INACTIVE}>Ikke Publisert</Checkbox>
-                    <Checkbox value={AdStatusEnum.STOPPED}>Stoppet</Checkbox>
+                    <Checkbox value={Status.Aktiv}>Publisert</Checkbox>
+                    <Checkbox value={Status.Inaktiv}>Ikke Publisert</Checkbox>
+                    <Checkbox value={Status.Stoppet}>Stoppet</Checkbox>
                 </CheckboxGroup>
             )}
         </aside>
