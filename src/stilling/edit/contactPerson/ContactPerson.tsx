@@ -134,7 +134,7 @@ const ContactPerson: FunctionComponent<Props> = ({
 };
 
 const mapStateToProps = (state: State) => ({
-    contactList: state.adData.contactList,
+    contactList: state.adData?.contactList,
     validation: state.adValidation.errors,
 });
 

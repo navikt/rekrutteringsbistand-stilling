@@ -71,7 +71,7 @@ const Edit = ({ ad, isNew, onPreviewAdClick, resetValidation, kandidatliste }) =
             <Column xs="12" md="8">
                 <div className="Edit__left">
                     <EditHeader isNew={isNew} onPreviewAdClick={onPreviewAdClick} />
-                    <EndreArbeidsgiver />
+                    <EndreArbeidsgiver stilling={ad} />
                     <RegistrerInkluderingsmuligheter />
                     <JobDetails isNew={isNew} />
                 </div>

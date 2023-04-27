@@ -136,8 +136,8 @@ Application.propTypes = {
     }).isRequired,
 };
 const mapStateToProps = (state) => ({
-    applicationEmail: state.adData.properties.applicationemail,
-    applicationUrl: state.adData.properties.applicationurl,
+    applicationEmail: state.adData?.properties.applicationemail,
+    applicationUrl: state.adData?.properties.applicationurl,
     validation: state.adValidation.errors,
 });
 

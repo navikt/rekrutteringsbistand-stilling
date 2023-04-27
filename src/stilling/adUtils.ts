@@ -13,8 +13,8 @@ export const hentAnnonselenke = (uuid?: string) => `${VIS_STILLING_URL}/${uuid}`
 export const erDirektemeldtStilling = (source?: string): boolean => source === 'DIR';
 
 export const stillingenHarKandidatliste = (
-    eierNavident?: string | null,
-    publishedByAdmin?: string,
+    eierNavident: string | null,
+    publishedByAdmin: string | null,
     source?: string
 ) => {
     const erPublisertOgDirektemeldt = publishedByAdmin && erDirektemeldtStilling(source);

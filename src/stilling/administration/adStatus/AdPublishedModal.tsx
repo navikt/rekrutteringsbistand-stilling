@@ -6,18 +6,18 @@ import { MagnifyingGlassIcon, BriefcaseIcon } from '@navikt/aksel-icons';
 
 import { HIDE_AD_PUBLISHED_MODAL } from '../../adReducer';
 import { formatISOString } from '../../../utils/datoUtils';
-import AdStatusEnum from '../../../common/enums/AdStatusEnum';
+import { Status } from '../../../Stilling';
 import css from './AdPublishedModal.module.css';
 
 const AdPublishedModal = ({ stillingId }) => {
     const dispatch = useDispatch();
 
     const showAdPublishedModal = useSelector((state: any) => state.ad.showAdPublishedModal);
-    const adStatus = useSelector((state: any) => state.adData.status);
+    const adStatus = useSelector((state: any) => state.adData?.status);
     const activationOnPublishingDate = useSelector(
-        (state: any) => state.adData.activationOnPublishingDate
+        (state: any) => state.adData?.activationOnPublishingDate
     );
-    const published = useSelector((state: any) => state.adData.published);
+    const published = useSelector((state: any) => state.adData?.published);
     const isSavingAd = useSelector((state: any) => state.ad.isSavingAd);
 
     const onClose = () => {
@@ -31,7 +31,7 @@ const AdPublishedModal = ({ stillingId }) => {
             closeButton
             className={css.adPublishedModal}
         >
-            {adStatus === AdStatusEnum.INACTIVE && activationOnPublishingDate && published ? (
+            {adStatus === Status.Inaktiv && activationOnPublishingDate && published ? (
                 <Heading level="2" size="small" spacing>
                     Stillingen blir publisert {formatISOString(published)}
                 </Heading>

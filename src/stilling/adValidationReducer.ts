@@ -154,7 +154,7 @@ export function* validateStyrk() {
 }
 
 export function* validateTitle() {
-    const adTitle = yield select((state) => state.adData.title);
+    const adTitle = yield select((state) => state.adData?.title);
     if (valueIsNotSet(adTitle) || adTitle === DEFAULT_TITLE_NEW_AD) {
         yield addValidationError({
             field: 'title',
@@ -166,7 +166,7 @@ export function* validateTitle() {
 }
 
 function* validateAdtext() {
-    const adText = yield select((state) => state.adData.properties.adtext);
+    const adText = yield select((state) => state.adData?.properties.adtext);
     if (valueIsNotSet(adText)) {
         yield addValidationError({
             field: 'adText',
@@ -229,7 +229,7 @@ function* validatePublishDate() {
 }
 
 function* validateApplicationEmail() {
-    const email = yield select((state) => state.adData.properties.applicationemail);
+    const email = yield select((state) => state.adData?.properties.applicationemail);
 
     // E-postadressen må inneholde en '@' for å være gyldig
     const error = email && email.length > 0 && email.indexOf('@') === -1;
@@ -245,7 +245,7 @@ function* validateApplicationEmail() {
 }
 
 function* validateContactPersonName() {
-    const contactperson = yield select((state) => state.adData.contactList[0]);
+    const contactperson = yield select((state) => state.adData?.contactList[0]);
 
     const error =
         contactperson === undefined || contactperson === null || valueIsNotSet(contactperson.name);
@@ -261,7 +261,7 @@ function* validateContactPersonName() {
 }
 
 function* validateContactPersonTitle() {
-    const contactperson = yield select((state) => state.adData.contactList[0]);
+    const contactperson = yield select((state) => state.adData?.contactList[0]);
 
     const error =
         contactperson === undefined || contactperson === null || valueIsNotSet(contactperson.title);
@@ -277,7 +277,7 @@ function* validateContactPersonTitle() {
 }
 
 function* validateContactPersonEmailOrPhoneRequired() {
-    const contactperson = yield select((state) => state.adData.contactList[0]);
+    const contactperson = yield select((state) => state.adData?.contactList[0]);
 
     const error =
         !contactperson ||
@@ -300,7 +300,7 @@ function* validateContactpersonEmailAndPhone() {
 }
 
 function* validateContactPersonEmail() {
-    const contactperson = yield select((state) => state.adData.contactList[0]);
+    const contactperson = yield select((state) => state.adData?.contactList[0]);
 
     const manglerAlfakrøll =
         contactperson &&
@@ -319,7 +319,7 @@ function* validateContactPersonEmail() {
 }
 
 function* validateContactPersonPhone() {
-    const contactperson = yield select((state) => state.adData.contactList[0]);
+    const contactperson = yield select((state) => state.adData?.contactList[0]);
 
     const error =
         contactperson &&
@@ -352,7 +352,7 @@ export function* validateNotat() {
 
 function* validateApplicationdueDate() {
     const state = yield select();
-    const { applicationdue } = state.adData.properties;
+    const { applicationdue } = state.adData?.properties;
 
     if (valueIsNotSet(applicationdue)) {
         yield addValidationError({
@@ -371,7 +371,7 @@ function* validateApplicationdueDate() {
 
 function* validateEmploymentStartTime() {
     const state = yield select();
-    const { starttime } = state.adData.properties;
+    const { starttime } = state.adData?.properties;
 
     const erGyldig =
         starttime === undefined || starttime === 'Etter avtale' || isValidISOString(starttime);
@@ -388,7 +388,7 @@ function* validateEmploymentStartTime() {
 
 function* validateEngagementType() {
     const state = yield select();
-    const { engagementtype } = state.adData.properties;
+    const { engagementtype } = state.adData?.properties;
 
     if (valueIsNotSet(engagementtype)) {
         yield addValidationError({
@@ -402,7 +402,7 @@ function* validateEngagementType() {
 
 function* validatePositionCount() {
     const state = yield select();
-    const { positioncount } = state.adData.properties;
+    const { positioncount } = state.adData?.properties;
 
     const error = positioncount && !positioncount.match(/^[1-9]\d*$/);
 
@@ -418,7 +418,7 @@ function* validatePositionCount() {
 
 function* validateExtent() {
     const state = yield select();
-    const { extent } = state.adData.properties;
+    const { extent } = state.adData?.properties;
 
     if (valueIsNotSet(extent)) {
         yield addValidationError({ field: 'extent', message: 'Omfang mangler' });
@@ -429,7 +429,7 @@ function* validateExtent() {
 
 function* validateSector() {
     const state = yield select();
-    const { sector } = state.adData.properties;
+    const { sector } = state.adData?.properties;
 
     if (valueIsNotSet(sector)) {
         yield addValidationError({ field: 'sector', message: 'Sektor mangler' });
@@ -440,7 +440,7 @@ function* validateSector() {
 
 function* validateWorkday() {
     const state = yield select();
-    const { workday } = state.adData.properties;
+    const { workday } = state.adData?.properties;
 
     if (valueIsNotSet(workday) || !IsJson(workday) || valueIsNotSet(JSON.parse(workday))) {
         yield addValidationError({
@@ -454,9 +454,9 @@ function* validateWorkday() {
 
 function* validateWorkhours() {
     const state: State = yield select();
-    const { workhours } = state.adData.properties;
+    const workhours = state.adData?.properties.workhours;
 
-    if (valueIsNotSet(workhours) || !IsJson(workhours) || valueIsNotSet(JSON.parse(workhours))) {
+    if (valueIsNotSet(workhours) || !IsJson(workhours) || valueIsNotSet(JSON.parse(workhours!))) {
         yield addValidationError({
             field: 'workhours',
             message: 'Arbeidstid mangler',
@@ -469,7 +469,7 @@ function* validateWorkhours() {
 function* validateInkluderingsmuligheter() {
     const state: State = yield select();
     const { kanInkludere } = state.ad;
-    const { tags } = state.adData.properties;
+    const tags = state.adData?.properties.tags;
 
     if (kanInkludere === KanInkludere.Nei || tagsInneholderInkluderingsmuligheter(tags)) {
         yield removeValidationError({ field: 'inkluderingsmuligheter' });

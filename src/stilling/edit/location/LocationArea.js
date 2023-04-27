@@ -191,7 +191,7 @@ const mapStateToProps = (state) => ({
     municipalsCounties: state.locationArea.municipalsCounties,
     countries: state.locationArea.countries,
     typeaheadValue: state.locationArea.typeaheadValue,
-    locationList: state.adData.locationList,
+    locationList: state.adData?.locationList,
     validation: state.adValidation.errors,
 });
 

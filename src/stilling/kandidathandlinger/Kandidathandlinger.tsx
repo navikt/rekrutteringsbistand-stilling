@@ -10,13 +10,14 @@ import LeggTilKandidatModal from '../legg-til-kandidat-modal/LeggTilKandidatModa
 import { Nettressurs, Nettstatus } from '../../api/Nettressurs';
 import { Kandidatliste } from '../legg-til-kandidat-modal/kandidatlistetyper';
 import './Kandidathandlinger.less';
+import Stilling from '../../Stilling';
 
 type Props = {
     kandidatliste: Nettressurs<Kandidatliste>;
 };
 
 const Kandidathandlinger: FunctionComponent<Props> = ({ kandidatliste }) => {
-    const stillingsdata = useSelector((state: State) => state.adData);
+    const stillingsdata = useSelector((state: State) => state.adData) as Stilling;
     const stillingsinfo = useSelector((state: State) => state.stillingsinfoData);
 
     const [visLeggTilKandidatModal, setVisLeggTilKandidatModal] = useState(false);

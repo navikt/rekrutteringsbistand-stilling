@@ -13,7 +13,7 @@ export type Stilling = {
     updated: string;
     updatedBy: System;
     title: string;
-    status: Status | string;
+    status: Status;
     privacy: Privacy | string;
     source: Kilde | string;
     medium: Medium | string;
@@ -33,6 +33,7 @@ export type Stilling = {
     deactivatedByExpiry: boolean | null;
     categoryList: StyrkCategory[];
     activationOnPublishingDate: boolean;
+    firstPublished: boolean | null;
 };
 
 export enum System {
@@ -42,6 +43,10 @@ export enum System {
 
 export enum Status {
     Aktiv = 'ACTIVE',
+    Inaktiv = 'INACTIVE',
+    Stoppet = 'STOPPED',
+    Avslått = 'REJECTED',
+    Slettet = 'DELETED',
 }
 
 export enum Privacy {
@@ -73,15 +78,7 @@ export type Arbeidsgiver = {
     orgnr: string | null;
     parentOrgnr: string | null;
     orgform: string;
-    location: Location;
-};
-
-export type Location = {
-    address: string;
-    postalCode: string;
-    city: string | null;
-    municipal: string | null;
-    country: string | null;
+    location: Geografi;
 };
 
 export type StyrkCategory = {
@@ -97,6 +94,7 @@ export type Geografi = {
     municipal: string | null;
     latitude: string | null;
     longitude: string | null;
+    city: string | null;
 };
 
 export enum AdminStatus {

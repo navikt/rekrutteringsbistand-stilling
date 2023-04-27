@@ -10,9 +10,8 @@ import Summary from './summary/Summary';
 import VisInkluderingsmuligheterInternStilling from './vis-inkluderingsmuligheter-intern-stilling/VisInkluderingsmuligheterInternStilling';
 import { erDirektemeldtStilling } from '../adUtils';
 
-import './Preview.less';
-import css from './Preview.module.css';
 import Stilling from '../../Stilling';
+import './Preview.less';
 
 type Props = {
     stilling: Stilling;

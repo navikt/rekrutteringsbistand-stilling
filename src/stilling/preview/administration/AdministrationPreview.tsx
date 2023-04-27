@@ -16,10 +16,10 @@ import { System } from '../../../Stilling';
 const AdministrationPreview = () => {
     const dispatch = useDispatch();
 
-    const source = useSelector((state: any) => state.adData.source);
+    const source = useSelector((state: any) => state.adData?.source);
 
     const limitedAccess =
-        useSelector((state: any) => state.adData.createdBy) !== System.Rekrutteringsbistand;
+        useSelector((state: any) => state.adData?.createdBy) !== System.Rekrutteringsbistand;
 
     return (
         <div>

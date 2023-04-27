@@ -9,7 +9,7 @@ import {
 import Inkluderingstags from './Inkluderingstags';
 
 const VisInkuderingsmuligheterForEksternStilling = () => {
-    const tagsString = useSelector((state: any) => state.adData.properties.tags);
+    const tagsString = useSelector((state: any) => state.adData?.properties.tags);
 
     const tags = tagsString !== undefined && isJson(tagsString) ? JSON.parse(tagsString) : [];
 

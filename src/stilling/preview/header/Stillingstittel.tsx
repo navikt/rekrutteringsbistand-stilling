@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { Location } from '../../../Stilling';
+import { Geografi } from '../../../Stilling';
 import capitalizeLocation from '../../edit/location/capitalizeLocation';
 import { BodyShort, Heading } from '@navikt/ds-react';
 import './Stillingstittel.less';
@@ -7,7 +7,7 @@ import './Stillingstittel.less';
 type Props = {
     tittel?: string;
     employer?: string;
-    location?: Location;
+    location?: Geografi;
 };
 
 const Stillingstittel: FunctionComponent<Props> = ({ tittel, employer, location }) => {

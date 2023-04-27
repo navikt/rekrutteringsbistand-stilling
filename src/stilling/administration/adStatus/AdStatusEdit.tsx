@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import AdStatusEnum from '../../../common/enums/AdStatusEnum';
 import {
     PUBLISH_AD,
     SAVE_AD,
@@ -20,7 +19,7 @@ import DeleteAdModal from './DeleteAdModal';
 import Sletteknapp from './Sletteknapp';
 import { Button } from '@navikt/ds-react';
 import classNames from 'classnames';
-import { System } from '../../../Stilling';
+import { Status, System } from '../../../Stilling';
 
 enum ButtonEnum {
     PUBLISH = 'PUBLISH',
@@ -44,14 +43,14 @@ const AdStatusEdit = () => {
 
     const [buttonClicked, setButtonClicked] = useState<ButtonEnum | undefined>(undefined);
 
-    const adStatus = useSelector((state: any) => state.adData.status);
-    const createdBy = useSelector((state: any) => state.adData.createdBy);
+    const adStatus = useSelector((state: any) => state.adData?.status);
+    const createdBy = useSelector((state: any) => state.adData?.createdBy);
     const activationOnPublishingDate = useSelector(
-        (state: any) => state.adData.activationOnPublishingDate
+        (state: any) => state.adData?.activationOnPublishingDate
     );
-    const deactivatedByExpiry = useSelector((state: any) => state.adData.deactivatedByExpiry);
+    const deactivatedByExpiry = useSelector((state: any) => state.adData?.deactivatedByExpiry);
     const isSavingAd = useSelector((state: any) => state.ad.isSavingAd);
-    const uuid = useSelector((state: any) => state.adData.uuid);
+    const uuid = useSelector((state: any) => state.adData?.uuid);
     const validation = useSelector((state: any) => state.adValidation.errors);
 
     const onPublishClick = () => {
@@ -99,9 +98,8 @@ const AdStatusEdit = () => {
     };
 
     const isPublished =
-        adStatus === AdStatusEnum.ACTIVE ||
-        (adStatus === AdStatusEnum.INACTIVE && activationOnPublishingDate);
-    const isExpired = adStatus === AdStatusEnum.INACTIVE && deactivatedByExpiry;
+        adStatus === Status.Aktiv || (adStatus === Status.Inaktiv && activationOnPublishingDate);
+    const isExpired = adStatus === Status.Inaktiv && deactivatedByExpiry;
     const isStopping = buttonClicked === ButtonEnum.STOP && isSavingAd;
     const isDeleting = buttonClicked === ButtonEnum.DELETE && isSavingAd;
     const isPublishing = buttonClicked === ButtonEnum.PUBLISH && isSavingAd;
@@ -114,7 +112,7 @@ const AdStatusEdit = () => {
     if (!publishingRights) {
         buttonState = ButtonGroupEnum.LIMITED_ACCESS;
     } else {
-        if (isExpired || (adStatus === AdStatusEnum.STOPPED && !isStopping) || isRePublishing) {
+        if (isExpired || (adStatus === Status.Stoppet && !isStopping) || isRePublishing) {
             buttonState = ButtonGroupEnum.PUBLISHED_BEFORE;
         } else if ((isPublished && !isPublishing) || isStopping || isPublishingChanges) {
             buttonState = ButtonGroupEnum.IS_PUBLISHED_NOW;

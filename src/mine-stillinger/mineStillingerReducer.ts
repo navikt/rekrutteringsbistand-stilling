@@ -1,6 +1,5 @@
 import { feil, ikkeLastet, lasterInn, Nettressurs, suksess } from '../api/Nettressurs';
-import AdStatusEnum from '../common/enums/AdStatusEnum';
-import { Rekrutteringsbistandstilling } from '../Stilling';
+import { Rekrutteringsbistandstilling, Status } from '../Stilling';
 import { MineStillingerAction, MineStillingerActionType } from './MineStillingerAction';
 
 export type MineStillingerResultat = {
@@ -27,7 +26,7 @@ const initialState = {
     sortDir: 'desc',
     deactivatedByExpiry: false,
     filter: {
-        status: [AdStatusEnum.ACTIVE, AdStatusEnum.INACTIVE],
+        status: [Status.Aktiv, Status.Inaktiv],
     },
 };
 

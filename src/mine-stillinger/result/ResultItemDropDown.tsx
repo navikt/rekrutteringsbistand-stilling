@@ -2,11 +2,10 @@ import React, { FunctionComponent, MouseEvent } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import AdStatusEnum from '../../common/enums/AdStatusEnum';
 import { COPY_AD_FROM_MY_ADS, SHOW_STOP_MODAL_MY_ADS } from '../../stilling/adReducer';
 import { getAdStatusLabel } from '../../common/enums/getEnumLabels';
 import { Flatknapp } from 'nav-frontend-knapper';
-import Stilling from '../../Stilling';
+import Stilling, { Status } from '../../Stilling';
 import './ResultItemDropDown.less';
 
 const DropDownItem = ({ label, onClick, active, helpText, onToggleHjelpetekst }) => {
@@ -55,7 +54,7 @@ const ResultItemDropDown: FunctionComponent<ResultItemDropDownProps> = ({
     onToggleHjelpetekst,
 }) => {
     const willBePublished =
-        stilling.status === AdStatusEnum.INACTIVE && stilling.activationOnPublishingDate;
+        stilling.status === Status.Inaktiv && stilling.activationOnPublishingDate;
 
     const onItemClick = (action) => {
         action(stilling.uuid);
@@ -74,8 +73,8 @@ const ResultItemDropDown: FunctionComponent<ResultItemDropDownProps> = ({
                     label="Stopp"
                     onClick={() => onItemClick(stopAd)}
                     active={
-                        stilling.status === AdStatusEnum.ACTIVE ||
-                        (stilling.status === AdStatusEnum.INACTIVE && willBePublished)
+                        stilling.status === Status.Aktiv ||
+                        (stilling.status === Status.Inaktiv && willBePublished)
                     }
                     helpText={`Du kan ikke stoppe en stilling som har status: "${getAdStatusLabel(
                         stilling.status,

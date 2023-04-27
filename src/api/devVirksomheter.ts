@@ -10,6 +10,9 @@ const devVirksomheter: Arbeidsgiverforslag[] = [
             city: 'KOLBOTN',
             municipal: 'NORDRE FOLLO',
             country: 'Norge',
+            county: null,
+            latitude: null,
+            longitude: null,
         },
     },
     {
@@ -21,6 +24,9 @@ const devVirksomheter: Arbeidsgiverforslag[] = [
             city: 'ÅLESUND',
             municipal: 'ÅLESUND',
             country: 'Norge',
+            county: null,
+            latitude: null,
+            longitude: null,
         },
     },
     {
@@ -32,6 +38,9 @@ const devVirksomheter: Arbeidsgiverforslag[] = [
             city: 'VØYENENGA',
             municipal: 'BÆRUM',
             country: 'Norge',
+            county: null,
+            latitude: null,
+            longitude: null,
         },
     },
     {
@@ -43,6 +52,9 @@ const devVirksomheter: Arbeidsgiverforslag[] = [
             city: 'SKEDSMOKORSET',
             municipal: 'LILLESTRØM',
             country: 'Norge',
+            county: null,
+            latitude: null,
+            longitude: null,
         },
     },
     {
@@ -54,6 +66,9 @@ const devVirksomheter: Arbeidsgiverforslag[] = [
             city: 'ÅL',
             municipal: 'ÅL',
             country: 'Norge',
+            county: null,
+            latitude: null,
+            longitude: null,
         },
     },
     {
@@ -65,6 +80,9 @@ const devVirksomheter: Arbeidsgiverforslag[] = [
             city: 'TILLER',
             municipal: 'TRONDHEIM',
             country: 'Norge',
+            county: null,
+            latitude: null,
+            longitude: null,
         },
     },
     {
@@ -76,6 +94,9 @@ const devVirksomheter: Arbeidsgiverforslag[] = [
             city: 'OLDEDALEN',
             municipal: 'STRYN',
             country: 'Norge',
+            county: null,
+            latitude: null,
+            longitude: null,
         },
     },
     {
@@ -87,6 +108,9 @@ const devVirksomheter: Arbeidsgiverforslag[] = [
             city: 'FROLAND',
             municipal: 'FROLAND',
             country: 'Norge',
+            county: null,
+            latitude: null,
+            longitude: null,
         },
     },
     {
@@ -98,6 +122,9 @@ const devVirksomheter: Arbeidsgiverforslag[] = [
             city: 'BERGEN',
             municipal: 'BERGEN',
             country: 'Norge',
+            county: null,
+            latitude: null,
+            longitude: null,
         },
     },
 ];

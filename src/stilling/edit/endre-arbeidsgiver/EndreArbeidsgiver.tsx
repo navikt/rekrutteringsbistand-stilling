@@ -1,5 +1,5 @@
-import React, { FunctionComponent } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Flatknapp } from 'nav-frontend-knapper';
 import { Column, Row } from 'nav-frontend-grid';
 import { Input } from 'nav-frontend-skjema';
@@ -16,12 +16,15 @@ import {
 } from '../../adDataReducer';
 import { adjustUrl } from '../../../common/urlUtils';
 import Skjemalabel from '../skjemaetikett/Skjemalabel';
-import { State } from '../../../redux/store';
 import { formaterDataFraEnhetsregisteret } from '../../../opprett-ny-stilling/VelgArbeidsgiver';
+import Stilling from '../../../Stilling';
 
-const EndreArbeidsgiver: FunctionComponent = () => {
-    const ad = useSelector((state: State) => state.adData);
-    const { employerhomepage, facebookpage, linkedinpage, twitteraddress } = ad.properties;
+type Props = {
+    stilling: Stilling;
+};
+
+const EndreArbeidsgiver = ({ stilling }: Props) => {
+    const { employerhomepage, facebookpage, linkedinpage, twitteraddress } = stilling.properties;
 
     const dispatch = useDispatch();
 
@@ -72,10 +75,10 @@ const EndreArbeidsgiver: FunctionComponent = () => {
             className="blokk-s"
             tittel={<Undertittel>Om bedriften</Undertittel>}
         >
-            {ad.employer && (
+            {stilling.employer && (
                 <div className="blokk-xs">
                     <Element>Informasjon fra enhetsregisteret</Element>
-                    <Normaltekst>{formaterDataFraEnhetsregisteret(ad.employer)}</Normaltekst>
+                    <Normaltekst>{formaterDataFraEnhetsregisteret(stilling.employer)}</Normaltekst>
                 </div>
             )}
             <Skjemalabel
@@ -88,7 +91,7 @@ const EndreArbeidsgiver: FunctionComponent = () => {
                 className="blokk-s"
                 id="endre-stilling-navnet-bedriften-bruker"
                 aria-describedby="endre-stilling-navnet-bedriften-bruker-beskrivelse"
-                value={ad.properties.employer || ad.businessName || ''}
+                value={stilling.properties.employer || stilling.businessName || ''}
                 onChange={(e) => setEmployerName(e.target.value)}
             />
             <Skjemalabel
@@ -101,7 +104,7 @@ const EndreArbeidsgiver: FunctionComponent = () => {
                 <RichTextEditor
                     id="endre-stilling-kort-om-bedriften"
                     aria-describedby="endre-stilling-kort-om-bedriften-beskrivelse"
-                    text={ad.properties.employerdescription || ''}
+                    text={stilling.properties.employerdescription || ''}
                     onChange={(desc: string) => setEmployerDescription(desc)}
                 />
             </div>
