@@ -10,7 +10,6 @@ import { InkluderingsmulighetForDirektemeldtStilling, Tag } from '../../tags/hie
 import { SET_KAN_INKLUDERE } from '../../adReducer';
 import Inkluderingsmulighet from './Inkluderingsmulighet';
 import isJson from '../practicalInformation/IsJson';
-import './DirektemeldtStilling.less';
 import css from './DirektemeldtStilling.module.css';
 import { Alert, BodyLong, BodyShort, Heading, Label, Radio, RadioGroup } from '@navikt/ds-react';
 
@@ -74,7 +73,7 @@ const DirektemeldtStilling = () => {
         <Ekspanderbartpanel
             border
             apen
-            className="registrer-inkluderingsmuligheter-direktemeldt-stilling blokk-s"
+            className={css.inkluderingspanel}
             tittel={
                 <>
                     <Heading level="3" size="small" spacing>
