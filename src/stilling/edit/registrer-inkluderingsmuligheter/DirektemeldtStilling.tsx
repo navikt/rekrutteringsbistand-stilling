@@ -11,7 +11,7 @@ import { SET_KAN_INKLUDERE } from '../../adReducer';
 import Inkluderingsmulighet from './Inkluderingsmulighet';
 import isJson from '../practicalInformation/IsJson';
 import './DirektemeldtStilling.less';
-// import css from './DirektemeldtStilling.module.css';
+import css from './DirektemeldtStilling.module.css';
 import { Alert, BodyLong, BodyShort, Heading, Label, Radio, RadioGroup } from '@navikt/ds-react';
 
 export enum KanInkludere {
@@ -95,7 +95,7 @@ const DirektemeldtStilling = () => {
             <RadioGroup
                 error={feilmelding}
                 legend={<Label size="small"> Kan arbeidsgiver inkludere?</Label>}
-                // className={css.radiogruppe}
+                className={css.radiogruppe}
                 value={kanInkludere}
             >
                 <Radio
