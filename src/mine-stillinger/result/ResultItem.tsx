@@ -1,19 +1,17 @@
 import React, { FunctionComponent } from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { BodyShort, Button } from '@navikt/ds-react';
+import { BodyShort, Button, Link } from '@navikt/ds-react';
 
 import { formatISOString } from '../../utils/datoUtils';
 import { getAdStatusLabel } from '../../common/enums/getEnumLabels';
 import { REDIGERINGSMODUS_QUERY_PARAM } from '../../stilling/Stilling';
 import { Rekrutteringsbistandstilling } from '../../Stilling';
 import { State } from '../../redux/store';
-import LenkeMedIkon from '../../common/lenke-med-ikon/LenkeMedIkon';
 import getEmployerName from '../../common/getEmployerName';
 import PrivacyStatusEnum from '../../common/enums/PrivacyStatusEnum';
 import ResultItemDropDown from './ResultItemDropDown';
 import './Result.less';
-import { PencilIcon } from '@navikt/aksel-icons';
+import { PencilIcon, PersonGroupIcon } from '@navikt/aksel-icons';
 
 type Props = {
     rekrutteringsbistandstilling: Rekrutteringsbistandstilling;
@@ -38,7 +36,7 @@ const ResultItem: FunctionComponent<Props> = ({ rekrutteringsbistandstilling }) 
     const colTitle = (
         <td className="Col-title">
             <div className="ResultItem__column Col-title-inner">
-                <Link className="typo-normal lenke" to={`/stillinger/stilling/${stilling.uuid}`}>
+                <Link className="typo-normal lenke" href={`/stillinger/stilling/${stilling.uuid}`}>
                     {isCopy
                         ? (
                               <div>
@@ -120,17 +118,15 @@ const ResultItem: FunctionComponent<Props> = ({ rekrutteringsbistandstilling }) 
             </td>
             <td className="Col-candidate">
                 {stilling.publishedByAdmin && (
-                    <LenkeMedIkon
-                        href={`/kandidater/lister/stilling/${stilling.uuid}/detaljer`}
-                        classNameText="typo-normal"
-                        classNameLink="CandidateList"
-                        text="Se kandidatliste"
-                    />
+                    <Link href={`/kandidater/lister/stilling/${stilling.uuid}/detaljer`}>
+                        <PersonGroupIcon />
+                        Se kandidatliste
+                    </Link>
                 )}
             </td>
             <td className="Col-edit center">
                 <Link
-                    to={`/stillinger/stilling/${stilling.uuid}?${REDIGERINGSMODUS_QUERY_PARAM}=true`}
+                    href={`/stillinger/stilling/${stilling.uuid}?${REDIGERINGSMODUS_QUERY_PARAM}=true`}
                 >
                     <Button variant="tertiary" as="div" icon={<PencilIcon />} />
                 </Link>
