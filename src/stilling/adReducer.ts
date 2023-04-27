@@ -23,8 +23,6 @@ import {
     validateAll,
     validateBeforeSave,
 } from './adValidationReducer';
-import { showAlertStripe } from './alertstripe/SavedAdAlertStripeReducer';
-import AdAlertStripeEnum from './alertstripe/AdAlertStripeEnum';
 import { OPPRETT_STILLINGSINFO, UPDATE_STILLINGSINFO } from '../stillingsinfo/stillingsinfoReducer';
 import {
     SET_NAV_IDENT_STILLINGSINFO,
@@ -42,6 +40,9 @@ import Stilling, {
 import { ApiError, fetchDelete, fetchPut } from '../api/apiUtils';
 import { MineStillingerActionType } from '../mine-stillinger/MineStillingerAction';
 import { sendEvent } from '../verktøy/amplitude';
+import { VarslingAction, VarslingActionType } from '../common/varsling/varslingReducer';
+import { State } from '../redux/store';
+import { formatISOString } from '../utils/datoUtils';
 
 export const FETCH_AD = 'FETCH_AD';
 export const FETCH_AD_BEGIN = 'FETCH_AD_BEGIN';
@@ -503,7 +504,7 @@ function* stopAdFromMyAds() {
 
 function* saveAd(action) {
     yield validateBeforeSave();
-    const state = yield select();
+    const state: State = yield select();
 
     if (hasValidationErrorsOnSave(state.adValidation.errors)) {
         yield put({ type: SHOW_AD_SAVED_ERROR_MODAL });
@@ -511,7 +512,13 @@ function* saveAd(action) {
         yield saveRekrutteringsbistandStilling();
 
         if (state.error !== undefined && action.showModal) {
-            yield showAlertStripe(AdAlertStripeEnum.SAVED);
+            yield put<VarslingAction>({
+                type: VarslingActionType.VisVarsling,
+                innhold:
+                    state.adData.createdBy === 'pam-rekrutteringsbistand'
+                        ? 'Stillingen er lagret i mine stillinger'
+                        : 'Endringene er lagret',
+            });
         }
     }
 }
@@ -530,9 +537,15 @@ function* publishAdChanges() {
             state.adData.activationOnPublishingDate &&
             state.adData.status === AdStatusEnum.INACTIVE
         ) {
-            yield showAlertStripe(AdAlertStripeEnum.WILL_PUBLISH_CHANGES);
+            yield put<VarslingAction>({
+                type: VarslingActionType.VisVarsling,
+                innhold: `Endringene blir publisert ${formatISOString(state.adData.published)}`,
+            });
         } else {
-            yield showAlertStripe(AdAlertStripeEnum.PUBLISHED_CHANGES);
+            yield put<VarslingAction>({
+                type: VarslingActionType.VisVarsling,
+                innhold: `Endringene har blitt publisert`,
+            });
         }
     }
 }

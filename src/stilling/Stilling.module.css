@@ -1,0 +1,77 @@
+.stilling {
+    background: var(--a-bg-subtle);
+    min-height: 100vh;
+}
+
+.innhold {
+    display: flex;
+}
+
+.venstre {
+    flex: auto;
+    flex-shrink: 2;
+    overflow-y: auto;
+    max-height: 100vh;
+    min-width: 500px;
+}
+
+.venstreInnhold {
+    margin: 0 auto;
+    max-width: 75rem;
+    padding: 1.5rem 1rem;
+}
+
+.høyre {
+    flex: auto;
+    border-left: 2px solid #dddddd;
+    background: #ebf3fb;
+    overflow: hidden;
+    max-height: 100vh;
+}
+
+.spinner {
+    text-align: center;
+    padding-top: 10rem;
+}
+
+.slettet {
+    text-align: center;
+    padding-top: 5rem;
+}
+
+.kunForSkjermleser {
+    display: block;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+    clip: rect(1px 1px 1px 1px);
+    clip: rect(1px, 1px, 1px, 1px);
+    clip-path: inset(1px);
+    white-space: nowrap;
+    position: absolute;
+}
+
+@media print {
+    .venstre {
+        height: 100%;
+        width: 100%;
+    }
+
+    .høyre {
+        display: none;
+    }
+}
+
+@media (min-width: 1400px) {
+    .høyre {
+        max-width: 510px;
+        min-width: 510px;
+    }
+}
+
+@media (max-width: 1400px) {
+    .høyre {
+        max-width: 400px;
+        min-width: 400px;
+    }
+}

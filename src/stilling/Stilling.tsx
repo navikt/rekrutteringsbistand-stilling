@@ -1,25 +1,24 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Normaltekst } from 'nav-frontend-typografi';
 import { Link, useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom';
-import Faded from '../common/faded/Faded';
-import DelayedSpinner from '../common/DelayedSpinner';
-import { REMOVE_AD_DATA } from './adDataReducer';
+import { BodyLong } from '@navikt/ds-react';
+
 import { EDIT_AD, FETCH_AD, PREVIEW_EDIT_AD } from './adReducer';
-import Edit from './edit/Edit';
-import Error from './error/Error';
-import Preview from './preview/Preview';
+import { Nettstatus } from '../api/Nettressurs';
+import { REMOVE_AD_DATA } from './adDataReducer';
+import { State } from '../redux/store';
+import { VarslingActionType } from '../common/varsling/varslingReducer';
 import Administration from './administration/Administration';
 import AdministrationLimited from './administration/limited/AdministrationLimited';
 import AdministrationPreview from './preview/administration/AdministrationPreview';
-import SavedAdAlertStripe from './alertstripe/SavedAdAlertStripe';
-import PreviewHeader from './preview/header/PreviewHeader';
 import AdStatusEnum from '../common/enums/AdStatusEnum';
-import { State } from '../redux/store';
-import { VarslingActionType } from '../common/varsling/varslingReducer';
+import DelayedSpinner from '../common/DelayedSpinner';
+import Edit from './edit/Edit';
+import Error from './error/Error';
+import Preview from './preview/Preview';
+import PreviewHeader from './preview/header/PreviewHeader';
 import useHentKandidatliste from './kandidathandlinger/useHentKandidatliste';
-import { Nettstatus } from '../api/Nettressurs';
-import './Stilling.less';
+import css from './Stilling.module.css';
 
 export const REDIGERINGSMODUS_QUERY_PARAM = 'redigeringsmodus';
 
@@ -112,7 +111,7 @@ const Stilling = () => {
 
     if (isLoadingAd || !stilling) {
         return (
-            <div className="Ad Ad__spinner">
+            <div className={css.spinner}>
                 <DelayedSpinner />
             </div>
         );
@@ -120,9 +119,9 @@ const Stilling = () => {
 
     if (stilling.status === AdStatusEnum.DELETED) {
         return (
-            <div className="Ad Ad__deleted">
-                <Normaltekst className="blokk-s">Stillingen er slettet</Normaltekst>
-                <Link to="/stillinger" className="typo-normal lenke">
+            <div className={css.slettet}>
+                <BodyLong spacing>Stillingen er slettet</BodyLong>
+                <Link to="/stillinger" className="navds-link">
                     Søk etter stillinger
                 </Link>
             </div>
@@ -133,57 +132,48 @@ const Stilling = () => {
         kandidatliste.kind === Nettstatus.Suksess ? kandidatliste.data.kandidatlisteId : '';
 
     return (
-        <div className="Ad">
-            <SavedAdAlertStripe />
-            <Faded>
-                <div className="Ad__flex">
-                    <h1 className="visually-hidden">Stilling</h1>
-                    <div className="Ad__flex__center">
-                        <div className="Ad__flex__center__inner">
-                            <div>
-                                {isEditingAd ? (
-                                    <div className="Ad__edit__inner">
-                                        {erEksternStilling ? (
-                                            <div>
-                                                <PreviewHeader kandidatliste={kandidatliste} />
-                                                <Preview ad={stilling} />
-                                            </div>
-                                        ) : (
-                                            <Edit
-                                                isNew={isNew}
-                                                kandidatliste={kandidatliste}
-                                                onPreviewAdClick={onPreviewAdClick}
-                                            />
-                                        )}
-                                    </div>
-                                ) : (
-                                    <div className="Ad__preview">
+        <div className={css.stilling}>
+            <div className={css.innhold}>
+                <h1 className={css.kunForSkjermleser}>Stilling</h1>
+                <div className={css.venstre}>
+                    <div className={css.venstreInnhold}>
+                        {isEditingAd ? (
+                            <>
+                                {erEksternStilling ? (
+                                    <>
                                         <PreviewHeader kandidatliste={kandidatliste} />
                                         <Preview ad={stilling} />
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-                    </div>
-                    {isEditingAd ? (
-                        <aside className="Ad__flex__right">
-                            <div className="Ad__flex__right__inner">
-                                {erEksternStilling ? (
-                                    <AdministrationLimited kandidatlisteId={kandidatlisteId} />
+                                    </>
                                 ) : (
-                                    <Administration />
+                                    <Edit
+                                        isNew={isNew}
+                                        kandidatliste={kandidatliste}
+                                        onPreviewAdClick={onPreviewAdClick}
+                                    />
                                 )}
-                            </div>
-                        </aside>
-                    ) : (
-                        <aside className="Ad__flex__right">
-                            <div className="Ad__flex__right__inner">
-                                <AdministrationPreview />
-                            </div>
-                        </aside>
-                    )}
+                            </>
+                        ) : (
+                            <>
+                                <PreviewHeader kandidatliste={kandidatliste} />
+                                <Preview ad={stilling} />
+                            </>
+                        )}
+                    </div>
                 </div>
-            </Faded>
+                <aside className={css.høyre}>
+                    {isEditingAd ? (
+                        <>
+                            {erEksternStilling ? (
+                                <AdministrationLimited kandidatlisteId={kandidatlisteId} />
+                            ) : (
+                                <Administration />
+                            )}
+                        </>
+                    ) : (
+                        <AdministrationPreview />
+                    )}
+                </aside>
+            </div>
             <Error />
         </div>
     );

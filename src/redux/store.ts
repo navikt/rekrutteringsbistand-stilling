@@ -6,7 +6,6 @@ import adValidationReducer, {
     AdValidationState,
     validationSaga,
 } from '../stilling/adValidationReducer';
-import savedSearchAlertStripeReducer from '../stilling/alertstripe/SavedAdAlertStripeReducer';
 import styrkReducer, { styrkSaga } from '../stilling/edit/jobDetails/styrk/styrkReducer';
 import locationAreaReducer, {
     locationAreaSaga,
@@ -36,6 +35,7 @@ export type State = {
     stillingsinfo: StillingsinfoState;
     varsling: VarslingState;
     reportee: ReporteeState;
+    error?: any;
 };
 
 const createReduxStore = () => {
@@ -52,7 +52,6 @@ const createReduxStore = () => {
             locationArea: locationAreaReducer,
             mineStillinger: mineStillingerReducer,
             reportee: reporteeReducer,
-            savedAdAlertStripe: savedSearchAlertStripeReducer,
             styrk: styrkReducer,
             stillingsinfo: stillingsinfoReducer,
             stillingsinfoData: stillingsinfoDataReducer,

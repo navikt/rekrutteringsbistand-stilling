@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Alert, Button } from '@navikt/ds-react';
+import { Button } from '@navikt/ds-react';
 import { CopyToClipboard } from '@navikt/ds-react-internal';
 import { NewspaperIcon } from '@navikt/aksel-icons';
 
@@ -22,12 +22,13 @@ import Location from './location/Location';
 import PracticalInformation from './practicalInformation/PracticalInformation';
 import RegistrerInkluderingsmuligheter from './registrer-inkluderingsmuligheter/DirektemeldtStilling';
 import Stillingsheader from '../header/Stillingsheader.tsx';
-import './Edit.less';
 import { RESET_VALIDATION_ERROR } from '../adValidationReducer';
+import EksternStillingAdvarsel from '../preview/header/EksternStillingAdvarsel.tsx';
+import './Edit.less';
 
 const Edit = ({ ad, isNew, onPreviewAdClick, resetValidation, kandidatliste }) => {
     // Fra EditHeader
-    const stillingenErIntern = ad.createdBy !== 'pam-rekrutteringsbistand';
+    const stillingenErEkstern = ad.createdBy !== 'pam-rekrutteringsbistand';
     const stillingsLenke = hentAnnonselenke(ad.uuid);
 
     useEffect(() => {
@@ -39,7 +40,7 @@ const Edit = ({ ad, isNew, onPreviewAdClick, resetValidation, kandidatliste }) =
     return (
         <div className="Edit">
             <Stillingsheader kandidatliste={kandidatliste}>
-                {!stillingenErIntern && (
+                {!stillingenErEkstern && (
                     <Button onClick={onPreviewAdClick} size="small" icon={<NewspaperIcon />}>
                         Forhåndsvis stillingen
                     </Button>
@@ -55,12 +56,8 @@ const Edit = ({ ad, isNew, onPreviewAdClick, resetValidation, kandidatliste }) =
                     </CopyToClipboard>
                 )}
             </Stillingsheader>
-            {stillingenErIntern ? (
-                <div className="Ad__info">
-                    <Alert variant="info">
-                        Dette er en eksternt utlyst stilling. Du kan <b>ikke</b> endre stillingen.
-                    </Alert>
-                </div>
+            {stillingenErEkstern ? (
+                <EksternStillingAdvarsel />
             ) : (
                 <Column xs="1" md="12" className="blokk-s">
                     <AlertStripeInfo className="Edit__vil-bli-delt-advarsel">

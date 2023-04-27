@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Alert, Button } from '@navikt/ds-react';
+import { Button } from '@navikt/ds-react';
 import { CopyToClipboard } from '@navikt/ds-react-internal';
 import { DocPencilIcon, PrinterSmallIcon } from '@navikt/aksel-icons';
 
@@ -15,6 +15,7 @@ import { AdDataState } from '../../adDataReducer';
 import OpprettKandidatlisteModal from './OpprettKandidatlisteModal';
 import Stillingstittel from './Stillingstittel';
 import Stillingsheader from '../../header/Stillingsheader';
+import EksternStillingAdvarsel from './EksternStillingAdvarsel';
 
 type Props = {
     stilling: AdDataState;
@@ -102,16 +103,7 @@ class PreviewMenu extends React.Component<Props> {
                         Skriv ut
                     </Button>
                 </Stillingsheader>
-                {limitedAccess && (
-                    <>
-                        <div className="Ad__info">
-                            <Alert variant="info">
-                                Dette er en eksternt utlyst stilling. Du kan <b>ikke</b> endre
-                                stillingen.
-                            </Alert>
-                        </div>
-                    </>
-                )}
+                {limitedAccess && <EksternStillingAdvarsel />}
                 <Stillingstittel
                     tittel={stilling.title}
                     employer={stilling.properties.employer}
