@@ -26,7 +26,7 @@ type QueryParams = { uuid: string };
 
 const Stilling = () => {
     const dispatch = useDispatch();
-    const { state: locationState } = useLocation();
+    const location = useLocation();
     const { uuid } = useParams<QueryParams>();
     const { isEditingAd, isSavingAd, isLoadingAd } = useSelector((state: State) => state.ad);
     const [searchParams, setSearchParams] = useSearchParams();
@@ -99,7 +99,7 @@ const Stilling = () => {
                 },
                 {
                     replace: true,
-                    state: locationState,
+                    state: location.state,
                 }
             );
         }
@@ -124,7 +124,7 @@ const Stilling = () => {
         );
     }
 
-    const isNew = locationState?.isNew || false;
+    const isNew = location.state?.isNew || false;
     const erEksternStilling = stilling?.createdBy !== System.Rekrutteringsbistand;
     const kandidatlisteId =
         kandidatliste.kind === Nettstatus.Suksess ? kandidatliste.data.kandidatlisteId : '';
