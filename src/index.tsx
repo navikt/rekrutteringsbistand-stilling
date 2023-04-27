@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import Navspa from '@navikt/navspa';
 import * as Sentry from '@sentry/react';
 
@@ -31,5 +31,8 @@ export const AppMedStore: FunctionComponent<AppProps> = ({ history, navKontor })
 if (skalEksporteres) {
     Navspa.eksporter('rekrutteringsbistand-stilling', AppMedRouter);
 } else {
-    ReactDOM.render(<Utviklingsapp />, document.getElementById('utviklingsapp'));
+    const element = document.getElementById('utviklingsapp');
+    const root = createRoot(element!);
+
+    root.render(<Utviklingsapp />);
 }
