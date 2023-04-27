@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { useSelector } from 'react-redux';
-import { BodyShort, Button, Link } from '@navikt/ds-react';
+import { Link } from 'react-router-dom';
+import { BodyShort, Button } from '@navikt/ds-react';
 
 import { formatISOString } from '../../utils/datoUtils';
 import { getAdStatusLabel } from '../../common/enums/getEnumLabels';
@@ -36,7 +37,7 @@ const ResultItem: FunctionComponent<Props> = ({ rekrutteringsbistandstilling }) 
     const colTitle = (
         <td className="Col-title">
             <div className="ResultItem__column Col-title-inner">
-                <Link className="typo-normal lenke" href={`/stillinger/stilling/${stilling.uuid}`}>
+                <Link className="navds-link" to={`/stillinger/stilling/${stilling.uuid}`}>
                     {isCopy
                         ? (
                               <div>
@@ -118,7 +119,10 @@ const ResultItem: FunctionComponent<Props> = ({ rekrutteringsbistandstilling }) 
             </td>
             <td className="Col-candidate">
                 {stilling.publishedByAdmin && (
-                    <Link href={`/kandidater/lister/stilling/${stilling.uuid}/detaljer`}>
+                    <Link
+                        to={`/kandidater/lister/stilling/${stilling.uuid}/detaljer`}
+                        className="navds-link"
+                    >
                         <PersonGroupIcon />
                         Se kandidatliste
                     </Link>
@@ -126,7 +130,8 @@ const ResultItem: FunctionComponent<Props> = ({ rekrutteringsbistandstilling }) 
             </td>
             <td className="Col-edit center">
                 <Link
-                    href={`/stillinger/stilling/${stilling.uuid}?${REDIGERINGSMODUS_QUERY_PARAM}=true`}
+                    to={`/stillinger/stilling/${stilling.uuid}?${REDIGERINGSMODUS_QUERY_PARAM}=true`}
+                    className="navds-link"
                 >
                     <Button variant="tertiary" as="div" icon={<PencilIcon />} />
                 </Link>
