@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { BodyShort } from '@navikt/ds-react';
+import { BodyShort, Button } from '@navikt/ds-react';
 
 import { formatISOString } from '../../utils/datoUtils';
 import { getAdStatusLabel } from '../../common/enums/getEnumLabels';
@@ -12,8 +12,8 @@ import LenkeMedIkon from '../../common/lenke-med-ikon/LenkeMedIkon';
 import getEmployerName from '../../common/getEmployerName';
 import PrivacyStatusEnum from '../../common/enums/PrivacyStatusEnum';
 import ResultItemDropDown from './ResultItemDropDown';
-import './Icons.less';
 import './Result.less';
+import { PencilIcon } from '@navikt/aksel-icons';
 
 type Props = {
     rekrutteringsbistandstilling: Rekrutteringsbistandstilling;
@@ -130,12 +130,9 @@ const ResultItem: FunctionComponent<Props> = ({ rekrutteringsbistandstilling }) 
             </td>
             <td className="Col-edit center">
                 <Link
-                    className="Icon__button Inner__button"
-                    aria-label="Rediger"
-                    title="rediger"
                     to={`/stillinger/stilling/${stilling.uuid}?${REDIGERINGSMODUS_QUERY_PARAM}=true`}
                 >
-                    <i className="Edit__icon" />
+                    <Button variant="tertiary" as="div" icon={<PencilIcon />} />
                 </Link>
             </td>
             <td className="Col-menu">
