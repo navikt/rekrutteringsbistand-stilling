@@ -77,7 +77,7 @@ const Edit = ({ ad, isNew, onPreviewAdClick, resetValidation, kandidatliste }) =
                             <EditHeader isNew={isNew} onPreviewAdClick={onPreviewAdClick} />
                         </Accordion.Item>
                         <Accordion.Item defaultOpen className={css.accordionWhite}>
-                            <EndreArbeidsgiver />
+                            <EndreArbeidsgiver stilling={ad} />
                         </Accordion.Item>
                         <Accordion.Item
                             defaultOpen
