@@ -2,8 +2,10 @@ import React, { FunctionComponent } from 'react';
 import ReactDOM from 'react-dom';
 import Navspa from '@navikt/navspa';
 import * as Sentry from '@sentry/react';
+
 import '@navikt/ds-css';
 import '@navikt/ds-css-internal';
+import './index.css';
 
 import App, { AppProps, store } from './App';
 import Utviklingsapp from './utviklingsapp/Utviklingsapp';

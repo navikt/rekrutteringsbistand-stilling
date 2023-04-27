@@ -3,8 +3,6 @@ import Modal from 'react-modal';
 import { History } from 'history';
 import { useDispatch } from 'react-redux';
 
-import './styles.less'; // Må importeres før andre komponenter
-
 import Stilling from './stilling/Stilling';
 import MineStillinger from './mine-stillinger/MineStillinger';
 import Varsling from './common/varsling/Varsling';
