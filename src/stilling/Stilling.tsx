@@ -124,7 +124,7 @@ const Stilling = () => {
         );
     }
 
-    const isNew = location.state?.isNew || false;
+    const isNew = (location.state as any)?.isNew || false;
     const erEksternStilling = stilling?.createdBy !== System.Rekrutteringsbistand;
     const kandidatlisteId =
         kandidatliste.kind === Nettstatus.Suksess ? kandidatliste.data.kandidatlisteId : '';
