@@ -4,9 +4,9 @@ import { Panel } from '@navikt/ds-react';
 import { erDirektemeldtStilling } from '../adUtils';
 import parse from 'html-react-parser';
 import Søknad from './søknad/Søknad';
-import ContactPerson from './contactPerson/ContactPerson';
+import Kontaktperson from './kontaktperson/Kontaktperson';
 import Employer from './employer/Employer';
-import Employment from './employment/Employment';
+import OmStillingen from './om-stillingen/OmStillingen';
 import Summary from './summary/Summary';
 import MulighetForÅInkludere from './mulighet-for-å-inkludere/MulighetForÅInkludere';
 import Stilling from '../../Stilling';
@@ -29,8 +29,11 @@ const Forhåndsvisning = ({ stilling }: Props) => {
             </div>
             <div className={css.høyre}>
                 <Søknad kilde={stilling.source} properties={stilling.properties} />
-                <Employment properties={stilling.properties} locationList={stilling.locationList} />
-                <ContactPerson contactList={stilling.contactList} />
+                <OmStillingen
+                    properties={stilling.properties}
+                    locationList={stilling.locationList}
+                />
+                <Kontaktperson contactList={stilling.contactList} />
                 <Employer ad={stilling} />
                 <Summary ad={stilling} />
             </div>

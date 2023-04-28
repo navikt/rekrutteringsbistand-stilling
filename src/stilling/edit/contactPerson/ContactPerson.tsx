@@ -13,15 +13,10 @@ import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import './ContactPerson.less';
 import { State } from '../../../redux/store';
 import Skjemalabel from '../skjemaetikett/Skjemalabel';
+import { Kontaktinfo } from '../../../Stilling';
 
 type Props = {
-    contactList?: Array<{
-        name: string;
-        title: string;
-        phone: string;
-        email: string;
-    }>;
-
+    contactList?: Kontaktinfo[];
     setContactPerson: (kontaktperson: any) => void;
     validateEmailAndPhone: () => void;
     validateTitle: () => void;

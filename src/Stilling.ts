@@ -25,7 +25,7 @@ export type Stilling = {
     location: Geografi;
     locationList: Geografi[];
     properties: Properties & Record<string, any>;
-    contactList: any;
+    contactList?: Kontaktinfo[];
 
     /** Når NSS-admin trykker på "publiser" */
     publishedByAdmin: string | null;
@@ -133,6 +133,14 @@ export type Properties = Partial<{
     jobarrangement: string;
     sector: string;
 }>;
+
+export type Kontaktinfo = {
+    person: string | null;
+    title: string | null;
+    phone: string | null;
+    email: string | null;
+    name: string | null;
+};
 
 export enum Søknadsfrist {
     Snarest = 'Snarest',

@@ -10,7 +10,7 @@ type Props = {
     locationList: Geografi[];
 };
 
-const Employment = ({ properties, locationList }: Props) => {
+const OmStillingen = ({ properties, locationList }: Props) => {
     const {
         jobtitle,
         engagementtype,
@@ -115,4 +115,4 @@ const parseWorktime = (worktime: string) => {
     return arrayString;
 };
 
-export default Employment;
+export default OmStillingen;
