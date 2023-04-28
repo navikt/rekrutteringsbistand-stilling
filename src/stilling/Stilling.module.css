@@ -22,9 +22,8 @@
 }
 
 .høyre {
-    flex: auto;
-    border-left: 2px solid #dddddd;
-    background: #ebf3fb;
+    border-left: 2px solid var(--a-border-subtle);
+    background: var(--a-blue-50);
     overflow: hidden;
     max-height: 100vh;
 }
