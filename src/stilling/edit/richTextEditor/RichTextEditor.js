@@ -17,7 +17,7 @@ import InlineStyleControls from './InlineStyleControls';
 import HeaderStylesDropdown from './HeaderStylesDropdown';
 import UndoRedoButtons from './UndoRedoButtons';
 import './RichTextEditor.less';
-import { Feilmelding } from 'nav-frontend-typografi';
+import { ErrorMessage } from '@navikt/ds-react';
 
 export const checkIfEmptyInput = (value) => {
     const emptySpaceOrNotWordRegex = /^(\s|\W)+$/g;
@@ -250,7 +250,7 @@ export default class RichTextEditor extends React.Component {
                         ariaDescribedBy={this.props.ariaDescribedBy}
                     />
                 </div>
-                {this.props.errorMessage && <Feilmelding>{this.props.errorMessage}</Feilmelding>}
+                {this.props.errorMessage && <ErrorMessage>{this.props.errorMessage}</ErrorMessage>}
             </div>
         );
     }

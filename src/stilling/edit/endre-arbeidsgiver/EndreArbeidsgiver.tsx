@@ -1,9 +1,5 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { Flatknapp } from 'nav-frontend-knapper';
-import { Column, Row } from 'nav-frontend-grid';
-import { Input } from 'nav-frontend-skjema';
-import { Element, Normaltekst } from 'nav-frontend-typografi';
 import RichTextEditor from '../richTextEditor/RichTextEditor';
 import {
     SET_EMPLOYER_HOMEPAGE,
@@ -16,8 +12,9 @@ import {
 import { adjustUrl } from '../../../common/urlUtils';
 import Skjemalabel from '../skjemaetikett/Skjemalabel';
 import { formaterDataFraEnhetsregisteret } from '../../../opprett-ny-stilling/VelgArbeidsgiver';
-import { Accordion } from '@navikt/ds-react';
+import { Accordion, BodyShort, Button, Label, TextField } from '@navikt/ds-react';
 import Stilling from '../../../Stilling';
+import css from './EndreArbeidsgiver.module.css';
 
 type Props = {
     stilling: Stilling;
@@ -73,22 +70,25 @@ const EndreArbeidsgiver = ({ stilling }: Props) => {
             <Accordion.Header title="Om bedriften">Om bedriften</Accordion.Header>
             <Accordion.Content>
                 {stilling.employer && (
-                    <div className="blokk-xs">
-                        <Element>Informasjon fra enhetsregisteret</Element>
-                        <Normaltekst>
+                    <div>
+                        <Label size="small">Informasjon fra enhetsregisteret</Label>
+                        <BodyShort size="small" spacing>
                             {formaterDataFraEnhetsregisteret(stilling.employer)}
-                        </Normaltekst>
+                        </BodyShort>
                     </div>
                 )}
-                <Skjemalabel
-                    inputId="endre-stilling-navnet-bedriften-bruker"
-                    beskrivelse="Navnet bedriften bruker"
-                >
-                    Navn på bedrift
-                </Skjemalabel>
-                <Input
-                    className="blokk-s"
+
+                <TextField
                     id="endre-stilling-navnet-bedriften-bruker"
+                    className={css.blokk}
+                    label={
+                        <Skjemalabel
+                            inputId="endre-stilling-navnet-bedriften-bruker"
+                            beskrivelse="Navnet bedriften bruker"
+                        >
+                            Navn på bedrift
+                        </Skjemalabel>
+                    }
                     aria-describedby="endre-stilling-navnet-bedriften-bruker-beskrivelse"
                     value={stilling.properties.employer || stilling.businessName || ''}
                     onChange={(e) => setEmployerName(e.target.value)}
@@ -99,7 +99,7 @@ const EndreArbeidsgiver = ({ stilling }: Props) => {
                 >
                     Kort om bedriften
                 </Skjemalabel>
-                <div className="Edit__Employer__rteEditor-content">
+                <div className={css.blokk}>
                     <RichTextEditor
                         id="endre-stilling-kort-om-bedriften"
                         aria-describedby="endre-stilling-kort-om-bedriften-beskrivelse"
@@ -107,39 +107,40 @@ const EndreArbeidsgiver = ({ stilling }: Props) => {
                         onChange={(desc: string) => setEmployerDescription(desc)}
                     />
                 </div>
-                <Skjemalabel
-                    inputId="endre-stilling-nettsted"
-                    beskrivelse="For eksempel: www.firmanavn.no"
-                >
-                    Bedriftens nettsted
-                </Skjemalabel>
-                <Input
-                    className="blokk-xs"
+
+                <TextField
                     id="endre-stilling-nettsted"
+                    className={css.blokk}
+                    label={
+                        <Skjemalabel
+                            inputId="endre-stilling-nettsted"
+                            beskrivelse="For eksempel: www.firmanavn.no"
+                        >
+                            Bedriftens nettsted
+                        </Skjemalabel>
+                    }
                     aria-describedby="endre-stilling-nettsted-beskrivelse"
                     value={employerhomepage || ''}
                     onChange={(e) => setEmployerHomepage(e.target.value)}
                     onBlur={completeHomepageLink}
                 />
                 {hideOnlineAddresses ? (
-                    <Row>
-                        <Column xs="12">
-                            <Flatknapp mini onClick={() => setFacebookpage('')}>
-                                + Legg til adresser for Facebook, LinkedIn og Twitter
-                            </Flatknapp>
-                        </Column>
-                    </Row>
+                    <Button variant="tertiary" onClick={() => setFacebookpage('')}>
+                        + Legg til adresser for Facebook, LinkedIn og Twitter
+                    </Button>
                 ) : (
                     <div>
-                        <Skjemalabel
-                            inputId="endre-stilling-facebook"
-                            beskrivelse="For eksempel: facebook.com/firmanavn"
-                        >
-                            Bedriftens side på Facebook
-                        </Skjemalabel>
-                        <Input
-                            className="blokk-xs"
+                        <TextField
+                            label={
+                                <Skjemalabel
+                                    inputId="endre-stilling-facebook"
+                                    beskrivelse="For eksempel: facebook.com/firmanavn"
+                                >
+                                    Bedriftens side på Facebook
+                                </Skjemalabel>
+                            }
                             id="endre-stilling-facebook"
+                            className={css.blokk}
                             aria-describedby="endre-stilling-facebook-beskrivelse"
                             value={facebookpage || ''}
                             onChange={(e) => {
@@ -147,15 +148,18 @@ const EndreArbeidsgiver = ({ stilling }: Props) => {
                             }}
                             onBlur={completeFacebookLink}
                         />
-                        <Skjemalabel
-                            inputId="endre-stilling-linkedin"
-                            beskrivelse="For eksempel: linkedin.com/company/firmanavn"
-                        >
-                            Bedriftens side på LinkedIn
-                        </Skjemalabel>
-                        <Input
-                            className="blokk-xs"
+
+                        <TextField
                             id="endre-stilling-linkedin"
+                            className={css.blokk}
+                            label={
+                                <Skjemalabel
+                                    inputId="endre-stilling-linkedin"
+                                    beskrivelse="For eksempel: linkedin.com/company/firmanavn"
+                                >
+                                    Bedriftens side på LinkedIn
+                                </Skjemalabel>
+                            }
                             aria-describedby="endre-stilling-linkedin-beskrivelse"
                             value={linkedinpage || ''}
                             onChange={(e) => {
@@ -163,15 +167,18 @@ const EndreArbeidsgiver = ({ stilling }: Props) => {
                             }}
                             onBlur={completeLinkedinLink}
                         />
-                        <Skjemalabel
-                            inputId="endre-stilling-twitter"
-                            beskrivelse="For eksempel: @firmanavn"
-                        >
-                            Bedriftens Twitteradresse
-                        </Skjemalabel>
-                        <Input
-                            className="blokk-xs"
+
+                        <TextField
                             id="endre-stilling-twitter"
+                            className={css.blokk}
+                            label={
+                                <Skjemalabel
+                                    inputId="endre-stilling-twitter"
+                                    beskrivelse="For eksempel: @firmanavn"
+                                >
+                                    Bedriftens Twitteradresse
+                                </Skjemalabel>
+                            }
                             aria-describedby="endre-stilling-twitter-beskrivelse"
                             value={twitteraddress || ''}
                             onChange={(e) => {
