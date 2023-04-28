@@ -1,7 +1,7 @@
 import { RadioGruppe, Radio } from 'nav-frontend-skjema';
 import React, { FunctionComponent } from 'react';
 import { Element } from 'nav-frontend-typografi';
-import { kategoriTilVisningsnavn } from '../stilling/preview/administration/kategori/Kategori';
+import { kategoriTilVisningsnavn } from '../stilling/forhåndsvisning/administration/kategori/Kategori';
 
 export enum Stillingskategori {
     Stilling = 'STILLING',

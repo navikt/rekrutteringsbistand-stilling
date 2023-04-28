@@ -1,15 +1,17 @@
 import React, { FunctionComponent } from 'react';
-import { Element, Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort, Heading } from '@navikt/ds-react';
+
 import {
     hentSubtagsForMulighetForDirektemeldtStilling,
     InkluderingsmulighetForDirektemeldtStilling,
     Tag,
 } from '../../tags/hierarkiAvTags';
 import { visningsnavnForRegistrering } from '../../tags/visningsnavnForTags';
+import css from './MulighetForÅInkludere.module.css';
 
-interface Props {
+type Props = {
     registrerteTags: Tag[];
-}
+};
 
 const Inkluderingsmuligheter: FunctionComponent<Props> = ({ registrerteTags }) => (
     <>
@@ -58,13 +60,15 @@ const Tags = ({
     }
 
     return (
-        <div className="vis-inkluderingsmuligheter-intern-stilling__inkluderingsmulighet">
-            <Element>{tittel}</Element>
-            <ul className="vis-inkluderingsmuligheter-intern-stilling__tagliste">
+        <div className={css.inkluderingsmulighet}>
+            <Heading level="4" size="small">
+                {tittel}
+            </Heading>
+            <ul className={css.tagliste}>
                 {tagsInnenMulighet.map((tag) => (
-                    <Normaltekst tag="li" key={tag}>
+                    <BodyShort as="li" key={tag}>
                         {visningsnavnForRegistrering[tag]}
-                    </Normaltekst>
+                    </BodyShort>
                 ))}
             </ul>
         </div>

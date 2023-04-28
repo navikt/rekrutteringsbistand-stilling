@@ -1,0 +1,19 @@
+.forhåndsvisning {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.venstre {
+    flex: 2;
+}
+
+.høyre {
+    flex: 1;
+}
+
+.venstre,
+.høyre {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}

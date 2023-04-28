@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Undertittel } from 'nav-frontend-typografi';
 import { formatISOString, isValidISOString } from '../../../utils/datoUtils.ts';
-import { isValidUrl } from '../../../common/urlUtils';
+import { isValidUrl } from '../../../common/urlUtils.ts';
 
 export function getApplicationUrl(source, properties) {
     if (source === 'FINN') {
