@@ -1,10 +1,10 @@
 .stilling {
     background: var(--a-bg-subtle);
-    min-height: 100vh;
 }
 
 .innhold {
     display: flex;
+    min-height: 100vh;
 }
 
 .venstre {

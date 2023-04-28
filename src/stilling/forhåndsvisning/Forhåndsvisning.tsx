@@ -7,12 +7,10 @@ import Søknad from './søknad/Søknad';
 import Kontaktperson from './kontaktperson/Kontaktperson';
 import OmBedriften from './om-bedriften/OmBedriften';
 import OmStillingen from './om-stillingen/OmStillingen';
-import Summary from './summary/Summary';
+import OmAnnonsen from './om-annonsen/OmAnnonsen';
 import MulighetForÅInkludere from './mulighet-for-å-inkludere/MulighetForÅInkludere';
 import Stilling from '../../Stilling';
-
 import css from './Forhåndsvisning.module.css';
-import './Forhåndsvisning.less';
 
 type Props = {
     stilling: Stilling;
@@ -22,7 +20,9 @@ const Forhåndsvisning = ({ stilling }: Props) => {
     return (
         <div className={css.forhåndsvisning}>
             <div className={css.venstre}>
-                <Panel as="article">{parse(stilling.properties.adtext || '')}</Panel>
+                <Panel as="article" className={css.annonsetekst}>
+                    {parse(stilling.properties.adtext || '')}
+                </Panel>
                 {erDirektemeldtStilling(stilling.source) && (
                     <MulighetForÅInkludere tags={stilling.properties.tags} />
                 )}
@@ -35,7 +35,7 @@ const Forhåndsvisning = ({ stilling }: Props) => {
                 />
                 <Kontaktperson contactList={stilling.contactList} />
                 <OmBedriften stilling={stilling} />
-                <Summary ad={stilling} />
+                <OmAnnonsen stilling={stilling} />
             </div>
         </div>
     );
