@@ -3,7 +3,7 @@ import { Panel } from '@navikt/ds-react';
 
 import { erDirektemeldtStilling } from '../adUtils';
 import parse from 'html-react-parser';
-import Application from './application/Application';
+import Søknad from './søknad/Søknad';
 import ContactPerson from './contactPerson/ContactPerson';
 import Employer from './employer/Employer';
 import Employment from './employment/Employment';
@@ -28,16 +28,11 @@ const Forhåndsvisning = ({ stilling }: Props) => {
                 )}
             </div>
             <div className={css.høyre}>
-                <div className="AdText__details">
-                    <Application source={stilling.source} properties={stilling.properties} />
-                    <Employment
-                        properties={stilling.properties as any}
-                        locationList={stilling.locationList}
-                    />
-                    <ContactPerson contactList={stilling.contactList} />
-                    <Employer ad={stilling} />
-                    <Summary ad={stilling} />
-                </div>
+                <Søknad kilde={stilling.source} properties={stilling.properties} />
+                <Employment properties={stilling.properties} locationList={stilling.locationList} />
+                <ContactPerson contactList={stilling.contactList} />
+                <Employer ad={stilling} />
+                <Summary ad={stilling} />
             </div>
         </div>
     );

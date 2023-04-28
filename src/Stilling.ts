@@ -15,7 +15,7 @@ export type Stilling = {
     title: string;
     status: Status;
     privacy: Privacy | string;
-    source: Kilde | string;
+    source: Kilde;
     medium: Medium | string;
     reference: string;
     published: string | null;
@@ -61,6 +61,7 @@ export enum Medium {
 
 export enum Kilde {
     Intern = 'DIR',
+    Finn = 'FINN',
 }
 
 export type Stillingsinfo = {
@@ -118,13 +119,19 @@ export type Properties = Partial<{
     jobtitle: string;
     location: string;
     starttime: string;
-    applicationdue: Søknadsfrist | string;
     extent: Omfang;
     engagementtype: Ansettelsesform;
     positioncount: number;
     tags: string;
     workday: string;
     workhours: string;
+
+    sourceurl: string;
+    applicationurl: string;
+    applicationemail: string;
+    applicationdue: Søknadsfrist | string;
+    jobarrangement: string;
+    sector: string;
 }>;
 
 export enum Søknadsfrist {
