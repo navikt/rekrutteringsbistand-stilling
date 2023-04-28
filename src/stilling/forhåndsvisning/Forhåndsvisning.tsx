@@ -5,7 +5,7 @@ import { erDirektemeldtStilling } from '../adUtils';
 import parse from 'html-react-parser';
 import Søknad from './søknad/Søknad';
 import Kontaktperson from './kontaktperson/Kontaktperson';
-import Employer from './employer/Employer';
+import OmBedriften from './om-bedriften/OmBedriften';
 import OmStillingen from './om-stillingen/OmStillingen';
 import Summary from './summary/Summary';
 import MulighetForÅInkludere from './mulighet-for-å-inkludere/MulighetForÅInkludere';
@@ -34,7 +34,7 @@ const Forhåndsvisning = ({ stilling }: Props) => {
                     locationList={stilling.locationList}
                 />
                 <Kontaktperson contactList={stilling.contactList} />
-                <Employer ad={stilling} />
+                <OmBedriften stilling={stilling} />
                 <Summary ad={stilling} />
             </div>
         </div>
