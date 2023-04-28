@@ -8,10 +8,9 @@ import { MineStillingerResultat } from '../mineStillingerReducer';
 
 type Props = {
     resultat: Nettressurs<MineStillingerResultat>;
-    page: number;
 };
 
-const ResultTable: FunctionComponent<Props> = ({ resultat, page }) => {
+const ResultTable: FunctionComponent<Props> = ({ resultat }) => {
     return (
         <div className={css.tabell}>
             <table className="Result__table">

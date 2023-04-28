@@ -41,3 +41,7 @@
 .tabell {
     grid-area: result;
 }
+
+.disabledValg {
+    color: var(--a-text-subtle);
+}

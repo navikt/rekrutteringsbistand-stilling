@@ -2,6 +2,8 @@ import { feil, ikkeLastet, lasterInn, Nettressurs, suksess } from '../api/Nettre
 import AdStatusEnum from '../common/enums/AdStatusEnum';
 import { Rekrutteringsbistandstilling } from '../Stilling';
 import { MineStillingerAction, MineStillingerActionType } from './MineStillingerAction';
+import { MineStillingerSorteringsfelt } from './MineStillingerSortering';
+import { Retning } from './tabell/Retning';
 
 export type MineStillingerResultat = {
     content: Rekrutteringsbistandstilling[];
@@ -12,8 +14,8 @@ export type MineStillingerResultat = {
 export type MineStillingerState = {
     resultat: Nettressurs<MineStillingerResultat>;
     page: number;
-    sortField: string;
-    sortDir: string;
+    sortField: MineStillingerSorteringsfelt;
+    sortDir: Retning;
     deactivatedByExpiry: boolean;
     filter: {
         status: string[];
@@ -23,8 +25,8 @@ export type MineStillingerState = {
 const initialState = {
     resultat: ikkeLastet(),
     page: 0,
-    sortField: 'updated',
-    sortDir: 'desc',
+    sortField: MineStillingerSorteringsfelt.SistEndretTidspunkt,
+    sortDir: Retning.Synkende,
     deactivatedByExpiry: false,
     filter: {
         status: [AdStatusEnum.ACTIVE, AdStatusEnum.INACTIVE],

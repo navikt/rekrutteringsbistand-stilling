@@ -14,11 +14,11 @@ import { MineStillingerAction, MineStillingerActionType } from './MineStillinger
 import './MineStillinger.module.css';
 import MineStillingerHeader from './header/MineStillingerHeader';
 import css from './MineStillinger.module.css';
-import ResultTable from './result/ResultTable';
 import { Nettstatus } from '../api/Nettressurs';
 import Loading from '../common/loading/Loading';
 import NoResults from './noResults/NoResults';
 import classNames from 'classnames';
+import MineStillingerTabell from './tabell/MineStillingerTabell';
 
 type Props = {
     history: History;
@@ -79,7 +79,7 @@ const MineStillinger: FunctionComponent<Props> = ({ history }) => {
                     <Count resultat={resultat} />
                 </div>
                 <Filter />
-                <ResultTable resultat={resultat} page={page} />
+                <MineStillingerTabell resultat={resultat} className={css.tabell} />
                 {resultat.kind === Nettstatus.LasterInn && <Loading />}
                 {resultat.kind === Nettstatus.Suksess && (
                     <>
