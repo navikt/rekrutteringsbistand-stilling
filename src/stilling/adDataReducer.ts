@@ -586,7 +586,7 @@ const manipulateAdReducer = (state: Stilling, action) => {
                 ...state,
                 contactList: [
                     {
-                        ...state.contactList[0],
+                        ...(state.contactList ? state.contactList[0] : []),
                         ...action.contactPerson,
                     },
                 ],

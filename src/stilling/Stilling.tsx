@@ -11,13 +11,13 @@ import { VarslingActionType } from '../common/varsling/varslingReducer';
 import { Status, System } from '../Stilling';
 import Administration from './administration/Administration';
 import AdministrationLimited from './administration/limited/AdministrationLimited';
-import AdministrationPreview from './preview/administration/AdministrationPreview';
+import AdministrationPreview from './forhåndsvisning/administration/AdministrationPreview';
 import DelayedSpinner from '../common/DelayedSpinner';
 import Edit from './edit/Edit';
 import Error from './error/Error';
-import Preview from './preview/Preview';
-import PreviewHeader from './preview/header/PreviewHeader';
+import PreviewHeader from './forhåndsvisning/header/PreviewHeader';
 import useHentKandidatliste from './kandidathandlinger/useHentKandidatliste';
+import Forhåndsvisning from './forhåndsvisning/Forhåndsvisning';
 import css from './Stilling.module.css';
 
 export const REDIGERINGSMODUS_QUERY_PARAM = 'redigeringsmodus';
@@ -140,7 +140,7 @@ const Stilling = () => {
                                 {erEksternStilling ? (
                                     <>
                                         <PreviewHeader kandidatliste={kandidatliste} />
-                                        <Preview stilling={stilling} />
+                                        <Forhåndsvisning stilling={stilling} />
                                     </>
                                 ) : (
                                     <Edit
@@ -153,7 +153,7 @@ const Stilling = () => {
                         ) : (
                             <>
                                 <PreviewHeader kandidatliste={kandidatliste} />
-                                <Preview stilling={stilling} />
+                                <Forhåndsvisning stilling={stilling} />
                             </>
                         )}
                     </div>

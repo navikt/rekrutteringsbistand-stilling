@@ -25,7 +25,7 @@ import Stillingsheader from '../header/Stillingsheader.tsx';
 import './Edit.less';
 import css from './Edit.module.css';
 import { RESET_VALIDATION_ERROR } from '../adValidationReducer';
-import EksternStillingAdvarsel from '../preview/header/EksternStillingAdvarsel.tsx';
+import EksternStillingAdvarsel from '../forhåndsvisning/header/EksternStillingAdvarsel.tsx';
 import './Edit.less';
 
 const Edit = ({ ad, isNew, onPreviewAdClick, resetValidation, kandidatliste }) => {

@@ -1,15 +1,15 @@
 import React, { FunctionComponent } from 'react';
-import { Feilmelding, Undertittel } from 'nav-frontend-typografi';
+import { ErrorMessage, Heading, Panel } from '@navikt/ds-react';
 import Inkluderingsmuligheter from './Inkluderingsmuligheter';
 import isJson from '../../edit/practicalInformation/IsJson';
 import { tagsInneholderInkluderingsmuligheter } from '../../tags/utils';
-import './VisInkluderingsmuligheterInternStilling.less';
+import css from './MulighetForÅInkludere.module.css';
 
 type Props = {
     tags?: string;
 };
 
-const VisInkluderingsmuligheterInternStilling: FunctionComponent<Props> = ({ tags }) => {
+const MulighetForÅInkludere: FunctionComponent<Props> = ({ tags }) => {
     if (tags === undefined) {
         return null;
     }
@@ -18,9 +18,11 @@ const VisInkluderingsmuligheterInternStilling: FunctionComponent<Props> = ({ tag
 
     if (!tagsErGyldige) {
         return (
-            <div className="vis-inkluderingsmuligheter-intern-stilling">
-                <Feilmelding>Noe galt skjedde ved uthenting av inkluderingsmuligheter.</Feilmelding>
-            </div>
+            <Panel className={css.mulighet}>
+                <ErrorMessage>
+                    Noe galt skjedde ved uthenting av inkluderingsmuligheter.
+                </ErrorMessage>
+            </Panel>
         );
     }
 
@@ -31,13 +33,13 @@ const VisInkluderingsmuligheterInternStilling: FunctionComponent<Props> = ({ tag
     const registrerteTags = JSON.parse(tags);
 
     return (
-        <div className="vis-inkluderingsmuligheter-intern-stilling">
-            <Undertittel className="vis-inkluderingsmuligheter-intern-stilling__tittel">
+        <Panel className={css.mulighet}>
+            <Heading spacing level="3" size="medium" className={css.tittel}>
                 Mulighet for å inkludere
-            </Undertittel>
+            </Heading>
             <Inkluderingsmuligheter registrerteTags={registrerteTags} />
-        </div>
+        </Panel>
     );
 };
 
-export default VisInkluderingsmuligheterInternStilling;
+export default MulighetForÅInkludere;
