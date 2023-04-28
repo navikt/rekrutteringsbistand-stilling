@@ -1,16 +1,7 @@
 .forhåndsvisning {
-    display: flex;
-    flex-direction: column;
+    display: grid;
     gap: 1.5rem;
     margin-bottom: 3rem;
-}
-
-.venstre {
-    flex: 2;
-}
-
-.høyre {
-    flex: 1;
 }
 
 .venstre,
@@ -22,7 +13,7 @@
 
 .definisjonsliste {
     display: grid;
-    grid-template-columns: 1fr 1.5fr;
+    grid-template-columns: 1fr 1fr;
     gap: 0.25rem;
     margin: 0;
 }
@@ -34,13 +25,13 @@
 }
 
 .definisjonsliste dd {
-    word-wrap: break-word;
-    overflow-wrap: break-word;
+    overflow-wrap: anywhere;
     overflow: hidden;
+    margin: 0;
 }
 
 @media (min-width: 1401px) {
     .forhåndsvisning {
-        flex-direction: row;
+        grid-template-columns: 1fr 400px;
     }
 }
