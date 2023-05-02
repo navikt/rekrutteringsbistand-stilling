@@ -1,12 +1,12 @@
 import React, { useState, useEffect, FunctionComponent } from 'react';
 import { History } from 'history';
-import { Button, Pagination } from '@navikt/ds-react';
+import { Pagination } from '@navikt/ds-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 
 import { CLEAR_COPIED_ADS } from '../stilling/adReducer';
 import { State } from '../redux/store';
-import Count from './result/Count';
+import AntallStillinger from './result/AntallStillinger';
 import Filter from './filter/Filter';
 import OpprettNyStilling from '../opprett-ny-stilling/OpprettNyStilling';
 import StopAdModal from '../stilling/administration/adStatus/StopAdModal';
@@ -70,15 +70,13 @@ const MineStillinger: FunctionComponent<Props> = ({ history }) => {
 
     return (
         <div className={css.mineStillinger}>
-            <MineStillingerHeader>
-                <Button onClick={onOpprettNyClick}>Opprett ny</Button>
-            </MineStillingerHeader>
+            <MineStillingerHeader opprettStilling={onOpprettNyClick} />
             <div className={css.innhold}>
                 <StopAdModal fromMyAds />
-                <div className={css.statusRad}>
-                    <Count resultat={resultat} />
+                <Filter className={css.filter} />
+                <div className={css.antallStillinger}>
+                    <AntallStillinger resultat={resultat} />
                 </div>
-                <Filter />
                 <MineStillingerTabell resultat={resultat} className={css.tabell} />
                 {resultat.kind === Nettstatus.LasterInn && <Loading />}
                 {resultat.kind === Nettstatus.Suksess && (

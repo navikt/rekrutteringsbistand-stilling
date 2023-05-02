@@ -1,18 +1,18 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import css from './MineStillingerHeader.module.css';
-import { Heading } from '@navikt/ds-react';
+import { Button, Heading } from '@navikt/ds-react';
 
 type Props = {
-    children: ReactNode;
+    opprettStilling: () => void;
 };
 
-const MineStillingerHeader = ({ children }: Props) => (
-    <div className={css.mineStillingerHeader}>
-        <div className={css.container}>
+const MineStillingerHeader = ({ opprettStilling }: Props) => (
+    <div className={css.header}>
+        <div className={css.innhold}>
             <Heading level="1" size="xlarge">
                 Mine stillinger
             </Heading>
-            <div>{children}</div>
+            <Button onClick={opprettStilling}>Opprett ny</Button>
         </div>
     </div>
 );

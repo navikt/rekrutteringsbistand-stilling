@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Checkbox, CheckboxGroup, Radio, RadioGroup } from '@navikt/ds-react';
+import { Accordion, Checkbox, CheckboxGroup, Radio, RadioGroup } from '@navikt/ds-react';
 import { MineStillingerActionType } from '../MineStillingerAction';
 import { State } from '../../redux/store';
 import { Status } from '../../Stilling';
@@ -11,7 +11,11 @@ const Synlighet = {
     Utløpte: true,
 };
 
-const Filter = () => {
+type Props = {
+    className?: string;
+};
+
+const Filter = ({ className }: Props) => {
     const { filter, deactivatedByExpiry } = useSelector((state: State) => state.mineStillinger);
     const dispatch = useDispatch();
     const { status } = filter;
@@ -31,19 +35,29 @@ const Filter = () => {
     };
 
     return (
-        <aside className={css.filter}>
-            <RadioGroup legend="Synlighet" onChange={onExpiredChange} value={deactivatedByExpiry}>
-                <Radio value={Synlighet.Aktive}>Aktive</Radio>
-                <Radio value={Synlighet.Utløpte}>Utløpte</Radio>
-            </RadioGroup>
-            {!deactivatedByExpiry && (
-                <CheckboxGroup legend="Status" onChange={onStatusToggle} value={status}>
-                    <Checkbox value={Status.Aktiv}>Publisert</Checkbox>
-                    <Checkbox value={Status.Inaktiv}>Ikke Publisert</Checkbox>
-                    <Checkbox value={Status.Stoppet}>Stoppet</Checkbox>
-                </CheckboxGroup>
-            )}
-        </aside>
+        <Accordion className={className}>
+            <Accordion.Item defaultOpen>
+                <Accordion.Header>Filter</Accordion.Header>
+                <Accordion.Content className={css.innhold}>
+                    <RadioGroup
+                        className={css.synlighet}
+                        legend="Synlighet"
+                        onChange={onExpiredChange}
+                        value={deactivatedByExpiry}
+                    >
+                        <Radio value={Synlighet.Aktive}>Aktive</Radio>
+                        <Radio value={Synlighet.Utløpte}>Utløpte</Radio>
+                    </RadioGroup>
+                    {!deactivatedByExpiry && (
+                        <CheckboxGroup legend="Status" onChange={onStatusToggle} value={status}>
+                            <Checkbox value={Status.Aktiv}>Publisert</Checkbox>
+                            <Checkbox value={Status.Inaktiv}>Ikke Publisert</Checkbox>
+                            <Checkbox value={Status.Stoppet}>Stoppet</Checkbox>
+                        </CheckboxGroup>
+                    )}
+                </Accordion.Content>
+            </Accordion.Item>
+        </Accordion>
     );
 };
 

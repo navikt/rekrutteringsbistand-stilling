@@ -7,7 +7,7 @@ type Props = {
     resultat: Nettressurs<MineStillingerResultat>;
 };
 
-const Count: FunctionComponent<Props> = ({ resultat }) => {
+const AntallStillinger: FunctionComponent<Props> = ({ resultat }) => {
     if (resultat.kind !== Nettstatus.Suksess) {
         return (
             <Heading level="2" size="medium">
@@ -32,4 +32,4 @@ const Count: FunctionComponent<Props> = ({ resultat }) => {
     );
 };
 
-export default Count;
+export default AntallStillinger;

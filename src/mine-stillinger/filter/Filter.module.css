@@ -1,6 +1,18 @@
-.filter {
-    grid-area: filter;
+.innhold {
     display: flex;
-    flex-direction: column;
-    gap: var(--a-spacing-6);
+    flex-direction: row;
+    background-color: white;
+    gap: 2.5rem;
+}
+
+@media (min-width: 1280px) {
+    .innhold {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .synlighet {
+        padding-bottom: 1rem;
+        border-bottom: 2px solid var(--a-border-subtle);
+    }
 }
