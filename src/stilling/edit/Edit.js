@@ -1,13 +1,11 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Accordion, Button } from '@navikt/ds-react';
+import { Accordion, Alert, Button } from '@navikt/ds-react';
 import { CopyToClipboard } from '@navikt/ds-react-internal';
 import { NewspaperIcon } from '@navikt/aksel-icons';
 
-import { Column } from 'nav-frontend-grid';
-import { Element, Undertittel } from 'nav-frontend-typografi';
+import { Undertittel } from 'nav-frontend-typografi';
 import { Input } from 'nav-frontend-skjema';
-import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import PropTypes from 'prop-types';
 
@@ -40,7 +38,7 @@ const Edit = ({ ad, isNew, onPreviewAdClick, resetValidation, kandidatliste }) =
     }, [resetValidation]);
 
     return (
-        <div className="Edit">
+        <>
             <Stillingsheader kandidatliste={kandidatliste}>
                 {!stillingenErEkstern && (
                     <Button onClick={onPreviewAdClick} size="small" icon={<NewspaperIcon />}>
@@ -61,17 +59,13 @@ const Edit = ({ ad, isNew, onPreviewAdClick, resetValidation, kandidatliste }) =
             {stillingenErEkstern ? (
                 <EksternStillingAdvarsel />
             ) : (
-                <Column xs="1" md="12" className="blokk-s">
-                    <AlertStripeInfo className="Edit__vil-bli-delt-advarsel">
-                        <Element>
-                            Stillingsannonsen kan bli delt med kandidater. Det er viktig at
-                            annonseteksten er informativ og lett å forstå.
-                        </Element>
-                    </AlertStripeInfo>
-                </Column>
+                <Alert className={css.alert} variant="info">
+                    Stillingsannonsen kan bli delt med kandidater. Det er viktig at annonseteksten
+                    er informativ og lett å forstå.
+                </Alert>
             )}
-            <Column xs="12" md="8">
-                <div className="Edit__left">
+            <div className={css.edit}>
+                <div className={css.venstre}>
                     <Accordion className={css.editAccordion}>
                         <Accordion.Item defaultOpen className={css.accordionWhite}>
                             <EditHeader
@@ -94,43 +88,43 @@ const Edit = ({ ad, isNew, onPreviewAdClick, resetValidation, kandidatliste }) =
                         </Accordion.Item>
                     </Accordion>
                 </div>
-            </Column>
-            <Column xs="12" md="4">
-                <PracticalInformation />
-                <ContactPerson />
-                <Application />
-                <Location />
-                <Ekspanderbartpanel
-                    className="Edit__panel"
-                    tittel={<Undertittel>Om annonsen</Undertittel>}
-                    border
-                    apen
-                >
-                    <Input
-                        className="blokk-xs"
-                        label="Sist endret"
-                        value={
-                            ad.updated !== ad.created
-                                ? formatISOString(ad.updated, 'DD.MM.YYYY')
-                                : ''
-                        }
-                        disabled
-                    />
-                    <Input
-                        className="blokk-xs"
-                        label="Hentet fra/kilde"
-                        value={ad.medium || ''}
-                        disabled
-                    />
-                    <Input
-                        className="blokk-xs"
-                        label="Annonsenummer"
-                        value={ad.id || ''}
-                        disabled
-                    />
-                </Ekspanderbartpanel>
-            </Column>
-        </div>
+                <div className={css.høyre}>
+                    <PracticalInformation />
+                    <ContactPerson />
+                    <Application />
+                    <Location />
+                    <Ekspanderbartpanel
+                        className="Edit__panel"
+                        tittel={<Undertittel>Om annonsen</Undertittel>}
+                        border
+                        apen
+                    >
+                        <Input
+                            className="blokk-xs"
+                            label="Sist endret"
+                            value={
+                                ad.updated !== ad.created
+                                    ? formatISOString(ad.updated, 'DD.MM.YYYY')
+                                    : ''
+                            }
+                            disabled
+                        />
+                        <Input
+                            className="blokk-xs"
+                            label="Hentet fra/kilde"
+                            value={ad.medium || ''}
+                            disabled
+                        />
+                        <Input
+                            className="blokk-xs"
+                            label="Annonsenummer"
+                            value={ad.id || ''}
+                            disabled
+                        />
+                    </Ekspanderbartpanel>
+                </div>
+            </div>
+        </>
     );
 };
 
