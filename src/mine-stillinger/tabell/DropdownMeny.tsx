@@ -1,12 +1,11 @@
 import React, { FunctionComponent } from 'react';
 import { Tooltip } from '@navikt/ds-react';
 import { Dropdown } from '@navikt/ds-react-internal';
-import Stilling from '../../Stilling';
-import AdStatusEnum from '../../common/enums/AdStatusEnum';
+import Stilling, { Status } from '../../Stilling';
 import { getAdStatusLabel } from '../../common/enums/getEnumLabels';
 import { COPY_AD_FROM_MY_ADS, SHOW_STOP_MODAL_MY_ADS } from '../../stilling/adReducer';
 import { connect } from 'react-redux';
-import css from '../MineStillinger.module.css';
+import css from '../gammel/MineStillinger.module.css';
 
 type Props = {
     stilling: Stilling;
@@ -20,11 +19,10 @@ const DropdownMeny: FunctionComponent<Props> = ({ stilling, stopAd, copyAd }) =>
     };
 
     const vilBliPublisert =
-        stilling.status === AdStatusEnum.INACTIVE && stilling.activationOnPublishingDate;
+        stilling.status === Status.Inaktiv && stilling.activationOnPublishingDate;
 
     const kanStoppeStilling =
-        stilling.status === AdStatusEnum.ACTIVE ||
-        (stilling.status === AdStatusEnum.INACTIVE && vilBliPublisert);
+        stilling.status === Status.Aktiv || (stilling.status === Status.Inaktiv && vilBliPublisert);
 
     return (
         <Dropdown.Menu.GroupedList>
