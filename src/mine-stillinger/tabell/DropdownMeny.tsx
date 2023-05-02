@@ -5,7 +5,7 @@ import Stilling, { Status } from '../../Stilling';
 import { getAdStatusLabel } from '../../common/enums/getEnumLabels';
 import { COPY_AD_FROM_MY_ADS, SHOW_STOP_MODAL_MY_ADS } from '../../stilling/adReducer';
 import { connect } from 'react-redux';
-import css from '../gammel/MineStillinger.module.css';
+import css from '../MineStillinger.module.css';
 
 type Props = {
     stilling: Stilling;
