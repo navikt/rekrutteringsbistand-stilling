@@ -11,6 +11,12 @@
     padding: 0 2rem;
     gap: 1rem;
     max-width: 110rem;
+    align-items: flex-start;
+}
+
+.overskrift {
+    width: 100%;
+    max-width: 40rem;
 }
 
 @media (min-width: 600px) {

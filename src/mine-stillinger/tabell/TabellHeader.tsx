@@ -1,11 +1,12 @@
 import React, { FunctionComponent } from 'react';
 import { Table } from '@navikt/ds-react';
 import { MineStillingerSorteringsfelt } from '../MineStillingerSortering';
+import css from './MineStillingerTabell.module.css';
 
 const TabellHeader: FunctionComponent = () => {
     return (
         <Table.Header>
-            <Table.Row>
+            <Table.Row className={css.ikkeWrapTekst}>
                 <Table.ColumnHeader
                     sortable
                     sortKey={MineStillingerSorteringsfelt.SistEndretTidspunkt}
@@ -30,9 +31,12 @@ const TabellHeader: FunctionComponent = () => {
                     Publisert
                 </Table.ColumnHeader>
                 <Table.HeaderCell scope="col">Status</Table.HeaderCell>
-                <Table.HeaderCell scope="col">Kandidatliste</Table.HeaderCell>
-                <Table.HeaderCell scope="col">Rediger</Table.HeaderCell>
-                <Table.HeaderCell scope="col">Meny</Table.HeaderCell>
+                <Table.HeaderCell scope="col" align="center">
+                    Kandidatliste
+                </Table.HeaderCell>
+                <Table.HeaderCell scope="col" align="center">
+                    Handlinger
+                </Table.HeaderCell>
             </Table.Row>
         </Table.Header>
     );

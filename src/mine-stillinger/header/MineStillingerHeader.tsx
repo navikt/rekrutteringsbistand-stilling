@@ -9,10 +9,12 @@ type Props = {
 const MineStillingerHeader = ({ opprettStilling }: Props) => (
     <div className={css.header}>
         <div className={css.innhold}>
-            <Heading level="1" size="xlarge">
+            <Heading level="1" size="xlarge" className={css.overskrift}>
                 Mine stillinger
             </Heading>
-            <Button onClick={opprettStilling}>Opprett ny</Button>
+            <Button onClick={opprettStilling} className={css.opprettNyKnapp}>
+                Opprett ny
+            </Button>
         </div>
     </div>
 );

@@ -7,11 +7,11 @@ import { formatISOString } from '../../utils/datoUtils';
 import { Link } from 'react-router-dom';
 import PrivacyStatusEnum from '../../common/enums/PrivacyStatusEnum';
 import { getAdStatusLabel } from '../../common/enums/getEnumLabels';
-import { MenuElipsisHorizontalCircleIcon, PencilIcon, PersonGroupIcon } from '@navikt/aksel-icons';
-import { REDIGERINGSMODUS_QUERY_PARAM } from '../../stilling/Stilling';
+import { MenuElipsisHorizontalCircleIcon, PersonGroupIcon } from '@navikt/aksel-icons';
 import { Dropdown } from '@navikt/ds-react-internal';
 import DropdownMeny from './DropdownMeny';
 import getEmployerName from '../../common/getEmployerName';
+import css from './MineStillingerTabell.module.css';
 
 type Props = {
     rekrutteringsbistandstilling: Rekrutteringsbistandstilling;
@@ -72,13 +72,12 @@ const TabellRad: FunctionComponent<Props> = ({ rekrutteringsbistandstilling }) =
                 <Table.DataCell />
                 <Table.DataCell />
                 <Table.DataCell />
-                <Table.DataCell />
             </Table.Row>
         );
     }
 
     return (
-        <Table.Row>
+        <Table.Row shadeOnHover={false} className={css.rad}>
             {colUpdated}
             {colTitle}
             <Table.DataCell>{stilling.id && <BodyShort>{stilling.id}</BodyShort>}</Table.DataCell>
@@ -106,7 +105,7 @@ const TabellRad: FunctionComponent<Props> = ({ rekrutteringsbistandstilling }) =
                     </BodyShort>
                 )}
             </Table.DataCell>
-            <Table.DataCell>
+            <Table.DataCell align="center" className={css.ikkeWrapTekst}>
                 {stilling.publishedByAdmin && (
                     <Link
                         to={`/kandidater/lister/stilling/${stilling.uuid}/detaljer`}
@@ -120,14 +119,6 @@ const TabellRad: FunctionComponent<Props> = ({ rekrutteringsbistandstilling }) =
                 )}
             </Table.DataCell>
             <Table.DataCell align="center">
-                <Link
-                    to={`/stillinger/stilling/${stilling.uuid}?${REDIGERINGSMODUS_QUERY_PARAM}=true`}
-                    className="navds-link"
-                >
-                    <Button variant="tertiary" as="div" icon={<PencilIcon />} />
-                </Link>
-            </Table.DataCell>
-            <Table.DataCell align="center">
                 <Dropdown closeOnSelect={false}>
                     <Button
                         as={Dropdown.Toggle}
@@ -135,9 +126,7 @@ const TabellRad: FunctionComponent<Props> = ({ rekrutteringsbistandstilling }) =
                         icon={<MenuElipsisHorizontalCircleIcon />}
                         aria-label="Meny for stilling"
                     />
-                    <Dropdown.Menu>
-                        <DropdownMeny stilling={stilling} />
-                    </Dropdown.Menu>
+                    <DropdownMeny stilling={stilling} />
                 </Dropdown>
             </Table.DataCell>
         </Table.Row>

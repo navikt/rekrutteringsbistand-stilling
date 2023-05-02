@@ -2,6 +2,6 @@
     --ac-table-row-zebra: white;
 }
 
-.disabledValg {
-    color: var(--a-text-subtle);
+.ikkeWrapTekst {
+    white-space: nowrap;
 }
