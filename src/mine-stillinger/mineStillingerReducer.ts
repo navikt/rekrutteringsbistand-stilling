@@ -1,6 +1,5 @@
 import { feil, ikkeLastet, lasterInn, Nettressurs, suksess } from '../api/Nettressurs';
-import AdStatusEnum from '../common/enums/AdStatusEnum';
-import { Rekrutteringsbistandstilling } from '../Stilling';
+import { Rekrutteringsbistandstilling, Status } from '../Stilling';
 import { MineStillingerAction, MineStillingerActionType } from './MineStillingerAction';
 import { MineStillingerSorteringsfelt } from './MineStillingerSortering';
 import { Retning } from './tabell/Retning';
@@ -29,7 +28,7 @@ const initialState = {
     sortDir: Retning.Synkende,
     deactivatedByExpiry: false,
     filter: {
-        status: [AdStatusEnum.ACTIVE, AdStatusEnum.INACTIVE],
+        status: [Status.Aktiv, Status.Inaktiv],
     },
 };
 

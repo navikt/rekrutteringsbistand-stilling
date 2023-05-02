@@ -25,7 +25,7 @@ import Stillingsheader from '../header/Stillingsheader.tsx';
 import './Edit.less';
 import css from './Edit.module.css';
 import { RESET_VALIDATION_ERROR } from '../adValidationReducer';
-import EksternStillingAdvarsel from '../preview/header/EksternStillingAdvarsel.tsx';
+import EksternStillingAdvarsel from '../forhåndsvisning/header/EksternStillingAdvarsel.tsx';
 import './Edit.less';
 
 const Edit = ({ ad, isNew, onPreviewAdClick, resetValidation, kandidatliste }) => {
@@ -74,10 +74,14 @@ const Edit = ({ ad, isNew, onPreviewAdClick, resetValidation, kandidatliste }) =
                 <div className="Edit__left">
                     <Accordion className={css.editAccordion}>
                         <Accordion.Item defaultOpen className={css.accordionWhite}>
-                            <EditHeader isNew={isNew} onPreviewAdClick={onPreviewAdClick} />
+                            <EditHeader
+                                stilling={ad}
+                                isNew={isNew}
+                                onPreviewAdClick={onPreviewAdClick}
+                            />
                         </Accordion.Item>
                         <Accordion.Item defaultOpen className={css.accordionWhite}>
-                            <EndreArbeidsgiver />
+                            <EndreArbeidsgiver stilling={ad} />
                         </Accordion.Item>
                         <Accordion.Item
                             defaultOpen

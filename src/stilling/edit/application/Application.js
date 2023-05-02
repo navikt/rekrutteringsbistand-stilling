@@ -5,7 +5,7 @@ import { Input, Checkbox, CheckboxGruppe } from 'nav-frontend-skjema';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { SET_APPLICATIONURL, SET_APPLICATIONEMAIL } from '../../adDataReducer';
 import { VALIDATE_APPLICATION_EMAIL } from '../../adValidationReducer';
-import { adjustUrl } from '../../../common/urlUtils';
+import { adjustUrl } from '../../../common/urlUtils.ts';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import Skjemalabel from '../skjemaetikett/Skjemalabel';
 
@@ -136,8 +136,8 @@ Application.propTypes = {
     }).isRequired,
 };
 const mapStateToProps = (state) => ({
-    applicationEmail: state.adData.properties.applicationemail,
-    applicationUrl: state.adData.properties.applicationurl,
+    applicationEmail: state.adData?.properties.applicationemail,
+    applicationUrl: state.adData?.properties.applicationurl,
     validation: state.adValidation.errors,
 });
 

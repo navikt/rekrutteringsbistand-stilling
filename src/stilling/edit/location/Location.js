@@ -199,7 +199,7 @@ Location.propTypes = {
 const mapStateToProps = (state) => ({
     typeAheadValue: state.locationCode.typeAheadValue,
     suggestions: state.locationCode.suggestions,
-    locationList: state.adData.locationList,
+    locationList: state.adData?.locationList,
     validation: state.adValidation.errors,
 });
 

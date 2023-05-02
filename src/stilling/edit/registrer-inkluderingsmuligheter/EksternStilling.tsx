@@ -12,7 +12,7 @@ import { Heading } from '@navikt/ds-react';
 const EksternStilling = () => {
     const dispatch = useDispatch();
 
-    const tags = useSelector((state: any) => state.adData.properties.tags || '[]');
+    const tags = useSelector((state: any) => state.adData?.properties.tags || '[]');
 
     const onTagChange = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;

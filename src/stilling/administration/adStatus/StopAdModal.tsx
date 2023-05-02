@@ -4,13 +4,14 @@ import { HIDE_STOP_AD_MODAL, STOP_AD, STOP_AD_FROM_MY_ADS } from '../../adReduce
 import css from './StopAdModal.module.css';
 import Notat from '../notat/Notat';
 import { BodyLong, Button, Heading, Modal } from '@navikt/ds-react';
+import { State } from '../../../redux/store';
 
 const StopAdModal = ({ fromMyAds }: { fromMyAds?: boolean }) => {
     const dispatch = useDispatch();
 
-    const showStopAdModal = useSelector((state: any) => state.ad.showStopAdModal);
-    const validation = useSelector((state: any) => state.adValidation.errors);
-    const title = useSelector((state: any) => state.adData.title);
+    const showStopAdModal = useSelector((state: State) => state.ad.showStopAdModal);
+    const validation = useSelector((state: State) => state.adValidation.errors);
+    const title = useSelector((state: State) => state.adData?.title);
 
     const onClose = () => {
         dispatch({ type: HIDE_STOP_AD_MODAL });

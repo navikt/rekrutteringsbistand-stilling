@@ -13,9 +13,9 @@ export type Stilling = {
     updated: string;
     updatedBy: System;
     title: string;
-    status: Status | string;
+    status: Status;
     privacy: Privacy | string;
-    source: Kilde | string;
+    source: Kilde;
     medium: Medium | string;
     reference: string;
     published: string | null;
@@ -25,6 +25,7 @@ export type Stilling = {
     location: Geografi;
     locationList: Geografi[];
     properties: Properties & Record<string, any>;
+    contactList?: Kontaktinfo[];
 
     /** Når NSS-admin trykker på "publiser" */
     publishedByAdmin: string | null;
@@ -32,6 +33,7 @@ export type Stilling = {
     deactivatedByExpiry: boolean | null;
     categoryList: StyrkCategory[];
     activationOnPublishingDate: boolean;
+    firstPublished: boolean | null;
 };
 
 export enum System {
@@ -41,6 +43,10 @@ export enum System {
 
 export enum Status {
     Aktiv = 'ACTIVE',
+    Inaktiv = 'INACTIVE',
+    Stoppet = 'STOPPED',
+    Avslått = 'REJECTED',
+    Slettet = 'DELETED',
 }
 
 export enum Privacy {
@@ -55,6 +61,7 @@ export enum Medium {
 
 export enum Kilde {
     Intern = 'DIR',
+    Finn = 'FINN',
 }
 
 export type Stillingsinfo = {
@@ -72,15 +79,7 @@ export type Arbeidsgiver = {
     orgnr: string | null;
     parentOrgnr: string | null;
     orgform: string;
-    location: Location;
-};
-
-export type Location = {
-    address: string;
-    postalCode: string;
-    city: string | null;
-    municipal: string | null;
-    country: string | null;
+    location: Geografi;
 };
 
 export type StyrkCategory = {
@@ -96,6 +95,7 @@ export type Geografi = {
     municipal: string | null;
     latitude: string | null;
     longitude: string | null;
+    city: string | null;
 };
 
 export enum AdminStatus {
@@ -119,14 +119,28 @@ export type Properties = Partial<{
     jobtitle: string;
     location: string;
     starttime: string;
-    applicationdue: Søknadsfrist | string;
     extent: Omfang;
     engagementtype: Ansettelsesform;
     positioncount: number;
-    tags: Array<string>;
+    tags: string;
     workday: string;
     workhours: string;
+
+    sourceurl: string;
+    applicationurl: string;
+    applicationemail: string;
+    applicationdue: Søknadsfrist | string;
+    jobarrangement: string;
+    sector: string;
 }>;
+
+export type Kontaktinfo = {
+    person: string | null;
+    title: string | null;
+    phone: string | null;
+    email: string | null;
+    name: string | null;
+};
 
 export enum Søknadsfrist {
     Snarest = 'Snarest',

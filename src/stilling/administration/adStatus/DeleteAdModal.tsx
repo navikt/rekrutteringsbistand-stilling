@@ -12,7 +12,7 @@ const DeleteAdModal = () => {
     const dispatch = useDispatch();
 
     const { showDeleteAdModal, hasDeletedAd } = useSelector((state: State) => state.ad);
-    const title = useSelector((state: State) => state.adData.title);
+    const title = useSelector((state: State) => state.adData?.title);
 
     useEffect(() => {
         if (hasDeletedAd) {

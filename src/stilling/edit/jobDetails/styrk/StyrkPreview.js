@@ -20,7 +20,7 @@ function StyrkPreview({ categoryList }) {
 }
 
 const mapStateToProps = (state) => ({
-    categoryList: state.adData.categoryList,
+    categoryList: state.adData?.categoryList,
 });
 
 export default connect(mapStateToProps)(StyrkPreview);

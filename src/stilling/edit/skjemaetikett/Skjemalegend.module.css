@@ -1,0 +1,9 @@
+.skjemalegend {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.hjelpetekst {
+    margin-left: 0.5rem;
+}

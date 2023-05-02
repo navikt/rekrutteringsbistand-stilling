@@ -8,32 +8,31 @@ import { Nettstatus } from '../api/Nettressurs';
 import { REMOVE_AD_DATA } from './adDataReducer';
 import { State } from '../redux/store';
 import { VarslingActionType } from '../common/varsling/varslingReducer';
+import { Status, System } from '../Stilling';
 import Administration from './administration/Administration';
 import AdministrationLimited from './administration/limited/AdministrationLimited';
-import AdministrationPreview from './preview/administration/AdministrationPreview';
-import AdStatusEnum from '../common/enums/AdStatusEnum';
+import AdministrationPreview from './forhåndsvisning/administration/AdministrationPreview';
 import DelayedSpinner from '../common/DelayedSpinner';
 import Edit from './edit/Edit';
 import Error from './error/Error';
-import Preview from './preview/Preview';
-import PreviewHeader from './preview/header/PreviewHeader';
+import PreviewHeader from './forhåndsvisning/header/PreviewHeader';
 import useHentKandidatliste from './kandidathandlinger/useHentKandidatliste';
+import Forhåndsvisning from './forhåndsvisning/Forhåndsvisning';
 import css from './Stilling.module.css';
 
 export const REDIGERINGSMODUS_QUERY_PARAM = 'redigeringsmodus';
 
 type QueryParams = { uuid: string };
-type LocationState = { isNew?: boolean };
 
 const Stilling = () => {
     const dispatch = useDispatch();
-    const { state } = useLocation();
+    const location = useLocation();
     const { uuid } = useParams<QueryParams>();
+    const { isEditingAd, isSavingAd, isLoadingAd } = useSelector((state: State) => state.ad);
     const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate();
     const stilling = useSelector((state: State) => state.adData);
-    const { isEditingAd, isSavingAd, isLoadingAd } = useSelector((state: State) => state.ad);
-    const kandidatliste = useHentKandidatliste(stilling.uuid);
+    const kandidatliste = useHentKandidatliste(stilling?.uuid);
 
     const getStilling = (uuid: string, edit: boolean) => {
         dispatch({ type: FETCH_AD, uuid, edit });
@@ -100,14 +99,11 @@ const Stilling = () => {
                 },
                 {
                     replace: true,
-                    state,
+                    state: location.state,
                 }
             );
         }
     }, [uuid]);
-
-    const isNew = (state as LocationState)?.isNew || false;
-    const erEksternStilling = stilling.createdBy !== 'pam-rekrutteringsbistand';
 
     if (isLoadingAd || !stilling) {
         return (
@@ -117,7 +113,7 @@ const Stilling = () => {
         );
     }
 
-    if (stilling.status === AdStatusEnum.DELETED) {
+    if (stilling.status === Status.Slettet) {
         return (
             <div className={css.slettet}>
                 <BodyLong spacing>Stillingen er slettet</BodyLong>
@@ -128,6 +124,8 @@ const Stilling = () => {
         );
     }
 
+    const isNew = (location.state as any)?.isNew || false;
+    const erEksternStilling = stilling?.createdBy !== System.Rekrutteringsbistand;
     const kandidatlisteId =
         kandidatliste.kind === Nettstatus.Suksess ? kandidatliste.data.kandidatlisteId : '';
 
@@ -142,7 +140,7 @@ const Stilling = () => {
                                 {erEksternStilling ? (
                                     <>
                                         <PreviewHeader kandidatliste={kandidatliste} />
-                                        <Preview ad={stilling} />
+                                        <Forhåndsvisning stilling={stilling} />
                                     </>
                                 ) : (
                                     <Edit
@@ -155,7 +153,7 @@ const Stilling = () => {
                         ) : (
                             <>
                                 <PreviewHeader kandidatliste={kandidatliste} />
-                                <Preview ad={stilling} />
+                                <Forhåndsvisning stilling={stilling} />
                             </>
                         )}
                     </div>

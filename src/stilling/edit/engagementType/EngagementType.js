@@ -85,7 +85,7 @@ EngagementType.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    engagementType: state.adData.properties.engagementtype,
+    engagementType: state.adData?.properties.engagementtype,
     validation: state.adValidation.errors,
 });
 

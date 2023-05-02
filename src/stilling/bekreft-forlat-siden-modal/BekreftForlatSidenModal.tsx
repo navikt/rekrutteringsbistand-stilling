@@ -52,9 +52,9 @@ const BekreftForlatSidenModal: FunctionComponent<Props> = (props) => {
 };
 
 const mapStateToProps = (state: State) => ({
-    adStatus: state.adData.status,
-    updated: state.adData.updated,
-    created: state.adData.created,
+    adStatus: state.adData?.status,
+    updated: state.adData?.updated,
+    created: state.adData?.created,
     nyStillingState: state.ad.nyStillingState,
 });
 
