@@ -8,9 +8,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../redux/store';
 import { MineStillingerSorteringsfelt } from '../MineStillingerSortering';
 import classNames from 'classnames';
-import css from '../MineStillinger.module.css';
 import TabellHeader from './TabellHeader';
 import TabellBody from './TabellBody';
+import css from './MineStillingerTabell.module.css';
 
 type Props = {
     resultat: Nettressurs<MineStillingerResultat>;

@@ -119,7 +119,7 @@ const TabellRad: FunctionComponent<Props> = ({ rekrutteringsbistandstilling }) =
                     </Link>
                 )}
             </Table.DataCell>
-            <Table.DataCell>
+            <Table.DataCell align="center">
                 <Link
                     to={`/stillinger/stilling/${stilling.uuid}?${REDIGERINGSMODUS_QUERY_PARAM}=true`}
                     className="navds-link"
@@ -127,7 +127,7 @@ const TabellRad: FunctionComponent<Props> = ({ rekrutteringsbistandstilling }) =
                     <Button variant="tertiary" as="div" icon={<PencilIcon />} />
                 </Link>
             </Table.DataCell>
-            <Table.DataCell>
+            <Table.DataCell align="center">
                 <Dropdown closeOnSelect={false}>
                     <Button
                         as={Dropdown.Toggle}
