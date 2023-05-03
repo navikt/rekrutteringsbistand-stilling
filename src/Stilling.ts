@@ -22,7 +22,7 @@ export type Stilling = {
     expires: string | null;
     employer: Arbeidsgiver | null;
     administration: Administration | null;
-    location: Geografi;
+    location: Geografi | null;
     locationList: Geografi[];
     properties: Properties & Record<string, any>;
     contactList?: Kontaktinfo[];
