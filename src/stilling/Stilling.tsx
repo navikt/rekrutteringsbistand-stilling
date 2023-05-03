@@ -33,6 +33,7 @@ const Stilling = () => {
     const navigate = useNavigate();
     const stilling = useSelector((state: State) => state.adData);
     const kandidatliste = useHentKandidatliste(stilling?.uuid);
+    const isNew = (location.state as any)?.isNew || false;
 
     const getStilling = (uuid: string, edit: boolean) => {
         dispatch({ type: FETCH_AD, uuid, edit });
@@ -124,7 +125,6 @@ const Stilling = () => {
         );
     }
 
-    const isNew = (location.state as any)?.isNew || false;
     const erEksternStilling = stilling?.createdBy !== System.Rekrutteringsbistand;
     const kandidatlisteId =
         kandidatliste.kind === Nettstatus.Suksess ? kandidatliste.data.kandidatlisteId : '';
