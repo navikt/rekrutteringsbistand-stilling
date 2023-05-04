@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Input, Checkbox, CheckboxGruppe } from 'nav-frontend-skjema';
-import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import Typeahead from '../../../common/typeahead/Typeahead';
 import { FETCH_LOCATIONS, SET_POSTAL_CODE_TYPEAHEAD_VALUE } from './locationCodeReducer';
 import {
@@ -14,9 +13,9 @@ import {
 } from '../../adDataReducer';
 import capitalizeLocation from './capitalizeLocation';
 import LocationArea from './LocationArea';
-import './Location.less';
-import { Feilmelding, Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { Feilmelding } from 'nav-frontend-typografi';
 import Skjemalabel from '../skjemaetikett/Skjemalabel';
+import './Location.less';
 
 class Location extends React.Component {
     constructor(props) {
@@ -97,17 +96,7 @@ class Location extends React.Component {
             locationList && locationList.length && locationList[0] && locationList[0].address;
 
         return (
-            <Ekspanderbartpanel
-                className="Edit__panel"
-                tittel={
-                    <Undertittel>
-                        <Undertittel tag="span">Arbeidssted</Undertittel>
-                        <Normaltekst tag="span"> (må fylles ut)</Normaltekst>
-                    </Undertittel>
-                }
-                border
-                apen
-            >
+            <>
                 <CheckboxGruppe>
                     <Checkbox
                         label="Adresse"
@@ -164,7 +153,7 @@ class Location extends React.Component {
                     {this.state.locationArea && <LocationArea />}
                     {validation.location && <Feilmelding>{validation.location}</Feilmelding>}
                 </CheckboxGruppe>
-            </Ekspanderbartpanel>
+            </>
         );
     }
 }

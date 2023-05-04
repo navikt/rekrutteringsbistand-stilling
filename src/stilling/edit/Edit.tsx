@@ -3,12 +3,8 @@ import { connect } from 'react-redux';
 import { Accordion, Alert, Button } from '@navikt/ds-react';
 import { CopyToClipboard } from '@navikt/ds-react-internal';
 import { NewspaperIcon } from '@navikt/aksel-icons';
-import { Undertittel } from 'nav-frontend-typografi';
-import { Input } from 'nav-frontend-skjema';
-import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import classNames from 'classnames';
 
-import { formatISOString } from '../../utils/datoUtils';
 import { hentAnnonselenke, stillingErPublisert } from '../adUtils';
 import { Kandidatliste } from '../legg-til-kandidat-modal/kandidatlistetyper';
 import { Nettressurs } from '../../api/Nettressurs';
@@ -25,10 +21,11 @@ import PracticalInformation from './practicalInformation/PracticalInformation';
 import RegistrerInkluderingsmuligheter from './registrer-inkluderingsmuligheter/DirektemeldtStilling';
 import Stilling, { System } from '../../Stilling';
 import Stillingsheader from '../header/Stillingsheader';
+import Seksjon from './seksjon/Seksjon';
+import OmAnnonsen from './om-annonsen/OmAnnonsen';
 
 import css from './Edit.module.css';
 import './Edit.less';
-import Seksjon from './seksjon/Seksjon';
 
 type Props = {
     onPreviewAdClick: () => void;
@@ -40,9 +37,7 @@ type Props = {
 };
 
 const Edit = ({ stilling, onPreviewAdClick, resetValidation, kandidatliste }: Props) => {
-    const { id, medium, updated, created, createdBy } = stilling;
-
-    const stillingenErEkstern = createdBy !== System.Rekrutteringsbistand;
+    const stillingenErEkstern = stilling.createdBy !== System.Rekrutteringsbistand;
     const stillingsLenke = hentAnnonselenke(stilling.uuid);
 
     useEffect(() => {
@@ -97,41 +92,26 @@ const Edit = ({ stilling, onPreviewAdClick, resetValidation, kandidatliste }: Pr
                         <JobDetails />
                     </Seksjon>
                 </Accordion>
-                <div className={css.høyre}>
-                    <PracticalInformation />
-                    <ContactPerson />
-                    <Application />
-                    <Location />
-                    <Ekspanderbartpanel
-                        className="Edit__panel"
-                        tittel={<Undertittel>Om annonsen</Undertittel>}
-                        border
-                        apen
+                <Accordion className={classNames(css.høyre, css.accordions)}>
+                    <Seksjon tittel="Praktiske opplysninger">
+                        <PracticalInformation />
+                    </Seksjon>
+                    <Seksjon tittel="Kontaktinformasjon">
+                        <ContactPerson />
+                    </Seksjon>
+                    <Seksjon
+                        tittel="Hvordan sende søknad?"
+                        beskrivelse="Gjelder kun eksternt utlyste stillinger"
                     >
-                        <Input
-                            className="blokk-xs"
-                            label="Sist endret"
-                            value={
-                                updated !== created
-                                    ? formatISOString(updated, 'DD.MM.YYYY') || ''
-                                    : ''
-                            }
-                            disabled
-                        />
-                        <Input
-                            className="blokk-xs"
-                            label="Hentet fra/kilde"
-                            value={medium || ''}
-                            disabled
-                        />
-                        <Input
-                            className="blokk-xs"
-                            label="Annonsenummer"
-                            value={id || ''}
-                            disabled
-                        />
-                    </Ekspanderbartpanel>
-                </div>
+                        <Application />
+                    </Seksjon>
+                    <Seksjon påkrevd tittel="Arbeidssted">
+                        <Location />
+                    </Seksjon>
+                    <Seksjon tittel="Om annonsen">
+                        <OmAnnonsen stilling={stilling} />
+                    </Seksjon>
+                </Accordion>
             </div>
         </>
     );
