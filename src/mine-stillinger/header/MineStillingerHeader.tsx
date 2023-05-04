@@ -8,7 +8,7 @@ type Props = {
 
 const MineStillingerHeader = ({ opprettStilling }: Props) => (
     <div className={css.header}>
-        <div className={css.innhold}>
+        <div className={css.wrapper}>
             <Heading level="1" size="xlarge" className={css.overskrift}>
                 Mine stillinger
             </Heading>

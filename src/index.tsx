@@ -7,7 +7,7 @@ import '@navikt/ds-css';
 import '@navikt/ds-css-internal';
 import './index.css';
 
-import App, { AppProps, store } from './App';
+import App, { AppProps, store } from './app/App';
 import Utviklingsapp from './utviklingsapp/Utviklingsapp';
 import { Router } from 'react-router-dom';
 import { Provider } from 'react-redux';

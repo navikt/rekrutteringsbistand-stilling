@@ -3,14 +3,15 @@ import Modal from 'react-modal';
 import { History } from 'history';
 import { useDispatch } from 'react-redux';
 
-import Stilling from './stilling/Stilling';
-import MineStillinger from './mine-stillinger/MineStillinger';
-import Varsling from './common/varsling/Varsling';
-import { startSentry } from './verktøy/sentry';
-import { ReporteeAction, ReporteeActionType } from './reportee/ReporteeAction';
-import { setNavKontorIAmplitude } from './verktøy/amplitude';
-import createReduxStore from './redux/store';
+import Stilling from '../stilling/Stilling';
+import MineStillinger from '../mine-stillinger/MineStillinger';
+import Varsling from '../common/varsling/Varsling';
+import { startSentry } from '../verktøy/sentry';
+import { ReporteeAction, ReporteeActionType } from '../reportee/ReporteeAction';
+import { setNavKontorIAmplitude } from '../verktøy/amplitude';
+import createReduxStore from '../redux/store';
 import { Route, Routes } from 'react-router-dom';
+import css from './App.module.css';
 
 startSentry();
 
@@ -45,13 +46,17 @@ const App: FunctionComponent<AppProps> = ({ navKontor, history }) => {
     return (
         <>
             <Varsling />
-            <Routes>
-                <Route
-                    path="/stillinger/minestillinger"
-                    element={<MineStillinger history={history} />}
-                />
-                <Route path="/stillinger/stilling/:uuid" element={<Stilling />} />
-            </Routes>
+            <div className={css.app}>
+                <main className={css.main}>
+                    <Routes>
+                        <Route
+                            path="/stillinger/minestillinger"
+                            element={<MineStillinger history={history} />}
+                        />
+                        <Route path="/stillinger/stilling/:uuid" element={<Stilling />} />
+                    </Routes>
+                </main>
+            </div>
         </>
     );
 };

@@ -38,7 +38,7 @@ const Filter = ({ className }: Props) => {
         <Accordion className={className}>
             <Accordion.Item defaultOpen>
                 <Accordion.Header>Filter</Accordion.Header>
-                <Accordion.Content className={css.innhold}>
+                <Accordion.Content className={css.wrapper}>
                     <RadioGroup
                         className={css.synlighet}
                         legend="Synlighet"
