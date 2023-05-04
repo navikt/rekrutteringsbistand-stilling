@@ -1,14 +1,14 @@
 import React, { ChangeEvent, FunctionComponent, useState } from 'react';
-import { Textarea } from 'nav-frontend-skjema';
-import { Feilmelding, Normaltekst } from 'nav-frontend-typografi';
 import { useDispatch } from 'react-redux';
-import LeggTilEllerAvbryt from './LeggTilEllerAvbryt';
-import { sendEvent } from '../../verktøy/amplitude';
-import { Kandidat, Kandidatliste } from './kandidatlistetyper';
+import { BodyShort, ErrorMessage, Textarea } from '@navikt/ds-react';
+
 import { ikkeLastet, Nettressurs, Nettstatus, senderInn } from '../../api/Nettressurs';
-import { postKandidaterTilKandidatliste } from './kandidatApi';
+import { Kandidat, Kandidatliste } from './kandidatlistetyper';
 import { KandidatOutboundDto } from './LeggTilKandidatModal';
+import { postKandidaterTilKandidatliste } from './kandidatApi';
+import { sendEvent } from '../../verktøy/amplitude';
 import { VarslingAction, VarslingActionType } from '../../common/varsling/varslingReducer';
+import LeggTilEllerAvbryt from './LeggTilEllerAvbryt';
 import css from './LeggTilKandidatModal.module.css';
 
 const MAKS_NOTATLENGDE = 2000;
@@ -61,12 +61,11 @@ const BekreftMedNotat: FunctionComponent<{
 
     return (
         <>
-            <Normaltekst className="blokk-s">{`${kandidat.fornavn} ${kandidat.etternavn} (${fnr})`}</Normaltekst>
+            <BodyShort spacing>{`${kandidat.fornavn} ${kandidat.etternavn} (${fnr})`}</BodyShort>
             <Textarea
-                id="legg-til-kandidat-notat-input"
                 value={notat}
                 label="Notat om kandidaten"
-                textareaClass={css.notat}
+                className={css.notat}
                 description="Du skal ikke skrive sensitive opplysninger her. Notatet er synlig for alle veiledere."
                 placeholder="Skriv inn en kort tekst om hvorfor kandidaten passer til stillingen"
                 maxLength={MAKS_NOTATLENGDE}
@@ -83,7 +82,7 @@ const BekreftMedNotat: FunctionComponent<{
                 avbrytDisabled={leggTilKandidat.kind === Nettstatus.SenderInn}
             />
             {leggTilKandidat.kind === Nettstatus.Feil && (
-                <Feilmelding>Klarte ikke å legge til kandidat</Feilmelding>
+                <ErrorMessage>Klarte ikke å legge til kandidat</ErrorMessage>
             )}
         </>
     );

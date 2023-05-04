@@ -3,6 +3,11 @@
     flex-direction: column;
 }
 
+.input input {
+    max-width: 10rem;
+    margin-bottom: 0.5rem;
+}
+
 .advarsel {
     margin-bottom: 1.5rem;
 }
@@ -12,12 +17,15 @@
 }
 
 .notat {
+    margin-top: 2rem;
     min-height: 10rem;
     margin-bottom: 2.5rem;
 }
 
-.avbrytKnapp {
-    margin-left: 1rem;
+.knapper {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 1rem;
 }
 
 .spinner {

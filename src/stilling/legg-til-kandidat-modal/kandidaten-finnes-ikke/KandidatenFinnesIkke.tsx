@@ -1,5 +1,4 @@
 import React, { FunctionComponent, ReactNode } from 'react';
-import { Feilmelding } from 'nav-frontend-typografi';
 import {
     Synlighetsevaluering,
     Synlighetskriterie,
@@ -8,6 +7,7 @@ import {
     KravTilVeileder,
     KriterieUtenforNoensKontroll,
 } from './Synlighetsevaluering';
+import { ErrorMessage } from '@navikt/ds-react';
 
 type Props = {
     synlighetsevaluering: Synlighetsevaluering;
@@ -69,9 +69,9 @@ const KandidatenFinnesIkke: FunctionComponent<Props> = ({ synlighetsevaluering }
     }
 
     return (
-        <Feilmelding tag="div" aria-live="polite" className="blokk-m">
+        <ErrorMessage as="div" aria-live="polite" spacing>
             {forklaring}
-        </Feilmelding>
+        </ErrorMessage>
     );
 };
 

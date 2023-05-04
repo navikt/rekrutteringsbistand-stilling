@@ -1,7 +1,8 @@
 import React, { ChangeEvent, FunctionComponent, useState } from 'react';
-import { Input } from 'nav-frontend-skjema';
-import NavFrontendSpinner from 'nav-frontend-spinner';
+import { Loader, TextField } from '@navikt/ds-react';
+import fnrValidator from '@navikt/fnrvalidator';
 
+import { ApiError } from '../../api/apiUtils';
 import { fetchKandidatMedFnr } from './kandidatApi';
 import { fetchSynlighetsevaluering } from './kandidatApi';
 import { Kandidat, Kandidatliste } from './kandidatlistetyper';
@@ -9,10 +10,8 @@ import { Nettressurs, ikkeLastet, Nettstatus, lasterInn } from '../../api/Nettre
 import { sendEvent } from '../../verktøy/amplitude';
 import { Synlighetsevaluering } from './kandidaten-finnes-ikke/Synlighetsevaluering';
 import BekreftMedNotat from './BekreftMedNotat';
-import fnrValidator from '@navikt/fnrvalidator';
 import KandidatenFinnesIkke from './kandidaten-finnes-ikke/KandidatenFinnesIkke';
 import LeggTilEllerAvbryt from './LeggTilEllerAvbryt';
-import { ApiError } from '../../api/apiUtils';
 import css from './LeggTilKandidatModal.module.css';
 
 type Props = {
@@ -94,21 +93,21 @@ const LeggTilKandidat: FunctionComponent<Props> = ({ kandidatliste, onClose }) =
 
     return (
         <>
-            <Input
+            <TextField
                 autoFocus
-                bredde="S"
                 value={fnr}
+                size="medium"
                 id="legg-til-kandidat-fnr"
                 onChange={onFnrChange}
                 placeholder="11 siffer"
+                className={css.input}
                 label="Fødselsnummer på kandidaten"
-                className="blokk-s"
-                feil={feilmelding || undefined}
+                error={feilmelding}
             />
 
             {(fnrSøk.kind === Nettstatus.LasterInn ||
                 synlighetsevaluering.kind === Nettstatus.LasterInn) && (
-                <NavFrontendSpinner className={css.spinner} />
+                <Loader size="medium" className={css.spinner} />
             )}
 
             {fnrSøk.kind === Nettstatus.Suksess && (
