@@ -13,6 +13,7 @@ import fnrValidator from '@navikt/fnrvalidator';
 import KandidatenFinnesIkke from './kandidaten-finnes-ikke/KandidatenFinnesIkke';
 import LeggTilEllerAvbryt from './LeggTilEllerAvbryt';
 import { ApiError } from '../../api/apiUtils';
+import css from './LeggTilKandidatModal.module.css';
 
 type Props = {
     kandidatliste: Kandidatliste;
@@ -107,7 +108,7 @@ const LeggTilKandidat: FunctionComponent<Props> = ({ kandidatliste, onClose }) =
 
             {(fnrSøk.kind === Nettstatus.LasterInn ||
                 synlighetsevaluering.kind === Nettstatus.LasterInn) && (
-                <NavFrontendSpinner className="LeggTilKandidatModal__spinner" />
+                <NavFrontendSpinner className={css.spinner} />
             )}
 
             {fnrSøk.kind === Nettstatus.Suksess && (

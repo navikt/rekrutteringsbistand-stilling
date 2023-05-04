@@ -9,6 +9,7 @@ import { ikkeLastet, Nettressurs, Nettstatus, senderInn } from '../../api/Nettre
 import { postKandidaterTilKandidatliste } from './kandidatApi';
 import { KandidatOutboundDto } from './LeggTilKandidatModal';
 import { VarslingAction, VarslingActionType } from '../../common/varsling/varslingReducer';
+import css from './LeggTilKandidatModal.module.css';
 
 const MAKS_NOTATLENGDE = 2000;
 
@@ -65,7 +66,7 @@ const BekreftMedNotat: FunctionComponent<{
                 id="legg-til-kandidat-notat-input"
                 value={notat}
                 label="Notat om kandidaten"
-                textareaClass="LeggTilKandidatModal__notat"
+                textareaClass={css.notat}
                 description="Du skal ikke skrive sensitive opplysninger her. Notatet er synlig for alle veiledere."
                 placeholder="Skriv inn en kort tekst om hvorfor kandidaten passer til stillingen"
                 maxLength={MAKS_NOTATLENGDE}
