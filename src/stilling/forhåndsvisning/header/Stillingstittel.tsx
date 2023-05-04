@@ -7,7 +7,7 @@ import './Stillingstittel.less';
 type Props = {
     tittel?: string;
     employer?: string;
-    location?: Geografi;
+    location?: Geografi | null;
 };
 
 const Stillingstittel: FunctionComponent<Props> = ({ tittel, employer, location }) => {
