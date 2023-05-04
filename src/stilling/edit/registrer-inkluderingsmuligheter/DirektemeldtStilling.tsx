@@ -1,5 +1,6 @@
 import React, { ChangeEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Alert, BodyLong, Label, Radio, RadioGroup } from '@navikt/ds-react';
 import { CHECK_TAG, SET_TAGS, UNCHECK_TAG } from '../../adDataReducer';
 import { fjernAlleInkluderingstags } from '../../tags/utils';
 import { HjelpetekstForInkluderingsmulighet } from './HjelpetekstForInkluderingsmulighet';
@@ -9,16 +10,6 @@ import { SET_KAN_INKLUDERE } from '../../adReducer';
 import Inkluderingsmulighet from './Inkluderingsmulighet';
 import isJson from '../practicalInformation/IsJson';
 import css from './DirektemeldtStilling.module.css';
-import {
-    Accordion,
-    Alert,
-    BodyLong,
-    BodyShort,
-    Heading,
-    Label,
-    Radio,
-    RadioGroup,
-} from '@navikt/ds-react';
 
 export enum KanInkludere {
     Ja = 'ja',
@@ -78,124 +69,106 @@ const DirektemeldtStilling = () => {
 
     return (
         <>
-            <Accordion.Header title="Inkludering">
-                <>
-                    <Heading level="3" size="small" spacing>
-                        <span>Muligheter for å inkludere</span>
-                        <BodyShort as="span" size="small">
-                            {' '}
-                            (må fylles ut)
-                        </BodyShort>
-                    </Heading>
-
-                    <BodyLong size="small">
-                        Arbeidsgiver er åpen for å inkludere personer som har behov for
-                        tilrettelegging og/eller har nedsatt funksjonsevne.
-                    </BodyLong>
-                </>
-            </Accordion.Header>
-            <Accordion.Content>
-                <RadioGroup
-                    error={feilmelding}
-                    legend={<Label size="small"> Kan arbeidsgiver inkludere?</Label>}
-                    className={css.radiogruppe}
-                    value={kanInkludere}
+            <RadioGroup
+                error={feilmelding}
+                legend={<Label size="small"> Kan arbeidsgiver inkludere?</Label>}
+                className={css.radiogruppe}
+                value={kanInkludere}
+            >
+                <Radio
+                    name="muligheter-for-inkludering"
+                    value={KanInkludere.Ja}
+                    onChange={onKanInkludereChange}
+                    size="small"
                 >
-                    <Radio
-                        name="muligheter-for-inkludering"
-                        value={KanInkludere.Ja}
-                        onChange={onKanInkludereChange}
-                        size="small"
-                    >
-                        Ja, arbeidsgiver kan inkludere
-                    </Radio>
-                    <Radio
-                        name="muligheter-for-inkludering"
-                        value={KanInkludere.Nei}
-                        onChange={onKanInkludereChange}
-                        size="small"
-                    >
-                        Nei, arbeidsgiver kan ikke inkludere
-                    </Radio>
-                </RadioGroup>
-                {kanInkludere === KanInkludere.Ja && (
+                    Ja, arbeidsgiver kan inkludere
+                </Radio>
+                <Radio
+                    name="muligheter-for-inkludering"
+                    value={KanInkludere.Nei}
+                    onChange={onKanInkludereChange}
+                    size="small"
+                >
+                    Nei, arbeidsgiver kan ikke inkludere
+                </Radio>
+            </RadioGroup>
+            {kanInkludere === KanInkludere.Ja && (
+                <div>
                     <div>
-                        <div>
-                            <Inkluderingsmulighet
-                                tittel="Arbeidsgiver kan tilrettelegge for"
-                                tagIsChecked={tagIsChecked}
-                                onTagChange={onTagChange}
-                                inkluderingsmulighet={
-                                    InkluderingsmulighetForDirektemeldtStilling.Tilrettelegging
-                                }
-                                hjelpetekst={
-                                    <HjelpetekstForInkluderingsmulighet
-                                        inkluderingsmulighet={
-                                            AlleInkluderingsmuligheter.Tilrettelegging
-                                        }
-                                    />
-                                }
-                            />
-                            <Inkluderingsmulighet
-                                tittel="Arbeidsgiver er åpen for de som trenger"
-                                tagIsChecked={tagIsChecked}
-                                onTagChange={onTagChange}
-                                inkluderingsmulighet={
-                                    InkluderingsmulighetForDirektemeldtStilling.TiltakEllerVirkemiddel
-                                }
-                                hjelpetekst={
-                                    <HjelpetekstForInkluderingsmulighet
-                                        inkluderingsmulighet={
-                                            AlleInkluderingsmuligheter.TiltakEllerVirkemiddel
-                                        }
-                                    />
-                                }
-                            />
-                        </div>
-                        <div>
-                            <Inkluderingsmulighet
-                                tittel="Arbeidsgiver er åpen for kandidater som"
-                                tagIsChecked={tagIsChecked}
-                                onTagChange={onTagChange}
-                                inkluderingsmulighet={
-                                    InkluderingsmulighetForDirektemeldtStilling.PrioriterteMålgrupper
-                                }
-                                hjelpetekst={
-                                    <HjelpetekstForInkluderingsmulighet
-                                        inkluderingsmulighet={
-                                            AlleInkluderingsmuligheter.PrioriterteMålgrupper
-                                        }
-                                    />
-                                }
-                            />
-                            <Inkluderingsmulighet
-                                tittel="Arbeidsgiver er del av"
-                                tagIsChecked={tagIsChecked}
-                                onTagChange={onTagChange}
-                                inkluderingsmulighet={
-                                    InkluderingsmulighetForDirektemeldtStilling.StatligInkluderingsdugnad
-                                }
-                                hjelpetekst={
-                                    <HjelpetekstForInkluderingsmulighet
-                                        inkluderingsmulighet={
-                                            AlleInkluderingsmuligheter.StatligInkluderingsdugnad
-                                        }
-                                    />
-                                }
-                            />
-                        </div>
+                        <Inkluderingsmulighet
+                            tittel="Arbeidsgiver kan tilrettelegge for"
+                            tagIsChecked={tagIsChecked}
+                            onTagChange={onTagChange}
+                            inkluderingsmulighet={
+                                InkluderingsmulighetForDirektemeldtStilling.Tilrettelegging
+                            }
+                            hjelpetekst={
+                                <HjelpetekstForInkluderingsmulighet
+                                    inkluderingsmulighet={
+                                        AlleInkluderingsmuligheter.Tilrettelegging
+                                    }
+                                />
+                            }
+                        />
+                        <Inkluderingsmulighet
+                            tittel="Arbeidsgiver er åpen for de som trenger"
+                            tagIsChecked={tagIsChecked}
+                            onTagChange={onTagChange}
+                            inkluderingsmulighet={
+                                InkluderingsmulighetForDirektemeldtStilling.TiltakEllerVirkemiddel
+                            }
+                            hjelpetekst={
+                                <HjelpetekstForInkluderingsmulighet
+                                    inkluderingsmulighet={
+                                        AlleInkluderingsmuligheter.TiltakEllerVirkemiddel
+                                    }
+                                />
+                            }
+                        />
                     </div>
-                )}
-                {kanInkludere === KanInkludere.Nei && (
-                    <Alert variant="warning">
-                        <Label>Kan ikke arbeidsgiveren inkludere?</Label>
-                        <BodyLong>
-                            Hør om arbeidsgiveren kan tenke seg å registrere en annonse selv på
-                            Arbeidsplassen.
-                        </BodyLong>
-                    </Alert>
-                )}
-            </Accordion.Content>
+                    <div>
+                        <Inkluderingsmulighet
+                            tittel="Arbeidsgiver er åpen for kandidater som"
+                            tagIsChecked={tagIsChecked}
+                            onTagChange={onTagChange}
+                            inkluderingsmulighet={
+                                InkluderingsmulighetForDirektemeldtStilling.PrioriterteMålgrupper
+                            }
+                            hjelpetekst={
+                                <HjelpetekstForInkluderingsmulighet
+                                    inkluderingsmulighet={
+                                        AlleInkluderingsmuligheter.PrioriterteMålgrupper
+                                    }
+                                />
+                            }
+                        />
+                        <Inkluderingsmulighet
+                            tittel="Arbeidsgiver er del av"
+                            tagIsChecked={tagIsChecked}
+                            onTagChange={onTagChange}
+                            inkluderingsmulighet={
+                                InkluderingsmulighetForDirektemeldtStilling.StatligInkluderingsdugnad
+                            }
+                            hjelpetekst={
+                                <HjelpetekstForInkluderingsmulighet
+                                    inkluderingsmulighet={
+                                        AlleInkluderingsmuligheter.StatligInkluderingsdugnad
+                                    }
+                                />
+                            }
+                        />
+                    </div>
+                </div>
+            )}
+            {kanInkludere === KanInkludere.Nei && (
+                <Alert variant="warning">
+                    <Label>Kan ikke arbeidsgiveren inkludere?</Label>
+                    <BodyLong>
+                        Hør om arbeidsgiveren kan tenke seg å registrere en annonse selv på
+                        Arbeidsplassen.
+                    </BodyLong>
+                </Alert>
+            )}
         </>
     );
 };

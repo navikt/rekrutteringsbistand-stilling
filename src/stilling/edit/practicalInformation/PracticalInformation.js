@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { Input, SkjemaGruppe, Radio, Checkbox, RadioGruppe } from 'nav-frontend-skjema';
 import { connect } from 'react-redux';
-import { Undertittel } from 'nav-frontend-typografi';
-import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { Datepicker } from 'nav-datovelger';
 import {
     fjernTidspunktFraISOString,
@@ -100,12 +98,7 @@ class PracticalInformation extends React.Component {
         const { ad, workday, workhours } = this.props;
 
         return (
-            <Ekspanderbartpanel
-                className="Edit__panel"
-                tittel={<Undertittel>Praktiske opplysninger</Undertittel>}
-                border
-                apen
-            >
+            <>
                 <EngagementType />
                 <JobArrangement />
                 <div className="Edit__border" />
@@ -333,7 +326,7 @@ class PracticalInformation extends React.Component {
                         </div>
                     </div>
                 </SkjemaGruppe>
-            </Ekspanderbartpanel>
+            </>
         );
     }
 }

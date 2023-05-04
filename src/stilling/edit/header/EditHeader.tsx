@@ -1,10 +1,10 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { TextField } from '@navikt/ds-react';
 
 import { DEFAULT_TITLE_NEW_AD } from '../../adReducer';
 import { SET_AD_TITLE } from '../../adDataReducer';
 import Skjemalabel from '../skjemaetikett/Skjemalabel';
-import { Accordion, TextField } from '@navikt/ds-react';
 import Stilling from '../../../Stilling';
 import { State } from '../../../redux/store';
 
@@ -31,25 +31,22 @@ const EditHeader = ({ stilling }: Props) => {
 
     return (
         <>
-            <Accordion.Header title="Tittel på annonsen">Tittel på annonsen</Accordion.Header>
-            <Accordion.Content>
-                <TextField
-                    id="endre-stilling-tittel"
-                    label={
-                        <Skjemalabel
-                            påkrevd
-                            inputId="endre-stilling-tittel"
-                            beskrivelse={`For eksempel «engasjert barnehagelærer til Oslo-skole»`}
-                        >
-                            Overskrift på annonsen
-                        </Skjemalabel>
-                    }
-                    value={getAdTitle()}
-                    onChange={onTitleChange}
-                    aria-describedby="endre-stilling-tittel-beskrivelse"
-                    error={validation.title}
-                />
-            </Accordion.Content>
+            <TextField
+                id="endre-stilling-tittel"
+                label={
+                    <Skjemalabel
+                        påkrevd
+                        inputId="endre-stilling-tittel"
+                        beskrivelse={`For eksempel «engasjert barnehagelærer til Oslo-skole»`}
+                    >
+                        Overskrift på annonsen
+                    </Skjemalabel>
+                }
+                value={getAdTitle()}
+                onChange={onTitleChange}
+                aria-describedby="endre-stilling-tittel-beskrivelse"
+                error={validation.title}
+            />
         </>
     );
 };
