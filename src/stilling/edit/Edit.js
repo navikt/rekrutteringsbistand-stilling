@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Accordion, Alert, Button } from '@navikt/ds-react';
+import { Accordion, Alert, BodyShort, BodyLong, Button } from '@navikt/ds-react';
 import { CopyToClipboard } from '@navikt/ds-react-internal';
 import { NewspaperIcon } from '@navikt/aksel-icons';
 
@@ -25,6 +25,7 @@ import css from './Edit.module.css';
 import { RESET_VALIDATION_ERROR } from '../adValidationReducer';
 import EksternStillingAdvarsel from '../forhåndsvisning/header/EksternStillingAdvarsel.tsx';
 import './Edit.less';
+import classNames from 'classnames';
 
 const Edit = ({ ad, isNew, onPreviewAdClick, resetValidation, kandidatliste }) => {
     // Fra EditHeader
@@ -65,29 +66,28 @@ const Edit = ({ ad, isNew, onPreviewAdClick, resetValidation, kandidatliste }) =
                 </Alert>
             )}
             <div className={css.edit}>
-                <div className={css.venstre}>
-                    <Accordion className={css.editAccordion}>
-                        <Accordion.Item defaultOpen className={css.accordionWhite}>
-                            <EditHeader
-                                stilling={ad}
-                                isNew={isNew}
-                                onPreviewAdClick={onPreviewAdClick}
-                            />
-                        </Accordion.Item>
-                        <Accordion.Item defaultOpen className={css.accordionWhite}>
-                            <EndreArbeidsgiver stilling={ad} />
-                        </Accordion.Item>
-                        <Accordion.Item
-                            defaultOpen
-                            className={css.accordionRekrutteringsbistandblue}
-                        >
-                            <RegistrerInkluderingsmuligheter />
-                        </Accordion.Item>
-                        <Accordion.Item defaultOpen className={css.accordionWhite}>
-                            <JobDetails isNew={isNew} />
-                        </Accordion.Item>
-                    </Accordion>
-                </div>
+                <Accordion className={classNames(css.venstre, css.accordions)}>
+                    <Seksjon tittel="Tittel på annonsen">
+                        <EditHeader
+                            stilling={ad}
+                            isNew={isNew}
+                            onPreviewAdClick={onPreviewAdClick}
+                        />
+                    </Seksjon>
+                    <Seksjon tittel="Om bedriften">
+                        <EndreArbeidsgiver stilling={ad} />
+                    </Seksjon>
+                    <Seksjon
+                        påkrevd
+                        tittel="Muligheter for å inkludere"
+                        beskrivelse="Arbeidsgiver er åpen for å inkludere personer som har behov for tilrettelegging og/eller har nedsatt funksjonsevne."
+                    >
+                        <RegistrerInkluderingsmuligheter />
+                    </Seksjon>
+                    <Accordion.Item defaultOpen className={css.accordionWhite}>
+                        <JobDetails isNew={isNew} />
+                    </Accordion.Item>
+                </Accordion>
                 <div className={css.høyre}>
                     <PracticalInformation />
                     <ContactPerson />
@@ -127,6 +127,17 @@ const Edit = ({ ad, isNew, onPreviewAdClick, resetValidation, kandidatliste }) =
         </>
     );
 };
+
+const Seksjon = ({ tittel, påkrevd, beskrivelse, children }) => (
+    <Accordion.Item defaultOpen>
+        <Accordion.Header>
+            {tittel}
+            {påkrevd && <BodyShort as="span"> (må fylles ut)</BodyShort>}
+            {beskrivelse && <BodyLong size="small">{beskrivelse}</BodyLong>}
+        </Accordion.Header>
+        <Accordion.Content>{children}</Accordion.Content>
+    </Accordion.Item>
+);
 
 Edit.defaultProps = {
     isNew: false,

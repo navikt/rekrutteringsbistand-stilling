@@ -15,21 +15,8 @@
     gap: 1rem;
 }
 
-.editAccordion {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.accordionWhite :global(.navds-accordion__header),
-.accordionRekrutteringsbistandblue :global(.navds-accordion__header) {
-    border-bottom: none;
-}
-
-.accordionWhite :global(.navds-accordion__header),
-.accordionWhite :global(.navds-accordion__content) {
+.accordions > div {
     background-color: white;
-    padding: var(--a-spacing-5);
 }
 
 .accordionRekrutteringsbistandblue :global(.navds-accordion__header),
