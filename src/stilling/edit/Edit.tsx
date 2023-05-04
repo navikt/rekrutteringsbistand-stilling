@@ -1,36 +1,49 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Accordion, Alert, BodyShort, BodyLong, Button } from '@navikt/ds-react';
+import { Accordion, Alert, Button } from '@navikt/ds-react';
 import { CopyToClipboard } from '@navikt/ds-react-internal';
 import { NewspaperIcon } from '@navikt/aksel-icons';
-
 import { Undertittel } from 'nav-frontend-typografi';
 import { Input } from 'nav-frontend-skjema';
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
-import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
-import { formatISOString } from '../../utils/datoUtils.ts';
+import { formatISOString } from '../../utils/datoUtils';
 import { hentAnnonselenke, stillingErPublisert } from '../adUtils';
+import { Kandidatliste } from '../legg-til-kandidat-modal/kandidatlistetyper';
+import { Nettressurs } from '../../api/Nettressurs';
+import { RESET_VALIDATION_ERROR } from '../adValidationReducer';
+import { State } from '../../redux/store';
 import Application from './application/Application';
-import ContactPerson from './contactPerson/ContactPerson.tsx';
+import ContactPerson from './contactPerson/ContactPerson';
 import EditHeader from './header/EditHeader';
+import EksternStillingAdvarsel from '../forhåndsvisning/header/EksternStillingAdvarsel';
 import EndreArbeidsgiver from './endre-arbeidsgiver/EndreArbeidsgiver';
 import JobDetails from './jobDetails/JobDetails';
 import Location from './location/Location';
 import PracticalInformation from './practicalInformation/PracticalInformation';
 import RegistrerInkluderingsmuligheter from './registrer-inkluderingsmuligheter/DirektemeldtStilling';
-import Stillingsheader from '../header/Stillingsheader.tsx';
-import './Edit.less';
-import css from './Edit.module.css';
-import { RESET_VALIDATION_ERROR } from '../adValidationReducer';
-import EksternStillingAdvarsel from '../forhåndsvisning/header/EksternStillingAdvarsel.tsx';
-import './Edit.less';
-import classNames from 'classnames';
+import Stilling, { System } from '../../Stilling';
+import Stillingsheader from '../header/Stillingsheader';
 
-const Edit = ({ ad, isNew, onPreviewAdClick, resetValidation, kandidatliste }) => {
-    // Fra EditHeader
-    const stillingenErEkstern = ad.createdBy !== 'pam-rekrutteringsbistand';
-    const stillingsLenke = hentAnnonselenke(ad.uuid);
+import css from './Edit.module.css';
+import './Edit.less';
+import Seksjon from './seksjon/Seksjon';
+
+type Props = {
+    onPreviewAdClick: () => void;
+    kandidatliste: Nettressurs<Kandidatliste>;
+
+    resetValidation: () => void;
+    stilling: Stilling;
+    hasChanges: boolean;
+};
+
+const Edit = ({ stilling, onPreviewAdClick, resetValidation, kandidatliste }: Props) => {
+    const { id, medium, updated, created, createdBy } = stilling;
+
+    const stillingenErEkstern = createdBy !== System.Rekrutteringsbistand;
+    const stillingsLenke = hentAnnonselenke(stilling.uuid);
 
     useEffect(() => {
         return () => {
@@ -46,11 +59,11 @@ const Edit = ({ ad, isNew, onPreviewAdClick, resetValidation, kandidatliste }) =
                         Forhåndsvis stillingen
                     </Button>
                 )}
-                {stillingErPublisert(ad) && (
+                {stillingErPublisert(stilling) && (
                     <CopyToClipboard
                         copyText={stillingsLenke}
                         popoverText="Kopierte annonselenken til clipboard"
-                        variant="secondary"
+                        variant={'secondary' as 'tertiary'}
                         size="small"
                     >
                         Kopier annonselenke
@@ -68,14 +81,10 @@ const Edit = ({ ad, isNew, onPreviewAdClick, resetValidation, kandidatliste }) =
             <div className={css.edit}>
                 <Accordion className={classNames(css.venstre, css.accordions)}>
                     <Seksjon tittel="Tittel på annonsen">
-                        <EditHeader
-                            stilling={ad}
-                            isNew={isNew}
-                            onPreviewAdClick={onPreviewAdClick}
-                        />
+                        <EditHeader stilling={stilling} />
                     </Seksjon>
                     <Seksjon tittel="Om bedriften">
-                        <EndreArbeidsgiver stilling={ad} />
+                        <EndreArbeidsgiver stilling={stilling} />
                     </Seksjon>
                     <Seksjon
                         påkrevd
@@ -84,9 +93,9 @@ const Edit = ({ ad, isNew, onPreviewAdClick, resetValidation, kandidatliste }) =
                     >
                         <RegistrerInkluderingsmuligheter />
                     </Seksjon>
-                    <Accordion.Item defaultOpen className={css.accordionWhite}>
-                        <JobDetails isNew={isNew} />
-                    </Accordion.Item>
+                    <Seksjon tittel="Om stillingen">
+                        <JobDetails />
+                    </Seksjon>
                 </Accordion>
                 <div className={css.høyre}>
                     <PracticalInformation />
@@ -103,8 +112,8 @@ const Edit = ({ ad, isNew, onPreviewAdClick, resetValidation, kandidatliste }) =
                             className="blokk-xs"
                             label="Sist endret"
                             value={
-                                ad.updated !== ad.created
-                                    ? formatISOString(ad.updated, 'DD.MM.YYYY')
+                                updated !== created
+                                    ? formatISOString(updated, 'DD.MM.YYYY') || ''
                                     : ''
                             }
                             disabled
@@ -112,13 +121,13 @@ const Edit = ({ ad, isNew, onPreviewAdClick, resetValidation, kandidatliste }) =
                         <Input
                             className="blokk-xs"
                             label="Hentet fra/kilde"
-                            value={ad.medium || ''}
+                            value={medium || ''}
                             disabled
                         />
                         <Input
                             className="blokk-xs"
                             label="Annonsenummer"
-                            value={ad.id || ''}
+                            value={id || ''}
                             disabled
                         />
                     </Ekspanderbartpanel>
@@ -128,47 +137,13 @@ const Edit = ({ ad, isNew, onPreviewAdClick, resetValidation, kandidatliste }) =
     );
 };
 
-const Seksjon = ({ tittel, påkrevd, beskrivelse, children }) => (
-    <Accordion.Item defaultOpen>
-        <Accordion.Header>
-            {tittel}
-            {påkrevd && <BodyShort as="span"> (må fylles ut)</BodyShort>}
-            {beskrivelse && <BodyLong size="small">{beskrivelse}</BodyLong>}
-        </Accordion.Header>
-        <Accordion.Content>{children}</Accordion.Content>
-    </Accordion.Item>
-);
-
-Edit.defaultProps = {
-    isNew: false,
-};
-
-Edit.propTypes = {
-    ad: PropTypes.shape({
-        title: PropTypes.string,
-        updated: PropTypes.string,
-        created: PropTypes.string,
-        medium: PropTypes.string,
-        uuid: PropTypes.string,
-        id: PropTypes.number,
-    }).isRequired,
-    hasChanges: PropTypes.bool,
-    resetValidation: PropTypes.func.isRequired,
-    isNew: PropTypes.bool,
-    onPreviewAdClick: PropTypes.func.isRequired,
-    kandidatliste: PropTypes.object.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-    ad: state.adData,
-    hasChanges: state.ad.hasChanges,
-    updated: state.adData.updated,
-    created: state.adData.created,
-    nyStillingState: state.ad.nyStillingState,
+const mapDispatchToProps = (dispatch: (action: any) => void) => ({
+    resetValidation: () => dispatch({ type: RESET_VALIDATION_ERROR }),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    resetValidation: () => dispatch({ type: RESET_VALIDATION_ERROR }),
+const mapStateToProps = (state: State) => ({
+    stilling: state.adData,
+    hasChanges: state.ad.hasChanges,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Edit);
