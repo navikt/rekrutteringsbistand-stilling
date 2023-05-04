@@ -19,11 +19,6 @@
     background-color: white;
 }
 
-.accordionRekrutteringsbistandblue :global(.navds-accordion__header),
-.accordionRekrutteringsbistandblue :global(.navds-accordion__content) {
-    background-color: var(--rekrutteringsbistand-blue);
-}
-
 @media (min-width: 1401px) {
     .edit {
         grid-template-columns: 1fr 400px;
