@@ -1,13 +1,11 @@
 import React, { FunctionComponent } from 'react';
-import NavFrontendSpinner from 'nav-frontend-spinner';
-import { Feilmelding, Systemtittel } from 'nav-frontend-typografi';
+import { Alert, ErrorMessage, Heading, Loader } from '@navikt/ds-react';
 
 import { Nettressurs, Nettstatus } from '../../api/Nettressurs';
-import ModalMedStillingScope from '../../common/ModalMedStillingScope';
 import { Kandidatliste } from './kandidatlistetyper';
+import Modal from '../../common/modal/Modal';
 import LeggTilKandidat from './LeggTilKandidat';
-import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
-import './LeggTilKandidatModal.less';
+import css from './LeggTilKandidatModal.module.css';
 
 export type KandidatOutboundDto = {
     kandidatnr: string;
@@ -22,30 +20,28 @@ type Props = {
 
 const LeggTilKandidatModal: FunctionComponent<Props> = ({ vis, onClose, kandidatliste }) => {
     return (
-        <ModalMedStillingScope
-            isOpen={vis}
-            className="LeggTilKandidatModal"
-            contentLabel="Legg til kandidat-modal"
-            contentClass="LeggTilKandidatModal__innhold"
-            onRequestClose={onClose}
-        >
-            <Systemtittel className="LeggTilKandidatModal__tittel">Legg til kandidat</Systemtittel>
-            <AlertStripeAdvarsel className="LeggTilKandidatModal__advarsel">
+        <Modal open={vis} aria-label="Legg til kandidat" onClose={onClose}>
+            <Heading spacing level="2" size="large">
+                Legg til kandidat
+            </Heading>
+            <Alert variant="warning" className={css.advarsel}>
                 Før du legger en kandidat på kandidatlisten må du undersøke om personen oppfyller
                 kravene som er nevnt i stillingen.
-            </AlertStripeAdvarsel>
+            </Alert>
             {kandidatliste.kind === Nettstatus.LasterInn && (
-                <NavFrontendSpinner className="LeggTilKandidatModal__spinner LeggTilKandidatModal__spinner--vertikal" />
+                <Loader size="medium" className={css.spinner} />
             )}
 
             {kandidatliste.kind === Nettstatus.Feil && (
-                <Feilmelding>Klarte ikke å laste ned kandidatliste for stillingen.</Feilmelding>
+                <ErrorMessage spacing>
+                    Klarte ikke å laste ned kandidatliste for stillingen.
+                </ErrorMessage>
             )}
 
             {kandidatliste.kind === Nettstatus.Suksess && (
                 <LeggTilKandidat kandidatliste={kandidatliste.data} onClose={onClose} />
             )}
-        </ModalMedStillingScope>
+        </Modal>
     );
 };
 

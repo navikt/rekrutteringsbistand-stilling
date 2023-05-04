@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { RESET_STYRK_THREE, SET_STRYK_SEARCH_STRING, TOGGLE_STYRK_MODAL } from './styrkReducer';
 import StyrkThree from './StyrkThree';
 import './StyrkModal.less';
-import ModalMedStillingScope from '../../../../common/ModalMedStillingScope';
+import Modal from '../../../../common/modal/Modal';
 
 class StyrkModal extends React.Component {
     onInputChange = (e) => {
@@ -20,13 +20,11 @@ class StyrkModal extends React.Component {
 
     render() {
         return (
-            <ModalMedStillingScope
+            <Modal
+                open
                 className="StyrkModal"
-                contentClass="StyrkModal__content"
-                isOpen
-                onRequestClose={this.props.toggleList}
-                contentLabel="Søk etter STYRK"
-                appElement={document.getElementById('app')}
+                onClose={this.props.toggleList}
+                aria-label="Søk etter STYRK"
             >
                 <div className="StyrkModal__header">
                     <Undertittel className="StyrkModal__header__title">Velg STYRK</Undertittel>
@@ -46,7 +44,7 @@ class StyrkModal extends React.Component {
                 <div className="StyrkModal__body">
                     <StyrkThree />
                 </div>
-            </ModalMedStillingScope>
+            </Modal>
         );
     }
 }

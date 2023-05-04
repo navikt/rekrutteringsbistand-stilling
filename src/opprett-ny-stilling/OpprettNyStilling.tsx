@@ -7,7 +7,7 @@ import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { CREATE_AD } from '../stilling/adReducer';
 import { REDIGERINGSMODUS_QUERY_PARAM } from '../stilling/Stilling';
 import { State } from '../redux/store';
-import ModalMedStillingScope from '../common/ModalMedStillingScope';
+import Modal from '../common/modal/Modal';
 import VelgArbeidsgiver, { Arbeidsgiverforslag } from './VelgArbeidsgiver';
 import VelgStillingskategori, { Stillingskategori } from './VelgStillingskategori';
 import { useNavigate } from 'react-router-dom';
@@ -71,12 +71,7 @@ const OpprettNyStilling: FunctionComponent<Props> = ({ onClose }) => {
     };
 
     return (
-        <ModalMedStillingScope
-            isOpen
-            onRequestClose={onClose}
-            contentLabel="Opprett ny stilling, velg kategori"
-            className="opprett-ny-stilling"
-        >
+        <Modal open onClose={onClose} aria-label="Opprett ny stilling, velg kategori">
             <Systemtittel className="blokk-m">Opprett ny stilling</Systemtittel>
             <AlertStripeAdvarsel className="blokk-m">
                 Det arbeides fremdeles med å avklare hva som er lov å registrere i
@@ -102,7 +97,7 @@ const OpprettNyStilling: FunctionComponent<Props> = ({ onClose }) => {
                 Opprett
             </Hovedknapp>
             <Flatknapp onClick={onClose}>Avbryt</Flatknapp>
-        </ModalMedStillingScope>
+        </Modal>
     );
 };
 

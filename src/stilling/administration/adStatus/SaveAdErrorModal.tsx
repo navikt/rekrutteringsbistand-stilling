@@ -1,8 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { HIDE_AD_SAVED_ERROR_MODAL } from '../../adReducer';
-import css from './SaveAdErrorModal.module.css';
 import { BodyLong, Button, Heading, Modal } from '@navikt/ds-react';
+import { HIDE_AD_SAVED_ERROR_MODAL } from '../../adReducer';
 
 const SaveAdErrorModal = () => {
     const dispatch = useDispatch();
@@ -16,12 +15,7 @@ const SaveAdErrorModal = () => {
 
     return (
         showAdSavedErrorModal && (
-            <Modal
-                open={showAdSavedErrorModal}
-                onClose={onClose}
-                closeButton
-                className={css.saveAdErrorModal}
-            >
+            <Modal open={showAdSavedErrorModal} onClose={onClose} closeButton>
                 <Heading level="2" size="small" spacing>
                     Kan ikke lagre stillingen
                 </Heading>

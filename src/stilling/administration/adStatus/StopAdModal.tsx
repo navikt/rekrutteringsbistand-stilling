@@ -30,7 +30,7 @@ const StopAdModal = ({ fromMyAds }: { fromMyAds?: boolean }) => {
     };
 
     return (
-        <Modal open={showStopAdModal} onClose={onClose} closeButton className={css.stopAdModal}>
+        <Modal open={showStopAdModal} onClose={onClose} closeButton>
             <Heading level="2" size="small" spacing>
                 Stopp stillingen
             </Heading>

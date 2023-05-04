@@ -1,8 +1,3 @@
-.modal {
-    padding: 2rem;
-    width: 40rem;
-}
-
 .modal :global(.navds-button):not(:last-child) {
     margin-right: 1rem;
 }

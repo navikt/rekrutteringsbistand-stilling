@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import { Hovedknapp, Flatknapp } from 'nav-frontend-knapper';
-import ModalMedStillingScope from '../../../common/ModalMedStillingScope';
+import Modal from '../../../common/modal/Modal';
 import './OpprettKandidatlisteModal.less';
 
 type Props = {
@@ -11,11 +11,11 @@ type Props = {
 };
 
 const OpprettKandidatlisteModal: FunctionComponent<Props> = ({ åpen, onClose, onBekreft }) => (
-    <ModalMedStillingScope
+    <Modal
+        open={åpen}
         className="opprett-kandidatliste-modal"
-        isOpen={åpen}
-        contentLabel="Opprett kandidatliste"
-        onRequestClose={onClose}
+        aria-label="Opprett kandidatliste"
+        onClose={onClose}
     >
         <Systemtittel className="opprett-kandidatliste-modal__tittel">
             Opprett kandidatliste
@@ -33,7 +33,7 @@ const OpprettKandidatlisteModal: FunctionComponent<Props> = ({ åpen, onClose, o
             Ja, opprett kandidatlisten
         </Hovedknapp>
         <Flatknapp onClick={onClose}>Nei, avbryt</Flatknapp>
-    </ModalMedStillingScope>
+    </Modal>
 );
 
 export default OpprettKandidatlisteModal;

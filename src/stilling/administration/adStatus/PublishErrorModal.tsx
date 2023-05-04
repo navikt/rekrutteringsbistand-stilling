@@ -1,9 +1,8 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { HIDE_PUBLISH_ERROR_MODAL } from '../../adReducer';
-import ModalMedStillingScope from '../../../common/ModalMedStillingScope';
-import css from './PublishErrorModal.module.css';
 import { BodyLong, Button, Heading } from '@navikt/ds-react';
+import { HIDE_PUBLISH_ERROR_MODAL } from '../../adReducer';
+import Modal from '../../../common/modal/Modal';
 
 const PublishErrorModal = () => {
     const dispatch = useDispatch();
@@ -17,13 +16,7 @@ const PublishErrorModal = () => {
 
     return (
         showPublishErrorModal && (
-            <ModalMedStillingScope
-                isOpen={showPublishErrorModal}
-                contentLabel="Fortsett"
-                onRequestClose={onClose}
-                closeButton
-                className={css.publishErrorModal}
-            >
+            <Modal closeButton open={showPublishErrorModal} aria-label="Fortsett" onClose={onClose}>
                 <Heading level="2" size="small" spacing>
                     Kan ikke publisere stillingen
                 </Heading>
@@ -36,7 +29,7 @@ const PublishErrorModal = () => {
                     )}
                 </BodyLong>
                 <Button onClick={onClose}>Lukk</Button>
-            </ModalMedStillingScope>
+            </Modal>
         )
     );
 };

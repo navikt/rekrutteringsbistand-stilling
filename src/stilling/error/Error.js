@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { Hovedknapp } from 'nav-frontend-knapper';
-import ModalMedStillingScope from '../../common/ModalMedStillingScope';
+import Modal from '../../common/modal/Modal';
 import { FJERN_NETTVERKSERROR_FRA_STATE } from '../adReducer';
 import './Error.less';
 
@@ -14,12 +14,11 @@ class Error extends React.Component {
         const showDefaultError = error && error.statusCode !== 404 && error.statusCode !== 412;
 
         return error && showError ? (
-            <ModalMedStillingScope
-                isOpen
+            <Modal
+                open
                 closeButton={false}
-                onRequestClose={() => this.props.closeModal()}
-                contentLabel="Feilmelding"
-                appElement={document.getElementById('app')}
+                onClose={() => this.props.closeModal()}
+                aria-label="Feilmelding"
             >
                 <div className="Error">
                     {error.statusCode === 404 && <Normaltekst>Fant ikke annonsen</Normaltekst>}
@@ -37,7 +36,7 @@ class Error extends React.Component {
                         </Normaltekst>
                     )}
                 </div>
-            </ModalMedStillingScope>
+            </Modal>
         ) : null;
     }
 }

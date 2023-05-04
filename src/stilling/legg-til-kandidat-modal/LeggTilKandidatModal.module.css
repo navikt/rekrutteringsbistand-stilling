@@ -1,0 +1,26 @@
+.innhold {
+    display: flex;
+    flex-direction: column;
+}
+
+.advarsel {
+    margin-bottom: 1.5rem;
+}
+
+.folkeregisterInfo {
+    margin-bottom: 1.5rem;
+}
+
+.notat.textarea--medMeta {
+    min-height: 10rem;
+    margin-bottom: 2.5rem;
+}
+
+.avbrytKnapp {
+    margin-left: 1rem;
+}
+
+.spinner {
+    align-self: center;
+    margin-bottom: 2.5rem;
+}
