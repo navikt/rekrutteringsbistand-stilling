@@ -11,14 +11,13 @@ import Filter from './filter/Filter';
 import OpprettNyStilling from '../opprett-ny-stilling/OpprettNyStilling';
 import StopAdModal from '../stilling/administration/adStatus/StopAdModal';
 import { MineStillingerAction, MineStillingerActionType } from './MineStillingerAction';
-import './MineStillinger.module.css';
 import MineStillingerHeader from './header/MineStillingerHeader';
-import css from './MineStillinger.module.css';
 import { Nettstatus } from '../api/Nettressurs';
 import Loading from '../common/loading/Loading';
 import NoResults from './noResults/NoResults';
 import classNames from 'classnames';
 import MineStillingerTabell from './tabell/MineStillingerTabell';
+import css from './MineStillinger.module.css';
 
 type Props = {
     history: History;
