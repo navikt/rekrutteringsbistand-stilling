@@ -1,6 +1,6 @@
 import React, { useState, useEffect, FunctionComponent } from 'react';
 import { History } from 'history';
-import { Pagination } from '@navikt/ds-react';
+import { Pagination, Ingress } from '@navikt/ds-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 
@@ -14,7 +14,6 @@ import { MineStillingerAction, MineStillingerActionType } from './MineStillinger
 import MineStillingerHeader from './header/MineStillingerHeader';
 import { Nettstatus } from '../api/Nettressurs';
 import Loading from '../common/loading/Loading';
-import NoResults from './noResults/NoResults';
 import classNames from 'classnames';
 import MineStillingerTabell from './tabell/MineStillingerTabell';
 import css from './MineStillinger.module.css';
@@ -80,7 +79,7 @@ const MineStillinger: FunctionComponent<Props> = ({ history }) => {
                 {resultat.kind === Nettstatus.LasterInn && <Loading />}
                 {resultat.kind === Nettstatus.Suksess && (
                     <>
-                        {resultat.data.content.length > 0 ? (
+                        {resultat.data.content.length === 0 ? (
                             <Pagination
                                 page={page + 1}
                                 count={resultat.data.totalPages}
@@ -88,7 +87,9 @@ const MineStillinger: FunctionComponent<Props> = ({ history }) => {
                                 className={classNames(css.underTabell, css.paginering)}
                             />
                         ) : (
-                            <NoResults />
+                            <Ingress className={classNames(css.underTabell, css.ingenResultater)}>
+                                Fant ingen stillinger der du er saksbehandler.
+                            </Ingress>
                         )}
                     </>
                 )}
