@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
-import { Nettressurs, Nettstatus } from '../../api/Nettressurs';
-import { MineStillingerResultat } from '../mineStillingerReducer';
+import { Nettressurs, Nettstatus } from '../api/Nettressurs';
+import { MineStillingerResultat } from './mineStillingerReducer';
 import { Heading } from '@navikt/ds-react';
 
 type Props = {

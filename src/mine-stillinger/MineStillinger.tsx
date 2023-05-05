@@ -6,7 +6,7 @@ import { useLocation } from 'react-router';
 
 import { CLEAR_COPIED_ADS } from '../stilling/adReducer';
 import { State } from '../redux/store';
-import AntallStillinger from './tabell/AntallStillinger';
+import AntallStillinger from './AntallStillinger';
 import Filter from './filter/Filter';
 import OpprettNyStilling from '../opprett-ny-stilling/OpprettNyStilling';
 import StopAdModal from '../stilling/administration/adStatus/StopAdModal';
