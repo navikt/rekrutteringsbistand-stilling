@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import TypeaheadSuggestion from './TypeaheadSuggestion';
+import React, { useEffect, useId, useRef, useState } from 'react';
+import TypeaheadSuggestion, { hentSuggestionId } from './TypeaheadSuggestion';
 import { TextField } from '@navikt/ds-react';
 import css from './Typeahead.module.css';
 
@@ -9,7 +9,6 @@ export type Suggestion = {
 };
 
 type Props = {
-    id: string;
     value: string;
     label?: string;
     onChange: (value: string) => void;
@@ -21,7 +20,6 @@ type Props = {
 };
 
 const Typeahead = ({
-    id,
     value,
     label,
     onChange,
@@ -31,6 +29,8 @@ const Typeahead = ({
     suggestions,
     error,
 }: Props) => {
+    const id = useId();
+
     const [activeSuggestionIndex, setActiveSuggestionIndex] = useState(-1);
     const [shouldShowSuggestions, setShouldShowSuggestions] = useState(true);
     const [hasFocus, setHasFocus] = useState(false);
@@ -54,7 +54,7 @@ const Typeahead = ({
         onChange(event.target.value);
     };
 
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
         let currentActiveSuggestionIndex = activeSuggestionIndex;
 
         const currentValue = suggestions[activeSuggestionIndex]
@@ -62,59 +62,52 @@ const Typeahead = ({
             : value;
 
         if (shouldShowSuggestions) {
-            switch (e.key) {
+            switch (event.key) {
                 case 'Enter':
-                    e.preventDefault();
+                    event.preventDefault();
                     selectSuggestion(currentValue);
                     break;
 
                 case 'Escape':
                     if (shouldShowSuggestions) {
-                        e.preventDefault();
+                        event.preventDefault();
                         setShouldShowSuggestions(false);
                     }
                     break;
 
                 case 'ArrowUp':
-                    e.preventDefault();
+                    event.preventDefault();
                     currentActiveSuggestionIndex =
                         currentActiveSuggestionIndex - 1 === -2
                             ? -1
                             : currentActiveSuggestionIndex - 1;
-                    setActiveSuggestionIndex(currentActiveSuggestionIndex);
 
-                    if (currentActiveSuggestionIndex > -1) {
-                        const activeElement = document.getElementById(
-                            `${id}-item-${currentActiveSuggestionIndex}`
-                        );
-                        if (activeElement !== null) {
-                            activeElement.scrollIntoView();
-                        }
-                    }
+                    setActiveSuggestionIndex(currentActiveSuggestionIndex);
+                    scrollTilSuggestion(currentValue);
                     break;
 
                 case 'ArrowDown':
-                    e.preventDefault();
+                    event.preventDefault();
                     currentActiveSuggestionIndex =
                         currentActiveSuggestionIndex + 1 === suggestions.length
                             ? suggestions.length - 1
                             : currentActiveSuggestionIndex + 1;
 
                     setActiveSuggestionIndex(currentActiveSuggestionIndex);
-                    if (currentActiveSuggestionIndex > -1) {
-                        const activeElement = document.getElementById(
-                            `${id}-item-${currentActiveSuggestionIndex}`
-                        );
-                        if (activeElement !== null) {
-                            activeElement.scrollIntoView();
-                        }
-                    }
+                    scrollTilSuggestion(currentValue);
                     break;
 
                 default:
                     break;
             }
         }
+    };
+
+    const scrollTilSuggestion = (suggestionValue: string) => {
+        const suggestionId = hentSuggestionId(id, suggestionValue);
+        const suggestionElement = document.getElementById(suggestionId);
+
+        suggestionElement?.scrollIntoView();
     };
 
     const selectSuggestion = (suggestionValue: string) => {
@@ -202,6 +195,7 @@ const Typeahead = ({
                     suggestions.map((suggestion, i: number) => {
                         return (
                             <TypeaheadSuggestion
+                                id={id}
                                 key={suggestion.value}
                                 index={i}
                                 suggestion={suggestion}

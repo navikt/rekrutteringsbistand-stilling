@@ -98,21 +98,21 @@ const VelgArbeidsgiver: FunctionComponent<Props> = ({
 
     return (
         <>
-            <Label className={css.velgArbeidsgiver} htmlFor="velg-arbeidsgiver">
+            <Label className={css.velgArbeidsgiver} id="velg-arbeidsgiver-label">
                 Arbeidsgivers navn eller virksomhetsnummer
             </Label>
             <BodyShort spacing size="small" id="velg-arbeidsgiver-beskrivelse">
                 Informasjonen hentes fra enhetsregisteret
             </BodyShort>
             <Typeahead
-                id="velg-arbeidsgiver"
-                aria-describedby="velg-arbeidsgiver-beskrivelse"
                 value={input}
                 onBlur={onInputBlur}
                 onSelect={onForslagValgt}
                 onChange={onInputChange}
                 suggestions={konverterTilTypeaheadFormat(alleForslag)}
                 error={feilmeldingTilBruker || undefined}
+                aria-labelledby="velg-arbeidsgiver-label"
+                aria-describedby="velg-arbeidsgiver-beskrivelse"
             />
             {arbeidsgiver && (
                 <Detail className={css.valgtArbeidsgiver}>

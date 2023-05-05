@@ -4,6 +4,7 @@ import { Suggestion } from './Typeahead';
 import css from './Typeahead.module.css';
 
 type Props = {
+    id: string;
     onClick: (value: string) => void;
     suggestion: Suggestion;
     active: boolean;
@@ -13,6 +14,7 @@ type Props = {
 };
 
 const TypeaheadSuggestion = ({
+    id,
     onClick,
     suggestion,
     active,
@@ -30,6 +32,7 @@ const TypeaheadSuggestion = ({
 
     return (
         <li
+            id={hentSuggestionId(id, suggestion.value)}
             role="option"
             aria-selected={active}
             onClick={handleClick}
@@ -48,5 +51,7 @@ const TypeaheadSuggestion = ({
         </li>
     );
 };
+
+export const hentSuggestionId = (id: string, value: string) => `${id}-suggestion-${value}`;
 
 export default TypeaheadSuggestion;
