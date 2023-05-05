@@ -79,7 +79,7 @@ const MineStillinger: FunctionComponent<Props> = ({ history }) => {
                 {resultat.kind === Nettstatus.LasterInn && <Loading />}
                 {resultat.kind === Nettstatus.Suksess && (
                     <>
-                        {resultat.data.content.length === 0 ? (
+                        {resultat.data.content.length > 0 ? (
                             <Pagination
                                 page={page + 1}
                                 count={resultat.data.totalPages}
