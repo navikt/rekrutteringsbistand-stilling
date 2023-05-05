@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { BodyShort, Detail, ErrorMessage, Label } from '@navikt/ds-react';
+import { BodyShort, Detail, Label } from '@navikt/ds-react';
 
 import { Arbeidsgiver, Geografi } from '../Stilling';
 import { fetchEmployerNameCompletionHits, fetchOrgnrSuggestions } from '../api/api';
@@ -80,10 +80,10 @@ const VelgArbeidsgiver: FunctionComponent<Props> = ({
         }
     };
 
-    const onForslagValgt = (valgtForslag: any) => {
+    const onForslagValgt = (valgtForslag: string) => {
         if (alleForslag.kind === Nettstatus.Suksess) {
             if (valgtForslag) {
-                const found = finnArbeidsgiver(alleForslag.data, valgtForslag.value);
+                const found = finnArbeidsgiver(alleForslag.data, valgtForslag);
 
                 setArbeidsgiver(found || null);
                 setInput(capitalizeEmployerName(found ? found.name : null) || '');
@@ -112,14 +112,13 @@ const VelgArbeidsgiver: FunctionComponent<Props> = ({
                 onSelect={onForslagValgt}
                 onChange={onInputChange}
                 suggestions={konverterTilTypeaheadFormat(alleForslag)}
-                error={!!feilmeldingTilBruker}
+                error={feilmeldingTilBruker || undefined}
             />
             {arbeidsgiver && (
                 <Detail className={css.valgtArbeidsgiver}>
                     {formaterDataFraEnhetsregisteret(arbeidsgiver)}
                 </Detail>
             )}
-            {feilmeldingTilBruker && <ErrorMessage>{feilmeldingTilBruker}</ErrorMessage>}
         </>
     );
 };
@@ -131,7 +130,7 @@ const erOrgnummer = (input: string) => {
 const konverterTilTypeaheadFormat = (alleForslag: Nettressurs<Arbeidsgiverforslag[]>) => {
     if (alleForslag.kind === Nettstatus.Suksess) {
         return alleForslag.data.map((f) => ({
-            value: f.orgnr,
+            value: f.orgnr || '',
             label: getEmployerSuggestionLabel(f),
         }));
     } else {
