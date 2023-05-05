@@ -1,17 +1,15 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
+import { Alert, BodyLong, Button, Heading } from '@navikt/ds-react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Flatknapp, Hovedknapp } from 'nav-frontend-knapper';
-import { Systemtittel } from 'nav-frontend-typografi';
+import { useNavigate } from 'react-router-dom';
 
-import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { CREATE_AD } from '../stilling/adReducer';
 import { REDIGERINGSMODUS_QUERY_PARAM } from '../stilling/Stilling';
 import { State } from '../redux/store';
 import Modal from '../common/modal/Modal';
 import VelgArbeidsgiver, { Arbeidsgiverforslag } from './VelgArbeidsgiver';
 import VelgStillingskategori, { Stillingskategori } from './VelgStillingskategori';
-import { useNavigate } from 'react-router-dom';
-import './OpprettNyStilling.less';
+import css from './OpprettNyStilling.module.css';
 
 type Props = {
     onClose: () => void;
@@ -26,10 +24,10 @@ const OpprettNyStilling: FunctionComponent<Props> = ({ onClose }) => {
 
     const [stillingskategori, setStillingskategori] = useState<Stillingskategori | null>(null);
     const [stillingskategorifeilmelding, setStillingskatergorifeilmelding] = useState<
-        string | null
-    >(null);
+        string | undefined
+    >();
     const [arbeidsgiver, setArbeidsgiver] = useState<Arbeidsgiverforslag | null>(null);
-    const [arbeidsgiverfeilmelding, setArbeidsgiverfeilmelding] = useState<string | null>(null);
+    const [arbeidsgiverfeilmelding, setArbeidsgiverfeilmelding] = useState<string | undefined>();
 
     useEffect(() => {
         if (hasSavedChanges === true && stilling) {
@@ -66,22 +64,26 @@ const OpprettNyStilling: FunctionComponent<Props> = ({ onClose }) => {
     };
 
     const onStillingkategoriChange = (valgtKategori: Stillingskategori) => {
-        setStillingskatergorifeilmelding(null);
+        setStillingskatergorifeilmelding(undefined);
         setStillingskategori(valgtKategori);
     };
 
     return (
         <Modal open onClose={onClose} aria-label="Opprett ny stilling, velg kategori">
-            <Systemtittel className="blokk-m">Opprett ny stilling</Systemtittel>
-            <AlertStripeAdvarsel className="blokk-m">
-                Det arbeides fremdeles med å avklare hva som er lov å registrere i
-                Rekrutteringsbistand. Derfor kan du ikke registrere NAV-kurs, webinar,
-                arbeidstrening og lignende. Det er kun kategoriene nedenfor som skal brukes.
-                <br />
-                <br />
-                Du kan ikke endre stillingskategori eller arbeidsgiver etter stillingen er
-                opprettet.
-            </AlertStripeAdvarsel>
+            <Heading level="2" size="large" spacing>
+                Opprett ny stilling
+            </Heading>
+            <Alert variant="warning" className={css.advarsel}>
+                <BodyLong spacing>
+                    Det arbeides fremdeles med å avklare hva som er lov å registrere i
+                    Rekrutteringsbistand. Derfor kan du ikke registrere NAV-kurs, webinar,
+                    arbeidstrening og lignende. Det er kun kategoriene nedenfor som skal brukes.
+                </BodyLong>
+                <BodyLong>
+                    Du kan ikke endre stillingskategori eller arbeidsgiver etter stillingen er
+                    opprettet.
+                </BodyLong>
+            </Alert>
             <VelgStillingskategori
                 stillingskategori={stillingskategori}
                 onChange={onStillingkategoriChange}
@@ -93,10 +95,14 @@ const OpprettNyStilling: FunctionComponent<Props> = ({ onClose }) => {
                 feilmelding={arbeidsgiverfeilmelding}
                 setFeilmelding={setArbeidsgiverfeilmelding}
             />
-            <Hovedknapp onClick={onOpprettClick} className="opprett-ny-stilling--opprett-knapp">
-                Opprett
-            </Hovedknapp>
-            <Flatknapp onClick={onClose}>Avbryt</Flatknapp>
+            <div className={css.knapper}>
+                <Button onClick={onOpprettClick} className={css.opprettKnapp}>
+                    Opprett
+                </Button>
+                <Button variant="secondary" onClick={onClose}>
+                    Avbryt
+                </Button>
+            </div>
         </Modal>
     );
 };

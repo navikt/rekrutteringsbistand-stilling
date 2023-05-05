@@ -1,7 +1,7 @@
-import { RadioGruppe, Radio } from 'nav-frontend-skjema';
-import React, { FunctionComponent } from 'react';
-import { Element } from 'nav-frontend-typografi';
+import React, { FunctionComponent, ReactNode } from 'react';
+import { Label, Radio, RadioGroup } from '@navikt/ds-react';
 import { kategoriTilVisningsnavn } from '../stilling/forhåndsvisning/administration/kategori/Kategori';
+import css from './OpprettNyStilling.module.css';
 
 export enum Stillingskategori {
     Stilling = 'STILLING',
@@ -15,7 +15,7 @@ const stillingskategoriSomIkkeLengerKanVelges = Stillingskategori.Arbeidstrening
 type Props = {
     stillingskategori: Stillingskategori | null;
     onChange: (stillingskategori: Stillingskategori) => void;
-    feilmelding: string | null;
+    feilmelding?: ReactNode;
 };
 
 const VelgStillingskategori: FunctionComponent<Props> = ({
@@ -28,25 +28,25 @@ const VelgStillingskategori: FunctionComponent<Props> = ({
     };
 
     return (
-        <RadioGruppe
-            className="blokk-m"
-            legend={<Element tag="span">Hva skal du bruke stillingen til?</Element>}
-            feil={feilmelding ? feilmelding : null}
+        <RadioGroup
+            className={css.velgKategori}
+            legend={<Label as="span">Hva skal du bruke stillingen til?</Label>}
+            error={feilmelding}
         >
             {Object.values(Stillingskategori)
                 .filter((kategori) => kategori !== stillingskategoriSomIkkeLengerKanVelges)
                 .map((kategori) => (
                     <Radio
                         key={kategori}
-                        className="opprett-ny-stilling--kategori"
                         name="stillingskategori"
                         onChange={onStillingskategoriChange}
                         checked={stillingskategori === kategori}
-                        label={kategoriTilVisningsnavn(kategori)}
                         value={kategori}
-                    />
+                    >
+                        {kategoriTilVisningsnavn(kategori)}
+                    </Radio>
                 ))}
-        </RadioGruppe>
+        </RadioGroup>
     );
 };
 
