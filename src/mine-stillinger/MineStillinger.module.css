@@ -1,3 +1,8 @@
+.mineStillinger {
+    background-color: var(--a-bg-subtle);
+    min-height: 100vh;
+}
+
 .antallStillinger {
     grid-area: over-tabell;
 }
@@ -19,7 +24,7 @@
         'under-tabell';
     gap: 1rem;
     margin: 2.5rem auto 0;
-    padding: 0 1rem;
+    padding: 0 1rem 2.5rem;
     max-width: 110rem;
 }
 
@@ -37,13 +42,12 @@
 
 @media (min-width: 1280px) {
     .wrapper {
-        display: grid;
         grid-template-columns: 14rem auto;
         grid-template-areas:
             'over-filter over-tabell'
             'filter tabell'
             'under-filter under-tabell';
         gap: 2rem;
-        padding: 0 2rem;
+        padding: 0 2rem 2.5rem;
     }
 }

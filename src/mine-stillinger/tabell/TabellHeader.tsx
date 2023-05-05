@@ -16,11 +16,7 @@ const TabellHeader: FunctionComponent = () => {
                 <Table.ColumnHeader sortable sortKey={MineStillingerSorteringsfelt.Stillingstittel}>
                     Stillingstittel
                 </Table.ColumnHeader>
-                <Table.HeaderCell scope="col">
-                    Annonse-
-                    <br />
-                    nummer
-                </Table.HeaderCell>
+                <Table.HeaderCell scope="col">Annonsenr.</Table.HeaderCell>
                 <Table.ColumnHeader sortable sortKey={MineStillingerSorteringsfelt.Arbeidsgiver}>
                     Arbeidsgiver
                 </Table.ColumnHeader>

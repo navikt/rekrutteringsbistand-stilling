@@ -68,7 +68,7 @@ const MineStillinger: FunctionComponent<Props> = ({ history }) => {
     };
 
     return (
-        <div>
+        <main className={css.mineStillinger}>
             <MineStillingerHeader opprettStilling={onOpprettNyClick} />
             <div className={css.wrapper}>
                 <StopAdModal fromMyAds />
@@ -94,7 +94,7 @@ const MineStillinger: FunctionComponent<Props> = ({ history }) => {
                 )}
             </div>
             {visOpprettStillingModal && <OpprettNyStilling onClose={onOpprettNyStillingClose} />}
-        </div>
+        </main>
     );
 };
 
