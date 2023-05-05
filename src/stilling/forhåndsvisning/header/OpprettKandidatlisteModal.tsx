@@ -1,8 +1,7 @@
 import React, { FunctionComponent } from 'react';
-import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
-import { Hovedknapp, Flatknapp } from 'nav-frontend-knapper';
 import Modal from '../../../common/modal/Modal';
-import './OpprettKandidatlisteModal.less';
+import { BodyLong, Button, Heading } from '@navikt/ds-react';
+import css from './OpprettKandidatlisteModal.module.css';
 
 type Props = {
     åpen: boolean;
@@ -17,22 +16,24 @@ const OpprettKandidatlisteModal: FunctionComponent<Props> = ({ åpen, onClose, o
         aria-label="Opprett kandidatliste"
         onClose={onClose}
     >
-        <Systemtittel className="opprett-kandidatliste-modal__tittel">
+        <Heading spacing level="2" size="large" className="opprett-kandidatliste-modal__tittel">
             Opprett kandidatliste
-        </Systemtittel>
-        <Normaltekst className="opprett-kandidatliste-modal__avsnitt">
+        </Heading>
+        <BodyLong spacing>
             Viktig: Kontakt arbeidsgiveren før du oppretter kandidatlisten. Arbeidsgiveren må
             bekrefte at de ønsker å motta kandidater fra NAV.
-        </Normaltekst>
-        <Normaltekst className="opprett-kandidatliste-modal__avsnitt">
+        </BodyLong>
+        <BodyLong spacing>
             Er du sikker på at du ønsker å opprette kandidatlisten? Svarer du ja, blir du eier av
             stillingen og listen. Du har da ansvar for å sende kandidater til arbeidsgiveren.
-        </Normaltekst>
+        </BodyLong>
 
-        <Hovedknapp className="opprett-kandidatliste-modal__bekreftknapp" onClick={onBekreft}>
-            Ja, opprett kandidatlisten
-        </Hovedknapp>
-        <Flatknapp onClick={onClose}>Nei, avbryt</Flatknapp>
+        <div className={css.knapper}>
+            <Button onClick={onBekreft}>Ja, opprett kandidatlisten</Button>
+            <Button variant="secondary" onClick={onClose}>
+                Nei, avbryt
+            </Button>
+        </div>
     </Modal>
 );
 
