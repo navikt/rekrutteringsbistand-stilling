@@ -41,7 +41,7 @@ const DeleteAdModal = () => {
     };
 
     return (
-        <Modal open={showDeleteAdModal} onClose={onClose} closeButton className={css.deleteAdModal}>
+        <Modal open={showDeleteAdModal} onClose={onClose} closeButton>
             <Heading level="2" size="small" spacing>
                 Slett feilregistrert stilling og kandidatliste
             </Heading>

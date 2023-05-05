@@ -33,7 +33,6 @@ const Stilling = () => {
     const navigate = useNavigate();
     const stilling = useSelector((state: State) => state.adData);
     const kandidatliste = useHentKandidatliste(stilling?.uuid);
-    const isNew = (location.state as any)?.isNew || false;
 
     const getStilling = (uuid: string, edit: boolean) => {
         dispatch({ type: FETCH_AD, uuid, edit });
@@ -144,7 +143,6 @@ const Stilling = () => {
                                     </>
                                 ) : (
                                     <Edit
-                                        isNew={isNew}
                                         kandidatliste={kandidatliste}
                                         onPreviewAdClick={onPreviewAdClick}
                                     />

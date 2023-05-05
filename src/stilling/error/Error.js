@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Normaltekst } from 'nav-frontend-typografi';
-import { Hovedknapp } from 'nav-frontend-knapper';
-import ModalMedStillingScope from '../../common/ModalMedStillingScope';
+import { BodyShort, Button } from '@navikt/ds-react';
+
+import Modal from '../../common/modal/Modal';
 import { FJERN_NETTVERKSERROR_FRA_STATE } from '../adReducer';
-import './Error.less';
+import css from './Error.module.css';
 
 class Error extends React.Component {
     render() {
@@ -14,38 +14,37 @@ class Error extends React.Component {
         const showDefaultError = error && error.statusCode !== 404 && error.statusCode !== 412;
 
         return error && showError ? (
-            <ModalMedStillingScope
-                isOpen
+            <Modal
+                open
                 closeButton={false}
-                onRequestClose={() => this.props.closeModal()}
-                contentLabel="Feilmelding"
-                appElement={document.getElementById('app')}
+                onClose={() => this.props.closeModal()}
+                aria-label="Feilmelding"
             >
-                <div className="Error">
-                    {error.statusCode === 404 && <Normaltekst>Fant ikke annonsen</Normaltekst>}
+                <div className={css.error}>
+                    {error.statusCode === 404 && <BodyShort>Fant ikke annonsen</BodyShort>}
                     {error.statusCode === 412 && (
                         <div>
-                            <Normaltekst>Annonsen har blitt redigert av noen andre</Normaltekst>
+                            <BodyShort spacing>Annonsen har blitt redigert av noen andre</BodyShort>
                             <LastInnPåNytt />
                         </div>
                     )}
                     {showDefaultError && (
-                        <Normaltekst>
+                        <BodyShort>
                             Det oppsto en feil, forsøk å laste siden på nytt
                             <br />
                             {error.statusCode}: {error.message}
-                        </Normaltekst>
+                        </BodyShort>
                     )}
                 </div>
-            </ModalMedStillingScope>
+            </Modal>
         ) : null;
     }
 }
 
 const LastInnPåNytt = () => (
-    <Hovedknapp className="Error__button" onClick={() => window.location.reload()}>
+    <Button className={css.button} onClick={() => window.location.reload()}>
         Last siden på nytt
-    </Hovedknapp>
+    </Button>
 );
 
 Error.defaultProps = {

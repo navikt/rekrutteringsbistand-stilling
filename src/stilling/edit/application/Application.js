@@ -2,11 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Input, Checkbox, CheckboxGruppe } from 'nav-frontend-skjema';
-import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { SET_APPLICATIONURL, SET_APPLICATIONEMAIL } from '../../adDataReducer';
 import { VALIDATE_APPLICATION_EMAIL } from '../../adValidationReducer';
 import { adjustUrl } from '../../../common/urlUtils.ts';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import Skjemalabel from '../skjemaetikett/Skjemalabel';
 
 class Application extends React.Component {
@@ -61,17 +59,7 @@ class Application extends React.Component {
         const showLink = applicationUrl || this.state.linkChecked;
 
         return (
-            <Ekspanderbartpanel
-                className="Edit__panel"
-                tittel={
-                    <>
-                        <Undertittel className="blokk-xxxs">Hvordan sende søknad?</Undertittel>
-                        <Normaltekst>Gjelder kun eksternt utlyste stillinger</Normaltekst>
-                    </>
-                }
-                border
-                apen
-            >
+            <>
                 <CheckboxGruppe>
                     <Checkbox checked={showEmail} onChange={this.onEmailChecked} label="E-post" />
                     {showEmail && (
@@ -115,7 +103,7 @@ class Application extends React.Component {
                         </>
                     )}
                 </CheckboxGruppe>
-            </Ekspanderbartpanel>
+            </>
         );
     }
 }

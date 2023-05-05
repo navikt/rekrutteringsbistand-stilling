@@ -25,12 +25,7 @@ const AdPublishedModal = ({ stillingId }) => {
     };
 
     return isSavingAd ? null : (
-        <Modal
-            open={showAdPublishedModal}
-            onClose={onClose}
-            closeButton
-            className={css.adPublishedModal}
-        >
+        <Modal closeButton open={showAdPublishedModal} onClose={onClose}>
             {adStatus === Status.Inaktiv && activationOnPublishingDate && published ? (
                 <Heading level="2" size="small" spacing>
                     Stillingen blir publisert {formatISOString(published)}

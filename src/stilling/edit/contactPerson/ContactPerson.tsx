@@ -1,7 +1,6 @@
 import React, { ChangeEvent, FunctionComponent } from 'react';
 import { connect } from 'react-redux';
 import { Input, SkjemaGruppe } from 'nav-frontend-skjema';
-import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel';
 import { SET_CONTACT_PERSON } from '../../adDataReducer';
 import {
     VALIDATE_CONTACTPERSON_EMAIL_AND_PHONE,
@@ -9,11 +8,11 @@ import {
     VALIDATE_CONTACTPERSON_TITLE,
     ValidertFelt,
 } from '../../adValidationReducer';
-import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
-import './ContactPerson.less';
+import { Element, Normaltekst } from 'nav-frontend-typografi';
 import { State } from '../../../redux/store';
 import Skjemalabel from '../skjemaetikett/Skjemalabel';
 import { Kontaktinfo } from '../../../Stilling';
+import './ContactPerson.less';
 
 type Props = {
     contactList?: Kontaktinfo[];
@@ -59,16 +58,7 @@ const ContactPerson: FunctionComponent<Props> = ({
     const kontaktperson = contactList && contactList[0];
 
     return (
-        <Ekspanderbartpanel
-            className="Edit__panel"
-            tittel={
-                <>
-                    <Undertittel className="blokk-xxxs">Kontaktinformasjon</Undertittel>
-                </>
-            }
-            border
-            apen
-        >
+        <>
             <Skjemalabel påkrevd inputId="endre-stilling-navn-kontaktperson">
                 Navn på kontaktperson
             </Skjemalabel>
@@ -124,7 +114,7 @@ const ContactPerson: FunctionComponent<Props> = ({
                     onChange={onPhoneChange}
                 />
             </SkjemaGruppe>
-        </Ekspanderbartpanel>
+        </>
     );
 };
 

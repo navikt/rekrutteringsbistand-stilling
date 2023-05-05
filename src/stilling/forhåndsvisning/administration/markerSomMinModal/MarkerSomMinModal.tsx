@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import css from './MarkerSomMinModal.module.css';
-import { BodyLong, Button, Heading, Modal } from '@navikt/ds-react';
+import { BodyLong, Button, Heading } from '@navikt/ds-react';
+import Modal from '../../../../common/modal/Modal';
 
 type Props = {
     erÅpen: boolean;
@@ -10,7 +11,7 @@ type Props = {
 
 const MarkerSomMinModal: FunctionComponent<Props> = ({ erÅpen, onAvbryt, onMarkerSomMin }) => {
     return (
-        <Modal open={erÅpen} onClose={onAvbryt} closeButton className={css.modal}>
+        <Modal open={erÅpen} onClose={onAvbryt} closeButton>
             <Heading level="2" size="small" spacing>
                 Marker stillingen som min
             </Heading>

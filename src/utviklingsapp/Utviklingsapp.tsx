@@ -1,11 +1,11 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { Systemtittel } from 'nav-frontend-typografi';
 import { Link } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 
 import { AppMedStore } from '../index';
 import CustomRouter from './CustomRouter';
-import './Utviklingsapp.less';
+import { Heading } from '@navikt/ds-react';
+import css from './Utviklingsapp.module.css';
 
 const history = createBrowserHistory();
 
@@ -24,9 +24,11 @@ const Utviklingsapp: FunctionComponent = () => {
 
     return (
         <CustomRouter history={history}>
-            <header className="utviklingsapp">
-                <Systemtittel>Utviklingsapp for rekrutteringsbistand-stilling</Systemtittel>
-                <div className="utviklingsapp__lenker">
+            <header className={css.utviklingsapp}>
+                <Heading level="1" size="small">
+                    Utviklingsapp for rekrutteringsbistand-stilling
+                </Heading>
+                <div className={css.lenker}>
                     <Link to="/stillinger/minestillinger">Mine stillinger</Link>
                     <Link to="/stillinger/stilling/590c6074-c67c-4ce9-bb7c-e2d07614f7b6">
                         Min interne stilling

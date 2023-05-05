@@ -1,18 +1,19 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { Feilmelding, Normaltekst, Undertekst } from 'nav-frontend-typografi';
-import Typeahead from '../common/typeahead/Typeahead';
+import { BodyShort, Detail, ErrorMessage, Label } from '@navikt/ds-react';
+
+import { Arbeidsgiver, Geografi } from '../Stilling';
+import { fetchEmployerNameCompletionHits, fetchOrgnrSuggestions } from '../api/api';
+import { ikkeLastet, Nettressurs, Nettstatus } from '../api/Nettressurs';
 import capitalizeEmployerName from '../stilling/edit/endre-arbeidsgiver/capitalizeEmployerName';
 import capitalizeLocation from '../stilling/edit/location/capitalizeLocation';
-import Skjemalabel from '../stilling/edit/skjemaetikett/Skjemalabel';
-import { ikkeLastet, Nettressurs, Nettstatus } from '../api/Nettressurs';
-import { fetchEmployerNameCompletionHits, fetchOrgnrSuggestions } from '../api/api';
-import { Arbeidsgiver, Geografi } from '../Stilling';
+import Typeahead from '../common/typeahead/Typeahead';
+import css from './OpprettNyStilling.module.css';
 
 type Props = {
     arbeidsgiver: Arbeidsgiverforslag | null;
     setArbeidsgiver: (verdi: Arbeidsgiverforslag | null) => void;
-    feilmelding: string | null;
-    setFeilmelding: (verdi: string | null) => void;
+    feilmelding?: string;
+    setFeilmelding: (verdi: string | undefined) => void;
 };
 
 export type EmployerState = {
@@ -69,7 +70,7 @@ const VelgArbeidsgiver: FunctionComponent<Props> = ({
     }, [input]);
 
     const onInputChange = (value: string) => {
-        setFeilmelding(null);
+        setFeilmelding(undefined);
         setInput(value);
     };
 
@@ -97,16 +98,15 @@ const VelgArbeidsgiver: FunctionComponent<Props> = ({
 
     return (
         <>
-            <Skjemalabel
-                inputId="velg-arbeidsgiver"
-                beskrivelse="Informasjonen hentes fra enhetsregisteret"
-            >
+            <Label className={css.velgArbeidsgiver} htmlFor="velg-arbeidsgiver">
                 Arbeidsgivers navn eller virksomhetsnummer
-            </Skjemalabel>
+            </Label>
+            <BodyShort spacing size="small" id="velg-arbeidsgiver-beskrivelse">
+                Informasjonen hentes fra enhetsregisteret
+            </BodyShort>
             <Typeahead
                 id="velg-arbeidsgiver"
                 aria-describedby="velg-arbeidsgiver-beskrivelse"
-                className="opprett-ny-stilling__velg-arbeidsgiver-input"
                 value={input}
                 onBlur={onInputBlur}
                 onSelect={onForslagValgt}
@@ -115,12 +115,11 @@ const VelgArbeidsgiver: FunctionComponent<Props> = ({
                 error={!!feilmeldingTilBruker}
             />
             {arbeidsgiver && (
-                <Undertekst className="opprett-ny-stilling__valgt-arbeidsgiver">
+                <Detail className={css.valgtArbeidsgiver}>
                     {formaterDataFraEnhetsregisteret(arbeidsgiver)}
-                </Undertekst>
+                </Detail>
             )}
-            {feilmeldingTilBruker && <Feilmelding>{feilmeldingTilBruker}</Feilmelding>}
-            <div className="blokk-s" />
+            {feilmeldingTilBruker && <ErrorMessage>{feilmeldingTilBruker}</ErrorMessage>}
         </>
     );
 };
@@ -170,9 +169,9 @@ export const getEmployerSuggestionLabel = (forslag: Arbeidsgiverforslag) => {
         commaSeparate = [...commaSeparate, `Virksomhetsnummer: ${groupedOrgNumber}`];
     }
     return (
-        <div className="Employer__typeahead__item">
-            <Normaltekst>{capitalizeEmployerName(forslag.name)}</Normaltekst>
-            <Undertekst>{commaSeparate.join(', ')}</Undertekst>
+        <div className={css.valgITypeahead}>
+            <BodyShort>{capitalizeEmployerName(forslag.name)}</BodyShort>
+            <Detail>{commaSeparate.join(', ')}</Detail>
         </div>
     );
 };

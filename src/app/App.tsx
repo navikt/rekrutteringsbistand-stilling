@@ -1,5 +1,4 @@
 import React, { FunctionComponent, useEffect } from 'react';
-import Modal from 'react-modal';
 import { History } from 'history';
 import { useDispatch } from 'react-redux';
 
@@ -11,6 +10,7 @@ import { ReporteeAction, ReporteeActionType } from '../reportee/ReporteeAction';
 import { setNavKontorIAmplitude } from '../verktøy/amplitude';
 import createReduxStore from '../redux/store';
 import { Route, Routes } from 'react-router-dom';
+import { Modal } from '@navikt/ds-react';
 import css from './App.module.css';
 
 startSentry();
