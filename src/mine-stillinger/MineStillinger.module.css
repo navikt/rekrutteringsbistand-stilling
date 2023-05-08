@@ -19,6 +19,10 @@
     grid-area: under-tabell;
 }
 
+.lasterInn {
+    grid-area: under-tabell;
+}
+
 .wrapper {
     display: grid;
     align-items: start;

@@ -13,7 +13,7 @@ import StopAdModal from '../stilling/administration/adStatus/StopAdModal';
 import { MineStillingerAction, MineStillingerActionType } from './MineStillingerAction';
 import MineStillingerHeader from './header/MineStillingerHeader';
 import { Nettstatus } from '../api/Nettressurs';
-import Loading from '../common/loading/Loading';
+import Sidelaster from '../common/sidelaster/Sidelaster';
 import classNames from 'classnames';
 import MineStillingerTabell from './tabell/MineStillingerTabell';
 import css from './MineStillinger.module.css';
@@ -76,7 +76,7 @@ const MineStillinger: FunctionComponent<Props> = ({ history }) => {
                     <AntallStillinger resultat={resultat} />
                 </div>
                 <MineStillingerTabell resultat={resultat} className={css.tabell} />
-                {resultat.kind === Nettstatus.LasterInn && <Loading />}
+                {resultat.kind === Nettstatus.LasterInn && <Sidelaster className={css.lasterInn} />}
                 {resultat.kind === Nettstatus.Suksess && (
                     <>
                         {resultat.data.content.length > 0 ? (
