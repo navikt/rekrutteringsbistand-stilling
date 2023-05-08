@@ -88,11 +88,10 @@ class LocationArea extends React.Component {
 
         return (
             <div className="LocationArea__typeahead">
-                <Skjemalabel inputId="endre-stilling-kommune">
+                <Skjemalabel id="endre-stilling-kommune">
                     Skriv inn kommune, fylke eller land
                 </Skjemalabel>
                 <Typeahead
-                    id="endre-stilling-kommune"
                     onChange={this.onLocationAreaChange}
                     onSelect={this.onLocationAreaSelect}
                     onBlur={this.onBlur}
@@ -108,6 +107,7 @@ class LocationArea extends React.Component {
                     value={typeaheadValue}
                     minLength={1}
                     error={!!validation.locationArea}
+                    aria-labelledby="endre-stilling-kommune"
                 />
                 {validation.locationArea && <Feilmelding>{validation.locationArea}</Feilmelding>}
                 {locationList && locationList.length > 0 && (
