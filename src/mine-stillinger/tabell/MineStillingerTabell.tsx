@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
-import { Nettressurs } from '../../api/Nettressurs';
-import { SortState, Table } from '@navikt/ds-react';
+import { Nettressurs, Nettstatus } from '../../api/Nettressurs';
+import { Ingress, SortState, Table } from '@navikt/ds-react';
 import { MineStillingerResultat } from '../mineStillingerReducer';
 import { nesteSorteringsretning, Retning } from './Retning';
 import { MineStillingerActionType } from '../MineStillingerAction';
@@ -11,6 +11,7 @@ import classNames from 'classnames';
 import TabellHeader from './TabellHeader';
 import TabellBody from './TabellBody';
 import css from './MineStillingerTabell.module.css';
+import Sidelaster from '../../common/sidelaster/Sidelaster';
 
 type Props = {
     resultat: Nettressurs<MineStillingerResultat>;
@@ -44,6 +45,14 @@ const MineStillingerTabell: FunctionComponent<Props> = ({ resultat, className })
               direction: aktivRetning === Retning.Stigende ? 'ascending' : 'descending',
           }
         : undefined;
+
+    if (resultat.kind === Nettstatus.LasterInn) {
+        return <Sidelaster className={className} />;
+    } else if (resultat.kind === Nettstatus.Suksess && resultat.data.content.length === 0) {
+        return (
+            <Ingress className={className}>Fant ingen stillinger der du er saksbehandler.</Ingress>
+        );
+    }
 
     return (
         <Table

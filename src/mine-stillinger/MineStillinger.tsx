@@ -1,6 +1,6 @@
 import React, { useState, useEffect, FunctionComponent } from 'react';
 import { History } from 'history';
-import { Pagination, Ingress } from '@navikt/ds-react';
+import { Pagination } from '@navikt/ds-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 
@@ -13,7 +13,6 @@ import StopAdModal from '../stilling/administration/adStatus/StopAdModal';
 import { MineStillingerAction, MineStillingerActionType } from './MineStillingerAction';
 import MineStillingerHeader from './header/MineStillingerHeader';
 import { Nettstatus } from '../api/Nettressurs';
-import Sidelaster from '../common/sidelaster/Sidelaster';
 import classNames from 'classnames';
 import MineStillingerTabell from './tabell/MineStillingerTabell';
 import css from './MineStillinger.module.css';
@@ -76,7 +75,6 @@ const MineStillinger: FunctionComponent<Props> = ({ history }) => {
                     <AntallStillinger resultat={resultat} />
                 </div>
                 <MineStillingerTabell resultat={resultat} className={css.tabell} />
-                {resultat.kind === Nettstatus.LasterInn && <Sidelaster className={css.lasterInn} />}
                 {resultat.kind === Nettstatus.Suksess && (
                     <>
                         {resultat.data.content.length > 0 ? (
@@ -86,11 +84,7 @@ const MineStillinger: FunctionComponent<Props> = ({ history }) => {
                                 onPageChange={onPageChange}
                                 className={classNames(css.underTabell, css.paginering)}
                             />
-                        ) : (
-                            <Ingress className={classNames(css.underTabell, css.ingenResultater)}>
-                                Fant ingen stillinger der du er saksbehandler.
-                            </Ingress>
-                        )}
+                        ) : null}
                     </>
                 )}
             </div>

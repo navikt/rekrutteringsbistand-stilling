@@ -13,16 +13,6 @@
     grid-area: under-tabell;
 }
 
-.ingenResultater {
-    display: flex;
-    justify-content: center;
-    grid-area: under-tabell;
-}
-
-.lasterInn {
-    grid-area: under-tabell;
-}
-
 .wrapper {
     display: grid;
     align-items: start;
