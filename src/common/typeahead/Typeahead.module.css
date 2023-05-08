@@ -4,7 +4,7 @@
 
 .typeahead ul {
     position: absolute;
-    top: 100%;
+    top: 3.5rem;
     left: 0;
     z-index: 1000;
     min-width: 100%;
@@ -22,12 +22,6 @@
 .typeahead ul li {
     display: block;
     clear: both;
-    line-height: 1.15rem;
-    color: #333;
-    font-size: initial;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
     user-select: none;
     cursor: pointer;
 }
@@ -45,8 +39,4 @@
 .aktivtForslag {
     background-color: var(--a-surface-action);
     color: white;
-}
-
-.matchendeTekstIForslag {
-    font-weight: 600;
 }

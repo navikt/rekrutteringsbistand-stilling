@@ -1,12 +1,12 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { BodyShort, Detail, ErrorMessage, Label } from '@navikt/ds-react';
+import { BodyShort, Detail, Label } from '@navikt/ds-react';
 
 import { Arbeidsgiver, Geografi } from '../Stilling';
 import { fetchEmployerNameCompletionHits, fetchOrgnrSuggestions } from '../api/api';
 import { ikkeLastet, Nettressurs, Nettstatus } from '../api/Nettressurs';
 import capitalizeEmployerName from '../stilling/edit/endre-arbeidsgiver/capitalizeEmployerName';
 import capitalizeLocation from '../stilling/edit/location/capitalizeLocation';
-import Typeahead from '../common/typeahead/Typeahead';
+import Typeahead, { Suggestion } from '../common/typeahead/Typeahead';
 import css from './OpprettNyStilling.module.css';
 
 type Props = {
@@ -80,7 +80,7 @@ const VelgArbeidsgiver: FunctionComponent<Props> = ({
         }
     };
 
-    const onForslagValgt = (valgtForslag: any) => {
+    const onForslagValgt = (valgtForslag: Suggestion) => {
         if (alleForslag.kind === Nettstatus.Suksess) {
             if (valgtForslag) {
                 const found = finnArbeidsgiver(alleForslag.data, valgtForslag.value);
@@ -98,28 +98,27 @@ const VelgArbeidsgiver: FunctionComponent<Props> = ({
 
     return (
         <>
-            <Label className={css.velgArbeidsgiver} htmlFor="velg-arbeidsgiver">
+            <Label className={css.velgArbeidsgiver} id="velg-arbeidsgiver-label">
                 Arbeidsgivers navn eller virksomhetsnummer
             </Label>
             <BodyShort spacing size="small" id="velg-arbeidsgiver-beskrivelse">
-                Informasjonen hentes fra enhetsregisteret
+                Søk etter virksomheten fra enhetsregisteret
             </BodyShort>
             <Typeahead
-                id="velg-arbeidsgiver"
-                aria-describedby="velg-arbeidsgiver-beskrivelse"
                 value={input}
                 onBlur={onInputBlur}
                 onSelect={onForslagValgt}
                 onChange={onInputChange}
                 suggestions={konverterTilTypeaheadFormat(alleForslag)}
-                error={!!feilmeldingTilBruker}
+                error={feilmeldingTilBruker || undefined}
+                aria-labelledby="velg-arbeidsgiver-label"
+                aria-describedby="velg-arbeidsgiver-beskrivelse"
             />
             {arbeidsgiver && (
                 <Detail className={css.valgtArbeidsgiver}>
                     {formaterDataFraEnhetsregisteret(arbeidsgiver)}
                 </Detail>
             )}
-            {feilmeldingTilBruker && <ErrorMessage>{feilmeldingTilBruker}</ErrorMessage>}
         </>
     );
 };
@@ -131,7 +130,7 @@ const erOrgnummer = (input: string) => {
 const konverterTilTypeaheadFormat = (alleForslag: Nettressurs<Arbeidsgiverforslag[]>) => {
     if (alleForslag.kind === Nettstatus.Suksess) {
         return alleForslag.data.map((f) => ({
-            value: f.orgnr,
+            value: f.orgnr || '',
             label: getEmployerSuggestionLabel(f),
         }));
     } else {

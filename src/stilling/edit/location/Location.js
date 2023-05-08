@@ -111,11 +111,8 @@ class Location extends React.Component {
                                 onChange={this.onAddressChange}
                             />
                             <div className="blokk-xs">
-                                <Skjemalabel inputId="endre-stilling-postnummer">
-                                    Postnummer
-                                </Skjemalabel>
+                                <Skjemalabel id="endre-stilling-postnummer">Postnummer</Skjemalabel>
                                 <Typeahead
-                                    id="endre-stilling-postnummer"
                                     className="PostalCode__typeahead"
                                     onSelect={this.onTypeAheadSuggestionSelected}
                                     onChange={this.onTypeAheadValueChange}
@@ -126,6 +123,7 @@ class Location extends React.Component {
                                     }))}
                                     value={typeAheadValue}
                                     error={validation.postalCode !== undefined}
+                                    aria-labelledby="endre-stilling-postnummer"
                                 />
                                 {validation.postalCode && (
                                     <Feilmelding>{validation.postalCode}</Feilmelding>
