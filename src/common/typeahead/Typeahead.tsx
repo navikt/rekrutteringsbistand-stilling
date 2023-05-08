@@ -113,9 +113,8 @@ const Typeahead = ({
         const suggestionElement = document.getElementById(suggestionId);
 
         if (suggestionElement) {
-            if (!elementErSynlig(suggestionElement)) {
-                suggestionElement.scrollIntoView({ block: 'nearest' });
-            }
+            // Obs! Ikke støttet av Firefox.
+            suggestionElement['scrollIntoViewIfNeeded']();
         }
     };
 
@@ -217,17 +216,6 @@ const Typeahead = ({
                     })}
             </ul>
         </div>
-    );
-};
-
-const elementErSynlig = (element: HTMLElement) => {
-    const rect = element.getBoundingClientRect();
-
-    const windowHeight = window.innerHeight || document.documentElement.clientHeight;
-    const windowWidth = window.innerWidth || document.documentElement.clientWidth;
-
-    return (
-        rect.top >= 0 && rect.left >= 0 && rect.bottom <= windowHeight && rect.right <= windowWidth
     );
 };
 
