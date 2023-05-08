@@ -1,24 +1,20 @@
 import React, { useState, useEffect, FunctionComponent } from 'react';
 import { History } from 'history';
-import { Button, ErrorMessage } from '@navikt/ds-react';
+import { Pagination } from '@navikt/ds-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 
 import { CLEAR_COPIED_ADS } from '../stilling/adReducer';
 import { State } from '../redux/store';
-import Count from './result/Count';
+import AntallStillinger from './AntallStillinger';
 import Filter from './filter/Filter';
-import Loading from '../common/loading/Loading';
-import NoResults from './noResults/NoResults';
 import OpprettNyStilling from '../opprett-ny-stilling/OpprettNyStilling';
-import Pagination from './pagination/Pagination';
-import ResultHeader from './result/ResultHeader';
-import ResultItem from './result/ResultItem';
 import StopAdModal from '../stilling/administration/adStatus/StopAdModal';
-import { MineStillingerActionType } from './MineStillingerAction';
-import './MineStillinger.module.css';
-import { Nettstatus } from '../api/Nettressurs';
+import { MineStillingerAction, MineStillingerActionType } from './MineStillingerAction';
 import MineStillingerHeader from './header/MineStillingerHeader';
+import { Nettstatus } from '../api/Nettressurs';
+import classNames from 'classnames';
+import MineStillingerTabell from './tabell/MineStillingerTabell';
 import css from './MineStillinger.module.css';
 
 type Props = {
@@ -64,51 +60,36 @@ const MineStillinger: FunctionComponent<Props> = ({ history }) => {
         setVisOpprettStillingModal(false);
     };
 
+    const onPageChange = (page: number) => {
+        page = page - 1;
+        dispatch<MineStillingerAction>({ type: MineStillingerActionType.ChangeMyAdsPage, page });
+    };
+
     return (
-        <div className={css.mineStillinger}>
-            <MineStillingerHeader>
-                <Button onClick={onOpprettNyClick}>Opprett ny</Button>
-            </MineStillingerHeader>
-            <div className={css.innhold}>
+        <main className={css.mineStillinger}>
+            <MineStillingerHeader opprettStilling={onOpprettNyClick} />
+            <div className={css.wrapper}>
                 <StopAdModal fromMyAds />
-                <div className={css.statusRad}>
-                    <Count resultat={resultat} />
+                <Filter className={css.filter} />
+                <div className={css.antallStillinger}>
+                    <AntallStillinger resultat={resultat} />
                 </div>
-                <Filter />
-                <div className={css.tabell}>
-                    <table className="Result__table">
-                        <ResultHeader />
-                        <tbody>
-                            {resultat.kind === Nettstatus.Feil && (
-                                <ErrorMessage className={css.feilmelding}>
-                                    Klarte ikke hente mine stillinger
-                                </ErrorMessage>
-                            )}
-                            {resultat.kind === Nettstatus.Suksess &&
-                                resultat.data.content.map((rekrutteringsbistandstilling) => (
-                                    <ResultItem
-                                        key={rekrutteringsbistandstilling.stilling.uuid}
-                                        rekrutteringsbistandstilling={rekrutteringsbistandstilling}
-                                    />
-                                ))}
-                        </tbody>
-                    </table>
-
-                    {resultat.kind === Nettstatus.LasterInn && <Loading />}
-
-                    {resultat.kind === Nettstatus.Suksess && (
-                        <>
-                            {resultat.data.content.length > 0 ? (
-                                <Pagination resultat={resultat.data} page={page} />
-                            ) : (
-                                <NoResults />
-                            )}
-                        </>
-                    )}
-                </div>
+                <MineStillingerTabell resultat={resultat} className={css.tabell} />
+                {resultat.kind === Nettstatus.Suksess && (
+                    <>
+                        {resultat.data.content.length > 0 ? (
+                            <Pagination
+                                page={page + 1}
+                                count={resultat.data.totalPages}
+                                onPageChange={onPageChange}
+                                className={classNames(css.underTabell, css.paginering)}
+                            />
+                        ) : null}
+                    </>
+                )}
             </div>
             {visOpprettStillingModal && <OpprettNyStilling onClose={onOpprettNyStillingClose} />}
-        </div>
+        </main>
     );
 };
 

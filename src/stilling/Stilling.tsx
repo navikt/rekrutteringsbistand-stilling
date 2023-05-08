@@ -131,8 +131,7 @@ const Stilling = () => {
     return (
         <div className={css.stilling}>
             <div className={css.innhold}>
-                <h1 className={css.kunForSkjermleser}>Stilling</h1>
-                <div className={css.venstre}>
+                <main className={css.venstre}>
                     <div className={css.venstreInnhold}>
                         {isEditingAd ? (
                             <>
@@ -155,7 +154,7 @@ const Stilling = () => {
                             </>
                         )}
                     </div>
-                </div>
+                </main>
                 <aside className={css.høyre}>
                     {isEditingAd ? (
                         <>

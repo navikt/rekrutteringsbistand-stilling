@@ -1,16 +1,16 @@
 import React, { FunctionComponent, useEffect } from 'react';
 import { History } from 'history';
+import { Modal } from '@navikt/ds-react';
 import { useDispatch } from 'react-redux';
 
-import Stilling from './stilling/Stilling';
-import MineStillinger from './mine-stillinger/MineStillinger';
-import Varsling from './common/varsling/Varsling';
-import { startSentry } from './verktøy/sentry';
-import { ReporteeAction, ReporteeActionType } from './reportee/ReporteeAction';
-import { setNavKontorIAmplitude } from './verktøy/amplitude';
-import createReduxStore from './redux/store';
+import { ReporteeAction, ReporteeActionType } from '../reportee/ReporteeAction';
 import { Route, Routes } from 'react-router-dom';
-import { Modal } from '@navikt/ds-react';
+import { setNavKontorIAmplitude } from '../verktøy/amplitude';
+import { startSentry } from '../verktøy/sentry';
+import createReduxStore from '../redux/store';
+import MineStillinger from '../mine-stillinger/MineStillinger';
+import Stilling from '../stilling/Stilling';
+import Varsling from '../common/varsling/Varsling';
 
 startSentry();
 

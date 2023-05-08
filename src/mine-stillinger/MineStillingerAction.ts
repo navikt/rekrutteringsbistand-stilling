@@ -1,5 +1,7 @@
 import { ApiError } from '../api/apiUtils';
 import { MineStillingerResultat } from './mineStillingerReducer';
+import { MineStillingerSorteringsfelt } from './MineStillingerSortering';
+import { Retning } from './tabell/Retning';
 
 export enum MineStillingerActionType {
     FetchMyAds = 'FETCH_MY_ADS',
@@ -52,8 +54,8 @@ export type ChangeMyAdsDeactivatedFilter = {
 
 export type ChangeMyAdsSorting = {
     type: MineStillingerActionType.ChangeMyAdsSorting;
-    field: string;
-    dir: string;
+    field: MineStillingerSorteringsfelt;
+    dir: Retning;
 };
 
 export type MineStillingerAction =

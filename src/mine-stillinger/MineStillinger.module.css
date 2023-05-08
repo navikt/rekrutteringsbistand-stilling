@@ -1,30 +1,31 @@
 .mineStillinger {
-    height: 100%;
+    background-color: var(--a-bg-subtle);
     min-height: 100vh;
-    width: 100%;
-    min-width: 1200px;
-    background-color: var(--a-gray-100);
 }
 
-.statusRad {
-    grid-area: resultCount;
+.antallStillinger {
+    grid-area: over-tabell;
+}
+
+.paginering {
     display: flex;
-    align-items: center;
-    margin-top: var(--a-spacing-10);
+    justify-content: center;
+    grid-area: under-tabell;
 }
 
-.innhold {
-    padding: 0 var(--a-spacing-4);
-    margin: 0 auto;
-    width: 100%;
+.wrapper {
     display: grid;
-    grid-template-columns: 200px auto;
-    grid-template-rows: auto auto;
+    align-items: start;
     grid-template-areas:
-        'aboveFilter resultCount'
-        'filter result';
-    grid-gap: var(--a-spacing-8);
-    max-width: 1800px;
+        'over-tabell'
+        'filter'
+        'tabell'
+        'under-filter'
+        'under-tabell';
+    gap: 1rem;
+    margin: 2.5rem auto 0;
+    padding: 0 1rem 2.5rem;
+    max-width: 110rem;
 }
 
 .feilmelding {
@@ -32,5 +33,21 @@
 }
 
 .tabell {
-    grid-area: result;
+    grid-area: tabell;
+}
+
+.filter {
+    grid-area: filter;
+}
+
+@media (min-width: 1280px) {
+    .wrapper {
+        grid-template-columns: 14rem auto;
+        grid-template-areas:
+            'over-filter over-tabell'
+            'filter tabell'
+            'under-filter under-tabell';
+        gap: 2rem;
+        padding: 0 2rem 2.5rem;
+    }
 }
