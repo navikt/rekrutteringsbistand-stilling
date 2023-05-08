@@ -2,6 +2,7 @@ import React, { useEffect, useId, useRef, useState } from 'react';
 import TypeaheadSuggestion, { hentSuggestionId } from './TypeaheadSuggestion';
 import { TextField } from '@navikt/ds-react';
 import css from './Typeahead.module.css';
+import classNames from 'classnames';
 
 export type Suggestion = {
     label: React.ReactNode;
@@ -12,11 +13,12 @@ type Props = {
     value: string;
     label?: string;
     onChange: (value: string) => void;
-    onSelect: (value: string) => void;
+    onSelect: (suggestion: Suggestion) => void;
     onBlur: (value: string) => void;
     placeholder?: string;
     suggestions: Suggestion[];
     error?: string;
+    className?: string;
 };
 
 const Typeahead = ({
@@ -28,6 +30,7 @@ const Typeahead = ({
     placeholder,
     suggestions,
     error,
+    className,
 }: Props) => {
     const id = useId();
 
@@ -57,16 +60,18 @@ const Typeahead = ({
     const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
         let currentActiveSuggestionIndex = activeSuggestionIndex;
 
-        const currentValue = suggestions[activeSuggestionIndex]
-            ? (suggestions[activeSuggestionIndex] as Suggestion).value
-            : value;
-
         if (shouldShowSuggestions) {
             switch (event.key) {
-                case 'Enter':
+                case 'Enter': {
                     event.preventDefault();
-                    selectSuggestion(currentValue);
+
+                    const currentSuggestion = suggestions[activeSuggestionIndex]
+                        ? suggestions[activeSuggestionIndex]
+                        : { value, label: '' };
+
+                    selectSuggestion(currentSuggestion);
                     break;
+                }
 
                 case 'Escape':
                     if (shouldShowSuggestions) {
@@ -114,7 +119,7 @@ const Typeahead = ({
         }
     };
 
-    const selectSuggestion = (suggestionValue: string) => {
+    const selectSuggestion = (suggestion: Suggestion) => {
         setShouldShowSuggestions(false);
         setActiveSuggestionIndex(-1);
 
@@ -123,7 +128,7 @@ const Typeahead = ({
         }
 
         clearBlurDelay();
-        onSelect(suggestionValue);
+        onSelect(suggestion);
     };
 
     const clearBlurDelay = () => {
@@ -168,7 +173,7 @@ const Typeahead = ({
     const showSuggestions = hasFocus && shouldShowSuggestions && suggestions.length > 0;
 
     return (
-        <div className={css.typeahead}>
+        <div className={classNames(css.typeahead, className)}>
             <TextField
                 label={label}
                 id={id}

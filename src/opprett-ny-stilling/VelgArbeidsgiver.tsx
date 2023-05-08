@@ -6,7 +6,7 @@ import { fetchEmployerNameCompletionHits, fetchOrgnrSuggestions } from '../api/a
 import { ikkeLastet, Nettressurs, Nettstatus } from '../api/Nettressurs';
 import capitalizeEmployerName from '../stilling/edit/endre-arbeidsgiver/capitalizeEmployerName';
 import capitalizeLocation from '../stilling/edit/location/capitalizeLocation';
-import Typeahead from '../common/typeahead/Typeahead';
+import Typeahead, { Suggestion } from '../common/typeahead/Typeahead';
 import css from './OpprettNyStilling.module.css';
 
 type Props = {
@@ -80,10 +80,10 @@ const VelgArbeidsgiver: FunctionComponent<Props> = ({
         }
     };
 
-    const onForslagValgt = (valgtForslag: string) => {
+    const onForslagValgt = (valgtForslag: Suggestion) => {
         if (alleForslag.kind === Nettstatus.Suksess) {
             if (valgtForslag) {
-                const found = finnArbeidsgiver(alleForslag.data, valgtForslag);
+                const found = finnArbeidsgiver(alleForslag.data, valgtForslag.value);
 
                 setArbeidsgiver(found || null);
                 setInput(capitalizeEmployerName(found ? found.name : null) || '');

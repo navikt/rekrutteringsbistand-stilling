@@ -58,10 +58,10 @@ class Styrk extends React.Component {
     render() {
         let value;
         let kategoriSTYRK08NAV = this.props.stilling?.categoryList?.find(
-            (kategori) => kategori.categoryType === 'STYRK08NAV'
+            (kategori) => kategori?.categoryType === 'STYRK08NAV'
         );
         let kategoriSTYRK08 = this.props.stilling?.categoryList?.find(
-            (kategori) => kategori.categoryType === 'STYRK08'
+            (kategori) => kategori?.categoryType === 'STYRK08'
         );
 
         if (this.props.typeAheadValue !== undefined) {
@@ -89,8 +89,7 @@ class Styrk extends React.Component {
                     Skriv inn STYRK
                 </Skjemalabel>
                 <Typeahead
-                    id="endre-stilling-styrk"
-                    className="Styrk__typeahead"
+                    value={value}
                     onSelect={this.onTypeAheadSuggestionSelected}
                     onChange={this.onTypeAheadValueChange}
                     onBlur={this.onTypeAheadBlur}
@@ -99,11 +98,9 @@ class Styrk extends React.Component {
                         label: this.renderLabel(styrk),
                         name: styrk.name,
                     }))}
-                    value={value}
-                    ref={(instance) => {
-                        this.inputRef = instance;
-                    }}
                     error={this.props.validation.styrk !== undefined}
+                    aria-labelledby="endre-stilling-styrk"
+                    className="Styrk__typeahead"
                 />
                 {this.props.validation.styrk && (
                     <Feilmelding>{this.props.validation.styrk}</Feilmelding>

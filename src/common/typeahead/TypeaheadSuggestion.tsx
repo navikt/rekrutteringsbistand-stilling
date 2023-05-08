@@ -5,7 +5,7 @@ import css from './Typeahead.module.css';
 
 type Props = {
     id: string;
-    onClick: (value: string) => void;
+    onClick: (suggestion: Suggestion) => void;
     suggestion: Suggestion;
     active: boolean;
     index: number;
@@ -23,7 +23,7 @@ const TypeaheadSuggestion = ({
     avoidBlur,
 }: Props) => {
     const handleClick = () => {
-        onClick(suggestion.value);
+        onClick(suggestion);
     };
 
     const handleHighlightSuggestion = () => {
