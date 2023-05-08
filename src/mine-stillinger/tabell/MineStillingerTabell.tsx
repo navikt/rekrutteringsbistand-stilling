@@ -35,7 +35,8 @@ const MineStillingerTabell: FunctionComponent<Props> = ({ resultat, className })
 
         dispatch({
             type: MineStillingerActionType.ChangeMyAdsSorting,
-            sortering: { sortField: nyttFelt, sortDirection: nyRetning },
+            field: nyttFelt,
+            dir: nyRetning,
         });
     };
 
