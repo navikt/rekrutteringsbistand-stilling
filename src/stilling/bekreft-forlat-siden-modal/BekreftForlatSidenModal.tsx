@@ -1,10 +1,11 @@
 import React, { FunctionComponent } from 'react';
-import { BodyShort, Button, ErrorMessage, Heading, Modal } from '@navikt/ds-react';
+import { BodyShort, Button, ErrorMessage, Heading } from '@navikt/ds-react';
 import { connect } from 'react-redux';
 
 import { NyStillingState } from '../adReducer';
 import { State } from '../../redux/store';
 import css from './BekreftForlatSidenModal.module.css';
+import Modal from '../../common/modal/Modal';
 
 type Props = {
     vis: boolean;

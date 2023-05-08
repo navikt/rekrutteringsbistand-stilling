@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { BodyLong, Button, Heading } from '@navikt/ds-react';
 import { useSelector, useDispatch } from 'react-redux';
 import { DELETE_AD, HIDE_DELETE_AD_MODAL } from '../../adReducer';
 import { State } from '../../../redux/store';
 import { VarslingAction, VarslingActionType } from '../../../common/varsling/varslingReducer';
 import css from './DeleteAdModal.module.css';
-import { BodyLong, Button, Heading, Modal } from '@navikt/ds-react';
+import Modal from '../../../common/modal/Modal';
 
 const DeleteAdModal = () => {
     const navigate = useNavigate();
