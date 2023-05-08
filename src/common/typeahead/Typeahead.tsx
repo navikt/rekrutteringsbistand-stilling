@@ -113,8 +113,7 @@ const Typeahead = ({
         const suggestionElement = document.getElementById(suggestionId);
 
         if (suggestionElement) {
-            // Obs! Ikke støttet av Firefox.
-            suggestionElement['scrollIntoViewIfNeeded']();
+            suggestionElement.scrollIntoView({ block: 'nearest' });
         }
     };
 
