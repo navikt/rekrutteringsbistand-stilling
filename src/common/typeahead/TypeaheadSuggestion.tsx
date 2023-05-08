@@ -32,7 +32,7 @@ const TypeaheadSuggestion = ({
 
     return (
         <li
-            id={hentSuggestionId(id, suggestion.value)}
+            id={hentSuggestionId(id, index)}
             role="option"
             aria-selected={active}
             onClick={handleClick}
@@ -52,6 +52,6 @@ const TypeaheadSuggestion = ({
     );
 };
 
-export const hentSuggestionId = (id: string, value: string) => `${id}-suggestion-${value}`;
+export const hentSuggestionId = (id: string, index: number) => `${id}-suggestion-${index}`;
 
 export default TypeaheadSuggestion;

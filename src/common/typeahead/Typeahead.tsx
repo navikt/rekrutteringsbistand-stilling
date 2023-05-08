@@ -83,7 +83,7 @@ const Typeahead = ({
                             : currentActiveSuggestionIndex - 1;
 
                     setActiveSuggestionIndex(currentActiveSuggestionIndex);
-                    scrollTilSuggestion(currentValue);
+                    scrollTilSuggestion(currentActiveSuggestionIndex);
                     break;
 
                 case 'ArrowDown':
@@ -94,7 +94,7 @@ const Typeahead = ({
                             : currentActiveSuggestionIndex + 1;
 
                     setActiveSuggestionIndex(currentActiveSuggestionIndex);
-                    scrollTilSuggestion(currentValue);
+                    scrollTilSuggestion(currentActiveSuggestionIndex);
                     break;
 
                 default:
@@ -103,11 +103,15 @@ const Typeahead = ({
         }
     };
 
-    const scrollTilSuggestion = (suggestionValue: string) => {
-        const suggestionId = hentSuggestionId(id, suggestionValue);
+    const scrollTilSuggestion = (suggestionIndex: number) => {
+        const suggestionId = hentSuggestionId(id, suggestionIndex);
         const suggestionElement = document.getElementById(suggestionId);
 
-        suggestionElement?.scrollIntoView();
+        if (suggestionElement) {
+            if (!elementErSynlig(suggestionElement)) {
+                suggestionElement.scrollIntoView({ block: 'nearest' });
+            }
+        }
     };
 
     const selectSuggestion = (suggestionValue: string) => {
@@ -208,6 +212,17 @@ const Typeahead = ({
                     })}
             </ul>
         </div>
+    );
+};
+
+const elementErSynlig = (element: HTMLElement) => {
+    const rect = element.getBoundingClientRect();
+
+    const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+    const windowWidth = window.innerWidth || document.documentElement.clientWidth;
+
+    return (
+        rect.top >= 0 && rect.left >= 0 && rect.bottom <= windowHeight && rect.right <= windowWidth
     );
 };
 
