@@ -64,12 +64,14 @@ const Typeahead = ({
             switch (event.key) {
                 case 'Enter': {
                     event.preventDefault();
+                    const hasSelectedSuggestion = currentActiveSuggestionIndex > -1;
 
-                    const currentSuggestion = suggestions[activeSuggestionIndex]
-                        ? suggestions[activeSuggestionIndex]
-                        : { value, label: '' };
+                    if (hasSelectedSuggestion) {
+                        selectSuggestion(suggestions[activeSuggestionIndex]);
+                    } else if (suggestions.length === 1) {
+                        selectSuggestion(suggestions[0]);
+                    }
 
-                    selectSuggestion(currentSuggestion);
                     break;
                 }
 
@@ -78,6 +80,7 @@ const Typeahead = ({
                         event.preventDefault();
                         setShouldShowSuggestions(false);
                     }
+
                     break;
 
                 case 'ArrowUp':
@@ -89,6 +92,7 @@ const Typeahead = ({
 
                     setActiveSuggestionIndex(currentActiveSuggestionIndex);
                     scrollTilSuggestion(currentActiveSuggestionIndex);
+
                     break;
 
                 case 'ArrowDown':
@@ -100,6 +104,7 @@ const Typeahead = ({
 
                     setActiveSuggestionIndex(currentActiveSuggestionIndex);
                     scrollTilSuggestion(currentActiveSuggestionIndex);
+
                     break;
 
                 default:

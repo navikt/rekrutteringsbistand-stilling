@@ -102,7 +102,7 @@ const VelgArbeidsgiver: FunctionComponent<Props> = ({
                 Arbeidsgivers navn eller virksomhetsnummer
             </Label>
             <BodyShort spacing size="small" id="velg-arbeidsgiver-beskrivelse">
-                Informasjonen hentes fra enhetsregisteret
+                Søk etter virksomheten fra enhetsregisteret
             </BodyShort>
             <Typeahead
                 value={input}

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Typeahead from '../../../common/typeahead/Typeahead';
+import Typeahead from '../../../common/typeahead/Typeahead.tsx';
 import Tag from '../../../common/tag/Tag';
 import { FETCH_LOCATION_AREA_BEGIN, SET_LOCATION_AREA_TYPEAHEAD } from './locationAreaReducer';
 import {
@@ -15,21 +15,24 @@ import capitalizeLocation from './capitalizeLocation';
 import './Location.less';
 import Skjemalabel from '../skjemaetikett/Skjemalabel';
 import { Feilmelding } from 'nav-frontend-typografi';
+import { BodyShort, Detail } from '@navikt/ds-react';
 
 class LocationArea extends React.Component {
     componentDidMount() {
         this.props.fetchLocationArea();
     }
 
-    onLocationAreaSelect = (value) => {
+    onLocationAreaSelect = (suggestion) => {
         const { municipalsCounties, countries, addLocationArea, validateLocationArea } = this.props;
 
-        const country = countries.find((c) => c.name.toLowerCase() === value.label.toLowerCase());
+        const country = countries.find(
+            (c) => c.name.toLowerCase() === suggestion.name.toLowerCase()
+        );
         const county = municipalsCounties.find(
-            (c) => !c.countyCode && c.name.toLowerCase() === value.label.toLowerCase()
+            (c) => !c.countyCode && c.name.toLowerCase() === suggestion.name.toLowerCase()
         );
         const municipal = municipalsCounties.find(
-            (m) => m.countyCode && m.name.toLowerCase() === value.label.toLowerCase()
+            (m) => m.countyCode && m.name.toLowerCase() === suggestion.name.toLowerCase()
         );
 
         if (municipal) {
@@ -86,6 +89,30 @@ class LocationArea extends React.Component {
         const { municipalsCounties, countries, typeaheadValue, validation, locationList } =
             this.props;
 
+        const municipalsCountiesSuggestions = municipalsCounties.map((suggestion) => ({
+            value: suggestion.code,
+            name: suggestion.name,
+            label: (
+                <>
+                    <BodyShort>{capitalizeLocation(suggestion.name)}</BodyShort>
+                    <Detail>Fylke/kommune</Detail>
+                </>
+            ),
+        }));
+
+        const countrySuggestions = countries.map((country) => ({
+            value: country.code,
+            name: country.name,
+            label: (
+                <>
+                    <BodyShort>{capitalizeLocation(country.name)}</BodyShort>
+                    <Detail>Land</Detail>
+                </>
+            ),
+        }));
+
+        const allSuggestions = municipalsCountiesSuggestions.concat(countrySuggestions);
+
         return (
             <div className="LocationArea__typeahead">
                 <Skjemalabel id="endre-stilling-kommune">
@@ -95,15 +122,7 @@ class LocationArea extends React.Component {
                     onChange={this.onLocationAreaChange}
                     onSelect={this.onLocationAreaSelect}
                     onBlur={this.onBlur}
-                    suggestionsLabel="Kommune eller fylke"
-                    suggestions={municipalsCounties.map((mc) => ({
-                        value: mc.code,
-                        label: capitalizeLocation(mc.name),
-                    }))}
-                    optionalSuggestions={countries.map((c) => ({
-                        value: c.code,
-                        label: capitalizeLocation(c.name),
-                    }))}
+                    suggestions={allSuggestions}
                     value={typeaheadValue}
                     minLength={1}
                     error={!!validation.locationArea}
