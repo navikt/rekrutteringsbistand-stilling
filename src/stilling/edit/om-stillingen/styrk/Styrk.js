@@ -1,15 +1,15 @@
-import { Feilmelding, Normaltekst, Undertekst } from 'nav-frontend-typografi';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import LinkButton from '../../../../common/linkbutton/LinkButton';
-import Typeahead from '../../../../common/typeahead/Typeahead';
-import { SET_STYRK } from '../../../adDataReducer';
-import './Styrk.less';
-import StyrkModal from './StyrkModal';
+import { BodyShort, Detail, ErrorMessage, Button } from '@navikt/ds-react';
+
 import { FETCH_STYRK, SET_STYRK_TYPEAHEAD_VALUE, TOGGLE_STYRK_MODAL } from './styrkReducer';
 import { SET_EMPLOYMENT_JOBTITLE } from '../../../adDataReducer';
+import { SET_STYRK } from '../../../adDataReducer';
 import Skjemalabel from '../../skjemaetikett/Skjemalabel';
+import StyrkModal from './StyrkModal';
+import Typeahead from '../../../../common/typeahead/Typeahead';
+import css from './Styrk.module.css';
 
 class Styrk extends React.Component {
     componentDidMount() {
@@ -42,19 +42,6 @@ class Styrk extends React.Component {
         this.props.toggleList();
     };
 
-    renderLabel = (styrk) => (
-        <div className="Styrk__typeahead__item">
-            <Normaltekst>
-                {styrk.code}: {styrk.name}
-            </Normaltekst>
-            {styrk.alternativeNames && styrk.alternativeNames.length > 0 && (
-                <Undertekst className="Styrk__typeahead__item__alternativeNames">
-                    {styrk.alternativeNames.join(', ')}
-                </Undertekst>
-            )}
-        </div>
-    );
-
     render() {
         let value;
         let kategoriSTYRK08NAV = this.props.stilling?.categoryList?.find(
@@ -75,15 +62,35 @@ class Styrk extends React.Component {
             value = '';
         }
 
+        const styrkForslag = this.props.typeAheadSuggestions.map((styrk) => ({
+            value: styrk.code,
+            label: (
+                <div className={css.typeaheadValg}>
+                    <BodyShort>
+                        {styrk.code}: {styrk.name}
+                    </BodyShort>
+                    {styrk.alternativeNames && styrk.alternativeNames.length > 0 && (
+                        <Detail>{styrk.alternativeNames.join(', ')}</Detail>
+                    )}
+                </div>
+            ),
+            name: styrk.name,
+        }));
+
         return (
-            <div className="Styrk">
+            <div>
                 <Skjemalabel
                     påkrevd
                     inputId="endre-stilling-styrk"
                     etterLabel={
-                        <LinkButton className="Styrk__velg-styrk" onClick={this.onShowListClick}>
+                        <Button
+                            size="xsmall"
+                            variant="tertiary"
+                            className={css.velgFraListeKnapp}
+                            onClick={this.onShowListClick}
+                        >
                             Velg fra liste
-                        </LinkButton>
+                        </Button>
                     }
                 >
                     Skriv inn STYRK
@@ -93,17 +100,13 @@ class Styrk extends React.Component {
                     onSelect={this.onTypeAheadSuggestionSelected}
                     onChange={this.onTypeAheadValueChange}
                     onBlur={this.onTypeAheadBlur}
-                    suggestions={this.props.typeAheadSuggestions.map((styrk) => ({
-                        value: styrk.code,
-                        label: this.renderLabel(styrk),
-                        name: styrk.name,
-                    }))}
+                    suggestions={styrkForslag}
                     error={this.props.validation.styrk !== undefined}
+                    className={css.typeahead}
                     aria-labelledby="endre-stilling-styrk"
-                    className="Styrk__typeahead"
                 />
                 {this.props.validation.styrk && (
-                    <Feilmelding>{this.props.validation.styrk}</Feilmelding>
+                    <ErrorMessage>{this.props.validation.styrk}</ErrorMessage>
                 )}
                 {this.props.showStyrkModal && <StyrkModal />}
             </div>

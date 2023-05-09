@@ -1,13 +1,12 @@
-import { Flatknapp } from 'nav-frontend-knapper';
-import { Input } from 'nav-frontend-skjema';
-import { Undertittel } from 'nav-frontend-typografi';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
+import { Button, Heading, TextField } from '@navikt/ds-react';
+
 import { RESET_STYRK_THREE, SET_STRYK_SEARCH_STRING, TOGGLE_STYRK_MODAL } from './styrkReducer';
 import StyrkThree from './StyrkThree';
-import './StyrkModal.less';
 import Modal from '../../../../common/modal/Modal';
+import css from './StyrkModal.module.css';
 
 class StyrkModal extends React.Component {
     onInputChange = (e) => {
@@ -22,26 +21,29 @@ class StyrkModal extends React.Component {
         return (
             <Modal
                 open
-                className="StyrkModal"
+                className={css.modal}
                 onClose={this.props.toggleList}
                 aria-label="Søk etter STYRK"
             >
-                <div className="StyrkModal__header">
-                    <Undertittel className="StyrkModal__header__title">Velg STYRK</Undertittel>
-                    <div className="StyrkModal__header__flex">
-                        <Input
-                            className="StyrkModal__header__search"
+                <div className={css.header}>
+                    <Heading spacing level="2" size="medium" className={css.headerTitle}>
+                        Velg STYRK
+                    </Heading>
+                    <div className={css.headerFlex}>
+                        <TextField
+                            hideLabel
+                            className={css.headerSearch}
                             placeholder="Søk (to eller flere tegn)"
-                            label=""
+                            label="Søk etter STYRK"
                             value={this.props.styrkSearchString}
                             onChange={this.onInputChange}
                         />
-                        <Flatknapp mini onClick={this.onResetStyrkThree}>
+                        <Button variant="tertiary" onClick={this.onResetStyrkThree}>
                             Nullstill
-                        </Flatknapp>
+                        </Button>
                     </div>
                 </div>
-                <div className="StyrkModal__body">
+                <div className={css.body}>
                     <StyrkThree />
                 </div>
             </Modal>

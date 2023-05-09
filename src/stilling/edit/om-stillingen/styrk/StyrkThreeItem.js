@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Chevron from 'nav-frontend-chevron';
+import css from './StyrkThree.module.css';
+import { ChevronDownIcon, ChevronRightIcon } from '@navikt/aksel-icons';
+import { Button, Detail } from '@navikt/ds-react';
 
 export default class StyrkThreeItem extends React.Component {
     onClick = (e) => {
@@ -11,37 +13,41 @@ export default class StyrkThreeItem extends React.Component {
 
     render() {
         const { item } = this.props;
+
         if (!item.visible) {
             return null;
         }
+
         return (
-            <div className="StyrkThreeItem typo-normal">
+            <div className={css.item}>
                 {item.children ? (
-                    <button
+                    <Button
+                        size="small"
+                        variant="tertiary"
                         onClick={this.onClick}
-                        className={classNames(
-                            'StyrkThreeItem__branch',
-                            `StyrkThreeItem__branch--level${item.level}`,
-                            {
-                                'StyrkThreeItem__branch--expanded': item.expanded,
-                            }
-                        )}
+                        className={classNames(css.branch)}
+                        icon={
+                            item.expanded ? (
+                                <ChevronDownIcon className={css.branchChevron} />
+                            ) : (
+                                <ChevronRightIcon className={css.branchChevron} />
+                            )
+                        }
                     >
-                        <Chevron
-                            className="StyrkThreeItem__branch__chevron"
-                            type={item.expanded ? 'ned' : 'høyre'}
-                        />
                         {item.code}: {item.name}
-                    </button>
+                    </Button>
                 ) : (
-                    <button onClick={this.onClick} className="StyrkThreeItem__sibling">
+                    <Button
+                        size="small"
+                        variant="tertiary"
+                        onClick={this.onClick}
+                        className={css.leaf}
+                    >
                         {item.code}: {item.name}
-                        {item.alternativeNames && item.alternativeNames.length > 0 && (
-                            <div className="StyrkThreeItem__sibling__alternativeNames typo-undertekst">
-                                {item.alternativeNames.join(', ')}
-                            </div>
+                        {item.alternativeNames?.length > 0 && (
+                            <Detail>{item.alternativeNames.join(', ')}</Detail>
                         )}
-                    </button>
+                    </Button>
                 )}
                 {item.expanded &&
                     item.children &&
