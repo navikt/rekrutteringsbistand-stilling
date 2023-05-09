@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import css from './StyrkThree.module.css';
 import { ChevronDownIcon, ChevronRightIcon } from '@navikt/aksel-icons';
 import { Button, Detail } from '@navikt/ds-react';
+import css from './StyrkThree.module.css';
 
 export default class StyrkThreeItem extends React.Component {
     onClick = (e) => {

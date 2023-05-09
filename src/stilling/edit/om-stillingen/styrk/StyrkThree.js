@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
+
 import { SET_STYRK } from '../../../adDataReducer';
 import { COLLAPSE_STYRK_BRANCH, EXPAND_STYRK_BRANCH, TOGGLE_STYRK_MODAL } from './styrkReducer';
 import { SET_EMPLOYMENT_JOBTITLE } from '../../../adDataReducer';
