@@ -41,16 +41,18 @@ const OmStillingen = ({ stilling }: Props) => {
                 description="Kan overskrives"
                 onChange={handleYrkestittelChange}
             />
-            <Skjemalabel påkrevd inputId="endre-stilling-annonsetekst">
-                Annonsetekst
-            </Skjemalabel>
-            <RichTextEditor
-                id="endre-stilling-annonsetekst"
-                text={stilling.properties.adtext ?? ''}
-                onChange={onAdTextChange}
-                errorMessage={errors.adText}
-                ariaDescribedBy="stillingstekst"
-            />
+            <div>
+                <Skjemalabel påkrevd inputId="endre-stilling-annonsetekst">
+                    Annonsetekst
+                </Skjemalabel>
+                <RichTextEditor
+                    id="endre-stilling-annonsetekst"
+                    text={stilling.properties.adtext ?? ''}
+                    onChange={onAdTextChange}
+                    errorMessage={errors.adText}
+                    ariaDescribedBy="stillingstekst"
+                />
+            </div>
         </div>
     );
 };

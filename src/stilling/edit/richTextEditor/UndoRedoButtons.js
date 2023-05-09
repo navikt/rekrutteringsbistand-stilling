@@ -1,28 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './RichTextEditor.less';
+import css from './RichTextEditor.module.css';
+import classNames from 'classnames';
 
 const UndoRedoButtons = ({ onRedoClick, redoDisabled, onUndoClick, undoDisabled }) => (
-    <div className="RichTextEditor__controls">
+    <div className={css.controls}>
         <button
-            className={`RichTextEditor__styleButton${
-                undoDisabled ? ' RichTextEditor__disabledButton' : ''
-            }`}
+            className={classNames(css.controlButton, {
+                [css.disabledButton]: undoDisabled,
+            })}
             onClick={onUndoClick}
             disabled={undoDisabled}
             aria-label="Undo"
         >
-            <div className="icon-undo rte-icon" />
+            <div className={classNames(css.iconUndo, css.icon)} />
         </button>
         <button
-            className={`RichTextEditor__styleButton${
-                redoDisabled ? ' RichTextEditor__disabledButton' : ''
-            }`}
+            className={classNames(css.controlButton, {
+                [css.disabledButton]: redoDisabled,
+            })}
             onClick={onRedoClick}
             disabled={redoDisabled}
             aria-label="Redo"
         >
-            <div className="icon-redo rte-icon" />
+            <div className={classNames(css.iconRedo, css.icon)} />
         </button>
     </div>
 );

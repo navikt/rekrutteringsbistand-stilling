@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Select } from 'nav-frontend-skjema';
-import './RichTextEditor.less';
+import { Select } from '@navikt/ds-react';
 
 export default class HeaderStylesDropdown extends React.Component {
     onSelect = (e) => {
@@ -9,7 +8,7 @@ export default class HeaderStylesDropdown extends React.Component {
     };
 
     render() {
-        const HEADERS = [
+        const headers = [
             { label: 'Normal', style: 'unstyled' },
             { label: 'H1', style: 'header-one' },
             { label: 'H2', style: 'header-two' },
@@ -26,15 +25,15 @@ export default class HeaderStylesDropdown extends React.Component {
             .getType();
         return (
             <Select
-                label=""
-                bredde="s"
+                hideLabel
+                size="small"
+                label="Velg overskriftsnivå"
                 value={blockType}
                 onChange={this.onSelect}
-                aria-label="Velg header element"
             >
-                {HEADERS.map((type) => (
-                    <option key={type.style} value={type.style}>
-                        {type.label}
+                {headers.map(({ label, style }) => (
+                    <option key={style} value={style}>
+                        {label}
                     </option>
                 ))}
             </Select>
