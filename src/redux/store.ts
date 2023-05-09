@@ -6,7 +6,7 @@ import adValidationReducer, {
     AdValidationState,
     validationSaga,
 } from '../stilling/adValidationReducer';
-import styrkReducer, { styrkSaga } from '../stilling/edit/jobDetails/styrk/styrkReducer';
+import styrkReducer, { styrkSaga } from '../stilling/edit/om-stillingen/styrk/styrkReducer';
 import locationAreaReducer, {
     locationAreaSaga,
 } from '../stilling/edit/location/locationAreaReducer';
