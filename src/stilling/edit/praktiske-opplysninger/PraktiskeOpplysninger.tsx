@@ -115,7 +115,7 @@ class PraktiskeOpplysninger extends React.Component<Props> {
             : undefined;
 
         return (
-            <div className={css.wrapper}>
+            <>
                 <Ansettelsesform />
                 <Arbeidstidsordning />
                 <div className={css.skillelinje} />
@@ -227,7 +227,7 @@ class PraktiskeOpplysninger extends React.Component<Props> {
                         Etter avtale
                     </Checkbox>
                 </Fieldset>
-            </div>
+            </>
         );
     }
 }

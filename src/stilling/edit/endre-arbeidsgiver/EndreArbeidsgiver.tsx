@@ -14,7 +14,6 @@ import Skjemalabel from '../skjemaetikett/Skjemalabel';
 import { formaterDataFraEnhetsregisteret } from '../../../opprett-ny-stilling/VelgArbeidsgiver';
 import { BodyShort, Button, Label, TextField } from '@navikt/ds-react';
 import Stilling from '../../../Stilling';
-import css from './EndreArbeidsgiver.module.css';
 
 type Props = {
     stilling: Stilling;
@@ -66,7 +65,7 @@ const EndreArbeidsgiver = ({ stilling }: Props) => {
         facebookpage === undefined && linkedinpage === undefined && twitteraddress === undefined;
 
     return (
-        <div className={css.wrapper}>
+        <>
             {stilling.employer && (
                 <div>
                     <Label>Informasjon fra enhetsregisteret</Label>
@@ -78,7 +77,6 @@ const EndreArbeidsgiver = ({ stilling }: Props) => {
 
             <TextField
                 id="endre-stilling-navnet-bedriften-bruker"
-                className={css.blokk}
                 label={
                     <Skjemalabel
                         inputId="endre-stilling-navnet-bedriften-bruker"
@@ -162,7 +160,7 @@ const EndreArbeidsgiver = ({ stilling }: Props) => {
                     />
                 </div>
             )}
-        </div>
+        </>
     );
 };
 

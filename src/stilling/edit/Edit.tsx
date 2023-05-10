@@ -11,7 +11,7 @@ import { Nettressurs } from '../../api/Nettressurs';
 import { RESET_VALIDATION_ERROR } from '../adValidationReducer';
 import { State } from '../../redux/store';
 import Application from './application/Application';
-import ContactPerson from './contactPerson/ContactPerson';
+import Kontaktinformasjon from './kontaktinformasjon/Kontaktinformasjon';
 import EditHeader from './header/EditHeader';
 import EksternStillingAdvarsel from '../forhåndsvisning/header/EksternStillingAdvarsel';
 import EndreArbeidsgiver from './endre-arbeidsgiver/EndreArbeidsgiver';
@@ -77,7 +77,7 @@ const Edit = ({ stilling, onPreviewAdClick, resetValidation, kandidatliste }: Pr
                     <Seksjon tittel="Tittel på annonsen">
                         <EditHeader stilling={stilling} />
                     </Seksjon>
-                    <Seksjon tittel="Om bedriften">
+                    <Seksjon spacing tittel="Om bedriften">
                         <EndreArbeidsgiver stilling={stilling} />
                     </Seksjon>
                     <Seksjon
@@ -87,16 +87,16 @@ const Edit = ({ stilling, onPreviewAdClick, resetValidation, kandidatliste }: Pr
                     >
                         <RegistrerInkluderingsmuligheter />
                     </Seksjon>
-                    <Seksjon tittel="Om stillingen">
+                    <Seksjon spacing tittel="Om stillingen">
                         <OmStillingen stilling={stilling} />
                     </Seksjon>
                 </Accordion>
                 <Accordion className={classNames(css.høyre, css.accordions)}>
-                    <Seksjon tittel="Praktiske opplysninger">
+                    <Seksjon spacing tittel="Praktiske opplysninger">
                         <PraktiskeOpplysninger />
                     </Seksjon>
-                    <Seksjon tittel="Kontaktinformasjon">
-                        <ContactPerson />
+                    <Seksjon spacing tittel="Kontaktinformasjon">
+                        <Kontaktinformasjon />
                     </Seksjon>
                     <Seksjon
                         tittel="Hvordan sende søknad?"

@@ -1,18 +1,17 @@
 import React, { ChangeEvent, FunctionComponent } from 'react';
 import { connect } from 'react-redux';
-import { Input, SkjemaGruppe } from 'nav-frontend-skjema';
+import { Fieldset, TextField } from '@navikt/ds-react';
+
+import { Kontaktinfo } from '../../../Stilling';
 import { SET_CONTACT_PERSON } from '../../adDataReducer';
+import { State } from '../../../redux/store';
 import {
     VALIDATE_CONTACTPERSON_EMAIL_AND_PHONE,
     VALIDATE_CONTACTPERSON_NAME,
     VALIDATE_CONTACTPERSON_TITLE,
     ValidertFelt,
 } from '../../adValidationReducer';
-import { Element, Normaltekst } from 'nav-frontend-typografi';
-import { State } from '../../../redux/store';
 import Skjemalabel from '../skjemaetikett/Skjemalabel';
-import { Kontaktinfo } from '../../../Stilling';
-import './ContactPerson.less';
 
 type Props = {
     contactList?: Kontaktinfo[];
@@ -23,7 +22,7 @@ type Props = {
     validation: Record<ValidertFelt, string | undefined>;
 };
 
-const ContactPerson: FunctionComponent<Props> = ({
+const Kontaktinformasjon: FunctionComponent<Props> = ({
     contactList,
     setContactPerson,
     validateEmailAndPhone,
@@ -59,61 +58,46 @@ const ContactPerson: FunctionComponent<Props> = ({
 
     return (
         <>
-            <Skjemalabel påkrevd inputId="endre-stilling-navn-kontaktperson">
-                Navn på kontaktperson
-            </Skjemalabel>
-            <Input
-                id="endre-stilling-navn-kontaktperson"
-                className="blokk-xs"
+            <TextField
+                label={<Skjemalabel påkrevd>Navn på kontaktperson</Skjemalabel>}
                 value={kontaktperson?.name ?? ''}
                 onChange={onNameChange}
-                feil={validation.contactPersonName}
+                error={validation.contactPersonName}
                 onBlur={validateName}
             />
-            <Skjemalabel
-                påkrevd
-                inputId="endre-stilling-tittel-kontaktperson"
-                beskrivelse="For eksempel: leder, NAV-ansatt"
-            >
-                Tittel på kontaktperson
-            </Skjemalabel>
-            <Input
-                className="blokk-xs"
-                id="endre-stilling-tittel-kontaktperson"
-                aria-describedby="endre-stilling-tittel-kontaktperson-beskrivelse"
+
+            <TextField
+                label={
+                    <Skjemalabel påkrevd beskrivelse="For eksempel: leder, NAV-ansatt">
+                        Tittel på kontaktperson
+                    </Skjemalabel>
+                }
                 value={kontaktperson?.title ?? ''}
                 onChange={onTitleChange}
-                feil={validation.contactPersonTitle}
+                error={validation.contactPersonTitle}
                 onBlur={validateTitle}
             />
-            <SkjemaGruppe
-                legend={
-                    <h3 className="contact-person__epost-og-telefon-overskrift">
-                        <Element tag="div">E-postadresse og/eller telefonnummer</Element>
-                        <Normaltekst tag="div">(minst én må fylles ut)</Normaltekst>
-                    </h3>
-                }
-                feil={validation.contactPersonEmailOrPhone}
+            <Fieldset
+                legend={<Skjemalabel påkrevd>E-postadresse og/eller telefonnummer</Skjemalabel>}
+                error={validation.contactPersonEmailOrPhone}
             >
-                <Input
-                    className="blokk-xs"
+                <TextField
                     type="email"
                     label="E-postadresse"
                     value={kontaktperson?.email ?? ''}
                     onChange={onEmailChange}
                     onBlur={validateEmailAndPhone}
-                    feil={validation.contactPersonEmail}
+                    error={validation.contactPersonEmail}
                 />
-                <Input
-                    className="blokk-xs"
+                <TextField
                     type="tel"
                     label="Telefonnummer"
                     value={kontaktperson?.phone ?? ''}
                     onBlur={validateEmailAndPhone}
-                    feil={validation.contactPersonPhone}
+                    error={validation.contactPersonPhone}
                     onChange={onPhoneChange}
                 />
-            </SkjemaGruppe>
+            </Fieldset>
         </>
     );
 };
@@ -130,4 +114,4 @@ const mapDispatchToProps = (dispatch: (action: any) => void) => ({
     validateName: () => dispatch({ type: VALIDATE_CONTACTPERSON_NAME }),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ContactPerson);
+export default connect(mapStateToProps, mapDispatchToProps)(Kontaktinformasjon);
