@@ -10,7 +10,7 @@ import { Kandidatliste } from '../legg-til-kandidat-modal/kandidatlistetyper';
 import { Nettressurs } from '../../api/Nettressurs';
 import { RESET_VALIDATION_ERROR } from '../adValidationReducer';
 import { State } from '../../redux/store';
-import Application from './application/Application';
+import HvordanSendeSøknad from './hvordan-sende-søknad/HvordanSendeSøknad';
 import Kontaktinformasjon from './kontaktinformasjon/Kontaktinformasjon';
 import EditHeader from './header/EditHeader';
 import EksternStillingAdvarsel from '../forhåndsvisning/header/EksternStillingAdvarsel';
@@ -102,7 +102,7 @@ const Edit = ({ stilling, onPreviewAdClick, resetValidation, kandidatliste }: Pr
                         tittel="Hvordan sende søknad?"
                         beskrivelse="Gjelder kun eksternt utlyste stillinger"
                     >
-                        <Application />
+                        <HvordanSendeSøknad />
                     </Seksjon>
                     <Seksjon påkrevd tittel="Arbeidssted">
                         <Location />
