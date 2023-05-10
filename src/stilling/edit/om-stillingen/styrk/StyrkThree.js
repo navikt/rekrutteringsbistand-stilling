@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
+
 import { SET_STYRK } from '../../../adDataReducer';
 import { COLLAPSE_STYRK_BRANCH, EXPAND_STYRK_BRANCH, TOGGLE_STYRK_MODAL } from './styrkReducer';
 import { SET_EMPLOYMENT_JOBTITLE } from '../../../adDataReducer';
-import './StyrkThree.less';
 import StyrkThreeItem from './StyrkThreeItem';
+import css from './StyrkThree.module.css';
 
 class StyrkThree extends React.Component {
     onClick = (item) => {
@@ -24,7 +25,7 @@ class StyrkThree extends React.Component {
 
     render() {
         return (
-            <div className="StyrkThree">
+            <div className={css.tree}>
                 {this.props.styrkThree.map((item) => (
                     <StyrkThreeItem key={item.id} item={item} onClick={this.onClick} />
                 ))}

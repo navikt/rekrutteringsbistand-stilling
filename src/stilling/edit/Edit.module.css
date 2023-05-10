@@ -19,6 +19,10 @@
     background-color: white;
 }
 
+.accordions :global(.navds-accordion__content) {
+    padding: 1rem;
+}
+
 @media (min-width: 1401px) {
     .edit {
         grid-template-columns: 1fr 400px;

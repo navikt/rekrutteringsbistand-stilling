@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { ErrorMessage, Link as NavLink } from '@navikt/ds-react';
+import classNames from 'classnames';
 import {
     Editor,
     EditorState,
@@ -11,13 +13,13 @@ import {
 } from 'draft-js';
 import 'draft-js/dist/Draft.css';
 import { convertToHTML } from 'draft-convert';
+
 import BlockStyleControls from './BlockStyleControls';
 import LinkControl from './LinkControl';
 import InlineStyleControls from './InlineStyleControls';
 import HeaderStylesDropdown from './HeaderStylesDropdown';
 import UndoRedoButtons from './UndoRedoButtons';
-import './RichTextEditor.less';
-import { ErrorMessage } from '@navikt/ds-react';
+import css from './RichTextEditor.module.css';
 
 export const checkIfEmptyInput = (value) => {
     const emptySpaceOrNotWordRegex = /^(\s|\W)+$/g;
@@ -39,23 +41,9 @@ const findLinkEntities = (contentBlock, callback, contentState) => {
     }, callback);
 };
 
-const styles = {
-    link: {
-        color: '#0067C5',
-        background: 'none',
-        textDecoration: 'none',
-        borderBottom: 'solid 1px #B7B1A9',
-        cursor: 'pointer',
-    },
-};
-
 const Link = (props) => {
     const { url } = props.contentState.getEntity(props.entityKey).getData();
-    return (
-        <a href={url} style={styles.link}>
-            {props.children}
-        </a>
-    );
+    return <NavLink href={url}>{props.children}</NavLink>;
 };
 
 const blockStyleFunction = (contentBlock) => {
@@ -109,15 +97,15 @@ export default class RichTextEditor extends React.Component {
                 entityToHTML: (entity, originalText) => {
                     if (entity.type === 'LINK') {
                         const { url } = entity.data;
+
                         return (
-                            <a
-                                href={url != null && url.startsWith('http') ? url : 'http://' + url}
+                            <NavLink
                                 target="_blank"
+                                href={url != null && url.startsWith('http') ? url : 'http://' + url}
                                 rel="noopener noreferrer"
-                                className="lenke"
                             >
                                 {originalText}
-                            </a>
+                            </NavLink>
                         );
                     }
                     return originalText;
@@ -210,8 +198,8 @@ export default class RichTextEditor extends React.Component {
 
     render() {
         return (
-            <div className="RichTextEditor__rte">
-                <div className="RichTextEditor__styleButtons">
+            <div className={css.wrapper}>
+                <div className={css.controlGroup}>
                     <HeaderStylesDropdown
                         editorState={this.state.editorState}
                         onToggle={this.onToggleBlockType}
@@ -236,11 +224,7 @@ export default class RichTextEditor extends React.Component {
                         undoDisabled={this.state.undoDisabled}
                     />
                 </div>
-                <div
-                    className={`RichTextEditor__editor ${
-                        this.props.errorMessage ? 'blokk-xxs skjemaelement__input--harFeil' : ''
-                    }`}
-                >
+                <div className={classNames(css.editor, { [css.harFeil]: this.props.errorMessage })}>
                     <Editor
                         editorState={this.state.editorState}
                         handleKeyCommand={this.handleKeyCommand}

@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import StyleButton from './StyleButton';
-import './RichTextEditor.less';
+import css from './RichTextEditor.module.css';
 
 const InlineStyleControls = ({ editorState, onToggle }) => {
     const INLINE_STYLES = [
-        { label: 'icon-bold', style: 'BOLD' },
-        { label: 'icon-italic', style: 'ITALIC' },
-        { label: 'icon-underline', style: 'UNDERLINE' },
-        { label: 'icon-code', style: 'CODE' },
+        { label: css.iconBold, style: 'BOLD' },
+        { label: css.iconItalic, style: 'ITALIC' },
+        { label: css.iconUnderline, style: 'UNDERLINE' },
+        { label: css.iconCode, style: 'CODE' },
     ];
     const currentStyle = editorState.getCurrentInlineStyle();
     return (
-        <div className="RichTextEditor__controls">
+        <div className={css.controls}>
             {INLINE_STYLES.map((type) => (
                 <StyleButton
                     key={type.label}

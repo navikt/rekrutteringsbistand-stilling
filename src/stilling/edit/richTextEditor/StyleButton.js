@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './RichTextEditor.less';
+import classNames from 'classnames';
+import css from './RichTextEditor.module.css';
 
 export default class StyleButton extends React.Component {
     onToggle = (e) => {
@@ -9,13 +10,15 @@ export default class StyleButton extends React.Component {
     };
 
     render() {
-        let className =
-            'RichTextEditor__styleButton' +
-            (this.props.active ? ' RichTextEditor__activeButton' : '');
-
         return (
-            <button className={className} onMouseDown={this.onToggle} aria-label={this.props.style}>
-                <div className={this.props.label + ' rte-icon'} />
+            <button
+                className={classNames(css.controlButton, {
+                    [css.activeButton]: this.props.active,
+                })}
+                onMouseDown={this.onToggle}
+                aria-label={this.props.style}
+            >
+                <div className={classNames(this.props.label, css.icon)} />
             </button>
         );
     }

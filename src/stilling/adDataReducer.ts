@@ -1,5 +1,5 @@
 import { put, take, takeLatest, select } from 'redux-saga/effects';
-import { lookUpStyrk } from './edit/jobDetails/styrk/styrkReducer';
+import { lookUpStyrk } from './edit/om-stillingen/styrk/styrkReducer';
 import {
     CREATE_AD_BEGIN,
     FETCH_AD_BEGIN,

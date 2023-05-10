@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import StyleButton from './StyleButton';
-import './RichTextEditor.less';
+import css from './RichTextEditor.module.css';
 
 const LinkControl = ({ editorState, harLinkForSelection, onToggle }) => {
-    const linktype = { label: 'icon-link', style: 'LINK' };
+    const linktype = { label: css.iconLink, style: 'LINK' };
 
     return (
-        <div className="RichTextEditor__controls">
+        <div className={css.controls}>
             <StyleButton
                 key={linktype.label}
                 active={harLinkForSelection(editorState)}

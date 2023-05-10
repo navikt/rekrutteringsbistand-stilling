@@ -1,5 +1,6 @@
 import { BodyShort, Label } from '@navikt/ds-react';
 import React, { FunctionComponent, ReactNode } from 'react';
+import css from './Skjemalabel.module.css';
 
 type Props = {
     påkrevd?: boolean;
@@ -17,7 +18,7 @@ const Skjemalabel: FunctionComponent<Props> = ({
     etterLabel,
 }) => {
     return (
-        <div className="blokk-xxs">
+        <div className={css.wrapper}>
             <label htmlFor={inputId}>
                 <Label size="small" as="span">
                     {children}
