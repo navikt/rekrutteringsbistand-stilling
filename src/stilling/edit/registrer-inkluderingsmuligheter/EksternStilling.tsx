@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import isJson from '../practicalInformation/IsJson';
+import isJson from '../praktiske-opplysninger/IsJson';
 import { CHECK_TAG, UNCHECK_TAG } from '../../adDataReducer';
 import { InkluderingsmulighetForEksternStilling } from '../../tags/hierarkiAvTags';
 import Inkluderingsmulighet from './Inkluderingsmulighet';

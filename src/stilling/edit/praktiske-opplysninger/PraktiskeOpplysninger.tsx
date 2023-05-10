@@ -14,16 +14,16 @@ import {
     SET_APPLICATIONDUE,
     SET_EMPLOYMENT_STARTTIME,
 } from '../../adDataReducer';
-import EngagementType from '../engagementType/EngagementType.js';
-import JobArrangement from '../jobArrangement/JobArrangement.js';
+import { Omfang } from '../../../Stilling';
+import { State } from '../../../redux/store';
+import { ValidertFelt } from '../../adValidationReducer';
+import Ansettelsesform from '../ansettelsesform/Ansettelsesform';
+import Datovelger from './Datovelger';
 import IsJson from './IsJson.js';
+import JobArrangement from '../jobArrangement/JobArrangement.js';
 import Skjemalabel from '../skjemaetikett/Skjemalabel';
 import Skjemalegend from '../skjemaetikett/Skjemalegend';
-import { State } from '../../../redux/store';
 import Stilling from '../../../Stilling';
-import { Omfang } from '../../../Stilling';
-import { ValidertFelt } from '../../adValidationReducer';
-import Datovelger from './Datovelger';
 import css from './PracticalInformation.module.css';
 
 type Props = {
@@ -42,7 +42,7 @@ type Props = {
     validation: Record<ValidertFelt, string | undefined>;
 };
 
-class PracticalInformation extends React.Component<Props> {
+class PraktiskeOpplysninger extends React.Component<Props> {
     handleWorkdayChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { value } = event.target;
 
@@ -116,7 +116,7 @@ class PracticalInformation extends React.Component<Props> {
 
         return (
             <div className={css.wrapper}>
-                <EngagementType />
+                <Ansettelsesform />
                 <JobArrangement />
                 <div className={css.skillelinje} />
                 <RadioGroup
@@ -252,4 +252,4 @@ const mapDispatchToProps = (dispatch: (action: any) => void) => ({
     setStartTime: (starttime) => dispatch({ type: SET_EMPLOYMENT_STARTTIME, starttime }),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(PracticalInformation);
+export default connect(mapStateToProps, mapDispatchToProps)(PraktiskeOpplysninger);

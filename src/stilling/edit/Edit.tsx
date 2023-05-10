@@ -17,7 +17,7 @@ import EksternStillingAdvarsel from '../forhåndsvisning/header/EksternStillingA
 import EndreArbeidsgiver from './endre-arbeidsgiver/EndreArbeidsgiver';
 import OmStillingen from './om-stillingen/OmStillingen';
 import Location from './location/Location';
-import PracticalInformation from './practicalInformation/PracticalInformation';
+import PraktiskeOpplysninger from './praktiske-opplysninger/PraktiskeOpplysninger';
 import RegistrerInkluderingsmuligheter from './registrer-inkluderingsmuligheter/DirektemeldtStilling';
 import Stilling, { System } from '../../Stilling';
 import Stillingsheader from '../header/Stillingsheader';
@@ -93,7 +93,7 @@ const Edit = ({ stilling, onPreviewAdClick, resetValidation, kandidatliste }: Pr
                 </Accordion>
                 <Accordion className={classNames(css.høyre, css.accordions)}>
                     <Seksjon tittel="Praktiske opplysninger">
-                        <PracticalInformation />
+                        <PraktiskeOpplysninger />
                     </Seksjon>
                     <Seksjon tittel="Kontaktinformasjon">
                         <ContactPerson />

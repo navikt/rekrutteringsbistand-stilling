@@ -152,11 +152,11 @@ export enum Ansettelsesform {
     Vikariat = 'Vikariat',
     Engasjement = 'Engasjement',
     Prosjekt = 'Prosjekt',
+    Åremål = 'Åremål',
     Sesong = 'Sesong',
     Feriejobb = 'Feriejobb',
     Trainee = 'Trainee',
     Lærling = 'Lærling',
-    Åremål = 'Åremål',
     Selvstendig = 'Selvstendig næringsdrivende',
     Annet = 'Annet',
 }
