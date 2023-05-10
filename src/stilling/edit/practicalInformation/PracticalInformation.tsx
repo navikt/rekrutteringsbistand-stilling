@@ -1,14 +1,8 @@
-import React from 'react';
-import classnames from 'classnames';
+import React, { ChangeEvent } from 'react';
 import { connect } from 'react-redux';
-import { Datepicker } from 'nav-datovelger';
-import { Radio, RadioGroup } from '@navikt/ds-react';
+import { Checkbox, CheckboxGroup, Fieldset, Radio, RadioGroup, TextField } from '@navikt/ds-react';
 
-import {
-    fjernTidspunktFraISOString,
-    isValidISOString,
-    leggTilTimerPåISOString,
-} from '../../../utils/datoUtils';
+import { leggTilTimerPåISOString } from '../../../utils/datoUtils';
 import {
     SET_EMPLOYMENT_EXTENT,
     CHECK_EMPLOYMENT_WORKDAY,
@@ -25,12 +19,12 @@ import JobArrangement from '../jobArrangement/JobArrangement.js';
 import IsJson from './IsJson.js';
 import Skjemalabel from '../skjemaetikett/Skjemalabel';
 import Skjemalegend from '../skjemaetikett/Skjemalegend';
-import css from './PracticalInformation.module.css';
-import { Checkbox, Input, SkjemaGruppe } from 'nav-frontend-skjema';
 import { State } from '../../../redux/store';
 import Stilling from '../../../Stilling';
 import { Omfang } from '../../../Stilling';
 import { ValidertFelt } from '../../adValidationReducer';
+import Datovelger from './Datovelger';
+import css from './PracticalInformation.module.css';
 
 type Props = {
     ad: Stilling;
@@ -49,9 +43,10 @@ type Props = {
 };
 
 class PracticalInformation extends React.Component<Props> {
-    onWorkdayChange = (e) => {
-        const { value } = e.target;
-        if (e.target.checked) {
+    handleWorkdayChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const { value } = event.target;
+
+        if (event.target.checked) {
             this.props.checkWorkday(value);
         } else {
             this.props.uncheckWorkday(value);
@@ -71,40 +66,34 @@ class PracticalInformation extends React.Component<Props> {
         this.props.setSector(e.target.value);
     };
 
-    onPositioncountChange = (e) => {
-        this.props.setPositionCount(e.target.value);
+    onPositioncountChange = (event: ChangeEvent<HTMLInputElement>) => {
+        this.props.setPositionCount(parseInt(event.target.value));
     };
 
-    onApplicationDueChange = (date) => {
-        if (isValidISOString(date)) {
-            this.props.setApplicationDue(leggTilTimerPåISOString(date, 12));
-        } else {
-            this.props.setApplicationDue(date);
+    onApplicationDueChange = (date?: Date) => {
+        if (date) {
+            this.props.setApplicationDue(leggTilTimerPåISOString(date.toISOString(), 12));
         }
     };
 
-    onSnarestChange = (e) => {
-        const { value } = e.target;
-        if (e.target.checked) {
+    onSnarestChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const { value } = event.target;
+        if (event.target.checked) {
             this.props.setApplicationDue(value);
         } else {
             this.props.setApplicationDue('');
         }
     };
 
-    onStarttimeChange = (date) => {
-        if (isValidISOString(date)) {
-            this.props.setStartTime(leggTilTimerPåISOString(date, 12));
-        } else if (date.length === 0) {
-            this.props.setStartTime(undefined);
-        } else {
-            this.props.setStartTime(date);
+    onStarttimeChange = (date?: Date) => {
+        if (date) {
+            this.props.setApplicationDue(leggTilTimerPåISOString(date.toISOString(), 12));
         }
     };
 
-    onEtterAvtaleChange = (e) => {
-        const { value } = e.target;
-        if (e.target.checked) {
+    onEtterAvtaleChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const { value } = event.target;
+        if (event.target.checked) {
             this.props.setStartTime(value);
         } else {
             this.props.setStartTime(undefined);
@@ -114,8 +103,19 @@ class PracticalInformation extends React.Component<Props> {
     render() {
         const { ad, workday, workhours } = this.props;
 
+        const workdayAsArray: string[] | undefined = workday
+            ? IsJson(workday)
+                ? JSON.parse(workday)
+                : []
+            : undefined;
+        const workhoursAsArray: string[] | undefined = workhours
+            ? IsJson(workhours)
+                ? JSON.parse(workhours)
+                : []
+            : undefined;
+
         return (
-            <>
+            <div className={css.wrapper}>
                 <EngagementType />
                 <JobArrangement />
                 <div className={css.skillelinje} />
@@ -131,93 +131,38 @@ class PracticalInformation extends React.Component<Props> {
                     <Radio value="Deltid">Deltid</Radio>
                 </RadioGroup>
 
-                <SkjemaGruppe feil={this.props.validation.workday}>
-                    <Skjemalegend påkrevd>Arbeidsdager</Skjemalegend>
-                    <Checkbox
-                        className={css.inline}
-                        label="Ukedager"
-                        value="Ukedager"
-                        checked={
-                            workday
-                                ? IsJson(workday)
-                                    ? JSON.parse(workday).includes('Ukedager')
-                                    : false
-                                : false
-                        }
-                        onChange={this.onWorkdayChange}
-                    />
-                    <Checkbox
-                        className={css.inline}
-                        label="Lørdag"
-                        value="Lørdag"
-                        checked={
-                            workday
-                                ? IsJson(workday)
-                                    ? JSON.parse(workday).includes('Lørdag')
-                                    : false
-                                : false
-                        }
-                        onChange={this.onWorkdayChange}
-                    />
-                    <Checkbox
-                        className={css.inline}
-                        label="Søndag"
-                        value="Søndag"
-                        checked={
-                            workday
-                                ? IsJson(workday)
-                                    ? JSON.parse(workday).includes('Søndag')
-                                    : false
-                                : false
-                        }
-                        onChange={this.onWorkdayChange}
-                    />
-                </SkjemaGruppe>
-                <SkjemaGruppe
-                    className="blokk-xs typo-normal Edit__inline-fieldset"
-                    feil={this.props.validation.workhours}
+                <CheckboxGroup
+                    legend={<Skjemalegend påkrevd>Arbeidsdager</Skjemalegend>}
+                    value={workdayAsArray}
+                    error={this.props.validation.workday}
+                    className={css.inlineFields}
                 >
-                    <Skjemalegend påkrevd>Arbeidstid</Skjemalegend>
-                    <Checkbox
-                        className={css.inline}
-                        label="Dagtid"
-                        value="Dagtid"
-                        checked={
-                            workhours
-                                ? IsJson(workhours)
-                                    ? JSON.parse(workhours).includes('Dagtid')
-                                    : false
-                                : false
-                        }
-                        onChange={this.onWorkhoursChange}
-                    />
-                    <Checkbox
-                        className={css.inline}
-                        label="Kveld"
-                        value="Kveld"
-                        checked={
-                            workhours
-                                ? IsJson(workhours)
-                                    ? JSON.parse(workhours).includes('Kveld')
-                                    : false
-                                : false
-                        }
-                        onChange={this.onWorkhoursChange}
-                    />
-                    <Checkbox
-                        className={css.inline}
-                        label="Natt"
-                        value="Natt"
-                        checked={
-                            workhours
-                                ? IsJson(workhours)
-                                    ? JSON.parse(workhours).includes('Natt')
-                                    : false
-                                : false
-                        }
-                        onChange={this.onWorkhoursChange}
-                    />
-                </SkjemaGruppe>
+                    <Checkbox onChange={this.handleWorkdayChange} value="Ukedager">
+                        Ukedager
+                    </Checkbox>
+                    <Checkbox onChange={this.handleWorkdayChange} value="Lørdag">
+                        Lørdag
+                    </Checkbox>
+                    <Checkbox onChange={this.handleWorkdayChange} value="Søndag">
+                        Søndag
+                    </Checkbox>
+                </CheckboxGroup>
+                <CheckboxGroup
+                    legend={<Skjemalegend påkrevd>Arbeidstid</Skjemalegend>}
+                    value={workhoursAsArray}
+                    error={this.props.validation.workhours}
+                    className={css.inlineFields}
+                >
+                    <Checkbox value="Dagtid" onChange={this.onWorkhoursChange}>
+                        Dagtid
+                    </Checkbox>
+                    <Checkbox value="Kveld" onChange={this.onWorkhoursChange}>
+                        Kveld
+                    </Checkbox>
+                    <Checkbox value="Natt" onChange={this.onWorkhoursChange}>
+                        Natt
+                    </Checkbox>
+                </CheckboxGroup>
                 <RadioGroup
                     name="sektor"
                     legend={<Skjemalegend påkrevd>Sektor</Skjemalegend>}
@@ -231,88 +176,58 @@ class PracticalInformation extends React.Component<Props> {
                     <Radio value="Ikke oppgitt">Ikke oppgitt</Radio>
                 </RadioGroup>
                 <div className={css.skillelinje} />
-                <Skjemalabel påkrevd inputId="endre-stilling-antall-stillinger">
-                    Antall stillinger
-                </Skjemalabel>
-                <Input
-                    id="endre-stilling-antall-stillinger"
-                    className="blokk-xs"
-                    type="number"
-                    min="1"
-                    value={ad.properties.positioncount || ''}
-                    onChange={this.onPositioncountChange}
-                    feil={this.props.validation.positioncount}
-                />
-                <SkjemaGruppe
-                    className={classnames('typo-normal', 'Edit__inline-fieldset', {
-                        'blokk-xs': this.props.validation.applicationdue,
-                    })}
-                    feil={this.props.validation.applicationdue}
+                <div>
+                    <TextField
+                        label={<Skjemalabel påkrevd>Antall stillinger</Skjemalabel>}
+                        value={ad.properties.positioncount}
+                        onChange={this.onPositioncountChange}
+                        error={this.props.validation.positioncount}
+                        type="number"
+                        min="1"
+                    />
+                </div>
+                <Fieldset
+                    className={css.datepickerOgCheckbox}
+                    legend={<Skjemalabel påkrevd>Søknadsfrist</Skjemalabel>}
+                    error={this.props.validation.applicationdue}
                 >
-                    <Skjemalabel påkrevd inputId="endre-stilling-søknadsfrist">
-                        Søknadsfrist
-                    </Skjemalabel>
-                    <div className="PracticalInformation">
-                        <div className="PracticalInformation__datepicker">
-                            <Datepicker
-                                // id={'applicationDue' as any}
-                                inputId="applicationDue__input"
-                                inputProps={{
-                                    name: 'applicationDue',
-                                    placeholder: 'dd.mm.åååå',
-                                    'aria-label': 'Sett søknadsfrist',
-                                }}
-                                value={fjernTidspunktFraISOString(ad.properties.applicationdue)}
-                                onChange={this.onApplicationDueChange}
-                                limitations={{
-                                    minDate: fjernTidspunktFraISOString(new Date().toISOString()),
-                                }}
-                                disabled={ad.properties.applicationdue === 'Snarest'}
-                            />
-                        </div>
-                        <div className="PracticalInformation__top">
-                            <Checkbox
-                                id="chbx-snarest"
-                                onChange={this.onSnarestChange}
-                                checked={ad.properties.applicationdue === 'Snarest'}
-                                value="Snarest"
-                                label="Snarest"
-                            />
-                        </div>
-                    </div>
-                </SkjemaGruppe>
-                <SkjemaGruppe className="typo-normal" feil={this.props.validation.starttime}>
-                    <Skjemalegend>Oppstart</Skjemalegend>
-                    <div className="PracticalInformation ">
-                        <div className="PracticalInformation__datepicker">
-                            <Datepicker
-                                // id="starttime"
-                                inputId="starttime__input"
-                                inputProps={{
-                                    name: 'starttime',
-                                    placeholder: 'dd.mm.åååå',
-                                    'aria-label': 'Sett oppstart',
-                                }}
-                                value={fjernTidspunktFraISOString(ad.properties.starttime)}
-                                onChange={this.onStarttimeChange}
-                                limitations={{
-                                    minDate: fjernTidspunktFraISOString(new Date().toISOString()),
-                                }}
-                                disabled={ad.properties.starttime === 'Etter avtale'}
-                            />
-                        </div>
-                        <div className="PracticalInformation__top">
-                            <Checkbox
-                                id="chbx-etterAvtale"
-                                onChange={this.onEtterAvtaleChange}
-                                checked={ad.properties.starttime === 'Etter avtale'}
-                                value="Etter avtale"
-                                label="Etter avtale"
-                            />
-                        </div>
-                    </div>
-                </SkjemaGruppe>
-            </>
+                    <Datovelger
+                        dato={ad.properties.applicationdue}
+                        onChange={this.onApplicationDueChange}
+                        disabled={ad.properties.applicationdue === 'Snarest'}
+                        fromDate={new Date()}
+                        label="Velg søknadsfrist"
+                    />
+                    <Checkbox
+                        value="Snarest"
+                        onChange={this.onSnarestChange}
+                        checked={ad.properties.applicationdue === 'Snarest'}
+                    >
+                        Snarest
+                    </Checkbox>
+                </Fieldset>
+
+                <Fieldset
+                    legend={<Skjemalegend>Oppstart</Skjemalegend>}
+                    className={css.datepickerOgCheckbox}
+                    error={this.props.validation.starttime}
+                >
+                    <Datovelger
+                        dato={ad.properties.starttime}
+                        onChange={this.onStarttimeChange}
+                        disabled={ad.properties.starttime === 'Etter avtale'}
+                        fromDate={new Date()}
+                        label="Velg søknadsfrist"
+                    />
+                    <Checkbox
+                        value="Etter avtale"
+                        onChange={this.onEtterAvtaleChange}
+                        checked={ad.properties.starttime === 'Etter avtale'}
+                    >
+                        Etter avtale
+                    </Checkbox>
+                </Fieldset>
+            </div>
         );
     }
 }
