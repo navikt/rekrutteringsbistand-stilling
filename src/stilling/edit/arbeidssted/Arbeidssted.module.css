@@ -1,0 +1,8 @@
+.postkode ul {
+    overflow-y: auto;
+    max-height: 20rem;
+}
+
+.tags {
+    margin-top: 0.5rem;
+}

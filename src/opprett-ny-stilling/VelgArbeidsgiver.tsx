@@ -5,7 +5,7 @@ import { Arbeidsgiver, Geografi } from '../Stilling';
 import { fetchEmployerNameCompletionHits, fetchOrgnrSuggestions } from '../api/api';
 import { ikkeLastet, Nettressurs, Nettstatus } from '../api/Nettressurs';
 import capitalizeEmployerName from '../stilling/edit/endre-arbeidsgiver/capitalizeEmployerName';
-import capitalizeLocation from '../stilling/edit/location/capitalizeLocation';
+import capitalizeLocation from '../stilling/edit/arbeidssted/capitalizeLocation';
 import Typeahead, { Suggestion } from '../common/typeahead/Typeahead';
 import css from './OpprettNyStilling.module.css';
 

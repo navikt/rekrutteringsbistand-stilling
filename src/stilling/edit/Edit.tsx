@@ -16,7 +16,7 @@ import EditHeader from './header/EditHeader';
 import EksternStillingAdvarsel from '../forhåndsvisning/header/EksternStillingAdvarsel';
 import EndreArbeidsgiver from './endre-arbeidsgiver/EndreArbeidsgiver';
 import OmStillingen from './om-stillingen/OmStillingen';
-import Location from './location/Location';
+import Arbeidssted from './arbeidssted/Arbeidssted';
 import PraktiskeOpplysninger from './praktiske-opplysninger/PraktiskeOpplysninger';
 import RegistrerInkluderingsmuligheter from './registrer-inkluderingsmuligheter/DirektemeldtStilling';
 import Stilling, { System } from '../../Stilling';
@@ -104,8 +104,8 @@ const Edit = ({ stilling, onPreviewAdClick, resetValidation, kandidatliste }: Pr
                     >
                         <HvordanSendeSøknad />
                     </Seksjon>
-                    <Seksjon påkrevd tittel="Arbeidssted">
-                        <Location />
+                    <Seksjon spacing påkrevd tittel="Arbeidssted">
+                        <Arbeidssted />
                     </Seksjon>
                     <Seksjon tittel="Om annonsen">
                         <OmAnnonsen stilling={stilling} />

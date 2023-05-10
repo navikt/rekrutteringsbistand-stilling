@@ -1,19 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Typeahead from '../../../common/typeahead/Typeahead.tsx';
-import Tag from '../../../common/tag/Tag';
-import { FETCH_LOCATION_AREA_BEGIN, SET_LOCATION_AREA_TYPEAHEAD } from './locationAreaReducer';
+import Typeahead from '../../../common/typeahead/Typeahead.js';
+import Tag from '../../../common/tag/Tag.js';
+import { FETCH_LOCATION_AREA_BEGIN, SET_LOCATION_AREA_TYPEAHEAD } from './locationAreaReducer.js';
 import {
     ADD_LOCATION_AREA,
     REMOVE_COUNTRY,
     REMOVE_COUNTY,
     REMOVE_MUNICIPAL,
-} from '../../adDataReducer';
-import { VALIDATE_LOCATION_AREA } from '../../adValidationReducer';
-import capitalizeLocation from './capitalizeLocation';
+} from '../../adDataReducer.js';
+import { VALIDATE_LOCATION_AREA } from '../../adValidationReducer.js';
+import capitalizeLocation from './capitalizeLocation.js';
 import './Location.less';
-import Skjemalabel from '../skjemaetikett/Skjemalabel';
+import Skjemalabel from '../skjemaetikett/Skjemalabel.js';
 import { Feilmelding } from 'nav-frontend-typografi';
 import { BodyShort, Detail } from '@navikt/ds-react';
 

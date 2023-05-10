@@ -9,10 +9,10 @@ import adValidationReducer, {
 import styrkReducer, { styrkSaga } from '../stilling/edit/om-stillingen/styrk/styrkReducer';
 import locationAreaReducer, {
     locationAreaSaga,
-} from '../stilling/edit/location/locationAreaReducer';
+} from '../stilling/edit/arbeidssted/locationAreaReducer';
 import locationCodeReducer, {
     locationCodeSaga,
-} from '../stilling/edit/location/locationCodeReducer';
+} from '../stilling/edit/arbeidssted/locationCodeReducer';
 import varslingReducer, { varslingSaga, VarslingState } from '../common/varsling/varslingReducer';
 import mineStillingerReducer, {
     MineStillingerState,

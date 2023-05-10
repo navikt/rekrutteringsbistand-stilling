@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Input, Checkbox, CheckboxGruppe } from 'nav-frontend-skjema';
@@ -13,14 +13,40 @@ import {
 } from '../../adDataReducer';
 import capitalizeLocation from './capitalizeLocation';
 import LocationArea from './LocationArea';
-import { Feilmelding } from 'nav-frontend-typografi';
 import Skjemalabel from '../skjemaetikett/Skjemalabel';
-import './Location.less';
+import { ValidertFelt } from '../../adValidationReducer';
+import { Geografi } from '../../../Stilling';
+import css from './Arbeidssted.module.css';
+import { ErrorMessage, TextField } from '@navikt/ds-react';
+import { State } from '../../../redux/store';
 
-class Location extends React.Component {
-    constructor(props) {
+type Props = {
+    suggestions: Array<{
+        kode: string;
+        navn: string;
+    }>;
+    setPostalCodeTypeAheadValue: (value: string) => void;
+    addPostalCode: (value: string) => void;
+    validation: Record<ValidertFelt, string | undefined>;
+    addPostalCodeAddress: (value: string) => void;
+    locationList: Array<Geografi>;
+    typeAheadValue: string;
+    fetchLocations: () => void;
+    removeLocationAreas: () => void;
+    removePostalCode: () => void;
+    removePostalCodeAddress: () => void;
+};
+
+class Location extends React.Component<Props> {
+    state: {
+        postCode: boolean;
+        locationArea: boolean;
+    };
+
+    constructor(props: Props) {
         super(props);
-        const { locationList } = props;
+
+        const { locationList = [] } = props;
         this.state = {
             postCode: true,
             locationArea: this.locationListContainsArea(locationList),
@@ -31,8 +57,9 @@ class Location extends React.Component {
         this.props.fetchLocations();
     }
 
-    onAddressChange = (e) => {
-        const { value } = e.target;
+    onAddressChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const { value } = event.target;
+
         if (value === '') {
             this.props.removePostalCodeAddress();
         } else {
@@ -40,7 +67,7 @@ class Location extends React.Component {
         }
     };
 
-    onTypeAheadValueChange = (value) => {
+    onTypeAheadValueChange = (value: string) => {
         this.props.setPostalCodeTypeAheadValue(value);
         if (value === '') {
             this.props.removePostalCode();
@@ -54,13 +81,13 @@ class Location extends React.Component {
         }
     };
 
-    onBlur = (code) => {
+    onBlur = (code: string) => {
         if (code !== '') {
             this.onTypeAheadSuggestionSelected({ value: code });
         }
     };
 
-    onPostCodeChecked = (e) => {
+    onPostCodeChecked = (e: ChangeEvent<HTMLInputElement>) => {
         if (!e.target.checked) {
             this.props.removePostalCode();
             this.props.removePostalCodeAddress();
@@ -72,7 +99,7 @@ class Location extends React.Component {
         });
     };
 
-    onLocationAreaChecked = (e) => {
+    onLocationAreaChecked = (e: ChangeEvent<HTMLInputElement>) => {
         if (!e.target.checked) {
             this.props.removeLocationAreas();
         }
@@ -83,7 +110,7 @@ class Location extends React.Component {
         });
     };
 
-    locationListContainsArea = (locationList) =>
+    locationListContainsArea = (locationList: Array<Geografi>) =>
         locationList &&
         locationList.some(
             (location) =>
@@ -92,27 +119,27 @@ class Location extends React.Component {
 
     render() {
         const { suggestions, typeAheadValue, validation, locationList } = this.props;
-        const locationListHasAddress =
-            locationList && locationList.length && locationList[0] && locationList[0].address;
+        const locationListHasAddress: boolean =
+            locationList?.length > 0 && locationList[0] !== undefined && locationList[0].address;
 
         return (
             <>
                 <CheckboxGruppe>
                     <Checkbox
                         label="Adresse"
-                        checked={this.state.postCode === true}
+                        checked={this.state.postCode}
                         onChange={this.onPostCodeChecked}
                     />
                     {this.state.postCode && (
-                        <div className="blokk-m">
-                            <Input
+                        <>
+                            <TextField
                                 label="Gateadresse"
                                 value={locationListHasAddress ? locationList[0].address : ''}
                                 onChange={this.onAddressChange}
                             />
                             <div className="blokk-xs">
-                                <Skjemalabel id="endre-stilling-postnummer">Postnummer</Skjemalabel>
                                 <Typeahead
+                                    label="Postnummer"
                                     className="PostalCode__typeahead"
                                     onSelect={this.onTypeAheadSuggestionSelected}
                                     onChange={this.onTypeAheadValueChange}
@@ -141,7 +168,7 @@ class Location extends React.Component {
                                 }
                                 disabled
                             />
-                        </div>
+                        </>
                     )}
                     <Checkbox
                         label="Kommuner, fylker eller land"
@@ -149,41 +176,14 @@ class Location extends React.Component {
                         onChange={this.onLocationAreaChecked}
                     />
                     {this.state.locationArea && <LocationArea />}
-                    {validation.location && <Feilmelding>{validation.location}</Feilmelding>}
+                    {validation.location && <ErrorMessage>{validation.location}</ErrorMessage>}
                 </CheckboxGruppe>
             </>
         );
     }
 }
 
-Location.defaultProps = {
-    validation: undefined,
-    locationList: [],
-    typeAheadValue: '',
-};
-
-Location.propTypes = {
-    suggestions: PropTypes.arrayOf(
-        PropTypes.shape({
-            kode: PropTypes.string,
-            navn: PropTypes.string,
-        })
-    ).isRequired,
-    setPostalCodeTypeAheadValue: PropTypes.func.isRequired,
-    fetchLocations: PropTypes.func.isRequired,
-    addPostalCode: PropTypes.func.isRequired,
-    validation: PropTypes.shape({
-        location: PropTypes.string,
-        postalCode: PropTypes.string,
-    }),
-    addPostalCodeAddress: PropTypes.func.isRequired,
-    removePostalCode: PropTypes.func.isRequired,
-    removePostalCodeAddress: PropTypes.func.isRequired,
-    locationList: PropTypes.arrayOf(PropTypes.object),
-    typeAheadValue: PropTypes.string,
-};
-
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: State) => ({
     typeAheadValue: state.locationCode.typeAheadValue,
     suggestions: state.locationCode.suggestions,
     locationList: state.adData?.locationList,
