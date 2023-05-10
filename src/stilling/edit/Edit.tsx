@@ -25,7 +25,6 @@ import Seksjon from './seksjon/Seksjon';
 import OmAnnonsen from './om-annonsen/OmAnnonsen';
 
 import css from './Edit.module.css';
-import './Edit.less';
 
 type Props = {
     onPreviewAdClick: () => void;

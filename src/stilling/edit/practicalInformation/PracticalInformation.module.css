@@ -1,0 +1,41 @@
+.top {
+    margin-top: 0.5rem;
+}
+
+.datepicker {
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+}
+
+.inlineFields :global(.navds-radio-buttons) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 0 0 1rem;
+}
+
+.inlineFields label {
+    padding: var(--a-spacing-1) 0;
+}
+
+.inline {
+    display: inline-block;
+    margin-right: 1.5rem;
+}
+
+.skillelinje {
+    border-bottom: 1px solid #d8d8d8;
+    margin: 2rem -1rem;
+}
+
+@media (min-width: 1400px) {
+    .practicalInformation {
+        display: flex;
+    }
+}
+
+.fieldset {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
