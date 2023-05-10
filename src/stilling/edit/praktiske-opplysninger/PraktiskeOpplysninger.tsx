@@ -20,11 +20,11 @@ import { ValidertFelt } from '../../adValidationReducer';
 import Ansettelsesform from '../ansettelsesform/Ansettelsesform';
 import Datovelger from './Datovelger';
 import IsJson from './IsJson.js';
-import JobArrangement from '../jobArrangement/JobArrangement.js';
+import Arbeidstidsordning from '../arbeidstidsordning/Arbeidstidsordning';
 import Skjemalabel from '../skjemaetikett/Skjemalabel';
 import Skjemalegend from '../skjemaetikett/Skjemalegend';
 import Stilling from '../../../Stilling';
-import css from './PracticalInformation.module.css';
+import css from './PraktiskeOpplysninger.module.css';
 
 type Props = {
     ad: Stilling;
@@ -117,7 +117,7 @@ class PraktiskeOpplysninger extends React.Component<Props> {
         return (
             <div className={css.wrapper}>
                 <Ansettelsesform />
-                <JobArrangement />
+                <Arbeidstidsordning />
                 <div className={css.skillelinje} />
                 <RadioGroup
                     legend={<Skjemalegend påkrevd>Omfang</Skjemalegend>}

@@ -130,7 +130,7 @@ export type Properties = Partial<{
     applicationurl: string;
     applicationemail: string;
     applicationdue: Søknadsfrist | string;
-    jobarrangement: string;
+    jobarrangement: Arbeidstidsordning;
     sector: string;
 }>;
 
@@ -147,7 +147,6 @@ export enum Søknadsfrist {
 }
 
 export enum Ansettelsesform {
-    Ingen = '',
     Fast = 'Fast',
     Vikariat = 'Vikariat',
     Engasjement = 'Engasjement',
@@ -159,6 +158,12 @@ export enum Ansettelsesform {
     Lærling = 'Lærling',
     Selvstendig = 'Selvstendig næringsdrivende',
     Annet = 'Annet',
+}
+
+export enum Arbeidstidsordning {
+    Skift = 'Skift',
+    Turnus = 'Turnus',
+    Vakt = 'Vakt',
 }
 
 export enum Omfang {

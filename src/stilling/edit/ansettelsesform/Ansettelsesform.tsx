@@ -29,13 +29,11 @@ class Ansettelsesform extends React.Component<Props> {
                     error={this.props.validation.engagementtype}
                 >
                     <option value="">Velg ansettelsesform</option>
-                    {Object.keys(Type)
-                        .filter((key) => key !== 'Ingen')
-                        .map((key) => (
-                            <option value={Type[key]} key={key}>
-                                {Type[key]}
-                            </option>
-                        ))}
+                    {Object.keys(Type).map((key) => (
+                        <option value={Type[key]} key={key}>
+                            {Type[key]}
+                        </option>
+                    ))}
                 </Select>
             </div>
         );
