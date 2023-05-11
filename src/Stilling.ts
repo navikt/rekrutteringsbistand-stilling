@@ -122,7 +122,7 @@ export type Properties = Partial<{
     starttime: string;
     extent: Omfang;
     engagementtype: Ansettelsesform;
-    positioncount: number;
+    positioncount: string;
     tags: string;
     workday: string;
     workhours: string;

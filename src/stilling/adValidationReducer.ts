@@ -401,8 +401,8 @@ function* validateEngagementType() {
 }
 
 function* validatePositionCount() {
-    const state = yield select();
-    const { positioncount } = state.adData?.properties;
+    const state: State = yield select();
+    const positioncount = state.adData?.properties.positioncount;
 
     const error = positioncount && !positioncount.match(/^[1-9]\d*$/);
 

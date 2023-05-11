@@ -29,7 +29,7 @@ import css from './PraktiskeOpplysninger.module.css';
 type Props = {
     ad: Stilling;
     setExtent: (value: Omfang) => void;
-    setPositionCount: (value: number) => void;
+    setPositionCount: (value: string) => void;
     setSector: (value: string) => void;
     workday: string;
     checkWorkday: (value: string) => void;
@@ -67,7 +67,7 @@ class PraktiskeOpplysninger extends React.Component<Props> {
     };
 
     onPositioncountChange = (event: ChangeEvent<HTMLInputElement>) => {
-        this.props.setPositionCount(parseInt(event.target.value));
+        this.props.setPositionCount(event.target.value);
     };
 
     onApplicationDueChange = (date?: Date) => {
