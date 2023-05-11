@@ -22,7 +22,6 @@ import RegistrerInkluderingsmuligheter from './registrer-inkluderingsmuligheter/
 import Stilling, { System } from '../../Stilling';
 import Stillingsheader from '../header/Stillingsheader';
 import Seksjon from './seksjon/Seksjon';
-import OmAnnonsen from './om-annonsen/OmAnnonsen';
 
 import css from './Edit.module.css';
 
@@ -106,9 +105,6 @@ const Edit = ({ stilling, onPreviewAdClick, resetValidation, kandidatliste }: Pr
                     </Seksjon>
                     <Seksjon spacing påkrevd tittel="Arbeidssted">
                         <Arbeidssted />
-                    </Seksjon>
-                    <Seksjon tittel="Om annonsen">
-                        <OmAnnonsen stilling={stilling} />
                     </Seksjon>
                 </Accordion>
             </div>
