@@ -3,13 +3,8 @@
 }
 
 .innhold {
-    display: flex;
-}
-
-.venstre {
-    flex: auto;
-    flex-shrink: 2;
-    min-width: 500px;
+    display: grid;
+    grid-template-columns: 1fr 25rem;
 }
 
 .venstreInnhold {
@@ -41,5 +36,11 @@
 
     .høyre {
         display: none;
+    }
+}
+
+@media (min-width: 1600px) {
+    .innhold {
+        grid-template-columns: 1fr 30rem;
     }
 }
