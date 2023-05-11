@@ -13,7 +13,7 @@ import capitalizeLocation from './capitalizeLocation';
 import LocationArea from './LocationArea';
 import { ValidertFelt } from '../../adValidationReducer';
 import { Geografi } from '../../../Stilling';
-import { Checkbox, CheckboxGroup, ErrorMessage, TextField } from '@navikt/ds-react';
+import { Checkbox, ErrorMessage, TextField } from '@navikt/ds-react';
 import { State } from '../../../redux/store';
 import css from './Arbeidssted.module.css';
 
