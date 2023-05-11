@@ -1,7 +1,5 @@
 import React, { ChangeEvent } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Input, Checkbox, CheckboxGruppe } from 'nav-frontend-skjema';
 import Typeahead from '../../../common/typeahead/Typeahead';
 import { FETCH_LOCATIONS, SET_POSTAL_CODE_TYPEAHEAD_VALUE } from './locationCodeReducer';
 import {
@@ -13,17 +11,18 @@ import {
 } from '../../adDataReducer';
 import capitalizeLocation from './capitalizeLocation';
 import LocationArea from './LocationArea';
-import Skjemalabel from '../skjemaetikett/Skjemalabel';
 import { ValidertFelt } from '../../adValidationReducer';
 import { Geografi } from '../../../Stilling';
-import css from './Arbeidssted.module.css';
-import { ErrorMessage, TextField } from '@navikt/ds-react';
+import { Checkbox, CheckboxGroup, ErrorMessage, TextField } from '@navikt/ds-react';
 import { State } from '../../../redux/store';
+import css from './Arbeidssted.module.css';
 
 type Props = {
     suggestions: Array<{
         kode: string;
         navn: string;
+        postalCode: string;
+        city?: string;
     }>;
     setPostalCodeTypeAheadValue: (value: string) => void;
     addPostalCode: (value: string) => void;
@@ -119,45 +118,37 @@ class Location extends React.Component<Props> {
 
     render() {
         const { suggestions, typeAheadValue, validation, locationList } = this.props;
-        const locationListHasAddress: boolean =
-            locationList?.length > 0 && locationList[0] !== undefined && locationList[0].address;
+        const førsteAdresse = locationList[0]?.address;
 
         return (
             <>
-                <CheckboxGruppe>
-                    <Checkbox
-                        label="Adresse"
-                        checked={this.state.postCode}
-                        onChange={this.onPostCodeChecked}
-                    />
+                <CheckboxGroup hideLegend legend="Velg arbeidssted" className={css.spacing}>
+                    <Checkbox checked={this.state.postCode} onChange={this.onPostCodeChecked}>
+                        Adresse
+                    </Checkbox>
                     {this.state.postCode && (
-                        <>
+                        <div className={css.spacing}>
                             <TextField
                                 label="Gateadresse"
-                                value={locationListHasAddress ? locationList[0].address : ''}
+                                value={førsteAdresse ?? undefined}
                                 onChange={this.onAddressChange}
                             />
-                            <div className="blokk-xs">
-                                <Typeahead
-                                    label="Postnummer"
-                                    className="PostalCode__typeahead"
-                                    onSelect={this.onTypeAheadSuggestionSelected}
-                                    onChange={this.onTypeAheadValueChange}
-                                    onBlur={this.onBlur}
-                                    suggestions={suggestions.map((loc) => ({
-                                        value: loc.postalCode,
-                                        label: `${loc.postalCode} ${capitalizeLocation(loc.city)}`,
-                                    }))}
-                                    value={typeAheadValue}
-                                    error={validation.postalCode !== undefined}
-                                    aria-labelledby="endre-stilling-postnummer"
-                                />
-                                {validation.postalCode && (
-                                    <Feilmelding>{validation.postalCode}</Feilmelding>
-                                )}
-                            </div>
-                            <Input
+                            <Typeahead
+                                label="Postnummer"
+                                className={css.postkode}
+                                onSelect={this.onTypeAheadSuggestionSelected}
+                                onChange={this.onTypeAheadValueChange}
+                                onBlur={this.onBlur}
+                                suggestions={suggestions.map((loc) => ({
+                                    value: loc.postalCode,
+                                    label: `${loc.postalCode} ${capitalizeLocation(loc.city)}`,
+                                }))}
+                                value={typeAheadValue}
+                                error={validation.postalCode}
+                            />
+                            <TextField
                                 label="Poststed"
+                                disabled
                                 value={
                                     locationList &&
                                     locationList.length &&
@@ -166,18 +157,18 @@ class Location extends React.Component<Props> {
                                         ? locationList[0].city
                                         : ''
                                 }
-                                disabled
                             />
-                        </>
+                        </div>
                     )}
                     <Checkbox
-                        label="Kommuner, fylker eller land"
                         checked={this.state.locationArea === true}
                         onChange={this.onLocationAreaChecked}
-                    />
+                    >
+                        Kommuner, fylker eller land
+                    </Checkbox>
                     {this.state.locationArea && <LocationArea />}
                     {validation.location && <ErrorMessage>{validation.location}</ErrorMessage>}
-                </CheckboxGruppe>
+                </CheckboxGroup>
             </>
         );
     }

@@ -35,6 +35,8 @@ export type State = {
     stillingsinfo: StillingsinfoState;
     varsling: VarslingState;
     reportee: ReporteeState;
+    locationCode: any;
+    locationArea: any;
     error?: any;
 };
 

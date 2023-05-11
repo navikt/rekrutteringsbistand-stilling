@@ -1,23 +1,36 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Typeahead from '../../../common/typeahead/Typeahead.js';
-import Tag from '../../../common/tag/Tag.js';
+import { BodyShort, Chips, Detail } from '@navikt/ds-react';
+import Typeahead from '../../../common/typeahead/Typeahead';
 import { FETCH_LOCATION_AREA_BEGIN, SET_LOCATION_AREA_TYPEAHEAD } from './locationAreaReducer.js';
 import {
     ADD_LOCATION_AREA,
     REMOVE_COUNTRY,
     REMOVE_COUNTY,
     REMOVE_MUNICIPAL,
-} from '../../adDataReducer.js';
-import { VALIDATE_LOCATION_AREA } from '../../adValidationReducer.js';
-import capitalizeLocation from './capitalizeLocation.js';
-import './Location.less';
-import Skjemalabel from '../skjemaetikett/Skjemalabel.js';
-import { Feilmelding } from 'nav-frontend-typografi';
-import { BodyShort, Detail } from '@navikt/ds-react';
+} from '../../adDataReducer';
+import { VALIDATE_LOCATION_AREA, ValidertFelt } from '../../adValidationReducer';
+import capitalizeLocation from './capitalizeLocation';
+import { Geografi } from '../../../Stilling';
+import { State } from '../../../redux/store';
+import css from './Arbeidssted.module.css';
 
-class LocationArea extends React.Component {
+type Props = {
+    typeaheadValue: string;
+    municipalsCounties: any;
+    countries: any;
+    fetchLocationArea: () => void;
+    addLocationArea: (locationArea: Partial<Geografi>) => void;
+    removeMunicipal: (municipal: string) => void;
+    removeCountry: (country: string) => void;
+    removeCounty: (county: string) => void;
+    setTypeAheadValue: (value: string) => void;
+    locationList: Geografi[];
+    validation: Record<ValidertFelt, string | undefined>;
+    validateLocationArea: () => void;
+};
+
+class LocationArea extends React.Component<Props> {
     componentDidMount() {
         this.props.fetchLocationArea();
     }
@@ -52,7 +65,7 @@ class LocationArea extends React.Component {
         validateLocationArea();
     };
 
-    onLocationAreaChange = (value) => {
+    onLocationAreaChange = (value: string) => {
         if (value !== undefined) {
             this.props.setTypeAheadValue(value);
         }
@@ -62,15 +75,15 @@ class LocationArea extends React.Component {
         this.onLocationAreaSelect({ label: e });
     };
 
-    onRemoveMunicipal = (municipal) => {
+    onRemoveMunicipal = (municipal: string) => {
         this.props.removeMunicipal(municipal);
     };
 
-    onRemoveCountry = (country) => {
+    onRemoveCountry = (country: string) => {
         this.props.removeCountry(country);
     };
 
-    onRemoveCounty = (county) => {
+    onRemoveCounty = (county: string) => {
         this.props.removeCounty(county);
     };
 
@@ -114,99 +127,59 @@ class LocationArea extends React.Component {
         const allSuggestions = municipalsCountiesSuggestions.concat(countrySuggestions);
 
         return (
-            <div className="LocationArea__typeahead">
-                <Skjemalabel id="endre-stilling-kommune">
-                    Skriv inn kommune, fylke eller land
-                </Skjemalabel>
+            <>
                 <Typeahead
+                    label="Skriv inn kommune, fylke eller land"
                     onChange={this.onLocationAreaChange}
                     onSelect={this.onLocationAreaSelect}
                     onBlur={this.onBlur}
                     suggestions={allSuggestions}
                     value={typeaheadValue}
-                    minLength={1}
-                    error={!!validation.locationArea}
+                    error={validation.locationArea}
                     aria-labelledby="endre-stilling-kommune"
                 />
-                {validation.locationArea && <Feilmelding>{validation.locationArea}</Feilmelding>}
                 {locationList && locationList.length > 0 && (
-                    <div className="LocationArea__tags">
+                    <Chips className={css.tags}>
                         {locationList.map((location) => {
                             if (this.locationIsMunicipal(location)) {
                                 return (
-                                    <Tag
+                                    <Chips.Removable
                                         key={location.municipal}
-                                        value={location.municipal}
-                                        label={capitalizeLocation(location.municipal)}
-                                        canRemove
-                                        onRemove={this.onRemoveMunicipal}
-                                    />
+                                        onClick={() => this.onRemoveMunicipal(location.municipal!)}
+                                    >
+                                        {capitalizeLocation(location.municipal)}
+                                    </Chips.Removable>
                                 );
-                            }
-                            if (this.locationIsCounty(location)) {
+                            } else if (this.locationIsCounty(location)) {
                                 return (
-                                    <Tag
+                                    <Chips.Removable
                                         key={location.county}
-                                        value={location.county}
-                                        label={capitalizeLocation(location.county)}
-                                        canRemove
-                                        onRemove={this.onRemoveCounty}
-                                    />
+                                        onClick={() => this.onRemoveCounty(location.county!)}
+                                    >
+                                        {capitalizeLocation(location.county)}
+                                    </Chips.Removable>
                                 );
-                            }
-                            if (this.locationIsCountry(location)) {
+                            } else if (this.locationIsCountry(location)) {
                                 return (
-                                    <Tag
+                                    <Chips.Removable
                                         key={location.country}
-                                        value={location.country}
-                                        label={capitalizeLocation(location.country)}
-                                        canRemove
-                                        onRemove={this.onRemoveCountry}
-                                    />
+                                        onClick={() => this.onRemoveCountry(location.country!)}
+                                    >
+                                        {capitalizeLocation(location.country)}
+                                    </Chips.Removable>
                                 );
+                            } else {
+                                return null;
                             }
-                            return null;
                         })}
-                    </div>
+                    </Chips>
                 )}
-            </div>
+            </>
         );
     }
 }
 
-LocationArea.defaultProps = {
-    validation: undefined,
-    locationList: [],
-};
-
-LocationArea.propTypes = {
-    typeaheadValue: PropTypes.string.isRequired,
-    municipalsCounties: PropTypes.arrayOf(
-        PropTypes.shape({
-            code: PropTypes.string,
-            name: PropTypes.string,
-        })
-    ).isRequired,
-    countries: PropTypes.arrayOf(
-        PropTypes.shape({
-            code: PropTypes.string,
-            name: PropTypes.string,
-        })
-    ).isRequired,
-    fetchLocationArea: PropTypes.func.isRequired,
-    addLocationArea: PropTypes.func.isRequired,
-    removeMunicipal: PropTypes.func.isRequired,
-    removeCountry: PropTypes.func.isRequired,
-    removeCounty: PropTypes.func.isRequired,
-    setTypeAheadValue: PropTypes.func.isRequired,
-    locationList: PropTypes.arrayOf(PropTypes.object),
-    validation: PropTypes.shape({
-        locationArea: PropTypes.string,
-    }),
-    validateLocationArea: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: State) => ({
     municipalsCounties: state.locationArea.municipalsCounties,
     countries: state.locationArea.countries,
     typeaheadValue: state.locationArea.typeaheadValue,
@@ -214,7 +187,7 @@ const mapStateToProps = (state) => ({
     validation: state.adValidation.errors,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch: any) => ({
     fetchLocationArea: () => dispatch({ type: FETCH_LOCATION_AREA_BEGIN }),
     setTypeAheadValue: (value) => dispatch({ type: SET_LOCATION_AREA_TYPEAHEAD, value }),
     addLocationArea: (location) => dispatch({ type: ADD_LOCATION_AREA, location }),

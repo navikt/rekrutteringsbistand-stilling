@@ -6,3 +6,9 @@
 .tags {
     margin-top: 0.5rem;
 }
+
+.spacing {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
