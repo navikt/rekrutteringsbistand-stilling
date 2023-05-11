@@ -103,7 +103,7 @@ const Edit = ({ stilling, onPreviewAdClick, resetValidation, kandidatliste }: Pr
                     >
                         <HvordanSendeSøknad />
                     </Seksjon>
-                    <Seksjon spacing påkrevd tittel="Arbeidssted">
+                    <Seksjon påkrevd tittel="Arbeidssted">
                         <Arbeidssted />
                     </Seksjon>
                 </Accordion>

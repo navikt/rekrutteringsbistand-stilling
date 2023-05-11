@@ -122,53 +122,52 @@ class Location extends React.Component<Props> {
 
         return (
             <>
-                <CheckboxGroup hideLegend legend="Velg arbeidssted" className={css.spacing}>
-                    <Checkbox checked={this.state.postCode} onChange={this.onPostCodeChecked}>
-                        Adresse
-                    </Checkbox>
-                    {this.state.postCode && (
-                        <div className={css.spacing}>
-                            <TextField
-                                label="Gateadresse"
-                                value={førsteAdresse ?? undefined}
-                                onChange={this.onAddressChange}
-                            />
-                            <Typeahead
-                                label="Postnummer"
-                                className={css.postkode}
-                                onSelect={this.onTypeAheadSuggestionSelected}
-                                onChange={this.onTypeAheadValueChange}
-                                onBlur={this.onBlur}
-                                suggestions={suggestions.map((loc) => ({
-                                    value: loc.postalCode,
-                                    label: `${loc.postalCode} ${capitalizeLocation(loc.city)}`,
-                                }))}
-                                value={typeAheadValue}
-                                error={validation.postalCode}
-                            />
-                            <TextField
-                                label="Poststed"
-                                disabled
-                                value={
-                                    locationList &&
-                                    locationList.length &&
-                                    locationList[0] &&
-                                    locationList[0].city
-                                        ? locationList[0].city
-                                        : ''
-                                }
-                            />
-                        </div>
-                    )}
-                    <Checkbox
-                        checked={this.state.locationArea === true}
-                        onChange={this.onLocationAreaChecked}
-                    >
-                        Kommuner, fylker eller land
-                    </Checkbox>
-                    {this.state.locationArea && <LocationArea />}
-                    {validation.location && <ErrorMessage>{validation.location}</ErrorMessage>}
-                </CheckboxGroup>
+                <Checkbox checked={this.state.postCode} onChange={this.onPostCodeChecked}>
+                    Adresse
+                </Checkbox>
+                {this.state.postCode && (
+                    <div className={css.spacing}>
+                        <TextField
+                            label="Gateadresse"
+                            value={førsteAdresse ?? undefined}
+                            onChange={this.onAddressChange}
+                        />
+                        <Typeahead
+                            label="Postnummer"
+                            className={css.postkode}
+                            onSelect={this.onTypeAheadSuggestionSelected}
+                            onChange={this.onTypeAheadValueChange}
+                            onBlur={this.onBlur}
+                            suggestions={suggestions.map((loc) => ({
+                                value: loc.postalCode,
+                                label: `${loc.postalCode} ${capitalizeLocation(loc.city)}`,
+                            }))}
+                            value={typeAheadValue}
+                            error={validation.postalCode}
+                        />
+                        <TextField
+                            className={css.poststed}
+                            label="Poststed"
+                            disabled
+                            value={
+                                locationList &&
+                                locationList.length &&
+                                locationList[0] &&
+                                locationList[0].city
+                                    ? locationList[0].city
+                                    : ''
+                            }
+                        />
+                    </div>
+                )}
+                <Checkbox
+                    checked={this.state.locationArea === true}
+                    onChange={this.onLocationAreaChecked}
+                >
+                    Kommuner, fylker eller land
+                </Checkbox>
+                {this.state.locationArea && <LocationArea />}
+                {validation.location && <ErrorMessage>{validation.location}</ErrorMessage>}
             </>
         );
     }
