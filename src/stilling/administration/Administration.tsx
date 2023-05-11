@@ -10,7 +10,7 @@ import css from './Administration.module.css';
 import { Heading } from '@navikt/ds-react';
 
 const Administration: FunctionComponent = () => (
-    <div>
+    <div className={css.administration}>
         <AdStatus />
         <div className={css.elements}>
             <div>
