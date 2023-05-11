@@ -2,3 +2,7 @@
 .navdsi-copy-to-clipboard:not(:hover):not(:active) {
     color: var(--a-text-action);
 }
+
+:root {
+    --rekrutteringsbistand-blue: #e3edf8;
+}

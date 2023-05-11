@@ -1,16 +1,17 @@
 import React, { FunctionComponent, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import classNames from 'classnames';
 import { MagnifyingGlassIcon, PersonPlusIcon, PersonGroupIcon } from '@navikt/aksel-icons';
 
-import { State } from '../../redux/store';
+import { Kandidatliste } from '../legg-til-kandidat-modal/kandidatlistetyper';
+import { Nettressurs, Nettstatus } from '../../api/Nettressurs';
 import { sendGenerellEvent } from '../../verktøy/amplitude';
+import { State } from '../../redux/store';
 import { stillingenHarKandidatliste } from '../adUtils';
 import LeggTilKandidatModal from '../legg-til-kandidat-modal/LeggTilKandidatModal';
-import { Nettressurs, Nettstatus } from '../../api/Nettressurs';
-import { Kandidatliste } from '../legg-til-kandidat-modal/kandidatlistetyper';
-import './Kandidathandlinger.less';
 import Stilling from '../../Stilling';
+import css from './Kandidathandlinger.module.css';
 
 type Props = {
     kandidatliste: Nettressurs<Kandidatliste>;
@@ -42,7 +43,7 @@ const Kandidathandlinger: FunctionComponent<Props> = ({ kandidatliste }) => {
         kandidatliste.kind === Nettstatus.Suksess ? kandidatliste.data.kandidatlisteId : '';
 
     return (
-        <div className="kandidathandlinger">
+        <div className={css.kandidathandlinger}>
             <LeggTilKandidatModal
                 vis={visLeggTilKandidatModal}
                 onClose={toggleLeggTilKandidatModal}
@@ -58,7 +59,7 @@ const Kandidathandlinger: FunctionComponent<Props> = ({ kandidatliste }) => {
                         Finn kandidater
                     </Link>
                     <button
-                        className="navds-link kandidathandlinger__legg-til-kandidat-knapp"
+                        className={classNames('navds-link', css.leggTilKandidatKnapp)}
                         onClick={toggleLeggTilKandidatModal}
                     >
                         <PersonPlusIcon />

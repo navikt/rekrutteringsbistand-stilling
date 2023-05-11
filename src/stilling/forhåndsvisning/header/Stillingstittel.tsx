@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { Geografi } from '../../../Stilling';
 import capitalizeLocation from '../../edit/arbeidssted/capitalizeLocation';
 import { BodyShort, Heading } from '@navikt/ds-react';
-import './Stillingstittel.less';
+import css from './Stillingstittel.module.css';
 
 type Props = {
     tittel?: string;
@@ -25,7 +25,7 @@ const Stillingstittel: FunctionComponent<Props> = ({ tittel, employer, location 
     const formatertSted = commaSeparate(employer, capitalizeLocation(mestSpesifikkeSted));
 
     return (
-        <div className="stillingstittel">
+        <div className={css.stillingstittel}>
             <BodyShort>{formatertSted}</BodyShort>
             <Heading level="2" size="large">
                 {tittel || ''}
