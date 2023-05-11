@@ -8,7 +8,6 @@ import RichTextEditor from '../richTextEditor/RichTextEditor';
 import Skjemalabel from '../skjemaetikett/Skjemalabel';
 import Stilling from '../../../Stilling';
 import Styrk from './styrk/Styrk';
-import css from './OmStillingen.module.css';
 
 type Props = {
     stilling: Stilling;
@@ -33,7 +32,7 @@ const OmStillingen = ({ stilling }: Props) => {
     };
 
     return (
-        <div className={css.omStillingen}>
+        <>
             <Styrk />
             <TextField
                 value={stilling.properties.jobtitle}
@@ -53,7 +52,7 @@ const OmStillingen = ({ stilling }: Props) => {
                     ariaDescribedBy="stillingstekst"
                 />
             </div>
-        </div>
+        </>
     );
 };
 

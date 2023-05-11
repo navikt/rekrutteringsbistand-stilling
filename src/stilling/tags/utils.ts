@@ -1,4 +1,4 @@
-import isJson from '../edit/practicalInformation/IsJson';
+import isJson from '../edit/praktiske-opplysninger/IsJson';
 import { Tag } from './hierarkiAvTags';
 
 export const TAG_HIERARCHY_SPACER = '__';

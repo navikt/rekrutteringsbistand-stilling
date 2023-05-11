@@ -7,8 +7,8 @@ import {
     SAVE_AD_SUCCESS,
     DELETE_AD_SUCCESS,
 } from './adReducer';
-import { FETCH_LOCATIONS, FETCH_LOCATIONS_SUCCESS } from './edit/location/locationCodeReducer';
-import IsJson from './edit/practicalInformation/IsJson';
+import { FETCH_LOCATIONS, FETCH_LOCATIONS_SUCCESS } from './edit/arbeidssted/locationCodeReducer';
+import IsJson from './edit/praktiske-opplysninger/IsJson';
 import { isValidISOString } from '../utils/datoUtils';
 import { leggTilTagUnderRegistrering, fjernTagUnderRegistrering } from './tags/utils';
 import Stilling, { Privacy, Status, System } from '../Stilling';

@@ -8,7 +8,7 @@ import { Inkluderingsmulighet as AlleInkluderingsmuligheter } from '../../tags/h
 import { InkluderingsmulighetForDirektemeldtStilling, Tag } from '../../tags/hierarkiAvTags';
 import { SET_KAN_INKLUDERE } from '../../adReducer';
 import Inkluderingsmulighet from './Inkluderingsmulighet';
-import isJson from '../practicalInformation/IsJson';
+import isJson from '../praktiske-opplysninger/IsJson';
 import css from './DirektemeldtStilling.module.css';
 
 export enum KanInkludere {

@@ -1,4 +1,4 @@
-import capitalizeLocation from '../stilling/edit/location/capitalizeLocation';
+import capitalizeLocation from '../stilling/edit/arbeidssted/capitalizeLocation';
 
 export function getTruncatedWorkLocation(locationList) {
     let workLocation = null;

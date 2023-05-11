@@ -10,22 +10,20 @@ import { Kandidatliste } from '../legg-til-kandidat-modal/kandidatlistetyper';
 import { Nettressurs } from '../../api/Nettressurs';
 import { RESET_VALIDATION_ERROR } from '../adValidationReducer';
 import { State } from '../../redux/store';
-import Application from './application/Application';
-import ContactPerson from './contactPerson/ContactPerson';
+import HvordanSendeSøknad from './hvordan-sende-søknad/HvordanSendeSøknad';
+import Kontaktinformasjon from './kontaktinformasjon/Kontaktinformasjon';
 import EditHeader from './header/EditHeader';
 import EksternStillingAdvarsel from '../forhåndsvisning/header/EksternStillingAdvarsel';
 import EndreArbeidsgiver from './endre-arbeidsgiver/EndreArbeidsgiver';
 import OmStillingen from './om-stillingen/OmStillingen';
-import Location from './location/Location';
-import PracticalInformation from './practicalInformation/PracticalInformation';
+import Arbeidssted from './arbeidssted/Arbeidssted';
+import PraktiskeOpplysninger from './praktiske-opplysninger/PraktiskeOpplysninger';
 import RegistrerInkluderingsmuligheter from './registrer-inkluderingsmuligheter/DirektemeldtStilling';
 import Stilling, { System } from '../../Stilling';
 import Stillingsheader from '../header/Stillingsheader';
 import Seksjon from './seksjon/Seksjon';
-import OmAnnonsen from './om-annonsen/OmAnnonsen';
 
 import css from './Edit.module.css';
-import './Edit.less';
 
 type Props = {
     onPreviewAdClick: () => void;
@@ -78,7 +76,7 @@ const Edit = ({ stilling, onPreviewAdClick, resetValidation, kandidatliste }: Pr
                     <Seksjon tittel="Tittel på annonsen">
                         <EditHeader stilling={stilling} />
                     </Seksjon>
-                    <Seksjon tittel="Om bedriften">
+                    <Seksjon spacing tittel="Om bedriften">
                         <EndreArbeidsgiver stilling={stilling} />
                     </Seksjon>
                     <Seksjon
@@ -88,28 +86,25 @@ const Edit = ({ stilling, onPreviewAdClick, resetValidation, kandidatliste }: Pr
                     >
                         <RegistrerInkluderingsmuligheter />
                     </Seksjon>
-                    <Seksjon tittel="Om stillingen">
+                    <Seksjon spacing tittel="Om stillingen">
                         <OmStillingen stilling={stilling} />
                     </Seksjon>
                 </Accordion>
                 <Accordion className={classNames(css.høyre, css.accordions)}>
-                    <Seksjon tittel="Praktiske opplysninger">
-                        <PracticalInformation />
+                    <Seksjon spacing tittel="Praktiske opplysninger">
+                        <PraktiskeOpplysninger />
                     </Seksjon>
-                    <Seksjon tittel="Kontaktinformasjon">
-                        <ContactPerson />
+                    <Seksjon spacing tittel="Kontaktinformasjon">
+                        <Kontaktinformasjon />
                     </Seksjon>
                     <Seksjon
                         tittel="Hvordan sende søknad?"
                         beskrivelse="Gjelder kun eksternt utlyste stillinger"
                     >
-                        <Application />
+                        <HvordanSendeSøknad />
                     </Seksjon>
                     <Seksjon påkrevd tittel="Arbeidssted">
-                        <Location />
-                    </Seksjon>
-                    <Seksjon tittel="Om annonsen">
-                        <OmAnnonsen stilling={stilling} />
+                        <Arbeidssted />
                     </Seksjon>
                 </Accordion>
             </div>

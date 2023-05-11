@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { ErrorMessage, Heading, Panel } from '@navikt/ds-react';
 import Inkluderingsmuligheter from './Inkluderingsmuligheter';
-import isJson from '../../edit/practicalInformation/IsJson';
+import isJson from '../../edit/praktiske-opplysninger/IsJson';
 import { tagsInneholderInkluderingsmuligheter } from '../../tags/utils';
 import css from './MulighetForÅInkludere.module.css';
 

@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { Geografi } from '../../../Stilling';
-import capitalizeLocation from '../../edit/location/capitalizeLocation';
+import capitalizeLocation from '../../edit/arbeidssted/capitalizeLocation';
 import { BodyShort, Heading } from '@navikt/ds-react';
 import './Stillingstittel.less';
 

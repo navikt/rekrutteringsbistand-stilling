@@ -2,7 +2,7 @@ import { tagsInneholderInkluderingsmuligheter } from './tags/utils';
 import { put, select, takeLatest } from 'redux-saga/effects';
 import { isValidISOString, idagMidnatt } from '../utils/datoUtils';
 import { DEFAULT_TITLE_NEW_AD, SET_KAN_INKLUDERE } from './adReducer';
-import IsJson from './edit/practicalInformation/IsJson';
+import IsJson from './edit/praktiske-opplysninger/IsJson';
 import {
     SET_STYRK,
     ADD_POSTAL_CODE,
@@ -401,8 +401,8 @@ function* validateEngagementType() {
 }
 
 function* validatePositionCount() {
-    const state = yield select();
-    const { positioncount } = state.adData?.properties;
+    const state: State = yield select();
+    const positioncount = state.adData?.properties.positioncount;
 
     const error = positioncount && !positioncount.match(/^[1-9]\d*$/);
 

@@ -93,6 +93,7 @@ export type Geografi = {
     county: string | null;
     country: string | null;
     municipal: string | null;
+    municipalCode?: string | null;
     latitude: string | null;
     longitude: string | null;
     city: string | null;
@@ -121,7 +122,7 @@ export type Properties = Partial<{
     starttime: string;
     extent: Omfang;
     engagementtype: Ansettelsesform;
-    positioncount: number;
+    positioncount: string;
     tags: string;
     workday: string;
     workhours: string;
@@ -130,7 +131,7 @@ export type Properties = Partial<{
     applicationurl: string;
     applicationemail: string;
     applicationdue: Søknadsfrist | string;
-    jobarrangement: string;
+    jobarrangement: Arbeidstidsordning;
     sector: string;
 }>;
 
@@ -147,18 +148,23 @@ export enum Søknadsfrist {
 }
 
 export enum Ansettelsesform {
-    Ingen = '',
     Fast = 'Fast',
     Vikariat = 'Vikariat',
     Engasjement = 'Engasjement',
     Prosjekt = 'Prosjekt',
+    Åremål = 'Åremål',
     Sesong = 'Sesong',
     Feriejobb = 'Feriejobb',
     Trainee = 'Trainee',
     Lærling = 'Lærling',
-    Åremål = 'Åremål',
     Selvstendig = 'Selvstendig næringsdrivende',
     Annet = 'Annet',
+}
+
+export enum Arbeidstidsordning {
+    Skift = 'Skift',
+    Turnus = 'Turnus',
+    Vakt = 'Vakt',
 }
 
 export enum Omfang {

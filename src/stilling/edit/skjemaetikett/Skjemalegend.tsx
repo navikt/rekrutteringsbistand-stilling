@@ -1,7 +1,7 @@
 import React, { FunctionComponent, ReactNode } from 'react';
+import { BodyShort, HelpText, Label } from '@navikt/ds-react';
 import classnames from 'classnames';
 import css from './Skjemalegend.module.css';
-import { BodyLong, BodyShort, HelpText, Label } from '@navikt/ds-react';
 
 type Props = {
     påkrevd?: boolean;
@@ -11,29 +11,19 @@ type Props = {
     children?: ReactNode;
 };
 
-const Skjemalegend: FunctionComponent<Props> = ({
-    påkrevd,
-    beskrivelse,
-    className,
-    hjelpetekst,
-    children,
-}) => {
+const Skjemalegend: FunctionComponent<Props> = ({ påkrevd, className, hjelpetekst, children }) => {
     return (
-        <>
-            <legend className={classnames(css.skjemalegend, className)}>
-                <Label as="span" size="small">
-                    {children}
-                </Label>
-                {påkrevd && (
-                    <BodyShort as="span" size="small">
-                        {' '}
-                        (må fylles ut)
-                    </BodyShort>
-                )}
-                {hjelpetekst && <HelpText className={css.hjelpetekst}>{hjelpetekst}</HelpText>}
-            </legend>
-            {beskrivelse && <BodyLong>{beskrivelse}</BodyLong>}
-        </>
+        <div className={classnames(css.skjemalegend, className)}>
+            <Label as="span" size="small">
+                {children}
+            </Label>
+            {påkrevd && (
+                <BodyShort as="span" size="small">
+                    (må fylles ut)
+                </BodyShort>
+            )}
+            {hjelpetekst && <HelpText>{hjelpetekst}</HelpText>}
+        </div>
     );
 };
 

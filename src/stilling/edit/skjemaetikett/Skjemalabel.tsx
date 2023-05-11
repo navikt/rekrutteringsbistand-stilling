@@ -20,15 +20,8 @@ const Skjemalabel: FunctionComponent<Props> = ({
     return (
         <div className={css.wrapper}>
             <label htmlFor={inputId}>
-                <Label size="small" as="span">
-                    {children}
-                </Label>
-                {påkrevd && (
-                    <BodyShort size="small" as="span">
-                        {' '}
-                        (må fylles ut)
-                    </BodyShort>
-                )}
+                <Label as="span">{children}</Label>
+                {påkrevd && <BodyShort as="span"> (må fylles ut)</BodyShort>}
             </label>
             {etterLabel}
             {beskrivelse && (
