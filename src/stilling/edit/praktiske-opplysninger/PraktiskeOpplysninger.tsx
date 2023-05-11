@@ -87,7 +87,7 @@ class PraktiskeOpplysninger extends React.Component<Props> {
 
     onStarttimeChange = (date?: Date) => {
         if (date) {
-            this.props.setApplicationDue(leggTilTimerPåISOString(date.toISOString(), 12));
+            this.props.setStartTime(leggTilTimerPåISOString(date.toISOString(), 12));
         }
     };
 
@@ -217,7 +217,7 @@ class PraktiskeOpplysninger extends React.Component<Props> {
                         onChange={this.onStarttimeChange}
                         disabled={ad.properties.starttime === 'Etter avtale'}
                         fromDate={new Date()}
-                        label="Velg søknadsfrist"
+                        label="Velg oppstart"
                     />
                     <Checkbox
                         value="Etter avtale"
