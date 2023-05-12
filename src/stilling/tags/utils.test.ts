@@ -1,3 +1,5 @@
+import { describe, expect, test } from '@jest/globals';
+
 import { Tag } from './hierarkiAvTags';
 import {
     tagsInneholderInkluderingsmuligheter,

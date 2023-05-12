@@ -9,11 +9,6 @@ import devVirksomheter from './devVirksomheter';
 
 export const stillingApi = '/stilling-api';
 
-// Bruk mock-api hvis app kjører via "npm run mock"
-if (process.env.REACT_APP_MOCK) {
-    require('../mock/api.ts');
-}
-
 export type Side<T> = {
     content: T[];
     totalElements: number;

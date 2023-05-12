@@ -19,7 +19,7 @@ import { State } from '../../../redux/store';
 import { ValidertFelt } from '../../adValidationReducer';
 import Ansettelsesform from '../ansettelsesform/Ansettelsesform';
 import Datovelger from './Datovelger';
-import IsJson from './IsJson.js';
+import isJson from './IsJson';
 import Arbeidstidsordning from '../arbeidstidsordning/Arbeidstidsordning';
 import Skjemalabel from '../skjemaetikett/Skjemalabel';
 import Skjemalegend from '../skjemaetikett/Skjemalegend';
@@ -104,12 +104,12 @@ class PraktiskeOpplysninger extends React.Component<Props> {
         const { ad, workday, workhours } = this.props;
 
         const workdayAsArray: string[] | undefined = workday
-            ? IsJson(workday)
+            ? isJson(workday)
                 ? JSON.parse(workday)
                 : []
             : undefined;
         const workhoursAsArray: string[] | undefined = workhours
-            ? IsJson(workhours)
+            ? isJson(workhours)
                 ? JSON.parse(workhours)
                 : []
             : undefined;

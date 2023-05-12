@@ -2,7 +2,7 @@ import { tagsInneholderInkluderingsmuligheter } from './tags/utils';
 import { put, select, takeLatest } from 'redux-saga/effects';
 import { isValidISOString, idagMidnatt } from '../utils/datoUtils';
 import { DEFAULT_TITLE_NEW_AD, SET_KAN_INKLUDERE } from './adReducer';
-import IsJson from './edit/praktiske-opplysninger/IsJson';
+import isJson from './edit/praktiske-opplysninger/IsJson';
 import {
     SET_STYRK,
     ADD_POSTAL_CODE,
@@ -442,7 +442,7 @@ function* validateWorkday() {
     const state = yield select();
     const { workday } = state.adData?.properties;
 
-    if (valueIsNotSet(workday) || !IsJson(workday) || valueIsNotSet(JSON.parse(workday))) {
+    if (valueIsNotSet(workday) || !isJson(workday) || valueIsNotSet(JSON.parse(workday))) {
         yield addValidationError({
             field: 'workday',
             message: 'Arbeidsdager mangler',
@@ -456,7 +456,7 @@ function* validateWorkhours() {
     const state: State = yield select();
     const workhours = state.adData?.properties.workhours;
 
-    if (valueIsNotSet(workhours) || !IsJson(workhours) || valueIsNotSet(JSON.parse(workhours!))) {
+    if (valueIsNotSet(workhours) || !isJson(workhours) || valueIsNotSet(JSON.parse(workhours!))) {
         yield addValidationError({
             field: 'workhours',
             message: 'Arbeidstid mangler',

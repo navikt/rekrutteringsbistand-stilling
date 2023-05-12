@@ -8,7 +8,7 @@ import {
     DELETE_AD_SUCCESS,
 } from './adReducer';
 import { FETCH_LOCATIONS, FETCH_LOCATIONS_SUCCESS } from './edit/arbeidssted/locationCodeReducer';
-import IsJson from './edit/praktiske-opplysninger/IsJson';
+import isJson from './edit/praktiske-opplysninger/IsJson';
 import { isValidISOString } from '../utils/datoUtils';
 import { leggTilTagUnderRegistrering, fjernTagUnderRegistrering } from './tags/utils';
 import Stilling, { Privacy, Status, System } from '../Stilling';
@@ -309,7 +309,7 @@ const manipulateAdReducer = (state: Stilling, action) => {
                     ...state.properties,
                     workday: workday
                         ? JSON.stringify([
-                              ...(IsJson(workday) ? JSON.parse(workday) : ''),
+                              ...(isJson(workday) ? JSON.parse(workday) : ''),
                               action.value,
                           ])
                         : JSON.stringify([action.value]),
@@ -336,7 +336,7 @@ const manipulateAdReducer = (state: Stilling, action) => {
                     ...state.properties,
                     workhours: workhours
                         ? JSON.stringify([
-                              ...(IsJson(workhours) ? JSON.parse(workhours) : ''),
+                              ...(isJson(workhours) ? JSON.parse(workhours) : ''),
                               action.value,
                           ])
                         : JSON.stringify([action.value]),
@@ -552,7 +552,7 @@ const manipulateAdReducer = (state: Stilling, action) => {
             };
         case CHECK_TAG: {
             const tags = leggTilTagUnderRegistrering(
-                IsJson(state.properties.tags) ? JSON.parse(state.properties.tags || '') : [],
+                isJson(state.properties.tags) ? JSON.parse(state.properties.tags || '') : [],
                 action.value
             );
 
