@@ -6,7 +6,7 @@ const app = express();
 const port = process.env.PORT || 8080;
 
 const basePath = '/rekrutteringsbistand-stilling';
-const buildPath = path.join(__dirname, '../build');
+const buildPath = path.join(__dirname, '../dist');
 
 const startServer = () => {
     app.use(compression());
