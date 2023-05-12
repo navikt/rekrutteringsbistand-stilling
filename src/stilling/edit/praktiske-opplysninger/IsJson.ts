@@ -1,4 +1,4 @@
-const isJson = (str) => {
+const isJson = (str: any) => {
     try {
         return Array.isArray(JSON.parse(str));
     } catch (e) {
