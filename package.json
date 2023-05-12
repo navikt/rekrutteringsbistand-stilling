@@ -61,7 +61,6 @@
         "@jest/globals": "^29.5.0",
         "@sentry/cli": "^1.61.0",
         "@types/amplitude-js": "^7.0.0",
-        "@types/classnames": "^2.2.10",
         "@types/deep-equal": "^1.0.1",
         "@types/jest": "^26.0.20",
         "@types/react": "^18.2.6",
