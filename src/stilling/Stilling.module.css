@@ -3,16 +3,8 @@
 }
 
 .innhold {
-    display: flex;
-    min-height: 100vh;
-}
-
-.venstre {
-    flex: auto;
-    flex-shrink: 2;
-    overflow-y: auto;
-    max-height: 100vh;
-    min-width: 500px;
+    display: grid;
+    grid-template-columns: 1fr 25rem;
 }
 
 .venstreInnhold {
@@ -24,8 +16,6 @@
 .høyre {
     border-left: 2px solid var(--a-border-subtle);
     background: var(--a-blue-50);
-    overflow: hidden;
-    max-height: 100vh;
 }
 
 .spinner {
@@ -49,16 +39,8 @@
     }
 }
 
-@media (min-width: 1400px) {
-    .høyre {
-        max-width: 510px;
-        min-width: 510px;
-    }
-}
-
-@media (max-width: 1400px) {
-    .høyre {
-        max-width: 400px;
-        min-width: 400px;
+@media (min-width: 1600px) {
+    .innhold {
+        grid-template-columns: 1fr 30rem;
     }
 }

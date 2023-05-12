@@ -20,30 +20,38 @@ const AdStatus = () => {
     ) : (
         <div className="AdStatusPreview">
             {adStatus === Status.Inaktiv && deactivatedByExpiry && (
-                <Alert variant="warning">Stillingen er utløpt</Alert>
+                <Alert fullWidth variant="warning">
+                    Stillingen er utløpt
+                </Alert>
             )}
             {adStatus === Status.Inaktiv && activationOnPublishingDate && (
-                <Alert variant="info">
+                <Alert fullWidth variant="info">
                     Stillingen blir publisert {formatISOString(originalData.published)}
                 </Alert>
             )}
             {adStatus === Status.Inaktiv && !deactivatedByExpiry && !activationOnPublishingDate && (
-                <Alert variant="info">Stillingen er ikke publisert</Alert>
+                <Alert fullWidth variant="info">
+                    Stillingen er ikke publisert
+                </Alert>
             )}
             {adStatus === Status.Aktiv &&
                 originalData.privacy === PrivacyStatusEnum.INTERNAL_NOT_SHOWN && (
-                    <Alert variant="success">
+                    <Alert fullWidth variant="success">
                         Stillingen er publisert internt i NAV |{' '}
                         {originalData.published ? formatISOString(originalData.published) : ''}
                     </Alert>
                 )}
             {adStatus === Status.Aktiv && originalData.privacy === PrivacyStatusEnum.SHOW_ALL && (
-                <Alert variant="success">
+                <Alert fullWidth variant="success">
                     Stillingen er publisert på Arbeidsplassen |{' '}
                     {originalData.published ? formatISOString(originalData.published) : ''}
                 </Alert>
             )}
-            {adStatus === Status.Stoppet && <Alert variant="warning">Stillingen er stoppet</Alert>}
+            {adStatus === Status.Stoppet && (
+                <Alert fullWidth variant="warning">
+                    Stillingen er stoppet
+                </Alert>
+            )}
         </div>
     );
 };

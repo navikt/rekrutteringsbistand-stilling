@@ -1,3 +1,8 @@
+.administration {
+    position: sticky;
+    top: 0;
+}
+
 .elements {
     overflow: hidden;
     padding: 1.5rem;
@@ -8,17 +13,10 @@
 }
 
 .bottom {
-    position: fixed;
+    position: sticky;
     bottom: 0;
-    width: 25rem;
-    background: #d9e8f7;
-    border-top: 1px solid #b7b1a9;
-    padding: 0.5rem 1.5rem;
-}
-
-@media (min-width: 1400px) {
-    .bottom {
-        padding: 1.5rem 2.5rem 1.5rem;
-        width: 32rem;
-    }
+    background: var(--a-blue-50);
+    border-top: 2px solid var(--a-border-subtle);
+    padding: 1rem;
+    z-index: 2;
 }
