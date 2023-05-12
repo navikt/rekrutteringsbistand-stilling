@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { formatISOString } from '../../../../utils/datoUtils';
-import { BodyShort, Label } from '@navikt/ds-react';
+import { BodyShort, Heading, Label } from '@navikt/ds-react';
 
 const Publishing = () => {
     const published = useSelector((state: any) => state.adData?.published);
@@ -10,18 +10,12 @@ const Publishing = () => {
     return (
         <div>
             {(published || expires) && (
-                <BodyShort size="small" spacing>
-                    <Label size="small">Publisering</Label>
-                </BodyShort>
+                <Heading level="3" size="small" spacing>
+                    Publisering
+                </Heading>
             )}
-            {published && (
-                <BodyShort size="small" spacing>
-                    Publiseringsdato: {formatISOString(published)}
-                </BodyShort>
-            )}
-            {expires && (
-                <BodyShort size="small">Siste visningsdato: {formatISOString(expires)}</BodyShort>
-            )}
+            {published && <BodyShort>Publiseringsdato: {formatISOString(published)}</BodyShort>}
+            {expires && <BodyShort>Siste visningsdato: {formatISOString(expires)}</BodyShort>}
         </div>
     );
 };

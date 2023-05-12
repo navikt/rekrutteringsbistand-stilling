@@ -6,7 +6,7 @@ import {
 } from '../../../adReducer';
 import { erDirektemeldtStilling } from '../../../adUtils';
 import MarkerSomMinModal from '../markerSomMinModal/MarkerSomMinModal';
-import { BodyShort, Button, Label } from '@navikt/ds-react';
+import { BodyShort, Button, Heading, Label } from '@navikt/ds-react';
 import previewcss from '../AdministrationPreview.module.css';
 
 const ContactInfo = () => {
@@ -52,9 +52,9 @@ const ContactInfo = () => {
 
     return isDir ? (
         <div className={previewcss.previewPanel}>
-            <BodyShort size="small" spacing>
-                <Label size="small">Spørsmål om stillingen?</Label>
-            </BodyShort>
+            <Heading level="3" size="small">
+                Spørsmål om stillingen?
+            </Heading>
             <BodyShort size="small" spacing>
                 Kontaktperson hos NAV: {reportee} {navIdent ? ` (${navIdent})` : ''}
             </BodyShort>
@@ -66,9 +66,9 @@ const ContactInfo = () => {
         <>
             {hasStillingsinfo && (
                 <div className={previewcss.previewPanel}>
-                    <BodyShort size="small" spacing>
-                        <Label size="small">Spørsmål om stillingen?</Label>
-                    </BodyShort>
+                    <Heading level="3" size="small" spacing>
+                        Spørsmål om stillingen?
+                    </Heading>
                     <BodyShort size="small" spacing>
                         Kontaktperson hos NAV: {stillingsinfo.eierNavn}{' '}
                         {stillingsinfo.eierNavident ? ` (${stillingsinfo.eierNavident})` : ''}

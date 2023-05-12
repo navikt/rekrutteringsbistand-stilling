@@ -7,21 +7,19 @@ import Notat from './notat/Notat';
 import Privacy from './publishing/Privacy';
 import Publishing from './publishing/Publishing';
 import css from './Administration.module.css';
-import { Heading } from '@navikt/ds-react';
+import { BodyShort, Heading } from '@navikt/ds-react';
 
 const Administration: FunctionComponent = () => (
     <div className={css.administration}>
         <AdStatus />
         <div className={css.elements}>
             <div>
-                <Heading level="2" size="xsmall" spacing>
-                    Når skal stillingen vises?
+                <Heading level="3" size="small" spacing>
+                    Når skal stillingen vises?<BodyShort as="span"> (må fylles ut)</BodyShort>
                 </Heading>
                 <Publishing />
             </div>
-            <div className={css.panel}>
-                <Privacy />
-            </div>
+            <Privacy />
             <Notat placeholder="Legg inn notat" />
         </div>
         <div className={css.bottom}>

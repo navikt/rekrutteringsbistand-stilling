@@ -31,19 +31,6 @@ const Notat = ({ placeholder }: { placeholder?: string }) => {
         }
     };
 
-    const label = (
-        <>
-            <Heading level="2" size="xsmall" spacing>
-                Notater
-            </Heading>
-            <Detail>
-                Notat, vises kun internt
-                <br />
-                Ikke skriv personopplysninger her
-            </Detail>
-        </>
-    );
-
     return (
         <div>
             <Textarea
@@ -52,8 +39,19 @@ const Notat = ({ placeholder }: { placeholder?: string }) => {
                 onBlur={onBlur}
                 value={lagretNotat == null ? undefined : lagretNotat}
                 error={validation.notat}
-                label={label}
                 placeholder={placeholder}
+                label={
+                    <>
+                        <Heading level="3" size="small" spacing>
+                            Notater
+                        </Heading>
+                        <Detail>
+                            Notat, vises kun internt
+                            <br />
+                            Ikke skriv personopplysninger her
+                        </Detail>
+                    </>
+                }
             />
         </div>
     );

@@ -10,6 +10,7 @@ import {
     UNSAFE_useDatepicker as useDatepicker,
 } from '@navikt/ds-react';
 import css from './Publishing.module.css';
+import Skjemalabel from '../../edit/skjemaetikett/Skjemalabel';
 
 export type Validation = {
     expires: string;
@@ -80,20 +81,6 @@ const Publishing = () => {
         }
     };
 
-    const datepickerLabel = (tekst: string) => {
-        return (
-            <>
-                <Label size="small" as="span">
-                    {tekst}
-                </Label>
-                <BodyShort size="small" as="span">
-                    {' '}
-                    (må fylles ut)
-                </BodyShort>
-            </>
-        );
-    };
-
     const datePickerDefaultProps = {
         fromDate: new Date(),
         openOnFocus: false,
@@ -124,9 +111,8 @@ const Publishing = () => {
                         {...datepickerPropsPublished.inputProps}
                         onBlur={onBlurPublishDate}
                         error={validation.published}
-                        label={datepickerLabel('Publiseringsdato')}
+                        label={<Skjemalabel>Publiseringsdato</Skjemalabel>}
                         placeholder="dd.mm.yyyy"
-                        size="small"
                     />
                 </DatePicker>
             </div>
@@ -136,9 +122,8 @@ const Publishing = () => {
                         {...datepickerPropsExpirationDate.inputProps}
                         onBlur={onBlurExpirationDate}
                         error={validation.expires}
-                        label={datepickerLabel('Siste visningsdato')}
+                        label={<Skjemalabel>Siste visningsdato</Skjemalabel>}
                         placeholder="dd.mm.yyyy"
-                        size="small"
                     />
                 </DatePicker>
             </div>

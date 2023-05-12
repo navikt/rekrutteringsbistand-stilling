@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import ProcessString from 'react-process-string';
-import { BodyLong, BodyShort, Label } from '@navikt/ds-react';
+import { BodyLong, BodyShort, Heading, Label } from '@navikt/ds-react';
 
 const Notat = () => {
     const notat = useSelector((state: any) => state.stillingsinfoData.notat);
@@ -31,10 +31,10 @@ const Notat = () => {
 
     return (
         <div>
-            <BodyShort size="small" spacing>
-                <Label size="small">Notater</Label>
-            </BodyShort>
-            <BodyLong size="small">{notatTekst}</BodyLong>
+            <Heading level="3" size="small" spacing>
+                Notater
+            </Heading>
+            <BodyLong>{notatTekst}</BodyLong>
         </div>
     );
 };

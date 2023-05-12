@@ -2,8 +2,6 @@
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    margin-bottom: 3rem;
-    margin-top: 1rem;
 }
 
 .publishing :global .navds-form-field__error {

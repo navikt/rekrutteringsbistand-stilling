@@ -18,7 +18,7 @@ const AdStatus = () => {
     return isSavingAd ? (
         <Alert variant="info">Stillingen er lagret</Alert>
     ) : (
-        <div className="AdStatusPreview">
+        <>
             {adStatus === Status.Inaktiv && deactivatedByExpiry && (
                 <Alert fullWidth variant="warning">
                     Stillingen er utløpt
@@ -52,7 +52,7 @@ const AdStatus = () => {
                     Stillingen er stoppet
                 </Alert>
             )}
-        </div>
+        </>
     );
 };
 

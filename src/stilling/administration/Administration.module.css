@@ -4,12 +4,10 @@
 }
 
 .elements {
-    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
     padding: 1.5rem;
-}
-
-.panel {
-    margin-bottom: 2rem;
 }
 
 .bottom {

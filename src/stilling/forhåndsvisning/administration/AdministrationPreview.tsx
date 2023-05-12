@@ -22,22 +22,14 @@ const AdministrationPreview = () => {
         useSelector((state: any) => state.adData?.createdBy) !== System.Rekrutteringsbistand;
 
     return (
-        <div>
-            <div>
-                <AdStatus />
-            </div>
-            <div>
-                <div className={css.previewPanel}>
-                    <Publishing />
-                </div>
-                <div className={css.previewPanel}>
-                    <Kategori />
-                </div>
+        <div className={css.preview}>
+            <AdStatus />
+            <div className={css.paneler}>
+                <Publishing />
+                <Kategori />
                 <ContactInfo />
                 {!erDirektemeldtStilling(source) && <Inkludering />}
-                <div className={css.previewPanel}>
-                    <Notat />
-                </div>
+                <Notat />
                 {limitedAccess && (
                     <Button
                         variant="primary"
