@@ -21,6 +21,9 @@
     border: 1px solid var(--a-border-default);
     border-radius: 0 0 var(--a-border-radius-medium) var(--a-border-radius-medium);
     padding: 0.5rem;
+}
+
+.editor :global(.public-DraftEditor-content) {
     min-height: 10rem;
 }
 
