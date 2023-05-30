@@ -8,6 +8,7 @@ import { getMiljø, Miljø } from '../verktøy/sentry';
 import devVirksomheter from './devVirksomheter';
 
 export const stillingApi = '/stilling-api';
+export const stillingssøkProxy = '/stillingssok-proxy';
 
 export type Side<T> = {
     content: T[];
@@ -61,6 +62,20 @@ export const hentMineStillinger = async (
             return stilling;
         }),
     };
+};
+
+export const hentMineStillingerOpenSearch = async (query: Query): Promise<Respons> => {
+    const respons = await fetchPost(`${stillingssøkProxy}/stilling/_search`, query);
+
+    if (respons.status === 401) {
+        //videresendTilInnlogging();
+    } else if (respons.status === 403) {
+        throw Error('Er ikke logget inn');
+    } else if (respons.status !== 200) {
+        throw Error(`Klarte ikke å gjøre et søk. `); //${logErrorResponse(respons)}`);
+    }
+
+    return respons.json();
 };
 
 export const hentStillingsinfoForStillingerSomEiesAvVeileder = async (
