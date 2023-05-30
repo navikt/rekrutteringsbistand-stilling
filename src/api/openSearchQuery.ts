@@ -1,4 +1,5 @@
 import { Rekrutteringsbistandstilling } from '../Stilling';
+import { RekrutteringsbistandstillingOpenSearch } from '../StillingOpenSearch';
 import { HentMineStillingerQuery } from '../mine-stillinger/mineStillingerSagas';
 
 export type OpenSearchQuery = {
@@ -46,7 +47,7 @@ export type Hit = {
     _type: string;
     _id: string;
     _score: number | null;
-    _source: Rekrutteringsbistandstilling;
+    _source: RekrutteringsbistandstillingOpenSearch;
     sort?: number[];
 };
 
