@@ -7,6 +7,7 @@ import { fetchGet, fetchPost, fetchPut } from './apiUtils';
 import { getMiljø, Miljø } from '../verktøy/sentry';
 import devVirksomheter from './devVirksomheter';
 import { Hit, lagOpenSearchQuery, OpenSearchQuery, OpenSearchResponse } from './openSearchQuery';
+import { stillingOpenSearchTilRekrutteringsbistandStilling } from '../StillingOpenSearch';
 
 export const stillingApi = '/stilling-api';
 export const stillingssøkProxy = '/stillingssok-proxy';
@@ -83,7 +84,7 @@ export const hentMineStillingerOpenSearch = async (
 
     return {
         content: osBody.hits.hits.map((hit: Hit) => {
-            return hit._source;
+            return stillingOpenSearchTilRekrutteringsbistandStilling(hit._source);
         }),
         totalElements: osBody.hits.total.value,
         totalPages: respons.totalPages,

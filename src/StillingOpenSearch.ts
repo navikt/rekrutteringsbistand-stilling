@@ -6,6 +6,7 @@ import {
     Kontaktinfo,
     Privacy,
     Properties,
+    Rekrutteringsbistandstilling,
     Stillingsinfo,
     StyrkCategory,
 } from './Stilling';
@@ -43,4 +44,10 @@ export type ArbeidsgiverOpenSearch = {
     orgnr: string | null;
     parentOrgnr: string | null;
     orgform: string;
+};
+
+export const stillingOpenSearchTilRekrutteringsbistandStilling: Rekrutteringsbistandstilling = (
+    rekrutteringsbistandstillingOpenSearch: RekrutteringsbistandstillingOpenSearch
+) => {
+    return {};
 };
