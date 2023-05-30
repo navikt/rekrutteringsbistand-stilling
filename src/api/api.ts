@@ -6,7 +6,7 @@ import Stilling, { AdminStatus, Rekrutteringsbistandstilling, Stillingsinfo } fr
 import { fetchGet, fetchPost, fetchPut } from './apiUtils';
 import { getMiljø, Miljø } from '../verktøy/sentry';
 import devVirksomheter from './devVirksomheter';
-import { lagOpenSearchQuery, OpenSearchQuery } from './openSearchQuery';
+import { Hit, lagOpenSearchQuery, OpenSearchQuery, OpenSearchResponse } from './openSearchQuery';
 
 export const stillingApi = '/stilling-api';
 export const stillingssøkProxy = '/stillingssok-proxy';
@@ -79,14 +79,16 @@ export const hentMineStillingerOpenSearch = async (
         throw Error(`Klarte ikke å gjøre et søk. `); //${logErrorResponse(respons)}`);
     }
 
-    return lagSideMedOpenSearchResultat(respons.json);
+    const osBody: OpenSearchResponse = respons.content;
 
-    return respons.json();
+    return {
+        content: osBody.hits.hits.map((hit: Hit) => {
+            return hit._source;
+        }),
+        totalElements: osBody.hits.total.value,
+        totalPages: respons.totalPages,
+    };
 };
-
-export const lagSideMedOpenSearchResultat = (
-    json: string
-): Promise<Side<Rekrutteringsbistandstilling>> => {};
 
 export const hentStillingsinfoForStillingerSomEiesAvVeileder = async (
     navIdent: string

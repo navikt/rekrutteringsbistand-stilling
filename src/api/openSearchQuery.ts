@@ -22,7 +22,7 @@ type MatchQuery = {
     query: string;
 };
 
-export type Respons = {
+export type OpenSearchResponse = {
     took: number;
     timed_out: boolean;
     _shards: {
@@ -32,6 +32,10 @@ export type Respons = {
         failed: number;
     };
     hits: {
+        total: {
+            value: number;
+            relation: string;
+        };
         max_score: number | null;
         hits: Array<Hit>;
     };
@@ -46,4 +50,21 @@ export type Hit = {
     sort?: number[];
 };
 
-export const lagOpenSearchQuery = (query: HentMineStillingerQuery): OpenSearchQuery => {};
+export const lagOpenSearchQuery = (query: HentMineStillingerQuery): OpenSearchQuery => {
+    return {
+        size: 50,
+        from: 0,
+        track_total_hits: false,
+        query: {
+            //term?: Record<string, object>;
+            //match?: Record<string, MatchQuery>;
+            //bool?: object;
+            match_all: {},
+            /*multi_match?: {
+                query: string;
+                fields: string[];
+            };*/
+            //filter?: any;
+        },
+    };
+};
