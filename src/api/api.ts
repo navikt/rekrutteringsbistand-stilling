@@ -6,6 +6,7 @@ import Stilling, { AdminStatus, Rekrutteringsbistandstilling, Stillingsinfo } fr
 import { fetchGet, fetchPost, fetchPut } from './apiUtils';
 import { getMiljø, Miljø } from '../verktøy/sentry';
 import devVirksomheter from './devVirksomheter';
+import { lagOpenSearchQuery, OpenSearchQuery } from './openSearchQuery';
 
 export const stillingApi = '/stilling-api';
 export const stillingssøkProxy = '/stillingssok-proxy';
@@ -64,8 +65,11 @@ export const hentMineStillinger = async (
     };
 };
 
-export const hentMineStillingerOpenSearch = async (query: Query): Promise<Respons> => {
-    const respons = await fetchPost(`${stillingssøkProxy}/stilling/_search`, query);
+export const hentMineStillingerOpenSearch = async (
+    query: HentMineStillingerQuery
+): Promise<Side<Rekrutteringsbistandstilling>> => {
+    const openSearchQuery = lagOpenSearchQuery(query);
+    const respons = await fetchPost(`${stillingssøkProxy}/stilling/_search`, openSearchQuery);
 
     if (respons.status === 401) {
         //videresendTilInnlogging();
@@ -75,8 +79,14 @@ export const hentMineStillingerOpenSearch = async (query: Query): Promise<Respon
         throw Error(`Klarte ikke å gjøre et søk. `); //${logErrorResponse(respons)}`);
     }
 
+    return lagSideMedOpenSearchResultat(respons.json);
+
     return respons.json();
 };
+
+export const lagSideMedOpenSearchResultat = (
+    json: string
+): Promise<Side<Rekrutteringsbistandstilling>> => {};
 
 export const hentStillingsinfoForStillingerSomEiesAvVeileder = async (
     navIdent: string
