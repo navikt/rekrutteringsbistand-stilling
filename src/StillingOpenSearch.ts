@@ -1,4 +1,6 @@
+import startOfDay from 'date-fns/startOfDay';
 import {
+    AdminStatus,
     Administration,
     Geografi,
     Kilde,
@@ -9,6 +11,7 @@ import {
     Stillingsinfo,
     StyrkCategory,
 } from './Stilling';
+import AdStatus from './stilling/administration/adStatus/AdStatus';
 
 export type RekrutteringsbistandstillingOpenSearch = {
     stilling: StillingOpenSearch;
@@ -36,8 +39,6 @@ export type StillingOpenSearch = {
     reference: string;
     administration: Administration | null;
     properties: Properties & Record<string, any>;
-    // deactivatedByExpiry: boolean; // TODO: Vet ikke om denne finnes i ES
-    // activationOnPublishingDate: string; // TODO: Vet ikke om denne finnes i ES
 };
 
 export type ArbeidsgiverOpenSearch = {
@@ -47,3 +48,23 @@ export type ArbeidsgiverOpenSearch = {
     parentOrgnr: string | null;
     orgform: string;
 };
+
+const utløperFørIdag = (expires: string | null) => {
+    if (expires === null) {
+        return false;
+    }
+
+    const startenAvDøgnet = startOfDay(new Date());
+    return new Date(expires) <= startenAvDøgnet;
+};
+
+export const stillingErUtløpt = (stilling: StillingOpenSearch): boolean => {
+    return (
+        stilling.publishedByAdmin !== null &&
+        stilling.status === Status.Inaktiv &&
+        utløperFørIdag(stilling.expires) &&
+        (stilling.administration?.status === AdminStatus.Done ?? true)
+    );
+};
+
+export const stillingKommerTilÅBliPublisert = (stilling: StillingOpenSearch): boolean => {};

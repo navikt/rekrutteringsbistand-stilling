@@ -1,4 +1,5 @@
 import { AdminStatus, Status } from '../../Stilling';
+import { stillingErUtløpt } from '../../StillingOpenSearch';
 import PrivacyStatusEnum from './PrivacyStatusEnum';
 
 export function getAdStatusLabel(adStatus: Status, expires: string | null) {
@@ -22,13 +23,6 @@ export function getAdStatusLabel(adStatus: Status, expires: string | null) {
     }
     return '';
 }
-
-export const stillingErUtløpt = (utløpsdato: string | null): boolean => {
-    if (!utløpsdato) return false;
-    const somDato = new Date(utløpsdato);
-
-    return somDato <= new Date();
-};
 
 export function getAdminStatusLabel(adminStatus: AdminStatus) {
     if (adminStatus === AdminStatus.Received) {
