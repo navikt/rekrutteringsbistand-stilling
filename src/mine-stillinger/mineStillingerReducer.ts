@@ -1,11 +1,12 @@
 import { feil, ikkeLastet, lasterInn, Nettressurs, suksess } from '../api/Nettressurs';
-import { Rekrutteringsbistandstilling, Status } from '../Stilling';
+import { Status } from '../Stilling';
+import { RekrutteringsbistandstillingOpenSearch } from '../StillingOpenSearch';
 import { MineStillingerAction, MineStillingerActionType } from './MineStillingerAction';
 import { MineStillingerSorteringsfelt } from './MineStillingerSortering';
 import { Retning } from './tabell/Retning';
 
 export type MineStillingerResultat = {
-    content: Rekrutteringsbistandstilling[];
+    content: RekrutteringsbistandstillingOpenSearch[];
     totalElements: number;
     totalPages: number;
 };

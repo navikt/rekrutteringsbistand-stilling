@@ -1,12 +1,11 @@
 import {
     Administration,
-    Arbeidsgiver,
     Geografi,
     Kilde,
     Kontaktinfo,
     Privacy,
     Properties,
-    Rekrutteringsbistandstilling,
+    Status,
     Stillingsinfo,
     StyrkCategory,
 } from './Stilling';
@@ -20,9 +19,10 @@ export type StillingOpenSearch = {
     title: string;
     uuid: string;
     annonsenr: string | null;
-    status: string;
+    status: Status;
     privacy: Privacy | string;
     published: string | null;
+    publishedByAdmin: string | null;
     expires: string | null;
     created: string;
     updated: string;
@@ -36,6 +36,8 @@ export type StillingOpenSearch = {
     reference: string;
     administration: Administration | null;
     properties: Properties & Record<string, any>;
+    deactivatedByExpiry: boolean; // TODO: Vet ikke om denne finnes i ES
+    activationOnPublishingDate: string; // TODO: Vet ikke om denne finnes i ES
 };
 
 export type ArbeidsgiverOpenSearch = {
@@ -44,10 +46,4 @@ export type ArbeidsgiverOpenSearch = {
     orgnr: string | null;
     parentOrgnr: string | null;
     orgform: string;
-};
-
-export const stillingOpenSearchTilRekrutteringsbistandStilling: Rekrutteringsbistandstilling = (
-    rekrutteringsbistandstillingOpenSearch: RekrutteringsbistandstillingOpenSearch
-) => {
-    return {};
 };

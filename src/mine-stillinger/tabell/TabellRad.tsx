@@ -8,13 +8,14 @@ import { Link } from 'react-router-dom';
 import PrivacyStatusEnum from '../../common/enums/PrivacyStatusEnum';
 import { getAdStatusLabel } from '../../common/enums/getEnumLabels';
 import { MenuElipsisHorizontalCircleIcon, PersonGroupIcon } from '@navikt/aksel-icons';
+import { RekrutteringsbistandstillingOpenSearch } from '../../StillingOpenSearch';
 import { Dropdown } from '@navikt/ds-react-internal';
 import DropdownMeny from './DropdownMeny';
 import getEmployerName from '../../common/getEmployerName';
 import css from './MineStillingerTabell.module.css';
 
 type Props = {
-    rekrutteringsbistandstilling: Rekrutteringsbistandstilling;
+    rekrutteringsbistandstilling: RekrutteringsbistandstillingOpenSearch;
 };
 
 const TabellRad: FunctionComponent<Props> = ({ rekrutteringsbistandstilling }) => {
@@ -39,8 +40,8 @@ const TabellRad: FunctionComponent<Props> = ({ rekrutteringsbistandstilling }) =
                 {isCopy
                     ? (
                           <div>
-                              <b>{stilling.title.substr(0, 5)}</b>
-                              {stilling.title.substr(5)}
+                              <b>{stilling.title.substring(0, 5)}</b>
+                              {stilling.title.substring(5)}
                           </div>
                       ) || ''
                     : stilling.title || ''}
@@ -80,7 +81,9 @@ const TabellRad: FunctionComponent<Props> = ({ rekrutteringsbistandstilling }) =
         <Table.Row shadeOnHover={false} className={css.rad}>
             {colUpdated}
             {colTitle}
-            <Table.DataCell>{stilling.id && <BodyShort>{stilling.id}</BodyShort>}</Table.DataCell>
+            <Table.DataCell>
+                {stilling.annonsenr && <BodyShort>{stilling.annonsenr}</BodyShort>}
+            </Table.DataCell>
             <Table.DataCell>
                 <BodyShort className="ResultItem__column Col-employer-inner">
                     {getEmployerName(stilling)}

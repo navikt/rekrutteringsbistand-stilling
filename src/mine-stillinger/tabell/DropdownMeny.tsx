@@ -1,17 +1,19 @@
 import React, { FunctionComponent } from 'react';
-import { Tooltip } from '@navikt/ds-react';
-import { Dropdown } from '@navikt/ds-react-internal';
-import Stilling, { Status } from '../../Stilling';
-import { getAdStatusLabel } from '../../common/enums/getEnumLabels';
-import { COPY_AD_FROM_MY_ADS, SHOW_STOP_MODAL_MY_ADS } from '../../stilling/adReducer';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { REDIGERINGSMODUS_QUERY_PARAM } from '../../stilling/Stilling';
+import { Tooltip } from '@navikt/ds-react';
+import { Dropdown } from '@navikt/ds-react-internal';
 import classNames from 'classnames';
+
+import { Status } from '../../Stilling';
+import { getAdStatusLabel } from '../../common/enums/getEnumLabels';
+import { COPY_AD_FROM_MY_ADS, SHOW_STOP_MODAL_MY_ADS } from '../../stilling/adReducer';
+import { REDIGERINGSMODUS_QUERY_PARAM } from '../../stilling/Stilling';
+import { StillingOpenSearch } from '../../StillingOpenSearch';
 import css from './DropdownMeny.module.css';
 
 type Props = {
-    stilling: Stilling;
+    stilling: StillingOpenSearch;
     stopAd: (uuid: string) => void;
     copyAd: (uuid: string) => void;
 };

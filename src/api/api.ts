@@ -6,8 +6,11 @@ import Stilling, { AdminStatus, Rekrutteringsbistandstilling, Stillingsinfo } fr
 import { fetchGet, fetchPost, fetchPut } from './apiUtils';
 import { getMiljø, Miljø } from '../verktøy/sentry';
 import devVirksomheter from './devVirksomheter';
-import { Hit, lagOpenSearchQuery, OpenSearchQuery, OpenSearchResponse } from './openSearchQuery';
-import { stillingOpenSearchTilRekrutteringsbistandStilling } from '../StillingOpenSearch';
+import { Hit, lagOpenSearchQuery, OpenSearchResponse } from './openSearchQuery';
+import {
+    RekrutteringsbistandstillingOpenSearch,
+    stillingOpenSearchTilRekrutteringsbistandStilling,
+} from '../StillingOpenSearch';
 
 export const stillingApi = '/stilling-api';
 export const stillingssøkProxy = '/stillingssok-proxy';
@@ -68,7 +71,7 @@ export const hentMineStillinger = async (
 
 export const hentMineStillingerOpenSearch = async (
     query: HentMineStillingerQuery
-): Promise<Side<Rekrutteringsbistandstilling>> => {
+): Promise<Side<RekrutteringsbistandstillingOpenSearch>> => {
     const openSearchQuery = lagOpenSearchQuery(query);
     const respons = await fetchPost(`${stillingssøkProxy}/stilling/_search`, openSearchQuery);
 
