@@ -5,6 +5,7 @@ import { HentMineStillingerQuery } from '../mine-stillinger/mineStillingerSagas'
 export type OpenSearchQuery = {
     size?: number;
     from?: number;
+    sort?: any;
     track_total_hits?: boolean;
     query: {
         term?: Record<string, object>;
@@ -60,6 +61,11 @@ export const lagOpenSearchQuery = (
         from: 0,
         track_total_hits: true,
         query: byggIndreQuery(query),
+        sort: [
+            {
+                'stilling.updated': 'desc',
+            },
+        ],
     };
 };
 
@@ -126,18 +132,40 @@ const byggSynlighetQuery = (visUtløpteStillinger: boolean) => {
                                 'stilling.status': 'INACTIVE',
                             },
                         },
-                        {
-                            term: {
-                                'stilling.status': 'STOPPED',
-                            },
-                        },
                     ],
+                    // IKKE
+                    /*  stilling.publishedByAdmin !== null &&
+                        stilling.status === Status.Inaktiv &&
+                        utløperFørIdag(stilling.expires) &&
+                        stilling.administration?.status === AdminStatus.Done
+                        */
                     must_not: [
                         {
-                            range: {
-                                'stilling.expires': {
-                                    lt: 'now/d',
-                                },
+                            bool: {
+                                must: [
+                                    {
+                                        exists: {
+                                            field: 'stilling.publishedByAdmin',
+                                        },
+                                    },
+                                    {
+                                        term: {
+                                            'stilling.status': 'INACTIVE',
+                                        },
+                                    },
+                                    {
+                                        term: {
+                                            'stilling.administration.status': 'DONE',
+                                        },
+                                    },
+                                    {
+                                        range: {
+                                            'stilling.expires': {
+                                                lt: 'now/d',
+                                            },
+                                        },
+                                    },
+                                ],
                             },
                         },
                     ],
