@@ -1,11 +1,11 @@
 import { AdminStatus, Status } from '../../Stilling';
 import PrivacyStatusEnum from './PrivacyStatusEnum';
 
-export function getAdStatusLabel(adStatus: Status, deactivatedByExpiry = false) {
+export function getAdStatusLabel(adStatus: Status, expires: string | null) {
     if (adStatus === Status.Aktiv) {
         return 'Publisert';
     }
-    if (adStatus === Status.Inaktiv && deactivatedByExpiry) {
+    if (adStatus === Status.Inaktiv && stillingErUtløpt(expires)) {
         return 'Utløpt';
     }
     if (adStatus === Status.Inaktiv) {
@@ -22,6 +22,13 @@ export function getAdStatusLabel(adStatus: Status, deactivatedByExpiry = false) 
     }
     return '';
 }
+
+export const stillingErUtløpt = (utløpsdato: string | null): boolean => {
+    if (!utløpsdato) return false;
+    const somDato = new Date(utløpsdato);
+
+    return somDato <= new Date();
+};
 
 export function getAdminStatusLabel(adminStatus: AdminStatus) {
     if (adminStatus === AdminStatus.Received) {

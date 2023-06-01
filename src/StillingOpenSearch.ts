@@ -36,8 +36,8 @@ export type StillingOpenSearch = {
     reference: string;
     administration: Administration | null;
     properties: Properties & Record<string, any>;
-    deactivatedByExpiry: boolean; // TODO: Vet ikke om denne finnes i ES
-    activationOnPublishingDate: string; // TODO: Vet ikke om denne finnes i ES
+    // deactivatedByExpiry: boolean; // TODO: Vet ikke om denne finnes i ES
+    // activationOnPublishingDate: string; // TODO: Vet ikke om denne finnes i ES
 };
 
 export type ArbeidsgiverOpenSearch = {

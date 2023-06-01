@@ -104,7 +104,7 @@ const TabellRad: FunctionComponent<Props> = ({ rekrutteringsbistandstilling }) =
             <Table.DataCell>
                 {stilling.status && (
                     <BodyShort className="ResultItem__column">
-                        {getAdStatusLabel(stilling.status, stilling.deactivatedByExpiry!)}
+                        {getAdStatusLabel(stilling.status, stilling.expires)}
                     </BodyShort>
                 )}
             </Table.DataCell>
