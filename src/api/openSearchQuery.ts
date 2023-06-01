@@ -76,7 +76,7 @@ const byggIndreQuery = (query: HentMineStillingerQuery) => {
 const kunMineStillinger = [
     {
         term: {
-            'stilling.administration.navIdent': 'Z994122',
+            'stilling.administration.navIdent': 'Z994944',
         },
     },
 ];
@@ -104,7 +104,7 @@ const byggSynlighetQuery = (visUtløpteStillinger: boolean) => {
         return [
             {
                 bool: {
-                    must: [
+                    should: [
                         {
                             term: {
                                 'stilling.status': 'ACTIVE',
@@ -113,6 +113,15 @@ const byggSynlighetQuery = (visUtløpteStillinger: boolean) => {
                         {
                             term: {
                                 'stilling.status': 'INACTIVE',
+                            },
+                        },
+                    ],
+                    must_not: [
+                        {
+                            range: {
+                                'stilling.expires': {
+                                    lt: 'now/d',
+                                },
                             },
                         },
                     ],
