@@ -1,16 +1,13 @@
-import { queryObjectToUrl } from '../common/urlUtils';
-import { HentMineStillingerQuery } from '../mine-stillinger/mineStillingerSagas';
 import { Arbeidsgiverforslag } from '../opprett-ny-stilling/VelgArbeidsgiver';
-import { Stillingskategori } from '../opprett-ny-stilling/VelgStillingskategori';
-import Stilling, { AdminStatus, Rekrutteringsbistandstilling, Stillingsinfo } from '../Stilling';
 import { fetchGet, fetchPost, fetchPut } from './apiUtils';
 import { getMiljø, Miljø } from '../verktøy/sentry';
+import { HentMineStillingerQuery } from '../mine-stillinger/mineStillingerSagas';
+import { lagOpenSearchQuery, OpenSearchResponse } from './openSearchQuery';
+import { queryObjectToUrl } from '../common/urlUtils';
+import { RekrutteringsbistandstillingOpenSearch } from '../StillingOpenSearch';
+import { Stillingskategori } from '../opprett-ny-stilling/VelgStillingskategori';
 import devVirksomheter from './devVirksomheter';
-import { Hit, lagOpenSearchQuery, OpenSearchResponse } from './openSearchQuery';
-import {
-    RekrutteringsbistandstillingOpenSearch,
-    stillingOpenSearchTilRekrutteringsbistandStilling,
-} from '../StillingOpenSearch';
+import Stilling, { AdminStatus, Rekrutteringsbistandstilling, Stillingsinfo } from '../Stilling';
 
 export const stillingApi = '/stilling-api';
 export const stillingssøkProxy = '/stillingssok-proxy';
@@ -86,9 +83,7 @@ export const hentMineStillingerOpenSearch = async (
     const osBody: OpenSearchResponse = respons.content;
     // TODO: fixMissingAdministration?
     return {
-        content: osBody.hits.hits.map((hit: Hit) => {
-            return stillingOpenSearchTilRekrutteringsbistandStilling(hit._source);
-        }),
+        content: osBody.hits.hits.map((hit) => hit._source),
         totalElements: osBody.hits.total.value,
         totalPages: respons.totalPages,
     };

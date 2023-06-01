@@ -1,15 +1,19 @@
 import React, { FunctionComponent } from 'react';
+import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Tooltip } from '@navikt/ds-react';
 import { Dropdown } from '@navikt/ds-react-internal';
-import classNames from 'classnames';
 
 import { Status } from '../../Stilling';
 import { getAdStatusLabel } from '../../common/enums/getEnumLabels';
 import { COPY_AD_FROM_MY_ADS, SHOW_STOP_MODAL_MY_ADS } from '../../stilling/adReducer';
 import { REDIGERINGSMODUS_QUERY_PARAM } from '../../stilling/Stilling';
-import { StillingOpenSearch } from '../../StillingOpenSearch';
+import {
+    StillingOpenSearch,
+    stillingErUtløpt,
+    stillingKommerTilÅBliAktiv,
+} from '../../StillingOpenSearch';
 import css from './DropdownMeny.module.css';
 
 type Props = {
@@ -23,11 +27,8 @@ const DropdownMeny: FunctionComponent<Props> = ({ stilling, stopAd, copyAd }) =>
         action(stilling.uuid);
     };
 
-    const vilBliPublisert =
-        stilling.status === Status.Inaktiv && stilling.activationOnPublishingDate;
-
     const kanStoppeStilling =
-        stilling.status === Status.Aktiv || (stilling.status === Status.Inaktiv && vilBliPublisert);
+        stilling.status === Status.Aktiv || stillingKommerTilÅBliAktiv(stilling);
 
     return (
         <Dropdown.Menu>
@@ -47,7 +48,7 @@ const DropdownMeny: FunctionComponent<Props> = ({ stilling, stopAd, copyAd }) =>
                     <Tooltip
                         content={`Du kan ikke stoppe en stilling som har status: "${getAdStatusLabel(
                             stilling.status,
-                            stilling.deactivatedByExpiry!
+                            stillingErUtløpt(stilling)
                         ).toLowerCase()}"`}
                     >
                         <Dropdown.Menu.GroupedList.Item className={css.disabledValg}>

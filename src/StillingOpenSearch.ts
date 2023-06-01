@@ -67,7 +67,7 @@ export const stillingErUtløpt = (stilling: StillingOpenSearch): boolean => {
     );
 };
 
-export const stillingKommerTilÅBliPublisert = (stilling: StillingOpenSearch): boolean => {
+export const stillingKommerTilÅBliAktiv = (stilling: StillingOpenSearch): boolean => {
     if (stilling.published === null || stilling.expires === null) return false;
 
     return (

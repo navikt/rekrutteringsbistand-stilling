@@ -1,17 +1,17 @@
 import React, { FunctionComponent } from 'react';
 import { BodyShort, Button, Table } from '@navikt/ds-react';
-import { Rekrutteringsbistandstilling } from '../../Stilling';
+import { Dropdown } from '@navikt/ds-react-internal';
 import { useSelector } from 'react-redux';
-import { State } from '../../redux/store';
-import { formatISOString } from '../../utils/datoUtils';
 import { Link } from 'react-router-dom';
-import PrivacyStatusEnum from '../../common/enums/PrivacyStatusEnum';
+
+import { formatISOString } from '../../utils/datoUtils';
 import { getAdStatusLabel } from '../../common/enums/getEnumLabels';
 import { MenuElipsisHorizontalCircleIcon, PersonGroupIcon } from '@navikt/aksel-icons';
-import { RekrutteringsbistandstillingOpenSearch } from '../../StillingOpenSearch';
-import { Dropdown } from '@navikt/ds-react-internal';
+import { RekrutteringsbistandstillingOpenSearch, stillingErUtløpt } from '../../StillingOpenSearch';
+import { State } from '../../redux/store';
 import DropdownMeny from './DropdownMeny';
 import getEmployerName from '../../common/getEmployerName';
+import PrivacyStatusEnum from '../../common/enums/PrivacyStatusEnum';
 import css from './MineStillingerTabell.module.css';
 
 type Props = {
@@ -104,7 +104,7 @@ const TabellRad: FunctionComponent<Props> = ({ rekrutteringsbistandstilling }) =
             <Table.DataCell>
                 {stilling.status && (
                     <BodyShort className="ResultItem__column">
-                        {getAdStatusLabel(stilling.status, stilling.expires)}
+                        {getAdStatusLabel(stilling.status, stillingErUtløpt(stilling))}
                     </BodyShort>
                 )}
             </Table.DataCell>
