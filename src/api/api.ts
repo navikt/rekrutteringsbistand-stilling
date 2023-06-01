@@ -69,13 +69,14 @@ export const hentMineStillinger = async (
 export const hentMineStillingerOpenSearch = async (
     query: HentMineStillingerQuery
 ): Promise<Side<RekrutteringsbistandstillingOpenSearch>> => {
-    const sidestørrelse = 50;
+    const sidestørrelse = 25;
 
     const openSearchQuery = lagOpenSearchQuery(query, sidestørrelse);
     const respons: OpenSearchResponse = await fetchPost(
         `${stillingssøkProxy}/stilling/_search`,
         openSearchQuery
     );
+
     // TODO: fixMissingAdministration?
     return {
         content: respons.hits.hits.map((hit) => hit._source),

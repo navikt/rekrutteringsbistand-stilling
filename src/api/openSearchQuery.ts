@@ -1,4 +1,3 @@
-import { Rekrutteringsbistandstilling } from '../Stilling';
 import { RekrutteringsbistandstillingOpenSearch } from '../StillingOpenSearch';
 import { HentMineStillingerQuery } from '../mine-stillinger/mineStillingerSagas';
 
@@ -58,7 +57,7 @@ export const lagOpenSearchQuery = (
     return {
         size: sidestørrelse,
         from: 0,
-        track_total_hits: false,
+        track_total_hits: true,
         query: {
             //term?: Record<string, object>;
             //match?: Record<string, MatchQuery>;
