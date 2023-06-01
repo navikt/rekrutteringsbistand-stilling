@@ -22,11 +22,11 @@ import search from './data/search.json';
 import aktivEnhet from './data/dekoratør/aktivenhet.json';
 import aktivBruker from './data/dekoratør/aktivbruker.json';
 import decorator from './data/dekoratør/decorator.json';
-import { mineStillingerFraOpenSearch } from './data/mineStillingerOpenSearch';
+import mineStillingerFraOpenSearch from './data/mineStillingerOpenSearch';
 
 const reporteeUrl = `${stillingApi}/rekrutteringsbistand/api/v1/reportee`;
 const mineStillingerUrl = `express:${stillingApi}/mine-stillinger`;
-const mineStillingerOpenSearchUrl = `express:${stillingssøkProxy}/mine-stillinger`;
+const mineStillingerOpenSearchUrl = `express:${stillingssøkProxy}/stilling/_search`;
 const opprettStillingUrl = `express:${stillingApi}/rekrutteringsbistandstilling`;
 const kopierStillingUrl = `express:${stillingApi}/rekrutteringsbistandstilling/kopier/:stillingsId`;
 const slettStillingUrl = `express:${stillingApi}/rekrutteringsbistandstilling/:stillingsId`;
@@ -99,7 +99,7 @@ const putStilling = (_: string, options: MockRequest): Rekrutteringsbistandstill
 
 fetchMock
     .get(mineStillingerUrl, log(mineStillinger))
-    .post(stillingssøkProxy, log(mineStillingerOpenSearchUrl))
+    .post(mineStillingerOpenSearchUrl, log(mineStillingerFraOpenSearch))
     .post(opprettStillingUrl, log(rekrutteringsbistandStilling))
     .post(kopierStillingUrl, log(rekrutteringsbistandStilling))
     .get(reporteeUrl, log(reportee))

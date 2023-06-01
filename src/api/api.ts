@@ -69,23 +69,18 @@ export const hentMineStillinger = async (
 export const hentMineStillingerOpenSearch = async (
     query: HentMineStillingerQuery
 ): Promise<Side<RekrutteringsbistandstillingOpenSearch>> => {
-    const openSearchQuery = lagOpenSearchQuery(query);
-    const respons = await fetchPost(`${stillingssøkProxy}/stilling/_search`, openSearchQuery);
+    const sidestørrelse = 50;
 
-    if (respons.status === 401) {
-        //videresendTilInnlogging();
-    } else if (respons.status === 403) {
-        throw Error('Er ikke logget inn');
-    } else if (respons.status !== 200) {
-        throw Error(`Klarte ikke å gjøre et søk. `); //${logErrorResponse(respons)}`);
-    }
-
-    const osBody: OpenSearchResponse = respons.content;
+    const openSearchQuery = lagOpenSearchQuery(query, sidestørrelse);
+    const respons: OpenSearchResponse = await fetchPost(
+        `${stillingssøkProxy}/stilling/_search`,
+        openSearchQuery
+    );
     // TODO: fixMissingAdministration?
     return {
-        content: osBody.hits.hits.map((hit) => hit._source),
-        totalElements: osBody.hits.total.value,
-        totalPages: respons.totalPages,
+        content: respons.hits.hits.map((hit) => hit._source),
+        totalElements: respons.hits.total.value,
+        totalPages: Math.ceil(respons.hits.total.value / sidestørrelse),
     };
 };
 

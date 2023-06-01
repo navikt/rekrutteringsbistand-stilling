@@ -3,7 +3,7 @@ import { Kilde } from '../../Stilling';
 import { AdminStatus, Ansettelsesform, Omfang } from '../../Stilling';
 import { OpenSearchResponse } from '../../api/openSearchQuery';
 
-export const mineStillingerFraOpenSearch: OpenSearchResponse = {
+const mineStillingerFraOpenSearch: OpenSearchResponse = {
     took: 10,
     timed_out: false,
     _shards: {
@@ -316,3 +316,5 @@ export const mineStillingerFraOpenSearch: OpenSearchResponse = {
         ],
     },
 };
+
+export default mineStillingerFraOpenSearch;

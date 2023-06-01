@@ -51,9 +51,12 @@ export type Hit = {
     sort?: number[];
 };
 
-export const lagOpenSearchQuery = (query: HentMineStillingerQuery): OpenSearchQuery => {
+export const lagOpenSearchQuery = (
+    query: HentMineStillingerQuery,
+    sidestørrelse: number
+): OpenSearchQuery => {
     return {
-        size: 50,
+        size: sidestørrelse,
         from: 0,
         track_total_hits: false,
         query: {
