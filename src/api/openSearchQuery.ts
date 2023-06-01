@@ -1,3 +1,4 @@
+import { Status } from '../Stilling';
 import { RekrutteringsbistandstillingOpenSearch } from '../StillingOpenSearch';
 import { HentMineStillingerQuery } from '../mine-stillinger/mineStillingerSagas';
 
@@ -58,16 +59,85 @@ export const lagOpenSearchQuery = (
         size: sidestørrelse,
         from: 0,
         track_total_hits: true,
-        query: {
-            //term?: Record<string, object>;
-            //match?: Record<string, MatchQuery>;
-            //bool?: object;
-            match_all: {},
-            /*multi_match?: {
-                query: string;
-                fields: string[];
-            };*/
-            //filter?: any;
+        query: byggIndreQuery(query),
+    };
+};
+
+const byggIndreQuery = (query: HentMineStillingerQuery) => {
+    console.log('Søker med query:', query);
+
+    return {
+        bool: {
+            filter: [...kunMineStillinger, ...byggSynlighetQuery(query.deactivatedByExpiry)],
         },
     };
 };
+
+const kunMineStillinger = [
+    {
+        term: {
+            'stilling.administration.navIdent': 'Z994122',
+        },
+    },
+];
+
+const byggSynlighetQuery = (visUtløpteStillinger: boolean) => {
+    if (visUtløpteStillinger) {
+        return [
+            {
+                bool: {
+                    must: [
+                        { term: { 'stilling.status': 'INACTIVE' } },
+                        {
+                            range: {
+                                'stilling.expires': {
+                                    lt: 'now/d',
+                                },
+                            },
+                        },
+                        ...stillingenErEllerHarVærtPublisert,
+                    ],
+                },
+            },
+        ];
+    } else {
+        return [
+            {
+                bool: {
+                    must: [
+                        {
+                            term: {
+                                'stilling.status': 'ACTIVE',
+                            },
+                        },
+                        {
+                            term: {
+                                'stilling.status': 'INACTIVE',
+                            },
+                        },
+                    ],
+                },
+            },
+        ];
+    }
+};
+
+const stillingenErEllerHarVærtPublisert = [
+    {
+        term: {
+            'stilling.administration.status': 'DONE',
+        },
+    },
+    {
+        exists: {
+            field: 'stilling.publishedByAdmin',
+        },
+    },
+    {
+        range: {
+            'stilling.published': {
+                lte: 'now/d',
+            },
+        },
+    },
+];
