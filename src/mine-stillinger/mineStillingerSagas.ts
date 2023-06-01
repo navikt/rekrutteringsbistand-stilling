@@ -1,5 +1,8 @@
 import { put, select, takeLatest } from 'redux-saga/effects';
-import { hentStillingsinfoForStillingerSomEiesAvVeileder, hentMineStillinger } from '../api/api';
+import {
+    hentStillingsinfoForStillingerSomEiesAvVeileder,
+    hentMineStillingerOpenSearch,
+} from '../api/api';
 import { ApiError } from '../api/apiUtils';
 import { State } from '../redux/store';
 import { Stillingsinfo } from '../Stilling';
@@ -48,7 +51,7 @@ function* getMyAds() {
             uuid: stillingerVeilederHarOvertatt,
         };
 
-        const response = yield hentMineStillinger(query);
+        const response = yield hentMineStillingerOpenSearch(query);
 
         yield put({ type: MineStillingerActionType.FetchMyAdsSuccess, response });
     } catch (e) {

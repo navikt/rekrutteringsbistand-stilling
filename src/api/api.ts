@@ -84,7 +84,7 @@ export const hentMineStillingerOpenSearch = async (
     }
 
     const osBody: OpenSearchResponse = respons.content;
-
+    // TODO: fixMissingAdministration?
     return {
         content: osBody.hits.hits.map((hit: Hit) => {
             return stillingOpenSearchTilRekrutteringsbistandStilling(hit._source);
