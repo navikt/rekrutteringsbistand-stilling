@@ -1,7 +1,8 @@
-import startOfDay from 'date-fns/startOfDay';
+import { isAfter, startOfDay } from 'date-fns';
+
 import {
-    AdminStatus,
     Administration,
+    AdminStatus,
     Geografi,
     Kilde,
     Kontaktinfo,
@@ -11,7 +12,6 @@ import {
     Stillingsinfo,
     StyrkCategory,
 } from './Stilling';
-import AdStatus from './stilling/administration/adStatus/AdStatus';
 
 export type RekrutteringsbistandstillingOpenSearch = {
     stilling: StillingOpenSearch;
@@ -63,8 +63,18 @@ export const stillingErUtløpt = (stilling: StillingOpenSearch): boolean => {
         stilling.publishedByAdmin !== null &&
         stilling.status === Status.Inaktiv &&
         utløperFørIdag(stilling.expires) &&
-        (stilling.administration?.status === AdminStatus.Done ?? true)
+        stilling.administration?.status === AdminStatus.Done
     );
 };
 
-export const stillingKommerTilÅBliPublisert = (stilling: StillingOpenSearch): boolean => {};
+export const stillingKommerTilÅBliPublisert = (stilling: StillingOpenSearch): boolean => {
+    if (stilling.published === null || stilling.expires === null) return false;
+
+    return (
+        stilling.publishedByAdmin !== null &&
+        stilling.administration?.status === AdminStatus.Done &&
+        stilling.status === Status.Inaktiv &&
+        isAfter(new Date(stilling.published), new Date()) &&
+        isAfter(new Date(stilling.expires), new Date(stilling.published))
+    );
+};
