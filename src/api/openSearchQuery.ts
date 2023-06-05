@@ -70,11 +70,12 @@ export const lagOpenSearchQuery = (
 };
 
 const byggIndreQuery = (query: HentMineStillingerQuery) => {
-    console.log('Søker med query:', query);
-
     return {
         bool: {
-            filter: [...kunMineStillinger, ...byggSynlighetQuery(query.deactivatedByExpiry)],
+            filter: [
+                ...kunMineStillinger,
+                ...byggSynlighetQuery(query.deactivatedByExpiry, query.status),
+            ],
         },
     };
 };
@@ -85,12 +86,12 @@ const kunMineStillinger = [
             should: [
                 {
                     term: {
-                        'stilling.administration.navIdent': 'Z994122',
+                        'stilling.administration.navIdent': 'Z990281',
                     },
                 },
                 {
                     term: {
-                        'stillingsinfo.eierNavident': 'Z994122',
+                        'stillingsinfo.eierNavident': 'Z990281',
                     },
                 },
             ],
@@ -98,13 +99,33 @@ const kunMineStillinger = [
     },
 ];
 
-const byggSynlighetQuery = (visUtløpteStillinger: boolean) => {
+const byggSynlighetQuery = (visUtløpteStillinger: boolean, stillingStatuser: string | string[]) => {
     if (visUtløpteStillinger) {
         return [
             {
                 bool: {
                     must: [
-                        { term: { 'stilling.status': 'INACTIVE' } },
+                        {
+                            bool: {
+                                must_not: [
+                                    {
+                                        term: {
+                                            'stilling.status': 'REJECTED',
+                                        },
+                                    },
+                                    {
+                                        term: {
+                                            'stilling.status': 'DELETED',
+                                        },
+                                    },
+                                    {
+                                        term: {
+                                            'stilling.status': 'STOPPED',
+                                        },
+                                    },
+                                ],
+                            },
+                        },
                         {
                             range: {
                                 'stilling.expires': {
@@ -117,29 +138,69 @@ const byggSynlighetQuery = (visUtløpteStillinger: boolean) => {
                 },
             },
         ];
+    } else if (Array.isArray(stillingStatuser)) {
+        return [
+            {
+                bool: {
+                    should: stillingStatuser.map((status) => {
+                        return {
+                            term: {
+                                'stilling.status': status,
+                            },
+                        };
+                    }),
+                },
+            },
+            {
+                bool: {
+                    must_not: [
+                        {
+                            bool: {
+                                must: [
+                                    {
+                                        exists: {
+                                            field: 'stilling.publishedByAdmin',
+                                        },
+                                    },
+                                    {
+                                        term: {
+                                            'stilling.status': 'INACTIVE',
+                                        },
+                                    },
+                                    {
+                                        term: {
+                                            'stilling.administration.status': 'DONE',
+                                        },
+                                    },
+                                    {
+                                        range: {
+                                            'stilling.expires': {
+                                                lt: 'now/d',
+                                            },
+                                        },
+                                    },
+                                ],
+                            },
+                        },
+                    ],
+                },
+            },
+        ];
     } else {
         return [
             {
                 bool: {
-                    should: [
-                        {
-                            term: {
-                                'stilling.status': 'ACTIVE',
-                            },
-                        },
-                        {
-                            term: {
-                                'stilling.status': 'INACTIVE',
-                            },
-                        },
-                    ],
-                    // IKKE
-                    /*  stilling.publishedByAdmin !== null &&
-                        stilling.status === Status.Inaktiv &&
-                        utløperFørIdag(stilling.expires) &&
-                        stilling.administration?.status === AdminStatus.Done
-                        */
                     must_not: [
+                        {
+                            term: {
+                                'stilling.status': 'REJECTED',
+                            },
+                        },
+                        {
+                            term: {
+                                'stilling.status': 'DELETED',
+                            },
+                        },
                         {
                             bool: {
                                 must: [

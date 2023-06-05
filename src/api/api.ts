@@ -72,6 +72,7 @@ export const hentMineStillingerOpenSearch = async (
     const sidestørrelse = 25;
 
     const openSearchQuery = lagOpenSearchQuery(query, sidestørrelse);
+    console.log('query til OpenSearch', JSON.stringify(openSearchQuery));
     const respons: OpenSearchResponse = await fetchPost(
         `${stillingssøkProxy}/stilling/_search`,
         openSearchQuery
