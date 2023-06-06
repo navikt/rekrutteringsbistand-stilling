@@ -40,7 +40,6 @@ class Application extends React.Component<Props> {
     };
 
     onEmailChecked = (event: ChangeEvent<HTMLInputElement>) => {
-        console.log('HEEEY:', event.target.checked);
 
         if (!event.target.checked) {
             this.props.setApplicationEmail('');

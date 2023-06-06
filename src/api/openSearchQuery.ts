@@ -65,11 +65,14 @@ export const lagOpenSearchQuery = (
     };
 };
 
-const byggSort = (query: HentMineStillingerQuery) => [
-    {
-        [`stilling.${query.sort.felt}`]: query.sort.retning,
-    },
-];
+const byggSort = (query: HentMineStillingerQuery) => {
+    var sortering = [
+        {
+            [`stilling.${query.sort.felt}`]: query.sort.retning,
+        },
+    ];
+    return sortering;
+};
 
 const byggIndreQuery = (query: HentMineStillingerQuery) => {
     return {

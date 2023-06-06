@@ -13,13 +13,9 @@ const TabellHeader: FunctionComponent = () => {
                 >
                     Sist endret
                 </Table.ColumnHeader>
-                <Table.ColumnHeader sortable sortKey={MineStillingerSorteringsfelt.Stillingstittel}>
-                    Stillingstittel
-                </Table.ColumnHeader>
+                <Table.HeaderCell scope="col">Stillingstittel</Table.HeaderCell>
                 <Table.HeaderCell scope="col">Annonsenr.</Table.HeaderCell>
-                <Table.ColumnHeader sortable sortKey={MineStillingerSorteringsfelt.Arbeidsgiver}>
-                    Arbeidsgiver
-                </Table.ColumnHeader>
+                <Table.HeaderCell scope="col">Arbeidsgiver</Table.HeaderCell>
                 <Table.ColumnHeader sortable sortKey={MineStillingerSorteringsfelt.Utløpsdato}>
                     Utløpsdato
                 </Table.ColumnHeader>

@@ -3,7 +3,7 @@ import { Retning } from './tabell/Retning';
 export enum MineStillingerSorteringsfelt {
     SistEndretTidspunkt = 'updated',
     Stillingstittel = 'title',
-    Arbeidsgiver = 'employerName',
+    Arbeidsgiver = 'businessName',
     Utløpsdato = 'expires',
     Publisert = 'privacy',
 }
