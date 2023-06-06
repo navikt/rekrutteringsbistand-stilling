@@ -126,14 +126,7 @@ const byggSynlighetQuery = (visUtløpteStillinger: boolean, stillingStatuser: st
                                 ],
                             },
                         },
-                        {
-                            range: {
-                                'stilling.expires': {
-                                    lt: 'now/d',
-                                },
-                            },
-                        },
-                        ...stillingenErEllerHarVærtPublisert,
+                        ...deactivatedByExpiry,
                     ],
                 },
             },
@@ -153,7 +146,11 @@ const byggSynlighetQuery = (visUtløpteStillinger: boolean, stillingStatuser: st
             },
             {
                 bool: {
-                    must_not: erUtløpt,
+                    must_not: {
+                        bool: {
+                            must: deactivatedByExpiry,
+                        },
+                    },
                 },
             },
         ];
@@ -172,7 +169,11 @@ const byggSynlighetQuery = (visUtløpteStillinger: boolean, stillingStatuser: st
                                 'stilling.status': 'DELETED',
                             },
                         },
-                        erUtløpt,
+                        {
+                            bool: {
+                                must: deactivatedByExpiry,
+                            },
+                        },
                     ],
                 },
             },
@@ -180,50 +181,26 @@ const byggSynlighetQuery = (visUtløpteStillinger: boolean, stillingStatuser: st
     }
 };
 
-const erUtløpt = {
-    bool: {
-        must: [
-            {
-                exists: {
-                    field: 'stilling.publishedByAdmin',
-                },
-            },
-            {
-                term: {
-                    'stilling.status': 'INACTIVE',
-                },
-            },
-            {
-                term: {
-                    'stilling.administration.status': 'DONE',
-                },
-            },
-            {
-                range: {
-                    'stilling.expires': {
-                        lt: 'now/d',
-                    },
-                },
-            },
-        ],
-    },
-};
-
-const stillingenErEllerHarVærtPublisert = [
-    {
-        term: {
-            'stilling.administration.status': 'DONE',
-        },
-    },
+const deactivatedByExpiry = [
     {
         exists: {
             field: 'stilling.publishedByAdmin',
         },
     },
     {
+        term: {
+            'stilling.status': 'INACTIVE',
+        },
+    },
+    {
+        term: {
+            'stilling.administration.status': 'DONE',
+        },
+    },
+    {
         range: {
-            'stilling.published': {
-                lte: 'now/d',
+            'stilling.expires': {
+                lt: 'now/d',
             },
         },
     },
