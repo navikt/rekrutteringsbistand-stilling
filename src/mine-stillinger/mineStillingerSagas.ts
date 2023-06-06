@@ -7,11 +7,12 @@ import { ApiError } from '../api/apiUtils';
 import { State } from '../redux/store';
 import { Stillingsinfo } from '../Stilling';
 import { MineStillingerActionType } from './MineStillingerAction';
+import { MineStillingerSortering } from './MineStillingerSortering';
 
 const INGEN_AVVISTE_ELLER_SLETTEDE = '!REJECTED,DELETED';
 
 export type HentMineStillingerQuery = {
-    sort: string;
+    sort: MineStillingerSortering;
     page: number;
     navIdent: string;
     reportee: string;
@@ -44,7 +45,7 @@ function* getMyAds() {
         const query: HentMineStillingerQuery = {
             page,
             deactivatedByExpiry,
-            sort: `${sortField},${sortDir}`,
+            sort: { felt: sortField, retning: sortDir },
             status,
             navIdent: (reportee.navIdent || '').toLowerCase(),
             reportee: reportee.displayName,

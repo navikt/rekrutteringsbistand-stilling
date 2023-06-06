@@ -61,13 +61,15 @@ export const lagOpenSearchQuery = (
         from: 0,
         track_total_hits: true,
         query: byggIndreQuery(query),
-        sort: [
-            {
-                'stilling.updated': 'desc',
-            },
-        ],
+        sort: byggSort(query),
     };
 };
+
+const byggSort = (query: HentMineStillingerQuery) => [
+    {
+        [`stilling.${query.sort.felt}`]: query.sort.retning,
+    },
+];
 
 const byggIndreQuery = (query: HentMineStillingerQuery) => {
     return {
