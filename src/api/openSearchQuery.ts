@@ -78,7 +78,7 @@ const byggIndreQuery = (query: HentMineStillingerQuery) => {
     return {
         bool: {
             filter: [
-                ...kunMineStillinger,
+                ...kunMineStillinger(query.navIdent),
                 ...byggSynlighetQuery(query.deactivatedByExpiry, query.status),
             ],
         },
