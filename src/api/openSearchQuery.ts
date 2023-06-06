@@ -85,18 +85,18 @@ const byggIndreQuery = (query: HentMineStillingerQuery) => {
     };
 };
 
-const kunMineStillinger = [
+const kunMineStillinger = (navIdent: string) => [
     {
         bool: {
             should: [
                 {
                     term: {
-                        'stilling.administration.navIdent': 'Z990281',
+                        'stilling.administration.navIdent': navIdent,
                     },
                 },
                 {
                     term: {
-                        'stillingsinfo.eierNavident': 'Z990281',
+                        'stillingsinfo.eierNavident': navIdent,
                     },
                 },
             ],
