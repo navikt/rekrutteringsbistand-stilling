@@ -41,7 +41,6 @@ const postdataUrl = `${stillingApi}/rekrutteringsbistand/api/v1/postdata`;
 const fnrsokUrl = `express:${KANDIDAT_API}/veileder/kandidatsok/fnrsok`;
 const leggKandidatIKandidatlisteUrl = `express:${KANDIDAT_API}/veileder/kandidatlister/:kandidatlisteId/kandidater`;
 
-const identUrl = `express:${stillingApi}/stillingsinfo/ident/:ident`;
 const searchApiUrl = `express:${stillingApi}/search-api/underenhet/_search`;
 
 const modiacontextholderApiUrl = '/modiacontextholder/api';
@@ -99,7 +98,6 @@ fetchMock
     .post(opprettStillingUrl, log(rekrutteringsbistandStilling))
     .post(kopierStillingUrl, log(rekrutteringsbistandStilling))
     .get(reporteeUrl, log(reportee))
-    .get(identUrl, log(ident))
 
     .get(getStillingUrl, log(getStilling))
     .put(putStillingUrl, log(putStilling))

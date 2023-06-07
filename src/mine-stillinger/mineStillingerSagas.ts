@@ -1,8 +1,5 @@
 import { put, select, takeLatest } from 'redux-saga/effects';
-import {
-    hentStillingsinfoForStillingerSomEiesAvVeileder,
-    hentMineStillingerOpenSearch,
-} from '../api/api';
+import { hentMineStillingerOpenSearch } from '../api/api';
 import { ApiError } from '../api/apiUtils';
 import { State } from '../redux/store';
 import { Stillingsinfo } from '../Stilling';
@@ -18,7 +15,6 @@ export type HentMineStillingerQuery = {
     reportee: string;
     deactivatedByExpiry: boolean;
     status: string | string[];
-    uuid: string;
 };
 
 function* getMyAds() {
@@ -32,13 +28,6 @@ function* getMyAds() {
             return;
         }
 
-        const stillingsinfoForStillingerVeilederHarOvertatt: Stillingsinfo[] =
-            yield hentStillingsinfoForStillingerSomEiesAvVeileder(reportee.navIdent);
-
-        const stillingerVeilederHarOvertatt = stillingsinfoForStillingerVeilederHarOvertatt
-            .map((info) => info.stillingsid)
-            .join(',');
-
         const { page, deactivatedByExpiry, sortDir, sortField, filter } = state.mineStillinger;
         const status = filter.status.length === 0 ? INGEN_AVVISTE_ELLER_SLETTEDE : filter.status;
 
@@ -49,7 +38,6 @@ function* getMyAds() {
             status,
             navIdent: (reportee.navIdent || '').toLowerCase(),
             reportee: reportee.displayName,
-            uuid: stillingerVeilederHarOvertatt,
         };
 
         const response = yield hentMineStillingerOpenSearch(query);
