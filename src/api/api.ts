@@ -3,7 +3,6 @@ import { fetchGet, fetchPost, fetchPut } from './apiUtils';
 import { getMiljø, Miljø } from '../verktøy/sentry';
 import { HentMineStillingerQuery } from '../mine-stillinger/mineStillingerSagas';
 import { lagOpenSearchQuery, OpenSearchResponse } from './openSearchQuery';
-import { queryObjectToUrl } from '../common/urlUtils';
 import { RekrutteringsbistandstillingOpenSearch } from '../StillingOpenSearch';
 import { Stillingskategori } from '../opprett-ny-stilling/VelgStillingskategori';
 import devVirksomheter from './devVirksomheter';
@@ -45,25 +44,6 @@ export const hentRekrutteringsbistandstilling = async (
     }
 
     return rekrutteringsbistandstilling;
-};
-
-export const hentMineStillinger = async (
-    query: HentMineStillingerQuery
-): Promise<Side<Rekrutteringsbistandstilling>> => {
-    const baseUrl = `${stillingApi}/mine-stillinger`;
-    const queryParametre = queryObjectToUrl(query);
-    const result = await fetchGet(`${baseUrl}${queryParametre}`);
-
-    return {
-        ...result,
-        content: result.content.map((stilling: Stilling) => {
-            if (stilling.administration === null) {
-                return fixMissingAdministration(stilling);
-            }
-
-            return stilling;
-        }),
-    };
 };
 
 export const hentMineStillingerOpenSearch = async (

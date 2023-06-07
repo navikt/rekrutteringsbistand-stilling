@@ -8,7 +8,6 @@ import kandidatliste from './data/kandidatliste';
 import rekrutteringsbistandStilling from './data/post-ads.json';
 import reportee from './data/reportee.json';
 import ident from './data/ident.json';
-import mineStillinger from './data/minestillinger.json';
 import eksternStilling from './data/ekstern-stilling.json';
 import eksternStillingMedKandidatliste from './data/ekstern-stilling-med-kandidatliste.json';
 import internStilling from './data/intern-stilling.json';
@@ -24,7 +23,6 @@ import aktivBruker from './data/dekoratør/aktivbruker.json';
 import decorator from './data/dekoratør/decorator.json';
 import mineStillingerFraOpenSearch from './data/mineStillingerOpenSearch';
 const reporteeUrl = `${stillingApi}/rekrutteringsbistand/api/v1/reportee`;
-const mineStillingerUrl = `express:${stillingApi}/mine-stillinger`;
 const mineStillingerOpenSearchUrl = `express:${stillingssøkProxy}/stilling/_search`;
 const opprettStillingUrl = `express:${stillingApi}/rekrutteringsbistandstilling`;
 const kopierStillingUrl = `express:${stillingApi}/rekrutteringsbistandstilling/kopier/:stillingsId`;
@@ -97,7 +95,6 @@ const putStilling = (_: string, options: MockRequest): Rekrutteringsbistandstill
 };
 
 fetchMock
-    .get(mineStillingerUrl, log(mineStillinger))
     .post(mineStillingerOpenSearchUrl, log(mineStillingerFraOpenSearch))
     .post(opprettStillingUrl, log(rekrutteringsbistandStilling))
     .post(kopierStillingUrl, log(rekrutteringsbistandStilling))
