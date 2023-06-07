@@ -513,10 +513,7 @@ function* saveAd(action) {
         if (state.error !== undefined && action.showModal) {
             yield put<VarslingAction>({
                 type: VarslingActionType.VisVarsling,
-                innhold:
-                    state.adData?.createdBy === System.Rekrutteringsbistand
-                        ? 'Stillingen er lagret i mine stillinger'
-                        : 'Endringene er lagret',
+                innhold: 'Stillingen er lagret, og vil snart være synlig i mine stillinger.',
             });
         }
     }
@@ -541,7 +538,7 @@ function* publishAdChanges() {
         } else {
             yield put<VarslingAction>({
                 type: VarslingActionType.VisVarsling,
-                innhold: `Endringene har blitt publisert`,
+                innhold: `Endringene har blitt publisert, og vil snart være synlig i mine stillinger`,
             });
         }
     }
@@ -596,6 +593,11 @@ function* copyAdFromMyAds(action) {
         yield put({ type: ADD_COPIED_ADS, adUuid: response.stilling.uuid });
         // Update list with the new ad
         yield put({ type: MineStillingerActionType.FetchMyAds });
+        yield put<VarslingAction>({
+            type: VarslingActionType.VisVarsling,
+            innhold: `Stillingen er kopiert, og vil snart være synlig i listen etter du oppdaterer siden.`,
+            varighetMs: 8000,
+        });
     } catch (e) {
         if (e instanceof ApiError) {
             yield put({ type: CREATE_AD_FAILURE, error: e });
