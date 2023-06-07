@@ -26,5 +26,6 @@ dist/
 server/build
 .eslintcache
 server/build
+.env.development.local
 
 screenshots

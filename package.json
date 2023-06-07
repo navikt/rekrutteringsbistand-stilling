@@ -40,6 +40,7 @@
         "@sentry/react": "^7.51.2",
         "amplitude-js": "^7.4.2",
         "classnames": "^2.3.2",
+        "date-fns": "^2.30.0",
         "deep-equal": "^2.2.1",
         "draft-convert": "^2.1.13",
         "draft-js": "^0.11.7",

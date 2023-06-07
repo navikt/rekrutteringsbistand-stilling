@@ -31,7 +31,6 @@ Med mocket API:
 npm run start:mock
 ```
 
-
 # Henvendelser
 
 ## For Nav-ansatte

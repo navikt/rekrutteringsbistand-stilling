@@ -122,10 +122,7 @@
                     "sector": "Privat"
                 },
                 "publishedByAdmin": "2019-12-17T13:13:04.732855",
-                "businessName": "afasd",
-                "firstPublished": true,
-                "deactivatedByExpiry": false,
-                "activationOnPublishingDate": false
+                "businessName": "afasd"
             },
             "stillingsinfo": null
         },
@@ -251,10 +248,7 @@
                     "sector": "Ikke oppgitt"
                 },
                 "publishedByAdmin": "2019-11-14T13:59:04.830376",
-                "businessName": "Personalhuset Bergen",
-                "firstPublished": true,
-                "deactivatedByExpiry": true,
-                "activationOnPublishingDate": false
+                "businessName": "Personalhuset Bergen"
             },
             "stillingsinfo": {
                 "stillingsinfoid": "35a9f0cd-8512-41fc-90d4-f3048237b3ec",
@@ -347,10 +341,7 @@
                 "categoryList": [],
                 "properties": {},
                 "publishedByAdmin": null,
-                "businessName": "ORDKNAPP BLOMSTRETE TIGER AS",
-                "firstPublished": false,
-                "deactivatedByExpiry": false,
-                "activationOnPublishingDate": false
+                "businessName": "ORDKNAPP BLOMSTRETE TIGER AS"
             }
         }
     ],

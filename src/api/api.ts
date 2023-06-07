@@ -1,13 +1,16 @@
-import { queryObjectToUrl } from '../common/urlUtils';
-import { HentMineStillingerQuery } from '../mine-stillinger/mineStillingerSagas';
 import { Arbeidsgiverforslag } from '../opprett-ny-stilling/VelgArbeidsgiver';
-import { Stillingskategori } from '../opprett-ny-stilling/VelgStillingskategori';
-import Stilling, { AdminStatus, Rekrutteringsbistandstilling, Stillingsinfo } from '../Stilling';
 import { fetchGet, fetchPost, fetchPut } from './apiUtils';
 import { getMiljø, Miljø } from '../verktøy/sentry';
+import { HentMineStillingerQuery } from '../mine-stillinger/mineStillingerSagas';
+import { lagOpenSearchQuery, OpenSearchResponse } from './openSearchQuery';
+import { queryObjectToUrl } from '../common/urlUtils';
+import { RekrutteringsbistandstillingOpenSearch } from '../StillingOpenSearch';
+import { Stillingskategori } from '../opprett-ny-stilling/VelgStillingskategori';
 import devVirksomheter from './devVirksomheter';
+import Stilling, { AdminStatus, Rekrutteringsbistandstilling, Stillingsinfo } from '../Stilling';
 
 export const stillingApi = '/stilling-api';
+export const stillingssøkProxy = '/stillingssok-proxy';
 
 export type Side<T> = {
     content: T[];
@@ -60,6 +63,25 @@ export const hentMineStillinger = async (
 
             return stilling;
         }),
+    };
+};
+
+export const hentMineStillingerOpenSearch = async (
+    query: HentMineStillingerQuery
+): Promise<Side<RekrutteringsbistandstillingOpenSearch>> => {
+    const sidestørrelse = 25;
+
+    const openSearchQuery = lagOpenSearchQuery(query, sidestørrelse);
+    const respons: OpenSearchResponse = await fetchPost(
+        `${stillingssøkProxy}/stilling/_search`,
+        openSearchQuery
+    );
+
+    // TODO: fixMissingAdministration?
+    return {
+        content: respons.hits.hits.map((hit) => hit._source),
+        totalElements: respons.hits.total.value,
+        totalPages: Math.ceil(respons.hits.total.value / sidestørrelse),
     };
 };
 

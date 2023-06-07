@@ -1,20 +1,21 @@
 import React, { FunctionComponent } from 'react';
 import { BodyShort, Button, Table } from '@navikt/ds-react';
-import { Rekrutteringsbistandstilling } from '../../Stilling';
+import { Dropdown } from '@navikt/ds-react-internal';
 import { useSelector } from 'react-redux';
-import { State } from '../../redux/store';
-import { formatISOString } from '../../utils/datoUtils';
 import { Link } from 'react-router-dom';
-import PrivacyStatusEnum from '../../common/enums/PrivacyStatusEnum';
+
+import { formatISOString } from '../../utils/datoUtils';
 import { getAdStatusLabel } from '../../common/enums/getEnumLabels';
 import { MenuElipsisHorizontalCircleIcon, PersonGroupIcon } from '@navikt/aksel-icons';
-import { Dropdown } from '@navikt/ds-react-internal';
+import { RekrutteringsbistandstillingOpenSearch, stillingErUtløpt } from '../../StillingOpenSearch';
+import { State } from '../../redux/store';
 import DropdownMeny from './DropdownMeny';
 import getEmployerName from '../../common/getEmployerName';
+import PrivacyStatusEnum from '../../common/enums/PrivacyStatusEnum';
 import css from './MineStillingerTabell.module.css';
 
 type Props = {
-    rekrutteringsbistandstilling: Rekrutteringsbistandstilling;
+    rekrutteringsbistandstilling: RekrutteringsbistandstillingOpenSearch;
 };
 
 const TabellRad: FunctionComponent<Props> = ({ rekrutteringsbistandstilling }) => {
@@ -39,8 +40,8 @@ const TabellRad: FunctionComponent<Props> = ({ rekrutteringsbistandstilling }) =
                 {isCopy
                     ? (
                           <div>
-                              <b>{stilling.title.substr(0, 5)}</b>
-                              {stilling.title.substr(5)}
+                              <b>{stilling.title.substring(0, 5)}</b>
+                              {stilling.title.substring(5)}
                           </div>
                       ) || ''
                     : stilling.title || ''}
@@ -80,7 +81,9 @@ const TabellRad: FunctionComponent<Props> = ({ rekrutteringsbistandstilling }) =
         <Table.Row shadeOnHover={false} className={css.rad}>
             {colUpdated}
             {colTitle}
-            <Table.DataCell>{stilling.id && <BodyShort>{stilling.id}</BodyShort>}</Table.DataCell>
+            <Table.DataCell>
+                {stilling.annonsenr && <BodyShort>{stilling.annonsenr}</BodyShort>}
+            </Table.DataCell>
             <Table.DataCell>
                 <BodyShort className="ResultItem__column Col-employer-inner">
                     {getEmployerName(stilling)}
@@ -101,7 +104,7 @@ const TabellRad: FunctionComponent<Props> = ({ rekrutteringsbistandstilling }) =
             <Table.DataCell>
                 {stilling.status && (
                     <BodyShort className="ResultItem__column">
-                        {getAdStatusLabel(stilling.status, stilling.deactivatedByExpiry!)}
+                        {getAdStatusLabel(stilling.status, stillingErUtløpt(stilling))}
                     </BodyShort>
                 )}
             </Table.DataCell>
