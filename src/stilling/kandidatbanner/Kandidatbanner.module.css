@@ -1,0 +1,22 @@
+.banner {
+    background-color: var(--a-blue-50);
+    width: 100%;
+    border-bottom: 2px solid var(--a-border-subtle);
+    padding: 0 1rem;
+}
+
+.innerBanner {
+    max-width: 83rem;
+    margin: 0 auto;
+    padding: 1.5rem 0;
+}
+
+.innerBanner h2 {
+    margin: 0;
+}
+
+@media (min-width: 768px) {
+    .banner {
+        padding: 0 2rem;
+    }
+}

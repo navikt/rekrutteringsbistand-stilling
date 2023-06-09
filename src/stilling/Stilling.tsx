@@ -18,6 +18,7 @@ import Error from './error/Error';
 import PreviewHeader from './forhåndsvisning/header/PreviewHeader';
 import useHentKandidatliste from './kandidathandlinger/useHentKandidatliste';
 import Forhåndsvisning from './forhåndsvisning/Forhåndsvisning';
+import Kandidatbanner from './kandidatbanner/Kandidatbanner';
 import css from './Stilling.module.css';
 
 export const REDIGERINGSMODUS_QUERY_PARAM = 'redigeringsmodus';
@@ -30,6 +31,7 @@ const Stilling = () => {
     const { uuid } = useParams<QueryParams>();
     const { isEditingAd, isSavingAd, isLoadingAd } = useSelector((state: State) => state.ad);
     const [searchParams, setSearchParams] = useSearchParams();
+    const fnrFraStillingssøk = searchParams.get('fnr');
     const navigate = useNavigate();
     const stilling = useSelector((state: State) => state.adData);
     const kandidatliste = useHentKandidatliste(stilling?.uuid);
@@ -130,6 +132,7 @@ const Stilling = () => {
 
     return (
         <div className={css.stilling}>
+            {fnrFraStillingssøk && <Kandidatbanner fnr={fnrFraStillingssøk} />}
             <div className={css.innhold}>
                 <main className={css.venstre}>
                     <div className={css.venstreInnhold}>
