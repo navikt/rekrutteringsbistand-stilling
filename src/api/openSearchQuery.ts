@@ -1,4 +1,3 @@
-import { Status } from '../Stilling';
 import { RekrutteringsbistandstillingOpenSearch } from '../StillingOpenSearch';
 import { HentMineStillingerQuery } from '../mine-stillinger/mineStillingerSagas';
 
@@ -58,7 +57,7 @@ export const lagOpenSearchQuery = (
 ): OpenSearchQuery => {
     return {
         size: sidestørrelse,
-        from: 0,
+        from: query.page * sidestørrelse,
         track_total_hits: true,
         query: byggIndreQuery(query),
         sort: byggSort(query),
