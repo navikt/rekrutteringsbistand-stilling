@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { BodyShort, Button, ErrorMessage, Heading } from '@navikt/ds-react';
-import { PersonCheckmarkIcon } from '@navikt/aksel-icons';
+import { PersonCheckmarkIcon, PersonGroupIcon } from '@navikt/aksel-icons';
 import css from './Kandidatbanner.module.css';
 import { Nettressurs } from '../../api/Nettressurs';
 import { Kandidat, Kandidatliste } from '../legg-til-kandidat-modal/kandidatlistetyper';
 import AnbefalKandidatModal from './AnbefalKandidatModal';
 import kandidatliste from '../../mock/data/kandidatliste';
+import { Link } from 'react-router-dom';
 
 export const kandidatProxyUrl = '/kandidatsok-proxy';
 
@@ -78,14 +79,23 @@ const Kandidatbanner = ({ fnr }: Props) => {
                     </Heading>
                     <ErrorMessage>{feilmelding}</ErrorMessage>
                 </h2>
-                <Button
-                    aria-disabled={kandidatenLiggerILista}
-                    disabled={kandidatenLiggerILista}
-                    onClick={() => setVisModal(true)}
-                    icon={<PersonCheckmarkIcon />}
-                >
-                    Anbefal kandidat
-                </Button>
+                <div className={css.knapper}>
+                    <Button
+                        aria-disabled={kandidatenLiggerILista}
+                        disabled={kandidatenLiggerILista}
+                        onClick={() => setVisModal(true)}
+                        icon={<PersonCheckmarkIcon />}
+                    >
+                        Anbefal kandidat
+                    </Button>
+                    <Link
+                        to={`/kandidater/lister/stilling/${kandidatliste.stillingId}/detaljer`}
+                        className="navds-link"
+                    >
+                        <PersonGroupIcon />
+                        Se kandidatliste
+                    </Link>
+                </div>
             </div>
             <AnbefalKandidatModal
                 fnr={fnr}

@@ -14,8 +14,10 @@ type Props = {
 
 const AnbefalKandidatModal = ({ fnr, kandidat, kandidatliste, vis, onClose }: Props) => {
     return (
-        <Modal open={vis}>
-            <Heading size={'medium'}>Anbefal kandidat</Heading>
+        <Modal open={vis} onClose={onClose}>
+            <Heading level="2" size="medium">
+                Anbefal kandidat
+            </Heading>
             <BekreftMedNotat
                 fnr={fnr}
                 kandidat={kandidat}
