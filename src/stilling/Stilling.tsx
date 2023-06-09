@@ -133,7 +133,9 @@ const Stilling = () => {
 
     return (
         <div className={css.stilling}>
-            {fnrFraStillingssøk && <Kandidatbanner fnr={fnrFraStillingssøk} />}
+            {fnrFraStillingssøk && (
+                <Kandidatbanner fnr={fnrFraStillingssøk} kandidatliste={kandidatliste} />
+            )}
             <div className={css.innhold}>
                 <main className={css.venstre}>
                     <div className={css.venstreInnhold}>

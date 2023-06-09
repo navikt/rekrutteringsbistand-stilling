@@ -2,11 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { BodyShort, Button, Heading } from '@navikt/ds-react';
 import { PersonCheckmarkIcon } from '@navikt/aksel-icons';
 import css from './Kandidatbanner.module.css';
+import { Nettressurs } from '../../api/Nettressurs';
+import { Kandidatliste } from '../legg-til-kandidat-modal/kandidatlistetyper';
 
 export const kandidatProxyUrl = '/kandidatsok-proxy';
 
 type Props = {
     fnr: string;
+    kandidatliste: Nettressurs<Kandidatliste>;
 };
 
 export type EsRespons = {
