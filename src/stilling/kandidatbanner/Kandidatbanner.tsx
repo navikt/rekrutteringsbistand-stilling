@@ -37,10 +37,6 @@ const Kandidatbanner = ({ fnr, kandidatliste }: Props) => {
     const [feilmelding, setFeilmelding] = useState<string | undefined>();
     const [visModal, setVisModal] = useState<boolean>(false);
 
-    const kandidatenLiggerILista = kandidatliste.kandidater.some(
-        (kandidat) => kandidat.fodselsnr === fnr
-    );
-
     useEffect(() => {
         const hentKandidat = async (fnr: string) => {
             try {
@@ -67,6 +63,10 @@ const Kandidatbanner = ({ fnr, kandidatliste }: Props) => {
     }, [fnr]);
 
     if (kandidat === undefined || kandidatliste.kind !== Nettstatus.Suksess) return null;
+
+    const kandidatenLiggerILista = kandidatliste.data.kandidater.some(
+        (kandidat) => kandidat.fodselsnr === fnr
+    );
 
     return (
         <div className={css.banner}>
