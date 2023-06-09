@@ -20,6 +20,7 @@ import useHentKandidatliste from './kandidathandlinger/useHentKandidatliste';
 import Forhåndsvisning from './forhåndsvisning/Forhåndsvisning';
 import Kandidatbanner from './kandidatbanner/Kandidatbanner';
 import css from './Stilling.module.css';
+import Stillingstittel from './forhåndsvisning/header/Stillingstittel';
 
 export const REDIGERINGSMODUS_QUERY_PARAM = 'redigeringsmodus';
 
@@ -141,6 +142,11 @@ const Stilling = () => {
                                 {erEksternStilling ? (
                                     <>
                                         <PreviewHeader kandidatliste={kandidatliste} />
+                                        <Stillingstittel
+                                            tittel={stilling.title}
+                                            employer={stilling.properties.employer}
+                                            location={stilling.location}
+                                        />
                                         <Forhåndsvisning stilling={stilling} />
                                     </>
                                 ) : (
@@ -152,7 +158,14 @@ const Stilling = () => {
                             </>
                         ) : (
                             <>
-                                <PreviewHeader kandidatliste={kandidatliste} />
+                                {!fnrFraStillingssøk && (
+                                    <PreviewHeader kandidatliste={kandidatliste} />
+                                )}
+                                <Stillingstittel
+                                    tittel={stilling.title}
+                                    employer={stilling.properties.employer}
+                                    location={stilling.location}
+                                />
                                 <Forhåndsvisning stilling={stilling} />
                             </>
                         )}

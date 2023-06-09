@@ -12,7 +12,6 @@ import { Nettressurs } from '../../../api/Nettressurs';
 import { State } from '../../../redux/store';
 import Stilling, { Stillingsinfo, System } from '../../../Stilling';
 import OpprettKandidatlisteModal from './OpprettKandidatlisteModal';
-import Stillingstittel from './Stillingstittel';
 import Stillingsheader from '../../header/Stillingsheader';
 import EksternStillingAdvarsel from './EksternStillingAdvarsel';
 
@@ -103,11 +102,6 @@ class PreviewMenu extends React.Component<Props> {
                     </Button>
                 </Stillingsheader>
                 {limitedAccess && <EksternStillingAdvarsel />}
-                <Stillingstittel
-                    tittel={stilling.title}
-                    employer={stilling.properties.employer}
-                    location={stilling.location}
-                />
                 <OpprettKandidatlisteModal
                     åpen={this.state.opprettKandidatlisteModalÅpen}
                     onClose={this.lukkOpprettKandidatlisteModal}
