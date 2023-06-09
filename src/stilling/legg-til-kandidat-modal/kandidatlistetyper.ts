@@ -5,6 +5,7 @@ export type Kandidat = {
 };
 
 export type Kandidatliste = {
+    stillingId: string;
     kandidatlisteId: string;
     kandidater: Array<{
         fodselsnr: string;

@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { BodyShort, Button, ErrorMessage, Heading } from '@navikt/ds-react';
 import { PersonCheckmarkIcon, PersonGroupIcon } from '@navikt/aksel-icons';
 import css from './Kandidatbanner.module.css';
-import { Nettressurs } from '../../api/Nettressurs';
+import { Nettressurs, Nettstatus } from '../../api/Nettressurs';
 import { Kandidat, Kandidatliste } from '../legg-til-kandidat-modal/kandidatlistetyper';
 import AnbefalKandidatModal from './AnbefalKandidatModal';
-import kandidatliste from '../../mock/data/kandidatliste';
 import { Link } from 'react-router-dom';
 
 export const kandidatProxyUrl = '/kandidatsok-proxy';
@@ -33,7 +32,7 @@ const byggQuery = (fodselsnummer: string) => ({
     _source: ['fornavn', 'etternavn', 'arenaKandidatnr'],
 });
 
-const Kandidatbanner = ({ fnr }: Props) => {
+const Kandidatbanner = ({ fnr, kandidatliste }: Props) => {
     const [kandidat, setKandidat] = useState<Kandidat>();
     const [feilmelding, setFeilmelding] = useState<string | undefined>();
     const [visModal, setVisModal] = useState<boolean>(false);
@@ -67,7 +66,7 @@ const Kandidatbanner = ({ fnr }: Props) => {
         hentKandidat(fnr);
     }, [fnr]);
 
-    if (kandidat === undefined) return null;
+    if (kandidat === undefined || kandidatliste.kind !== Nettstatus.Suksess) return null;
 
     return (
         <div className={css.banner}>
@@ -89,7 +88,7 @@ const Kandidatbanner = ({ fnr }: Props) => {
                         Anbefal kandidat
                     </Button>
                     <Link
-                        to={`/kandidater/lister/stilling/${kandidatliste.stillingId}/detaljer`}
+                        to={`/kandidater/lister/stilling/${kandidatliste.data.stillingId}/detaljer`}
                         className="navds-link"
                     >
                         <PersonGroupIcon />
@@ -100,7 +99,7 @@ const Kandidatbanner = ({ fnr }: Props) => {
             <AnbefalKandidatModal
                 fnr={fnr}
                 kandidat={kandidat}
-                kandidatliste={kandidatliste}
+                kandidatliste={kandidatliste.data}
                 vis={visModal}
                 onClose={() => setVisModal(false)}
             />
