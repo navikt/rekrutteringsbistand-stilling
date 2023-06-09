@@ -3,7 +3,9 @@ import { BodyShort, Button, Heading } from '@navikt/ds-react';
 import { PersonCheckmarkIcon } from '@navikt/aksel-icons';
 import css from './Kandidatbanner.module.css';
 import { Nettressurs } from '../../api/Nettressurs';
-import { Kandidatliste } from '../legg-til-kandidat-modal/kandidatlistetyper';
+import { Kandidat, Kandidatliste } from '../legg-til-kandidat-modal/kandidatlistetyper';
+import AnbefalKandidatModal from './AnbefalKandidatModal';
+import kandidatliste from '../../mock/data/kandidatliste';
 
 export const kandidatProxyUrl = '/kandidatsok-proxy';
 
@@ -15,14 +17,9 @@ type Props = {
 export type EsRespons = {
     hits: {
         hits: Array<{
-            _source: Kandidatrespons;
+            _source: Kandidat;
         }>;
     };
-};
-
-type Kandidatrespons = {
-    fornavn: string;
-    etternavn: string;
 };
 
 const byggQuery = (fodselsnummer: string) => ({
@@ -32,12 +29,13 @@ const byggQuery = (fodselsnummer: string) => ({
         },
     },
     size: 1,
-    _source: ['fornavn', 'etternavn'],
+    _source: ['fornavn', 'etternavn', 'arenaKandidatnr'],
 });
 
 const Kandidatbanner = ({ fnr }: Props) => {
-    const [kandidat, setKandidat] = useState<Kandidatrespons>();
+    const [kandidat, setKandidat] = useState<Kandidat>();
     const [feilmelding, setFeilmelding] = useState<string | undefined>();
+    const [visModal, setVisModal] = useState<boolean>(false);
 
     console.log('Fødselsnummer', fnr);
 
@@ -66,18 +64,27 @@ const Kandidatbanner = ({ fnr }: Props) => {
 
         hentKandidat(fnr);
     }, [fnr]);
-    //   {kandidat?.fornavn} {kandidat?.etternavn}
+    if (kandidat === undefined) return null;
     return (
         <div className={css.banner}>
             <div className={css.innerBanner}>
                 <h2>
                     <BodyShort>Finn stillinger til kandidat:</BodyShort>
                     <Heading size="medium" as="span">
-                        Skall Mocksen
+                        {kandidat?.fornavn} {kandidat?.etternavn}
                     </Heading>
                 </h2>
-                <Button icon={<PersonCheckmarkIcon />}>Anbefal kandidat</Button>
+                <Button onClick={() => setVisModal(true)} icon={<PersonCheckmarkIcon />}>
+                    Anbefal kandidat
+                </Button>
             </div>
+            <AnbefalKandidatModal
+                fnr={fnr}
+                kandidat={kandidat}
+                kandidatliste={kandidatliste}
+                vis={visModal}
+                onClose={() => setVisModal(false)}
+            />
         </div>
     );
 };
