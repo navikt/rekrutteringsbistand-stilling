@@ -9,6 +9,10 @@
     max-width: 83rem;
     margin: 0 auto;
     padding: 1.5rem 0;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
 }
 
 .innerBanner h2 {

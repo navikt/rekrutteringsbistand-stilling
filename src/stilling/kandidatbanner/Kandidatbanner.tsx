@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { BodyShort, Heading } from '@navikt/ds-react';
+import { BodyShort, Button, Heading } from '@navikt/ds-react';
+import { PersonCheckmarkIcon } from '@navikt/aksel-icons';
 import css from './Kandidatbanner.module.css';
 
 export const kandidatProxyUrl = '/kandidatsok-proxy';
@@ -62,16 +63,17 @@ const Kandidatbanner = ({ fnr }: Props) => {
 
         hentKandidat(fnr);
     }, [fnr]);
-
+    //   {kandidat?.fornavn} {kandidat?.etternavn}
     return (
         <div className={css.banner}>
             <div className={css.innerBanner}>
                 <h2>
                     <BodyShort>Finn stillinger til kandidat:</BodyShort>
                     <Heading size="medium" as="span">
-                        {kandidat?.fornavn} {kandidat?.etternavn}
+                        Skall Mocksen
                     </Heading>
                 </h2>
+                <Button icon={<PersonCheckmarkIcon />}>Anbefal kandidat</Button>
             </div>
         </div>
     );
