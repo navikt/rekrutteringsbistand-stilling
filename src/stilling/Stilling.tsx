@@ -35,7 +35,7 @@ const Stilling = () => {
     const fnrFraStillingssøk = searchParams.get('fnr');
     const navigate = useNavigate();
     const stilling = useSelector((state: State) => state.adData);
-    const kandidatliste = useHentKandidatliste(stilling?.uuid);
+    const [kandidatliste, setKandidatliste] = useHentKandidatliste(stilling?.uuid);
 
     const getStilling = (uuid: string, edit: boolean) => {
         dispatch({ type: FETCH_AD, uuid, edit });
@@ -134,7 +134,11 @@ const Stilling = () => {
     return (
         <div className={css.stilling}>
             {fnrFraStillingssøk && (
-                <Kandidatbanner fnr={fnrFraStillingssøk} kandidatliste={kandidatliste} />
+                <Kandidatbanner
+                    fnr={fnrFraStillingssøk}
+                    kandidatliste={kandidatliste}
+                    setKandidatliste={setKandidatliste}
+                />
             )}
             <div className={css.innhold}>
                 <main className={css.venstre}>

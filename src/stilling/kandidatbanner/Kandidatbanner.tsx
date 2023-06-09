@@ -6,12 +6,14 @@ import { Nettressurs, Nettstatus } from '../../api/Nettressurs';
 import { Kandidat, Kandidatliste } from '../legg-til-kandidat-modal/kandidatlistetyper';
 import AnbefalKandidatModal from './AnbefalKandidatModal';
 import { Link } from 'react-router-dom';
+import { State } from '../../redux/store';
 
 export const kandidatProxyUrl = '/kandidatsok-proxy';
 
 type Props = {
     fnr: string;
     kandidatliste: Nettressurs<Kandidatliste>;
+    setKandidatliste: (kandidatliste: Nettressurs<Kandidatliste>) => void;
 };
 
 export type EsRespons = {
@@ -32,7 +34,7 @@ const byggQuery = (fodselsnummer: string) => ({
     _source: ['fornavn', 'etternavn', 'arenaKandidatnr'],
 });
 
-const Kandidatbanner = ({ fnr, kandidatliste }: Props) => {
+const Kandidatbanner = ({ fnr, kandidatliste, setKandidatliste }: Props) => {
     const [kandidat, setKandidat] = useState<Kandidat>();
     const [feilmelding, setFeilmelding] = useState<string | undefined>();
     const [visModal, setVisModal] = useState<boolean>(false);
@@ -100,6 +102,7 @@ const Kandidatbanner = ({ fnr, kandidatliste }: Props) => {
                 fnr={fnr}
                 kandidat={kandidat}
                 kandidatliste={kandidatliste.data}
+                setKandidatliste={setKandidatliste}
                 vis={visModal}
                 onClose={() => setVisModal(false)}
             />

@@ -17,8 +17,10 @@ const BekreftMedNotat: FunctionComponent<{
     fnr: string;
     kandidat: Kandidat;
     kandidatliste: Kandidatliste;
+    setKandidatliste: (kandidatliste: Nettressurs<Kandidatliste>) => void;
+
     onClose: () => void;
-}> = ({ fnr, kandidat, kandidatliste, onClose }) => {
+}> = ({ fnr, kandidat, kandidatliste, setKandidatliste, onClose }) => {
     const dispatch = useDispatch();
     const [notat, setNotat] = useState<string>('');
     const [leggTilKandidat, setLeggTilKandidat] = useState<Nettressurs<Kandidatliste>>(
@@ -49,6 +51,7 @@ const BekreftMedNotat: FunctionComponent<{
         if (respons.kind === Nettstatus.Suksess) {
             onClose();
             varsleKandidatlisteOmNyKandidat();
+            setKandidatliste(respons);
         }
     };
 

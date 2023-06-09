@@ -3,7 +3,9 @@ import { Nettressurs, ikkeLastet, lasterInn, suksess, feil } from '../../api/Net
 import { fetchKandidatliste } from '../legg-til-kandidat-modal/kandidatApi';
 import { Kandidatliste } from '../legg-til-kandidat-modal/kandidatlistetyper';
 
-const useHentKandidatliste = (stillingsId?: string) => {
+const useHentKandidatliste = (
+    stillingsId?: string
+): [Nettressurs<Kandidatliste>, (kandidatliste: Nettressurs<Kandidatliste>) => void] => {
     const [kandidatliste, setKandidatliste] = useState<Nettressurs<Kandidatliste>>(ikkeLastet());
 
     useEffect(() => {
@@ -26,7 +28,7 @@ const useHentKandidatliste = (stillingsId?: string) => {
         }
     }, [stillingsId]);
 
-    return kandidatliste;
+    return [kandidatliste, setKandidatliste];
 };
 
 export default useHentKandidatliste;
