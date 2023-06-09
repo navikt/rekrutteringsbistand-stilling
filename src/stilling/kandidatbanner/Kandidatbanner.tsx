@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BodyShort, Button, Heading } from '@navikt/ds-react';
+import { BodyShort, Button, ErrorMessage, Heading } from '@navikt/ds-react';
 import { PersonCheckmarkIcon } from '@navikt/aksel-icons';
 import css from './Kandidatbanner.module.css';
 import { Nettressurs } from '../../api/Nettressurs';
@@ -50,6 +50,7 @@ const Kandidatbanner = ({ fnr }: Props) => {
 
                 const esRespons = (await respons.json()) as EsRespons;
                 const kandidat = esRespons.hits.hits.at(0)?._source;
+                console.log('hentkandidat', kandidat);
 
                 if (kandidat) {
                     console.log('Kandidat:', kandidat);
@@ -64,6 +65,7 @@ const Kandidatbanner = ({ fnr }: Props) => {
 
         hentKandidat(fnr);
     }, [fnr]);
+
     if (kandidat === undefined) return null;
     return (
         <div className={css.banner}>
@@ -73,6 +75,7 @@ const Kandidatbanner = ({ fnr }: Props) => {
                     <Heading size="medium" as="span">
                         {kandidat?.fornavn} {kandidat?.etternavn}
                     </Heading>
+                    <ErrorMessage>{feilmelding}</ErrorMessage>
                 </h2>
                 <Button onClick={() => setVisModal(true)} icon={<PersonCheckmarkIcon />}>
                     Anbefal kandidat

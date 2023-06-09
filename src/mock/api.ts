@@ -22,6 +22,8 @@ import aktivEnhet from './data/dekoratør/aktivenhet.json';
 import aktivBruker from './data/dekoratør/aktivbruker.json';
 import decorator from './data/dekoratør/decorator.json';
 import mineStillingerFraOpenSearch from './data/mineStillingerOpenSearch';
+import { kandidatProxyUrl } from '../stilling/kandidatbanner/Kandidatbanner';
+import kandidatsøk from './data/kandidatsøk';
 const reporteeUrl = `${stillingApi}/rekrutteringsbistand/api/v1/reportee`;
 const mineStillingerOpenSearchUrl = `express:${stillingssøkProxy}/stilling/_search`;
 const opprettStillingUrl = `express:${stillingApi}/rekrutteringsbistandstilling`;
@@ -116,6 +118,7 @@ fetchMock
     .get(modiacontextholderDecoratorUrl, log(decorator))
     .post(modiacontextholderContextUrl, log(200))
     .post(fnrsokUrl, log(fnrsok))
+    .post(kandidatProxyUrl, log(kandidatsøk))
     .post(leggKandidatIKandidatlisteUrl, log(kandidatliste))
     .get(kandidatlisteUrl, log(kandidatliste), {
         delay: 500,
