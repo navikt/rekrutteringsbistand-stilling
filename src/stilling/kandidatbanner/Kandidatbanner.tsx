@@ -37,7 +37,9 @@ const Kandidatbanner = ({ fnr }: Props) => {
     const [feilmelding, setFeilmelding] = useState<string | undefined>();
     const [visModal, setVisModal] = useState<boolean>(false);
 
-    console.log('Fødselsnummer', fnr);
+    const kandidatenLiggerILista = kandidatliste.kandidater.some(
+        (kandidat) => kandidat.fodselsnr === fnr
+    );
 
     useEffect(() => {
         const hentKandidat = async (fnr: string) => {
@@ -50,10 +52,8 @@ const Kandidatbanner = ({ fnr }: Props) => {
 
                 const esRespons = (await respons.json()) as EsRespons;
                 const kandidat = esRespons.hits.hits.at(0)?._source;
-                console.log('hentkandidat', kandidat);
 
                 if (kandidat) {
-                    console.log('Kandidat:', kandidat);
                     setKandidat(kandidat);
                 } else {
                     setFeilmelding('Fant ikke kandidat med fødselsnummer ' + fnr);
@@ -67,6 +67,7 @@ const Kandidatbanner = ({ fnr }: Props) => {
     }, [fnr]);
 
     if (kandidat === undefined) return null;
+
     return (
         <div className={css.banner}>
             <div className={css.innerBanner}>
@@ -77,7 +78,12 @@ const Kandidatbanner = ({ fnr }: Props) => {
                     </Heading>
                     <ErrorMessage>{feilmelding}</ErrorMessage>
                 </h2>
-                <Button onClick={() => setVisModal(true)} icon={<PersonCheckmarkIcon />}>
+                <Button
+                    aria-disabled={kandidatenLiggerILista}
+                    disabled={kandidatenLiggerILista}
+                    onClick={() => setVisModal(true)}
+                    icon={<PersonCheckmarkIcon />}
+                >
                     Anbefal kandidat
                 </Button>
             </div>
