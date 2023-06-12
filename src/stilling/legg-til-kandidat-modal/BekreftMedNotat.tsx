@@ -14,13 +14,14 @@ import css from './LeggTilKandidatModal.module.css';
 const MAKS_NOTATLENGDE = 2000;
 
 const BekreftMedNotat: FunctionComponent<{
+    erAnbefaling?: boolean;
     fnr: string;
     kandidat: Kandidat;
     kandidatliste: Kandidatliste;
     setKandidatliste: (kandidatliste: Nettressurs<Kandidatliste>) => void;
 
     onClose: () => void;
-}> = ({ fnr, kandidat, kandidatliste, setKandidatliste, onClose }) => {
+}> = ({ fnr, erAnbefaling = false, kandidat, kandidatliste, setKandidatliste, onClose }) => {
     const dispatch = useDispatch();
     const [notat, setNotat] = useState<string>('');
     const [leggTilKandidat, setLeggTilKandidat] = useState<Nettressurs<Kandidatliste>>(
@@ -58,7 +59,9 @@ const BekreftMedNotat: FunctionComponent<{
     const varsleKandidatlisteOmNyKandidat = () => {
         dispatch<VarslingAction>({
             type: VarslingActionType.VisVarsling,
-            innhold: `Kandidat ${kandidat.fornavn} ${kandidat.etternavn} (${fnr}) er lagt til`,
+            innhold: erAnbefaling
+                ? `Kandidat ${kandidat.fornavn} ${kandidat.etternavn} (${fnr}) er anbefalt til stillingen`
+                : `Kandidat ${kandidat.fornavn} ${kandidat.etternavn} (${fnr}) er lagt til`,
         });
     };
 
@@ -67,17 +70,26 @@ const BekreftMedNotat: FunctionComponent<{
             <BodyShort spacing>{`${kandidat.fornavn} ${kandidat.etternavn} (${fnr})`}</BodyShort>
             <Textarea
                 value={notat}
-                label="Notat om kandidaten"
+                placeholder=""
                 className={css.notat}
-                description="Du skal ikke skrive sensitive opplysninger her. Notatet er synlig for alle veiledere."
-                placeholder="Skriv inn en kort tekst om hvorfor kandidaten passer til stillingen"
                 maxLength={MAKS_NOTATLENGDE}
                 onChange={onNotatChange}
+                label={
+                    erAnbefaling
+                        ? 'Hvorfor egner kandidaten seg til stillingen?'
+                        : 'Notat om kandidat'
+                }
+                description={
+                    erAnbefaling
+                        ? 'Ikke skriv sensitive opplysninger. Anbefalingen er synlig for alle veiledere.'
+                        : 'Du skal ikke skrive sensitive opplysninger her. Notatet er synlig for alle veiledere.'
+                }
             />
             <LeggTilEllerAvbryt
                 onLeggTilClick={onLeggTilKandidat}
                 onAvbrytClick={onClose}
                 leggTilSpinner={leggTilKandidat.kind === Nettstatus.SenderInn}
+                leggTilTekst={erAnbefaling ? 'Anbefal' : 'Legg til'}
                 leggTilDisabled={
                     leggTilKandidat.kind === Nettstatus.SenderInn ||
                     (!!notat && notat.length > MAKS_NOTATLENGDE)

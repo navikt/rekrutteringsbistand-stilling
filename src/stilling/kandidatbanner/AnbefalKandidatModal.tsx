@@ -28,6 +28,7 @@ const AnbefalKandidatModal = ({
                 Anbefal kandidat
             </Heading>
             <BekreftMedNotat
+                erAnbefaling
                 fnr={fnr}
                 kandidat={kandidat}
                 kandidatliste={kandidatliste}

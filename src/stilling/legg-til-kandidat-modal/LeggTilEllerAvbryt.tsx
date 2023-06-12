@@ -7,6 +7,7 @@ type Props = {
     onAvbrytClick: () => void;
     leggTilSpinner?: boolean;
     leggTilDisabled?: boolean;
+    leggTilTekst?: string;
     avbrytDisabled?: boolean;
 };
 
@@ -14,12 +15,13 @@ const LeggTilEllerAvbryt: FunctionComponent<Props> = ({
     onLeggTilClick,
     onAvbrytClick,
     leggTilSpinner,
+    leggTilTekst = 'Legg til',
     leggTilDisabled,
     avbrytDisabled,
 }) => (
     <div className={css.knapper}>
         <Button onClick={onLeggTilClick} loading={leggTilSpinner} disabled={leggTilDisabled}>
-            Legg til
+            {leggTilTekst}
         </Button>
         <Button variant="secondary" onClick={onAvbrytClick} disabled={avbrytDisabled}>
             Avbryt
