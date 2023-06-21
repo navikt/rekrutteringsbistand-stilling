@@ -5,20 +5,41 @@ import AnbefalKandidatModal from './AnbefalKandidatModal';
 import Kandidatbanner from '../kandidatbanner/Kandidatbanner';
 import useKandidat from './useKandidat';
 import Kandidatlistehandlinger from './Kandidatlistehandlinger';
+import Stilling from '../../Stilling';
 
 type Props = {
     fnr: string;
     kandidatliste: Nettressurs<Kandidatliste>;
     setKandidatliste: (kandidatliste: Nettressurs<Kandidatliste>) => void;
+    stilling: Stilling;
 };
 
-const KontekstAvKandidat = ({ fnr, kandidatliste, setKandidatliste }: Props) => {
+const KontekstAvKandidat = ({ fnr, kandidatliste, setKandidatliste, stilling }: Props) => {
     const { kandidat } = useKandidat(fnr);
     const [visModal, setVisModal] = useState<boolean>(false);
 
     return (
         <>
-            <Kandidatbanner kandidat={kandidat} brødsmulesti={[]}>
+            <Kandidatbanner
+                kandidat={kandidat}
+                brødsmulesti={[
+                    {
+                        href: '/kandidatsok',
+                        tekst: 'Kandidater',
+                    },
+                    {
+                        href: `/kandidater/kandidat/${kandidat?.arenaKandidatnr}/cv?fraKandidatsok=true`,
+                        tekst: `${kandidat?.fornavn} ${kandidat?.etternavn}`,
+                    },
+                    {
+                        tekst: 'Finn stilling',
+                        href: `/stillingssok/${fnr}`,
+                    },
+                    {
+                        tekst: stilling.title,
+                    },
+                ]}
+            >
                 <Kandidatlistehandlinger
                     fnr={fnr}
                     kandidatliste={kandidatliste}

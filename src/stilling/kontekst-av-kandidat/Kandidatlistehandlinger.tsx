@@ -24,6 +24,13 @@ const Kandidathandlinger = ({ fnr, kandidatliste, onAnbefalClick }: Props) => {
 
     return (
         <div className={css.knapper}>
+            <Link
+                to={`/kandidater/lister/stilling/${kandidatliste.data.stillingId}/detaljer`}
+                className="navds-link"
+            >
+                <PersonGroupIcon />
+                Se kandidatliste
+            </Link>
             <Button
                 aria-disabled={kandidatenLiggerILista}
                 disabled={kandidatenLiggerILista}
@@ -32,13 +39,6 @@ const Kandidathandlinger = ({ fnr, kandidatliste, onAnbefalClick }: Props) => {
             >
                 Anbefal kandidat
             </Button>
-            <Link
-                to={`/kandidater/lister/stilling/${kandidatliste.data.stillingId}/detaljer`}
-                className="navds-link"
-            >
-                <PersonGroupIcon />
-                Se kandidatliste
-            </Link>
         </div>
     );
 };

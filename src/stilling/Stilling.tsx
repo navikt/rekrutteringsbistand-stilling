@@ -18,10 +18,9 @@ import Error from './error/Error';
 import PreviewHeader from './forhåndsvisning/header/PreviewHeader';
 import useHentKandidatliste from './kandidathandlinger/useHentKandidatliste';
 import Forhåndsvisning from './forhåndsvisning/Forhåndsvisning';
-import Kandidatbanner from './kandidatbanner/Kandidatbanner';
-import css from './Stilling.module.css';
 import Stillingstittel from './forhåndsvisning/header/Stillingstittel';
 import KontekstAvKandidat from './kontekst-av-kandidat/KontekstAvKandidat';
+import css from './Stilling.module.css';
 
 export const REDIGERINGSMODUS_QUERY_PARAM = 'redigeringsmodus';
 
@@ -139,6 +138,7 @@ const Stilling = () => {
                     fnr={fnrFraStillingssøk}
                     kandidatliste={kandidatliste}
                     setKandidatliste={setKandidatliste}
+                    stilling={stilling}
                 />
             )}
             <div className={css.innhold}>
