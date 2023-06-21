@@ -6,7 +6,7 @@
 }
 
 .innerBanner {
-    max-width: 83rem;
+    max-width: 103rem; /* Todo: La denne styres av konsumentappen */
     margin: 0 auto;
     padding: 1.5rem 0;
     display: flex;

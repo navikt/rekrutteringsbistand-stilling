@@ -83,8 +83,8 @@ const Kandidatbanner = ({ kandidat, brødsmulesti, children }: Props) => {
                         </BodyShort>
                     </div>
                 </div>
+                {children}
             </div>
-            {children}
         </div>
     );
 };
