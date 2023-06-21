@@ -1,5 +1,5 @@
 .banner {
-    background-color: var(--a-blue-50);
+    background-color: white;
     width: 100%;
     border-bottom: 2px solid var(--a-border-subtle);
     padding: 0 1rem;
@@ -10,23 +10,49 @@
     margin: 0 auto;
     padding: 1.5rem 0;
     display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    align-items: center;
-}
-
-.innerBanner h2 {
-    margin: 0;
-}
-
-.knapper {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
+    align-items: flex-start;
+    gap: 1.5rem;
 }
 
 @media (min-width: 768px) {
     .banner {
         padding: 0 2rem;
     }
+}
+
+.detaljer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.detaljer svg {
+    flex-shrink: 0;
+}
+
+.detaljer * {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.lenke {
+    align-self: flex-start;
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-decoration: none;
+    margin-bottom: 0.75rem;
+    max-width: 35rem;
+    color: var(--a-text-action);
+}
+
+.personinformasjon {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.minekandidatericon {
+    margin-top: 0.75rem;
+    flex-shrink: 0;
 }

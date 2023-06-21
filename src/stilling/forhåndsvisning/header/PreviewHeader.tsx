@@ -71,6 +71,7 @@ class PreviewMenu extends React.Component<Props> {
 
         return (
             <>
+            
                 <Stillingsheader kandidatliste={this.props.kandidatliste}>
                     {!limitedAccess && (
                         <Button onClick={this.onEditAdClick} size="small" icon={<DocPencilIcon />}>

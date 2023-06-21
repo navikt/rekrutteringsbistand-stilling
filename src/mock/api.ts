@@ -22,7 +22,7 @@ import aktivEnhet from './data/dekoratør/aktivenhet.json';
 import aktivBruker from './data/dekoratør/aktivbruker.json';
 import decorator from './data/dekoratør/decorator.json';
 import mineStillingerFraOpenSearch from './data/mineStillingerOpenSearch';
-import { kandidatProxyUrl } from '../stilling/kandidatbanner/Kandidatbanner';
+import { kandidatProxyUrl } from '../stilling/kontekst-av-kandidat/KontekstAvKandidat';
 import kandidatsøk from './data/kandidatsøk';
 const reporteeUrl = `${stillingApi}/rekrutteringsbistand/api/v1/reportee`;
 const mineStillingerOpenSearchUrl = `express:${stillingssøkProxy}/stilling/_search`;

@@ -21,6 +21,7 @@ import Forhåndsvisning from './forhåndsvisning/Forhåndsvisning';
 import Kandidatbanner from './kandidatbanner/Kandidatbanner';
 import css from './Stilling.module.css';
 import Stillingstittel from './forhåndsvisning/header/Stillingstittel';
+import KontekstAvKandidat from './kontekst-av-kandidat/KontekstAvKandidat';
 
 export const REDIGERINGSMODUS_QUERY_PARAM = 'redigeringsmodus';
 
@@ -134,7 +135,7 @@ const Stilling = () => {
     return (
         <div className={css.stilling}>
             {fnrFraStillingssøk && (
-                <Kandidatbanner
+                <KontekstAvKandidat
                     fnr={fnrFraStillingssøk}
                     kandidatliste={kandidatliste}
                     setKandidatliste={setKandidatliste}

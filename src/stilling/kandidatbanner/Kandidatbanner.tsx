@@ -1,113 +1,117 @@
-import React, { useEffect, useState } from 'react';
-import { BodyShort, Button, ErrorMessage, Heading } from '@navikt/ds-react';
-import { PersonCheckmarkIcon, PersonGroupIcon } from '@navikt/aksel-icons';
-import css from './Kandidatbanner.module.css';
-import { Nettressurs, Nettstatus } from '../../api/Nettressurs';
-import { Kandidat, Kandidatliste } from '../legg-til-kandidat-modal/kandidatlistetyper';
-import AnbefalKandidatModal from './AnbefalKandidatModal';
+import React, { Fragment, ReactNode } from 'react';
+import { BodyShort, Heading } from '@navikt/ds-react';
 import { Link } from 'react-router-dom';
-import { State } from '../../redux/store';
+import { Kandidatrespons } from '../kontekst-av-kandidat/useKandidat';
+import {
+    CandleIcon,
+    EnvelopeClosedIcon,
+    PersonIcon,
+    PhoneIcon,
+    PinIcon,
+} from '@navikt/aksel-icons';
+import { ReactComponent as Minekandidater } from './minekandidater.svg';
+import css from './Kandidatbanner.module.css';
 
-export const kandidatProxyUrl = '/kandidatsok-proxy';
+type Brødsmule = {
+    tekst: string;
+    href?: string;
+};
 
 type Props = {
-    fnr: string;
-    kandidatliste: Nettressurs<Kandidatliste>;
-    setKandidatliste: (kandidatliste: Nettressurs<Kandidatliste>) => void;
+    kandidat?: Kandidatrespons;
+    brødsmulesti: Array<Brødsmule>;
+    children?: ReactNode;
 };
 
-export type EsRespons = {
-    hits: {
-        hits: Array<{
-            _source: Kandidat;
-        }>;
-    };
-};
-
-const byggQuery = (fodselsnummer: string) => ({
-    query: {
-        term: {
-            fodselsnummer,
-        },
-    },
-    size: 1,
-    _source: ['fornavn', 'etternavn', 'arenaKandidatnr'],
-});
-
-const Kandidatbanner = ({ fnr, kandidatliste, setKandidatliste }: Props) => {
-    const [kandidat, setKandidat] = useState<Kandidat>();
-    const [feilmelding, setFeilmelding] = useState<string | undefined>();
-    const [visModal, setVisModal] = useState<boolean>(false);
-
-    useEffect(() => {
-        const hentKandidat = async (fnr: string) => {
-            try {
-                const respons = await fetch(kandidatProxyUrl, {
-                    method: 'POST',
-                    body: JSON.stringify(byggQuery(fnr)),
-                    headers: { 'Content-Type': 'application/json' },
-                });
-
-                const esRespons = (await respons.json()) as EsRespons;
-                const kandidat = esRespons.hits.hits.at(0)?._source;
-
-                if (kandidat) {
-                    setKandidat(kandidat);
-                } else {
-                    setFeilmelding('Fant ikke kandidat med fødselsnummer ' + fnr);
-                }
-            } catch (e) {
-                setFeilmelding('Klarte ikke å hente kandidat');
-            }
-        };
-
-        hentKandidat(fnr);
-    }, [fnr]);
-
-    if (kandidat === undefined || kandidatliste.kind !== Nettstatus.Suksess) return null;
-
-    const kandidatenLiggerILista = kandidatliste.data.kandidater.some(
-        (kandidat) => kandidat.fodselsnr === fnr
-    );
-
+const Kandidatbanner = ({ kandidat, brødsmulesti }: Props) => {
     return (
         <div className={css.banner}>
             <div className={css.innerBanner}>
-                <h2>
-                    <BodyShort>Finn stillinger til kandidat:</BodyShort>
-                    <Heading size="medium" as="span">
+                <Minekandidater className={css.minekandidatericon} />
+                <div className={css.personinformasjon}>
+                    <div>
+                        {brødsmulesti.map(({ tekst, href }, index) => {
+                            const brødsmule = href ? (
+                                <Link className={css.lenkeTilStilling} to={href}>
+                                    {tekst}
+                                </Link>
+                            ) : (
+                                <BodyShort as="span">{tekst}</BodyShort>
+                            );
+
+                            return (
+                                <Fragment key={tekst}>
+                                    {index !== 0 && <span> / </span>}
+                                    {brødsmule}
+                                </Fragment>
+                            );
+                        })}
+                    </div>
+                    <Heading size="large" as="span">
                         {kandidat?.fornavn} {kandidat?.etternavn}
                     </Heading>
-                    <ErrorMessage>{feilmelding}</ErrorMessage>
-                </h2>
-                <div className={css.knapper}>
-                    <Button
-                        aria-disabled={kandidatenLiggerILista}
-                        disabled={kandidatenLiggerILista}
-                        onClick={() => setVisModal(true)}
-                        icon={<PersonCheckmarkIcon />}
-                    >
-                        Anbefal kandidat
-                    </Button>
-                    <Link
-                        to={`/kandidater/lister/stilling/${kandidatliste.data.stillingId}/detaljer`}
-                        className="navds-link"
-                    >
-                        <PersonGroupIcon />
-                        Se kandidatliste
-                    </Link>
+                    <div className={css.detaljer}>
+                        <BodyShort>
+                            <CandleIcon /> {lagFødselsdagtekst(kandidat?.fodselsdato)}
+                        </BodyShort>
+
+                        {kandidat?.poststed || kandidat?.postnummer || kandidat?.adresselinje1 ? (
+                            <BodyShort>
+                                <PinIcon />{' '}
+                                <span>{formaterAdresse(kandidat?.adresselinje1)}, </span>
+                                {kandidat?.postnummer} {formaterAdresse(kandidat?.poststed)}
+                            </BodyShort>
+                        ) : (
+                            '-'
+                        )}
+
+                        <BodyShort>
+                            <EnvelopeClosedIcon />
+                            {kandidat?.epostadresse?.toLowerCase() ?? '-'}
+                        </BodyShort>
+
+                        <BodyShort>
+                            <PhoneIcon />
+                            {kandidat?.telefon ?? '-'}
+                        </BodyShort>
+
+                        <BodyShort>
+                            <PersonIcon />
+                            {kandidat?.veileder
+                                ? kandidat?.veileder?.toUpperCase() + ' (Veileder)'
+                                : '-'}
+                        </BodyShort>
+                    </div>
                 </div>
             </div>
-            <AnbefalKandidatModal
-                fnr={fnr}
-                kandidat={kandidat}
-                kandidatliste={kandidatliste.data}
-                setKandidatliste={setKandidatliste}
-                vis={visModal}
-                onClose={() => setVisModal(false)}
-            />
         </div>
     );
+};
+
+const lagFødselsdagtekst = (inputdato?: string | null) => {
+    if (!inputdato) return '-';
+
+    const iDag = new Date();
+    const fødselsdag = new Date(inputdato);
+
+    const harIkkeFyltÅrIÅr =
+        iDag.getUTCMonth() < fødselsdag.getUTCMonth() ||
+        (iDag.getUTCMonth() === fødselsdag.getUTCMonth() &&
+            iDag.getUTCDate() < fødselsdag.getUTCDate());
+
+    const fødselsdagString = fødselsdag.toLocaleDateString('nb-NO', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+    });
+
+    const alder = iDag.getUTCFullYear() - fødselsdag.getUTCFullYear() - (harIkkeFyltÅrIÅr ? 1 : 0);
+
+    return `Født: ${fødselsdagString} (${alder} år)`;
+};
+
+const formaterAdresse = (input: string | null): string | null => {
+    return !input ? null : input.charAt(0).toUpperCase() + input.slice(1).toLowerCase();
 };
 
 export default Kandidatbanner;
