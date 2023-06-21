@@ -1,13 +1,14 @@
 import React from 'react';
+import { Heading } from '@navikt/ds-react';
 import { Kandidat, Kandidatliste } from '../legg-til-kandidat-modal/kandidatlistetyper';
 import Modal from '../../common/modal/Modal';
 import BekreftMedNotat from '../legg-til-kandidat-modal/BekreftMedNotat';
-import { Heading } from '@navikt/ds-react';
 import { Nettressurs } from '../../api/Nettressurs';
+import { Kandidatrespons } from './useKandidat';
 
 type Props = {
     fnr: string;
-    kandidat: Kandidat;
+    kandidat: Kandidatrespons;
     kandidatliste: Kandidatliste;
     setKandidatliste: (kandidatliste: Nettressurs<Kandidatliste>) => void;
     vis: boolean;

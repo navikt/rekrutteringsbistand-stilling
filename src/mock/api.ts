@@ -7,7 +7,6 @@ import kandidatliste from './data/kandidatliste';
 
 import rekrutteringsbistandStilling from './data/post-ads.json';
 import reportee from './data/reportee.json';
-import ident from './data/ident.json';
 import eksternStilling from './data/ekstern-stilling.json';
 import eksternStillingMedKandidatliste from './data/ekstern-stilling-med-kandidatliste.json';
 import internStilling from './data/intern-stilling.json';
@@ -22,8 +21,8 @@ import aktivEnhet from './data/dekoratør/aktivenhet.json';
 import aktivBruker from './data/dekoratør/aktivbruker.json';
 import decorator from './data/dekoratør/decorator.json';
 import mineStillingerFraOpenSearch from './data/mineStillingerOpenSearch';
-import { kandidatProxyUrl } from '../stilling/kontekst-av-kandidat/KontekstAvKandidat';
 import kandidatsøk from './data/kandidatsøk';
+import { kandidatProxyUrl } from '../stilling/kontekst-av-kandidat/useKandidat';
 const reporteeUrl = `${stillingApi}/rekrutteringsbistand/api/v1/reportee`;
 const mineStillingerOpenSearchUrl = `express:${stillingssøkProxy}/stilling/_search`;
 const opprettStillingUrl = `express:${stillingApi}/rekrutteringsbistandstilling`;

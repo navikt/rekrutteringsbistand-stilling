@@ -10,15 +10,16 @@ import { sendEvent } from '../../verktøy/amplitude';
 import { VarslingAction, VarslingActionType } from '../../common/varsling/varslingReducer';
 import LeggTilEllerAvbryt from './LeggTilEllerAvbryt';
 import css from './LeggTilKandidatModal.module.css';
+import { Kandidatrespons } from '../kontekst-av-kandidat/useKandidat';
 
 const MAKS_NOTATLENGDE = 2000;
 
 const BekreftMedNotat: FunctionComponent<{
     erAnbefaling?: boolean;
     fnr: string;
-    kandidat: Kandidat;
+    kandidat: Kandidat | Kandidatrespons;
     kandidatliste: Kandidatliste;
-    setKandidatliste: (kandidatliste: Nettressurs<Kandidatliste>) => void;
+    setKandidatliste?: (kandidatliste: Nettressurs<Kandidatliste>) => void;
 
     onClose: () => void;
 }> = ({ fnr, erAnbefaling = false, kandidat, kandidatliste, setKandidatliste, onClose }) => {
@@ -52,7 +53,10 @@ const BekreftMedNotat: FunctionComponent<{
         if (respons.kind === Nettstatus.Suksess) {
             onClose();
             varsleKandidatlisteOmNyKandidat();
-            setKandidatliste(respons);
+
+            if (setKandidatliste) {
+                setKandidatliste(respons);
+            }
         }
     };
 

@@ -1,7 +1,6 @@
 import React, { Fragment, ReactNode } from 'react';
 import { BodyShort, Heading } from '@navikt/ds-react';
 import { Link } from 'react-router-dom';
-import { Kandidatrespons } from '../kontekst-av-kandidat/useKandidat';
 import {
     CandleIcon,
     EnvelopeClosedIcon,
@@ -10,6 +9,7 @@ import {
     PinIcon,
 } from '@navikt/aksel-icons';
 import { ReactComponent as Minekandidater } from './minekandidater.svg';
+import { Kandidatrespons } from '../kontekst-av-kandidat/useKandidat';
 import css from './Kandidatbanner.module.css';
 
 type Brødsmule = {
@@ -23,7 +23,7 @@ type Props = {
     children?: ReactNode;
 };
 
-const Kandidatbanner = ({ kandidat, brødsmulesti }: Props) => {
+const Kandidatbanner = ({ kandidat, brødsmulesti, children }: Props) => {
     return (
         <div className={css.banner}>
             <div className={css.innerBanner}>
@@ -84,6 +84,7 @@ const Kandidatbanner = ({ kandidat, brødsmulesti }: Props) => {
                     </div>
                 </div>
             </div>
+            {children}
         </div>
     );
 };
