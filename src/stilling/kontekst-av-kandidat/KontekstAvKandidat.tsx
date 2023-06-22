@@ -21,7 +21,7 @@ const KontekstAvKandidat = ({ fnr, kandidatliste, setKandidatliste, stilling }: 
     const [visModal, setVisModal] = useState<boolean>(false);
 
     let urlTilFinnStilling = `/stillingssok/${fnr}?kandidatkriterier`;
-    if (state.stillingssøk) {
+    if (state?.stillingssøk) {
         urlTilFinnStilling += `&${state.stillingssøk}`;
     }
 
