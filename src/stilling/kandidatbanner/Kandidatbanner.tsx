@@ -9,7 +9,6 @@ import {
     PinIcon,
 } from '@navikt/aksel-icons';
 import { ReactComponent as Piktogram } from './minekandidater.svg';
-import { Kandidatrespons } from '../kontekst-av-kandidat/useKandidat';
 import css from './Kandidatbanner.module.css';
 
 type Brødsmule = {
@@ -17,8 +16,21 @@ type Brødsmule = {
     href?: string;
 };
 
+type Kandidat = {
+    fornavn: string;
+    etternavn: string;
+    arenaKandidatnr: string;
+    fodselsdato: string | null;
+    adresselinje1: string | null;
+    postnummer: string | null;
+    poststed: string | null;
+    epostadresse: string | null;
+    telefon: string | null;
+    veileder: string | null;
+};
+
 type Props = {
-    kandidat?: Kandidatrespons;
+    kandidat?: Kandidat;
     brødsmulesti: Array<Brødsmule>;
     children?: ReactNode;
 };
