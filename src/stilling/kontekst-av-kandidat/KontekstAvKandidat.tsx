@@ -6,6 +6,7 @@ import Kandidatbanner from '../kandidatbanner/Kandidatbanner';
 import useKandidat from './useKandidat';
 import Kandidatlistehandlinger from './Kandidatlistehandlinger';
 import Stilling from '../../Stilling';
+import { useLocation, useNavigation } from 'react-router-dom';
 
 type Props = {
     fnr: string;
@@ -16,7 +17,13 @@ type Props = {
 
 const KontekstAvKandidat = ({ fnr, kandidatliste, setKandidatliste, stilling }: Props) => {
     const { kandidat } = useKandidat(fnr);
+    const { state } = useLocation();
     const [visModal, setVisModal] = useState<boolean>(false);
+
+    let urlTilFinnStilling = `/stillingssok/${fnr}?kandidatkriterier`;
+    if (state.stillingssøk) {
+        urlTilFinnStilling += `&${state.stillingssøk}`;
+    }
 
     return (
         <>
@@ -33,7 +40,7 @@ const KontekstAvKandidat = ({ fnr, kandidatliste, setKandidatliste, stilling }: 
                     },
                     {
                         tekst: 'Finn stilling',
-                        href: `/stillingssok/${fnr}`,
+                        href: urlTilFinnStilling,
                     },
                     {
                         tekst: stilling.title,
