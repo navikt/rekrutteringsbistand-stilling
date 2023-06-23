@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FunctionComponent } from 'react';
+import { ChangeEvent, FunctionComponent } from 'react';
 import { connect } from 'react-redux';
 import { Fieldset, TextField } from '@navikt/ds-react';
 

@@ -1,11 +1,11 @@
 import React, { ChangeEvent } from 'react';
+import { Checkbox, Fieldset, TextField } from '@navikt/ds-react';
 import { connect } from 'react-redux';
 import { SET_APPLICATIONURL, SET_APPLICATIONEMAIL } from '../../adDataReducer';
 import { VALIDATE_APPLICATION_EMAIL, ValidertFelt } from '../../adValidationReducer';
 import { adjustUrl } from '../../../common/urlUtils';
 import { State } from '../../../redux/store';
 import Skjemalabel from '../skjemaetikett/Skjemalabel';
-import { Checkbox, Fieldset, TextField } from '@navikt/ds-react';
 import Skjemalegend from '../skjemaetikett/Skjemalegend';
 
 type Props = {
@@ -40,7 +40,6 @@ class Application extends React.Component<Props> {
     };
 
     onEmailChecked = (event: ChangeEvent<HTMLInputElement>) => {
-
         if (!event.target.checked) {
             this.props.setApplicationEmail('');
         }
