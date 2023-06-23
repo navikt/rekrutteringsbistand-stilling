@@ -1,4 +1,4 @@
-@import '@navikt/ds-css' layer(designsystem);
+@import '@navikt/ds-css' layer(designsystem-stilling);
 
 /* Endre teksten på kopieringsknappen fra svart til blå. */
 .navdsi-copy-to-clipboard:not(:hover):not(:active) {
