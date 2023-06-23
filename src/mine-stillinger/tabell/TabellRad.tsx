@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 import { BodyShort, Button, Table, Dropdown } from '@navikt/ds-react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';

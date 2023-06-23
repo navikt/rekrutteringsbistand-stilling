@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { Accordion, BodyShort, BodyLong } from '@navikt/ds-react';
 import classNames from 'classnames';
 import css from './Seksjon.module.css';

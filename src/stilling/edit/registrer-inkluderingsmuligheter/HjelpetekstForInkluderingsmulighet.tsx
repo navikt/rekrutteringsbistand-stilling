@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 import { Inkluderingsmulighet } from '../../tags/hierarkiAvTags';
 import { BodyLong, Heading, Link } from '@navikt/ds-react';
 

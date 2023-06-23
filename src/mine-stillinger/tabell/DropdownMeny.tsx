@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';

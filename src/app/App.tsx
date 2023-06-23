@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect } from 'react';
+import { FunctionComponent, useEffect } from 'react';
 import { History } from 'history';
 import { Modal } from '@navikt/ds-react';
 import { useDispatch } from 'react-redux';

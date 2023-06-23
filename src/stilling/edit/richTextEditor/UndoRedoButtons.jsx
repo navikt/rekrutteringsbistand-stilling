@@ -1,7 +1,6 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import css from './RichTextEditor.module.css';
 import classNames from 'classnames';
+import css from './RichTextEditor.module.css';
 
 const UndoRedoButtons = ({ onRedoClick, redoDisabled, onUndoClick, undoDisabled }) => (
     <div className={css.controls}>

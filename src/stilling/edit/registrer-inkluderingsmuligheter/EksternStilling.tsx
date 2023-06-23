@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import { ChangeEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import isJson from '../praktiske-opplysninger/IsJson';

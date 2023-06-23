@@ -1,9 +1,9 @@
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 import { ErrorMessage, Table } from '@navikt/ds-react';
 import { Nettressurs, Nettstatus } from '../../api/Nettressurs';
-import css from '../MineStillinger.module.css';
 import { MineStillingerResultat } from '../mineStillingerReducer';
 import TabellRad from './TabellRad';
+import css from '../MineStillinger.module.css';
 
 type Props = {
     resultat: Nettressurs<MineStillingerResultat>;

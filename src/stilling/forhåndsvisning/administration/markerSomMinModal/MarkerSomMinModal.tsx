@@ -1,7 +1,7 @@
-import React, { FunctionComponent } from 'react';
-import css from './MarkerSomMinModal.module.css';
+import { FunctionComponent } from 'react';
 import { BodyLong, Button, Heading } from '@navikt/ds-react';
 import Modal from '../../../../common/modal/Modal';
+import css from './MarkerSomMinModal.module.css';
 
 type Props = {
     erÅpen: boolean;

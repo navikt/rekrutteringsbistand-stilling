@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { BodyShort, Button, Heading } from '@navikt/ds-react';
+
 import {
     MARKER_EKSTERN_STILLING_SOM_MIN,
     MARKER_INTERN_STILLING_SOM_MIN,
 } from '../../../adReducer';
 import { erDirektemeldtStilling } from '../../../adUtils';
 import MarkerSomMinModal from '../markerSomMinModal/MarkerSomMinModal';
-import { BodyShort, Button, Heading, Label } from '@navikt/ds-react';
 import previewcss from '../AdministrationPreview.module.css';
 
 const ContactInfo = () => {

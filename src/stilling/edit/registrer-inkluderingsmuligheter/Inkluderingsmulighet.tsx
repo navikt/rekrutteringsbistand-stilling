@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FunctionComponent, ReactNode } from 'react';
+import { ChangeEvent, FunctionComponent, ReactNode } from 'react';
 
 import {
     Tag,

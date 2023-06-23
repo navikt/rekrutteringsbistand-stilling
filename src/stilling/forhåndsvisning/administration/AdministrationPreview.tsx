@@ -1,17 +1,16 @@
-import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import AdStatus from '../../administration/adStatus/AdStatus';
-import { EDIT_AD } from '../../adReducer';
-import Inkludering from './vis-inkluderingsmuligheter-ekstern-stilling/VisInkuderingsmuligheterForEksternStilling';
-import Publishing from './publishing/Publishing';
-import ContactInfo from './contact/ContactInfo';
-import Notat from './notat/Notat';
 
-import css from './AdministrationPreview.module.css';
-import { erDirektemeldtStilling } from '../../adUtils';
-import Kategori from './kategori/Kategori';
 import { Button } from '@navikt/ds-react';
+import { EDIT_AD } from '../../adReducer';
+import { erDirektemeldtStilling } from '../../adUtils';
 import { System } from '../../../Stilling';
+import AdStatus from '../../administration/adStatus/AdStatus';
+import ContactInfo from './contact/ContactInfo';
+import Inkludering from './vis-inkluderingsmuligheter-ekstern-stilling/VisInkuderingsmuligheterForEksternStilling';
+import Kategori from './kategori/Kategori';
+import Notat from './notat/Notat';
+import Publishing from './publishing/Publishing';
+import css from './AdministrationPreview.module.css';
 
 const AdministrationPreview = () => {
     const dispatch = useDispatch();

@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 import { Table } from '@navikt/ds-react';
 import { MineStillingerSorteringsfelt } from '../MineStillingerSortering';
 import css from './MineStillingerTabell.module.css';

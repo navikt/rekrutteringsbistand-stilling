@@ -1,4 +1,3 @@
-import React from 'react';
 import { formatISOString, isValidISOString } from '../../../utils/datoUtils';
 import { isValidUrl } from '../../../common/urlUtils';
 import { Kilde, Properties } from '../../../Stilling';

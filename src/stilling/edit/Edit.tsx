@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Accordion, Alert, Button, CopyButton } from '@navikt/ds-react';
 import { NewspaperIcon } from '@navikt/aksel-icons';

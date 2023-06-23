@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 import { createRoot } from 'react-dom/client';
 import Navspa from '@navikt/navspa';
 import * as Sentry from '@sentry/react';

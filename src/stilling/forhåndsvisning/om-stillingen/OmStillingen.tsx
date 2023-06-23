@@ -1,4 +1,3 @@
-import React from 'react';
 import { Heading, Panel } from '@navikt/ds-react';
 import { formatISOString, isValidISOString } from '../../../utils/datoUtils';
 import { getWorkLocationsAsString } from '../../../common/getWorkLocation';

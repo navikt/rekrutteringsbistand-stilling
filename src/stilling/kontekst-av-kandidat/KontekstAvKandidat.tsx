@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Nettressurs, Nettstatus } from '../../api/Nettressurs';
 import { Kandidatliste } from '../legg-til-kandidat-modal/kandidatlistetyper';
 import AnbefalKandidatModal from './AnbefalKandidatModal';
@@ -6,7 +6,7 @@ import Kandidatbanner from '../kandidatbanner/Kandidatbanner';
 import useKandidat from './useKandidat';
 import Kandidatlistehandlinger from './Kandidatlistehandlinger';
 import Stilling from '../../Stilling';
-import { useLocation, useNavigation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 type Props = {
     fnr: string;

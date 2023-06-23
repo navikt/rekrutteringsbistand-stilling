@@ -1,4 +1,3 @@
-import React from 'react';
 import { Panel } from '@navikt/ds-react';
 
 import { erDirektemeldtStilling } from '../adUtils';

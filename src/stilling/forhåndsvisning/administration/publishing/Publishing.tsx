@@ -1,7 +1,6 @@
-import React from 'react';
 import { useSelector } from 'react-redux';
+import { BodyShort, Heading } from '@navikt/ds-react';
 import { formatISOString } from '../../../../utils/datoUtils';
-import { BodyShort, Heading, Label } from '@navikt/ds-react';
 
 const Publishing = () => {
     const published = useSelector((state: any) => state.adData?.published);

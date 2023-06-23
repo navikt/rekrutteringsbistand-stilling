@@ -1,6 +1,6 @@
-import React from 'react';
 import { Heading, Link, Panel } from '@navikt/ds-react';
 import parse from 'html-react-parser';
+
 import { isValidUrl } from '../../../common/urlUtils';
 import Stilling from '../../../Stilling';
 import fellesCss from '../Forhåndsvisning.module.css';

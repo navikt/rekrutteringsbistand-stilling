@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 import { Alert, BodyLong, Button, Heading } from '@navikt/ds-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';

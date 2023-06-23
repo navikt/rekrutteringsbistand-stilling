@@ -1,7 +1,6 @@
-import React from 'react';
 import { useSelector } from 'react-redux';
+import { BodyLong, Heading } from '@navikt/ds-react';
 import ProcessString from 'react-process-string';
-import { BodyLong, BodyShort, Heading, Label } from '@navikt/ds-react';
 
 const Notat = () => {
     const notat = useSelector((state: any) => state.stillingsinfoData.notat);

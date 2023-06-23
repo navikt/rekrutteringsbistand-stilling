@@ -1,7 +1,5 @@
-import React from 'react';
 import { PersonCheckmarkIcon, PersonGroupIcon } from '@navikt/aksel-icons';
 import { Button } from '@navikt/ds-react';
-import { fnr } from '@navikt/fnrvalidator';
 import { Link } from 'react-router-dom';
 import { Nettressurs, Nettstatus } from '../../api/Nettressurs';
 import { Kandidatliste } from '../legg-til-kandidat-modal/kandidatlistetyper';

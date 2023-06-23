@@ -1,7 +1,9 @@
 import fetchMock, { MockRequest, MockResponse, MockResponseFunction } from 'fetch-mock';
+
 import { KANDIDAT_API } from '../stilling/legg-til-kandidat-modal/kandidatApi';
-import { stillingApi, stillingssøkProxy } from '../api/api';
+import { kandidatProxyUrl } from '../stilling/kontekst-av-kandidat/useKandidat';
 import { Rekrutteringsbistandstilling } from '../Stilling';
+import { stillingApi, stillingssøkProxy } from '../api/api';
 import fnrsok from './data/fnrsok';
 import kandidatliste from './data/kandidatliste';
 
@@ -22,7 +24,7 @@ import aktivBruker from './data/dekoratør/aktivbruker.json';
 import decorator from './data/dekoratør/decorator.json';
 import mineStillingerFraOpenSearch from './data/mineStillingerOpenSearch';
 import kandidatsøk from './data/kandidatsøk';
-import { kandidatProxyUrl } from '../stilling/kontekst-av-kandidat/useKandidat';
+
 const reporteeUrl = `${stillingApi}/rekrutteringsbistand/api/v1/reportee`;
 const mineStillingerOpenSearchUrl = `express:${stillingssøkProxy}/stilling/_search`;
 const opprettStillingUrl = `express:${stillingApi}/rekrutteringsbistandstilling`;
