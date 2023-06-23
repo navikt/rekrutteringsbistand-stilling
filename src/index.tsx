@@ -2,9 +2,6 @@ import React, { FunctionComponent } from 'react';
 import { createRoot } from 'react-dom/client';
 import Navspa from '@navikt/navspa';
 import * as Sentry from '@sentry/react';
-
-import '@navikt/ds-css';
-import '@navikt/ds-css-internal';
 import './index.css';
 
 import App, { AppProps, store } from './app/App';
