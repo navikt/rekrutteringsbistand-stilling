@@ -1,8 +1,8 @@
-import React, { FunctionComponent, useState } from 'react';
+import { FunctionComponent, useState } from 'react';
+import { MagnifyingGlassIcon, PersonPlusIcon, PersonGroupIcon } from '@navikt/aksel-icons';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
-import { MagnifyingGlassIcon, PersonPlusIcon, PersonGroupIcon } from '@navikt/aksel-icons';
 
 import { Kandidatliste } from '../legg-til-kandidat-modal/kandidatlistetyper';
 import { Nettressurs, Nettstatus } from '../../api/Nettressurs';

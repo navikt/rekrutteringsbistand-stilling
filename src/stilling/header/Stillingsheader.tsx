@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { Nettressurs } from '../../api/Nettressurs';
 import { Kandidatliste } from '../legg-til-kandidat-modal/kandidatlistetyper';
 import Kandidathandlinger from '../kandidathandlinger/Kandidathandlinger';

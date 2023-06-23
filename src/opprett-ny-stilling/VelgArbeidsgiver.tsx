@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 import { BodyShort, Detail, Label } from '@navikt/ds-react';
 
 import { Arbeidsgiver, Geografi } from '../Stilling';

@@ -1,4 +1,3 @@
-import React from 'react';
 import AdStatus from '../adStatus/AdStatus';
 import AdStatusEdit from '../adStatus/AdStatusEdit';
 import RegistrerInkluderingsmuligheter from '../../edit/registrer-inkluderingsmuligheter/EksternStilling';

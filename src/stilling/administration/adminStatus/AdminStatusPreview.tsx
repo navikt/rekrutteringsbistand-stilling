@@ -1,4 +1,3 @@
-import React from 'react';
 import { useSelector } from 'react-redux';
 import { BodyShort } from '@navikt/ds-react';
 import css from './AdminStatusPreview.module.css';

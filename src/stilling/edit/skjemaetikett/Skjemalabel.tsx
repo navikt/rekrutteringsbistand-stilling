@@ -1,5 +1,5 @@
+import { FunctionComponent, ReactNode } from 'react';
 import { BodyShort, Label } from '@navikt/ds-react';
-import React, { FunctionComponent, ReactNode } from 'react';
 import css from './Skjemalabel.module.css';
 
 type Props = {

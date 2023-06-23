@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Button } from '@navikt/ds-react';
-import { CopyToClipboard } from '@navikt/ds-react-internal';
+import { Button, CopyButton } from '@navikt/ds-react';
 import { DocPencilIcon, PrinterSmallIcon } from '@navikt/aksel-icons';
 
 import { StillingsinfoState } from '../../../stillingsinfo/stillingsinfoReducer';
@@ -71,8 +70,14 @@ class PreviewMenu extends React.Component<Props> {
 
         return (
             <>
-            
                 <Stillingsheader kandidatliste={this.props.kandidatliste}>
+                    {stillingErPublisert(stilling) && (
+                        <CopyButton
+                            copyText={hentAnnonselenke(stilling.uuid)}
+                            text="Kopier annonselenke"
+                            size="small"
+                        />
+                    )}
                     {!limitedAccess && (
                         <Button onClick={this.onEditAdClick} size="small" icon={<DocPencilIcon />}>
                             Rediger stillingen
@@ -83,16 +88,7 @@ class PreviewMenu extends React.Component<Props> {
                             Opprett kandidatliste
                         </Button>
                     )}
-                    {stillingErPublisert(stilling) && (
-                        <CopyToClipboard
-                            popoverText="Kopierte annonselenken til clipboard!"
-                            copyText={hentAnnonselenke(stilling.uuid)}
-                            variant={'secondary' as 'tertiary'}
-                            size="small"
-                        >
-                            Kopier annonselenke
-                        </CopyToClipboard>
-                    )}
+
                     <Button
                         variant="secondary"
                         onClick={this.onPrintClick}

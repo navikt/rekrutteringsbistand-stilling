@@ -1,16 +1,16 @@
-import React, { ChangeEvent, FunctionComponent, useState } from 'react';
+import { ChangeEvent, FunctionComponent, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { BodyShort, ErrorMessage, Textarea } from '@navikt/ds-react';
 
 import { ikkeLastet, Nettressurs, Nettstatus, senderInn } from '../../api/Nettressurs';
 import { Kandidat, Kandidatliste } from './kandidatlistetyper';
 import { KandidatOutboundDto } from './LeggTilKandidatModal';
+import { Kandidatrespons } from '../kontekst-av-kandidat/useKandidat';
 import { postKandidaterTilKandidatliste } from './kandidatApi';
 import { sendEvent } from '../../verktøy/amplitude';
 import { VarslingAction, VarslingActionType } from '../../common/varsling/varslingReducer';
 import LeggTilEllerAvbryt from './LeggTilEllerAvbryt';
 import css from './LeggTilKandidatModal.module.css';
-import { Kandidatrespons } from '../kontekst-av-kandidat/useKandidat';
 
 const MAKS_NOTATLENGDE = 2000;
 

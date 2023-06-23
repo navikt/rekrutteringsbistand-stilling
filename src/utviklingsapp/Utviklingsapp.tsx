@@ -1,10 +1,10 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
+import { Heading } from '@navikt/ds-react';
 import { Link } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 
 import { AppMedStore } from '../index';
 import CustomRouter from './CustomRouter';
-import { Heading } from '@navikt/ds-react';
 import css from './Utviklingsapp.module.css';
 
 const history = createBrowserHistory();

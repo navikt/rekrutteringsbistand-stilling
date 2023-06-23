@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 import { Alert, ErrorMessage, Heading, Loader } from '@navikt/ds-react';
 
 import { Nettressurs, Nettstatus } from '../../api/Nettressurs';

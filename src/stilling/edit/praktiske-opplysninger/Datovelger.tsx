@@ -1,8 +1,5 @@
 import { useEffect } from 'react';
-import {
-    UNSAFE_useDatepicker as useDatepicker,
-    UNSAFE_DatePicker as Datepicker,
-} from '@navikt/ds-react';
+import { useDatepicker, DatePicker } from '@navikt/ds-react';
 
 type Props = {
     dato?: string;
@@ -33,15 +30,15 @@ const Datovelger = ({ dato, onChange, label, disabled, fromDate }: Props) => {
     }, [selectedDay, disabled, onChange]);
 
     return (
-        <Datepicker {...(disabled ? disabledDatepickerProps : datepickerProps)}>
-            <Datepicker.Input
+        <DatePicker {...(disabled ? disabledDatepickerProps : datepickerProps)}>
+            <DatePicker.Input
                 {...(disabled ? disabledInputProps : inputProps)}
                 hideLabel
                 label={label}
                 disabled={disabled}
                 placeholder="dd.mm.åååå"
             />
-        </Datepicker>
+        </DatePicker>
     );
 };
 

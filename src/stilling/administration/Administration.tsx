@@ -1,4 +1,5 @@
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
+import { BodyShort, Heading } from '@navikt/ds-react';
 
 import AdminStatusPreview from './adminStatus/AdminStatusPreview';
 import AdStatus from './adStatus/AdStatus';
@@ -7,7 +8,6 @@ import Notat from './notat/Notat';
 import Privacy from './publishing/Privacy';
 import Publishing from './publishing/Publishing';
 import css from './Administration.module.css';
-import { BodyShort, Heading } from '@navikt/ds-react';
 
 const Administration: FunctionComponent = () => (
     <div className={css.administration}>

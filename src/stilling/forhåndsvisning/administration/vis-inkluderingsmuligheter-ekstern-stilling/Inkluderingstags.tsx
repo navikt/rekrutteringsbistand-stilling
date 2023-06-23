@@ -1,8 +1,8 @@
-import React, { FunctionComponent } from 'react';
-import { visningsnavnForRegistrering } from '../../../tags/visningsnavnForTags';
-import css from './Inkluderingstags.module.css';
-import previewcss from '../AdministrationPreview.module.css';
+import { FunctionComponent } from 'react';
 import { BodyShort, Label, Tag } from '@navikt/ds-react';
+import { visningsnavnForRegistrering } from '../../../tags/visningsnavnForTags';
+import previewcss from '../AdministrationPreview.module.css';
+import css from './Inkluderingstags.module.css';
 
 type Props = {
     tittel: string;

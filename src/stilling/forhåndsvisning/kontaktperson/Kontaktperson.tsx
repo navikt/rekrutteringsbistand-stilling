@@ -1,7 +1,6 @@
-import React from 'react';
 import { Heading, Panel } from '@navikt/ds-react';
-import css from '../Forhåndsvisning.module.css';
 import { Kontaktinfo } from '../../../Stilling';
+import css from '../Forhåndsvisning.module.css';
 
 type Props = {
     contactList?: Kontaktinfo[];

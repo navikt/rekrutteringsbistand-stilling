@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Alert, BodyLong, Label, Radio, RadioGroup } from '@navikt/ds-react';
 import { CHECK_TAG, SET_TAGS, UNCHECK_TAG } from '../../adDataReducer';

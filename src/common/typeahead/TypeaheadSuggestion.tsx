@@ -1,4 +1,3 @@
-import React from 'react';
 import classNames from 'classnames';
 import { Suggestion } from './Typeahead';
 import css from './Typeahead.module.css';

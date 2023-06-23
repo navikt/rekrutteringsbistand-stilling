@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './MineStillingerHeader.module.css';
 import { Button, Heading } from '@navikt/ds-react';
 

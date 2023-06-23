@@ -1,10 +1,10 @@
-import React from 'react';
 import { Heading } from '@navikt/ds-react';
-import { Kandidat, Kandidatliste } from '../legg-til-kandidat-modal/kandidatlistetyper';
-import Modal from '../../common/modal/Modal';
-import BekreftMedNotat from '../legg-til-kandidat-modal/BekreftMedNotat';
-import { Nettressurs } from '../../api/Nettressurs';
+
+import { Kandidatliste } from '../legg-til-kandidat-modal/kandidatlistetyper';
 import { Kandidatrespons } from './useKandidat';
+import { Nettressurs } from '../../api/Nettressurs';
+import BekreftMedNotat from '../legg-til-kandidat-modal/BekreftMedNotat';
+import Modal from '../../common/modal/Modal';
 
 type Props = {
     fnr: string;

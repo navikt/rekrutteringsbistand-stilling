@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 import { Nettressurs, Nettstatus } from '../api/Nettressurs';
 import { MineStillingerResultat } from './mineStillingerReducer';
 import { Heading } from '@navikt/ds-react';

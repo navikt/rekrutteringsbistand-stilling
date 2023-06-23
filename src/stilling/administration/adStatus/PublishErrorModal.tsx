@@ -1,4 +1,3 @@
-import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BodyLong, Button, Heading } from '@navikt/ds-react';
 import { HIDE_PUBLISH_ERROR_MODAL } from '../../adReducer';

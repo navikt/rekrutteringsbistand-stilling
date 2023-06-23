@@ -1,11 +1,11 @@
-import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { HIDE_STOP_AD_MODAL, STOP_AD, STOP_AD_FROM_MY_ADS } from '../../adReducer';
-import Notat from '../notat/Notat';
 import { BodyLong, Button, Heading } from '@navikt/ds-react';
+
 import { State } from '../../../redux/store';
-import css from './StopAdModal.module.css';
 import Modal from '../../../common/modal/Modal';
+import Notat from '../notat/Notat';
+import css from './StopAdModal.module.css';
 
 const StopAdModal = ({ fromMyAds }: { fromMyAds?: boolean }) => {
     const dispatch = useDispatch();

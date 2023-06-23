@@ -1,4 +1,4 @@
-import React, { Fragment, ReactNode } from 'react';
+import { Fragment, ReactNode } from 'react';
 import { BodyShort, Heading } from '@navikt/ds-react';
 import { Link } from 'react-router-dom';
 import {

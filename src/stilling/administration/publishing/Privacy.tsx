@@ -1,8 +1,8 @@
-import React from 'react';
 import { Radio, RadioGroup } from '@navikt/ds-react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import { SET_PRIVACY } from '../../adDataReducer';
 import PrivacyStatusEnum from '../../../common/enums/PrivacyStatusEnum';
-import { useDispatch, useSelector } from 'react-redux';
 
 export default function Privacy() {
     const dispatch = useDispatch();

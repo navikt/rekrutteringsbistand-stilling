@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FunctionComponent, useState } from 'react';
+import { ChangeEvent, FunctionComponent, useState } from 'react';
 import { Loader, TextField } from '@navikt/ds-react';
 import fnrValidator from '@navikt/fnrvalidator';
 

@@ -1,20 +1,20 @@
-import React, { useState, useEffect, FunctionComponent } from 'react';
+import { useState, useEffect, FunctionComponent } from 'react';
 import { History } from 'history';
 import { Pagination } from '@navikt/ds-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
+import classNames from 'classnames';
 
 import { CLEAR_COPIED_ADS } from '../stilling/adReducer';
+import { MineStillingerAction, MineStillingerActionType } from './MineStillingerAction';
+import { Nettstatus } from '../api/Nettressurs';
 import { State } from '../redux/store';
 import AntallStillinger from './AntallStillinger';
 import Filter from './filter/Filter';
+import MineStillingerHeader from './header/MineStillingerHeader';
+import MineStillingerTabell from './tabell/MineStillingerTabell';
 import OpprettNyStilling from '../opprett-ny-stilling/OpprettNyStilling';
 import StopAdModal from '../stilling/administration/adStatus/StopAdModal';
-import { MineStillingerAction, MineStillingerActionType } from './MineStillingerAction';
-import MineStillingerHeader from './header/MineStillingerHeader';
-import { Nettstatus } from '../api/Nettressurs';
-import classNames from 'classnames';
-import MineStillingerTabell from './tabell/MineStillingerTabell';
 import css from './MineStillinger.module.css';
 
 type Props = {

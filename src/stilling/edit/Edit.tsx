@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Accordion, Alert, Button } from '@navikt/ds-react';
-import { CopyToClipboard } from '@navikt/ds-react-internal';
+import { Accordion, Alert, Button, CopyButton } from '@navikt/ds-react';
 import { NewspaperIcon } from '@navikt/aksel-icons';
 import classNames from 'classnames';
 
@@ -47,20 +46,17 @@ const Edit = ({ stilling, onPreviewAdClick, resetValidation, kandidatliste }: Pr
     return (
         <>
             <Stillingsheader kandidatliste={kandidatliste}>
+                {stillingErPublisert(stilling) && (
+                    <CopyButton
+                        copyText={stillingsLenke}
+                        text="Kopier annonselenke"
+                        size="medium"
+                    />
+                )}
                 {!stillingenErEkstern && (
                     <Button onClick={onPreviewAdClick} size="small" icon={<NewspaperIcon />}>
                         Forhåndsvis stillingen
                     </Button>
-                )}
-                {stillingErPublisert(stilling) && (
-                    <CopyToClipboard
-                        copyText={stillingsLenke}
-                        popoverText="Kopierte annonselenken til clipboard"
-                        variant={'secondary' as 'tertiary'}
-                        size="small"
-                    >
-                        Kopier annonselenke
-                    </CopyToClipboard>
                 )}
             </Stillingsheader>
             {stillingenErEkstern ? (

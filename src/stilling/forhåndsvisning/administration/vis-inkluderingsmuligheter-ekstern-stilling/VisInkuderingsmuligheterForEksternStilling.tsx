@@ -1,4 +1,3 @@
-import React from 'react';
 import { useSelector } from 'react-redux';
 
 import isJson from '../../../edit/praktiske-opplysninger/IsJson';

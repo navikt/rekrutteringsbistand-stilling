@@ -1,7 +1,7 @@
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
+import { BodyShort, Heading } from '@navikt/ds-react';
 import { Geografi } from '../../../Stilling';
 import capitalizeLocation from '../../edit/arbeidssted/capitalizeLocation';
-import { BodyShort, Heading } from '@navikt/ds-react';
 import css from './Stillingstittel.module.css';
 
 type Props = {

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Heading, Panel } from '@navikt/ds-react';
 import { formatISOString } from '../../../utils/datoUtils';
 import Stilling from '../../../Stilling';
