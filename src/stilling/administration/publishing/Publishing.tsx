@@ -2,13 +2,7 @@ import React, { BaseSyntheticEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { leggTilTimerPåISOString } from '../../../utils/datoUtils';
 import { SET_PUBLISHED, SET_EXPIRATION_DATE } from '../../adDataReducer';
-import {
-    BodyShort,
-    UNSAFE_DatePicker as DatePicker,
-    DateValidationT,
-    Label,
-    UNSAFE_useDatepicker as useDatepicker,
-} from '@navikt/ds-react';
+import { DatePicker, DateValidationT, useDatepicker } from '@navikt/ds-react';
 import css from './Publishing.module.css';
 import Skjemalabel from '../../edit/skjemaetikett/Skjemalabel';
 

@@ -1,6 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { BodyShort, Button, Table } from '@navikt/ds-react';
-import { Dropdown } from '@navikt/ds-react-internal';
+import { BodyShort, Button, Table, Dropdown } from '@navikt/ds-react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -114,10 +113,8 @@ const TabellRad: FunctionComponent<Props> = ({ rekrutteringsbistandstilling }) =
                         to={`/kandidater/lister/stilling/${stilling.uuid}/detaljer`}
                         className="navds-link"
                     >
-                        <BodyShort>
-                            <PersonGroupIcon />
-                            Se kandidatliste
-                        </BodyShort>
+                        <PersonGroupIcon />
+                        Se kandidatliste
                     </Link>
                 )}
             </Table.DataCell>
