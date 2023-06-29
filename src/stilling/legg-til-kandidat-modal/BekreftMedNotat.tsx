@@ -37,7 +37,8 @@ const BekreftMedNotat: FunctionComponent<{
         setLeggTilKandidat(senderInn());
 
         sendEvent('legg_til_kandidat', 'klikk', {
-            app: 'kandidat',
+            app: 'stilling',
+            erAnbefaling,
         });
 
         const dto: KandidatOutboundDto[] = [
